@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2010 Steve Cadwallader.
 
 using System;
+using System.Globalization;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -50,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Options
             var dte = GetIDE(dialogPage);
             if (dte != null)
             {
-                return Convert.ToDouble(dte.Version);
+                return Convert.ToDouble(dte.Version, CultureInfo.InvariantCulture);
             }
 
             return -1;

@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the version of the running IDE instance.
         /// </summary>
-        public double IDEVersion { get { return Convert.ToDouble(IDE.Version); } }
+        public double IDEVersion { get { return Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture); } }
 
         /// <summary>
         /// Gets the configuration options.
