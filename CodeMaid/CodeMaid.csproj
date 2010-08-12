@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SteveCadwallader.CodeMaid</RootNamespace>
+    <AssemblyName>SteveCadwallader.CodeMaid</AssemblyName>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ProjectGuid>{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PublicAssemblies\EnvDTE.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PublicAssemblies\EnvDTE80.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.9.0" />
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CleanupActiveCodeCommand.cs" />
+    <Compile Include="Commands\CleanupAllCodeCommand.cs" />
+    <Compile Include="Commands\CleanupSelectedCodeCommand.cs" />
+    <Compile Include="Commands\CloseReadOnlyCommand.cs" />
+    <Compile Include="Commands\CollapseAllSolutionExplorerCommand.cs" />
+    <Compile Include="Commands\CollapseSelectedSolutionExplorerCommand.cs" />
+    <Compile Include="Commands\ConfigurationCommand.cs" />
+    <Compile Include="Commands\JoinLinesCommand.cs" />
+    <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
+    <Compile Include="Commands\SwitchFileCommand.cs" />
+    <Compile Include="Commands\SnooperToolWindowCommand.cs" />
+    <Compile Include="Events\BaseEventListener.cs" />
+    <Compile Include="Events\BuildStatusEventListener.cs" />
+    <Compile Include="Events\RunningDocumentTableEventListener.cs" />
+    <Compile Include="Events\ShellEventListener.cs" />
+    <Compile Include="Events\WindowEventListener.cs" />
+    <Compile Include="GuidList.cs" />
+    <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
+    <Compile Include="Helpers\CodeCleanupHelper.cs" />
+    <Compile Include="Helpers\CodeItem.cs" />
+    <Compile Include="Helpers\CodeModelHelper.cs" />
+    <Compile Include="Helpers\SolutionHelper.cs" />
+    <Compile Include="Helpers\TextDocumentHelper.cs" />
+    <Compile Include="Helpers\UIHierarchyHelper.cs" />
+    <Compile Include="Options\BuildStatusOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\BuildStatusOptionsControl.Designer.cs">
+      <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\BuildStatusOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupGeneralOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupGeneralOptionsControl.Designer.cs">
+      <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\CleanupGeneralOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupInsertOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupInsertOptionsControl.Designer.cs">
+      <DependentUpon>CleanupInsertOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\CleanupInsertOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupRemoveOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupRemoveOptionsControl.Designer.cs">
+      <DependentUpon>CleanupRemoveOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\CleanupRemoveOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupUpdateOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupUpdateOptionsControl.Designer.cs">
+      <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\CleanupUpdateOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\OptionsHelper.cs" />
+    <Compile Include="Options\OptionsWrapper.cs" />
+    <Compile Include="CodeMaidPackage.cs" />
+    <Compile Include="Options\SnooperOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\SnooperOptionsControl.Designer.cs">
+      <DependentUpon>SnooperOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\SnooperOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PkgCmdIDList.cs" />
+    <Compile Include="Snooper\SnooperToolWindow.cs" />
+    <Compile Include="Snooper\SnooperResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SnooperResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Snooper\SnooperControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Snooper\SnooperControl.Designer.cs">
+      <DependentUpon>SnooperControl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Options\BuildStatusOptionsControl.resx">
+      <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\CleanupGeneralOptionsControl.resx">
+      <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\CleanupInsertOptionsControl.resx">
+      <DependentUpon>CleanupInsertOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\CleanupRemoveOptionsControl.resx">
+      <DependentUpon>CleanupRemoveOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\CleanupUpdateOptionsControl.resx">
+      <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\SnooperOptionsControl.resx">
+      <DependentUpon>SnooperOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Snooper\SnooperResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SnooperResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Snooper\SnooperControl.resx">
+      <DependentUpon>SnooperControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <VSCTCompile Include="CodeMaid.vsct">
+      <ResourceName>1000</ResourceName>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\cleanup.bmp" />
+    <Content Include="Resources\closereadonly.bmp" />
+    <Content Include="Resources\CodeMaid.ico" />
+    <Content Include="Resources\collapse.bmp" />
+    <Content Include="Resources\config.bmp" />
+    <Content Include="Resources\joinlines.bmp" />
+    <Content Include="Resources\readonly.bmp" />
+    <Content Include="Resources\snooper.bmp" />
+    <Content Include="Resources\switch.bmp" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!--
+    To specify a different registry root to register your package, uncomment the TargetRegistryRoot
+    tag and specify a registry root in it.
+    <TargetRegistryRoot></TargetRegistryRoot>
+    -->
+    <RegisterOutputPackage>true</RegisterOutputPackage>
+    <RegisterWithCodebase>true</RegisterWithCodebase>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\VSSDK\Microsoft.VsSDK.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

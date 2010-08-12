@@ -1,0 +1,97 @@
+<Include>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\InstalledProducts\CodeMaid">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="UseRegNameAsSplashName" Value="1" Type="integer" />
+    <Registry Name="UseInterface" Value="1" Type="integer" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\Packages\{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="SteveCadwallader.CodeMaid.CodeMaidPackage, SteveCadwallader.CodeMaid, Version=0.3.1.29984, Culture=neutral, PublicKeyToken=5e10ffd6b4d2c330" Type="string">
+    <Registry Name="InprocServer32" Value="[SystemFolder]mscoree.dll" Type="string" />
+    <Registry Name="Class" Value="SteveCadwallader.CodeMaid.CodeMaidPackage" Type="string" />
+    <Registry Name="CodeBase" Value="[#File_SteveCadwallader.CodeMaid.dll]" Type="string" />
+    <Registry Name="ID" Value="1" Type="integer" />
+    <Registry Name="MinEdition" Value="Standard" Type="string" />
+    <Registry Name="ProductVersion" Value="0.3.1" Type="string" />
+    <Registry Name="ProductName" Value="CodeMaid" Type="string" />
+    <Registry Name="CompanyName" Value="Steve Cadwallader" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutoLoadPackages\{adfc4e64-0397-11d1-9f4e-00a0c911004f}">
+    <Registry Name="{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="0" Type="integer" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\Menus">
+    <Registry Name="{4c82e17d-927e-42d2-8460-b473ac7df316}" Value=", 1000, 1" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid" Value="#116" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Build Status" Value="#126" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{7e14280f-a7ec-4326-bb1e-57e0f5053920}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Cleanup\General" Value="#118" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{b2b08ba7-5da3-4a72-a4d8-d31b26d079bf}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Cleanup\Insert" Value="#120" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{8a2d94e1-f0c6-47c3-a894-127fd0602a68}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Cleanup\Remove" Value="#122" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{fe1a2831-ce0b-48f3-b0d4-a0b17a32b7f8}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Cleanup\Update" Value="#124" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{df0e8a40-bb30-440e-984f-abeaaee669cb}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolsOptionsPages\CodeMaid\Snooper" Value="#128" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{bff0adb0-1a53-4e58-bfb4-b38ec00487b7}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Build Status">
+    <Registry Name="Name" Value="CodeMaid.Build Status" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Cleanup\General">
+    <Registry Name="Name" Value="CodeMaid.Cleanup\General" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Cleanup\Insert">
+    <Registry Name="Name" Value="CodeMaid.Cleanup\Insert" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Cleanup\Remove">
+    <Registry Name="Name" Value="CodeMaid.Cleanup\Remove" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Cleanup\Update">
+    <Registry Name="Name" Value="CodeMaid.Cleanup\Update" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\AutomationProperties\CodeMaid\Snooper">
+    <Registry Name="Name" Value="CodeMaid.Snooper" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\ToolWindows\{75d09b86-471e-4b30-8720-362d13ad0a45}" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string">
+    <Registry Name="Name" Value="SteveCadwallader.CodeMaid.Snooper.SnooperToolWindow" Type="string" />
+    <Registry Name="Style" Value="Tabbed" Type="string" />
+    <Registry Name="Window" Value="{3ae79031-e1bc-11d0-8f78-00a0c9110057}" Type="string" />
+  </Registry>
+</Include>

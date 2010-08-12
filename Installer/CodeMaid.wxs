@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?define VisualStudioRegistryRoot2005 = "Software\Microsoft\VisualStudio\8.0" ?>
+<?define VisualStudioRegistryRoot2008 = "Software\Microsoft\VisualStudio\9.0" ?>
+<?define VisualStudioRegistryRoot2010 = "Software\Microsoft\VisualStudio\10.0" ?>
+
+<?define ProductVersion = "0.3.1" ?>
+<?define UpgradeCode = "57A7DBA7-283D-43A1-BBAA-8745434E91A3" ?>
+
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+
+  <Product Name='CodeMaid $(var.ProductVersion)' Id='*' UpgradeCode='$(var.UpgradeCode)'
+    Language='1033' Codepage='1252' Version='$(var.ProductVersion)' Manufacturer='Steve Cadwallader'>
+
+    <Package Keywords='CodeMaid Installer' Description='CodeMaid $(var.ProductVersion) Installer' Manufacturer='Steve Cadwallader'
+      Comments='CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.'
+      InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <!-- Upgrade definition -->
+    <Property Id='PREVIOUSVERSIONSINSTALLED' Secure='yes' />
+    <Upgrade Id='$(var.UpgradeCode)'>
+      <UpgradeVersion OnlyDetect='no' Property='PREVIOUSVERSIONSINSTALLED' Minimum='0.2.7' IncludeMinimum='yes' Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
+    </Upgrade>
+
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
+
+    <!-- UI Definition -->
+    <Icon Id='CodeMaid.ico' SourceFile='../CodeMaid/Resources/CodeMaid.ico' />
+    <WixVariable Id='WixUILicenseRtf' Value='../CodeMaid/Resources/lgpl-3.0.rtf' />
+    <WixVariable Id='WixUIBannerBmp' Value='../CodeMaid/Resources/CodeMaidInstaller_Banner.bmp' />
+    <WixVariable Id='WixUIDialogBmp' Value='../CodeMaid/Resources/CodeMaidInstaller_Welcome.bmp' />
+
+    <Property Id='ApplicationFolderName' Value='CodeMaid' />
+    <Property Id='WixAppFolder' Value='WixPerMachineFolder' />
+
+    <UIRef Id='WixUI_Advanced' />
+    <UIRef Id='WixUI_ErrorProgressText' />
+
+    <!-- Properties -->
+    <Property Id="ARPHELPLINK" Value="http://sourceforge.net/projects/codemaid/" />
+    <Property Id="ARPPRODUCTICON" Value="CodeMaid.ico" />
+
+    <Property Id="DEVENV2005_EXE_PATH">
+      <RegistrySearch Id="RegSearch_Devenv2005_Exe_Path" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2005)\Setup\VS" Name="EnvironmentPath" Type="raw" />
+    </Property>
+    <Property Id="DEVENV2008_EXE_PATH">
+      <RegistrySearch Id="RegSearch_Devenv2008_Exe_Path" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2008)\Setup\VS" Name="EnvironmentPath" Type="raw" />
+    </Property>
+    <Property Id="DEVENV2010_EXE_PATH">
+      <RegistrySearch Id="RegSearch_Devenv2010_Exe_Path" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2010)\Setup\VS" Name="EnvironmentPath" Type="raw" />
+    </Property>
+    <Property Id="VS2010_DIRECTORY">
+      <RegistrySearch Id="RegSearch_VS2010_Directory" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2010)\Setup\VS" Name="EnvironmentDirectory" Type="directory" />
+    </Property>
+
+    <!-- Launch conditions -->
+    <Condition Message="An administrator must approve or install [ProductName]."> Privileged </Condition>
+    <Condition Message="[ProductName] requires at least one of Visual Studio 2005, Visual Studio 2008 or Visual Studio 2010 to be installed.">
+      DEVENV2005_EXE_PATH OR DEVENV2008_EXE_PATH OR DEVENV2010_EXE_PATH
+    </Condition>
+
+    <!-- Components -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFILES">
+        <Directory Id="APPLICATIONFOLDER" Name="CodeMaid">
+          <Component Id="MainExecutable" Guid="87B669FA-A7AB-4718-AF61-35C28C95E7C9">
+            <File Id="File_SteveCadwallader.CodeMaid.dll" Name="File_SteveCadwallader.CodeMaid.dll" Source="..\bin\Release\SteveCadwallader.CodeMaid.dll" Vital="yes" />
+          </Component>
+          <Component Id="VS2005Registry" Guid="E6E2A183-561B-4D8C-ACA3-ED2C746BAD42">
+            <?include CodeMaidVS2005Registry.wxi ?>
+          </Component>
+          <Component Id="VS2008Registry" Guid="98B466EB-BF35-4F6B-ABE3-EF6C716C271A">
+            <?include CodeMaidVS2008Registry.wxi ?>
+          </Component>
+          <Component Id="VS2010Registry" Guid="C27B5E10-2132-45D2-9233-C0D3E7399B41">
+            <?include CodeMaidVS2010Registry.wxi ?>
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="VS2010_DIRECTORY" Name=".">
+        <Directory Id="VSIXExtensions" Name="Extensions">
+          <Directory Id="VSIXCompany" Name="Steve Cadwallader">
+            <Directory Id="VSIXProduct" Name="CodeMaid">
+              <Directory Id="VSIXVersion" Name="$(var.ProductVersion)">
+                <Component Id="VSIXManifest" Guid="E40B59D0-D56F-4827-A162-A0F52AB7675C">
+                  <File Id="VSIXManifest" Name="extension.vsixmanifest" Source="extension.vsixmanifest" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Features -->
+    <Feature Id='Complete' Title='CodeMaid $(var.ProductVersion)' Description='The complete CodeMaid package and Visual Studio integration(s).'
+             Display='expand' ConfigurableDirectory='APPLICATIONFOLDER' Level='1'>
+      <Feature Id='VS2005Integration' Level='1'
+               Title='Visual Studio 2005 Integration' Description='Integrate with Visual Studio 2005, which has been detected on this system.'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='VS2005Registry' />
+        <Condition Level='0'>NOT DEVENV2005_EXE_PATH</Condition>
+      </Feature>
+
+      <Feature Id='VS2008Integration' Level='1'
+               Title='Visual Studio 2008 Integration' Description='Integrate with Visual Studio 2008, which has been detected on this system.'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='VS2008Registry' />
+        <Condition Level='0'>NOT DEVENV2008_EXE_PATH</Condition>
+      </Feature>
+
+      <Feature Id='VS2010Integration' Level='1'
+               Title='Visual Studio 2010 Integration' Description='Integrate with Visual Studio 2010, which has been detected on this system.'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='VSIXManifest' />
+        <ComponentRef Id='VS2010Registry' />
+        <Condition Level='0'>NOT DEVENV2010_EXE_PATH</Condition>
+      </Feature>
+    </Feature>
+
+    <!-- Custom actions -->
+    <CustomAction Id="CA_VS2005_SETUP" Property="DEVENV2005_EXE_PATH" ExeCommand="/setup" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="CA_VS2008_SETUP" Property="DEVENV2008_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="CA_VS2010_SETUP" Property="DEVENV2010_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+      <Custom Action="CA_VS2005_SETUP" Before="InstallFinalize"> DEVENV2005_EXE_PATH </Custom>
+      <Custom Action="CA_VS2008_SETUP" Before="InstallFinalize"> DEVENV2008_EXE_PATH </Custom>
+      <Custom Action="CA_VS2010_SETUP" Before="InstallFinalize"> DEVENV2010_EXE_PATH </Custom>
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>
