@@ -1,0 +1,11 @@
+# Use shell-style glob syntax.
+syntax: glob
+
+# Directories
+[Bb]in/
+[Oo]bj/
+_ReSharper*/
+
+# Files
+*.user
+*.suo
