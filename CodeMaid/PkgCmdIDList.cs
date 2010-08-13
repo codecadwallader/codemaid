@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid
         public const uint CmdIDCodeMaidCleanupActiveCode = 0x1100;
         public const uint CmdIDCodeMaidCleanupAllCode = 0x1200;
         public const uint CmdIDCodeMaidCleanupSelectedCode = 0x1300;
-        public const uint CmdIDCodeMaidCloseReadOnly = 0x1400;
+        public const uint CmdIDCodeMaidCloseAllReadOnly = 0x1400;
         public const uint CmdIDCodeMaidCollapseAllSolutionExplorer = 0x1500;
         public const uint CmdIDCodeMaidCollapseSelectedSolutionExplorer = 0x1600;
         public const uint CmdIDCodeMaidConfiguration = 0x1700;

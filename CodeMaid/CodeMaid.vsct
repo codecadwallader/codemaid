@@ -159,13 +159,13 @@
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCloseReadOnly" id="IconCloseReadOnly" />
+      <Button guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCloseAllReadOnly" id="IconCloseAllReadOnly" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCloseReadOnly</CommandName>
-          <ButtonText>Close &amp;Read-Only</ButtonText>
+          <CommandName>CmdIDCodeMaidCloseAllReadOnly</CommandName>
+          <ButtonText>Close All &amp;Read-Only</ButtonText>
         </Strings>
       </Button>
 
@@ -255,7 +255,7 @@
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="GuidImageCleanup" href="Resources\cleanup.bmp" usedList="IconCleanup" />
-      <Bitmap guid="GuidImageCloseReadOnly" href="Resources\closereadonly.bmp" usedList="IconCloseReadOnly"/>
+      <Bitmap guid="GuidImageCloseAllReadOnly" href="Resources\closeallreadonly.bmp" usedList="IconCloseAllReadOnly"/>
       <Bitmap guid="GuidImageCollapse" href="Resources\collapse.bmp" usedList="IconCollapse" />
       <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
@@ -300,10 +300,10 @@
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
+    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
+    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
@@ -377,8 +377,8 @@
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" />
 
-    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
+    <KeyBinding guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
 
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
@@ -498,8 +498,8 @@
       <IDSymbol name="CmdIDCodeMaidCleanupSelectedCode" value="0x1300" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandCloseReadOnly" value="{170a0d22-19ea-452c-839a-fb33535abbb7}">
-      <IDSymbol name="CmdIDCodeMaidCloseReadOnly" value="0x1400" />
+    <GuidSymbol name="GuidCodeMaidCommandCloseAllReadOnly" value="{170a0d22-19ea-452c-839a-fb33535abbb7}">
+      <IDSymbol name="CmdIDCodeMaidCloseAllReadOnly" value="0x1400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandCollapseAllSolutionExplorer" value="{f0b58f42-6f6e-49db-8787-411979a4a4e3}">
@@ -538,8 +538,8 @@
     <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">
       <IDSymbol name="IconCleanup" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageCloseReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
-      <IDSymbol name="IconCloseReadOnly" value="1" />
+    <GuidSymbol name="GuidImageCloseAllReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
+      <IDSymbol name="IconCloseAllReadOnly" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageCollapse" value="{c853fa86-98f3-4f30-89f4-913d84c34a29}">
       <IDSymbol name="IconCollapse" value="1" />

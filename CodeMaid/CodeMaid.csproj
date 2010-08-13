@@ -62,7 +62,7 @@
     <Compile Include="Commands\CleanupActiveCodeCommand.cs" />
     <Compile Include="Commands\CleanupAllCodeCommand.cs" />
     <Compile Include="Commands\CleanupSelectedCodeCommand.cs" />
-    <Compile Include="Commands\CloseReadOnlyCommand.cs" />
+    <Compile Include="Commands\CloseAllReadOnlyCommand.cs" />
     <Compile Include="Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Commands\CollapseSelectedSolutionExplorerCommand.cs" />
     <Compile Include="Commands\ConfigurationCommand.cs" />
@@ -197,7 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\cleanup.bmp" />
-    <Content Include="Resources\closereadonly.bmp" />
+    <Content Include="Resources\closeallreadonly.bmp" />
     <Content Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />

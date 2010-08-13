@@ -265,7 +265,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));
-                _commands.Add(new CloseReadOnlyCommand(this));
+                _commands.Add(new CloseAllReadOnlyCommand(this));
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
                 _commands.Add(new ConfigurationCommand(this));

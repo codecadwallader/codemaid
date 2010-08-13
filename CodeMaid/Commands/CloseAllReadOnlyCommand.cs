@@ -20,17 +20,17 @@ namespace SteveCadwallader.CodeMaid.Commands
     /// <summary>
     /// A command that provides for closing all read-only files.
     /// </summary>
-    internal class CloseReadOnlyCommand : BaseCommand
+    internal class CloseAllReadOnlyCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CloseReadOnlyCommand"/> class.
+        /// Initializes a new instance of the <see cref="CloseAllReadOnlyCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal CloseReadOnlyCommand(CodeMaidPackage package)
+        internal CloseAllReadOnlyCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandCloseReadOnly, (int)PkgCmdIDList.CmdIDCodeMaidCloseReadOnly))
+                   new CommandID(GuidList.GuidCodeMaidCommandCloseAllReadOnly, (int)PkgCmdIDList.CmdIDCodeMaidCloseAllReadOnly))
         {
         }
 
