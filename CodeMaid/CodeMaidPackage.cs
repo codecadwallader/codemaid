@@ -273,6 +273,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new SnooperToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
                 _commands.Add(new CloseReadOnlyCommand(this));
+                _commands.Add(new FindInSolutionExplorerCommand(this));
 
                 // Add all commands to the menu command service.
                 foreach (var command in _commands)

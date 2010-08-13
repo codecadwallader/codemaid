@@ -26,6 +26,7 @@ namespace SteveCadwallader.CodeMaid
         public const uint CmdIDCodeMaidSnooperToolWindow = 0x1800;
         public const uint CmdIDCodeMaidConfiguration = 0x1900;
         public const uint CmdIDCodeMaidCloseReadOnly = 0x2000;
+        public const uint CmdIDCodeMaidFindInSolutionExplorer = 0x2100;
 
         public const int ToolbarIDCodeMaidToolbarToolWindow = 0x1040;
     };

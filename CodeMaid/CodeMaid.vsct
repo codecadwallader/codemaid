@@ -215,6 +215,15 @@
           <ButtonText>Close &amp;Read-Only</ButtonText>
         </Strings>
       </Button>
+      <Button guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageFindInSolutionExplorer" id="IconFindInSolutionExplorer" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidFindInSolutionExplorer</CommandName>
+          <ButtonText>&amp;Find in Solution Explorer</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -232,6 +241,7 @@
       <Bitmap guid="GuidImageSnooper" href="Resources\snooper.bmp" usedList="IconSnooper" />
       <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageCloseReadOnly" href="Resources\closereadonly.bmp" usedList="IconCloseReadOnly"/>
+      <Bitmap guid="GuidImageFindInSolutionExplorer" href="Resources\find.bmp" usedList="IconFindInSolutionExplorer"/>
     </Bitmaps>
   </Commands>
 
@@ -330,6 +340,13 @@
     <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0150">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
   </CommandPlacements>
 
   <KeyBindings>
@@ -356,6 +373,9 @@
 
     <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
+
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" />
   </KeyBindings>
 
   <Symbols>
@@ -472,6 +492,10 @@
       <IDSymbol name="CmdIDCodeMaidCloseReadOnly" value="0x2000" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandFindInSolutionExplorer" value="{9e7a4c5b-5de4-418c-8ede-71fcfa4e811f}">
+      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2100" />
+    </GuidSymbol>
+
     <!-- These are the guids for images -->
     <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">
       <IDSymbol name="IconCleanup" value="1" />
@@ -496,6 +520,9 @@
     </GuidSymbol>
     <GuidSymbol name="GuidImageCloseReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
       <IDSymbol name="IconCloseReadOnly" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageFindInSolutionExplorer" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
+      <IDSymbol name="IconFindInSolutionExplorer" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

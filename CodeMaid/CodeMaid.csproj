@@ -66,6 +66,7 @@
     <Compile Include="Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Commands\CollapseSelectedSolutionExplorerCommand.cs" />
     <Compile Include="Commands\ConfigurationCommand.cs" />
+    <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
@@ -200,6 +201,7 @@
     <Content Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />
+    <Content Include="Resources\find.bmp" />
     <Content Include="Resources\joinlines.bmp" />
     <Content Include="Resources\readonly.bmp" />
     <Content Include="Resources\snooper.bmp" />
