@@ -265,15 +265,15 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));
+                _commands.Add(new CloseReadOnlyCommand(this));
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
                 _commands.Add(new ConfigurationCommand(this));
+                _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new SnooperToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
-                _commands.Add(new CloseReadOnlyCommand(this));
-                _commands.Add(new FindInSolutionExplorerCommand(this));
 
                 // Add all commands to the menu command service.
                 foreach (var command in _commands)

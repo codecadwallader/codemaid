@@ -34,27 +34,29 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidToolbarToolWindowCleanupGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
         public static readonly Guid GuidCodeMaidToolbarToolWindowMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
-        // Context menu group guids.
+        // Miscellaneous context menu group guids.
+        public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
+        public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
+
+        // Solution explorer context menu group guids.
         public static readonly Guid GuidCodeMaidContextSolutionNodeGroup = new Guid("eda37cf1-ff29-46aa-ba07-05abf7ba6596");
         public static readonly Guid GuidCodeMaidContextSolutionFolderGroup = new Guid("39de3da3-f28c-41fc-85c8-6d0fa801f3f1");
         public static readonly Guid GuidCodeMaidContextProjectNodeGroup = new Guid("a04159ed-c5ee-4146-954a-4e662b297513");
         public static readonly Guid GuidCodeMaidContextFolderNodeGroup = new Guid("9979d6f0-4af6-446a-a9ff-b84e27452435");
         public static readonly Guid GuidCodeMaidContextItemNodeGroup = new Guid("36669853-51f0-4da1-828d-d43d67b8450c");
-        public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
-        public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
 
         // Command guids.
         public static readonly Guid GuidCodeMaidCommandCleanupActiveCode = new Guid("36de540f-25cb-4151-957f-d63a5a3a10a7");
         public static readonly Guid GuidCodeMaidCommandCleanupAllCode = new Guid("eb2efdb6-2efe-405c-94af-383d36ad58dd");
         public static readonly Guid GuidCodeMaidCommandCleanupSelectedCode = new Guid("b2979ac6-2853-442c-8df6-21637af5130e");
+        public static readonly Guid GuidCodeMaidCommandCloseReadOnly = new Guid("170a0d22-19ea-452c-839a-fb33535abbb7");
         public static readonly Guid GuidCodeMaidCommandCollapseAllSolutionExplorer = new Guid("f0b58f42-6f6e-49db-8787-411979a4a4e3");
         public static readonly Guid GuidCodeMaidCommandCollapseSelectedSolutionExplorer = new Guid("ed5ec7f2-c011-43c4-9a02-4f7fb907c734");
+        public static readonly Guid GuidCodeMaidCommandConfiguration = new Guid("56718f89-01d2-4405-99b5-4aa665af5947");
+        public static readonly Guid GuidCodeMaidCommandFindInSolutionExplorer = new Guid("9e7a4c5b-5de4-418c-8ede-71fcfa4e811f");
         public static readonly Guid GuidCodeMaidCommandJoinLines = new Guid("7912f0a2-ada9-4888-9d2f-cde09cd310c6");
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
-        public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
         public static readonly Guid GuidCodeMaidCommandSnooperToolWindow = new Guid("aaf6a75d-2ccc-4081-b1ab-76306653807c");
-        public static readonly Guid GuidCodeMaidCommandConfiguration = new Guid("56718f89-01d2-4405-99b5-4aa665af5947");
-        public static readonly Guid GuidCodeMaidCommandCloseReadOnly = new Guid("170a0d22-19ea-452c-839a-fb33535abbb7");
-        public static readonly Guid GuidCodeMaidCommandFindInSolutionExplorer = new Guid("9e7a4c5b-5de4-418c-8ede-71fcfa4e811f");
+        public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
     };
 }

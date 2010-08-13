@@ -84,6 +84,13 @@
         <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
       </Group>
 
+      <Group guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+      </Group>
+      <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
+      </Group>
+
       <Group guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
       </Group>
@@ -98,12 +105,6 @@
       </Group>
       <Group guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
-      </Group>
-      <Group guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
-      </Group>
-      <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
       </Group>
     </Groups>
 
@@ -128,6 +129,7 @@
           <ButtonText>&amp;Cleanup Code</ButtonText>
         </Strings>
       </Button>
+
       <Button guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -137,6 +139,7 @@
           <ButtonText>Cleanup &amp;All Code...</ButtonText>
         </Strings>
       </Button>
+
       <Button guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -146,66 +149,7 @@
           <ButtonText>&amp;Cleanup Code</ButtonText>
         </Strings>
       </Button>
-      <Button guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCollapse" id="IconCollapse" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidCollapseAllSolutionExplorer</CommandName>
-          <ButtonText>Co&amp;llapse All Recursively</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCollapse" id="IconCollapse" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidCollapseSelectedSolutionExplorer</CommandName>
-          <ButtonText>Co&amp;llapse Recursively</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0100" type="Button">
-        <Icon guid="GuidImageJoinLines" id="IconJoinLines" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidJoin Lines</CommandName>
-          <ButtonText>&amp;Join Lines</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
-        <Icon guid="GuidImageReadOnly" id="IconReadOnly" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidReadOnlyToggle</CommandName>
-          <ButtonText>&amp;Read-Only Toggle</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSwitch" id="IconSwitch" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>TextChanges</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidSwitchFile</CommandName>
-          <ButtonText>S&amp;witch File</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSnooper" id="IconSnooper" />
-        <Strings>
-          <CommandName>CmdIDCodeMaidSnooperToolWindow</CommandName>
-          <ButtonText>&amp;Snooper</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100" type="Button">
-        <Icon guid="GuidImageConfig" id="IconConfig" />
-        <Strings>
-          <CommandName>CmdIDCodeMaidConfiguration</CommandName>
-          <ButtonText>C&amp;onfiguration...</ButtonText>
-        </Strings>
-      </Button>
+
       <Button guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0100" type="Button">
         <Icon guid="GuidImageCloseReadOnly" id="IconCloseReadOnly" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -215,13 +159,81 @@
           <ButtonText>Close &amp;Read-Only</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCollapse" id="IconCollapse" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidCollapseAllSolutionExplorer</CommandName>
+          <ButtonText>Co&amp;llapse All Recursively</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCollapse" id="IconCollapse" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidCollapseSelectedSolutionExplorer</CommandName>
+          <ButtonText>Co&amp;llapse Recursively</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100" type="Button">
+        <Icon guid="GuidImageConfig" id="IconConfig" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidConfiguration</CommandName>
+          <ButtonText>C&amp;onfiguration...</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0100" type="Button">
-        <Icon guid="GuidImageFindInSolutionExplorer" id="IconFindInSolutionExplorer" />
+        <Icon guid="GuidImageFind" id="IconFind" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <CommandName>CmdIDCodeMaidFindInSolutionExplorer</CommandName>
           <ButtonText>&amp;Find in Solution Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0100" type="Button">
+        <Icon guid="GuidImageJoinLines" id="IconJoinLines" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidJoin Lines</CommandName>
+          <ButtonText>&amp;Join Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
+        <Icon guid="GuidImageReadOnly" id="IconReadOnly" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidReadOnlyToggle</CommandName>
+          <ButtonText>&amp;Read-Only Toggle</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSnooper" id="IconSnooper" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidSnooperToolWindow</CommandName>
+          <ButtonText>&amp;Snooper</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSwitch" id="IconSwitch" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidSwitchFile</CommandName>
+          <ButtonText>S&amp;witch File</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -234,14 +246,14 @@
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="GuidImageCleanup" href="Resources\cleanup.bmp" usedList="IconCleanup" />
+      <Bitmap guid="GuidImageCloseReadOnly" href="Resources\closereadonly.bmp" usedList="IconCloseReadOnly"/>
       <Bitmap guid="GuidImageCollapse" href="Resources\collapse.bmp" usedList="IconCollapse" />
+      <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
+      <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
       <Bitmap guid="GuidImageJoinLines" href="Resources\joinlines.bmp" usedList="IconJoinLines" />
-      <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
       <Bitmap guid="GuidImageReadOnly" href="Resources\readonly.bmp" usedList="IconReadOnly" />
       <Bitmap guid="GuidImageSnooper" href="Resources\snooper.bmp" usedList="IconSnooper" />
-      <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
-      <Bitmap guid="GuidImageCloseReadOnly" href="Resources\closereadonly.bmp" usedList="IconCloseReadOnly"/>
-      <Bitmap guid="GuidImageFindInSolutionExplorer" href="Resources\find.bmp" usedList="IconFindInSolutionExplorer"/>
+      <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
     </Bitmaps>
   </Commands>
 
@@ -279,6 +291,13 @@
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
@@ -302,6 +321,20 @@
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
+      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
+      <Parent guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0150">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
@@ -316,35 +349,14 @@
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
-      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
-    </CommandPlacement>
-
     <CommandPlacement guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0100">
       <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
-      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
-      <Parent guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0150">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
   </CommandPlacements>
@@ -353,8 +365,17 @@
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" />
 
+    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
+
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
+
+    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
+
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" />
 
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
@@ -362,20 +383,11 @@
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
 
-    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" />
-
     <KeyBinding guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
 
-    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
-
-    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
-
-    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" />
+    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" />
   </KeyBindings>
 
   <Symbols>
@@ -424,7 +436,15 @@
       <IDSymbol name="GroupIDCodeMaidToolbarSolutionExplorerGroup" value="0x1030" />
     </GuidSymbol>
 
-    <!-- These are the command sets for the context menus -->
+    <!-- These are the command sets for the miscellaneous context menus -->
+    <GuidSymbol name="GuidCodeMaidContextCodeWindowGroup" value="{29039753-26f9-4548-b81c-d7baa5ebc661}">
+      <IDSymbol name="GroupIDCodeMaidContextCodeWindowGroup" value="0x1055" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextDocumentTabGroup" value="{9cba7ef0-ce80-42bb-9f25-c69a9710d328}">
+      <IDSymbol name="GroupIDCodeMaidContextDocumentTabGroup" value="0x1056" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the solution explorer context menus -->
     <GuidSymbol name="GuidCodeMaidContextSolutionNodeGroup" value="{eda37cf1-ff29-46aa-ba07-05abf7ba6596}">
       <IDSymbol name="GroupIDCodeMaidContextSolutionNodeGroup" value="0x1050" />
     </GuidSymbol>
@@ -440,12 +460,6 @@
     <GuidSymbol name="GuidCodeMaidContextItemNodeGroup" value="{36669853-51f0-4da1-828d-d43d67b8450c}">
       <IDSymbol name="GroupIDCodeMaidContextItemNodeGroup" value="0x1054" />
     </GuidSymbol>
-    <GuidSymbol name="GuidCodeMaidContextCodeWindowGroup" value="{29039753-26f9-4548-b81c-d7baa5ebc661}">
-      <IDSymbol name="GroupIDCodeMaidContextCodeWindowGroup" value="0x1055" />
-    </GuidSymbol>
-    <GuidSymbol name="GuidCodeMaidContextDocumentTabGroup" value="{9cba7ef0-ce80-42bb-9f25-c69a9710d328}">
-      <IDSymbol name="GroupIDCodeMaidContextDocumentTabGroup" value="0x1056" />
-    </GuidSymbol>
 
     <!-- These are the symbols for the individual commands -->
     <GuidSymbol name="GuidCodeMaidCommandCleanupActiveCode" value="{36de540f-25cb-4151-957f-d63a5a3a10a7}">
@@ -460,12 +474,24 @@
       <IDSymbol name="CmdIDCodeMaidCleanupSelectedCode" value="0x1200" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandCloseReadOnly" value="{170a0d22-19ea-452c-839a-fb33535abbb7}">
+      <IDSymbol name="CmdIDCodeMaidCloseReadOnly" value="0x2000" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandCollapseAllSolutionExplorer" value="{f0b58f42-6f6e-49db-8787-411979a4a4e3}">
       <IDSymbol name="CmdIDCodeMaidCollapseAllSolutionExplorer" value="0x1300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" value="{ed5ec7f2-c011-43c4-9a02-4f7fb907c734}">
       <IDSymbol name="CmdIDCodeMaidCollapseSelectedSolutionExplorer" value="0x1400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandConfiguration" value="{56718f89-01d2-4405-99b5-4aa665af5947}">
+      <IDSymbol name="CmdIDCodeMaidConfiguration" value="0x1900" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandFindInSolutionExplorer" value="{9e7a4c5b-5de4-418c-8ede-71fcfa4e811f}">
+      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2100" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandJoinLines" value="{7912f0a2-ada9-4888-9d2f-cde09cd310c6}">
@@ -476,38 +502,32 @@
       <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x1600" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x1700" />
-    </GuidSymbol>
-
     <GuidSymbol name="GuidCodeMaidCommandSnooperToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
       <IDSymbol name="CmdIDCodeMaidSnooperToolWindow" value="0x1800" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandConfiguration" value="{56718f89-01d2-4405-99b5-4aa665af5947}">
-      <IDSymbol name="CmdIDCodeMaidConfiguration" value="0x1900" />
-    </GuidSymbol>
-
-    <GuidSymbol name="GuidCodeMaidCommandCloseReadOnly" value="{170a0d22-19ea-452c-839a-fb33535abbb7}">
-      <IDSymbol name="CmdIDCodeMaidCloseReadOnly" value="0x2000" />
-    </GuidSymbol>
-
-    <GuidSymbol name="GuidCodeMaidCommandFindInSolutionExplorer" value="{9e7a4c5b-5de4-418c-8ede-71fcfa4e811f}">
-      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2100" />
+    <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x1700" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
     <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">
       <IDSymbol name="IconCleanup" value="1" />
     </GuidSymbol>
+    <GuidSymbol name="GuidImageCloseReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
+      <IDSymbol name="IconCloseReadOnly" value="1" />
+    </GuidSymbol>
     <GuidSymbol name="GuidImageCollapse" value="{c853fa86-98f3-4f30-89f4-913d84c34a29}">
       <IDSymbol name="IconCollapse" value="1" />
     </GuidSymbol>
+    <GuidSymbol name="GuidImageConfig" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
+      <IDSymbol name="IconConfig" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageFind" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
+      <IDSymbol name="IconFind" value="1" />
+    </GuidSymbol>
     <GuidSymbol name="GuidImageJoinLines" value="{e6e6dcd8-accc-4552-890b-a68ef0cf7279}">
       <IDSymbol name="IconJoinLines" value="1" />
-    </GuidSymbol>
-    <GuidSymbol name="GuidImageSwitch" value="{f86e7cf5-34e4-4f45-a8c3-9528b6e49a12}">
-      <IDSymbol name="IconSwitch" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageReadOnly" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
       <IDSymbol name="IconReadOnly" value="1" />
@@ -515,14 +535,8 @@
     <GuidSymbol name="GuidImageSnooper" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
       <IDSymbol name="IconSnooper" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageConfig" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
-      <IDSymbol name="IconConfig" value="1" />
-    </GuidSymbol>
-    <GuidSymbol name="GuidImageCloseReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
-      <IDSymbol name="IconCloseReadOnly" value="1" />
-    </GuidSymbol>
-    <GuidSymbol name="GuidImageFindInSolutionExplorer" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
-      <IDSymbol name="IconFindInSolutionExplorer" value="1" />
+    <GuidSymbol name="GuidImageSwitch" value="{f86e7cf5-34e4-4f45-a8c3-9528b6e49a12}">
+      <IDSymbol name="IconSwitch" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
