@@ -83,7 +83,10 @@
       <Group guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="GroupIDCodeMaidToolbarToolWindowBaseGroup" priority="0x0000">
         <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
       </Group>
-      <Group guid="GuidCodeMaidToolbarToolWindowCleanupGroup" id="GroupIDCodeMaidToolbarToolWindowCleanupGroup" priority="0x0400">
+      <Group guid="GuidCodeMaidToolbarToolWindowCleanupGroup" id="GroupIDCodeMaidToolbarToolWindowCleanupGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
+      </Group>
+      <Group guid="GuidCodeMaidToolbarToolWindowExtendGroup" id="GroupIDCodeMaidToolbarToolWindowExtendGroup" priority="0x0400">
         <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
       </Group>
       <Group guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" priority="0x0600">
@@ -337,6 +340,9 @@
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarToolWindowExtendGroup" id="GroupIDCodeMaidToolbarToolWindowExtendGroup" />
+    </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
@@ -441,8 +447,12 @@
       <IDSymbol name="GroupIDCodeMaidToolbarToolWindowCleanupGroup" value="0x1042" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidToolbarToolWindowExtendGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
+      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowExtendGroup" value="0x1043" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidToolbarToolWindowMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
-      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowMetaGroup" value="0x1043" />
+      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowMetaGroup" value="0x1044" />
     </GuidSymbol>
 
     <!-- These are the command sets for extending toolbars -->
