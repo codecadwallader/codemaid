@@ -57,16 +57,22 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" priority="0x0200">
+      <Group guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" priority="0x0100">
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
-      <Group guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" priority="0x0400">
+      <Group guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" priority="0x0400">
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
-      <Group guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" priority="0x0600">
+      <Group guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" priority="0x0300">
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
-      <Group guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" priority="0x0800">
+      <Group guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" priority="0x0500">
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
 
@@ -291,15 +297,15 @@
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0400">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCloseReadOnly" id="CmdIDCodeMaidCloseReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup"/>
@@ -321,15 +327,15 @@
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
+    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
       <Parent guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0150">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
@@ -342,18 +348,18 @@
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0600">
-      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0100">
+    <CommandPlacement guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
@@ -404,16 +410,24 @@
       <IDSymbol name="GroupIDCodeMaidMenuCleanupGroup" value="0x1021" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidMenuExtendGroup" value="{4527c6ae-82e7-4fd8-9755-43bfbcfd2a61}">
-      <IDSymbol name="GroupIDCodeMaidMenuExtendGroup" value="0x1022" />
+    <GuidSymbol name="GuidCodeMaidMenuDocumentGroup" value="{5c29c8d8-681c-4cf3-8481-cc3ee484639a}">
+      <IDSymbol name="GroupIDCodeMaidMenuDocumentGroup" value="0x1022" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidMenuVisualizeGroup" value="{a4ef7624-6477-4860-85bc-46564429f935}">
-      <IDSymbol name="GroupIDCodeMaidMenuVisualizeGroup" value="0x1023" />
+    <GuidSymbol name="GuidCodeMaidMenuExtendGroup" value="{4527c6ae-82e7-4fd8-9755-43bfbcfd2a61}">
+      <IDSymbol name="GroupIDCodeMaidMenuExtendGroup" value="0x1023" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidMenuMetaGroup" value="{590f8d08-eb82-444c-bee2-4652d3f30145}">
       <IDSymbol name="GroupIDCodeMaidMenuMetaGroup" value="0x1024" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuSolutionExplorerGroup" value="{d69f1580-274f-4d12-b13a-c365c759de66}">
+      <IDSymbol name="GroupIDCodeMaidMenuSolutionExplorerGroup" value="0x1025" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuVisualizeGroup" value="{a4ef7624-6477-4860-85bc-46564429f935}">
+      <IDSymbol name="GroupIDCodeMaidMenuVisualizeGroup" value="0x1026" />
     </GuidSymbol>
 
     <!-- This is the guid used to group the tool window toolbar commands together -->

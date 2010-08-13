@@ -24,9 +24,11 @@ namespace SteveCadwallader.CodeMaid
         // Menu group guids.
         public static readonly Guid GuidCodeMaidMenuBaseGroup = new Guid("186512ff-6c4e-42c9-b9a1-032f35109993");
         public static readonly Guid GuidCodeMaidMenuCleanupGroup = new Guid("eb1c95fd-1b99-47ab-913a-62e7f69a0319");
+        public static readonly Guid GuidCodeMaidMenuDocumentGroup = new Guid("5c29c8d8-681c-4cf3-8481-cc3ee484639a");
         public static readonly Guid GuidCodeMaidMenuExtendGroup = new Guid("4527c6ae-82e7-4fd8-9755-43bfbcfd2a61");
-        public static readonly Guid GuidCodeMaidMenuVisualizeGroup = new Guid("a4ef7624-6477-4860-85bc-46564429f935");
         public static readonly Guid GuidCodeMaidMenuMetaGroup = new Guid("590f8d08-eb82-444c-bee2-4652d3f30145");
+        public static readonly Guid GuidCodeMaidMenuSolutionExplorerGroup = new Guid("d69f1580-274f-4d12-b13a-c365c759de66");
+        public static readonly Guid GuidCodeMaidMenuVisualizeGroup = new Guid("a4ef7624-6477-4860-85bc-46564429f935");
 
         // Toolbar menu group guids.
         public static readonly Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid("ed596e0f-d1cb-46e7-8dd3-741758451f27");
