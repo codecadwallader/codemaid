@@ -262,6 +262,7 @@ namespace SteveCadwallader.CodeMaid
             if (menuCommandService != null)
             {
                 // Create the individual commands, which internally register for command events.
+                _commands.Add(new AboutCommand(this));
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));

@@ -15,6 +15,7 @@ namespace SteveCadwallader.CodeMaid
 {
     internal static class PkgCmdIDList
     {
+        public const uint CmdIDCodeMaidAbout = 0x1000;
         public const uint CmdIDCodeMaidCleanupActiveCode = 0x1100;
         public const uint CmdIDCodeMaidCleanupAllCode = 0x1200;
         public const uint CmdIDCodeMaidCleanupSelectedCode = 0x1300;

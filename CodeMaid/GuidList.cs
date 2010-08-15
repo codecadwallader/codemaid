@@ -49,6 +49,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidContextItemNodeGroup = new Guid("36669853-51f0-4da1-828d-d43d67b8450c");
 
         // Command guids.
+        public static readonly Guid GuidCodeMaidCommandAbout = new Guid("369b04df-0688-4074-911d-d0d6c6a31632");
         public static readonly Guid GuidCodeMaidCommandCleanupActiveCode = new Guid("36de540f-25cb-4151-957f-d63a5a3a10a7");
         public static readonly Guid GuidCodeMaidCommandCleanupAllCode = new Guid("eb2efdb6-2efe-405c-94af-383d36ad58dd");
         public static readonly Guid GuidCodeMaidCommandCleanupSelectedCode = new Guid("b2979ac6-2853-442c-8df6-21637af5130e");
