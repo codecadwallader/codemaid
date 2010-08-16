@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            //TODO: Show the About window.
+            new AboutForm().ShowDialog();
         }
 
         #endregion BaseCommand Methods

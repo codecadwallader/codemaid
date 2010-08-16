@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CleanupActiveCodeCommand.cs" />
@@ -156,8 +162,16 @@
     <Compile Include="Snooper\SnooperControl.Designer.cs">
       <DependentUpon>SnooperControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="VSPackage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSPackage.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Options\BuildStatusOptionsControl.resx">
       <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +200,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +213,7 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\about.png" />
     <Content Include="Resources\cleanup.bmp" />
     <Content Include="Resources\closeallreadonly.bmp" />
     <Content Include="Resources\CodeMaid.ico" />
