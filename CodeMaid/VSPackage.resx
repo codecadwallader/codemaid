@@ -124,15 +124,15 @@
   <data name="112" xml:space="preserve">
     <value>CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
 
-Written by Steve Cadwallader, for more information visit http://sourceforge.net/projects/codemaid/</value>
+Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/</value>
     <comment>Package description</comment>
   </data>
   <data name="1" xml:space="preserve">
-    <value>PHJKE2ZMIQQCJQZRMEKHQII1JRMJKKK8CCCDCTJKQ9IZHRQPQKAHDMQHJ8H0QZC0EZEMJMETRCM0K9D9IMHQP8HCECEJDMRRKHD2KHAKZQKAPQD2QPQ8QAK1HRQ1I2I8</value>
+    <value>Q0ZEQEEDJEPQI1JDDJKCR9KZM0D8QAK8EIPTMPD8EEHKKTR3ZEDKPDD9IIR2CIRQR1APRPJDHJZPRAZQEPIPRKJQK9IQZZP1JMHRD2RDCQJRQZRCI8ZCERJIQ1ZIRHEM</value>
     <comment>Package load key</comment>
   </data>
   <data name="114" xml:space="preserve">
-    <value>0.3.1</value>
+    <value>0.3.2</value>
     <comment>Package version</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PHJKE2ZMIQQCJQZRMEKHQII1JRMJKKK8CCCDCTJKQ9IZHRQPQKAHDMQHJ8H0QZC0EZEMJMETRCM0K9D9IMHQP8HCECEJDMRRKHD2KHAKZQKAPQD2QPQ8QAK1HRQ1I2I8.
+        ///   Looks up a localized string similar to Q0ZEQEEDJEPQI1JDDJKCR9KZM0D8QAK8EIPTMPD8EEHKKTR3ZEDKPDD9IIR2CIRQR1APRPJDHJZPRAZQEPIPRKJQK9IQZZP1JMHRD2RDCQJRQZRCI8ZCERJIQ1ZIRHEM.
         /// </summary>
         internal static string _1 {
             get {
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid {
         /// <summary>
         ///   Looks up a localized string similar to CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
         ///
-        ///Written by Steve Cadwallader, for more information visit http://sourceforge.net/projects/codemaid/.
+        ///Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/.
         /// </summary>
         internal static string _112 {
             get {
@@ -90,7 +90,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.3.1.
+        ///   Looks up a localized string similar to 0.3.2.
         /// </summary>
         internal static string _114 {
             get {

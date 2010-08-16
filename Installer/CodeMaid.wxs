@@ -4,7 +4,7 @@
 <?define VisualStudioRegistryRoot2008 = "Software\Microsoft\VisualStudio\9.0" ?>
 <?define VisualStudioRegistryRoot2010 = "Software\Microsoft\VisualStudio\10.0" ?>
 
-<?define ProductVersion = "0.3.1" ?>
+<?define ProductVersion = "0.3.2" ?>
 <?define UpgradeCode = "57A7DBA7-283D-43A1-BBAA-8745434E91A3" ?>
 
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
@@ -37,7 +37,7 @@
     <UIRef Id='WixUI_ErrorProgressText' />
 
     <!-- Properties -->
-    <Property Id="ARPHELPLINK" Value="http://sourceforge.net/projects/codemaid/" />
+    <Property Id="ARPHELPLINK" Value="http://www.bitbucket.org/s_cadwallader/codemaid/" />
     <Property Id="ARPPRODUCTICON" Value="CodeMaid.ico" />
 
     <Property Id="DEVENV2005_EXE_PATH">
