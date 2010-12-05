@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            string alternatePath = GetAlternatePath(Package.IDE.ActiveDocument);
+            string alternatePath = GetAlternatePathIfExists(Package.IDE.ActiveDocument);
             bool canAlterate = !String.IsNullOrEmpty(alternatePath);
 
             Enabled = canAlterate;
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            string alternatePath = GetAlternatePath(Package.IDE.ActiveDocument);
+            string alternatePath = GetAlternatePathIfExists(Package.IDE.ActiveDocument);
             if (!String.IsNullOrEmpty(alternatePath))
             {
                 Package.IDE.ItemOperations.OpenFile(alternatePath, Constants.vsViewKindAny);
@@ -106,6 +106,25 @@ namespace SteveCadwallader.CodeMaid.Commands
                 return (from pair in _AlternateExtensions
                         where docName.EndsWith(pair.Key)
                         select document.FullName.Substring(0, document.FullName.Length - pair.Key.Length) + pair.Value).FirstOrDefault();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Attempts to get a path to an alternate document for the specified document
+        /// as well as checking that the alternate document exists in the solution.
+        /// </summary>
+        /// <param name="document">The document to analyze.</param>
+        /// <returns>The path to an alternate document, otherwise null.</returns>
+        private string GetAlternatePathIfExists(Document document)
+        {
+            string alternatePath = GetAlternatePath(document);
+
+            if (!String.IsNullOrEmpty(alternatePath) &&
+                Package.IDE.Solution.FindProjectItem(alternatePath) != null)
+            {
+                return alternatePath;
             }
 
             return null;
