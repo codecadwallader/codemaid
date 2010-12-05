@@ -210,6 +210,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
+            // Perform any actions that can modify the file code model first.
+            RunVSFormatting();
+            RemoveUnusedUsingStatements();
+            SortUsingStatements();
+
             // Interpret the document into a collection of elements.
             FileCodeModel fcm = document.ProjectItem.FileCodeModel;
             IEnumerable<CodeElement> codeElements = CodeModelHelper.RetrieveAllCodeElements(fcm);
@@ -219,9 +224,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             IEnumerable<CodeElement> methods = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementFunction);
             IEnumerable<CodeElement> properties = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementProperty);
 
-            RunVSFormatting();
-            RemoveUnusedUsingStatements();
-            SortUsingStatements();
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
