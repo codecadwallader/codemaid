@@ -320,52 +320,59 @@ namespace SteveCadwallader.CodeMaid.Snooper
         /// <param name="node">The node pointing to a code item where focus should move.</param>
         private void JumpToCode(TreeNode node)
         {
-            if (node != null)
+            try
             {
-                CodeItem item = node.Tag as CodeItem;
-                if (item != null && _document != null)
+                if (node != null)
                 {
-                    // Update the node to make sure all information is current.
-                    UpdateNode(node);
-
-                    TextDocument textDoc = _document.Object("TextDocument") as TextDocument;
-                    if (textDoc != null)
+                    CodeItem item = node.Tag as CodeItem;
+                    if (item != null && _document != null)
                     {
-                        // Create an edit point at the starting location of the selected item.
-                        EditPoint startPoint = textDoc.StartPoint.CreateEditPoint();
-                        startPoint.MoveToLineAndOffset(item.StartLine, 1);
+                        // Update the node to make sure all information is current.
+                        UpdateNode(node);
 
-                        // Create a cloned point to find the closest preceeding blank line.
-                        EditPoint blankPoint = startPoint.CreateEditPoint();
-                        if (!blankPoint.AtStartOfDocument)
+                        TextDocument textDoc = _document.Object("TextDocument") as TextDocument;
+                        if (textDoc != null)
                         {
-                            do
+                            // Create an edit point at the starting location of the selected item.
+                            EditPoint startPoint = textDoc.StartPoint.CreateEditPoint();
+                            startPoint.MoveToLineAndOffset(item.StartLine, 1);
+
+                            // Create a cloned point to find the closest preceeding blank line.
+                            EditPoint blankPoint = startPoint.CreateEditPoint();
+                            if (!blankPoint.AtStartOfDocument)
                             {
-                                blankPoint.LineUp(1);
-                            } while (blankPoint.LineLength != 0 && !blankPoint.AtStartOfDocument);
+                                do
+                                {
+                                    blankPoint.LineUp(1);
+                                } while (blankPoint.LineLength != 0 && !blankPoint.AtStartOfDocument);
+                            }
+
+                            // Move to the blank location, make it the top of the window and determine
+                            // if the start location is on the screen.
+                            textDoc.Selection.MoveToPoint(blankPoint, false);
+                            bool startPointOnScreen = textDoc.Selection.ActivePoint.TryToShow(
+                                vsPaneShowHow.vsPaneShowTop, startPoint);
+
+                            // Move the cursor to the beginning of the text for the actual start point.
+                            textDoc.Selection.MoveToPoint(startPoint, false);
+                            textDoc.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, true);
+
+                            if (!startPointOnScreen)
+                            {
+                                // Preceeding information is too large, just center on the starting point.
+                                textDoc.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
+                            }
+
+                            // Cancel the selection, we don't actually want to highlight anything.
+                            //TODO: Escaping out still seems to leave selection in odd state.
+                            textDoc.Selection.Cancel();
                         }
-
-                        // Move to the blank location, make it the top of the window and determine
-                        // if the start location is on the screen.
-                        textDoc.Selection.MoveToPoint(blankPoint, false);
-                        bool startPointOnScreen = textDoc.Selection.ActivePoint.TryToShow(
-                            vsPaneShowHow.vsPaneShowTop, startPoint);
-
-                        // Move the cursor to the beginning of the text for the actual start point.
-                        textDoc.Selection.MoveToPoint(startPoint, false);
-                        textDoc.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, true);
-
-                        if (!startPointOnScreen)
-                        {
-                            // Preceeding information is too large, just center on the starting point.
-                            textDoc.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
-                        }
-
-                        // Cancel the selection, we don't actually want to highlight anything.
-                        //TODO: Escaping out still seems to leave selection in odd state.
-                        textDoc.Selection.Cancel();
                     }
                 }
+            }
+            catch (Exception)
+            {
+                // May be unable to navigate to nodes if they have been deleted without the snooper refreshing.
             }
         }
 
