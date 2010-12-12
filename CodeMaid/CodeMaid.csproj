@@ -90,6 +90,7 @@
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
+    <Compile Include="Helpers\CursorPositionRestorer.cs" />
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Options\BuildStatusOptionsControl.cs">
       <SubType>UserControl</SubType>

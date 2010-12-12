@@ -211,7 +211,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
-            RunVSFormatting();
+            RunVSFormatting(textDocument);
             RemoveUnusedUsingStatements();
             SortUsingStatements();
 
@@ -255,7 +255,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting();
+            RunVSFormatting(textDocument);
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
@@ -272,7 +272,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting();
+            RunVSFormatting(textDocument);
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
@@ -472,15 +472,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Run the visual studio built-in format document command.
         /// </summary>
-        private void RunVSFormatting()
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunVSFormatting(TextDocument textDocument)
         {
             if (!Package.Options.CleanupGeneral.RunVisualStudioFormatDocumentCommand) return;
 
-            //TODO: FormatDocument may be supported for C++ in 2010, if so backwards support via FormatSelection?
-
             try
             {
-                Package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    // Run the command.
+                    Package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
+                }
             }
             catch
             {
