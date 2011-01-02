@@ -85,6 +85,9 @@
               <Directory Id="VSIXVersion" Name="$(var.ProductVersion)">
                 <Component Id="VSIXManifest" Guid="E40B59D0-D56F-4827-A162-A0F52AB7675C">
                   <File Id="VSIXManifest" Name="extension.vsixmanifest" Source="extension.vsixmanifest" />
+                  <File Id="VSIXIcon" Name="CodeMaid.png" Source="..\CodeMaid\Resources\CodeMaid.png" />
+                  <File Id="VSIXPreviewImage" Name="VisualStudio.png" Source="..\CodeMaid\Resources\VisualStudio.png" />
+                  <File Id="VSIXLicense" Name="lgpl-3.0.rtf" Source="..\CodeMaid\Resources\lgpl-3.0.rtf" />
                 </Component>
               </Directory>
             </Directory>
