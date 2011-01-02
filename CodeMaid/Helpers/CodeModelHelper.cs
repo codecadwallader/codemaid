@@ -74,6 +74,53 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Gets the keyword for the specified access modifier.
+        /// </summary>
+        /// <param name="accessModifier">The access modifier.</param>
+        /// <returns>The matching keyword, otherwise null.</returns>
+        internal static string GetAccessModifierKeyword(vsCMAccess accessModifier)
+        {
+            switch (accessModifier)
+            {
+                case vsCMAccess.vsCMAccessPublic: return "public";
+                case vsCMAccess.vsCMAccessProtected: return "protected";
+                case vsCMAccess.vsCMAccessPrivate: return "private";
+                case vsCMAccess.vsCMAccessProject: return "internal";
+                default: return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the declaration of the specified code class as a string.
+        /// </summary>
+        /// <param name="codeClass">The code class.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetClassDeclaration(CodeClass codeClass)
+        {
+            return TextDocumentHelper.GetTextToFirstMatch(codeClass.StartPoint, @"\(");
+        }
+
+        /// <summary>
+        /// Gets the declaration of the specified code method as a string.
+        /// </summary>
+        /// <param name="codeFunction">The code method.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetMethodDeclaration(CodeFunction codeFunction)
+        {
+            return TextDocumentHelper.GetTextToFirstMatch(codeFunction.StartPoint, @"\(");
+        }
+
+        /// <summary>
+        /// Gets the declaration of the specified code property as a string.
+        /// </summary>
+        /// <param name="codeProperty">The code property.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetPropertyDeclaration(CodeProperty codeProperty)
+        {
+            return TextDocumentHelper.GetTextToFirstMatch(codeProperty.StartPoint, @"\{");
+        }
+
+        /// <summary>
         /// Walks the given FileCodeModel object and returns a flat list of all
         /// the CodeElements within it.
         /// </summary>

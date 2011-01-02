@@ -41,6 +41,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
+        /// Gets the text between the specified start point and the first match.
+        /// </summary>
+        /// <param name="startPoint">The start point.</param>
+        /// <param name="matchString">The match string.</param>
+        /// <returns>The matching text, otherwise null.</returns>
+        internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
+        {
+            var startEditPoint = startPoint.CreateEditPoint();
+            var endEditPoint = startEditPoint.CreateEditPoint();
+            TextRanges subGroupMatches = null; // Not used - required for FindPattern.
+
+            if (endEditPoint.FindPattern(matchString, StandardFindOptions, ref endEditPoint, ref subGroupMatches))
+            {
+                return startEditPoint.GetText(endEditPoint);
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Inserts a blank line before the specified point except where adjacent to a brace.
         /// Also handles moving past any preceeding comment lines.
         /// </summary>

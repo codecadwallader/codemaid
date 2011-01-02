@@ -68,6 +68,12 @@ namespace SteveCadwallader.CodeMaid.Options
                 OptionsPage.InsertBlankLinePaddingBeforeProperties;
             insertBlankLinePaddingAfterPropertiesCheckBox.Checked =
                 OptionsPage.InsertBlankLinePaddingAfterProperties;
+            insertExplicitAccessModifiersOnClassesCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnClasses;
+            insertExplicitAccessModifiersOnMethodsCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnMethods;
+            insertExplicitAccessModifiersOnPropertiesCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnProperties;
         }
 
         #endregion Constructors
@@ -235,6 +241,39 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.InsertBlankLinePaddingAfterProperties =
                 insertBlankLinePaddingAfterPropertiesCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnClassesCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnClassesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnClasses =
+                insertExplicitAccessModifiersOnClassesCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnMethodsCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnMethodsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnMethods =
+                insertExplicitAccessModifiersOnMethodsCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnPropertiesCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnPropertiesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnProperties =
+                insertExplicitAccessModifiersOnPropertiesCheckBox.Checked;
         }
 
         #endregion Private Event Handlers

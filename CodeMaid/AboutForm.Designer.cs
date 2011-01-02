@@ -34,9 +34,9 @@
             this.versionLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // siteLinkLabel
-            // 
+            //
             this.siteLinkLabel.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(147)))), ((int)(((byte)(182)))));
             this.siteLinkLabel.AutoSize = true;
             this.siteLinkLabel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -51,9 +51,9 @@
             this.siteLinkLabel.Text = "www.bitbucket.org/s_cadwallader/codemaid/";
             this.siteLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.siteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.siteLinkLabel_LinkClicked);
-            // 
+            //
             // twitterLinkLabel
-            // 
+            //
             this.twitterLinkLabel.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(147)))), ((int)(((byte)(182)))));
             this.twitterLinkLabel.AutoSize = true;
             this.twitterLinkLabel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -68,9 +68,9 @@
             this.twitterLinkLabel.Text = "@codemaid";
             this.twitterLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.twitterLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.twitterLinkLabel_LinkClicked);
-            // 
+            //
             // emailLinkLabel
-            // 
+            //
             this.emailLinkLabel.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(147)))), ((int)(((byte)(182)))));
             this.emailLinkLabel.AutoSize = true;
             this.emailLinkLabel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -85,9 +85,9 @@
             this.emailLinkLabel.Text = "codemaid@gmail.com";
             this.emailLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.emailLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.emailLinkLabel_LinkClicked);
-            // 
+            //
             // versionLabel
-            // 
+            //
             this.versionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.versionLabel.BackColor = System.Drawing.Color.Transparent;
             this.versionLabel.Font = new System.Drawing.Font("Joyful Juliana", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -98,9 +98,9 @@
             this.versionLabel.TabIndex = 1;
             this.versionLabel.Text = "#v0.0.0#";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
+            //
             // closeButton
-            // 
+            //
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.closeButton.Location = new System.Drawing.Point(0, 0);
             this.closeButton.Name = "closeButton";
@@ -108,9 +108,9 @@
             this.closeButton.TabIndex = 0;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
-            // 
+            //
             // AboutForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -132,17 +132,14 @@
             this.Text = "About CodeMaid v0.3.2";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
-        #endregion
+        #endregion Windows Form Designer generated code
 
         private System.Windows.Forms.LinkLabel siteLinkLabel;
         private System.Windows.Forms.LinkLabel twitterLinkLabel;
         private System.Windows.Forms.LinkLabel emailLinkLabel;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Button closeButton;
-
-
     }
 }

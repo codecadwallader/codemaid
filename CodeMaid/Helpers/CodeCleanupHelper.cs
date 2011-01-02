@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -244,6 +245,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertBlankLinePaddingAfterMethods(methods);
             InsertBlankLinePaddingBeforeProperties(properties);
             InsertBlankLinePaddingAfterProperties(properties);
+            InsertExplicitAccessModifiersOnClasses(classes);
+            InsertExplicitAccessModifiersOnMethods(methods);
+            InsertExplicitAccessModifiersOnProperties(properties);
+
             UpdateRegionDirectives(textDocument);
         }
 
@@ -453,6 +458,72 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterProperties) return;
 
             InsertBlankLinePaddingAfterCodeElements(properties);
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on classes where they are not specified.
+        /// </summary>
+        /// <param name="classes">The classes.</param>
+        private void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeElement> classes)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnClasses) return;
+
+            foreach (var codeClass in classes.OfType<CodeClass>())
+            {
+                var classDeclaration = CodeModelHelper.GetClassDeclaration(codeClass);
+
+                InsertExplicitAccessModifierOnCodeElement(classDeclaration, codeClass.Access, codeClass.StartPoint);
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on methods where they are not specified.
+        /// </summary>
+        /// <param name="methods">The methods.</param>
+        private void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeElement> methods)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnMethods) return;
+
+            foreach (var codeFunction in methods.OfType<CodeFunction>())
+            {
+                // Skip static constructors - they should not have an access modifier.
+                if (codeFunction.IsShared && codeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor)
+                {
+                    continue;
+                }
+
+                // Skip methods defined inside an interface.
+                if (codeFunction.Parent is CodeInterface)
+                {
+                    continue;
+                }
+
+                var methodDeclaration = CodeModelHelper.GetMethodDeclaration(codeFunction);
+
+                InsertExplicitAccessModifierOnCodeElement(methodDeclaration, codeFunction.Access, codeFunction.StartPoint);
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on properties where they are not specified.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        private void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeElement> properties)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnProperties) return;
+
+            foreach (var codeProperty in properties.OfType<CodeProperty>())
+            {
+                // Skip properties defined inside an interface.
+                if (codeProperty.Parent is CodeInterface)
+                {
+                    continue;
+                }
+
+                var propertyDeclaration = CodeModelHelper.GetPropertyDeclaration(codeProperty);
+
+                InsertExplicitAccessModifierOnCodeElement(propertyDeclaration, codeProperty.Access, codeProperty.StartPoint);
+            }
         }
 
         /// <summary>
@@ -719,6 +790,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 EditPoint endPoint = codeElement.EndPoint.CreateEditPoint();
 
                 TextDocumentHelper.InsertBlankLineAfterPoint(endPoint);
+            }
+        }
+
+        /// <summary>
+        /// Inserts an explicit access modifier if not found in the specified code element declaration.
+        /// </summary>
+        /// <param name="codeElementDeclaration">The code element declaration.</param>
+        /// <param name="accessModifier">The access modifier.</param>
+        /// <param name="insertPoint">The insert point.</param>
+        private static void InsertExplicitAccessModifierOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier, TextPoint insertPoint)
+        {
+            string keyword = CodeModelHelper.GetAccessModifierKeyword(accessModifier);
+            string matchString = @"(^|\s)" + keyword + @"\s";
+
+            if (!Regex.IsMatch(codeElementDeclaration, matchString))
+            {
+                insertPoint.CreateEditPoint().Insert(keyword + " ");
             }
         }
 

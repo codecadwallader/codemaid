@@ -49,6 +49,9 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertBlankLinePaddingAfterMethods = true;
             InsertBlankLinePaddingBeforeProperties = true;
             InsertBlankLinePaddingAfterProperties = true;
+            InsertExplicitAccessModifiersOnClasses = true;
+            InsertExplicitAccessModifiersOnMethods = true;
+            InsertExplicitAccessModifiersOnProperties = true;
         }
 
         #endregion Constructors
@@ -124,6 +127,21 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert blank line padding after properties")]
         [Description("On cleanup code, inserts a single blank line of padding after a property except where adjacent to a brace.")]
         public bool InsertBlankLinePaddingAfterProperties { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on classes")]
+        [Description("On cleanup code, inserts explicit access modifiers on classes if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnClasses { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on methods")]
+        [Description("On cleanup code, inserts explicit access modifiers on methods if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnMethods { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on properties")]
+        [Description("On cleanup code, inserts explicit access modifiers on properties if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnProperties { get; set; }
 
         #endregion Public Properties
 
