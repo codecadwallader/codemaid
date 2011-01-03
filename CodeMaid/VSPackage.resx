@@ -128,11 +128,11 @@ Written by Steve Cadwallader, for more information visit http://www.bitbucket.or
     <comment>Package description</comment>
   </data>
   <data name="1" xml:space="preserve">
-    <value>Q0ZEQEEDJEPQI1JDDJKCR9KZM0D8QAK8EIPTMPD8EEHKKTR3ZEDKPDD9IIR2CIRQR1APRPJDHJZPRAZQEPIPRKJQK9IQZZP1JMHRD2RDCQJRQZRCI8ZCERJIQ1ZIRHEM</value>
+    <value>AZACEKDMIHJ9CDCHR0AHH8IAH0IDI1C3IAK0RJAIMJIKIKIMDKEZH2IEECAID2AHJ8A3JZE9R8Q3PHDJIMC8HKIME8E3CHPMQCPKPDDIKEHZQ0MCAAQDA9CQERJ3H3CA</value>
     <comment>Package load key</comment>
   </data>
   <data name="114" xml:space="preserve">
-    <value>0.3.2</value>
+    <value>0.3.3</value>
     <comment>Package version</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

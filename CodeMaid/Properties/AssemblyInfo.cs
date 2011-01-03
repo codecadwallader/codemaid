@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Steve Cadwallader")]
 [assembly: AssemblyProduct("CodeMaid")]
-[assembly: AssemblyCopyright("Copyright 2007-2010 Steve Cadwallader (LGPL v3)")]
+[assembly: AssemblyCopyright("Copyright 2007-2011 Steve Cadwallader (LGPL v3)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("0.3.2.*")]
-[assembly: AssemblyFileVersion("0.3.2.0")]
+[assembly: AssemblyVersion("0.3.3.*")]
+[assembly: AssemblyFileVersion("0.3.3.0")]

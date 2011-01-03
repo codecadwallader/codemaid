@@ -129,7 +129,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About CodeMaid v0.3.2";
+            this.Text = "About CodeMaid v0.3.3";
             this.ResumeLayout(false);
             this.PerformLayout();
         }

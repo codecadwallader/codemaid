@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RegistryIntegration")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CodeMaid registry integration utility")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Steve Cadwallader")]
 [assembly: AssemblyProduct("RegistryIntegration")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyCopyright("Copyright 2007-2011 Steve Cadwallader (LGPL v3)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
