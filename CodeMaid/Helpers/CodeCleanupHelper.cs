@@ -550,6 +550,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         continue;
                     }
 
+                    // Skip destructors - they should not have an access modifier.
+                    if (codeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor)
+                    {
+                        continue;
+                    }
+
                     // Skip methods defined inside an interface.
                     if (codeFunction.Parent is CodeInterface)
                     {
