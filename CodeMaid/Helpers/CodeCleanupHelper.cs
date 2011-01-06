@@ -602,6 +602,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 try
                 {
+                    // Skip explicit interface implementations.
+                    if (codeProperty.Name.Contains("."))
+                    {
+                        continue;
+                    }
+
                     // Skip properties defined inside an interface.
                     if (codeProperty.Parent is CodeInterface)
                     {
