@@ -556,6 +556,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         continue;
                     }
 
+                    // Skip explicit interface implementations.
+                    if (codeFunction.Name.Contains("."))
+                    {
+                        continue;
+                    }
+
                     // Skip methods defined inside an interface.
                     if (codeFunction.Parent is CodeInterface)
                     {
