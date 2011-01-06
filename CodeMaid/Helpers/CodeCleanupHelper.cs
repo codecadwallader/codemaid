@@ -222,6 +222,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             IEnumerable<CodeElement> usingStatements = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementImportStmt);
             IEnumerable<CodeElement> namespaces = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementNamespace);
             IEnumerable<CodeElement> classes = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementClass);
+            IEnumerable<CodeElement> enumerations = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementEnum);
             IEnumerable<CodeElement> methods = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementFunction);
             IEnumerable<CodeElement> properties = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementProperty);
 
@@ -241,11 +242,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertBlankLinePaddingAfterNamespaces(namespaces);
             InsertBlankLinePaddingBeforeClasses(classes);
             InsertBlankLinePaddingAfterClasses(classes);
+            InsertBlankLinePaddingBeforeEnumerations(enumerations);
+            InsertBlankLinePaddingAfterEnumerations(enumerations);
             InsertBlankLinePaddingBeforeMethods(methods);
             InsertBlankLinePaddingAfterMethods(methods);
             InsertBlankLinePaddingBeforeProperties(properties);
             InsertBlankLinePaddingAfterProperties(properties);
             InsertExplicitAccessModifiersOnClasses(classes);
+            InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
 
@@ -417,6 +421,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Inserts a blank line before the specified enumerations except where adjacent to a brace.
+        /// </summary>
+        /// <param name="enumerations">The enumerations to pad.</param>
+        private void InsertBlankLinePaddingBeforeEnumerations(IEnumerable<CodeElement> enumerations)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEnumerations) return;
+
+            InsertBlankLinePaddingBeforeCodeElements(enumerations);
+        }
+
+        /// <summary>
+        /// Inserts a blank line after the specified enumerations except where adjacent to a brace.
+        /// </summary>
+        /// <param name="enumerations">The enumerations to pad.</param>
+        private void InsertBlankLinePaddingAfterEnumerations(IEnumerable<CodeElement> enumerations)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEnumerations) return;
+
+            InsertBlankLinePaddingAfterCodeElements(enumerations);
+        }
+
+        /// <summary>
         /// Inserts a blank line before the specified methods except where adjacent to a brace.
         /// </summary>
         /// <param name="methods">The methods to pad.</param>
@@ -472,7 +498,37 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 var classDeclaration = CodeModelHelper.GetClassDeclaration(codeClass);
 
-                InsertExplicitAccessModifierOnCodeElement(classDeclaration, codeClass.Access, codeClass.StartPoint);
+                // Skip partial classes - access modifier may be specified elsewhere.
+                if (IsKeywordSpecified(classDeclaration, PARTIAL_KEYWORD))
+                {
+                    continue;
+                }
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(classDeclaration, codeClass.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeClass.Access = codeClass.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on enumerations where they are not specified.
+        /// </summary>
+        /// <param name="enumerations">The enumerations.</param>
+        private void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeElement> enumerations)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnEnumerations) return;
+
+            foreach (var codeEnum in enumerations.OfType<CodeEnum>())
+            {
+                var enumDeclaration = CodeModelHelper.GetEnumerationDeclaration(codeEnum);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(enumDeclaration, codeEnum.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeEnum.Access = codeEnum.Access;
+                }
             }
         }
 
@@ -486,21 +542,39 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             foreach (var codeFunction in methods.OfType<CodeFunction>())
             {
-                // Skip static constructors - they should not have an access modifier.
-                if (codeFunction.IsShared && codeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor)
+                try
                 {
-                    continue;
-                }
+                    // Skip static constructors - they should not have an access modifier.
+                    if (codeFunction.IsShared && codeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor)
+                    {
+                        continue;
+                    }
 
-                // Skip methods defined inside an interface.
-                if (codeFunction.Parent is CodeInterface)
+                    // Skip methods defined inside an interface.
+                    if (codeFunction.Parent is CodeInterface)
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
                 {
+                    // Skip this method if unable to analyze.
                     continue;
                 }
 
                 var methodDeclaration = CodeModelHelper.GetMethodDeclaration(codeFunction);
 
-                InsertExplicitAccessModifierOnCodeElement(methodDeclaration, codeFunction.Access, codeFunction.StartPoint);
+                // Skip partial methods - access modifier may be specified elsewhere.
+                if (IsKeywordSpecified(methodDeclaration, PARTIAL_KEYWORD))
+                {
+                    continue;
+                }
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(methodDeclaration, codeFunction.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeFunction.Access = codeFunction.Access;
+                }
             }
         }
 
@@ -514,15 +588,27 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             foreach (var codeProperty in properties.OfType<CodeProperty>())
             {
-                // Skip properties defined inside an interface.
-                if (codeProperty.Parent is CodeInterface)
+                try
                 {
+                    // Skip properties defined inside an interface.
+                    if (codeProperty.Parent is CodeInterface)
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+                    // Skip this property if unable to analyze.
                     continue;
                 }
 
                 var propertyDeclaration = CodeModelHelper.GetPropertyDeclaration(codeProperty);
 
-                InsertExplicitAccessModifierOnCodeElement(propertyDeclaration, codeProperty.Access, codeProperty.StartPoint);
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(propertyDeclaration, codeProperty.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeProperty.Access = codeProperty.Access;
+                }
             }
         }
 
@@ -794,23 +880,41 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Inserts an explicit access modifier if not found in the specified code element declaration.
+        /// Determines if the access modifier is explicitly defined on the specified code element declaration.
         /// </summary>
         /// <param name="codeElementDeclaration">The code element declaration.</param>
         /// <param name="accessModifier">The access modifier.</param>
-        /// <param name="insertPoint">The insert point.</param>
-        private static void InsertExplicitAccessModifierOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier, TextPoint insertPoint)
+        /// <returns>True if access modifier is explicitly specified, otherwise false.</returns>
+        private static bool IsAccessModifierExplicitlySpecifiedOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier)
         {
             string keyword = CodeModelHelper.GetAccessModifierKeyword(accessModifier);
+
+            return IsKeywordSpecified(codeElementDeclaration, keyword);
+        }
+
+        /// <summary>
+        /// Determines if the specified keyword is present in the specified code element declaration.
+        /// </summary>
+        /// <param name="codeElementDeclaration">The code element declaration.</param>
+        /// <param name="keyword">The keyword.</param>
+        /// <returns>True if the keyword is present, otherwise false.</returns>
+        private static bool IsKeywordSpecified(string codeElementDeclaration, string keyword)
+        {
             string matchString = @"(^|\s)" + keyword + @"\s";
 
-            if (!Regex.IsMatch(codeElementDeclaration, matchString))
-            {
-                insertPoint.CreateEditPoint().Insert(keyword + " ");
-            }
+            return Regex.IsMatch(codeElementDeclaration, matchString);
         }
 
         #endregion Private Helper Methods
+
+        #region Private Constants
+
+        /// <summary>
+        /// The string representation of the partial keyword.
+        /// </summary>
+        private const string PARTIAL_KEYWORD = "partial";
+
+        #endregion Private Constants
 
         #region Private Properties
 

@@ -41,6 +41,8 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertBlankLinePaddingAfterNamespaces = true;
             InsertBlankLinePaddingBeforeClasses = true;
             InsertBlankLinePaddingAfterClasses = true;
+            InsertBlankLinePaddingBeforeEnumerations = true;
+            InsertBlankLinePaddingAfterEnumerations = true;
             InsertBlankLinePaddingBeforeRegionTags = true;
             InsertBlankLinePaddingAfterRegionTags = true;
             InsertBlankLinePaddingBeforeEndRegionTags = true;
@@ -50,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertBlankLinePaddingBeforeProperties = true;
             InsertBlankLinePaddingAfterProperties = true;
             InsertExplicitAccessModifiersOnClasses = true;
+            InsertExplicitAccessModifiersOnEnumerations = true;
             InsertExplicitAccessModifiersOnMethods = true;
             InsertExplicitAccessModifiersOnProperties = true;
         }
@@ -87,6 +90,16 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert blank line padding after classes")]
         [Description("On cleanup code, inserts a single blank line of padding after a class except where adjacent to a brace.")]
         public bool InsertBlankLinePaddingAfterClasses { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before enumerations")]
+        [Description("On cleanup code, inserts a single blank line of padding before an enumeration except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeEnumerations { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after enumerations")]
+        [Description("On cleanup code, inserts a single blank line of padding after an enumeration except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterEnumerations { get; set; }
 
         [Category("CodeMaid")]
         [DisplayName(@"Insert blank line padding before #region tags")]
@@ -132,6 +145,11 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert explicit access modifiers on classes")]
         [Description("On cleanup code, inserts explicit access modifiers on classes if they are not specified.")]
         public bool InsertExplicitAccessModifiersOnClasses { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on enumerations")]
+        [Description("On cleanup code, inserts explicit access modifiers on enumerations if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnEnumerations { get; set; }
 
         [Category("CodeMaid")]
         [DisplayName(@"Insert explicit access modifiers on methods")]

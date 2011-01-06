@@ -97,7 +97,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetClassDeclaration(CodeClass codeClass)
         {
-            return TextDocumentHelper.GetTextToFirstMatch(codeClass.StartPoint, @"\(");
+            // Get the start point after the attributes.
+            var startPoint = codeClass.GetStartPoint(vsCMPart.vsCMPartHeader);
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
+        }
+
+        /// <summary>
+        /// Gets the declaration of the specified code enum as a string.
+        /// </summary>
+        /// <param name="codeEnum">The code enum.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetEnumerationDeclaration(CodeEnum codeEnum)
+        {
+            // Get the start point after the attributes.
+            var startPoint = codeEnum.GetStartPoint(vsCMPart.vsCMPartHeader);
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
         }
 
         /// <summary>
@@ -107,7 +123,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetMethodDeclaration(CodeFunction codeFunction)
         {
-            return TextDocumentHelper.GetTextToFirstMatch(codeFunction.StartPoint, @"\(");
+            // Get the start point after the attributes.
+            var startPoint = codeFunction.GetStartPoint(vsCMPart.vsCMPartHeader);
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
         }
 
         /// <summary>
@@ -117,7 +136,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetPropertyDeclaration(CodeProperty codeProperty)
         {
-            return TextDocumentHelper.GetTextToFirstMatch(codeProperty.StartPoint, @"\{");
+            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for properties).
+            var startPoint = codeProperty.Attributes.Count > 0
+                                 ? codeProperty.GetEndPoint(vsCMPart.vsCMPartAttributesWithDelimiter)
+                                 : codeProperty.StartPoint;
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
         }
 
         /// <summary>

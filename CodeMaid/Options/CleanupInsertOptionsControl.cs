@@ -52,6 +52,10 @@ namespace SteveCadwallader.CodeMaid.Options
                 OptionsPage.InsertBlankLinePaddingBeforeClasses;
             insertBlankLinePaddingAfterClassesCheckBox.Checked =
                 OptionsPage.InsertBlankLinePaddingAfterClasses;
+            insertBlankLinePaddingBeforeEnumerationsCheckBox.Checked =
+                OptionsPage.InsertBlankLinePaddingBeforeEnumerations;
+            insertBlankLinePaddingAfterEnumerationsCheckBox.Checked =
+                OptionsPage.InsertBlankLinePaddingAfterEnumerations;
             insertBlankLinePaddingBeforeRegionTagsCheckBox.Checked =
                 OptionsPage.InsertBlankLinePaddingBeforeRegionTags;
             insertBlankLinePaddingAfterRegionTagsCheckBox.Checked =
@@ -70,6 +74,8 @@ namespace SteveCadwallader.CodeMaid.Options
                 OptionsPage.InsertBlankLinePaddingAfterProperties;
             insertExplicitAccessModifiersOnClassesCheckBox.Checked =
                 OptionsPage.InsertExplicitAccessModifiersOnClasses;
+            insertExplicitAccessModifiersOnEnumerationsCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnEnumerations;
             insertExplicitAccessModifiersOnMethodsCheckBox.Checked =
                 OptionsPage.InsertExplicitAccessModifiersOnMethods;
             insertExplicitAccessModifiersOnPropertiesCheckBox.Checked =
@@ -153,6 +159,28 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.InsertBlankLinePaddingAfterClasses =
                 insertBlankLinePaddingAfterClassesCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertBlankLinePaddingBeforeEnumerationsCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertBlankLinePaddingBeforeEnumerationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertBlankLinePaddingBeforeEnumerations =
+                insertBlankLinePaddingBeforeEnumerationsCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertBlankLinePaddingAfterEnumerationsCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertBlankLinePaddingAfterEnumerationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertBlankLinePaddingAfterEnumerations =
+                insertBlankLinePaddingAfterEnumerationsCheckBox.Checked;
         }
 
         /// <summary>
@@ -252,6 +280,17 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.InsertExplicitAccessModifiersOnClasses =
                 insertExplicitAccessModifiersOnClassesCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnEnumerationsCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnEnumerationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnEnumerations =
+                insertExplicitAccessModifiersOnEnumerationsCheckBox.Checked;
         }
 
         /// <summary>
