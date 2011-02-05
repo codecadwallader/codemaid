@@ -122,9 +122,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Next check if the item is a project item.
             var projectItem = parentItem as ProjectItem;
-            if (projectItem != null && projectItem.ProjectItems != null)
+            if (projectItem != null)
             {
-                return projectItem.ProjectItems.Cast<ProjectItem>().Cast<object>().ToList();
+                // Standard projects.
+                if (projectItem.ProjectItems != null)
+                {
+                    return projectItem.ProjectItems.Cast<ProjectItem>().Cast<object>().ToList();
+                }
+
+                // Projects within a solution folder.
+                if (projectItem.SubProject != null)
+                {
+                    return new[] { projectItem.SubProject };
+                }
             }
 
             // Otherwise return an empty array.
