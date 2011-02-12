@@ -107,7 +107,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             bool shouldCloseUndoContext = false;
             if (!isAutoSave && Package.Options.CleanupGeneral.WrapCleanupInASingleUndoTransaction && !Package.IDE.UndoContext.IsOpen)
             {
-                Package.IDE.UndoContext.Open("CodeMaid", false);
+                Package.IDE.UndoContext.Open("CodeMaid Cleanup", false);
                 shouldCloseUndoContext = true;
             }
 

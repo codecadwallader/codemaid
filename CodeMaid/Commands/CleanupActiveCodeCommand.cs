@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <param name="document">The document about to be saved.</param>
         internal void OnBeforeDocumentSave(Document document)
         {
-            if (!Package.Options.CleanupGeneral.AutoCleanupOnFileSave) return;
+            if (!ShouldAutoCleanupDocument(document)) return;
 
             using (new ActiveDocumentRestorer(Package))
             {
@@ -98,5 +98,36 @@ namespace SteveCadwallader.CodeMaid.Commands
         private CodeCleanupHelper CodeCleanupHelper { get; set; }
 
         #endregion Private Properties
+
+        #region Private Methods
+
+        /// <summary>
+        /// Determines if the specified document should participate in an automatic cleanup
+        /// based on settings and the document file type.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if document should participae in an automatic cleanup, otherwise false.</returns>
+        private bool ShouldAutoCleanupDocument(Document document)
+        {
+            var options = Package.Options.CleanupGeneral;
+
+            if (options.AutoCleanupOnFileSave)
+            {
+                switch (document.Language)
+                {
+                    case "CSharp": return options.AutoCleanupOnFileSaveCSharp;
+                    case "C/C++": return options.AutoCleanupOnFileSaveCPlusPlus;
+                    case "CSS": return options.AutoCleanupOnFileSaveCSS;
+                    case "JScript": return options.AutoCleanupOnFileSaveJavaScript;
+                    case "HTML": return options.AutoCleanupOnFileSaveHTML;
+                    case "XAML": return options.AutoCleanupOnFileSaveXAML;
+                    case "XML": return options.AutoCleanupOnFileSaveXML;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion Private Methods
     }
 }
