@@ -32,6 +32,7 @@
 
     <Property Id='ApplicationFolderName' Value='CodeMaid' />
     <Property Id='WixAppFolder' Value='WixPerMachineFolder' />
+    <Property Id='WIXUI_EXITDIALOGOPTIONALTEXT' Value='Thanks for installing CodeMaid.  If Visual Studio is currently running please be sure to restart it.' />
 
     <UIRef Id='WixUI_Advanced' />
     <UIRef Id='WixUI_ErrorProgressText' />
