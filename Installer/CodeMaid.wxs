@@ -20,6 +20,8 @@
     <Property Id='PREVIOUSVERSIONSINSTALLED' Secure='yes' />
     <Upgrade Id='$(var.UpgradeCode)'>
       <UpgradeVersion OnlyDetect='no' Property='PREVIOUSVERSIONSINSTALLED' Minimum='0.2.7' IncludeMinimum='yes' Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
+      <UpgradeVersion OnlyDetect='yes' Property='ALREADYINSTALLED' Minimum='$(var.ProductVersion)' Maximum='$(var.ProductVersion)' IncludeMinimum='yes' IncludeMaximum='yes' />
+      <UpgradeVersion OnlyDetect='yes' Property='NEWERVERSIONDETECTED' Minimum='$(var.ProductVersion)' IncludeMinimum='no' />
     </Upgrade>
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
@@ -124,15 +126,19 @@
     </Feature>
 
     <!-- Custom actions -->
+    <CustomAction Id="AlreadyInstalled" Error="[ProductName] is already installed." />
+    <CustomAction Id="NoDowngrade" Error="A later version than [ProductName] is already installed." />
     <CustomAction Id="CA_VS2005_SETUP" Property="DEVENV2005_EXE_PATH" ExeCommand="/setup" Impersonate="no" Execute="deferred" />
     <CustomAction Id="CA_VS2008_SETUP" Property="DEVENV2008_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
     <CustomAction Id="CA_VS2010_SETUP" Property="DEVENV2010_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
 
     <InstallExecuteSequence>
-      <RemoveExistingProducts Before="InstallInitialize" />
+      <Custom Action="AlreadyInstalled" After="FindRelatedProducts"> ALREADYINSTALLED </Custom>
+      <Custom Action="NoDowngrade" After="FindRelatedProducts"> NEWERVERSIONDETECTED </Custom>
       <Custom Action="CA_VS2005_SETUP" Before="InstallFinalize"> DEVENV2005_EXE_PATH </Custom>
       <Custom Action="CA_VS2008_SETUP" Before="InstallFinalize"> DEVENV2008_EXE_PATH </Custom>
       <Custom Action="CA_VS2010_SETUP" Before="InstallFinalize"> DEVENV2010_EXE_PATH </Custom>
+      <RemoveExistingProducts After="InstallFinalize" />
     </InstallExecuteSequence>
 
   </Product>
