@@ -132,7 +132,7 @@
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
         <Strings>
           <CommandName>CmdIDCodeMaidAbout</CommandName>
-          <ButtonText>A&amp;bout CodeMaid v0.3.4 ...</ButtonText>
+          <ButtonText>A&amp;bout CodeMaid v0.3.5 ...</ButtonText>
         </Strings>
       </Button>
 
