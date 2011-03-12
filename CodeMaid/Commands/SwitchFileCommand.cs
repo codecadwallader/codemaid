@@ -37,22 +37,6 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
         }
 
-        /// <summary>
-        /// Initializes the <see cref="SwitchFileCommand"/> class.
-        /// </summary>
-        static SwitchFileCommand()
-        {
-            _AlternateExtensions = new Dictionary<string, string>
-                                       {
-                                           {".cpp", ".h"},
-                                           {".h", ".cpp"},
-                                           {".xml", ".xsd"},
-                                           {".xsd", ".xml"},
-                                           {".xaml", ".xaml.cs"},
-                                           {".xaml.cs", ".xaml"},
-                                       };
-        }
-
         #endregion Constructors
 
         #region BaseCommand Methods
@@ -90,26 +74,46 @@ namespace SteveCadwallader.CodeMaid.Commands
 
         #endregion BaseCommand Methods
 
-        #region Private Methods
+        #region Private Properties
 
         /// <summary>
-        /// Attempts to get a path to an alternate document for the specified document.
+        /// A collection of groups, each containing a list of related file extensions.
         /// </summary>
-        /// <param name="document">The document to analyze.</param>
-        /// <returns>The path to an alternate document, otherwise null.</returns>
-        private static string GetAlternatePath(Document document)
+        public List<List<string>> RelatedFileExtensions
         {
-            if (document != null && !String.IsNullOrEmpty(document.FullName))
+            get
             {
-                string docName = document.FullName.ToLower();
+                var options = Package.Options.SwitchFile.RelatedFileExtensions;
+                if (_cachedOptions != options)
+                {
+                    _relatedFileExtensions = new List<List<string>>();
 
-                return (from pair in _AlternateExtensions
-                        where docName.EndsWith(pair.Key)
-                        select document.FullName.Substring(0, document.FullName.Length - pair.Key.Length) + pair.Value).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(options))
+                    {
+                        foreach (var rfeGroup in options.Split(';'))
+                        {
+                            var list = rfeGroup.Split(' ')
+                                               .Select(item => item.Trim().ToLower())
+                                               .Where(x => !string.IsNullOrEmpty(x))
+                                               .ToList();
+
+                            if (list.Count >= 2)
+                            {
+                                _relatedFileExtensions.Add(list);
+                            }
+                        }
+                    }
+
+                    _cachedOptions = options;
+                }
+
+                return _relatedFileExtensions;
             }
-
-            return null;
         }
+
+        #endregion Private Properties
+
+        #region Private Methods
 
         /// <summary>
         /// Attempts to get a path to an alternate document for the specified document
@@ -119,15 +123,48 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <returns>The path to an alternate document, otherwise null.</returns>
         private string GetAlternatePathIfExists(Document document)
         {
-            string alternatePath = GetAlternatePath(document);
+            var alternatePaths = GetAlternatePaths(document);
 
-            if (!String.IsNullOrEmpty(alternatePath) &&
-                Package.IDE.Solution.FindProjectItem(alternatePath) != null)
+            return alternatePaths.FirstOrDefault(x => !String.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null);
+        }
+
+        /// <summary>
+        /// Attempts to get the alternate paths for the specified document.
+        /// </summary>
+        /// <param name="document">The document to analyze.</param>
+        /// <returns>The alternate paths, otherwise null.</returns>
+        private IEnumerable<string> GetAlternatePaths(Document document)
+        {
+            var results = new List<string>();
+
+            if (document != null)
             {
-                return alternatePath;
+                var path = document.FullName;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    foreach (var rfeGroup in RelatedFileExtensions)
+                    {
+                        foreach (var extension in rfeGroup)
+                        {
+                            if (path.EndsWith(extension, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                var fileName = path.Substring(0, path.Length - extension.Length);
+                                int matchingIndex = rfeGroup.IndexOf(extension);
+
+                                var alternates = from i in rfeGroup
+                                                 where i != extension
+                                                 let index = rfeGroup.IndexOf(i)
+                                                 orderby index > matchingIndex descending, index
+                                                 select fileName + i;
+
+                                results.AddRange(alternates);
+                            }
+                        }
+                    }
+                }
             }
 
-            return null;
+            return results;
         }
 
         #endregion Private Methods
@@ -135,11 +172,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region Private Fields
 
         /// <summary>
-        /// The dictionary of alternate extensions where the
-        /// Key is the initial extension and the
-        /// Value is the extension to switch to.
+        /// The cached state of the related file extensions from options.
         /// </summary>
-        private static readonly Dictionary<string, string> _AlternateExtensions;
+        private string _cachedOptions;
+
+        /// <summary>
+        /// A collection of groups, each containing a list of related file extensions.
+        /// </summary>
+        private List<List<string>> _relatedFileExtensions;
 
         #endregion Private Fields
     }

@@ -149,6 +149,15 @@
     <Compile Include="Options\SnooperOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\SwitchFileOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\SwitchFileOptionsControl.Designer.cs">
+      <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\SwitchFileOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Snooper\SnooperToolWindow.cs" />
@@ -190,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SnooperOptionsControl.resx">
       <DependentUpon>SnooperOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
+      <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Snooper\SnooperResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

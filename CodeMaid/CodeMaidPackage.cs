@@ -47,17 +47,12 @@ namespace SteveCadwallader.CodeMaid
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideOptionPage(typeof(CleanupGeneralOptionsPage), "CodeMaid", @"Cleanup\General", 116, 118, true)]
-    //[ProvideProfile(typeof(CleanupGeneralOptionsPage), "CodeMaid", @"Cleanup\General", 116, 118, true, DescriptionResourceID = 130)]
     [ProvideOptionPage(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true)]
-    //[ProvideProfile(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true, DescriptionResourceID = 132)]
     [ProvideOptionPage(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true)]
-    //[ProvideProfile(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true, DescriptionResourceID = 134)]
     [ProvideOptionPage(typeof(CleanupUpdateOptionsPage), "CodeMaid", @"Cleanup\Update", 116, 124, true)]
-    //[ProvideProfile(typeof(CleanupUpdateOptionsPage), "CodeMaid", @"Cleanup\Update", 116, 124, true, DescriptionResourceID = 136)]
     [ProvideOptionPage(typeof(BuildStatusOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
-    //[ProvideProfile(typeof(BuildStatusOptionsPage), "CodeMaid", "Build Status", 116, 126, true, DescriptionResourceID = 138)]
     [ProvideOptionPage(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true)]
-    //[ProvideProfile(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true, DescriptionResourceID = 140)]
+    [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(SnooperToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]  // Registers the tool window and defaults it to docked with the solution explorer.
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
@@ -106,7 +101,8 @@ namespace SteveCadwallader.CodeMaid
                                                              GetOptionsPage<CleanupInsertOptionsPage>(),
                                                              GetOptionsPage<CleanupRemoveOptionsPage>(),
                                                              GetOptionsPage<CleanupUpdateOptionsPage>(),
-                                                             GetOptionsPage<SnooperOptionsPage>()));
+                                                             GetOptionsPage<SnooperOptionsPage>(),
+                                                             GetOptionsPage<SwitchFileOptionsPage>()));
             }
         }
 

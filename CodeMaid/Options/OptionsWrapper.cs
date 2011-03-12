@@ -29,12 +29,14 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="cleanupRemoveOptionsPage">The cleanup remove options page.</param>
         /// <param name="cleanupUpdateOptionsPage">The cleanup update options page.</param>
         /// <param name="snooperOptionsPage">The snooper options page.</param>
+        /// <param name="switchFileOptionsPage">The switch file options page.</param>
         public OptionsWrapper(BuildStatusOptionsPage buildStatusOptionsPage,
                               CleanupGeneralOptionsPage cleanupGeneralOptionsPage,
                               CleanupInsertOptionsPage cleanupInsertOptionsPage,
                               CleanupRemoveOptionsPage cleanupRemoveOptionsPage,
                               CleanupUpdateOptionsPage cleanupUpdateOptionsPage,
-                              SnooperOptionsPage snooperOptionsPage)
+                              SnooperOptionsPage snooperOptionsPage,
+                              SwitchFileOptionsPage switchFileOptionsPage)
         {
             BuildStatus = buildStatusOptionsPage;
             CleanupGeneral = cleanupGeneralOptionsPage;
@@ -42,6 +44,7 @@ namespace SteveCadwallader.CodeMaid.Options
             CleanupRemove = cleanupRemoveOptionsPage;
             CleanupUpdate = cleanupUpdateOptionsPage;
             Snooper = snooperOptionsPage;
+            SwitchFile = switchFileOptionsPage;
         }
 
         #endregion Constructors
@@ -77,6 +80,11 @@ namespace SteveCadwallader.CodeMaid.Options
         /// Gets the snooper options.
         /// </summary>
         public SnooperOptionsPage Snooper { get; private set; }
+
+        /// <summary>
+        /// Gets the switch file options.
+        /// </summary>
+        public SwitchFileOptionsPage SwitchFile { get; private set; }
 
         #endregion Public Properties
     }
