@@ -40,10 +40,10 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage = optionsPage;
 
-            relatedFileExtensionsTextBox.Text = OptionsPage.RelatedFileExtensions;
-            relatedFileExtensionsDefaultLabel.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensions;
+            relatedFileExtensionsExpressionTextBox.Text = OptionsPage.RelatedFileExtensionsExpression;
+            relatedFileExtensionsExpressionDefaultLabel.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensionsExpression;
 
-            UpdateResetButtonEnabledState();
+            UpdateExpressionResetButtonEnabledState();
         }
 
         #endregion Constructors
@@ -60,15 +60,15 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Private Event Handlers
 
         /// <summary>
-        /// Handles the TextChanged event of the relatedFileExtensionsTextBox control.
+        /// Handles the TextChanged event of the relatedFileExtensionsExpressionTextBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void relatedFileExtensionsTextBox_TextChanged(object sender, EventArgs e)
+        private void relatedFileExtensionsExpressionTextBox_TextChanged(object sender, EventArgs e)
         {
-            OptionsPage.RelatedFileExtensions = relatedFileExtensionsTextBox.Text;
+            OptionsPage.RelatedFileExtensionsExpression = relatedFileExtensionsExpressionTextBox.Text;
 
-            UpdateResetButtonEnabledState();
+            UpdateExpressionResetButtonEnabledState();
         }
 
         /// <summary>
@@ -76,11 +76,9 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void relatedFileExtensionsResetButton_Click(object sender, EventArgs e)
+        private void relatedFileExtensionsExpressionResetButton_Click(object sender, EventArgs e)
         {
-            relatedFileExtensionsTextBox.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensions;
-
-            UpdateResetButtonEnabledState();
+            relatedFileExtensionsExpressionTextBox.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensionsExpression;
         }
 
         #endregion Private Event Handlers
@@ -88,12 +86,12 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Private Methods
 
         /// <summary>
-        /// Updates the reset button enabled state.
+        /// Updates the expression reset button enabled state.
         /// </summary>
-        private void UpdateResetButtonEnabledState()
+        private void UpdateExpressionResetButtonEnabledState()
         {
-            relatedFileExtensionsResetButton.Enabled =
-                relatedFileExtensionsTextBox.Text != relatedFileExtensionsDefaultLabel.Text;
+            relatedFileExtensionsExpressionResetButton.Enabled =
+                relatedFileExtensionsExpressionTextBox.Text != relatedFileExtensionsExpressionDefaultLabel.Text;
         }
 
         #endregion Private Methods

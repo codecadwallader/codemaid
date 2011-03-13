@@ -46,6 +46,10 @@ namespace SteveCadwallader.CodeMaid.Options
             includeJavaScriptCheckBox.Checked = OptionsPage.CleanupIncludeJavaScript;
             includeXAMLCheckBox.Checked = OptionsPage.CleanupIncludeXAML;
             includeXMLCheckBox.Checked = OptionsPage.CleanupIncludeXML;
+            excludeExpressionTextBox.Text = OptionsPage.CleanupExclusionExpression;
+            excludeExpressionDefaultLabel.Text = CleanupFileTypesOptionsPage.DefaultCleanupExclusionExpression;
+
+            UpdateExpressionResetButtonEnabledState();
         }
 
         #endregion Constructors
@@ -131,6 +135,41 @@ namespace SteveCadwallader.CodeMaid.Options
             OptionsPage.CleanupIncludeXML = includeXMLCheckBox.Checked;
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the excludeExpressionTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void excludeExpressionTextBox_TextChanged(object sender, System.EventArgs e)
+        {
+            OptionsPage.CleanupExclusionExpression = excludeExpressionTextBox.Text;
+
+            UpdateExpressionResetButtonEnabledState();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the excludeExpressionResetButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void excludeExpressionResetButton_Click(object sender, System.EventArgs e)
+        {
+            excludeExpressionTextBox.Text = CleanupFileTypesOptionsPage.DefaultCleanupExclusionExpression;
+        }
+
         #endregion Private Event Handlers
+
+        #region Private Methods
+
+        /// <summary>
+        /// Updates the expression reset button enabled state.
+        /// </summary>
+        private void UpdateExpressionResetButtonEnabledState()
+        {
+            excludeExpressionResetButton.Enabled =
+                excludeExpressionTextBox.Text != excludeExpressionDefaultLabel.Text;
+        }
+
+        #endregion Private Methods
     }
 }

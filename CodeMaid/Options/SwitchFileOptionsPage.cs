@@ -30,9 +30,9 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Constants
 
         /// <summary>
-        /// The default collection of related file extensions.
+        /// The default related file extensions expression.
         /// </summary>
-        public const string DefaultRelatedFileExtensions = ".cpp .h ; .xaml .xaml.cs ; .xml .xsd";
+        public const string DefaultRelatedFileExtensionsExpression = ".cpp .h ; .xaml .xaml.cs ; .xml .xsd";
 
         #endregion Constants
 
@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Options
         public SwitchFileOptionsPage()
         {
             // Set the default settings, will be trumped if there are stored values.
-            RelatedFileExtensions = DefaultRelatedFileExtensions;
+            RelatedFileExtensionsExpression = DefaultRelatedFileExtensionsExpression;
         }
 
         #endregion Constructors
@@ -52,12 +52,12 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the collection of related file extensions.
+        /// Gets or sets the expression for related file extensions.
         /// </summary>
         [Category("CodeMaid")]
-        [DisplayName(@"Related file extensions")]
-        [Description("The collection of related file extensions, used to switch between related files.")]
-        public string RelatedFileExtensions { get; set; }
+        [DisplayName(@"Expression for related file extensions")]
+        [Description("An expression representing related file extensions, used to switch between related files.")]
+        public string RelatedFileExtensionsExpression { get; set; }
 
         #endregion Public Properties
 

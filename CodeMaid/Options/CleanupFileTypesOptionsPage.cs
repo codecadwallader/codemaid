@@ -27,6 +27,15 @@ namespace SteveCadwallader.CodeMaid.Options
     [Guid("2a6e3edf-7783-4c33-a899-9419d94e9f76")]
     public class CleanupFileTypesOptionsPage : DialogPage
     {
+        #region Constants
+
+        /// <summary>
+        /// The default cleanup exclusion expression.
+        /// </summary>
+        public const string DefaultCleanupExclusionExpression = "*.Designer.cs ; *.resx";
+
+        #endregion Constants
+
         #region Constructors
 
         /// <summary>
@@ -42,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.Options
             CleanupIncludeJavaScript = true;
             CleanupIncludeXAML = true;
             CleanupIncludeXML = true;
+            CleanupExclusionExpression = DefaultCleanupExclusionExpression;
         }
 
         #endregion Constructors
@@ -103,6 +113,14 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Include XML file types in cleanup")]
         [Description("XML file types are included in cleanup operations.")]
         public bool CleanupIncludeXML { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expression for files to exclude from cleanup.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Expression for files to exclude from cleanup")]
+        [Description("An expresion representing files to exclude from cleanup operations.")]
+        public string CleanupExclusionExpression { get; set; }
 
         #endregion Public Properties
 

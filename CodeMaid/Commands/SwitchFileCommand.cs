@@ -83,7 +83,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             get
             {
-                var options = Package.Options.SwitchFile.RelatedFileExtensions;
+                var options = Package.Options.SwitchFile.RelatedFileExtensionsExpression;
                 if (_cachedOptions != options)
                 {
                     _relatedFileExtensions = new List<List<string>>();

@@ -31,9 +31,9 @@
             this.relatedFileExtensionsGroupBox = new System.Windows.Forms.GroupBox();
             this.relatedFileExtensionsDescriptionLabel = new System.Windows.Forms.Label();
             this.exampleLabel = new System.Windows.Forms.Label();
-            this.relatedFileExtensionsDefaultLabel = new System.Windows.Forms.Label();
-            this.relatedFileExtensionsResetButton = new System.Windows.Forms.Button();
-            this.relatedFileExtensionsTextBox = new System.Windows.Forms.TextBox();
+            this.relatedFileExtensionsExpressionDefaultLabel = new System.Windows.Forms.Label();
+            this.relatedFileExtensionsExpressionResetButton = new System.Windows.Forms.Button();
+            this.relatedFileExtensionsExpressionTextBox = new System.Windows.Forms.TextBox();
             this.relatedFileExtensionsGroupBox.SuspendLayout();
             this.SuspendLayout();
             //
@@ -41,11 +41,11 @@
             //
             this.relatedFileExtensionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDescriptionLabel);
             this.relatedFileExtensionsGroupBox.Controls.Add(this.exampleLabel);
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDefaultLabel);
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsResetButton);
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsTextBox);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsExpressionDefaultLabel);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsExpressionResetButton);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsExpressionTextBox);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDescriptionLabel);
             this.relatedFileExtensionsGroupBox.Location = new System.Drawing.Point(3, 3);
             this.relatedFileExtensionsGroupBox.Name = "relatedFileExtensionsGroupBox";
             this.relatedFileExtensionsGroupBox.Size = new System.Drawing.Size(344, 140);
@@ -56,54 +56,55 @@
             // relatedFileExtensionsDescriptionLabel
             //
             this.relatedFileExtensionsDescriptionLabel.AutoSize = true;
-            this.relatedFileExtensionsDescriptionLabel.Location = new System.Drawing.Point(20, 20);
+            this.relatedFileExtensionsDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.relatedFileExtensionsDescriptionLabel.Location = new System.Drawing.Point(20, 116);
             this.relatedFileExtensionsDescriptionLabel.Name = "relatedFileExtensionsDescriptionLabel";
-            this.relatedFileExtensionsDescriptionLabel.Size = new System.Drawing.Size(307, 13);
-            this.relatedFileExtensionsDescriptionLabel.TabIndex = 0;
-            this.relatedFileExtensionsDescriptionLabel.Text = "Space between related extensions; Semicolon between groups.";
+            this.relatedFileExtensionsDescriptionLabel.Size = new System.Drawing.Size(320, 13);
+            this.relatedFileExtensionsDescriptionLabel.TabIndex = 3;
+            this.relatedFileExtensionsDescriptionLabel.Text = "Space separates related extensions.  Semicolon separates groups.";
             //
             // exampleLabel
             //
             this.exampleLabel.AutoSize = true;
-            this.exampleLabel.Location = new System.Drawing.Point(20, 41);
+            this.exampleLabel.Location = new System.Drawing.Point(20, 20);
             this.exampleLabel.Name = "exampleLabel";
             this.exampleLabel.Size = new System.Drawing.Size(50, 13);
-            this.exampleLabel.TabIndex = 1;
+            this.exampleLabel.TabIndex = 0;
             this.exampleLabel.Text = "Example:";
             //
-            // relatedFileExtensionsDefaultLabel
+            // relatedFileExtensionsExpressionDefaultLabel
             //
-            this.relatedFileExtensionsDefaultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.relatedFileExtensionsExpressionDefaultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.relatedFileExtensionsDefaultLabel.AutoEllipsis = true;
-            this.relatedFileExtensionsDefaultLabel.Location = new System.Drawing.Point(76, 41);
-            this.relatedFileExtensionsDefaultLabel.Name = "relatedFileExtensionsDefaultLabel";
-            this.relatedFileExtensionsDefaultLabel.Size = new System.Drawing.Size(181, 13);
-            this.relatedFileExtensionsDefaultLabel.TabIndex = 2;
-            this.relatedFileExtensionsDefaultLabel.Text = ".cpp .h ; .xaml .xaml.cs ; .xml .xsd";
+            this.relatedFileExtensionsExpressionDefaultLabel.AutoEllipsis = true;
+            this.relatedFileExtensionsExpressionDefaultLabel.Location = new System.Drawing.Point(76, 20);
+            this.relatedFileExtensionsExpressionDefaultLabel.Name = "relatedFileExtensionsExpressionDefaultLabel";
+            this.relatedFileExtensionsExpressionDefaultLabel.Size = new System.Drawing.Size(181, 13);
+            this.relatedFileExtensionsExpressionDefaultLabel.TabIndex = 1;
+            this.relatedFileExtensionsExpressionDefaultLabel.Text = ".cpp .h ; .xaml .xaml.cs ; .xml .xsd";
             //
-            // relatedFileExtensionsResetButton
+            // relatedFileExtensionsExpressionResetButton
             //
-            this.relatedFileExtensionsResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.relatedFileExtensionsResetButton.Location = new System.Drawing.Point(263, 36);
-            this.relatedFileExtensionsResetButton.Name = "relatedFileExtensionsResetButton";
-            this.relatedFileExtensionsResetButton.Size = new System.Drawing.Size(75, 23);
-            this.relatedFileExtensionsResetButton.TabIndex = 4;
-            this.relatedFileExtensionsResetButton.Text = "Reset";
-            this.relatedFileExtensionsResetButton.UseVisualStyleBackColor = true;
-            this.relatedFileExtensionsResetButton.Click += new System.EventHandler(this.relatedFileExtensionsResetButton_Click);
+            this.relatedFileExtensionsExpressionResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.relatedFileExtensionsExpressionResetButton.Location = new System.Drawing.Point(263, 15);
+            this.relatedFileExtensionsExpressionResetButton.Name = "relatedFileExtensionsExpressionResetButton";
+            this.relatedFileExtensionsExpressionResetButton.Size = new System.Drawing.Size(75, 23);
+            this.relatedFileExtensionsExpressionResetButton.TabIndex = 4;
+            this.relatedFileExtensionsExpressionResetButton.Text = "Reset";
+            this.relatedFileExtensionsExpressionResetButton.UseVisualStyleBackColor = true;
+            this.relatedFileExtensionsExpressionResetButton.Click += new System.EventHandler(this.relatedFileExtensionsExpressionResetButton_Click);
             //
-            // relatedFileExtensionsTextBox
+            // relatedFileExtensionsExpressionTextBox
             //
-            this.relatedFileExtensionsTextBox.AcceptsReturn = true;
-            this.relatedFileExtensionsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.relatedFileExtensionsExpressionTextBox.AcceptsReturn = true;
+            this.relatedFileExtensionsExpressionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.relatedFileExtensionsTextBox.Location = new System.Drawing.Point(23, 65);
-            this.relatedFileExtensionsTextBox.Multiline = true;
-            this.relatedFileExtensionsTextBox.Name = "relatedFileExtensionsTextBox";
-            this.relatedFileExtensionsTextBox.Size = new System.Drawing.Size(315, 69);
-            this.relatedFileExtensionsTextBox.TabIndex = 3;
-            this.relatedFileExtensionsTextBox.TextChanged += new System.EventHandler(this.relatedFileExtensionsTextBox_TextChanged);
+            this.relatedFileExtensionsExpressionTextBox.Location = new System.Drawing.Point(23, 44);
+            this.relatedFileExtensionsExpressionTextBox.Multiline = true;
+            this.relatedFileExtensionsExpressionTextBox.Name = "relatedFileExtensionsExpressionTextBox";
+            this.relatedFileExtensionsExpressionTextBox.Size = new System.Drawing.Size(315, 69);
+            this.relatedFileExtensionsExpressionTextBox.TabIndex = 2;
+            this.relatedFileExtensionsExpressionTextBox.TextChanged += new System.EventHandler(this.relatedFileExtensionsExpressionTextBox_TextChanged);
             //
             // SwitchFileOptionsControl
             //
@@ -120,10 +121,10 @@
         #endregion Component Designer generated code
 
         private System.Windows.Forms.GroupBox relatedFileExtensionsGroupBox;
-        private System.Windows.Forms.TextBox relatedFileExtensionsTextBox;
+        private System.Windows.Forms.TextBox relatedFileExtensionsExpressionTextBox;
         private System.Windows.Forms.Label relatedFileExtensionsDescriptionLabel;
-        private System.Windows.Forms.Button relatedFileExtensionsResetButton;
-        private System.Windows.Forms.Label relatedFileExtensionsDefaultLabel;
+        private System.Windows.Forms.Button relatedFileExtensionsExpressionResetButton;
+        private System.Windows.Forms.Label relatedFileExtensionsExpressionDefaultLabel;
         private System.Windows.Forms.Label exampleLabel;
     }
 }

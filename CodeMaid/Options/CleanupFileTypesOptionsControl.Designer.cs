@@ -37,8 +37,15 @@
             this.includeHTMLCheckBox = new System.Windows.Forms.CheckBox();
             this.includeCSSCheckBox = new System.Windows.Forms.CheckBox();
             this.includeJavaScriptCheckBox = new System.Windows.Forms.CheckBox();
+            this.excludeGroupBox = new System.Windows.Forms.GroupBox();
+            this.excludeDescriptionLabel = new System.Windows.Forms.Label();
+            this.exampleLabel = new System.Windows.Forms.Label();
+            this.excludeExpressionDefaultLabel = new System.Windows.Forms.Label();
+            this.excludeExpressionResetButton = new System.Windows.Forms.Button();
+            this.excludeExpressionTextBox = new System.Windows.Forms.TextBox();
             this.includeGroupBox.SuspendLayout();
             this.includeTableLayoutPanel.SuspendLayout();
+            this.excludeGroupBox.SuspendLayout();
             this.SuspendLayout();
             //
             // includeGroupBox
@@ -156,17 +163,89 @@
             this.includeJavaScriptCheckBox.UseVisualStyleBackColor = true;
             this.includeJavaScriptCheckBox.CheckedChanged += new System.EventHandler(this.includeJavaScriptCheckBox_CheckedChanged);
             //
+            // excludeGroupBox
+            //
+            this.excludeGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.excludeGroupBox.Controls.Add(this.exampleLabel);
+            this.excludeGroupBox.Controls.Add(this.excludeExpressionDefaultLabel);
+            this.excludeGroupBox.Controls.Add(this.excludeExpressionResetButton);
+            this.excludeGroupBox.Controls.Add(this.excludeExpressionTextBox);
+            this.excludeGroupBox.Controls.Add(this.excludeDescriptionLabel);
+            this.excludeGroupBox.Location = new System.Drawing.Point(4, 105);
+            this.excludeGroupBox.Name = "excludeGroupBox";
+            this.excludeGroupBox.Size = new System.Drawing.Size(343, 140);
+            this.excludeGroupBox.TabIndex = 1;
+            this.excludeGroupBox.TabStop = false;
+            this.excludeGroupBox.Text = "Exclude";
+            //
+            // excludeDescriptionLabel
+            //
+            this.excludeDescriptionLabel.AutoSize = true;
+            this.excludeDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excludeDescriptionLabel.Location = new System.Drawing.Point(20, 116);
+            this.excludeDescriptionLabel.Name = "excludeDescriptionLabel";
+            this.excludeDescriptionLabel.Size = new System.Drawing.Size(166, 13);
+            this.excludeDescriptionLabel.TabIndex = 3;
+            this.excludeDescriptionLabel.Text = "Semicolon separates expressions.";
+            //
+            // exampleLabel
+            //
+            this.exampleLabel.AutoSize = true;
+            this.exampleLabel.Location = new System.Drawing.Point(20, 20);
+            this.exampleLabel.Name = "exampleLabel";
+            this.exampleLabel.Size = new System.Drawing.Size(50, 13);
+            this.exampleLabel.TabIndex = 0;
+            this.exampleLabel.Text = "Example:";
+            //
+            // excludeExpressionDefaultLabel
+            //
+            this.excludeExpressionDefaultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.excludeExpressionDefaultLabel.AutoEllipsis = true;
+            this.excludeExpressionDefaultLabel.Location = new System.Drawing.Point(76, 20);
+            this.excludeExpressionDefaultLabel.Name = "excludeExpressionDefaultLabel";
+            this.excludeExpressionDefaultLabel.Size = new System.Drawing.Size(181, 13);
+            this.excludeExpressionDefaultLabel.TabIndex = 1;
+            this.excludeExpressionDefaultLabel.Text = "*.Designer.cs ; *.resx";
+            //
+            // excludeExpressionResetButton
+            //
+            this.excludeExpressionResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.excludeExpressionResetButton.Location = new System.Drawing.Point(263, 15);
+            this.excludeExpressionResetButton.Name = "excludeExpressionResetButton";
+            this.excludeExpressionResetButton.Size = new System.Drawing.Size(75, 23);
+            this.excludeExpressionResetButton.TabIndex = 4;
+            this.excludeExpressionResetButton.Text = "Reset";
+            this.excludeExpressionResetButton.UseVisualStyleBackColor = true;
+            this.excludeExpressionResetButton.Click += new System.EventHandler(this.excludeExpressionResetButton_Click);
+            //
+            // excludeExpressionTextBox
+            //
+            this.excludeExpressionTextBox.AcceptsReturn = true;
+            this.excludeExpressionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.excludeExpressionTextBox.Location = new System.Drawing.Point(23, 44);
+            this.excludeExpressionTextBox.Multiline = true;
+            this.excludeExpressionTextBox.Name = "excludeExpressionTextBox";
+            this.excludeExpressionTextBox.Size = new System.Drawing.Size(315, 69);
+            this.excludeExpressionTextBox.TabIndex = 2;
+            this.excludeExpressionTextBox.TextChanged += new System.EventHandler(this.excludeExpressionTextBox_TextChanged);
+            //
             // CleanupFileTypesOptionsControl
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.includeGroupBox);
+            this.Controls.Add(this.excludeGroupBox);
             this.Name = "CleanupFileTypesOptionsControl";
             this.Size = new System.Drawing.Size(350, 250);
             this.includeGroupBox.ResumeLayout(false);
             this.includeGroupBox.PerformLayout();
             this.includeTableLayoutPanel.ResumeLayout(false);
             this.includeTableLayoutPanel.PerformLayout();
+            this.excludeGroupBox.ResumeLayout(false);
+            this.excludeGroupBox.PerformLayout();
             this.ResumeLayout(false);
         }
 
@@ -181,5 +260,11 @@
         private System.Windows.Forms.CheckBox includeXMLCheckBox;
         private System.Windows.Forms.CheckBox includeHTMLCheckBox;
         private System.Windows.Forms.CheckBox includeJavaScriptCheckBox;
+        private System.Windows.Forms.GroupBox excludeGroupBox;
+        private System.Windows.Forms.Label excludeDescriptionLabel;
+        private System.Windows.Forms.Label exampleLabel;
+        private System.Windows.Forms.Label excludeExpressionDefaultLabel;
+        private System.Windows.Forms.Button excludeExpressionResetButton;
+        private System.Windows.Forms.TextBox excludeExpressionTextBox;
     }
 }
