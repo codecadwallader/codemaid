@@ -9,7 +9,7 @@
     <MoreInfoUrl>http://www.bitbucket.org/s_cadwallader/codemaid/</MoreInfoUrl>
     <License>lgpl-3.0.rtf</License>
     <Icon>CodeMaid.png</Icon>
-    <PreviewImage>VisualStudio.png</PreviewImage>
+    <PreviewImage>CodeMaid_Large.png</PreviewImage>
     <InstalledByMsi>true</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">
