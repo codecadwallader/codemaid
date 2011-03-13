@@ -31,12 +31,29 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Constructors
 
         /// <summary>
+        /// The singleton instance of the <see cref="CodeCleanupHelper"/> class.
+        /// </summary>
+        private static CodeCleanupHelper _instance;
+
+        /// <summary>
+        /// Gets an instance of the <see cref="CodeCleanupHelper"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>An instance of the <see cref="CodeCleanupHelper"/> class.</returns>
+        internal static CodeCleanupHelper GetInstance(CodeMaidPackage package)
+        {
+            return _instance ?? (_instance = new CodeCleanupHelper(package));
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CodeCleanupHelper"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal CodeCleanupHelper(CodeMaidPackage package)
+        private CodeCleanupHelper(CodeMaidPackage package)
         {
             Package = package;
+
+            CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -50,8 +67,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if cleanup successfully ran, false otherwise.</returns>
         internal bool Cleanup(ProjectItem projectItem)
         {
-            if (!IsCleanupEnvironmentAvailable() ||
-                !IsProjectItemSupported(projectItem))
+            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(projectItem))
             {
                 return false;
             }
@@ -94,8 +110,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if cleanup successfully ran, false otherwise.</returns>
         internal bool Cleanup(Document document, bool isAutoSave)
         {
-            if (!IsCleanupEnvironmentAvailable() ||
-                !IsDocumentSupported(document))
+            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(document))
             {
                 return false;
             }
@@ -139,35 +154,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     Package.IDE.UndoContext.Close();
                 }
             }
-        }
-
-        /// <summary>
-        /// Determines whether the environment is in a valid state for cleanup.
-        /// </summary>
-        /// <returns>True if cleanup can occur, false otherwise.</returns>
-        internal bool IsCleanupEnvironmentAvailable()
-        {
-            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
-        }
-
-        /// <summary>
-        /// Determines whether the specified document is supported for code cleanup.
-        /// </summary>
-        /// <param name="document">The document for cleanup.</param>
-        /// <returns>True if the document is supported, false otherwise.</returns>
-        internal bool IsDocumentSupported(Document document)
-        {
-            return document != null && FindCodeCleanupMethod(document) != null;
-        }
-
-        /// <summary>
-        /// Determines whether the specified project item is supported for code cleanup.
-        /// </summary>
-        /// <param name="projectItem">The project item for cleanup.</param>
-        /// <returns>True if the project item is supported, false otherwise.</returns>
-        internal bool IsProjectItemSupported(ProjectItem projectItem)
-        {
-            return projectItem != null && projectItem.Kind == Constants.vsProjectItemKindPhysicalFile;
         }
 
         #endregion Internal Methods
@@ -935,6 +921,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Private Constants
 
         #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the code cleanup availability helper.
+        /// </summary>
+        private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
 
         /// <summary>
         /// Gets or sets the hosting package.

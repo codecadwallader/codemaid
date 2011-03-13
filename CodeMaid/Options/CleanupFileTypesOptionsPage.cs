@@ -32,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// The default cleanup exclusion expression.
         /// </summary>
-        public const string DefaultCleanupExclusionExpression = "*.Designer.cs ; *.resx";
+        public const string DefaultCleanupExclusionExpression = ".*.Designer.cs ; .*.resx";
 
         #endregion Constants
 

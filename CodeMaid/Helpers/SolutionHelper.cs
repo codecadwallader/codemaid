@@ -34,10 +34,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var allProjectItems = new List<ProjectItem>();
 
-            var solution = package.IDE.Solution;
-            if (solution != null)
+            if (package.IDE != null)
             {
-                allProjectItems.AddRange(GetProjectItemsRecursively(solution));
+                var solution = package.IDE.Solution;
+                if (solution != null)
+                {
+                    allProjectItems.AddRange(GetProjectItemsRecursively(solution));
+                }
             }
 
             return allProjectItems;

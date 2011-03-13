@@ -35,7 +35,8 @@ namespace SteveCadwallader.CodeMaid.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandCleanupAllCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupAllCode))
         {
-            CodeCleanupHelper = new CodeCleanupHelper(Package);
+            CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
+            CodeCleanupHelper = CodeCleanupHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -47,8 +48,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeCleanupHelper.IsCleanupEnvironmentAvailable() &&
-                AllProjectItems.Any(x => CodeCleanupHelper.IsProjectItemSupported(x));
+            Enabled = AllProjectItems.Any(x => CodeCleanupAvailabilityHelper.ShouldCleanup(x));
         }
 
         /// <summary>
@@ -82,6 +82,11 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             get { return SolutionHelper.GetAllProjectItemsInSolution(Package); }
         }
+
+        /// <summary>
+        /// Gets or sets the code cleanup availability helper.
+        /// </summary>
+        private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
 
         /// <summary>
         /// Gets or sets the code cleanup helper.

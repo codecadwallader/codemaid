@@ -32,7 +32,8 @@ namespace SteveCadwallader.CodeMaid.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandCleanupActiveCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupActiveCode))
         {
-            CodeCleanupHelper = new CodeCleanupHelper(Package);
+            CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
+            CodeCleanupHelper = CodeCleanupHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -44,8 +45,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeCleanupHelper.IsCleanupEnvironmentAvailable() &&
-                CodeCleanupHelper.IsDocumentSupported(ActiveDocument);
+            Enabled = CodeCleanupAvailabilityHelper.ShouldCleanup(ActiveDocument);
 
             if (Enabled)
             {
@@ -75,7 +75,8 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <param name="document">The document about to be saved.</param>
         internal void OnBeforeDocumentSave(Document document)
         {
-            if (!ShouldAutoCleanupDocument(document)) return;
+            if (!Package.Options.CleanupGeneral.AutoCleanupOnFileSave) return;
+            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(document)) return;
 
             using (new ActiveDocumentRestorer(Package))
             {
@@ -93,39 +94,15 @@ namespace SteveCadwallader.CodeMaid.Commands
         private Document ActiveDocument { get { return Package.IDE.ActiveDocument; } }
 
         /// <summary>
+        /// Gets or sets the code cleanup availability helper.
+        /// </summary>
+        private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
+
+        /// <summary>
         /// Gets or sets the code cleanup helper.
         /// </summary>
         private CodeCleanupHelper CodeCleanupHelper { get; set; }
 
         #endregion Private Properties
-
-        #region Private Methods
-
-        /// <summary>
-        /// Determines if the specified document should participate in an automatic cleanup
-        /// based on settings and the document file type.
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns>True if document should participae in an automatic cleanup, otherwise false.</returns>
-        private bool ShouldAutoCleanupDocument(Document document)
-        {
-            if (Package.Options.CleanupGeneral.AutoCleanupOnFileSave)
-            {
-                switch (document.Language)
-                {
-                    case "CSharp": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
-                    case "C/C++": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
-                    case "CSS": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
-                    case "JScript": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
-                    case "HTML": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
-                    case "XAML": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
-                    case "XML": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
-                }
-            }
-
-            return false;
-        }
-
-        #endregion Private Methods
     }
 }

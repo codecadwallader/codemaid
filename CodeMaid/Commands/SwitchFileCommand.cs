@@ -83,14 +83,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             get
             {
-                var options = Package.Options.SwitchFile.RelatedFileExtensionsExpression;
-                if (_cachedOptions != options)
+                var relatedFileExtensionsExpression = Package.Options.SwitchFile.RelatedFileExtensionsExpression;
+                if (_cachedRelatedFileExtensionsExpression != relatedFileExtensionsExpression)
                 {
                     _relatedFileExtensions = new List<List<string>>();
 
-                    if (!string.IsNullOrEmpty(options))
+                    if (!string.IsNullOrEmpty(relatedFileExtensionsExpression))
                     {
-                        foreach (var rfeGroup in options.Split(';'))
+                        foreach (var rfeGroup in relatedFileExtensionsExpression.Split(';'))
                         {
                             var list = rfeGroup.Split(' ')
                                                .Select(item => item.Trim().ToLower())
@@ -104,7 +104,7 @@ namespace SteveCadwallader.CodeMaid.Commands
                         }
                     }
 
-                    _cachedOptions = options;
+                    _cachedRelatedFileExtensionsExpression = relatedFileExtensionsExpression;
                 }
 
                 return _relatedFileExtensions;
@@ -174,12 +174,12 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <summary>
         /// The cached state of the related file extensions from options.
         /// </summary>
-        private string _cachedOptions;
+        private string _cachedRelatedFileExtensionsExpression;
 
         /// <summary>
         /// A collection of groups, each containing a list of related file extensions.
         /// </summary>
-        private List<List<string>> _relatedFileExtensions;
+        private List<List<string>> _relatedFileExtensions = new List<List<string>>();
 
         #endregion Private Fields
     }
