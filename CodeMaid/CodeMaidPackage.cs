@@ -46,6 +46,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideLoadKey("Standard", "0.3.5", "CodeMaid", "Steve Cadwallader", 1)]
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
+    [ProvideOptionPage(typeof(CleanupFileTypesOptionsPage), "CodeMaid", @"Cleanup\File Types", 116, 132, true)]
     [ProvideOptionPage(typeof(CleanupGeneralOptionsPage), "CodeMaid", @"Cleanup\General", 116, 118, true)]
     [ProvideOptionPage(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true)]
     [ProvideOptionPage(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true)]
@@ -97,6 +98,7 @@ namespace SteveCadwallader.CodeMaid
             {
                 return _optionsWrapper ??
                        (_optionsWrapper = new OptionsWrapper(GetOptionsPage<BuildStatusOptionsPage>(),
+                                                             GetOptionsPage<CleanupFileTypesOptionsPage>(),
                                                              GetOptionsPage<CleanupGeneralOptionsPage>(),
                                                              GetOptionsPage<CleanupInsertOptionsPage>(),
                                                              GetOptionsPage<CleanupRemoveOptionsPage>(),

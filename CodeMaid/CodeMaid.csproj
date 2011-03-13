@@ -101,6 +101,15 @@
     <Compile Include="Options\BuildStatusOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\CleanupFileTypesOptionsControl.Designer.cs">
+      <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\CleanupFileTypesOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Options\CleanupGeneralOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -184,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options\BuildStatusOptionsControl.resx">
       <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\CleanupFileTypesOptionsControl.resx">
+      <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupGeneralOptionsControl.resx">
       <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>

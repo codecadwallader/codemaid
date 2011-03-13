@@ -41,18 +41,9 @@ namespace SteveCadwallader.CodeMaid.Options
             OptionsPage = optionsPage;
 
             autoCleanupOnFileSaveCheckBox.Checked = OptionsPage.AutoCleanupOnFileSave;
-            autoCleanupOnFileSaveCSharpCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveCSharp;
-            autoCleanupOnFileSaveCPlusPlusCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveCPlusPlus;
-            autoCleanupOnFileSaveXAMLCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveXAML;
-            autoCleanupOnFileSaveXMLCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveXML;
-            autoCleanupOnFileSaveHTMLCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveHTML;
-            autoCleanupOnFileSaveCSSCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveCSS;
-            autoCleanupOnFileSaveJavaScriptCheckBox.Checked = OptionsPage.AutoCleanupOnFileSaveJavaScript;
             autoCloseIfOpenedByCleanupCheckBox.Checked = OptionsPage.AutoCloseIfOpenedByCleanup;
             runVisualStudioFormatDocumentCommandCheckBox.Checked = OptionsPage.RunVisualStudioFormatDocumentCommand;
             wrapCleanupInASingleUndoTransactionCheckBox.Checked = OptionsPage.WrapCleanupInASingleUndoTransaction;
-
-            UpdateAutoCleanupFileTypesPanelEnabledState();
         }
 
         #endregion Constructors
@@ -76,78 +67,6 @@ namespace SteveCadwallader.CodeMaid.Options
         private void autoCleanupOnFileSaveCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             OptionsPage.AutoCleanupOnFileSave = autoCleanupOnFileSaveCheckBox.Checked;
-
-            UpdateAutoCleanupFileTypesPanelEnabledState();
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveCSharpCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveCSharpCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveCSharp = autoCleanupOnFileSaveCSharpCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveCPlusPlusCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveCPlusPlusCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveCPlusPlus = autoCleanupOnFileSaveCPlusPlusCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveXAMLCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveXAMLCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveXAML = autoCleanupOnFileSaveXAMLCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveXMLCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveXMLCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveXML = autoCleanupOnFileSaveXMLCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveHTMLCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveHTMLCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveHTML = autoCleanupOnFileSaveHTMLCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveCSSCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveCSSCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveCSS = autoCleanupOnFileSaveCSSCheckBox.Checked;
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the autoCleanupOnFileSaveJavaScriptCheckBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void autoCleanupOnFileSaveJavaScriptCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsPage.AutoCleanupOnFileSaveJavaScript = autoCleanupOnFileSaveJavaScriptCheckBox.Checked;
         }
 
         /// <summary>
@@ -181,17 +100,5 @@ namespace SteveCadwallader.CodeMaid.Options
         }
 
         #endregion Private Event Handlers
-
-        #region Private Methods
-
-        /// <summary>
-        /// Updates the enabled state of the auto cleanup file types panel.
-        /// </summary>
-        private void UpdateAutoCleanupFileTypesPanelEnabledState()
-        {
-            autoCleanupFilesTypesPanel.Enabled = OptionsPage.AutoCleanupOnFileSave;
-        }
-
-        #endregion Private Methods
     }
 }

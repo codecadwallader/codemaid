@@ -36,13 +36,6 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             // Set the default settings, will be trumped if there are stored values.
             AutoCleanupOnFileSave = true;
-            AutoCleanupOnFileSaveCPlusPlus = true;
-            AutoCleanupOnFileSaveCSharp = true;
-            AutoCleanupOnFileSaveCSS = true;
-            AutoCleanupOnFileSaveHTML = true;
-            AutoCleanupOnFileSaveJavaScript = true;
-            AutoCleanupOnFileSaveXAML = true;
-            AutoCleanupOnFileSaveXML = true;
             AutoCloseIfOpenedByCleanup = true;
             RunVisualStudioFormatDocumentCommand = true;
             WrapCleanupInASingleUndoTransaction = true;
@@ -59,62 +52,6 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Automatically run cleanup on file save")]
         [Description("When a file is saved, automatically run cleanup code if available.")]
         public bool AutoCleanupOnFileSave { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for C++ file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for C++ file types")]
-        [Description("When a C++ file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveCPlusPlus { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for C# file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for C# file types")]
-        [Description("When a C# file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveCSharp { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for CSS file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for CSS file types")]
-        [Description("When a CSS file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveCSS { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for HTML file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for HTML file types")]
-        [Description("When a HTML file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveHTML { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for JavaScript file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for JavaScript file types")]
-        [Description("When a JavaScript file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveJavaScript { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for XAML file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for XAML file types")]
-        [Description("When a XAML file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveXAML { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to automatically run on file save for XML file types.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Automatically run cleanup on file save for XML file types")]
-        [Description("When a XML file is saved, automatically run cleanup code if available.")]
-        public bool AutoCleanupOnFileSaveXML { get; set; }
 
         /// <summary>
         /// Gets or sets the option to automatically close documents opened for cleanup.

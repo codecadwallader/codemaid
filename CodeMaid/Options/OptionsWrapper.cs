@@ -24,6 +24,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// Initializes a new instance of the <see cref="OptionsWrapper"/> class.
         /// </summary>
         /// <param name="buildStatusOptionsPage">The build status options page.</param>
+        /// <param name="cleanupFileTypesOptionsPage">The cleanup file types options page.</param>
         /// <param name="cleanupGeneralOptionsPage">The cleanup general options page.</param>
         /// <param name="cleanupInsertOptionsPage">The cleanup insert options page.</param>
         /// <param name="cleanupRemoveOptionsPage">The cleanup remove options page.</param>
@@ -31,6 +32,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="snooperOptionsPage">The snooper options page.</param>
         /// <param name="switchFileOptionsPage">The switch file options page.</param>
         public OptionsWrapper(BuildStatusOptionsPage buildStatusOptionsPage,
+                              CleanupFileTypesOptionsPage cleanupFileTypesOptionsPage,
                               CleanupGeneralOptionsPage cleanupGeneralOptionsPage,
                               CleanupInsertOptionsPage cleanupInsertOptionsPage,
                               CleanupRemoveOptionsPage cleanupRemoveOptionsPage,
@@ -39,6 +41,7 @@ namespace SteveCadwallader.CodeMaid.Options
                               SwitchFileOptionsPage switchFileOptionsPage)
         {
             BuildStatus = buildStatusOptionsPage;
+            CleanupFileTypes = cleanupFileTypesOptionsPage;
             CleanupGeneral = cleanupGeneralOptionsPage;
             CleanupInsert = cleanupInsertOptionsPage;
             CleanupRemove = cleanupRemoveOptionsPage;
@@ -55,6 +58,11 @@ namespace SteveCadwallader.CodeMaid.Options
         /// Gets the build status options.
         /// </summary>
         public BuildStatusOptionsPage BuildStatus { get; private set; }
+
+        /// <summary>
+        /// Gets the cleanup file types options.
+        /// </summary>
+        public CleanupFileTypesOptionsPage CleanupFileTypes { get; private set; }
 
         /// <summary>
         /// Gets the cleanup general options.

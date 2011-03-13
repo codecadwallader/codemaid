@@ -109,19 +109,17 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <returns>True if document should participae in an automatic cleanup, otherwise false.</returns>
         private bool ShouldAutoCleanupDocument(Document document)
         {
-            var options = Package.Options.CleanupGeneral;
-
-            if (options.AutoCleanupOnFileSave)
+            if (Package.Options.CleanupGeneral.AutoCleanupOnFileSave)
             {
                 switch (document.Language)
                 {
-                    case "CSharp": return options.AutoCleanupOnFileSaveCSharp;
-                    case "C/C++": return options.AutoCleanupOnFileSaveCPlusPlus;
-                    case "CSS": return options.AutoCleanupOnFileSaveCSS;
-                    case "JScript": return options.AutoCleanupOnFileSaveJavaScript;
-                    case "HTML": return options.AutoCleanupOnFileSaveHTML;
-                    case "XAML": return options.AutoCleanupOnFileSaveXAML;
-                    case "XML": return options.AutoCleanupOnFileSaveXML;
+                    case "CSharp": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
+                    case "C/C++": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
+                    case "CSS": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
+                    case "JScript": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
+                    case "HTML": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
+                    case "XAML": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
+                    case "XML": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
                 }
             }
 
