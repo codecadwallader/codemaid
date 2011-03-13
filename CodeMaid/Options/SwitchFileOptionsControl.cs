@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Options
             relatedFileExtensionsTextBox.Text = OptionsPage.RelatedFileExtensions;
             relatedFileExtensionsDefaultLabel.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensions;
 
-            UpdateDefaultButtonEnabledState();
+            UpdateResetButtonEnabledState();
         }
 
         #endregion Constructors
@@ -68,19 +68,19 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.RelatedFileExtensions = relatedFileExtensionsTextBox.Text;
 
-            UpdateDefaultButtonEnabledState();
+            UpdateResetButtonEnabledState();
         }
 
         /// <summary>
-        /// Handles the Click event of the relatedFileExtensionsDefaultButton control.
+        /// Handles the Click event of the relatedFileExtensionsResetButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void relatedFileExtensionsDefaultButton_Click(object sender, EventArgs e)
+        private void relatedFileExtensionsResetButton_Click(object sender, EventArgs e)
         {
             relatedFileExtensionsTextBox.Text = SwitchFileOptionsPage.DefaultRelatedFileExtensions;
 
-            UpdateDefaultButtonEnabledState();
+            UpdateResetButtonEnabledState();
         }
 
         #endregion Private Event Handlers
@@ -88,11 +88,11 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Private Methods
 
         /// <summary>
-        /// Updates the default button enabled state.
+        /// Updates the reset button enabled state.
         /// </summary>
-        private void UpdateDefaultButtonEnabledState()
+        private void UpdateResetButtonEnabledState()
         {
-            relatedFileExtensionsDefaultButton.Enabled =
+            relatedFileExtensionsResetButton.Enabled =
                 relatedFileExtensionsTextBox.Text != relatedFileExtensionsDefaultLabel.Text;
         }
 

@@ -40,9 +40,9 @@
             this.includeGroupBox.SuspendLayout();
             this.includeTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // includeGroupBox
-            // 
+            //
             this.includeGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.includeGroupBox.Controls.Add(this.includeTableLayoutPanel);
@@ -52,9 +52,9 @@
             this.includeGroupBox.TabIndex = 0;
             this.includeGroupBox.TabStop = false;
             this.includeGroupBox.Text = "Include";
-            // 
+            //
             // includeTableLayoutPanel
-            // 
+            //
             this.includeTableLayoutPanel.AutoSize = true;
             this.includeTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.includeTableLayoutPanel.ColumnCount = 5;
@@ -78,9 +78,9 @@
             this.includeTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.includeTableLayoutPanel.Size = new System.Drawing.Size(218, 69);
             this.includeTableLayoutPanel.TabIndex = 0;
-            // 
+            //
             // includeCSharpCheckBox
-            // 
+            //
             this.includeCSharpCheckBox.AutoSize = true;
             this.includeCSharpCheckBox.Location = new System.Drawing.Point(3, 3);
             this.includeCSharpCheckBox.Name = "includeCSharpCheckBox";
@@ -89,9 +89,9 @@
             this.includeCSharpCheckBox.Text = "C#";
             this.includeCSharpCheckBox.UseVisualStyleBackColor = true;
             this.includeCSharpCheckBox.CheckedChanged += new System.EventHandler(this.includeCSharpCheckBox_CheckedChanged);
-            // 
+            //
             // includeCPlusPlusCheckBox
-            // 
+            //
             this.includeCPlusPlusCheckBox.AutoSize = true;
             this.includeCPlusPlusCheckBox.Location = new System.Drawing.Point(75, 3);
             this.includeCPlusPlusCheckBox.Name = "includeCPlusPlusCheckBox";
@@ -100,9 +100,9 @@
             this.includeCPlusPlusCheckBox.Text = "C++";
             this.includeCPlusPlusCheckBox.UseVisualStyleBackColor = true;
             this.includeCPlusPlusCheckBox.CheckedChanged += new System.EventHandler(this.includeCPlusPlusCheckBox_CheckedChanged);
-            // 
+            //
             // includeXAMLCheckBox
-            // 
+            //
             this.includeXAMLCheckBox.AutoSize = true;
             this.includeXAMLCheckBox.Location = new System.Drawing.Point(3, 26);
             this.includeXAMLCheckBox.Name = "includeXAMLCheckBox";
@@ -111,9 +111,9 @@
             this.includeXAMLCheckBox.Text = "XAML";
             this.includeXAMLCheckBox.UseVisualStyleBackColor = true;
             this.includeXAMLCheckBox.CheckedChanged += new System.EventHandler(this.includeXAMLCheckBox_CheckedChanged);
-            // 
+            //
             // includeXMLCheckBox
-            // 
+            //
             this.includeXMLCheckBox.AutoSize = true;
             this.includeXMLCheckBox.Location = new System.Drawing.Point(75, 26);
             this.includeXMLCheckBox.Name = "includeXMLCheckBox";
@@ -122,9 +122,9 @@
             this.includeXMLCheckBox.Text = "XML";
             this.includeXMLCheckBox.UseVisualStyleBackColor = true;
             this.includeXMLCheckBox.CheckedChanged += new System.EventHandler(this.includeXMLCheckBox_CheckedChanged);
-            // 
+            //
             // includeHTMLCheckBox
-            // 
+            //
             this.includeHTMLCheckBox.AutoSize = true;
             this.includeHTMLCheckBox.Location = new System.Drawing.Point(3, 49);
             this.includeHTMLCheckBox.Name = "includeHTMLCheckBox";
@@ -133,9 +133,9 @@
             this.includeHTMLCheckBox.Text = "HTML";
             this.includeHTMLCheckBox.UseVisualStyleBackColor = true;
             this.includeHTMLCheckBox.CheckedChanged += new System.EventHandler(this.includeHTMLCheckBox_CheckedChanged);
-            // 
+            //
             // includeCSSCheckBox
-            // 
+            //
             this.includeCSSCheckBox.AutoSize = true;
             this.includeCSSCheckBox.Location = new System.Drawing.Point(75, 49);
             this.includeCSSCheckBox.Name = "includeCSSCheckBox";
@@ -144,9 +144,9 @@
             this.includeCSSCheckBox.Text = "CSS";
             this.includeCSSCheckBox.UseVisualStyleBackColor = true;
             this.includeCSSCheckBox.CheckedChanged += new System.EventHandler(this.includeCSSCheckBox_CheckedChanged);
-            // 
+            //
             // includeJavaScriptCheckBox
-            // 
+            //
             this.includeJavaScriptCheckBox.AutoSize = true;
             this.includeJavaScriptCheckBox.Location = new System.Drawing.Point(139, 49);
             this.includeJavaScriptCheckBox.Name = "includeJavaScriptCheckBox";
@@ -155,9 +155,9 @@
             this.includeJavaScriptCheckBox.Text = "JavaScript";
             this.includeJavaScriptCheckBox.UseVisualStyleBackColor = true;
             this.includeJavaScriptCheckBox.CheckedChanged += new System.EventHandler(this.includeJavaScriptCheckBox_CheckedChanged);
-            // 
+            //
             // CleanupFileTypesOptionsControl
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.includeGroupBox);
@@ -168,7 +168,6 @@
             this.includeTableLayoutPanel.ResumeLayout(false);
             this.includeTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion Component Designer generated code

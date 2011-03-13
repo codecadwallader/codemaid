@@ -30,9 +30,10 @@
         {
             this.relatedFileExtensionsGroupBox = new System.Windows.Forms.GroupBox();
             this.relatedFileExtensionsDescriptionLabel = new System.Windows.Forms.Label();
-            this.relatedFileExtensionsTextBox = new System.Windows.Forms.TextBox();
-            this.relatedFileExtensionsDefaultButton = new System.Windows.Forms.Button();
+            this.exampleLabel = new System.Windows.Forms.Label();
             this.relatedFileExtensionsDefaultLabel = new System.Windows.Forms.Label();
+            this.relatedFileExtensionsResetButton = new System.Windows.Forms.Button();
+            this.relatedFileExtensionsTextBox = new System.Windows.Forms.TextBox();
             this.relatedFileExtensionsGroupBox.SuspendLayout();
             this.SuspendLayout();
             //
@@ -41,9 +42,10 @@
             this.relatedFileExtensionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDescriptionLabel);
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsTextBox);
-            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDefaultButton);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.exampleLabel);
             this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsDefaultLabel);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsResetButton);
+            this.relatedFileExtensionsGroupBox.Controls.Add(this.relatedFileExtensionsTextBox);
             this.relatedFileExtensionsGroupBox.Location = new System.Drawing.Point(3, 3);
             this.relatedFileExtensionsGroupBox.Name = "relatedFileExtensionsGroupBox";
             this.relatedFileExtensionsGroupBox.Size = new System.Drawing.Size(344, 140);
@@ -60,38 +62,48 @@
             this.relatedFileExtensionsDescriptionLabel.TabIndex = 0;
             this.relatedFileExtensionsDescriptionLabel.Text = "Space between related extensions; Semicolon between groups.";
             //
-            // relatedFileExtensionsTextBox
+            // exampleLabel
             //
-            this.relatedFileExtensionsTextBox.AcceptsReturn = true;
-            this.relatedFileExtensionsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.relatedFileExtensionsTextBox.Location = new System.Drawing.Point(23, 36);
-            this.relatedFileExtensionsTextBox.Multiline = true;
-            this.relatedFileExtensionsTextBox.Name = "relatedFileExtensionsTextBox";
-            this.relatedFileExtensionsTextBox.Size = new System.Drawing.Size(315, 69);
-            this.relatedFileExtensionsTextBox.TabIndex = 1;
-            this.relatedFileExtensionsTextBox.TextChanged += new System.EventHandler(this.relatedFileExtensionsTextBox_TextChanged);
-            //
-            // relatedFileExtensionsDefaultButton
-            //
-            this.relatedFileExtensionsDefaultButton.Location = new System.Drawing.Point(23, 111);
-            this.relatedFileExtensionsDefaultButton.Name = "relatedFileExtensionsDefaultButton";
-            this.relatedFileExtensionsDefaultButton.Size = new System.Drawing.Size(75, 23);
-            this.relatedFileExtensionsDefaultButton.TabIndex = 2;
-            this.relatedFileExtensionsDefaultButton.Text = "Default";
-            this.relatedFileExtensionsDefaultButton.UseVisualStyleBackColor = true;
-            this.relatedFileExtensionsDefaultButton.Click += new System.EventHandler(this.relatedFileExtensionsDefaultButton_Click);
+            this.exampleLabel.AutoSize = true;
+            this.exampleLabel.Location = new System.Drawing.Point(20, 41);
+            this.exampleLabel.Name = "exampleLabel";
+            this.exampleLabel.Size = new System.Drawing.Size(50, 13);
+            this.exampleLabel.TabIndex = 1;
+            this.exampleLabel.Text = "Example:";
             //
             // relatedFileExtensionsDefaultLabel
             //
             this.relatedFileExtensionsDefaultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.relatedFileExtensionsDefaultLabel.AutoEllipsis = true;
-            this.relatedFileExtensionsDefaultLabel.Location = new System.Drawing.Point(104, 116);
+            this.relatedFileExtensionsDefaultLabel.Location = new System.Drawing.Point(76, 41);
             this.relatedFileExtensionsDefaultLabel.Name = "relatedFileExtensionsDefaultLabel";
-            this.relatedFileExtensionsDefaultLabel.Size = new System.Drawing.Size(234, 13);
-            this.relatedFileExtensionsDefaultLabel.TabIndex = 3;
+            this.relatedFileExtensionsDefaultLabel.Size = new System.Drawing.Size(181, 13);
+            this.relatedFileExtensionsDefaultLabel.TabIndex = 2;
             this.relatedFileExtensionsDefaultLabel.Text = ".cpp .h ; .xaml .xaml.cs ; .xml .xsd";
+            //
+            // relatedFileExtensionsResetButton
+            //
+            this.relatedFileExtensionsResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.relatedFileExtensionsResetButton.Location = new System.Drawing.Point(263, 36);
+            this.relatedFileExtensionsResetButton.Name = "relatedFileExtensionsResetButton";
+            this.relatedFileExtensionsResetButton.Size = new System.Drawing.Size(75, 23);
+            this.relatedFileExtensionsResetButton.TabIndex = 4;
+            this.relatedFileExtensionsResetButton.Text = "Reset";
+            this.relatedFileExtensionsResetButton.UseVisualStyleBackColor = true;
+            this.relatedFileExtensionsResetButton.Click += new System.EventHandler(this.relatedFileExtensionsResetButton_Click);
+            //
+            // relatedFileExtensionsTextBox
+            //
+            this.relatedFileExtensionsTextBox.AcceptsReturn = true;
+            this.relatedFileExtensionsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.relatedFileExtensionsTextBox.Location = new System.Drawing.Point(23, 65);
+            this.relatedFileExtensionsTextBox.Multiline = true;
+            this.relatedFileExtensionsTextBox.Name = "relatedFileExtensionsTextBox";
+            this.relatedFileExtensionsTextBox.Size = new System.Drawing.Size(315, 69);
+            this.relatedFileExtensionsTextBox.TabIndex = 3;
+            this.relatedFileExtensionsTextBox.TextChanged += new System.EventHandler(this.relatedFileExtensionsTextBox_TextChanged);
             //
             // SwitchFileOptionsControl
             //
@@ -110,7 +122,8 @@
         private System.Windows.Forms.GroupBox relatedFileExtensionsGroupBox;
         private System.Windows.Forms.TextBox relatedFileExtensionsTextBox;
         private System.Windows.Forms.Label relatedFileExtensionsDescriptionLabel;
-        private System.Windows.Forms.Button relatedFileExtensionsDefaultButton;
+        private System.Windows.Forms.Button relatedFileExtensionsResetButton;
         private System.Windows.Forms.Label relatedFileExtensionsDefaultLabel;
+        private System.Windows.Forms.Label exampleLabel;
     }
 }
