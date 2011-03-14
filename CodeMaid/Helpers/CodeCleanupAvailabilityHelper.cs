@@ -11,10 +11,13 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using Microsoft.VisualStudio.Package;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -76,6 +79,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return IsCleanupEnvironmentAvailable() &&
                    projectItem != null &&
                    projectItem.Kind == Constants.vsProjectItemKindPhysicalFile &&
+                   IsProjectItemLanguageIncludedByOptions(projectItem) &&
                    !IsFileNameExcludedByOptions(projectItem.Name);
         }
 
@@ -104,8 +108,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "CSharp": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
                 case "C/C++": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
                 case "CSS": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
-                case "JScript": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
                 case "HTML": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
+                case "JScript": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
                 case "XAML": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
                 case "XML": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
                 default: return false;
@@ -131,6 +135,34 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             return cleanupExclusions.Any(cleanupExclusion => Regex.IsMatch(filename, cleanupExclusion, RegexOptions.IgnoreCase));
+        }
+
+        /// <summary>
+        /// Determines whether the language for the specified project item is included by configuration.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>True if the document language is included, otherwise false.</returns>
+        private bool IsProjectItemLanguageIncludedByOptions(ProjectItem projectItem)
+        {
+            var extension = Path.GetExtension(projectItem.Name);
+            if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
+            {
+                // Make an exception for JavaScript files - they incorrectly return the HTML language service.
+                return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
+            }
+
+            var languageServiceGuid = EditorFactory.GetLanguageService(extension);
+            switch (languageServiceGuid)
+            {
+                case "{694DD9B6-B865-4C5B-AD85-86356E9C88DC}": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
+                case "{B2F072B0-ABC1-11D0-9D62-00C04FD9DFD9}": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
+                case "{A764E898-518D-11d2-9A89-00C04F79EFC3}": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
+                case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
+                case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
+                case "{c9164055-039b-4669-832d-f257bd5554d4}": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
+                case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
+                default: return false;
+            }
         }
 
         #endregion Private Methods
@@ -173,6 +205,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private CodeMaidPackage Package { get; set; }
 
+        /// <summary>
+        /// A default editor factory, used for its knowledge of language service-extension mappings.
+        /// </summary>
+        public EditorFactory EditorFactory
+        {
+            get { return _editorFactory ?? (_editorFactory = new EditorFactory()); }
+        }
+
         #endregion Private Properties
 
         #region Private Fields
@@ -186,6 +226,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// A list of cleanup exclusion filters.
         /// </summary>
         private List<string> _cleanupExclusions = new List<string>();
+
+        /// <summary>
+        /// A default editor factory, used for its knowledge of language service-extension mappings.
+        /// </summary>
+        private EditorFactory _editorFactory;
 
         #endregion Private Fields
     }
