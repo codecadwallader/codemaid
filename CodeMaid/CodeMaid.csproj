@@ -79,6 +79,12 @@
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
     <Compile Include="Commands\SnooperToolWindowCommand.cs" />
+    <Compile Include="Dialogs\CleanupProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CleanupProgress.Designer.cs">
+      <DependentUpon>CleanupProgress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Events\BaseEventListener.cs" />
     <Compile Include="Events\BuildStatusEventListener.cs" />
     <Compile Include="Events\RunningDocumentTableEventListener.cs" />
@@ -192,6 +198,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
+      <DependentUpon>CleanupProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\BuildStatusOptionsControl.resx">
       <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>

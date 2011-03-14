@@ -16,6 +16,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Dialogs;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Commands
@@ -36,7 +37,6 @@ namespace SteveCadwallader.CodeMaid.Commands
                    new CommandID(GuidList.GuidCodeMaidCommandCleanupAllCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupAllCode))
         {
             CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
-            CodeCleanupHelper = CodeCleanupHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = AllProjectItems.Any(x => CodeCleanupAvailabilityHelper.ShouldCleanup(x));
+            Enabled = AllProjectItems.Any();
         }
 
         /// <summary>
@@ -56,17 +56,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            if (MessageBox.Show("Are you ready for CodeMaid to clean everything in the solution?",
-                                "CodeMaid: Confirmation for Cleanup All Code",
+            if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
+                                @"CodeMaid: Confirmation for Cleanup All Code",
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                 == DialogResult.Yes)
             {
                 using (new ActiveDocumentRestorer(Package))
                 {
-                    foreach (ProjectItem projectItem in AllProjectItems)
-                    {
-                        CodeCleanupHelper.Cleanup(projectItem);
-                    }
+                    new CleanupProgress(Package, AllProjectItems).ShowDialog();
                 }
             }
         }
@@ -80,18 +77,13 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         private IEnumerable<ProjectItem> AllProjectItems
         {
-            get { return SolutionHelper.GetAllProjectItemsInSolution(Package); }
+            get { return SolutionHelper.GetAllProjectItemsInSolution(Package).Where(x => CodeCleanupAvailabilityHelper.ShouldCleanup(x)); }
         }
 
         /// <summary>
         /// Gets or sets the code cleanup availability helper.
         /// </summary>
         private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
-
-        /// <summary>
-        /// Gets or sets the code cleanup helper.
-        /// </summary>
-        private CodeCleanupHelper CodeCleanupHelper { get; set; }
 
         #endregion Private Properties
     }

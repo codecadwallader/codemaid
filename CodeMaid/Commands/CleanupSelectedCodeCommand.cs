@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Dialogs;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Commands
@@ -35,7 +36,6 @@ namespace SteveCadwallader.CodeMaid.Commands
                    new CommandID(GuidList.GuidCodeMaidCommandCleanupSelectedCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupSelectedCode))
         {
             CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
-            CodeCleanupHelper = CodeCleanupHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -47,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = SelectedProjectItems.Any(x => CodeCleanupAvailabilityHelper.ShouldCleanup(x));
+            Enabled = SelectedProjectItems.Any();
         }
 
         /// <summary>
@@ -57,10 +57,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             using (new ActiveDocumentRestorer(Package))
             {
-                foreach (ProjectItem projectItem in SelectedProjectItems)
-                {
-                    CodeCleanupHelper.Cleanup(projectItem);
-                }
+                new CleanupProgress(Package, SelectedProjectItems).ShowDialog();
             }
         }
 
@@ -74,16 +71,11 @@ namespace SteveCadwallader.CodeMaid.Commands
         private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
 
         /// <summary>
-        /// Gets or sets the code cleanup helper.
-        /// </summary>
-        private CodeCleanupHelper CodeCleanupHelper { get; set; }
-
-        /// <summary>
         /// Gets the list of selected project items.
         /// </summary>
         private IEnumerable<ProjectItem> SelectedProjectItems
         {
-            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package); }
+            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package).Where(x => CodeCleanupAvailabilityHelper.ShouldCleanup(x)); }
         }
 
         #endregion Private Properties

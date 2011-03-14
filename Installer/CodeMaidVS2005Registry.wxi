@@ -6,7 +6,7 @@
     <Registry Name="UseInterface" Value="1" Type="integer" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\Packages\{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="SteveCadwallader.CodeMaid.CodeMaidPackage, SteveCadwallader.CodeMaid, Version=0.3.5.21038, Culture=neutral, PublicKeyToken=5e10ffd6b4d2c330" Type="string">
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\8.0\Packages\{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="SteveCadwallader.CodeMaid.CodeMaidPackage, SteveCadwallader.CodeMaid, Version=0.3.5.40212, Culture=neutral, PublicKeyToken=5e10ffd6b4d2c330" Type="string">
     <Registry Name="InprocServer32" Value="[SystemFolder]mscoree.dll" Type="string" />
     <Registry Name="Class" Value="SteveCadwallader.CodeMaid.CodeMaidPackage" Type="string" />
     <Registry Name="CodeBase" Value="[#File_SteveCadwallader.CodeMaid.dll]" Type="string" />
