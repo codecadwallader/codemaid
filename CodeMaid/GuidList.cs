@@ -38,9 +38,14 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidToolbarToolWindowMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Miscellaneous context menu group guids.
+        public static readonly Guid GuidCodeMaidContextASPXWindowGroup = new Guid("d4cee201-6b18-4265-8693-a0cb38cf070b");
+        public static readonly Guid GuidCodeMaidContextASPXCodeWindowGroup = new Guid("9c3012ad-61b1-4272-9ea2-5c07e33a9e2f");
         public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
+        public static readonly Guid GuidCodeMaidContextCSSWindowGroup = new Guid("5c88b2b2-24c7-4ff5-b16c-19f01e46a229");
         public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
-        public static readonly Guid GuidCodeMaidContextXAMLEditorGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
+        public static readonly Guid GuidCodeMaidContextHTMLWindowGroup = new Guid("248aaae5-8d3e-4914-9cd9-89c95941965a");
+        public static readonly Guid GuidCodeMaidContextScriptWindowGroup = new Guid("b6343c4a-01bd-4a5e-b1fb-9a8a6203c74c");
+        public static readonly Guid GuidCodeMaidContextXAMLWindowGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
 
         // Solution explorer context menu group guids.
         public static readonly Guid GuidCodeMaidContextSolutionNodeGroup = new Guid("eda37cf1-ff29-46aa-ba07-05abf7ba6596");
