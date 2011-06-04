@@ -99,6 +99,9 @@
       <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
       </Group>
+      <Group guid="GuidCodeMaidContextXAMLEditorGroup" id="GroupIDCodeMaidContextXAMLEditorGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioXAMLEditorContextMenu" id="IDVisualStudioXAMLEditorContextMenu" />
+      </Group>
 
       <Group guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
@@ -288,6 +291,9 @@
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextXAMLEditorGroup" id="GroupIDCodeMaidContextXAMLEditorGroup" />
+    </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
@@ -358,12 +364,18 @@
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextXAMLEditorGroup" id="GroupIDCodeMaidContextXAMLEditorGroup" />
+    </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextXAMLEditorGroup" id="GroupIDCodeMaidContextXAMLEditorGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
@@ -382,6 +394,9 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextXAMLEditorGroup" id="GroupIDCodeMaidContextXAMLEditorGroup" />
     </CommandPlacement>
   </CommandPlacements>
 
@@ -415,6 +430,11 @@
   </KeyBindings>
 
   <Symbols>
+    <!-- These are Visual Studio constants not found in SDK header files (found via VSIPLogging) -->
+    <GuidSymbol name="GuidVisualStudioXAMLEditorContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
+      <IDSymbol name="IDVisualStudioXAMLEditorContextMenu" value="0x103" />
+    </GuidSymbol>
+
     <!-- This is the package guid. -->
     <GuidSymbol name="GuidCodeMaidPackage" value="{4c82e17d-927e-42d2-8460-b473ac7df316}" />
 
@@ -478,6 +498,9 @@
     </GuidSymbol>
     <GuidSymbol name="GuidCodeMaidContextDocumentTabGroup" value="{9cba7ef0-ce80-42bb-9f25-c69a9710d328}">
       <IDSymbol name="GroupIDCodeMaidContextDocumentTabGroup" value="0x1056" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextXAMLEditorGroup" value="{b362d22f-6a03-4247-aaf9-bfc02f81d41b}">
+      <IDSymbol name="GroupIDCodeMaidContextXAMLEditorGroup" value="0x1057" />
     </GuidSymbol>
 
     <!-- These are the command sets for the solution explorer context menus -->

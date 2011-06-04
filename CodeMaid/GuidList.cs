@@ -40,6 +40,7 @@ namespace SteveCadwallader.CodeMaid
         // Miscellaneous context menu group guids.
         public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
         public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
+        public static readonly Guid GuidCodeMaidContextXAMLEditorGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
 
         // Solution explorer context menu group guids.
         public static readonly Guid GuidCodeMaidContextSolutionNodeGroup = new Guid("eda37cf1-ff29-46aa-ba07-05abf7ba6596");
