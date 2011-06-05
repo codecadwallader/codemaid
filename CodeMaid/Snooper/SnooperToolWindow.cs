@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -115,7 +114,7 @@ namespace SteveCadwallader.CodeMaid.Snooper
         #region Private Properties
 
         /// <summary>
-        /// Gets the tool control hosted in the tool window.
+        /// Gets or sets the control hosted within this tool window.
         /// </summary>
         private SnooperControl Control { get; set; }
 

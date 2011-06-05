@@ -65,8 +65,16 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuildProgress\BuildProgressControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BuildProgress\BuildProgressControl.Designer.cs">
+      <DependentUpon>BuildProgressControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\BuildProgressToolWindowCommand.cs" />
     <Compile Include="Commands\CleanupActiveCodeCommand.cs" />
     <Compile Include="Commands\CleanupAllCodeCommand.cs" />
     <Compile Include="Commands\CleanupSelectedCodeCommand.cs" />
@@ -199,6 +207,9 @@
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
+      <DependentUpon>BuildProgressControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
       <DependentUpon>CleanupProgress.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,6 +261,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\about.png" />
+    <Content Include="Resources\buildprogress.bmp" />
+    <Content Include="Resources\cancelbuild.bmp" />
     <Content Include="Resources\cleanup.bmp" />
     <Content Include="Resources\closeallreadonly.bmp" />
     <Content Include="Resources\CodeMaid.ico" />

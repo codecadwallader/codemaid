@@ -23,6 +23,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.BuildProgress;
 using SteveCadwallader.CodeMaid.Commands;
 using SteveCadwallader.CodeMaid.Events;
 using SteveCadwallader.CodeMaid.Options;
@@ -54,7 +55,8 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(BuildStatusOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
     [ProvideOptionPage(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
-    [ProvideToolWindow(typeof(SnooperToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]  // Registers the tool window and defaults it to docked with the solution explorer.
+    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 30, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
+    [ProvideToolWindow(typeof(SnooperToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
     {
@@ -75,6 +77,21 @@ namespace SteveCadwallader.CodeMaid
         #endregion Constructors
 
         #region Public Integration Properties
+
+        /// <summary>
+        /// Gets the build progress tool window.
+        /// </summary>
+        /// <remarks>
+        /// Finds the first instance of the build progress tool window, creating it if necessary.
+        /// </remarks>
+        public BuildProgressToolWindow BuildProgress
+        {
+            get
+            {
+                return _buildProgress ??
+                    (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
+            }
+        }
 
         /// <summary>
         /// Gets the top level application instance of the VS IDE that is executing this package.
@@ -261,6 +278,7 @@ namespace SteveCadwallader.CodeMaid
             {
                 // Create the individual commands, which internally register for command events.
                 _commands.Add(new AboutCommand(this));
+                _commands.Add(new BuildProgressToolWindowCommand(this));
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));
@@ -305,13 +323,17 @@ namespace SteveCadwallader.CodeMaid
         private void RegisterNonShellEventListeners()
         {
             // Create event listeners and register for events.
-            BuildStatusEventListener = new BuildStatusEventListener(this);
-
             var menuCommandService = MenuCommandService;
             if (menuCommandService != null)
             {
+                var buildProgressToolWindowCommand = _commands.OfType<BuildProgressToolWindowCommand>().First();
                 var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
                 var snooperToolWindowCommand = _commands.OfType<SnooperToolWindowCommand>().First();
+
+                BuildStatusEventListener = new BuildStatusEventListener(this);
+                BuildStatusEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
+                BuildStatusEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
+                BuildStatusEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
@@ -359,6 +381,11 @@ namespace SteveCadwallader.CodeMaid
         #endregion IDisposable Members
 
         #region Private Fields
+
+        /// <summary>
+        /// The build progress tool window.
+        /// </summary>
+        private BuildProgressToolWindow _buildProgress;
 
         /// <summary>
         /// An internal collection of the commands registered by this package.

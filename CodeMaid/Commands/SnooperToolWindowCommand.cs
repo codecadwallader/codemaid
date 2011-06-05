@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// Called when a document has been saved.
         /// </summary>
         /// <param name="document">The document that was saved.</param>
-        public void OnAfterDocumentSave(Document document)
+        internal void OnAfterDocumentSave(Document document)
         {
             var snooper = Package.Snooper;
             if (snooper != null)

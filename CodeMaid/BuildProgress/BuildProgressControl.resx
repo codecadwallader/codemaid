@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,74 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="110" xml:space="preserve">
-    <value>CodeMaid</value>
-    <comment>Package name</comment>
-  </data>
-  <data name="112" xml:space="preserve">
-    <value>CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
-
-Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/</value>
-    <comment>Package description</comment>
-  </data>
-  <data name="1" xml:space="preserve">
-    <value>J3RZETE0CAI0QEZHZMPCAHMCR1M9MZDAP2D8HMM2HPQCP3EHERMCQKKAJTZPEQRDA0PRC9K9CIP2CDDICEEZHEHCMPZCK9EEPECRP3IKIERTJ0Q0J8REZMH2Q0RZRRC3</value>
-    <comment>Package load key</comment>
-  </data>
-  <data name="114" xml:space="preserve">
-    <value>0.3.6</value>
-    <comment>Package version</comment>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="501" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\snooper.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\CodeMaid.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="116" xml:space="preserve">
-    <value>CodeMaid</value>
-    <comment>Options category</comment>
-  </data>
-  <data name="118" xml:space="preserve">
-    <value>General</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="120" xml:space="preserve">
-    <value>Insert</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="122" xml:space="preserve">
-    <value>Remove</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="124" xml:space="preserve">
-    <value>Update</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="126" xml:space="preserve">
-    <value>Build Status</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="128" xml:space="preserve">
-    <value>Snooper</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="600" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\about.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="130" xml:space="preserve">
-    <value>Switch File</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="132" xml:space="preserve">
-    <value>File Types</value>
-    <comment>Options page</comment>
-  </data>
-  <data name="502" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\buildprogress.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="503" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\cancelbuild.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
