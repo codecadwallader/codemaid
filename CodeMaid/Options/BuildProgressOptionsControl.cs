@@ -17,30 +17,31 @@ using System.Windows.Forms;
 namespace SteveCadwallader.CodeMaid.Options
 {
     /// <summary>
-    /// The options control hosting build status options.
+    /// The options control hosting build progress options.
     /// </summary>
-    public partial class BuildStatusOptionsControl : UserControl
+    public partial class BuildProgressOptionsControl : UserControl
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildStatusOptionsControl"/> class.
+        /// Initializes a new instance of the <see cref="BuildProgressOptionsControl"/> class.
         /// </summary>
-        public BuildStatusOptionsControl()
+        public BuildProgressOptionsControl()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildStatusOptionsControl"/> class.
+        /// Initializes a new instance of the <see cref="BuildProgressOptionsControl"/> class.
         /// </summary>
         /// <param name="optionsPage">The options page.</param>
-        public BuildStatusOptionsControl(BuildStatusOptionsPage optionsPage)
+        public BuildProgressOptionsControl(BuildProgressOptionsPage optionsPage)
             : this()
         {
             OptionsPage = optionsPage;
 
-            extendBuildStatusMessagesCheckBox.Checked = OptionsPage.ExtendBuildStatusMessages;
+            autoShowBuildProgressCheckBox.Checked = OptionsPage.AutoShowBuildProgressOnBuildStart;
+            autoHideBuildProgressCheckBox.Checked = OptionsPage.AutoHideBuildProgressOnBuildStop;
         }
 
         #endregion Constructors
@@ -50,20 +51,30 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// Gets or sets the options page behind this control.
         /// </summary>
-        private BuildStatusOptionsPage OptionsPage { get; set; }
+        private BuildProgressOptionsPage OptionsPage { get; set; }
 
         #endregion Private Properties
 
         #region Private Event Handlers
 
         /// <summary>
-        /// Handles the CheckedChanged event of the extendBuildStatusMessagesCheckBox control.
+        /// Handles the CheckedChanged event of the autoShowBuildProgressCheckBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void extendBuildStatusMessagesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void autoShowBuildProgressCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            OptionsPage.ExtendBuildStatusMessages = extendBuildStatusMessagesCheckBox.Checked;
+            OptionsPage.AutoShowBuildProgressOnBuildStart = autoShowBuildProgressCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the autoHideBuildProgressCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void autoHideBuildProgressCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.AutoHideBuildProgressOnBuildStop = autoHideBuildProgressCheckBox.Checked;
         }
 
         #endregion Private Event Handlers

@@ -42,9 +42,9 @@
             this.unusedGroupBox.SuspendLayout();
             this.whitespaceGroupBox.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // blankLinesGroupBox
-            //
+            // 
             this.blankLinesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.blankLinesGroupBox.Controls.Add(this.removeBlankLinesAtTopCheckBox);
@@ -58,9 +58,9 @@
             this.blankLinesGroupBox.TabIndex = 0;
             this.blankLinesGroupBox.TabStop = false;
             this.blankLinesGroupBox.Text = "Blank lines";
-            //
+            // 
             // removeBlankLinesAtTopCheckBox
-            //
+            // 
             this.removeBlankLinesAtTopCheckBox.AutoSize = true;
             this.removeBlankLinesAtTopCheckBox.Location = new System.Drawing.Point(7, 20);
             this.removeBlankLinesAtTopCheckBox.Name = "removeBlankLinesAtTopCheckBox";
@@ -69,9 +69,9 @@
             this.removeBlankLinesAtTopCheckBox.Text = "Remove blank lines at top of file";
             this.removeBlankLinesAtTopCheckBox.UseVisualStyleBackColor = true;
             this.removeBlankLinesAtTopCheckBox.CheckedChanged += new System.EventHandler(this.removeBlankLinesAtTopCheckBox_CheckedChanged);
-            //
+            // 
             // removeBlankLinesAtBottomCheckBox
-            //
+            // 
             this.removeBlankLinesAtBottomCheckBox.AutoSize = true;
             this.removeBlankLinesAtBottomCheckBox.Location = new System.Drawing.Point(7, 44);
             this.removeBlankLinesAtBottomCheckBox.Name = "removeBlankLinesAtBottomCheckBox";
@@ -80,9 +80,9 @@
             this.removeBlankLinesAtBottomCheckBox.Text = "Remove blank lines at bottom of file";
             this.removeBlankLinesAtBottomCheckBox.UseVisualStyleBackColor = true;
             this.removeBlankLinesAtBottomCheckBox.CheckedChanged += new System.EventHandler(this.removeBlankLinesAtBottomCheckBox_CheckedChanged);
-            //
+            // 
             // removeBlankLinesAfterOpeningBraceCheckBox
-            //
+            // 
             this.removeBlankLinesAfterOpeningBraceCheckBox.AutoSize = true;
             this.removeBlankLinesAfterOpeningBraceCheckBox.Location = new System.Drawing.Point(7, 68);
             this.removeBlankLinesAfterOpeningBraceCheckBox.Name = "removeBlankLinesAfterOpeningBraceCheckBox";
@@ -91,9 +91,9 @@
             this.removeBlankLinesAfterOpeningBraceCheckBox.Text = "Remove blank lines after opening brace";
             this.removeBlankLinesAfterOpeningBraceCheckBox.UseVisualStyleBackColor = true;
             this.removeBlankLinesAfterOpeningBraceCheckBox.CheckedChanged += new System.EventHandler(this.removeBlankLinesAfterOpeningBraceCheckBox_CheckedChanged);
-            //
+            // 
             // removeBlankLinesBeforeClosingBraceCheckBox
-            //
+            // 
             this.removeBlankLinesBeforeClosingBraceCheckBox.AutoSize = true;
             this.removeBlankLinesBeforeClosingBraceCheckBox.Location = new System.Drawing.Point(7, 92);
             this.removeBlankLinesBeforeClosingBraceCheckBox.Name = "removeBlankLinesBeforeClosingBraceCheckBox";
@@ -102,9 +102,9 @@
             this.removeBlankLinesBeforeClosingBraceCheckBox.Text = "Remove blank lines before closing brace";
             this.removeBlankLinesBeforeClosingBraceCheckBox.UseVisualStyleBackColor = true;
             this.removeBlankLinesBeforeClosingBraceCheckBox.CheckedChanged += new System.EventHandler(this.removeBlankLinesBeforeClosingBraceCheckBox_CheckedChanged);
-            //
+            // 
             // removeMultipleConsecutiveBlankLinesCheckBox
-            //
+            // 
             this.removeMultipleConsecutiveBlankLinesCheckBox.AutoSize = true;
             this.removeMultipleConsecutiveBlankLinesCheckBox.Location = new System.Drawing.Point(7, 116);
             this.removeMultipleConsecutiveBlankLinesCheckBox.Name = "removeMultipleConsecutiveBlankLinesCheckBox";
@@ -113,9 +113,9 @@
             this.removeMultipleConsecutiveBlankLinesCheckBox.Text = "Remove multiple consecutive blank lines";
             this.removeMultipleConsecutiveBlankLinesCheckBox.UseVisualStyleBackColor = true;
             this.removeMultipleConsecutiveBlankLinesCheckBox.CheckedChanged += new System.EventHandler(this.removeMultipleConsecutiveBlankLinesCheckBox_CheckedChanged);
-            //
+            // 
             // unusedGroupBox
-            //
+            // 
             this.unusedGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.unusedGroupBox.Controls.Add(this.removeUnusedUsingStatementsCheckBox);
@@ -125,9 +125,9 @@
             this.unusedGroupBox.TabIndex = 1;
             this.unusedGroupBox.TabStop = false;
             this.unusedGroupBox.Text = "Unused";
-            //
+            // 
             // removeUnusedUsingStatementsCheckBox
-            //
+            // 
             this.removeUnusedUsingStatementsCheckBox.AutoSize = true;
             this.removeUnusedUsingStatementsCheckBox.Location = new System.Drawing.Point(7, 20);
             this.removeUnusedUsingStatementsCheckBox.Name = "removeUnusedUsingStatementsCheckBox";
@@ -136,32 +136,32 @@
             this.removeUnusedUsingStatementsCheckBox.Text = "Remove unused using statements";
             this.removeUnusedUsingStatementsCheckBox.UseVisualStyleBackColor = true;
             this.removeUnusedUsingStatementsCheckBox.CheckedChanged += new System.EventHandler(this.removeUnusedUsingStatementsCheckBox_CheckedChanged);
-            //
+            // 
             // whitespaceGroupBox
-            //
+            // 
             this.whitespaceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.whitespaceGroupBox.Controls.Add(this.removeEndOfLineWhitespaceCheckBox);
-            this.whitespaceGroupBox.Location = new System.Drawing.Point(4, 204);
+            this.whitespaceGroupBox.Location = new System.Drawing.Point(3, 203);
             this.whitespaceGroupBox.Name = "whitespaceGroupBox";
-            this.whitespaceGroupBox.Size = new System.Drawing.Size(343, 45);
+            this.whitespaceGroupBox.Size = new System.Drawing.Size(344, 47);
             this.whitespaceGroupBox.TabIndex = 2;
             this.whitespaceGroupBox.TabStop = false;
             this.whitespaceGroupBox.Text = "Whitespace";
-            //
+            // 
             // removeEndOfLineWhitespaceCheckBox
-            //
+            // 
             this.removeEndOfLineWhitespaceCheckBox.AutoSize = true;
-            this.removeEndOfLineWhitespaceCheckBox.Location = new System.Drawing.Point(6, 20);
+            this.removeEndOfLineWhitespaceCheckBox.Location = new System.Drawing.Point(7, 20);
             this.removeEndOfLineWhitespaceCheckBox.Name = "removeEndOfLineWhitespaceCheckBox";
             this.removeEndOfLineWhitespaceCheckBox.Size = new System.Drawing.Size(175, 17);
             this.removeEndOfLineWhitespaceCheckBox.TabIndex = 0;
             this.removeEndOfLineWhitespaceCheckBox.Text = "Remove end of line whitespace";
             this.removeEndOfLineWhitespaceCheckBox.UseVisualStyleBackColor = true;
             this.removeEndOfLineWhitespaceCheckBox.CheckedChanged += new System.EventHandler(this.removeEndOfLineWhitespaceCheckBox_CheckedChanged);
-            //
+            // 
             // CleanupRemoveOptionsControl
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.blankLinesGroupBox);
@@ -176,6 +176,7 @@
             this.whitespaceGroupBox.ResumeLayout(false);
             this.whitespaceGroupBox.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion Component Designer generated code

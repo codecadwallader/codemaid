@@ -52,7 +52,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true)]
     [ProvideOptionPage(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true)]
     [ProvideOptionPage(typeof(CleanupUpdateOptionsPage), "CodeMaid", @"Cleanup\Update", 116, 124, true)]
-    [ProvideOptionPage(typeof(BuildStatusOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
+    [ProvideOptionPage(typeof(BuildProgressOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
     [ProvideOptionPage(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 30, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
@@ -114,7 +114,7 @@ namespace SteveCadwallader.CodeMaid
             get
             {
                 return _optionsWrapper ??
-                       (_optionsWrapper = new OptionsWrapper(GetOptionsPage<BuildStatusOptionsPage>(),
+                       (_optionsWrapper = new OptionsWrapper(GetOptionsPage<BuildProgressOptionsPage>(),
                                                              GetOptionsPage<CleanupFileTypesOptionsPage>(),
                                                              GetOptionsPage<CleanupGeneralOptionsPage>(),
                                                              GetOptionsPage<CleanupInsertOptionsPage>(),

@@ -83,7 +83,10 @@ namespace SteveCadwallader.CodeMaid.Commands
             {
                 buildProgress.NotifyBuildBegin(scope, action);
 
-                ShowBuildProgressToolWindowWithoutActivation();
+                if (Package.Options.BuildProgress.AutoShowBuildProgressOnBuildStart)
+                {
+                    ShowBuildProgressToolWindowWithoutActivation();
+                }
             }
         }
 
@@ -115,7 +118,10 @@ namespace SteveCadwallader.CodeMaid.Commands
             {
                 buildProgress.NotifyBuildDone(scope, action);
 
-                HideBuildProgressToolWindow();
+                if (Package.Options.BuildProgress.AutoHideBuildProgressOnBuildStop)
+                {
+                    HideBuildProgressToolWindow();
+                }
             }
         }
 

@@ -108,13 +108,13 @@
     <Compile Include="Helpers\CursorPositionRestorer.cs" />
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
-    <Compile Include="Options\BuildStatusOptionsControl.cs">
+    <Compile Include="Options\BuildProgressOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Options\BuildStatusOptionsControl.Designer.cs">
-      <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
+    <Compile Include="Options\BuildProgressOptionsControl.Designer.cs">
+      <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Options\BuildStatusOptionsPage.cs">
+    <Compile Include="Options\BuildProgressOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
@@ -213,8 +213,8 @@
     <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
       <DependentUpon>CleanupProgress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Options\BuildStatusOptionsControl.resx">
-      <DependentUpon>BuildStatusOptionsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Options\BuildProgressOptionsControl.resx">
+      <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupFileTypesOptionsControl.resx">
       <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>

@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsWrapper"/> class.
         /// </summary>
-        /// <param name="buildStatusOptionsPage">The build status options page.</param>
+        /// <param name="buildProgressOptionsPage">The build progress options page.</param>
         /// <param name="cleanupFileTypesOptionsPage">The cleanup file types options page.</param>
         /// <param name="cleanupGeneralOptionsPage">The cleanup general options page.</param>
         /// <param name="cleanupInsertOptionsPage">The cleanup insert options page.</param>
@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="cleanupUpdateOptionsPage">The cleanup update options page.</param>
         /// <param name="snooperOptionsPage">The snooper options page.</param>
         /// <param name="switchFileOptionsPage">The switch file options page.</param>
-        public OptionsWrapper(BuildStatusOptionsPage buildStatusOptionsPage,
+        public OptionsWrapper(BuildProgressOptionsPage buildProgressOptionsPage,
                               CleanupFileTypesOptionsPage cleanupFileTypesOptionsPage,
                               CleanupGeneralOptionsPage cleanupGeneralOptionsPage,
                               CleanupInsertOptionsPage cleanupInsertOptionsPage,
@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Options
                               SnooperOptionsPage snooperOptionsPage,
                               SwitchFileOptionsPage switchFileOptionsPage)
         {
-            BuildStatus = buildStatusOptionsPage;
+            BuildProgress = buildProgressOptionsPage;
             CleanupFileTypes = cleanupFileTypesOptionsPage;
             CleanupGeneral = cleanupGeneralOptionsPage;
             CleanupInsert = cleanupInsertOptionsPage;
@@ -55,9 +55,9 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Public Properties
 
         /// <summary>
-        /// Gets the build status options.
+        /// Gets the build progress options.
         /// </summary>
-        public BuildStatusOptionsPage BuildStatus { get; private set; }
+        public BuildProgressOptionsPage BuildProgress { get; private set; }
 
         /// <summary>
         /// Gets the cleanup file types options.

@@ -20,22 +20,23 @@ using Microsoft.VisualStudio.Shell;
 namespace SteveCadwallader.CodeMaid.Options
 {
     /// <summary>
-    /// An options page for build status options that are integrated into the IDE options window.
+    /// An options page for build progress options that are integrated into the IDE options window.
     /// </summary>
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [CLSCompliant(false), ComVisible(true)]
     [Guid("7e14280f-a7ec-4326-bb1e-57e0f5053920")]
-    public class BuildStatusOptionsPage : DialogPage
+    public class BuildProgressOptionsPage : DialogPage
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildStatusOptionsPage"/> class.
+        /// Initializes a new instance of the <see cref="BuildProgressOptionsPage"/> class.
         /// </summary>
-        public BuildStatusOptionsPage()
+        public BuildProgressOptionsPage()
         {
             // Set the default settings, will be trumped if there are stored values.
-            ExtendBuildStatusMessages = true;
+            AutoShowBuildProgressOnBuildStart = true;
+            AutoHideBuildProgressOnBuildStop = true;
         }
 
         #endregion Constructors
@@ -43,12 +44,20 @@ namespace SteveCadwallader.CodeMaid.Options
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the option to extend build status messages.
+        /// Gets or sets the option to automatically show the build progress tool window.
         /// </summary>
         [Category("CodeMaid")]
-        [DisplayName(@"Extend build status messages")]
-        [Description("When a build is running, extend the build status messages that appear in the status bar.")]
-        public bool ExtendBuildStatusMessages { get; set; }
+        [DisplayName(@"Automatically show build progress on start of build")]
+        [Description("When a build starts, automatically show the build progress tool window.")]
+        public bool AutoShowBuildProgressOnBuildStart { get; set; }
+
+        /// <summary>
+        /// Gets or sets the option to automatically hide the build progress tool window.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Automatically hide build progress on stop of build")]
+        [Description("When a build stops, automatically hide the build progress tool window.")]
+        public bool AutoHideBuildProgressOnBuildStop { get; set; }
 
         #endregion Public Properties
 
@@ -59,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         protected override IWin32Window Window
         {
-            get { return new BuildStatusOptionsControl(this); }
+            get { return new BuildProgressOptionsControl(this); }
         }
 
         #endregion Overrides
