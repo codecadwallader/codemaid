@@ -43,14 +43,14 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(12, 40);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(270, 23);
+            this.progressBar.Size = new System.Drawing.Size(370, 23);
             this.progressBar.TabIndex = 2;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.AutoSize = true;
-            this.cancelButton.Location = new System.Drawing.Point(207, 13);
+            this.cancelButton.Location = new System.Drawing.Point(307, 13);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -67,7 +67,7 @@
             this.fileCountLabel.Location = new System.Drawing.Point(12, 66);
             this.fileCountLabel.Margin = new System.Windows.Forms.Padding(0);
             this.fileCountLabel.Name = "fileCountLabel";
-            this.fileCountLabel.Size = new System.Drawing.Size(270, 14);
+            this.fileCountLabel.Size = new System.Drawing.Size(370, 14);
             this.fileCountLabel.TabIndex = 1;
             this.fileCountLabel.Text = "#x# of #y#";
             this.fileCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,7 +81,7 @@
             this.currentFileLabel.Location = new System.Drawing.Point(12, 9);
             this.currentFileLabel.Margin = new System.Windows.Forms.Padding(0);
             this.currentFileLabel.Name = "currentFileLabel";
-            this.currentFileLabel.Size = new System.Drawing.Size(270, 21);
+            this.currentFileLabel.Size = new System.Drawing.Size(370, 21);
             this.currentFileLabel.TabIndex = 1;
             this.currentFileLabel.Text = "Cleaning #filename#";
             // 
@@ -94,7 +94,7 @@
             this.buttonPanel.Location = new System.Drawing.Point(0, 94);
             this.buttonPanel.Margin = new System.Windows.Forms.Padding(0);
             this.buttonPanel.Name = "buttonPanel";
-            this.buttonPanel.Size = new System.Drawing.Size(294, 49);
+            this.buttonPanel.Size = new System.Drawing.Size(394, 49);
             this.buttonPanel.TabIndex = 5;
             // 
             // CleanupProgress
@@ -102,7 +102,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(294, 142);
+            this.ClientSize = new System.Drawing.Size(394, 142);
             this.Controls.Add(this.currentFileLabel);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.fileCountLabel);

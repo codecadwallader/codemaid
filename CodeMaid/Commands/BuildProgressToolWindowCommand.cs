@@ -130,6 +130,26 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region Private Methods
 
         /// <summary>
+        /// Docks the specified frame window if it is currently floating.
+        /// </summary>
+        /// <remarks>
+        /// Works in VS2010, does not appear to work in VS2008.
+        /// </remarks>
+        /// <param name="frame">The frame.</param>
+        private static void DockWindowIfFloating(IVsWindowFrame frame)
+        {
+            // Get the current tool window frame mode.
+            object currentFrameMode;
+            frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out currentFrameMode);
+
+            // If currently floating, switch to dock mode.
+            if ((VSFRAMEMODE)currentFrameMode == VSFRAMEMODE.VSFM_Float)
+            {
+                frame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Dock);
+            }
+        }
+
+        /// <summary>
         /// Shows the build progress tool window.
         /// </summary>
         private void ShowBuildProgressToolWindow()
@@ -138,6 +158,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             if (frame != null)
             {
                 frame.Show();
+                DockWindowIfFloating(frame);
             }
         }
 
@@ -150,6 +171,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             if (frame != null)
             {
                 frame.ShowNoActivate();
+                DockWindowIfFloating(frame);
             }
         }
 

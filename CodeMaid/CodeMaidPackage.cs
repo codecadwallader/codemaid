@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(BuildProgressOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
     [ProvideOptionPage(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
-    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 30, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
+    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 65, Width = 500, Style = VsDockStyle.Float, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SnooperToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
