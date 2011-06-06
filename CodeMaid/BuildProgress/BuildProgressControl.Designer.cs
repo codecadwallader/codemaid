@@ -30,20 +30,17 @@
         {
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.baseTLP = new System.Windows.Forms.TableLayoutPanel();
-            this.layoutPanel = new System.Windows.Forms.Panel();
-            this.currentProjectLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.baseTLP.SuspendLayout();
-            this.layoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
             // 
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar.Location = new System.Drawing.Point(0, 0);
+            this.progressBar.Location = new System.Drawing.Point(3, 3);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(428, 24);
-            this.progressBar.TabIndex = 1;
+            this.progressBar.TabIndex = 0;
             // 
             // baseTLP
             // 
@@ -52,7 +49,7 @@
             this.baseTLP.ColumnCount = 2;
             this.baseTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.baseTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.baseTLP.Controls.Add(this.layoutPanel, 0, 0);
+            this.baseTLP.Controls.Add(this.progressBar, 0, 0);
             this.baseTLP.Controls.Add(this.cancelButton, 1, 0);
             this.baseTLP.Location = new System.Drawing.Point(0, 0);
             this.baseTLP.Name = "baseTLP";
@@ -61,31 +58,10 @@
             this.baseTLP.Size = new System.Drawing.Size(500, 30);
             this.baseTLP.TabIndex = 0;
             // 
-            // layoutPanel
-            // 
-            this.layoutPanel.Controls.Add(this.currentProjectLabel);
-            this.layoutPanel.Controls.Add(this.progressBar);
-            this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutPanel.Location = new System.Drawing.Point(3, 3);
-            this.layoutPanel.Name = "layoutPanel";
-            this.layoutPanel.Size = new System.Drawing.Size(428, 24);
-            this.layoutPanel.TabIndex = 0;
-            // 
-            // currentProjectLabel
-            // 
-            this.currentProjectLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.currentProjectLabel.AutoEllipsis = true;
-            this.currentProjectLabel.AutoSize = true;
-            this.currentProjectLabel.BackColor = System.Drawing.Color.Transparent;
-            this.currentProjectLabel.Location = new System.Drawing.Point(214, 6);
-            this.currentProjectLabel.Name = "currentProjectLabel";
-            this.currentProjectLabel.Size = new System.Drawing.Size(0, 13);
-            this.currentProjectLabel.TabIndex = 0;
-            this.currentProjectLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // cancelButton
             // 
             this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cancelButton.Enabled = false;
             this.cancelButton.Image = global::SteveCadwallader.CodeMaid.VSPackage._503;
             this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cancelButton.Location = new System.Drawing.Point(437, 3);
@@ -107,8 +83,6 @@
             this.Name = "BuildProgressControl";
             this.Size = new System.Drawing.Size(500, 30);
             this.baseTLP.ResumeLayout(false);
-            this.layoutPanel.ResumeLayout(false);
-            this.layoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -117,8 +91,6 @@
 
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.TableLayoutPanel baseTLP;
-        private System.Windows.Forms.Panel layoutPanel;
-        private System.Windows.Forms.Label currentProjectLabel;
         private System.Windows.Forms.Button cancelButton;
     }
 }

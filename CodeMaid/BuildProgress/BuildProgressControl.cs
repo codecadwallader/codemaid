@@ -36,15 +36,6 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         #region Properties
 
         /// <summary>
-        /// Gets or sets the current project being built.
-        /// </summary>
-        public string CurrentProject
-        {
-            get { return currentProjectLabel.Text; }
-            set { currentProjectLabel.Text = value; }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating if the cancel button is active.
         /// </summary>
         public bool IsCancelEnabled

@@ -27,6 +27,12 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     [Guid("260978c3-582c-487d-ab12-c1fdde07c578")]
     public class BuildProgressToolWindow : ToolWindowPane
     {
+        #region Constants
+
+        private const string DEFAULT_CAPTION = "Build Progress";
+
+        #endregion Constants
+
         #region Constructors
 
         /// <summary>
@@ -36,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             : base(null)
         {
             // Set the tool window caption.
-            Caption = "Build Progress";
+            Caption = DEFAULT_CAPTION;
 
             // Set the tool window image from resources.
             BitmapResourceID = 502;
@@ -145,7 +151,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                 Control.IsProgressIndeterminate = true;
             }
 
-            Control.CurrentProject = string.Empty;
+            Caption = DEFAULT_CAPTION;
             Control.IsCancelEnabled = true;
             Control.ProgressPercentage = 0;
         }
@@ -160,30 +166,20 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         internal void NotifyBuildProjConfigBegin(string project, string projectConfig, string platform, string solutionConfig)
         {
             string projectName = ExtractProjectName(project);
-            Control.CurrentProject = projectName;
+            string buildString = GetBuildTypeString(BuildScope, BuildAction);
 
-            ++NumberOfProjectsBuilt;
-            Control.ProgressPercentage = ProgressPercentage;
-
-            if (Package.Options.BuildStatus.ExtendBuildStatusMessages)
+            string progressString = string.Empty;
+            if (NumberOfProjectsToBeBuilt > 0)
             {
-                string buildString = GetBuildTypeString(BuildScope, BuildAction);
+                string projectsString = NumberOfProjectsToBeBuilt.ToString();
+                string completeString = (++NumberOfProjectsBuilt).ToString().PadLeft(projectsString.Length);
 
-                string progressString = string.Empty;
-                if (NumberOfProjectsToBeBuilt > 0)
-                {
-                    string projectsString = NumberOfProjectsToBeBuilt.ToString();
-                    string completeString = NumberOfProjectsBuilt.ToString().PadLeft(projectsString.Length);
-
-                    progressString = string.Format("  {0} of {1}", completeString, projectsString);
-                }
-
-                string outputString = String.Format(
-                    "{0}{1}     '{2}'     ({3} {4})...",
-                    buildString, progressString, projectName, projectConfig, platform);
-
-                Package.IDE.StatusBar.Text = outputString;
+                progressString = string.Format(" {0} of {1}", completeString, projectsString);
             }
+
+            Caption = String.Format("{0}: {1}{2} \"{3}\"...",
+                                    DEFAULT_CAPTION, buildString, progressString, projectName);
+            Control.ProgressPercentage = ProgressPercentage;
         }
 
         /// <summary>
@@ -193,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// <param name="action">The action.</param>
         internal void NotifyBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            Control.CurrentProject = string.Empty;
+            Caption = DEFAULT_CAPTION;
             Control.IsCancelEnabled = false;
             Control.ProgressPercentage = 0;
         }
