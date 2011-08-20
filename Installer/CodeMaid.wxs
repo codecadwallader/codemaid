@@ -57,9 +57,9 @@
     </Property>
 
     <!-- Launch conditions -->
-    <Condition Message="An administrator must approve or install [ProductName]."> Privileged </Condition>
-    <Condition Message="[ProductName] requires at least one of Visual Studio 2005, Visual Studio 2008 or Visual Studio 2010 to be installed.">
-      DEVENV2005_EXE_PATH OR DEVENV2008_EXE_PATH OR DEVENV2010_EXE_PATH
+    <Condition Message="[ProductName] requires administrator privileges in order to be installed."> Privileged </Condition>
+    <Condition Message="[ProductName] requires either Visual Studio 2008 or Visual Studio 2010 to be installed.">
+      DEVENV2008_EXE_PATH OR DEVENV2010_EXE_PATH
     </Condition>
 
     <!-- Components -->
