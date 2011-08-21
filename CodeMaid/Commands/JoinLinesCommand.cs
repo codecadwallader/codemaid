@@ -64,9 +64,9 @@ namespace SteveCadwallader.CodeMaid.Commands
                         textSelection.EndOfLine(true);
                     }
 
-                    // Substitute all new lines (and optional following whitespace) with a single space.
+                    // Substitute all new lines (and optional surrounding whitespace) with a single space.
                     TextDocumentHelper.SubstituteAllStringMatches(textSelection,
-                        @"\n:b*",
+                        @":b*\n:b*",
                         @" ");
 
                     // Move the cursor forward and clear the selection.
