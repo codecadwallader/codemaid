@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarToolWindowBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarToolWindow);
 
             // Setup the associated classes.
-            _codeModelRetriever = new QuidnuncCodeModelRetriever(OnCodeModelReady);
+            _codeModelRetriever = new QuidnuncCodeModelRetriever(UpdateViewModelCodeItems);
             _viewModel = new QuidnuncViewModel();
             _viewHost = new QuidnuncViewHost(_viewModel);
         }
@@ -132,7 +132,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 if (_document != value)
                 {
                     _document = value;
-                    UpdateCodeModel();
+                    ConditionallyUpdateCodeModel();
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    UpdateCodeModel();
+                    ConditionallyUpdateCodeModel();
                 }
             }
         }
@@ -158,21 +158,24 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Private Methods
 
         /// <summary>
-        /// Updates the code model.
+        /// Conditionally updates the code model.
         /// </summary>
-        private void UpdateCodeModel()
+        private void ConditionallyUpdateCodeModel()
         {
             if (IsVisible && Document != null)
             {
+                // Clear any existing code items while processing.
+                UpdateViewModelCodeItems(null);
+
                 _codeModelRetriever.RetrieveCodeModelAsync(Document);
             }
         }
 
         /// <summary>
-        /// Called when a code model is ready.
+        /// Updates the view model's code items collection.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void OnCodeModelReady(IEnumerable<CodeItem> codeItems)
+        private void UpdateViewModelCodeItems(IEnumerable<CodeItem> codeItems)
         {
             _viewModel.CodeItems = codeItems;
         }
