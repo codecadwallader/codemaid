@@ -1,6 +1,6 @@
-﻿namespace SteveCadwallader.CodeMaid.Snooper
+﻿namespace SteveCadwallader.CodeMaid.Quidnunc
 {
-    partial class SnooperControl
+    partial class QuidnuncControl
     {
         /// <summary>
         /// Required designer variable.
@@ -46,14 +46,14 @@
             this.treeView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.treeView_KeyPress);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             //
-            // SnooperControl
+            // QuidnuncControl
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.treeView);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "SnooperControl";
+            this.Name = "QuidnuncControl";
             this.ResumeLayout(false);
         }
 

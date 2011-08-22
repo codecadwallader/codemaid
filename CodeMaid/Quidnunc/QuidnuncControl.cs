@@ -19,19 +19,19 @@ using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Snooper
+namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// User control for snooper tool window.
+    /// The top level user control hosted within the quidnunc tool window.
     /// </summary>
-    public partial class SnooperControl : UserControl
+    public partial class QuidnuncControl : UserControl
     {
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperControl"/> class.
+        /// Initializes a new instance of the <see cref="QuidnuncControl"/> class.
         /// </summary>
-        public SnooperControl()
+        public QuidnuncControl()
         {
             InitializeComponent();
 
@@ -61,16 +61,16 @@ namespace SteveCadwallader.CodeMaid.Snooper
         }
 
         /// <summary>
-        /// Gets or set a flag tracking if the snooper is visible.
+        /// Gets or set a flag tracking if this control is visible.
         /// </summary>
-        public bool IsSnooperVisible
+        public bool IsVisible
         {
-            get { return _isSnooperVisible; }
+            get { return _isVisible; }
             set
             {
-                if (_isSnooperVisible != value)
+                if (_isVisible != value)
                 {
-                    _isSnooperVisible = value;
+                    _isVisible = value;
 
                     BuildTreeView();
                 }
@@ -118,7 +118,7 @@ namespace SteveCadwallader.CodeMaid.Snooper
         /// </summary>
         private void BuildTreeView()
         {
-            if (_isSnooperVisible && treeView.Nodes.Count == 0)
+            if (_isVisible && treeView.Nodes.Count == 0)
             {
                 treeView.BeginUpdate();
 
@@ -518,58 +518,58 @@ namespace SteveCadwallader.CodeMaid.Snooper
                                      };
 
             imageList.Images.Add(new Bitmap(16, 16));
-            imageList.Images.Add(SnooperResources.Region);
-            imageList.Images.Add(SnooperResources.Namespace);
-            imageList.Images.Add(SnooperResources.Class);
-            imageList.Images.Add(SnooperResources.ClassFriend);
-            imageList.Images.Add(SnooperResources.ClassInternal);
-            imageList.Images.Add(SnooperResources.ClassProtected);
-            imageList.Images.Add(SnooperResources.ClassPrivate);
-            imageList.Images.Add(SnooperResources.Interface);
-            imageList.Images.Add(SnooperResources.InterfaceFriend);
-            imageList.Images.Add(SnooperResources.InterfaceInternal);
-            imageList.Images.Add(SnooperResources.InterfaceProtected);
-            imageList.Images.Add(SnooperResources.InterfacePrivate);
-            imageList.Images.Add(SnooperResources.Struct);
-            imageList.Images.Add(SnooperResources.StructFriend);
-            imageList.Images.Add(SnooperResources.StructInternal);
-            imageList.Images.Add(SnooperResources.StructProtected);
-            imageList.Images.Add(SnooperResources.StructPrivate);
-            imageList.Images.Add(SnooperResources.Enum);
-            imageList.Images.Add(SnooperResources.EnumFriend);
-            imageList.Images.Add(SnooperResources.EnumInternal);
-            imageList.Images.Add(SnooperResources.EnumProtected);
-            imageList.Images.Add(SnooperResources.EnumPrivate);
-            imageList.Images.Add(SnooperResources.Delegate);
-            imageList.Images.Add(SnooperResources.DelegateFriend);
-            imageList.Images.Add(SnooperResources.DelegateInternal);
-            imageList.Images.Add(SnooperResources.DelegateProtected);
-            imageList.Images.Add(SnooperResources.DelegatePrivate);
-            imageList.Images.Add(SnooperResources.Event);
-            imageList.Images.Add(SnooperResources.EventFriend);
-            imageList.Images.Add(SnooperResources.EventInternal);
-            imageList.Images.Add(SnooperResources.EventProtected);
-            imageList.Images.Add(SnooperResources.EventPrivate);
-            imageList.Images.Add(SnooperResources.Method);
-            imageList.Images.Add(SnooperResources.MethodFriend);
-            imageList.Images.Add(SnooperResources.MethodInternal);
-            imageList.Images.Add(SnooperResources.MethodProtected);
-            imageList.Images.Add(SnooperResources.MethodPrivate);
-            imageList.Images.Add(SnooperResources.Property);
-            imageList.Images.Add(SnooperResources.PropertyFriend);
-            imageList.Images.Add(SnooperResources.PropertyInternal);
-            imageList.Images.Add(SnooperResources.PropertyProtected);
-            imageList.Images.Add(SnooperResources.PropertyPrivate);
-            imageList.Images.Add(SnooperResources.Variable);
-            imageList.Images.Add(SnooperResources.VariableFriend);
-            imageList.Images.Add(SnooperResources.VariableInternal);
-            imageList.Images.Add(SnooperResources.VariableProtected);
-            imageList.Images.Add(SnooperResources.VariablePrivate);
-            imageList.Images.Add(SnooperResources.Const);
-            imageList.Images.Add(SnooperResources.ConstFriend);
-            imageList.Images.Add(SnooperResources.ConstInternal);
-            imageList.Images.Add(SnooperResources.ConstProtected);
-            imageList.Images.Add(SnooperResources.ConstPrivate);
+            imageList.Images.Add(QuidnuncResources.Region);
+            imageList.Images.Add(QuidnuncResources.Namespace);
+            imageList.Images.Add(QuidnuncResources.Class);
+            imageList.Images.Add(QuidnuncResources.ClassFriend);
+            imageList.Images.Add(QuidnuncResources.ClassInternal);
+            imageList.Images.Add(QuidnuncResources.ClassProtected);
+            imageList.Images.Add(QuidnuncResources.ClassPrivate);
+            imageList.Images.Add(QuidnuncResources.Interface);
+            imageList.Images.Add(QuidnuncResources.InterfaceFriend);
+            imageList.Images.Add(QuidnuncResources.InterfaceInternal);
+            imageList.Images.Add(QuidnuncResources.InterfaceProtected);
+            imageList.Images.Add(QuidnuncResources.InterfacePrivate);
+            imageList.Images.Add(QuidnuncResources.Struct);
+            imageList.Images.Add(QuidnuncResources.StructFriend);
+            imageList.Images.Add(QuidnuncResources.StructInternal);
+            imageList.Images.Add(QuidnuncResources.StructProtected);
+            imageList.Images.Add(QuidnuncResources.StructPrivate);
+            imageList.Images.Add(QuidnuncResources.Enum);
+            imageList.Images.Add(QuidnuncResources.EnumFriend);
+            imageList.Images.Add(QuidnuncResources.EnumInternal);
+            imageList.Images.Add(QuidnuncResources.EnumProtected);
+            imageList.Images.Add(QuidnuncResources.EnumPrivate);
+            imageList.Images.Add(QuidnuncResources.Delegate);
+            imageList.Images.Add(QuidnuncResources.DelegateFriend);
+            imageList.Images.Add(QuidnuncResources.DelegateInternal);
+            imageList.Images.Add(QuidnuncResources.DelegateProtected);
+            imageList.Images.Add(QuidnuncResources.DelegatePrivate);
+            imageList.Images.Add(QuidnuncResources.Event);
+            imageList.Images.Add(QuidnuncResources.EventFriend);
+            imageList.Images.Add(QuidnuncResources.EventInternal);
+            imageList.Images.Add(QuidnuncResources.EventProtected);
+            imageList.Images.Add(QuidnuncResources.EventPrivate);
+            imageList.Images.Add(QuidnuncResources.Method);
+            imageList.Images.Add(QuidnuncResources.MethodFriend);
+            imageList.Images.Add(QuidnuncResources.MethodInternal);
+            imageList.Images.Add(QuidnuncResources.MethodProtected);
+            imageList.Images.Add(QuidnuncResources.MethodPrivate);
+            imageList.Images.Add(QuidnuncResources.Property);
+            imageList.Images.Add(QuidnuncResources.PropertyFriend);
+            imageList.Images.Add(QuidnuncResources.PropertyInternal);
+            imageList.Images.Add(QuidnuncResources.PropertyProtected);
+            imageList.Images.Add(QuidnuncResources.PropertyPrivate);
+            imageList.Images.Add(QuidnuncResources.Variable);
+            imageList.Images.Add(QuidnuncResources.VariableFriend);
+            imageList.Images.Add(QuidnuncResources.VariableInternal);
+            imageList.Images.Add(QuidnuncResources.VariableProtected);
+            imageList.Images.Add(QuidnuncResources.VariablePrivate);
+            imageList.Images.Add(QuidnuncResources.Const);
+            imageList.Images.Add(QuidnuncResources.ConstFriend);
+            imageList.Images.Add(QuidnuncResources.ConstInternal);
+            imageList.Images.Add(QuidnuncResources.ConstProtected);
+            imageList.Images.Add(QuidnuncResources.ConstPrivate);
 
             return imageList;
         }
@@ -618,14 +618,14 @@ namespace SteveCadwallader.CodeMaid.Snooper
         #region Private Fields
 
         /// <summary>
-        /// The document currently tracked by the snooper.
+        /// The document currently tracked by the control.
         /// </summary>
         private Document _document;
 
         /// <summary>
-        /// A flag tracking if the snooper is visible.
+        /// A flag tracking if the control is visible.
         /// </summary>
-        private bool _isSnooperVisible;
+        private bool _isVisible;
 
         #endregion Private Fields
     }

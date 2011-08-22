@@ -18,19 +18,19 @@ using Microsoft.VisualStudio.Shell.Interop;
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for launching the snooper tool window.
+    /// A command that provides for launching the quidnunc tool window.
     /// </summary>
-    internal class SnooperToolWindowCommand : BaseCommand
+    internal class QuidnuncToolWindowCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperToolWindowCommand"/> class.
+        /// Initializes a new instance of the <see cref="QuidnuncToolWindowCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal SnooperToolWindowCommand(CodeMaidPackage package)
+        internal QuidnuncToolWindowCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSnooperToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSnooperToolWindow))
+                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncToolWindow))
         {
         }
 
@@ -43,13 +43,13 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var snooper = Package.Snooper;
-            if (snooper != null)
+            var quidnunc = Package.Quidnunc;
+            if (quidnunc != null)
             {
-                var snooperFrame = snooper.Frame as IVsWindowFrame;
-                if (snooperFrame != null)
+                var quidnuncFrame = quidnunc.Frame as IVsWindowFrame;
+                if (quidnuncFrame != null)
                 {
-                    snooperFrame.Show();
+                    quidnuncFrame.Show();
                 }
             }
         }
@@ -64,23 +64,23 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <param name="document">The document that was saved.</param>
         internal void OnAfterDocumentSave(Document document)
         {
-            var snooper = Package.Snooper;
-            if (snooper != null)
+            var quidnunc = Package.Quidnunc;
+            if (quidnunc != null)
             {
-                snooper.NotifyDocumentSave(document);
+                quidnunc.NotifyDocumentSave(document);
             }
         }
 
         /// <summary>
-        /// Called when a window change has occurred, potentially to be used by the snooper tool window.
+        /// Called when a window change has occurred, potentially to be used by the quidnunc tool window.
         /// </summary>
         /// <param name="document">The document that got focus, may be null.</param>
         internal void OnWindowChange(Document document)
         {
-            var snooper = Package.Snooper;
-            if (snooper != null)
+            var quidnunc = Package.Quidnunc;
+            if (quidnunc != null)
             {
-                snooper.NotifyActiveDocument(document);
+                quidnunc.NotifyActiveDocument(document);
             }
         }
 

@@ -86,7 +86,7 @@
     <Compile Include="Commands\JoinLinesCommand.cs" />
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
-    <Compile Include="Commands\SnooperToolWindowCommand.cs" />
+    <Compile Include="Commands\QuidnuncToolWindowCommand.cs" />
     <Compile Include="Dialogs\CleanupProgress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,17 +185,17 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
-    <Compile Include="Snooper\SnooperToolWindow.cs" />
-    <Compile Include="Snooper\SnooperResources.Designer.cs">
+    <Compile Include="Quidnunc\QuidnuncToolWindow.cs" />
+    <Compile Include="Quidnunc\QuidnuncResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnooperResources.resx</DependentUpon>
+      <DependentUpon>QuidnuncResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Snooper\SnooperControl.cs">
+    <Compile Include="Quidnunc\QuidnuncControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Snooper\SnooperControl.Designer.cs">
-      <DependentUpon>SnooperControl.cs</DependentUpon>
+    <Compile Include="Quidnunc\QuidnuncControl.Designer.cs">
+      <DependentUpon>QuidnuncControl.cs</DependentUpon>
     </Compile>
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -237,13 +237,13 @@
     <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
       <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Snooper\SnooperResources.resx">
+    <EmbeddedResource Include="Quidnunc\QuidnuncResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SnooperResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>QuidnuncResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Snooper\SnooperControl.resx">
-      <DependentUpon>SnooperControl.cs</DependentUpon>
+    <EmbeddedResource Include="Quidnunc\QuidnuncControl.resx">
+      <DependentUpon>QuidnuncControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
@@ -271,7 +271,7 @@
     <Content Include="Resources\find.bmp" />
     <Content Include="Resources\joinlines.bmp" />
     <Content Include="Resources\readonly.bmp" />
-    <Content Include="Resources\snooper.bmp" />
+    <Content Include="Resources\quidnunc.bmp" />
     <Content Include="Resources\switch.bmp" />
   </ItemGroup>
   <PropertyGroup>

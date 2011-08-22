@@ -19,30 +19,24 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace SteveCadwallader.CodeMaid.Snooper
+namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// This class implements the tool window exposed by this package and hosts a user control.
-    ///
-    /// In Visual Studio tool windows are composed of a frame (implemented by the shell) and a pane,
-    /// usually implemented by the package implementer.
-    ///
-    /// This class derives from the ToolWindowPane class provided from the MPF in order to use its
-    /// implementation of the IVsUIElementPane interface.
+    /// The quidnunc tool window pane.
     /// </summary>
     [Guid("75d09b86-471e-4b30-8720-362d13ad0a45")]
-    public class SnooperToolWindow : ToolWindowPane, IVsWindowFrameNotify3
+    public class QuidnuncToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="QuidnuncToolWindow"/> class.
         /// </summary>
-        public SnooperToolWindow() :
+        public QuidnuncToolWindow() :
             base(null)
         {
             // Set the tool window caption.
-            Caption = "CodeMaid Snooper";
+            Caption = "CodeMaid Quidnunc";
 
             // Set the tool window image from resources.
             BitmapResourceID = 501;
@@ -52,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Snooper
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarToolWindowBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarToolWindow);
 
             // Set the tool window content.
-            Control = new SnooperControl();
+            Control = new QuidnuncControl();
         }
 
         #endregion Constructors
@@ -116,7 +110,7 @@ namespace SteveCadwallader.CodeMaid.Snooper
         /// <summary>
         /// Gets or sets the control hosted within this tool window.
         /// </summary>
-        private SnooperControl Control { get; set; }
+        private QuidnuncControl Control { get; set; }
 
         #endregion Private Properties
 
@@ -143,11 +137,11 @@ namespace SteveCadwallader.CodeMaid.Snooper
             switch ((__FRAMESHOW)fShow)
             {
                 case __FRAMESHOW.FRAMESHOW_WinShown:
-                    Control.IsSnooperVisible = true;
+                    Control.IsVisible = true;
                     break;
 
                 case __FRAMESHOW.FRAMESHOW_WinHidden:
-                    Control.IsSnooperVisible = false;
+                    Control.IsVisible = false;
                     break;
             }
 

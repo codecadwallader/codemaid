@@ -27,7 +27,7 @@ using SteveCadwallader.CodeMaid.BuildProgress;
 using SteveCadwallader.CodeMaid.Commands;
 using SteveCadwallader.CodeMaid.Events;
 using SteveCadwallader.CodeMaid.Options;
-using SteveCadwallader.CodeMaid.Snooper;
+using SteveCadwallader.CodeMaid.Quidnunc;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(SnooperOptionsPage), "CodeMaid", "Snooper", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 65, Width = 500, Style = VsDockStyle.Float, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
-    [ProvideToolWindow(typeof(SnooperToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
+    [ProvideToolWindow(typeof(QuidnuncToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
     {
@@ -126,17 +126,17 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the snooper tool window.
+        /// Gets the quidnunc tool window.
         /// </summary>
         /// <remarks>
-        /// Finds the first instance of the snooper tool window, creating it if necessary.
+        /// Finds the first instance of the quidnunc tool window, creating it if necessary.
         /// </remarks>
-        public SnooperToolWindow Snooper
+        public QuidnuncToolWindow Quidnunc
         {
             get
             {
-                return _snooper ??
-                    (_snooper = (FindToolWindow(typeof(SnooperToolWindow), 0, true) as SnooperToolWindow));
+                return _quidnunc ??
+                    (_quidnunc = (FindToolWindow(typeof(QuidnuncToolWindow), 0, true) as QuidnuncToolWindow));
             }
         }
 
@@ -289,7 +289,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
-                _commands.Add(new SnooperToolWindowCommand(this));
+                _commands.Add(new QuidnuncToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
 
                 // Add all commands to the menu command service.
@@ -328,7 +328,7 @@ namespace SteveCadwallader.CodeMaid
             {
                 var buildProgressToolWindowCommand = _commands.OfType<BuildProgressToolWindowCommand>().First();
                 var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
-                var snooperToolWindowCommand = _commands.OfType<SnooperToolWindowCommand>().First();
+                var quidnuncToolWindowCommand = _commands.OfType<QuidnuncToolWindowCommand>().First();
 
                 BuildStatusEventListener = new BuildStatusEventListener(this);
                 BuildStatusEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
@@ -337,10 +337,10 @@ namespace SteveCadwallader.CodeMaid
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
-                RunningDocumentTableEventListener.AfterSave += snooperToolWindowCommand.OnAfterDocumentSave;
+                RunningDocumentTableEventListener.AfterSave += quidnuncToolWindowCommand.OnAfterDocumentSave;
 
                 WindowEventListener = new WindowEventListener(this);
-                WindowEventListener.OnWindowChange += snooperToolWindowCommand.OnWindowChange;
+                WindowEventListener.OnWindowChange += quidnuncToolWindowCommand.OnWindowChange;
             }
         }
 
@@ -403,9 +403,9 @@ namespace SteveCadwallader.CodeMaid
         private OptionsWrapper _optionsWrapper;
 
         /// <summary>
-        /// The snooper tool window.
+        /// The quidnunc tool window.
         /// </summary>
-        private SnooperToolWindow _snooper;
+        private QuidnuncToolWindow _quidnunc;
 
         #endregion Private Fields
     }

@@ -251,6 +251,14 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" priority="0x0100" type="Button">
+        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidQuidnuncToolWindow</CommandName>
+          <ButtonText>&amp;Quidnunc</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
         <Icon guid="GuidImageReadOnly" id="IconReadOnly" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -261,14 +269,6 @@
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSnooper" id="IconSnooper" />
-        <Strings>
-          <CommandName>CmdIDCodeMaidSnooperToolWindow</CommandName>
-          <ButtonText>&amp;Snooper</ButtonText>
-        </Strings>
-      </Button>
-
       <Button guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSwitch" id="IconSwitch" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -276,7 +276,7 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <CommandName>CmdIDCodeMaidSwitchFile</CommandName>
-          <ButtonText>S&amp;witch File</ButtonText>
+          <ButtonText>&amp;Switch File</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -295,8 +295,8 @@
       <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
       <Bitmap guid="GuidImageJoinLines" href="Resources\joinlines.bmp" usedList="IconJoinLines" />
+      <Bitmap guid="GuidImageQuidnunc" href="Resources\quidnunc.bmp" usedList="IconQuidnunc" />
       <Bitmap guid="GuidImageReadOnly" href="Resources\readonly.bmp" usedList="IconReadOnly" />
-      <Bitmap guid="GuidImageSnooper" href="Resources\snooper.bmp" usedList="IconSnooper" />
       <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
     </Bitmaps>
   </Commands>
@@ -451,15 +451,15 @@
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" priority="0x0400">
-      <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0400">
@@ -507,11 +507,11 @@
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
 
+    <KeyBinding guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
+
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
-
-    <KeyBinding guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandSnooperToolWindow" id="CmdIDCodeMaidSnooperToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
 
     <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" />
@@ -677,12 +677,12 @@
       <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2000" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
-      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2100" />
+    <GuidSymbol name="GuidCodeMaidCommandQuidnuncToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
+      <IDSymbol name="CmdIDCodeMaidQuidnuncToolWindow" value="0x2100" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSnooperToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSnooperToolWindow" value="0x2200" />
+    <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
+      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2200" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
@@ -711,11 +711,11 @@
     <GuidSymbol name="GuidImageJoinLines" value="{e6e6dcd8-accc-4552-890b-a68ef0cf7279}">
       <IDSymbol name="IconJoinLines" value="1" />
     </GuidSymbol>
+    <GuidSymbol name="GuidImageQuidnunc" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
+      <IDSymbol name="IconQuidnunc" value="1" />
+    </GuidSymbol>
     <GuidSymbol name="GuidImageReadOnly" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
       <IDSymbol name="IconReadOnly" value="1" />
-    </GuidSymbol>
-    <GuidSymbol name="GuidImageSnooper" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
-      <IDSymbol name="IconSnooper" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageSwitch" value="{f86e7cf5-34e4-4f45-a8c3-9528b6e49a12}">
       <IDSymbol name="IconSwitch" value="1" />
