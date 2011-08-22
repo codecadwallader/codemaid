@@ -48,6 +48,12 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.9.0" />
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -57,6 +63,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutForm.cs">
@@ -192,11 +207,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuidnuncResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncView.cs">
+    <Compile Include="Quidnunc\QuidnuncViewHost.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncView.Designer.cs">
-      <DependentUpon>QuidnuncView.cs</DependentUpon>
+    <Compile Include="Quidnunc\QuidnuncViewHost.Designer.cs">
+      <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
     <Compile Include="VSPackage.Designer.cs">
@@ -244,8 +259,8 @@
       <LastGenOutput>QuidnuncResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quidnunc\QuidnuncView.resx">
-      <DependentUpon>QuidnuncView.cs</DependentUpon>
+    <EmbeddedResource Include="Quidnunc\QuidnuncViewHost.resx">
+      <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>

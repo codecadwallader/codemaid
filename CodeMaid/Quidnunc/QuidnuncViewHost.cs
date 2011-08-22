@@ -18,15 +18,15 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     /// <summary>
     /// The top level view hosted within the <see cref="QuidnuncToolWindow"/>.
     /// </summary>
-    internal partial class QuidnuncView : UserControl
+    internal partial class QuidnuncViewHost : UserControl
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncView"/> class.
+        /// Initializes a new instance of the <see cref="QuidnuncViewHost"/> class.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        internal QuidnuncView(QuidnuncViewModel viewModel)
+        internal QuidnuncViewHost(QuidnuncViewModel viewModel)
         {
             InitializeComponent();
 

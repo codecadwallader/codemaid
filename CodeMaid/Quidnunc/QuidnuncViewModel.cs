@@ -18,7 +18,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// The view model representing the state and commands available to the <see cref="QuidnuncView"/>.
+    /// The view model representing the state and commands available to the <see cref="QuidnuncViewHost"/>.
     /// </summary>
     internal class QuidnuncViewModel : INotifyPropertyChanged
     {

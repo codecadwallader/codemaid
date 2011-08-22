@@ -32,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Fields
 
         private readonly QuidnuncCodeModelRetriever _codeModelRetriever;
-        private readonly QuidnuncView _view;
+        private readonly QuidnuncViewHost _viewHost;
         private readonly QuidnuncViewModel _viewModel;
 
         private Document _document;
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             // Setup the associated classes.
             _codeModelRetriever = new QuidnuncCodeModelRetriever(OnCodeModelReady);
             _viewModel = new QuidnuncViewModel();
-            _view = new QuidnuncView(_viewModel);
+            _viewHost = new QuidnuncViewHost(_viewModel);
         }
 
         #endregion Constructors
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         public override IWin32Window Window
         {
-            get { return _view; }
+            get { return _viewHost; }
         }
 
         #endregion Public Properties
