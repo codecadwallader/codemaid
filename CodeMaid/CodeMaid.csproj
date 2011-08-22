@@ -116,7 +116,6 @@
     <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CodeCleanupHelper.cs" />
-    <Compile Include="Helpers\CodeItem.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
@@ -207,6 +206,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuidnuncResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Quidnunc\QuidnuncView.xaml.cs">
+      <DependentUpon>QuidnuncView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Quidnunc\QuidnuncViewHost.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,6 +216,7 @@
       <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
+    <Compile Include="Structures\CodeItem.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -290,6 +293,12 @@
     <Content Include="Resources\readonly.bmp" />
     <Content Include="Resources\quidnunc.bmp" />
     <Content Include="Resources\switch.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Quidnunc\QuidnuncView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <!--

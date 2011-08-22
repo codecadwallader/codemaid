@@ -19,7 +19,7 @@ using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Structures;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {

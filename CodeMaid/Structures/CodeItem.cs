@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -11,36 +11,36 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Structures
 {
     /// <summary>
-    /// A representation of a code item.  Intended as a superset of a CodeElement
-    /// to also include code regions.
+    /// A representation of a code item.
+    /// Intended as a superset of a CodeElement to also include code regions.
     /// </summary>
-    internal class CodeItem
+    public class CodeItem
     {
-        #region Internal Properties
+        #region Properties
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        internal string Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the start line.
         /// </summary>
-        internal int StartLine { get; set; }
+        public int StartLine { get; set; }
 
         /// <summary>
         /// Gets or sets the end line.
         /// </summary>
-        internal int EndLine { get; set; }
+        public int EndLine { get; set; }
 
         /// <summary>
         /// Gets or sets the underlying object.
         /// </summary>
-        internal object Object { get; set; }
+        public object Object { get; set; }
 
-        #endregion Internal Properties
+        #endregion Properties
     }
 }

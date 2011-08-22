@@ -13,14 +13,14 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Structures;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
     /// The view model representing the state and commands available to the <see cref="QuidnuncViewHost"/>.
     /// </summary>
-    internal class QuidnuncViewModel : INotifyPropertyChanged
+    public class QuidnuncViewModel : INotifyPropertyChanged
     {
         #region Fields
 
@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the code items.
         /// </summary>
-        internal IEnumerable<CodeItem> CodeItems
+        public IEnumerable<CodeItem> CodeItems
         {
             get { return _codeItems; }
             set

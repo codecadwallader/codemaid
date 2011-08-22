@@ -11,31 +11,19 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-using System.Windows.Forms;
-
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// The top level view hosted within the <see cref="QuidnuncToolWindow"/>.
+    /// The WPF based control/view for the <see cref="QuidnuncToolWindow"/>.
     /// </summary>
-    internal partial class QuidnuncViewHost : UserControl
+    public partial class QuidnuncView
     {
-        #region Constructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncViewHost"/> class.
+        /// Initializes a new instance of the <see cref="QuidnuncView"/> class.
         /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        internal QuidnuncViewHost(QuidnuncViewModel viewModel)
+        public QuidnuncView()
         {
             InitializeComponent();
-
-            elementHost.Child = new QuidnuncView
-                                    {
-                                        DataContext = viewModel
-                                    };
         }
-
-        #endregion Constructors
     }
 }

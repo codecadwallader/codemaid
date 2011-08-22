@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Structures;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
