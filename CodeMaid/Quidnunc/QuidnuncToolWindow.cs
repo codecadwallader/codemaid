@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -18,6 +19,7 @@ using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
@@ -27,6 +29,17 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     [Guid("75d09b86-471e-4b30-8720-362d13ad0a45")]
     public class QuidnuncToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
+        #region Fields
+
+        private readonly QuidnuncCodeModelRetriever _codeModelRetriever;
+        private readonly QuidnuncView _view;
+        private readonly QuidnuncViewModel _viewModel;
+
+        private Document _document;
+        private bool _isVisible;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -45,8 +58,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             // Create the toolbar for the tool window.
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarToolWindowBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarToolWindow);
 
-            // Set the tool window content.
-            Control = new QuidnuncControl();
+            // Setup the associated classes.
+            _codeModelRetriever = new QuidnuncCodeModelRetriever(OnCodeModelReady);
+            _viewModel = new QuidnuncViewModel();
+            _view = new QuidnuncView(_viewModel);
         }
 
         #endregion Constructors
@@ -58,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         public override IWin32Window Window
         {
-            get { return Control; }
+            get { return _view; }
         }
 
         #endregion Public Properties
@@ -71,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <param name="document">The active document.</param>
         public void NotifyActiveDocument(Document document)
         {
-            Control.Document = document;
+            Document = document;
         }
 
         /// <summary>
@@ -80,7 +95,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
-            Control.ForceRefresh();
+            // Force a refresh by resetting the last document.
+            Document = null;
+            Document = document;
         }
 
         /// <summary>
@@ -95,9 +112,6 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         {
             base.OnToolWindowCreated();
 
-            // Pass the package down to the control.
-            Control.Package = Package as CodeMaidPackage;
-
             // Register for events to this window.
             ((IVsWindowFrame)Frame).SetProperty(
                 (int)__VSFPROPID.VSFPROPID_ViewHelper, this);
@@ -108,11 +122,62 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the control hosted within this tool window.
+        /// Gets or sets the current document.
         /// </summary>
-        private QuidnuncControl Control { get; set; }
+        private Document Document
+        {
+            get { return _document; }
+            set
+            {
+                if (_document != value)
+                {
+                    _document = value;
+                    UpdateCodeModel();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if this tool window is visible.
+        /// </summary>
+        private bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                if (_isVisible != value)
+                {
+                    _isVisible = value;
+                    UpdateCodeModel();
+                }
+            }
+        }
 
         #endregion Private Properties
+
+        #region Private Methods
+
+        /// <summary>
+        /// Updates the code model.
+        /// </summary>
+        private void UpdateCodeModel()
+        {
+            if (IsVisible && Document != null)
+            {
+                _codeModelRetriever.RetrieveCodeModelAsync(Document);
+            }
+        }
+
+        /// <summary>
+        /// Called when a code model is ready.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private void OnCodeModelReady(IEnumerable<CodeItem> codeItems)
+        {
+            _viewModel.CodeItems = codeItems;
+        }
+
+        #endregion Private Methods
 
         #region IVsWindowFrameNotify3 Members
 
@@ -137,11 +202,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             switch ((__FRAMESHOW)fShow)
             {
                 case __FRAMESHOW.FRAMESHOW_WinShown:
-                    Control.IsVisible = true;
+                    IsVisible = true;
                     break;
 
                 case __FRAMESHOW.FRAMESHOW_WinHidden:
-                    Control.IsVisible = false;
+                    IsVisible = false;
                     break;
             }
 

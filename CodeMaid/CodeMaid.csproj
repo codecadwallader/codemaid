@@ -185,18 +185,20 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
+    <Compile Include="Quidnunc\QuidnuncCodeModelRetriever.cs" />
     <Compile Include="Quidnunc\QuidnuncToolWindow.cs" />
     <Compile Include="Quidnunc\QuidnuncResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuidnuncResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncControl.cs">
+    <Compile Include="Quidnunc\QuidnuncView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncControl.Designer.cs">
-      <DependentUpon>QuidnuncControl.cs</DependentUpon>
+    <Compile Include="Quidnunc\QuidnuncView.Designer.cs">
+      <DependentUpon>QuidnuncView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -242,8 +244,8 @@
       <LastGenOutput>QuidnuncResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quidnunc\QuidnuncControl.resx">
-      <DependentUpon>QuidnuncControl.cs</DependentUpon>
+    <EmbeddedResource Include="Quidnunc\QuidnuncView.resx">
+      <DependentUpon>QuidnuncView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
