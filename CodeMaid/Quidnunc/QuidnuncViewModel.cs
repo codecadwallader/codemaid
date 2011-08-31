@@ -13,6 +13,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using SteveCadwallader.CodeMaid.Structures;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -24,24 +25,62 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     {
         #region Fields
 
-        private IEnumerable<CodeItem> _codeItems;
+        private QuidnuncMode _mode;
+        private IEnumerable<CodeItem> _organizedCodeItems;
+        private IEnumerable<CodeItem> _rawCodeItems;
 
         #endregion Fields
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets the code items.
+        /// Gets or sets the current mode.
         /// </summary>
-        public IEnumerable<CodeItem> CodeItems
+        public QuidnuncMode Mode
         {
-            get { return _codeItems; }
+            get { return _mode; }
             set
             {
-                if (_codeItems != value)
+                if (_mode != value)
                 {
-                    _codeItems = value;
-                    NotifyPropertyChanged("CodeItems");
+                    _mode = value;
+
+                    UpdateOrganizedCodeItems();
+                    NotifyPropertyChanged("Mode");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the organized code items.
+        /// </summary>
+        public IEnumerable<CodeItem> OrganizedCodeItems
+        {
+            get { return _organizedCodeItems; }
+            private set
+            {
+                if (_organizedCodeItems != value)
+                {
+                    _organizedCodeItems = value;
+                    NotifyPropertyChanged("OrganizedCodeItems");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the raw code items.
+        /// </summary>
+        public IEnumerable<CodeItem> RawCodeItems
+        {
+            get { return _rawCodeItems; }
+            set
+            {
+                if (_rawCodeItems != value)
+                {
+                    _rawCodeItems = value;
+
+                    UpdateOrganizedCodeItems();
+                    NotifyPropertyChanged("RawCodeItems");
                 }
             }
         }
@@ -68,5 +107,22 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         #endregion INotifyPropertyChanged Implementation
+
+        #region Methods
+
+        /// <summary>
+        /// Updates the organized code items collection based on the current mode and raw items.
+        /// </summary>
+        private void UpdateOrganizedCodeItems()
+        {
+            //TODO: Flesh out this logic.  Currently simply reversing the collection as POC.
+
+            if (RawCodeItems != null)
+            {
+                OrganizedCodeItems = RawCodeItems.Reverse();
+            }
+        }
+
+        #endregion Methods
     }
 }

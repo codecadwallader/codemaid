@@ -155,9 +155,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var elementList = new List<CodeElement>();
 
-            foreach (CodeElement element in fcm.CodeElements)
+            if (fcm != null)
             {
-                elementList.AddRange(RetrieveNestedCodeElements(element));
+                foreach (CodeElement element in fcm.CodeElements)
+                {
+                    elementList.AddRange(RetrieveNestedCodeElements(element));
+                }
             }
 
             return elementList;

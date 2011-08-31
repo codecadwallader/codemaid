@@ -200,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Quidnunc\QuidnuncCodeModelRetriever.cs" />
+    <Compile Include="Quidnunc\QuidnuncMode.cs" />
     <Compile Include="Quidnunc\QuidnuncToolWindow.cs" />
     <Compile Include="Quidnunc\QuidnuncResources.Designer.cs">
       <AutoGen>True</AutoGen>

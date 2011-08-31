@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarToolWindowBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarToolWindow);
 
             // Setup the associated classes.
-            _codeModelRetriever = new QuidnuncCodeModelRetriever(UpdateViewModelCodeItems);
+            _codeModelRetriever = new QuidnuncCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new QuidnuncViewModel();
             _viewHost = new QuidnuncViewHost(_viewModel);
         }
@@ -165,19 +165,19 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (IsVisible && Document != null)
             {
                 // Clear any existing code items while processing.
-                UpdateViewModelCodeItems(null);
+                UpdateViewModelRawCodeItems(null);
 
                 _codeModelRetriever.RetrieveCodeModelAsync(Document);
             }
         }
 
         /// <summary>
-        /// Updates the view model's code items collection.
+        /// Updates the view model's raw code items collection.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void UpdateViewModelCodeItems(IEnumerable<CodeItem> codeItems)
+        private void UpdateViewModelRawCodeItems(IEnumerable<CodeItem> codeItems)
         {
-            _viewModel.CodeItems = codeItems;
+            _viewModel.RawCodeItems = codeItems;
         }
 
         #endregion Private Methods
