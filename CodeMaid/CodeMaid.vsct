@@ -401,9 +401,6 @@
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarQuidnuncExtendGroup" id="GroupIDCodeMaidToolbarQuidnuncExtendGroup" />
-    </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
