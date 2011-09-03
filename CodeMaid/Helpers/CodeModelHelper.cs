@@ -192,9 +192,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                                                                   CodeElement = codeElement
                                                                               }));
 
-            // Sort the list of code items by starting location.
-            codeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
-
             return codeItems;
         }
 

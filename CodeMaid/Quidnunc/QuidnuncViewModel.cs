@@ -142,6 +142,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (rawCodeItems != null)
             {
                 organizedCodeItems.AddRange(rawCodeItems);
+
+                // Sort the list of code items by starting location.
+                organizedCodeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
             }
 
             return organizedCodeItems;
@@ -159,6 +162,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (rawCodeItems != null)
             {
                 organizedCodeItems.AddRange(rawCodeItems);
+
+                // Sort the list of code items by name.
+                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
             }
 
             return organizedCodeItems;
