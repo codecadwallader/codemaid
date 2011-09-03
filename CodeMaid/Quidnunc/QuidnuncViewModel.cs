@@ -13,7 +13,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using SteveCadwallader.CodeMaid.Structures;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -26,8 +25,8 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Fields
 
         private QuidnuncMode _mode;
-        private IEnumerable<CodeItem> _organizedCodeItems;
         private IEnumerable<CodeItem> _rawCodeItems;
+        private IEnumerable<CodeItem> _organizedCodeItems;
 
         #endregion Fields
 
@@ -52,22 +51,6 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Gets the organized code items.
-        /// </summary>
-        public IEnumerable<CodeItem> OrganizedCodeItems
-        {
-            get { return _organizedCodeItems; }
-            private set
-            {
-                if (_organizedCodeItems != value)
-                {
-                    _organizedCodeItems = value;
-                    NotifyPropertyChanged("OrganizedCodeItems");
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the raw code items.
         /// </summary>
         public IEnumerable<CodeItem> RawCodeItems
@@ -81,6 +64,22 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
                     UpdateOrganizedCodeItems();
                     NotifyPropertyChanged("RawCodeItems");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the organized code items.
+        /// </summary>
+        public IEnumerable<CodeItem> OrganizedCodeItems
+        {
+            get { return _organizedCodeItems; }
+            private set
+            {
+                if (_organizedCodeItems != value)
+                {
+                    _organizedCodeItems = value;
+                    NotifyPropertyChanged("OrganizedCodeItems");
                 }
             }
         }
@@ -115,12 +114,54 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         private void UpdateOrganizedCodeItems()
         {
-            //TODO: Flesh out this logic.  Currently simply reversing the collection as POC.
-
-            if (RawCodeItems != null)
+            switch (Mode)
             {
-                OrganizedCodeItems = RawCodeItems.Reverse();
+                case QuidnuncMode.FileLayout:
+                    OrganizedCodeItems = OrganizeCodeItemsByFileLayout(RawCodeItems);
+                    break;
+
+                case QuidnuncMode.TypeLayout:
+                    OrganizedCodeItems = OrganizeCodeItemsByTypeLayout(RawCodeItems);
+                    break;
+
+                default:
+                    OrganizedCodeItems = RawCodeItems;
+                    break;
             }
+        }
+
+        /// <summary>
+        /// Organizes the code items by file layout.
+        /// </summary>
+        /// <param name="rawCodeItems">The raw code items.</param>
+        /// <returns>The organized code items.</returns>
+        private static IEnumerable<CodeItem> OrganizeCodeItemsByFileLayout(IEnumerable<CodeItem> rawCodeItems)
+        {
+            var organizedCodeItems = new List<CodeItem>();
+
+            if (rawCodeItems != null)
+            {
+                organizedCodeItems.AddRange(rawCodeItems);
+            }
+
+            return organizedCodeItems;
+        }
+
+        /// <summary>
+        /// Organizes the code items by type layout.
+        /// </summary>
+        /// <param name="rawCodeItems">The raw code items.</param>
+        /// <returns>The organized code items.</returns>
+        private static IEnumerable<CodeItem> OrganizeCodeItemsByTypeLayout(IEnumerable<CodeItem> rawCodeItems)
+        {
+            var organizedCodeItems = new List<CodeItem>();
+
+            if (rawCodeItems != null)
+            {
+                organizedCodeItems.AddRange(rawCodeItems);
+            }
+
+            return organizedCodeItems;
         }
 
         #endregion Methods

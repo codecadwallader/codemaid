@@ -11,6 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System.Collections.Generic;
+using EnvDTE;
+
 namespace SteveCadwallader.CodeMaid.Structures
 {
     /// <summary>
@@ -19,6 +22,18 @@ namespace SteveCadwallader.CodeMaid.Structures
     /// </summary>
     public class CodeItem
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItem"/> class.
+        /// </summary>
+        public CodeItem()
+        {
+            Children = new List<CodeItem>();
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         /// <summary>
@@ -37,9 +52,14 @@ namespace SteveCadwallader.CodeMaid.Structures
         public int EndLine { get; set; }
 
         /// <summary>
-        /// Gets or sets the underlying object.
+        /// Gets or sets the underlying CodeElement object, may be null.
         /// </summary>
-        public object Object { get; set; }
+        public CodeElement CodeElement { get; set; }
+
+        /// <summary>
+        /// Gets the children of this code item, may be empty.
+        /// </summary>
+        public IEnumerable<CodeItem> Children { get; private set; }
 
         #endregion Properties
     }

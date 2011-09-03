@@ -189,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                                                                   Name = codeElement.Name,
                                                                                   StartLine = codeElement.StartPoint.Line,
                                                                                   EndLine = codeElement.EndPoint.Line,
-                                                                                  Object = codeElement
+                                                                                  CodeElement = codeElement
                                                                               }));
 
             // Sort the list of code items by starting location.
