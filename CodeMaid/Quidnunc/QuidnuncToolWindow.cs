@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.
-            ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarToolWindowBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarToolWindow);
+            ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarQuidnuncBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarQuidnunc);
 
             // Setup the associated classes.
             _codeModelRetriever = new QuidnuncCodeModelRetriever(UpdateViewModelRawCodeItems);

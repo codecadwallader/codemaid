@@ -43,11 +43,11 @@
           <CommandName>&amp;CodeMaid</CommandName>
         </Strings>
       </Menu>
-      <Menu guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" type="ToolWindowToolbar">
+      <Menu guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="ToolbarIDCodeMaidToolbarQuidnunc" type="ToolWindowToolbar">
         <CommandFlag>DefaultDocked</CommandFlag>
         <Strings>
-          <ButtonText>CodeMaid Tool Window Toolbar</ButtonText>
-          <CommandName>CodeMaid Tool Window Toolbar</CommandName>
+          <ButtonText>CodeMaid Quidnunc Toolbar</ButtonText>
+          <CommandName>CodeMaid Quidnunc Toolbar</CommandName>
         </Strings>
       </Menu>
     </Menus>
@@ -80,17 +80,17 @@
         <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN" />
       </Group>
 
-      <Group guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="GroupIDCodeMaidToolbarToolWindowBaseGroup" priority="0x0000">
-        <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
+      <Group guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="GroupIDCodeMaidToolbarQuidnuncBaseGroup" priority="0x0000">
+        <Parent guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="ToolbarIDCodeMaidToolbarQuidnunc" />
       </Group>
-      <Group guid="GuidCodeMaidToolbarToolWindowCleanupGroup" id="GroupIDCodeMaidToolbarToolWindowCleanupGroup" priority="0x0200">
-        <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
+      <Group guid="GuidCodeMaidToolbarQuidnuncCleanupGroup" id="GroupIDCodeMaidToolbarQuidnuncCleanupGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="ToolbarIDCodeMaidToolbarQuidnunc" />
       </Group>
-      <Group guid="GuidCodeMaidToolbarToolWindowExtendGroup" id="GroupIDCodeMaidToolbarToolWindowExtendGroup" priority="0x0400">
-        <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
+      <Group guid="GuidCodeMaidToolbarQuidnuncExtendGroup" id="GroupIDCodeMaidToolbarQuidnuncExtendGroup" priority="0x0400">
+        <Parent guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="ToolbarIDCodeMaidToolbarQuidnunc" />
       </Group>
-      <Group guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" priority="0x0600">
-        <Parent guid="GuidCodeMaidToolbarToolWindowBaseGroup" id="ToolbarIDCodeMaidToolbarToolWindow" />
+      <Group guid="GuidCodeMaidToolbarQuidnuncMetaGroup" id="GroupIDCodeMaidToolbarQuidnuncMetaGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidToolbarQuidnuncBaseGroup" id="ToolbarIDCodeMaidToolbarQuidnunc" />
       </Group>
 
       <Group guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" priority="0x0100">
@@ -314,7 +314,7 @@
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarToolWindowCleanupGroup" id="GroupIDCodeMaidToolbarToolWindowCleanupGroup" />
+      <Parent guid="GuidCodeMaidToolbarQuidnuncCleanupGroup" id="GroupIDCodeMaidToolbarQuidnuncCleanupGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
@@ -395,14 +395,14 @@
       <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
-      <Parent guid="GuidCodeMaidToolbarToolWindowMetaGroup" id="GroupIDCodeMaidToolbarToolWindowMetaGroup" />
+      <Parent guid="GuidCodeMaidToolbarQuidnuncMetaGroup" id="GroupIDCodeMaidToolbarQuidnuncMetaGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarToolWindowExtendGroup" id="GroupIDCodeMaidToolbarToolWindowExtendGroup" />
+      <Parent guid="GuidCodeMaidToolbarQuidnuncExtendGroup" id="GroupIDCodeMaidToolbarQuidnuncExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
@@ -565,23 +565,23 @@
       <IDSymbol name="GroupIDCodeMaidMenuVisualizeGroup" value="0x1026" />
     </GuidSymbol>
 
-    <!-- This is the guid used to group the tool window toolbar commands together -->
-    <GuidSymbol name="GuidCodeMaidToolbarToolWindowBaseGroup" value="{93e0e5d3-d335-4c12-ae8b-bccccdcd1eda}">
-      <IDSymbol name="ToolbarIDCodeMaidToolbarToolWindow" value="0x1040" />
-      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowBaseGroup" value="0x1041" />
+    <!-- This is the guid used to group the Quidnunc toolbar commands together -->
+    <GuidSymbol name="GuidCodeMaidToolbarQuidnuncBaseGroup" value="{93e0e5d3-d335-4c12-ae8b-bccccdcd1eda}">
+      <IDSymbol name="ToolbarIDCodeMaidToolbarQuidnunc" value="0x1040" />
+      <IDSymbol name="GroupIDCodeMaidToolbarQuidnuncBaseGroup" value="0x1041" />
     </GuidSymbol>
 
-    <!-- These are the command sets for the tool window toolbar -->
-    <GuidSymbol name="GuidCodeMaidToolbarToolWindowCleanupGroup" value="{c4640933-0ac0-485c-875f-4aaa94fdd8d0}">
-      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowCleanupGroup" value="0x1042" />
+    <!-- These are the command sets for the Quidnunc toolbar -->
+    <GuidSymbol name="GuidCodeMaidToolbarQuidnuncCleanupGroup" value="{c4640933-0ac0-485c-875f-4aaa94fdd8d0}">
+      <IDSymbol name="GroupIDCodeMaidToolbarQuidnuncCleanupGroup" value="0x1042" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidToolbarToolWindowExtendGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
-      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowExtendGroup" value="0x1043" />
+    <GuidSymbol name="GuidCodeMaidToolbarQuidnuncExtendGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
+      <IDSymbol name="GroupIDCodeMaidToolbarQuidnuncExtendGroup" value="0x1043" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidToolbarToolWindowMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
-      <IDSymbol name="GroupIDCodeMaidToolbarToolWindowMetaGroup" value="0x1044" />
+    <GuidSymbol name="GuidCodeMaidToolbarQuidnuncMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
+      <IDSymbol name="GroupIDCodeMaidToolbarQuidnuncMetaGroup" value="0x1044" />
     </GuidSymbol>
 
     <!-- These are the command sets for extending toolbars -->

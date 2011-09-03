@@ -30,6 +30,6 @@ namespace SteveCadwallader.CodeMaid
         public const uint CmdIDCodeMaidReadOnlyToggle = 0x2200;
         public const uint CmdIDCodeMaidSwitchFile = 0x2300;
 
-        public const int ToolbarIDCodeMaidToolbarToolWindow = 0x1040;
+        public const int ToolbarIDCodeMaidToolbarQuidnunc = 0x1040;
     };
 }
