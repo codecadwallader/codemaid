@@ -69,6 +69,24 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Public Properties
 
         /// <summary>
+        /// Gets or sets the interaction mode.
+        /// </summary>
+        public QuidnuncInteractionMode InteractionMode
+        {
+            get { return _viewModel.InteractionMode; }
+            set { _viewModel.InteractionMode = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the layout mode.
+        /// </summary>
+        public QuidnuncLayoutMode LayoutMode
+        {
+            get { return _viewModel.LayoutMode; }
+            set { _viewModel.LayoutMode = value; }
+        }
+
+        /// <summary>
         /// Retrieves the window associated with this window pane.
         /// </summary>
         public override IWin32Window Window
