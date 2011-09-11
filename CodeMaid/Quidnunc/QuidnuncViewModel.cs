@@ -24,7 +24,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     {
         #region Fields
 
-        private QuidnuncMode _mode;
+        private QuidnuncLayoutMode _layoutMode;
         private IEnumerable<CodeItem> _rawCodeItems;
         private IEnumerable<CodeItem> _organizedCodeItems;
 
@@ -33,19 +33,19 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Properties
 
         /// <summary>
-        /// Gets or sets the current mode.
+        /// Gets or sets the current layout mode.
         /// </summary>
-        public QuidnuncMode Mode
+        public QuidnuncLayoutMode LayoutMode
         {
-            get { return _mode; }
+            get { return _layoutMode; }
             set
             {
-                if (_mode != value)
+                if (_layoutMode != value)
                 {
-                    _mode = value;
+                    _layoutMode = value;
 
                     UpdateOrganizedCodeItems();
-                    NotifyPropertyChanged("Mode");
+                    NotifyPropertyChanged("LayoutMode");
                 }
             }
         }
@@ -114,14 +114,18 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         private void UpdateOrganizedCodeItems()
         {
-            switch (Mode)
+            switch (LayoutMode)
             {
-                case QuidnuncMode.FileLayout:
+                case QuidnuncLayoutMode.FileLayout:
                     OrganizedCodeItems = OrganizeCodeItemsByFileLayout(RawCodeItems);
                     break;
 
-                case QuidnuncMode.TypeLayout:
+                case QuidnuncLayoutMode.TypeLayout:
                     OrganizedCodeItems = OrganizeCodeItemsByTypeLayout(RawCodeItems);
+                    break;
+
+                case QuidnuncLayoutMode.AlphaLayout:
+                    OrganizedCodeItems = OrganizeCodeItemsByAlphaLayout(RawCodeItems);
                     break;
 
                 default:
@@ -156,6 +160,26 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
         private static IEnumerable<CodeItem> OrganizeCodeItemsByTypeLayout(IEnumerable<CodeItem> rawCodeItems)
+        {
+            var organizedCodeItems = new List<CodeItem>();
+
+            if (rawCodeItems != null)
+            {
+                organizedCodeItems.AddRange(rawCodeItems);
+
+                // Sort the list of code items by name.
+                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
+            }
+
+            return organizedCodeItems;
+        }
+
+        /// <summary>
+        /// Organizes the code items by alpha layout.
+        /// </summary>
+        /// <param name="rawCodeItems">The raw code items.</param>
+        /// <returns>The organized code items.</returns>
+        private static IEnumerable<CodeItem> OrganizeCodeItemsByAlphaLayout(IEnumerable<CodeItem> rawCodeItems)
         {
             var organizedCodeItems = new List<CodeItem>();
 

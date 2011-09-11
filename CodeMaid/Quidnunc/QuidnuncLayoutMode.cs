@@ -14,9 +14,9 @@
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// An enumeration of modes for Quidnunc.
+    /// An enumeration of layout modes for Quidnunc.
     /// </summary>
-    public enum QuidnuncMode
+    public enum QuidnuncLayoutMode
     {
         /// <summary>
         /// The default layout following the file line order.
@@ -27,5 +27,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// A layout following the C# standards that groups items by type and accessibility.
         /// </summary>
         TypeLayout,
+
+        /// <summary>
+        /// A layout following alphabetical order.
+        /// </summary>
+        AlphaLayout
     }
 }
