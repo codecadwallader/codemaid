@@ -24,6 +24,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     {
         #region Fields
 
+        private QuidnuncInteractionMode _interactionMode;
         private QuidnuncLayoutMode _layoutMode;
         private IEnumerable<CodeItem> _rawCodeItems;
         private IEnumerable<CodeItem> _organizedCodeItems;
@@ -31,6 +32,23 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #endregion Fields
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the current interaction mode.
+        /// </summary>
+        public QuidnuncInteractionMode InteractionMode
+        {
+            get { return _interactionMode; }
+            set
+            {
+                if (_interactionMode != value)
+                {
+                    _interactionMode = value;
+
+                    NotifyPropertyChanged("InteractionMode");
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the current layout mode.
