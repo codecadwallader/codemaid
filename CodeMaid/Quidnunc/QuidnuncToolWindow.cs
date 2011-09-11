@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
-            // Force a refresh by resetting the last document.
+            // Force a refresh by resetting the document.
             Document = null;
             Document = document;
         }
@@ -115,6 +115,20 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             // Register for events to this window.
             ((IVsWindowFrame)Frame).SetProperty(
                 (int)__VSFPROPID.VSFPROPID_ViewHelper, this);
+        }
+
+        /// <summary>
+        /// Refresh the quinunc tool window.
+        /// </summary>
+        public void Refresh()
+        {
+            var document = Document;
+            if (document != null)
+            {
+                // Force a refresh by resetting the document.
+                Document = null;
+                Document = document;
+            }
         }
 
         #endregion Public Methods

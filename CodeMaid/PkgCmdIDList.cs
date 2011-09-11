@@ -26,9 +26,10 @@ namespace SteveCadwallader.CodeMaid
         public const uint CmdIDCodeMaidConfiguration = 0x1800;
         public const uint CmdIDCodeMaidFindInSolutionExplorer = 0x1900;
         public const uint CmdIDCodeMaidJoinLines = 0x2000;
-        public const uint CmdIDCodeMaidQuidnuncToolWindow = 0x2100;
-        public const uint CmdIDCodeMaidReadOnlyToggle = 0x2200;
-        public const uint CmdIDCodeMaidSwitchFile = 0x2300;
+        public const uint CmdIDCodeMaidQuidnuncRefresh = 0x2100;
+        public const uint CmdIDCodeMaidQuidnuncToolWindow = 0x2200;
+        public const uint CmdIDCodeMaidReadOnlyToggle = 0x2300;
+        public const uint CmdIDCodeMaidSwitchFile = 0x2400;
 
         public const int ToolbarIDCodeMaidToolbarQuidnunc = 0x1040;
     };

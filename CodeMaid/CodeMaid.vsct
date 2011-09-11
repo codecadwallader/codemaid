@@ -254,6 +254,14 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandQuidnuncRefresh" id="CmdIDCodeMaidQuidnuncRefresh" priority="0x0100" type="Button">
+        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidQuidnuncRefresh</CommandName>
+          <ButtonText>Refresh Quidnunc</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
         <Strings>
@@ -315,9 +323,6 @@
 
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarQuidnuncRefreshGroup" id="GroupIDCodeMaidToolbarQuidnuncRefreshGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
@@ -449,6 +454,10 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandQuidnuncRefresh" id="CmdIDCodeMaidQuidnuncRefresh" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarQuidnuncRefreshGroup" id="GroupIDCodeMaidToolbarQuidnuncRefreshGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" priority="0x0400">
@@ -681,16 +690,20 @@
       <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2000" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandQuidnuncRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
+      <IDSymbol name="CmdIDCodeMaidQuidnuncRefresh" value="0x2100" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncToolWindow" value="0x2100" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncToolWindow" value="0x2200" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
-      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2200" />
+      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2300" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2400" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
