@@ -33,8 +33,9 @@ namespace SteveCadwallader.CodeMaid
         // Toolbar menu group guids.
         public static readonly Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid("ed596e0f-d1cb-46e7-8dd3-741758451f27");
         public static readonly Guid GuidCodeMaidToolbarQuidnuncBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncCleanupGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncExtendGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
+        public static readonly Guid GuidCodeMaidToolbarQuidnuncRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
+        public static readonly Guid GuidCodeMaidToolbarQuidnuncLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
+        public static readonly Guid GuidCodeMaidToolbarQuidnuncInteractionGroup = new Guid("af1b903c-c03d-4002-95e4-c1533dce1a62");
         public static readonly Guid GuidCodeMaidToolbarQuidnuncMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Miscellaneous context menu group guids.
