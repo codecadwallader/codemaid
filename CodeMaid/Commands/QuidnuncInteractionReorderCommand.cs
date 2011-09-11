@@ -38,6 +38,18 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region BaseCommand Methods
 
         /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            var quidnunc = Package.Quidnunc;
+            if (quidnunc != null)
+            {
+                Checked = quidnunc.InteractionMode == QuidnuncInteractionMode.Reorder;
+            }
+        }
+
+        /// <summary>
         /// Called to execute the command.
         /// </summary>
         protected override void OnExecute()
