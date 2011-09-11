@@ -99,6 +99,9 @@
     <Compile Include="Commands\ConfigurationCommand.cs" />
     <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
+    <Compile Include="Commands\QuidnuncLayoutAlphaCommand.cs" />
+    <Compile Include="Commands\QuidnuncLayoutFileCommand.cs" />
+    <Compile Include="Commands\QuidnuncLayoutTypeCommand.cs" />
     <Compile Include="Commands\QuidnuncRefreshCommand.cs" />
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
