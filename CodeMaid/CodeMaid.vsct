@@ -254,6 +254,22 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandQuidnuncInteractionReorder" id="CmdIDCodeMaidQuidnuncInteractionReorder" priority="0x0100" type="Button">
+        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidQuidnuncInteractionReorder</CommandName>
+          <ButtonText>Quidnunc reorder mode</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandQuidnuncInteractionSelect" id="CmdIDCodeMaidQuidnuncInteractionSelect" priority="0x0100" type="Button">
+        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidQuidnuncInteractionSelect</CommandName>
+          <ButtonText>Quidnunc selection mode</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutAlpha" id="CmdIDCodeMaidQuidnuncLayoutAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
         <Strings>
@@ -478,6 +494,14 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandQuidnuncInteractionReorder" id="CmdIDCodeMaidQuidnuncInteractionReorder" priority="0x0400">
+      <Parent guid="GuidCodeMaidToolbarQuidnuncInteractionGroup" id="GroupIDCodeMaidToolbarQuidnuncInteractionGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandQuidnuncInteractionSelect" id="CmdIDCodeMaidQuidnuncInteractionSelect" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarQuidnuncInteractionGroup" id="GroupIDCodeMaidToolbarQuidnuncInteractionGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandQuidnuncLayoutAlpha" id="CmdIDCodeMaidQuidnuncLayoutAlpha" priority="0x0600">
@@ -726,32 +750,40 @@
       <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2000" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandQuidnuncInteractionReorder" value="{c2da2b86-a279-4af7-96cf-2b500cb7c6ab}">
+      <IDSymbol name="CmdIDCodeMaidQuidnuncInteractionReorder" value="0x2100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandQuidnuncInteractionSelect" value="{35ec90d0-6ee0-4f30-83fe-739bc68fc4db}">
+      <IDSymbol name="CmdIDCodeMaidQuidnuncInteractionSelect" value="0x2200" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutAlpha" value="0x2100" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutAlpha" value="0x2300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutFile" value="0x2200" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutFile" value="0x2400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutType" value="0x2300" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncLayoutType" value="0x2500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncRefresh" value="0x2400" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncRefresh" value="0x2600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandQuidnuncToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidQuidnuncToolWindow" value="0x2500" />
+      <IDSymbol name="CmdIDCodeMaidQuidnuncToolWindow" value="0x2700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
-      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2600" />
+      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2700" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2900" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->

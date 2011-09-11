@@ -99,6 +99,8 @@
     <Compile Include="Commands\ConfigurationCommand.cs" />
     <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
+    <Compile Include="Commands\QuidnuncInteractionReorderCommand.cs" />
+    <Compile Include="Commands\QuidnuncInteractionSelectCommand.cs" />
     <Compile Include="Commands\QuidnuncLayoutAlphaCommand.cs" />
     <Compile Include="Commands\QuidnuncLayoutFileCommand.cs" />
     <Compile Include="Commands\QuidnuncLayoutTypeCommand.cs" />

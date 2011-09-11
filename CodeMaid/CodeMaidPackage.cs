@@ -288,6 +288,8 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
+                _commands.Add(new QuidnuncInteractionReorderCommand(this));
+                _commands.Add(new QuidnuncInteractionSelectCommand(this));
                 _commands.Add(new QuidnuncLayoutAlphaCommand(this));
                 _commands.Add(new QuidnuncLayoutFileCommand(this));
                 _commands.Add(new QuidnuncLayoutTypeCommand(this));
