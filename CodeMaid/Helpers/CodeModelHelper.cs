@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Factories;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -167,6 +168,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Walks the given FileCodeModel and generates a flat list of code items.
+        /// </summary>
+        /// <param name="fcm">The FileCodeModel to walk.</param>
+        /// <returns>The set of code items.</returns>
+        internal static IEnumerable<CodeItemBase> RetrieveAllCodeItems(FileCodeModel fcm)
+        {
+            var codeItems = new List<CodeItemBase>();
+
+            if (fcm != null)
+            {
+                foreach (CodeElement codeElement in fcm.CodeElements)
+                {
+                    codeItems.AddRange(RetrieveNestedCodeItems(codeElement));
+                }
+            }
+
+            return codeItems;
+        }
+
+        /// <summary>
         /// Walks the given document object and returns a flat list of all
         /// the CodeItems within it (CodeElements + regions).
         /// </summary>
@@ -292,6 +313,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 foreach (CodeElement child in element.Children)
                 {
                     elementList.AddRange(RetrieveNestedCodeElements(child));
+                }
+            }
+
+            return elementList;
+        }
+
+        /// <summary>
+        /// Recursive method for retrieving a set of code items including the passed
+        /// elements and all of its children.
+        /// </summary>
+        /// <param name="codeElement">The CodeElement to walk.</param>
+        /// <returns>The set of code items.</returns>
+        private static IEnumerable<CodeItemBase> RetrieveNestedCodeItems(CodeElement codeElement)
+        {
+            var parentCodeItem = CodeItemFactory.CreateCodeItem(codeElement);
+            var elementList = new List<CodeItemBase> { parentCodeItem };
+
+            if (codeElement.Children != null)
+            {
+                foreach (CodeElement child in codeElement.Children)
+                {
+                    elementList.AddRange(RetrieveNestedCodeItems(child));
                 }
             }
 

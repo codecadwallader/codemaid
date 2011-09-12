@@ -131,6 +131,7 @@
     <Compile Include="Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Events\ShellEventListener.cs" />
     <Compile Include="Events\WindowEventListener.cs" />
+    <Compile Include="Factories\CodeItemFactory.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CodeCleanupHelper.cs" />
