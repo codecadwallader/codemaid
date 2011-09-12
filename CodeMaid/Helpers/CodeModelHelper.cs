@@ -183,7 +183,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Create a composite list of code items.
             var codeItems = new List<CodeItemBase>();
-            codeItems.AddRange(codeRegions);
+            codeItems.AddRange(codeRegions.Cast<CodeItemBase>());
             codeItems.AddRange(filteredCodeElements.Select(codeElement => new CodeItemBase
                                                                               {
                                                                                   Name = codeElement.Name,
@@ -224,14 +224,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document to walk.</param>
         /// <returns>The set of all code regions.</returns>
-        private static IEnumerable<CodeItemBase> RetrieveAllCodeRegions(Document document)
+        private static IEnumerable<CodeItemRegion> RetrieveAllCodeRegions(Document document)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            List<CodeItemBase> regionList = new List<CodeItemBase>();     // Flat return list.
-            Stack<CodeItemBase> regionStack = new Stack<CodeItemBase>();  // Nested working hierarchy.
-            EditPoint cursor = textDocument.StartPoint.CreateEditPoint(); // The document cursor.
-            TextRanges subGroupMatches = null;                            // Not used - required for FindPattern.
+            List<CodeItemRegion> regionList = new List<CodeItemRegion>();    // Flat return list.
+            Stack<CodeItemRegion> regionStack = new Stack<CodeItemRegion>(); // Nested working hierarchy.
+            EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
+            TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
 
             // Keep pushing cursor forwards (FindPattern uses cursor as ref parameter) until finished.
             while (cursor != null &&
@@ -248,14 +248,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     string regionName = regionText.Substring(7).Trim();
 
                     // Push the parsed region info onto the top of the stack.
-                    regionStack.Push(new CodeItemBase { Name = regionName, StartLine = cursor.Line });
+                    regionStack.Push(new CodeItemRegion { Name = regionName, StartLine = cursor.Line });
                 }
                 else if (regionText.StartsWith("endregion"))
                 {
                     if (regionStack.Count > 0)
                     {
-                        CodeItemBase region = regionStack.Pop();
+                        CodeItemRegion region = regionStack.Pop();
                         region.EndLine = cursor.Line;
+
+                        if (regionStack.Any())
+                        {
+                            region.Parent = regionStack.Peek();
+                        }
+
                         regionList.Add(region);
                     }
                     else
