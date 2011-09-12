@@ -189,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                                                                   Name = codeElement.Name,
                                                                                   StartLine = codeElement.StartPoint.Line,
                                                                                   EndLine = codeElement.EndPoint.Line,
-                                                                                  CodeElement = codeElement
+                                                                                  //CodeElement = codeElement
                                                                               }));
 
             return codeItems;
