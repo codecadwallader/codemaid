@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using EnvDTE;
 
-namespace SteveCadwallader.CodeMaid.Structures
+namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
     /// A base class representation of all code items.

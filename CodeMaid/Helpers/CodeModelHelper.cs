@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Structures;
+using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

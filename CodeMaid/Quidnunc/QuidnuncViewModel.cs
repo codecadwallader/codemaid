@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using SteveCadwallader.CodeMaid.Structures;
+using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {

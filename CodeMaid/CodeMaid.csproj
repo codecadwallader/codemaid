@@ -87,6 +87,18 @@
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
+    <Compile Include="CodeItems\CodeItemBase.cs" />
+    <Compile Include="CodeItems\CodeItemClass.cs" />
+    <Compile Include="CodeItems\CodeItemDelegate.cs" />
+    <Compile Include="CodeItems\CodeItemEnum.cs" />
+    <Compile Include="CodeItems\CodeItemEvent.cs" />
+    <Compile Include="CodeItems\CodeItemField.cs" />
+    <Compile Include="CodeItems\CodeItemInterface.cs" />
+    <Compile Include="CodeItems\CodeItemMethod.cs" />
+    <Compile Include="CodeItems\CodeItemNamespace.cs" />
+    <Compile Include="CodeItems\CodeItemProperty.cs" />
+    <Compile Include="CodeItems\CodeItemRegion.cs" />
+    <Compile Include="CodeItems\CodeItemStruct.cs" />
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\BuildProgressToolWindowCommand.cs" />
@@ -224,7 +236,6 @@
       <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
-    <Compile Include="Structures\CodeItemBase.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
