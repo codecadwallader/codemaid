@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Fields
 
         private readonly BackgroundWorker _bw;
-        private readonly Action<IEnumerable<CodeItem>> _callback;
+        private readonly Action<IEnumerable<CodeItemBase>> _callback;
         private Document _pendingDocument;
 
         #endregion Fields
@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Initializes a new instance of the <see cref="QuidnuncCodeModelRetriever"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal QuidnuncCodeModelRetriever(Action<IEnumerable<CodeItem>> callback)
+        internal QuidnuncCodeModelRetriever(Action<IEnumerable<CodeItemBase>> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
             else if (e.Error == null)
             {
-                var codeItems = e.Result as IEnumerable<CodeItem>;
+                var codeItems = e.Result as IEnumerable<CodeItemBase>;
                 if (codeItems != null)
                 {
                     _callback(codeItems);

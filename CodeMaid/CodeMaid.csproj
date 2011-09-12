@@ -224,7 +224,7 @@
       <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
-    <Compile Include="Structures\CodeItem.cs" />
+    <Compile Include="Structures\CodeItemBase.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

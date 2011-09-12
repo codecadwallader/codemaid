@@ -17,19 +17,19 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.Structures
 {
     /// <summary>
-    /// A representation of a code item.
-    /// Intended as a superset of a CodeElement to also include code regions.
+    /// A base class representation of all code items.
+    /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
-    public class CodeItem
+    public class CodeItemBase
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeItem"/> class.
+        /// Initializes a new instance of the <see cref="CodeItemBase"/> class.
         /// </summary>
-        public CodeItem()
+        public CodeItemBase()
         {
-            Children = new List<CodeItem>();
+            Children = new List<CodeItemBase>();
         }
 
         #endregion Constructors
@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.Structures
         /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>
-        public IEnumerable<CodeItem> Children { get; private set; }
+        public IEnumerable<CodeItemBase> Children { get; private set; }
 
         #endregion Properties
     }

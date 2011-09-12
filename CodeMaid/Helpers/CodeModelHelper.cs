@@ -172,7 +172,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document to walk.</param>
         /// <returns>The set of all CodeItems.</returns>
-        internal static IEnumerable<CodeItem> RetrieveAllCodeItems(Document document)
+        internal static IEnumerable<CodeItemBase> RetrieveAllCodeItems(Document document)
         {
             // Get all code regions in the document.
             var codeRegions = RetrieveAllCodeRegions(document);
@@ -182,9 +182,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var filteredCodeElements = FilterCodeElements(codeElements);
 
             // Create a composite list of code items.
-            var codeItems = new List<CodeItem>();
+            var codeItems = new List<CodeItemBase>();
             codeItems.AddRange(codeRegions);
-            codeItems.AddRange(filteredCodeElements.Select(codeElement => new CodeItem
+            codeItems.AddRange(filteredCodeElements.Select(codeElement => new CodeItemBase
                                                                               {
                                                                                   Name = codeElement.Name,
                                                                                   StartLine = codeElement.StartPoint.Line,
@@ -224,12 +224,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document to walk.</param>
         /// <returns>The set of all code regions.</returns>
-        private static IEnumerable<CodeItem> RetrieveAllCodeRegions(Document document)
+        private static IEnumerable<CodeItemBase> RetrieveAllCodeRegions(Document document)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            List<CodeItem> regionList = new List<CodeItem>();             // Flat return list.
-            Stack<CodeItem> regionStack = new Stack<CodeItem>();          // Nested working hierarchy.
+            List<CodeItemBase> regionList = new List<CodeItemBase>();     // Flat return list.
+            Stack<CodeItemBase> regionStack = new Stack<CodeItemBase>();  // Nested working hierarchy.
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint(); // The document cursor.
             TextRanges subGroupMatches = null;                            // Not used - required for FindPattern.
 
@@ -248,13 +248,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     string regionName = regionText.Substring(7).Trim();
 
                     // Push the parsed region info onto the top of the stack.
-                    regionStack.Push(new CodeItem { Name = regionName, StartLine = cursor.Line });
+                    regionStack.Push(new CodeItemBase { Name = regionName, StartLine = cursor.Line });
                 }
                 else if (regionText.StartsWith("endregion"))
                 {
                     if (regionStack.Count > 0)
                     {
-                        CodeItem region = regionStack.Pop();
+                        CodeItemBase region = regionStack.Pop();
                         region.EndLine = cursor.Line;
                         regionList.Add(region);
                     }

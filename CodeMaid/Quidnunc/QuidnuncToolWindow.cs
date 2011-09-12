@@ -207,7 +207,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Updates the view model's raw code items collection.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void UpdateViewModelRawCodeItems(IEnumerable<CodeItem> codeItems)
+        private void UpdateViewModelRawCodeItems(IEnumerable<CodeItemBase> codeItems)
         {
             _viewModel.RawCodeItems = codeItems;
         }
