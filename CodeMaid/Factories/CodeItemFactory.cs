@@ -28,55 +28,70 @@ namespace SteveCadwallader.CodeMaid.Factories
         /// <returns>A generated code item, otherwise null.</returns>
         public static CodeItemBase CreateCodeItem(CodeElement codeElement)
         {
-            CodeItemBase codeItem = null;
+            if (codeElement == null) return null;
 
-            if (codeElement is CodeClass)
+            CodeItemBase codeItem;
+            bool isNameless = false;
+
+            switch (codeElement.Kind)
             {
-                codeItem = new CodeItemClass { CodeClass = (CodeClass)codeElement };
-            }
-            else if (codeElement is CodeDelegate)
-            {
-                codeItem = new CodeItemDelegate { CodeDelegate = (CodeDelegate)codeElement };
-            }
-            else if (codeElement is CodeEnum)
-            {
-                codeItem = new CodeItemEnum { CodeEnum = (CodeEnum)codeElement };
-            }
-            else if (codeElement.Kind == vsCMElement.vsCMElementEvent)
-            {
-                codeItem = new CodeItemEvent();
-            }
-            else if (codeElement is CodeVariable)
-            {
-                codeItem = new CodeItemField { CodeVariable = (CodeVariable)codeElement };
-            }
-            else if (codeElement is CodeInterface)
-            {
-                codeItem = new CodeItemInterface { CodeInterface = (CodeInterface)codeElement };
-            }
-            else if (codeElement is CodeFunction)
-            {
-                codeItem = new CodeItemMethod { CodeFunction = (CodeFunction)codeElement };
-            }
-            else if (codeElement is CodeNamespace)
-            {
-                codeItem = new CodeItemNamespace { CodeNamespace = (CodeNamespace)codeElement };
-            }
-            else if (codeElement is CodeProperty)
-            {
-                codeItem = new CodeItemProperty { CodeProperty = (CodeProperty)codeElement };
-            }
-            else if (codeElement is CodeStruct)
-            {
-                codeItem = new CodeItemStruct { CodeStruct = (CodeStruct)codeElement };
+                case vsCMElement.vsCMElementClass:
+                    codeItem = new CodeItemClass { CodeClass = codeElement as CodeClass };
+                    break;
+
+                case vsCMElement.vsCMElementDelegate:
+                    codeItem = new CodeItemDelegate { CodeDelegate = codeElement as CodeDelegate };
+                    break;
+
+                case vsCMElement.vsCMElementEnum:
+                    codeItem = new CodeItemEnum { CodeEnum = codeElement as CodeEnum };
+                    break;
+
+                case vsCMElement.vsCMElementEvent:
+                    codeItem = new CodeItemEvent();
+                    break;
+
+                case vsCMElement.vsCMElementFunction:
+                    codeItem = new CodeItemMethod { CodeFunction = codeElement as CodeFunction };
+                    break;
+
+                case vsCMElement.vsCMElementImportStmt:
+                    codeItem = new CodeItemUsingStatement();
+                    isNameless = true;
+                    break;
+
+                case vsCMElement.vsCMElementInterface:
+                    codeItem = new CodeItemInterface { CodeInterface = codeElement as CodeInterface };
+                    break;
+
+                case vsCMElement.vsCMElementNamespace:
+                    codeItem = new CodeItemNamespace { CodeNamespace = codeElement as CodeNamespace };
+                    break;
+
+                case vsCMElement.vsCMElementProperty:
+                    codeItem = new CodeItemProperty { CodeProperty = codeElement as CodeProperty };
+                    break;
+
+                case vsCMElement.vsCMElementStruct:
+                    codeItem = new CodeItemStruct { CodeStruct = codeElement as CodeStruct };
+                    break;
+
+                case vsCMElement.vsCMElementVariable:
+                    codeItem = new CodeItemField { CodeVariable = codeElement as CodeVariable };
+                    break;
+
+                default:
+                    return null;
             }
 
-            if (codeItem != null)
+            // Populate the common fields.
+            if (!isNameless)
             {
                 codeItem.Name = codeElement.Name;
-                codeItem.StartLine = codeElement.StartPoint.Line;
-                codeItem.EndLine = codeElement.EndPoint.Line;
             }
+
+            codeItem.StartLine = codeElement.StartPoint.Line;
+            codeItem.EndLine = codeElement.EndPoint.Line;
 
             return codeItem;
         }

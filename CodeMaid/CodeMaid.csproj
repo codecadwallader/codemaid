@@ -99,6 +99,7 @@
     <Compile Include="CodeItems\CodeItemProperty.cs" />
     <Compile Include="CodeItems\CodeItemRegion.cs" />
     <Compile Include="CodeItems\CodeItemStruct.cs" />
+    <Compile Include="CodeItems\CodeItemUsingStatement.cs" />
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\BuildProgressToolWindowCommand.cs" />
