@@ -146,53 +146,29 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Walks the given FileCodeModel object and returns a flat list of all
-        /// the CodeElements within it.
-        /// </summary>
-        /// <param name="fcm">The FileCodeModel to walk.</param>
-        /// <returns>The set of all CodeElements.</returns>
-        internal static IEnumerable<CodeElement> RetrieveAllCodeElements(FileCodeModel fcm)
-        {
-            var elementList = new List<CodeElement>();
-
-            if (fcm != null)
-            {
-                foreach (CodeElement element in fcm.CodeElements)
-                {
-                    elementList.AddRange(RetrieveNestedCodeElements(element));
-                }
-            }
-
-            return elementList;
-        }
-
-        /// <summary>
-        /// Walks the given FileCodeModel, turning CodeElements into code items within the specified code items set.
-        /// </summary>
-        /// <param name="codeItems">The code items set for accumulation.</param>
-        /// <param name="fcm">The FileCodeModel to walk.</param>
-        internal static void RetrieveAllCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
-        {
-            if (fcm != null)
-            {
-                foreach (CodeElement codeElement in fcm.CodeElements)
-                {
-                    RetrieveNestedCodeItems(codeItems, codeElement);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Walks the given document and constructs a <see cref="SetCodeItems"/> of all CodeItems within it (regions + CodeElements).
+        /// Walks the given document and constructs a <see cref="SetCodeItems"/> of CodeItems within it excluding regions.
         /// </summary>
         /// <param name="document">The document to walk.</param>
-        /// <returns>The set of all code items within the document.</returns>
-        internal static SetCodeItems RetrieveAllCodeItems(Document document)
+        /// <returns>The set of code items within the document, excluding regions.</returns>
+        internal static SetCodeItems RetrieveCodeItemsExcludingRegions(Document document)
         {
             var codeItems = new SetCodeItems();
 
-            RetrieveAllCodeRegions(codeItems, document);
-            RetrieveAllCodeItems(codeItems, document.ProjectItem.FileCodeModel);
+            RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
+
+            return codeItems;
+        }
+
+        /// <summary>
+        /// Walks the given document and constructs a <see cref="SetCodeItems"/> of CodeItems within it including regions.
+        /// </summary>
+        /// <param name="document">The document to walk.</param>
+        /// <returns>The set of code items within the document, including regions.</returns>
+        internal static SetCodeItems RetrieveCodeItemsIncludingRegions(Document document)
+        {
+            var codeItems = RetrieveCodeItemsExcludingRegions(document);
+
+            RetrieveCodeRegions(codeItems, document);
 
             return codeItems;
         }
@@ -202,11 +178,50 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Methods
 
         /// <summary>
-        /// Retrieves all code regions in the specified document into the specifed code items set.
+        /// Walks the given FileCodeModel, turning CodeElements into code items within the specified code items set.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="fcm">The FileCodeModel to walk.</param>
+        private static void RetrieveCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
+        {
+            if (fcm != null)
+            {
+                foreach (CodeElement codeElement in fcm.CodeElements)
+                {
+                    RetrieveCodeItemsRecursively(codeItems, codeElement);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recursive method for creating a code item for the specified code element,
+        /// adding it to the specified code items set and recursing into all of the code element's children.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="codeElement">The CodeElement to walk (add and recurse).</param>
+        private static void RetrieveCodeItemsRecursively(SetCodeItems codeItems, CodeElement codeElement)
+        {
+            var parentCodeItem = FactoryCodeItems.CreateCodeItem(codeElement);
+            if (parentCodeItem != null)
+            {
+                codeItems.Add(parentCodeItem);
+            }
+
+            if (codeElement.Children != null)
+            {
+                foreach (CodeElement child in codeElement.Children)
+                {
+                    RetrieveCodeItemsRecursively(codeItems, child);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retrieves code regions from the specified document into the specifed code items set.
         /// </summary>
         /// <param name="codeItems">The code items set for accumulation.</param>
         /// <param name="document">The document to walk.</param>
-        private static void RetrieveAllCodeRegions(SetCodeItems codeItems, Document document)
+        private static void RetrieveCodeRegions(SetCodeItems codeItems, Document document)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
@@ -253,50 +268,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
 
                 cursor.EndOfLine();
-            }
-        }
-
-        /// <summary>
-        /// Recursive method for retrieving a set of CodeElements including
-        /// the passed element and all of its children.
-        /// </summary>
-        /// <param name="element">The CodeElement to walk.</param>
-        /// <returns>The set of CodeElements.</returns>
-        private static IEnumerable<CodeElement> RetrieveNestedCodeElements(CodeElement element)
-        {
-            List<CodeElement> elementList = new List<CodeElement> { element };
-
-            if (element.Children != null)
-            {
-                foreach (CodeElement child in element.Children)
-                {
-                    elementList.AddRange(RetrieveNestedCodeElements(child));
-                }
-            }
-
-            return elementList;
-        }
-
-        /// <summary>
-        /// Recursive method for creating a code item for the specified code element,
-        /// adding it to the specified code items set and recursing into all of the code element's children.
-        /// </summary>
-        /// <param name="codeItems">The code items set for accumulation.</param>
-        /// <param name="codeElement">The CodeElement to add and recurse.</param>
-        private static void RetrieveNestedCodeItems(SetCodeItems codeItems, CodeElement codeElement)
-        {
-            var parentCodeItem = FactoryCodeItems.CreateCodeItem(codeElement);
-            if (parentCodeItem != null)
-            {
-                codeItems.Add(parentCodeItem);
-            }
-
-            if (codeElement.Children != null)
-            {
-                foreach (CodeElement child in codeElement.Children)
-                {
-                    RetrieveNestedCodeItems(codeItems, child);
-                }
             }
         }
 

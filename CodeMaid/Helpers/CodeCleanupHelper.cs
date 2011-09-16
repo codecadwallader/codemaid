@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -203,21 +204,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
             SortUsingStatements();
 
             // Interpret the document into a collection of elements.
-            FileCodeModel fcm = document.ProjectItem.FileCodeModel;
-            IEnumerable<CodeElement> codeElements = CodeModelHelper.RetrieveAllCodeElements(fcm);
-            IEnumerable<CodeElement> usingStatements = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementImportStmt);
-            IEnumerable<CodeElement> namespaces = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementNamespace);
-            IEnumerable<CodeElement> classes = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementClass);
-            IEnumerable<CodeElement> enumerations = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementEnum);
-            IEnumerable<CodeElement> methods = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementFunction);
-            IEnumerable<CodeElement> properties = codeElements.Where(x => x.Kind == vsCMElement.vsCMElementProperty);
+            var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
 
+            var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
+            var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
+            var classes = codeItems.OfType<CodeItemClass>().ToList();
+            var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
+            var methods = codeItems.OfType<CodeItemMethod>().ToList();
+            var properties = codeItems.OfType<CodeItemProperty>().ToList();
+
+            // Perform removal cleanup.
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
             RemoveBlankLinesAfterOpeningBrace(textDocument);
             RemoveBlankLinesBeforeClosingBrace(textDocument);
             RemoveMultipleConsecutiveBlankLines(textDocument);
+
+            // Perform insertion cleanup.
             InsertBlankLinePaddingBeforeRegionTags(textDocument);
             InsertBlankLinePaddingAfterRegionTags(textDocument);
             InsertBlankLinePaddingBeforeEndRegionTags(textDocument);
@@ -239,6 +243,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
 
+            // Perform update cleanup.
             UpdateRegionDirectives(textDocument);
         }
 
@@ -251,6 +256,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
             RunVSFormatting(textDocument);
+
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
@@ -268,6 +274,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
             RunVSFormatting(textDocument);
+
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
@@ -338,154 +345,154 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Inserts a blank line before the specified using statements except where adjacent to a brace.
         /// </summary>
         /// <param name="usingStatements">The using statements to pad.</param>
-        private void InsertBlankLinePaddingBeforeUsingStatementBlocks(IEnumerable<CodeElement> usingStatements)
+        private void InsertBlankLinePaddingBeforeUsingStatementBlocks(IEnumerable<CodeItemUsingStatement> usingStatements)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeUsingStatementBlocks) return;
 
-            var usingStatementBlocks = GetCodeElementBlocks(usingStatements);
-            var usingStatementsThatStartBlocks = (from IEnumerable<CodeElement> block in usingStatementBlocks select block.First());
+            var usingStatementBlocks = GetCodeItemBlocks(usingStatements);
+            var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First());
 
-            InsertBlankLinePaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            InsertBlankLinePaddingBeforeCodeItems(usingStatementsThatStartBlocks);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified using statements except where adjacent to a brace.
         /// </summary>
         /// <param name="usingStatements">The using statements to pad.</param>
-        private void InsertBlankLinePaddingAfterUsingStatementBlocks(IEnumerable<CodeElement> usingStatements)
+        private void InsertBlankLinePaddingAfterUsingStatementBlocks(IEnumerable<CodeItemUsingStatement> usingStatements)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterUsingStatementBlocks) return;
 
-            var usingStatementBlocks = GetCodeElementBlocks(usingStatements);
-            var usingStatementsThatEndBlocks = (from IEnumerable<CodeElement> block in usingStatementBlocks select block.Last());
+            var usingStatementBlocks = GetCodeItemBlocks(usingStatements);
+            var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last());
 
-            InsertBlankLinePaddingAfterCodeElements(usingStatementsThatEndBlocks);
+            InsertBlankLinePaddingAfterCodeItems(usingStatementsThatEndBlocks);
         }
 
         /// <summary>
         /// Inserts a blank line before the specified namespaces except where adjacent to a brace.
         /// </summary>
         /// <param name="namespaces">The namespaces to pad.</param>
-        private void InsertBlankLinePaddingBeforeNamespaces(IEnumerable<CodeElement> namespaces)
+        private void InsertBlankLinePaddingBeforeNamespaces(IEnumerable<CodeItemNamespace> namespaces)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeNamespaces) return;
 
-            InsertBlankLinePaddingBeforeCodeElements(namespaces);
+            InsertBlankLinePaddingBeforeCodeItems(namespaces);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified namespaces except where adjacent to a brace.
         /// </summary>
         /// <param name="namespaces">The namespaces to pad.</param>
-        private void InsertBlankLinePaddingAfterNamespaces(IEnumerable<CodeElement> namespaces)
+        private void InsertBlankLinePaddingAfterNamespaces(IEnumerable<CodeItemNamespace> namespaces)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterNamespaces) return;
 
-            InsertBlankLinePaddingAfterCodeElements(namespaces);
+            InsertBlankLinePaddingAfterCodeItems(namespaces);
         }
 
         /// <summary>
         /// Inserts a blank line before the specified classes except where adjacent to a brace.
         /// </summary>
         /// <param name="classes">The classes to pad.</param>
-        private void InsertBlankLinePaddingBeforeClasses(IEnumerable<CodeElement> classes)
+        private void InsertBlankLinePaddingBeforeClasses(IEnumerable<CodeItemClass> classes)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeClasses) return;
 
-            InsertBlankLinePaddingBeforeCodeElements(classes);
+            InsertBlankLinePaddingBeforeCodeItems(classes);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified classes except where adjacent to a brace.
         /// </summary>
         /// <param name="classes">The classes to pad.</param>
-        private void InsertBlankLinePaddingAfterClasses(IEnumerable<CodeElement> classes)
+        private void InsertBlankLinePaddingAfterClasses(IEnumerable<CodeItemClass> classes)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterClasses) return;
 
-            InsertBlankLinePaddingAfterCodeElements(classes);
+            InsertBlankLinePaddingAfterCodeItems(classes);
         }
 
         /// <summary>
         /// Inserts a blank line before the specified enumerations except where adjacent to a brace.
         /// </summary>
         /// <param name="enumerations">The enumerations to pad.</param>
-        private void InsertBlankLinePaddingBeforeEnumerations(IEnumerable<CodeElement> enumerations)
+        private void InsertBlankLinePaddingBeforeEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEnumerations) return;
 
-            InsertBlankLinePaddingBeforeCodeElements(enumerations);
+            InsertBlankLinePaddingBeforeCodeItems(enumerations);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified enumerations except where adjacent to a brace.
         /// </summary>
         /// <param name="enumerations">The enumerations to pad.</param>
-        private void InsertBlankLinePaddingAfterEnumerations(IEnumerable<CodeElement> enumerations)
+        private void InsertBlankLinePaddingAfterEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEnumerations) return;
 
-            InsertBlankLinePaddingAfterCodeElements(enumerations);
+            InsertBlankLinePaddingAfterCodeItems(enumerations);
         }
 
         /// <summary>
         /// Inserts a blank line before the specified methods except where adjacent to a brace.
         /// </summary>
         /// <param name="methods">The methods to pad.</param>
-        private void InsertBlankLinePaddingBeforeMethods(IEnumerable<CodeElement> methods)
+        private void InsertBlankLinePaddingBeforeMethods(IEnumerable<CodeItemMethod> methods)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeMethods) return;
 
-            InsertBlankLinePaddingBeforeCodeElements(methods);
+            InsertBlankLinePaddingBeforeCodeItems(methods);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified methods except where adjacent to a brace.
         /// </summary>
         /// <param name="methods">The methods to pad.</param>
-        private void InsertBlankLinePaddingAfterMethods(IEnumerable<CodeElement> methods)
+        private void InsertBlankLinePaddingAfterMethods(IEnumerable<CodeItemMethod> methods)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterMethods) return;
 
-            InsertBlankLinePaddingAfterCodeElements(methods);
+            InsertBlankLinePaddingAfterCodeItems(methods);
         }
 
         /// <summary>
         /// Inserts a blank line before the specified properties except where adjacent to a brace.
         /// </summary>
         /// <param name="properties">The properties to pad.</param>
-        private void InsertBlankLinePaddingBeforeProperties(IEnumerable<CodeElement> properties)
+        private void InsertBlankLinePaddingBeforeProperties(IEnumerable<CodeItemProperty> properties)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeProperties) return;
 
-            InsertBlankLinePaddingBeforeCodeElements(properties);
+            InsertBlankLinePaddingBeforeCodeItems(properties);
         }
 
         /// <summary>
         /// Inserts a blank line after the specified properties except where adjacent to a brace.
         /// </summary>
         /// <param name="properties">The properties to pad.</param>
-        private void InsertBlankLinePaddingAfterProperties(IEnumerable<CodeElement> properties)
+        private void InsertBlankLinePaddingAfterProperties(IEnumerable<CodeItemProperty> properties)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterProperties) return;
 
-            InsertBlankLinePaddingAfterCodeElements(properties);
+            InsertBlankLinePaddingAfterCodeItems(properties);
         }
 
         /// <summary>
         /// Inserts the explicit access modifiers on classes where they are not specified.
         /// </summary>
         /// <param name="classes">The classes.</param>
-        private void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeElement> classes)
+        private void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeItemClass> classes)
         {
             if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnClasses) return;
 
-            foreach (var codeClass in classes.OfType<CodeClass>())
+            foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
             {
                 var classDeclaration = CodeModelHelper.GetClassDeclaration(codeClass);
 
                 // Skip partial classes - access modifier may be specified elsewhere.
-                if (IsKeywordSpecified(classDeclaration, PARTIAL_KEYWORD))
+                if (IsKeywordSpecified(classDeclaration, PartialKeyword))
                 {
                     continue;
                 }
@@ -502,11 +509,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Inserts the explicit access modifiers on enumerations where they are not specified.
         /// </summary>
         /// <param name="enumerations">The enumerations.</param>
-        private void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeElement> enumerations)
+        private void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
             if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnEnumerations) return;
 
-            foreach (var codeEnum in enumerations.OfType<CodeEnum>())
+            foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
             {
                 var enumDeclaration = CodeModelHelper.GetEnumerationDeclaration(codeEnum);
 
@@ -522,11 +529,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Inserts the explicit access modifiers on methods where they are not specified.
         /// </summary>
         /// <param name="methods">The methods.</param>
-        private void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeElement> methods)
+        private void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeItemMethod> methods)
         {
             if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnMethods) return;
 
-            foreach (var codeFunction in methods.OfType<CodeFunction>())
+            foreach (var codeFunction in methods.Select(x => x.CodeFunction).Where(y => y != null))
             {
                 try
                 {
@@ -563,7 +570,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var methodDeclaration = CodeModelHelper.GetMethodDeclaration(codeFunction);
 
                 // Skip partial methods - access modifier may be specified elsewhere.
-                if (IsKeywordSpecified(methodDeclaration, PARTIAL_KEYWORD))
+                if (IsKeywordSpecified(methodDeclaration, PartialKeyword))
                 {
                     continue;
                 }
@@ -580,11 +587,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Inserts the explicit access modifiers on properties where they are not specified.
         /// </summary>
         /// <param name="properties">The properties.</param>
-        private void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeElement> properties)
+        private void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeItemProperty> properties)
         {
             if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnProperties) return;
 
-            foreach (var codeProperty in properties.OfType<CodeProperty>())
+            foreach (var codeProperty in properties.Select(x => x.CodeProperty).Where(y => y != null))
             {
                 try
                 {
@@ -826,58 +833,64 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Helper Methods
 
         /// <summary>
-        /// Gets the specified code elements as unique blocks by consecutive line positioning.
+        /// Gets the specified code items as unique blocks by consecutive line positioning.
         /// </summary>
-        /// <param name="codeElements">The code elements.</param>
-        /// <returns>An enumerable collection of blocks of code elements.</returns>
-        private static IEnumerable<IList<CodeElement>> GetCodeElementBlocks(IEnumerable<CodeElement> codeElements)
+        /// <typeparam name="T">The type of the code item.</typeparam>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An enumerable collection of blocks of code items.</returns>
+        private static IEnumerable<IList<T>> GetCodeItemBlocks<T>(IEnumerable<T> codeItems)
+            where T : CodeItemBase
         {
-            var codeElementBlocks = new List<IList<CodeElement>>();
-            IList<CodeElement> currentBlock = null;
+            var codeItemBlocks = new List<IList<T>>();
+            IList<T> currentBlock = null;
 
-            var orderedCodeElements = codeElements.OrderBy(x => x.StartPoint.Line);
-            foreach (CodeElement codeElement in orderedCodeElements)
+            var orderedCodeItems = codeItems.OrderBy(x => x.StartLine);
+            foreach (T codeItem in orderedCodeItems)
             {
                 if (currentBlock != null &&
-                    (codeElement.StartPoint.Line <= currentBlock.Last().EndPoint.Line + 1))
+                    (codeItem.StartLine <= currentBlock.Last().EndLine + 1))
                 {
-                    // This element belongs in the current block, add it.
-                    currentBlock.Add(codeElement);
+                    // This item belongs in the current block, add it.
+                    currentBlock.Add(codeItem);
                 }
                 else
                 {
-                    // This element starts a new block, create one.
-                    currentBlock = new List<CodeElement> { codeElement };
-                    codeElementBlocks.Add(currentBlock);
+                    // This item starts a new block, create one.
+                    currentBlock = new List<T> { codeItem };
+                    codeItemBlocks.Add(currentBlock);
                 }
             }
 
-            return codeElementBlocks;
+            return codeItemBlocks;
         }
 
         /// <summary>
-        /// Inserts a blank line before the specified code elements except where adjacent to a brace.
+        /// Inserts a blank line before the specified code items except where adjacent to a brace.
         /// </summary>
-        /// <param name="codeElements">The code elements to pad.</param>
-        private static void InsertBlankLinePaddingBeforeCodeElements(IEnumerable<CodeElement> codeElements)
+        /// <typeparam name="T">The type of the code item.</typeparam>
+        /// <param name="codeItems">The code items to pad.</param>
+        private static void InsertBlankLinePaddingBeforeCodeItems<T>(IEnumerable<T> codeItems)
+            where T : CodeItemBase
         {
-            foreach (CodeElement codeElement in codeElements)
+            foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {
-                EditPoint startPoint = codeElement.StartPoint.CreateEditPoint();
+                EditPoint startPoint = codeItem.CodeElement.StartPoint.CreateEditPoint();
 
                 TextDocumentHelper.InsertBlankLineBeforePoint(startPoint);
             }
         }
 
         /// <summary>
-        /// Inserts a blank line after the specified code elements except where adjacent to a brace.
+        /// Inserts a blank line after the specified code items except where adjacent to a brace.
         /// </summary>
-        /// <param name="codeElements">The code elements to pad.</param>
-        private static void InsertBlankLinePaddingAfterCodeElements(IEnumerable<CodeElement> codeElements)
+        /// <typeparam name="T">The type of the code item.</typeparam>
+        /// <param name="codeItems">The code items to pad.</param>
+        private static void InsertBlankLinePaddingAfterCodeItems<T>(IEnumerable<T> codeItems)
+            where T : CodeItemBase
         {
-            foreach (CodeElement codeElement in codeElements)
+            foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {
-                EditPoint endPoint = codeElement.EndPoint.CreateEditPoint();
+                EditPoint endPoint = codeItem.CodeElement.EndPoint.CreateEditPoint();
 
                 TextDocumentHelper.InsertBlankLineAfterPoint(endPoint);
             }
@@ -916,7 +929,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// The string representation of the partial keyword.
         /// </summary>
-        private const string PARTIAL_KEYWORD = "partial";
+        private const string PartialKeyword = "partial";
 
         #endregion Private Constants
 
