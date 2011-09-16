@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.Collections.Generic;
+using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -49,6 +50,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the end line.
         /// </summary>
         public int EndLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the code element.
+        /// </summary>
+        public CodeElement CodeElement { get; set; }
 
         /// <summary>
         /// Gets or sets the parent.

@@ -92,6 +92,7 @@ namespace SteveCadwallader.CodeMaid.Factories
 
             codeItem.StartLine = codeElement.StartPoint.Line;
             codeItem.EndLine = codeElement.EndPoint.Line;
+            codeItem.CodeElement = codeElement;
 
             return codeItem;
         }
