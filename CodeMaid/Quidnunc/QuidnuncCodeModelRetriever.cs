@@ -12,9 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -29,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Fields
 
         private readonly BackgroundWorker _bw;
-        private readonly Action<IEnumerable<CodeItemBase>> _callback;
+        private readonly Action<SetCodeItems> _callback;
         private Document _pendingDocument;
 
         #endregion Fields
@@ -40,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Initializes a new instance of the <see cref="QuidnuncCodeModelRetriever"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal QuidnuncCodeModelRetriever(Action<IEnumerable<CodeItemBase>> callback)
+        internal QuidnuncCodeModelRetriever(Action<SetCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -54,9 +52,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Methods
 
         /// <summary>
-        /// Retrieves the code model asynchronously.
+        /// Retrieves the code model asynchronously from the specified document.
         /// </summary>
-        /// <param name="document">The document.</param>
+        /// <param name="document">The document to process.</param>
         internal void RetrieveCodeModelAsync(Document document)
         {
             if (_bw.IsBusy)
@@ -77,11 +75,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (document == null) return;
 
             var codeItems = CodeModelHelper.RetrieveAllCodeItems(document);
-            var filteredCodeItems = codeItems.Where(x => !string.IsNullOrEmpty(x.Name));
+            codeItems.RemoveAll(x => string.IsNullOrEmpty(x.Name));
 
             if (!e.Cancel)
             {
-                e.Result = filteredCodeItems;
+                e.Result = codeItems;
             }
         }
 
@@ -93,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
             else if (e.Error == null)
             {
-                var codeItems = e.Result as IEnumerable<CodeItemBase>;
+                var codeItems = e.Result as SetCodeItems;
                 if (codeItems != null)
                 {
                     _callback(codeItems);

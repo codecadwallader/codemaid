@@ -26,8 +26,8 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
         private QuidnuncInteractionMode _interactionMode;
         private QuidnuncLayoutMode _layoutMode;
-        private IEnumerable<CodeItemBase> _rawCodeItems;
-        private IEnumerable<CodeItemBase> _organizedCodeItems;
+        private SetCodeItems _rawCodeItems;
+        private SetCodeItems _organizedCodeItems;
 
         #endregion Fields
 
@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the raw code items.
         /// </summary>
-        public IEnumerable<CodeItemBase> RawCodeItems
+        public SetCodeItems RawCodeItems
         {
             get { return _rawCodeItems; }
             set
@@ -89,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets the organized code items.
         /// </summary>
-        public IEnumerable<CodeItemBase> OrganizedCodeItems
+        public SetCodeItems OrganizedCodeItems
         {
             get { return _organizedCodeItems; }
             private set
@@ -157,9 +157,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static IEnumerable<CodeItemBase> OrganizeCodeItemsByFileLayout(IEnumerable<CodeItemBase> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByFileLayout(IEnumerable<CodeItemBase> rawCodeItems)
         {
-            var organizedCodeItems = new List<CodeItemBase>();
+            var organizedCodeItems = new SetCodeItems();
 
             if (rawCodeItems != null)
             {
@@ -177,9 +177,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static IEnumerable<CodeItemBase> OrganizeCodeItemsByTypeLayout(IEnumerable<CodeItemBase> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByTypeLayout(IEnumerable<CodeItemBase> rawCodeItems)
         {
-            var organizedCodeItems = new List<CodeItemBase>();
+            var organizedCodeItems = new SetCodeItems();
 
             if (rawCodeItems != null)
             {
@@ -197,9 +197,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static IEnumerable<CodeItemBase> OrganizeCodeItemsByAlphaLayout(IEnumerable<CodeItemBase> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByAlphaLayout(IEnumerable<CodeItemBase> rawCodeItems)
         {
-            var organizedCodeItems = new List<CodeItemBase>();
+            var organizedCodeItems = new SetCodeItems();
 
             if (rawCodeItems != null)
             {

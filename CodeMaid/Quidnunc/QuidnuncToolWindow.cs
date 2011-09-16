@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -204,10 +203,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Updates the view model's raw code items collection.
+        /// Updates the view model's raw set of code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void UpdateViewModelRawCodeItems(IEnumerable<CodeItemBase> codeItems)
+        private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
         {
             _viewModel.RawCodeItems = codeItems;
         }
