@@ -199,19 +199,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeRegions = RetrieveAllCodeRegions(document);
 
             // Get all code elements in the document.
-            var codeElements = RetrieveAllCodeElements(document.ProjectItem.FileCodeModel);
-            var filteredCodeElements = FilterCodeElements(codeElements);
+            var codeElements = RetrieveAllCodeItems(document.ProjectItem.FileCodeModel);
 
             // Create a composite list of code items.
             var codeItems = new List<CodeItemBase>();
             codeItems.AddRange(codeRegions.Cast<CodeItemBase>());
-            codeItems.AddRange(filteredCodeElements.Select(codeElement => new CodeItemBase
-                                                                              {
-                                                                                  Name = codeElement.Name,
-                                                                                  StartLine = codeElement.StartPoint.Line,
-                                                                                  EndLine = codeElement.EndPoint.Line,
-                                                                                  //CodeElement = codeElement
-                                                                              }));
+            codeItems.AddRange(codeElements);
 
             return codeItems;
         }
@@ -219,26 +212,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Internal Methods
 
         #region Private Methods
-
-        /// <summary>
-        /// Filters the specified enumerable set of code elements to those that can
-        /// be used in the tool window.
-        /// </summary>
-        /// <param name="codeElements">The code elements to filter.</param>
-        /// <returns>The enumerable set of filtered code elements.</returns>
-        private static IEnumerable<CodeElement> FilterCodeElements(IEnumerable<CodeElement> codeElements)
-        {
-            return codeElements.Where(x => x.Kind == vsCMElement.vsCMElementNamespace ||
-                                           x.Kind == vsCMElement.vsCMElementClass ||
-                                           x.Kind == vsCMElement.vsCMElementInterface ||
-                                           x.Kind == vsCMElement.vsCMElementStruct ||
-                                           x.Kind == vsCMElement.vsCMElementDelegate ||
-                                           x.Kind == vsCMElement.vsCMElementEvent ||
-                                           x.Kind == vsCMElement.vsCMElementEnum ||
-                                           x.Kind == vsCMElement.vsCMElementFunction ||
-                                           x.Kind == vsCMElement.vsCMElementProperty ||
-                                           x.Kind == vsCMElement.vsCMElementVariable);
-        }
 
         /// <summary>
         /// Retrieves all code regions in the specified document.
@@ -327,8 +300,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The set of code items.</returns>
         private static IEnumerable<CodeItemBase> RetrieveNestedCodeItems(CodeElement codeElement)
         {
+            var elementList = new List<CodeItemBase>();
+
             var parentCodeItem = CodeItemFactory.CreateCodeItem(codeElement);
-            var elementList = new List<CodeItemBase> { parentCodeItem };
+            if (parentCodeItem != null)
+            {
+                elementList.Add(parentCodeItem);
+            }
 
             if (codeElement.Children != null)
             {
