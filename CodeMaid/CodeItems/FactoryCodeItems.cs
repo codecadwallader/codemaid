@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -12,14 +12,13 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using EnvDTE;
-using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Factories
+namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
     /// A static factory class for generating code items.
     /// </summary>
-    public static class CodeItemFactory
+    public static class FactoryCodeItems
     {
         /// <summary>
         /// Attempts to generate a code item from the specified code element.

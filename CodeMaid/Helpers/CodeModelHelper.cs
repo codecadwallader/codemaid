@@ -17,7 +17,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
-using SteveCadwallader.CodeMaid.Factories;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -302,7 +301,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var elementList = new List<CodeItemBase>();
 
-            var parentCodeItem = CodeItemFactory.CreateCodeItem(codeElement);
+            var parentCodeItem = FactoryCodeItems.CreateCodeItem(codeElement);
             if (parentCodeItem != null)
             {
                 elementList.Add(parentCodeItem);
