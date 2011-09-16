@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems">
+
+    <!-- Styles -->
+    <Style x:Key="nameStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontStyle" Value="Italic" />
+    </Style>
+
+    <!-- Templates -->
+    <DataTemplate DataType="{x:Type ci:CodeItemBase}">
+        <DockPanel>
+            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ci:CodeItemClass}">
+        <DockPanel>
+            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Style="{StaticResource nameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ci:CodeItemMethod}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Right" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
+            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ci:CodeItemProperty}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Right" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
+            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ci:CodeItemRegion}">
+        <DockPanel Background="AliceBlue">
+            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>

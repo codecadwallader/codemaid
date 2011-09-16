@@ -317,6 +317,10 @@
     <Content Include="Resources\switch.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Quidnunc\CodeItemTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Quidnunc\QuidnuncView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

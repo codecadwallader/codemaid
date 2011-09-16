@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -20,9 +21,27 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemProperty : CodeItemBase
     {
+        private int? _complexity;
+
         /// <summary>
         /// Gets or sets the underlying VSX CodeProperty.
         /// </summary>
         public CodeProperty CodeProperty { get; set; }
+
+        /// <summary>
+        /// Gets the complexity.
+        /// </summary>
+        public int Complexity
+        {
+            get
+            {
+                if (_complexity == null)
+                {
+                    _complexity = CodeModelHelper.CalculateComplexity(CodeElement);
+                }
+
+                return _complexity.Value;
+            }
+        }
     }
 }
