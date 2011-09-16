@@ -167,43 +167,32 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Walks the given FileCodeModel and generates a flat list of code items.
+        /// Walks the given FileCodeModel, turning CodeElements into code items within the specified code items set.
         /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
         /// <param name="fcm">The FileCodeModel to walk.</param>
-        /// <returns>The set of code items.</returns>
-        internal static IEnumerable<CodeItemBase> RetrieveAllCodeItems(FileCodeModel fcm)
+        internal static void RetrieveAllCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
         {
-            var codeItems = new List<CodeItemBase>();
-
             if (fcm != null)
             {
                 foreach (CodeElement codeElement in fcm.CodeElements)
                 {
-                    codeItems.AddRange(RetrieveNestedCodeItems(codeElement));
+                    RetrieveNestedCodeItems(codeItems, codeElement);
                 }
             }
-
-            return codeItems;
         }
 
         /// <summary>
-        /// Walks the given document object and returns a flat list of all
-        /// the CodeItems within it (CodeElements + regions).
+        /// Walks the given document and constructs a <see cref="SetCodeItems"/> of all CodeItems within it (regions + CodeElements).
         /// </summary>
         /// <param name="document">The document to walk.</param>
-        /// <returns>The set of all CodeItems.</returns>
-        internal static IEnumerable<CodeItemBase> RetrieveAllCodeItems(Document document)
+        /// <returns>The set of all code items within the document.</returns>
+        internal static SetCodeItems RetrieveAllCodeItems(Document document)
         {
-            // Get all code regions in the document.
-            var codeRegions = RetrieveAllCodeRegions(document);
+            var codeItems = new SetCodeItems();
 
-            // Get all code elements in the document.
-            var codeElements = RetrieveAllCodeItems(document.ProjectItem.FileCodeModel);
-
-            // Create a composite list of code items.
-            var codeItems = new List<CodeItemBase>();
-            codeItems.AddRange(codeRegions.Cast<CodeItemBase>());
-            codeItems.AddRange(codeElements);
+            RetrieveAllCodeRegions(codeItems, document);
+            RetrieveAllCodeItems(codeItems, document.ProjectItem.FileCodeModel);
 
             return codeItems;
         }
@@ -213,15 +202,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Methods
 
         /// <summary>
-        /// Retrieves all code regions in the specified document.
+        /// Retrieves all code regions in the specified document into the specifed code items set.
         /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
         /// <param name="document">The document to walk.</param>
-        /// <returns>The set of all code regions.</returns>
-        private static IEnumerable<CodeItemRegion> RetrieveAllCodeRegions(Document document)
+        private static void RetrieveAllCodeRegions(SetCodeItems codeItems, Document document)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            List<CodeItemRegion> regionList = new List<CodeItemRegion>();    // Flat return list.
             Stack<CodeItemRegion> regionStack = new Stack<CodeItemRegion>(); // Nested working hierarchy.
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
             TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
@@ -255,19 +243,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
                             region.Parent = regionStack.Peek();
                         }
 
-                        regionList.Add(region);
+                        codeItems.Add(region);
                     }
                     else
                     {
                         // This document is improperly formatted, abort.
-                        return null;
+                        return;
                     }
                 }
 
                 cursor.EndOfLine();
             }
-
-            return regionList;
         }
 
         /// <summary>
@@ -292,30 +278,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Recursive method for retrieving a set of code items including the passed
-        /// elements and all of its children.
+        /// Recursive method for creating a code item for the specified code element,
+        /// adding it to the specified code items set and recursing into all of the code element's children.
         /// </summary>
-        /// <param name="codeElement">The CodeElement to walk.</param>
-        /// <returns>The set of code items.</returns>
-        private static IEnumerable<CodeItemBase> RetrieveNestedCodeItems(CodeElement codeElement)
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="codeElement">The CodeElement to add and recurse.</param>
+        private static void RetrieveNestedCodeItems(SetCodeItems codeItems, CodeElement codeElement)
         {
-            var elementList = new List<CodeItemBase>();
-
             var parentCodeItem = FactoryCodeItems.CreateCodeItem(codeElement);
             if (parentCodeItem != null)
             {
-                elementList.Add(parentCodeItem);
+                codeItems.Add(parentCodeItem);
             }
 
             if (codeElement.Children != null)
             {
                 foreach (CodeElement child in codeElement.Children)
                 {
-                    elementList.AddRange(RetrieveNestedCodeItems(child));
+                    RetrieveNestedCodeItems(codeItems, child);
                 }
             }
-
-            return elementList;
         }
 
         #endregion Private Methods
