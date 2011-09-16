@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -76,10 +77,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (document == null) return;
 
             var codeItems = CodeModelHelper.RetrieveAllCodeItems(document);
+            var filteredCodeItems = codeItems.Where(x => !string.IsNullOrEmpty(x.Name));
 
             if (!e.Cancel)
             {
-                e.Result = codeItems;
+                e.Result = filteredCodeItems;
             }
         }
 
