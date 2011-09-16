@@ -85,14 +85,14 @@ namespace SteveCadwallader.CodeMaid.Factories
             }
 
             // Populate the common fields.
+            codeItem.StartLine = codeElement.StartPoint.Line;
+            codeItem.EndLine = codeElement.EndPoint.Line;
+            codeItem.CodeElement = codeElement;
+
             if (!isNameless)
             {
                 codeItem.Name = codeElement.Name;
             }
-
-            codeItem.StartLine = codeElement.StartPoint.Line;
-            codeItem.EndLine = codeElement.EndPoint.Line;
-            codeItem.CodeElement = codeElement;
 
             return codeItem;
         }

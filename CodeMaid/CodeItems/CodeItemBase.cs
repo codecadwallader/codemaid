@@ -37,11 +37,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         #region Properties
 
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the start line.
         /// </summary>
         public int StartLine { get; set; }
@@ -52,7 +47,12 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public int EndLine { get; set; }
 
         /// <summary>
-        /// Gets or sets the code element.
+        /// Gets or sets the name, may be empty.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the code element, may be null.
         /// </summary>
         public CodeElement CodeElement { get; set; }
 
