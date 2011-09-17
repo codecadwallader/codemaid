@@ -39,7 +39,7 @@
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Location = new System.Drawing.Point(3, 3);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(428, 24);
+            this.progressBar.Size = new System.Drawing.Size(438, 24);
             this.progressBar.TabIndex = 0;
             // 
             // baseTLP
@@ -61,16 +61,15 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cancelButton.AutoSize = true;
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.cancelButton.Enabled = false;
-            this.cancelButton.Image = global::SteveCadwallader.CodeMaid.VSPackage._503;
-            this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancelButton.Location = new System.Drawing.Point(437, 3);
+            this.cancelButton.Location = new System.Drawing.Point(447, 3);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(60, 24);
+            this.cancelButton.Size = new System.Drawing.Size(50, 23);
             this.cancelButton.TabIndex = 1;
             this.cancelButton.TabStop = false;
             this.cancelButton.Text = "Cancel";
-            this.cancelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -83,6 +82,7 @@
             this.Name = "BuildProgressControl";
             this.Size = new System.Drawing.Size(500, 30);
             this.baseTLP.ResumeLayout(false);
+            this.baseTLP.PerformLayout();
             this.ResumeLayout(false);
 
         }

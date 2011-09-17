@@ -150,7 +150,7 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node or set it to <Icon guid="guidOfficeIcon" id="msotcidNoIcon" /> -->
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCleanup" id="IconCleanup" />
+        <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
           <CommandName>CmdIDCodeMaidAbout</CommandName>
           <ButtonText>About CodeMaid &amp;v0.3.7 ...</ButtonText>
@@ -158,7 +158,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandBuildProgressToolWindow" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0100" type="Button">
-        <Icon guid="GuidImageBuildProgress" id="IconBuildProgress" />
+        <Icon guid="GuidImageProgress" id="IconProgress" />
         <Strings>
           <CommandName>CmdIDCodeMaidBuildProgressToolWindow</CommandName>
           <ButtonText>&amp;Build Progress</ButtonText>
@@ -177,7 +177,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCleanup" id="IconCleanup" />
+        <Icon guid="GuidImageCleanupAll" id="IconCleanupAll" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -197,7 +197,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0100" type="Button">
-        <Icon guid="GuidImageCloseAllReadOnly" id="IconCloseAllReadOnly" />
+        <Icon guid="GuidImageCloseLocked" id="IconCloseLocked" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -245,7 +245,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0100" type="Button">
-        <Icon guid="GuidImageJoinLines" id="IconJoinLines" />
+        <Icon guid="GuidImageJoin" id="IconJoin" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -255,7 +255,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncInteractionReorder" id="CmdIDCodeMaidQuidnuncInteractionReorder" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncInteractionReorder</CommandName>
           <ButtonText>Quidnunc reorder mode</ButtonText>
@@ -263,7 +263,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncInteractionSelect" id="CmdIDCodeMaidQuidnuncInteractionSelect" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncInteractionSelect</CommandName>
           <ButtonText>Quidnunc selection mode</ButtonText>
@@ -271,7 +271,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutAlpha" id="CmdIDCodeMaidQuidnuncLayoutAlpha" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutAlpha</CommandName>
           <ButtonText>Layout Quidnunc alphabetically</ButtonText>
@@ -279,7 +279,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutFile" id="CmdIDCodeMaidQuidnuncLayoutFile" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutFile</CommandName>
           <ButtonText>Layout Quidnunc by file order</ButtonText>
@@ -287,7 +287,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutType" id="CmdIDCodeMaidQuidnuncLayoutType" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutType</CommandName>
           <ButtonText>Layout Quidnunc by type</ButtonText>
@@ -295,7 +295,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncRefresh" id="CmdIDCodeMaidQuidnuncRefresh" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncRefresh</CommandName>
           <ButtonText>Refresh Quidnunc</ButtonText>
@@ -303,7 +303,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncToolWindow" id="CmdIDCodeMaidQuidnuncToolWindow" priority="0x0100" type="Button">
-        <Icon guid="GuidImageQuidnunc" id="IconQuidnunc" />
+        <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncToolWindow</CommandName>
           <ButtonText>&amp;Quidnunc</ButtonText>
@@ -311,7 +311,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
-        <Icon guid="GuidImageReadOnly" id="IconReadOnly" />
+        <Icon guid="GuidImageUnlock" id="IconUnlock" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -339,16 +339,19 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="GuidImageBuildProgress" href="Resources\buildprogress.bmp" usedList="IconBuildProgress" />
       <Bitmap guid="GuidImageCleanup" href="Resources\cleanup.bmp" usedList="IconCleanup" />
-      <Bitmap guid="GuidImageCloseAllReadOnly" href="Resources\closeallreadonly.bmp" usedList="IconCloseAllReadOnly"/>
+      <Bitmap guid="GuidImageCleanupAll" href="Resources\cleanupAll.bmp" usedList="IconCleanupAll" />
+      <Bitmap guid="GuidImageCloseLocked" href="Resources\closeLocked.bmp" usedList="IconCloseLocked"/>
       <Bitmap guid="GuidImageCollapse" href="Resources\collapse.bmp" usedList="IconCollapse" />
       <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
-      <Bitmap guid="GuidImageJoinLines" href="Resources\joinlines.bmp" usedList="IconJoinLines" />
-      <Bitmap guid="GuidImageQuidnunc" href="Resources\quidnunc.bmp" usedList="IconQuidnunc" />
-      <Bitmap guid="GuidImageReadOnly" href="Resources\readonly.bmp" usedList="IconReadOnly" />
+      <Bitmap guid="GuidImageInfo" href="Resources\info.bmp" usedList="IconInfo"/>
+      <Bitmap guid="GuidImageJoin" href="Resources\join.bmp" usedList="IconJoin" />
+      <Bitmap guid="GuidImageLock" href="Resources\lock.bmp" usedList="IconLock" />
+      <Bitmap guid="GuidImageProgress" href="Resources\progress.bmp" usedList="IconProgress" />
+      <Bitmap guid="GuidImageSpade" href="Resources\spade.bmp" usedList="IconSpade" />
       <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
+      <Bitmap guid="GuidImageUnlock" href="Resources\unlock.bmp" usedList="IconUnlock" />
     </Bitmaps>
   </Commands>
 
@@ -787,14 +790,14 @@
     </GuidSymbol>
 
     <!-- These are the guids for images -->
-    <GuidSymbol name="GuidImageBuildProgress" value="{57d334e8-69fb-4554-8632-3fd5be77e45e}">
-      <IDSymbol name="IconBuildProgress" value="1" />
-    </GuidSymbol>
     <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">
       <IDSymbol name="IconCleanup" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageCloseAllReadOnly" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
-      <IDSymbol name="IconCloseAllReadOnly" value="1" />
+    <GuidSymbol name="GuidImageCleanupAll" value="{e3d926ae-03d7-4c69-8226-440eeddab292}">
+      <IDSymbol name="IconCleanupAll" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCloseLocked" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
+      <IDSymbol name="IconCloseLocked" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageCollapse" value="{c853fa86-98f3-4f30-89f4-913d84c34a29}">
       <IDSymbol name="IconCollapse" value="1" />
@@ -805,17 +808,26 @@
     <GuidSymbol name="GuidImageFind" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
       <IDSymbol name="IconFind" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageJoinLines" value="{e6e6dcd8-accc-4552-890b-a68ef0cf7279}">
-      <IDSymbol name="IconJoinLines" value="1" />
+    <GuidSymbol name="GuidImageInfo" value="{0c75ffd4-f452-47c7-a36b-3179b6d6309f}">
+      <IDSymbol name="IconInfo" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageQuidnunc" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
-      <IDSymbol name="IconQuidnunc" value="1" />
+    <GuidSymbol name="GuidImageJoin" value="{e6e6dcd8-accc-4552-890b-a68ef0cf7279}">
+      <IDSymbol name="IconJoin" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageReadOnly" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
-      <IDSymbol name="IconReadOnly" value="1" />
+    <GuidSymbol name="GuidImageLock" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
+      <IDSymbol name="IconLock" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageProgress" value="{57d334e8-69fb-4554-8632-3fd5be77e45e}">
+      <IDSymbol name="IconProgress" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSpade" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
+      <IDSymbol name="IconSpade" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageSwitch" value="{f86e7cf5-34e4-4f45-a8c3-9528b6e49a12}">
       <IDSymbol name="IconSwitch" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageUnlock" value="{6c3e76ea-326a-4201-aa74-fb2b9b8ccb0f}">
+      <IDSymbol name="IconUnlock" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

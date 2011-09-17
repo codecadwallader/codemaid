@@ -291,6 +291,7 @@
       <MergeWithCTO>true</MergeWithCTO>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -303,18 +304,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\about.png" />
-    <Content Include="Resources\buildprogress.bmp" />
-    <Content Include="Resources\cancelbuild.bmp" />
+    <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
-    <Content Include="Resources\closeallreadonly.bmp" />
+    <Content Include="Resources\closeLocked.bmp" />
     <Content Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />
     <Content Include="Resources\find.bmp" />
-    <Content Include="Resources\joinlines.bmp" />
-    <Content Include="Resources\readonly.bmp" />
-    <Content Include="Resources\quidnunc.bmp" />
+    <Content Include="Resources\info.bmp" />
+    <Content Include="Resources\join.bmp" />
+    <Content Include="Resources\lock.bmp" />
+    <Content Include="Resources\progress.bmp" />
+    <Content Include="Resources\spade.bmp" />
     <Content Include="Resources\switch.bmp" />
+    <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Quidnunc\CodeItemTemplates.xaml">

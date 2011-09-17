@@ -200,13 +200,6 @@ namespace SteveCadwallader.CodeMaid {
             }
         }
         
-        internal static System.Drawing.Bitmap _503 {
-            get {
-                object obj = ResourceManager.GetObject("503", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap _600 {
             get {
                 object obj = ResourceManager.GetObject("600", resourceCulture);
