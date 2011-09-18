@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
+    <Compile Include="Quidnunc\CodeItemToAttributeStringConverter.cs" />
     <Compile Include="Quidnunc\QuidnuncCodeModelRetriever.cs" />
     <Compile Include="Quidnunc\QuidnuncInteractionMode.cs" />
     <Compile Include="Quidnunc\QuidnuncLayoutMode.cs" />
