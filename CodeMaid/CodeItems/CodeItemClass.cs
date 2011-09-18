@@ -24,5 +24,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the underlying VSX CodeClass.
         /// </summary>
         public CodeClass CodeClass { get; set; }
+
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        public string Namespace
+        {
+            get { return CodeClass != null ? CodeClass.Namespace.Name : null; }
+        }
     }
 }

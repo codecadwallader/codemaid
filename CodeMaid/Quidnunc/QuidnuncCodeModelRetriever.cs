@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (document == null) return;
 
             var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
-            codeItems.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
 
             if (!e.Cancel)
             {

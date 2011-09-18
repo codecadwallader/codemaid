@@ -3,44 +3,77 @@
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems">
 
     <!-- Styles -->
-    <Style x:Key="nameStyle" TargetType="{x:Type TextBlock}">
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Tahoma" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}">
+    <Style x:Key="defaultStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}" />
+
+    <Style x:Key="topLevelNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style x:Key="namespaceStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontStyle" Value="Italic" />
+    </Style>
+
+    <Style x:Key="attributesStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+
+    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="10">
+                <Setter Property="Foreground" Value="#EB8181" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="15">
+                <Setter Property="Foreground" Value="#F23333" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Templates -->
     <DataTemplate DataType="{x:Type ci:CodeItemBase}">
         <DockPanel>
-            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ci:CodeItemClass}">
-        <DockPanel>
-            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Style="{StaticResource nameStyle}" />
+        <DockPanel Margin="0,2">
+            <TextBlock Text="{Binding Name}" Style="{StaticResource topLevelNameStyle}" />
+
+            <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
+                    Style="{StaticResource namespaceStyle}" />
         </DockPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
             <TextBlock DockPanel.Dock="Right" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
-            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+            <TextBlock DockPanel.Dock="Right" Text="r,w,s,o" Style="{StaticResource attributesStyle}" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ci:CodeItemProperty}">
         <DockPanel>
             <TextBlock DockPanel.Dock="Right" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
-            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
-        </DockPanel>
-    </DataTemplate>
+            <TextBlock DockPanel.Dock="Right" Text="r,w,s,o" Style="{StaticResource attributesStyle}" />
 
-    <DataTemplate DataType="{x:Type ci:CodeItemRegion}">
-        <DockPanel Background="AliceBlue">
-            <TextBlock Text="{Binding Name}" Style="{StaticResource nameStyle}" />
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
     </DataTemplate>
 </ResourceDictionary>
