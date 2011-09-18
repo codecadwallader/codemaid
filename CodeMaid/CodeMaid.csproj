@@ -310,12 +310,21 @@
     <Content Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />
+    <Content Include="Resources\cursor.bmp" />
     <Content Include="Resources\find.bmp" />
+    <Content Include="Resources\hand.bmp" />
     <Content Include="Resources\info.bmp" />
     <Content Include="Resources\join.bmp" />
     <Content Include="Resources\lock.bmp" />
     <Content Include="Resources\progress.bmp" />
+    <None Include="Resources\progressToolWindow.bmp" />
+    <Content Include="Resources\refresh.bmp" />
+    <Content Include="Resources\reorder.bmp" />
+    <Content Include="Resources\sortAlpha.bmp" />
+    <Content Include="Resources\sortNumeric.bmp" />
+    <Content Include="Resources\sortType.bmp" />
     <Content Include="Resources\spade.bmp" />
+    <None Include="Resources\spadeToolWindow.bmp" />
     <Content Include="Resources\switch.bmp" />
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>

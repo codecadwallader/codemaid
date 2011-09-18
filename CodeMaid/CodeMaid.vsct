@@ -255,47 +255,47 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncInteractionReorder" id="CmdIDCodeMaidQuidnuncInteractionReorder" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageHand" id="IconHand" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncInteractionReorder</CommandName>
-          <ButtonText>Quidnunc reorder mode</ButtonText>
+          <ButtonText>Reorder mode</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncInteractionSelect" id="CmdIDCodeMaidQuidnuncInteractionSelect" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageCursor" id="IconCursor" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncInteractionSelect</CommandName>
-          <ButtonText>Quidnunc selection mode</ButtonText>
+          <ButtonText>Selection mode</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutAlpha" id="CmdIDCodeMaidQuidnuncLayoutAlpha" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutAlpha</CommandName>
-          <ButtonText>Layout Quidnunc alphabetically</ButtonText>
+          <ButtonText>Layout alphabetically</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutFile" id="CmdIDCodeMaidQuidnuncLayoutFile" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutFile</CommandName>
-          <ButtonText>Layout Quidnunc by file order</ButtonText>
+          <ButtonText>Layout numerically (file order)</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncLayoutType" id="CmdIDCodeMaidQuidnuncLayoutType" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageSortType" id="IconSortType" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncLayoutType</CommandName>
-          <ButtonText>Layout Quidnunc by type</ButtonText>
+          <ButtonText>Layout by type</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandQuidnuncRefresh" id="CmdIDCodeMaidQuidnuncRefresh" priority="0x0100" type="Button">
-        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Icon guid="GuidImageRefresh" id="IconRefresh" />
         <Strings>
           <CommandName>CmdIDCodeMaidQuidnuncRefresh</CommandName>
           <ButtonText>Refresh Quidnunc</ButtonText>
@@ -344,11 +344,18 @@
       <Bitmap guid="GuidImageCloseLocked" href="Resources\closeLocked.bmp" usedList="IconCloseLocked"/>
       <Bitmap guid="GuidImageCollapse" href="Resources\collapse.bmp" usedList="IconCollapse" />
       <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
+      <Bitmap guid="GuidImageCursor" href="Resources\cursor.bmp" usedList="IconCursor" />
       <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
+      <Bitmap guid="GuidImageHand" href="Resources\hand.bmp" usedList="IconHand"/>
       <Bitmap guid="GuidImageInfo" href="Resources\info.bmp" usedList="IconInfo"/>
       <Bitmap guid="GuidImageJoin" href="Resources\join.bmp" usedList="IconJoin" />
       <Bitmap guid="GuidImageLock" href="Resources\lock.bmp" usedList="IconLock" />
       <Bitmap guid="GuidImageProgress" href="Resources\progress.bmp" usedList="IconProgress" />
+      <Bitmap guid="GuidImageRefresh" href="Resources\refresh.bmp" usedList="IconRefresh" />
+      <Bitmap guid="GuidImageReorder" href="Resources\reorder.bmp" usedList="IconReorder" />
+      <Bitmap guid="GuidImageSortAlpha" href="Resources\sortAlpha.bmp" usedList="IconSortAlpha" />
+      <Bitmap guid="GuidImageSortNumeric" href="Resources\sortNumeric.bmp" usedList="IconSortNumeric" />
+      <Bitmap guid="GuidImageSortType" href="Resources\sortType.bmp" usedList="IconSortType" />
       <Bitmap guid="GuidImageSpade" href="Resources\spade.bmp" usedList="IconSpade" />
       <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
       <Bitmap guid="GuidImageUnlock" href="Resources\unlock.bmp" usedList="IconUnlock" />
@@ -805,8 +812,14 @@
     <GuidSymbol name="GuidImageConfig" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
       <IDSymbol name="IconConfig" value="1" />
     </GuidSymbol>
+    <GuidSymbol name="GuidImageCursor" value="{df08caeb-9746-4828-acd4-76bfe2e30e24}">
+      <IDSymbol name="IconCursor" value="1" />
+    </GuidSymbol>
     <GuidSymbol name="GuidImageFind" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
       <IDSymbol name="IconFind" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageHand" value="{282d7221-6102-4147-b208-f42cf57b664c}">
+      <IDSymbol name="IconHand" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageInfo" value="{0c75ffd4-f452-47c7-a36b-3179b6d6309f}">
       <IDSymbol name="IconInfo" value="1" />
@@ -819,6 +832,21 @@
     </GuidSymbol>
     <GuidSymbol name="GuidImageProgress" value="{57d334e8-69fb-4554-8632-3fd5be77e45e}">
       <IDSymbol name="IconProgress" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageRefresh" value="{fad83984-8b84-4176-98a0-7bd92ef7b3be}">
+      <IDSymbol name="IconRefresh" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageReorder" value="{8591e1d2-3204-4e9d-9789-c8de79bc5313}">
+      <IDSymbol name="IconReorder" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortAlpha" value="{735bc8ba-0eaf-4fa3-a8ce-6f2e23c615b6}">
+      <IDSymbol name="IconSortAlpha" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortNumeric" value="{f5ae9c2c-0174-4cd0-bb8c-b62043da5d0d}">
+      <IDSymbol name="IconSortNumeric" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortType" value="{b46f9a94-256d-48d2-84f6-3b3fbe4a1afa}">
+      <IDSymbol name="IconSortType" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageSpade" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
       <IDSymbol name="IconSpade" value="1" />

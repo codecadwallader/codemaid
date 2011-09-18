@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// A base class representation of all code items.
     /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
-    public abstract class CodeItemBase
+    public class CodeItemBase
     {
         #region Constructors
 

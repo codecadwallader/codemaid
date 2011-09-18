@@ -179,9 +179,9 @@ Written by Steve Cadwallader, for more information visit http://www.bitbucket.or
     <comment>Options page</comment>
   </data>
   <data name="501" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\spade.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Resources\spadeToolWindow.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="502" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\progress.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Resources\progressToolWindow.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
