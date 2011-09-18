@@ -26,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     public class CodeItemToAttributeStringConverter : IValueConverter
     {
         /// <summary>
-        /// A default instance ot the <see cref="CodeItemToAttributeStringConverter"/>.
+        /// A default instance of the <see cref="CodeItemToAttributeStringConverter"/>.
         /// </summary>
         public static CodeItemToAttributeStringConverter Default = new CodeItemToAttributeStringConverter();
 

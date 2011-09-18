@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     {
         #region Constants
 
-        private const string DEFAULT_CAPTION = "Build Progress";
+        private const string DefaultCaption = "Build Progress";
 
         #endregion Constants
 
@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             : base(null)
         {
             // Set the tool window caption.
-            Caption = DEFAULT_CAPTION;
+            Caption = DefaultCaption;
 
             // Set the tool window image from resources.
             BitmapResourceID = 502;
@@ -151,7 +151,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                 Control.IsProgressIndeterminate = true;
             }
 
-            Caption = DEFAULT_CAPTION;
+            Caption = DefaultCaption;
             Control.IsCancelEnabled = true;
             Control.ProgressPercentage = 0;
         }
@@ -178,7 +178,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             }
 
             Caption = String.Format("{0}: {1}{2} \"{3}\"...",
-                                    DEFAULT_CAPTION, buildString, progressString, projectName);
+                                    DefaultCaption, buildString, progressString, projectName);
             Control.ProgressPercentage = ProgressPercentage;
         }
 
@@ -189,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// <param name="action">The action.</param>
         internal void NotifyBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            Caption = DEFAULT_CAPTION;
+            Caption = DefaultCaption;
             Control.IsCancelEnabled = false;
             Control.ProgressPercentage = 0;
         }

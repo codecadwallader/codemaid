@@ -34,6 +34,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Properties
 
         /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        public CodeMaidPackage Package { get; set; }
+
+        /// <summary>
         /// Gets or sets the current interaction mode.
         /// </summary>
         public QuidnuncInteractionMode InteractionMode

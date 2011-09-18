@@ -184,6 +184,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
         }
 
+        /// <summary>
+        /// Gets or sets the package that owns the tool window.
+        /// </summary>
+        private new CodeMaidPackage Package { get { return base.Package as CodeMaidPackage; } }
+
         #endregion Private Properties
 
         #region Private Methods
@@ -208,6 +213,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <param name="codeItems">The code items.</param>
         private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
         {
+            // Late initialize the Package, not available during constructor.
+            _viewModel.Package = Package;
+
             _viewModel.RawCodeItems = codeItems;
         }
 
