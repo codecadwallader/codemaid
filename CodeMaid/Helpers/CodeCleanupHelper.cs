@@ -839,7 +839,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeItems">The code items.</param>
         /// <returns>An enumerable collection of blocks of code items.</returns>
         private static IEnumerable<IList<T>> GetCodeItemBlocks<T>(IEnumerable<T> codeItems)
-            where T : CodeItemBase
+            where T : BaseCodeItem
         {
             var codeItemBlocks = new List<IList<T>>();
             IList<T> currentBlock = null;
@@ -870,7 +870,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <typeparam name="T">The type of the code item.</typeparam>
         /// <param name="codeItems">The code items to pad.</param>
         private static void InsertBlankLinePaddingBeforeCodeItems<T>(IEnumerable<T> codeItems)
-            where T : CodeItemBase
+            where T : BaseCodeItemElement
         {
             foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {
@@ -886,7 +886,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <typeparam name="T">The type of the code item.</typeparam>
         /// <param name="codeItems">The code items to pad.</param>
         private static void InsertBlankLinePaddingAfterCodeItems<T>(IEnumerable<T> codeItems)
-            where T : CodeItemBase
+            where T : BaseCodeItemElement
         {
             foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {

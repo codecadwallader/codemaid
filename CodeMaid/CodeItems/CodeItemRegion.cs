@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code region.
     /// </summary>
-    public class CodeItemRegion : CodeItemBase
+    public class CodeItemRegion : BaseCodeItem
     {
     }
 }

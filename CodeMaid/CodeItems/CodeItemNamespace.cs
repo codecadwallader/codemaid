@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code namespace.
     /// </summary>
-    public class CodeItemNamespace : CodeItemBase
+    public class CodeItemNamespace : BaseCodeItemElement
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeNamespace.

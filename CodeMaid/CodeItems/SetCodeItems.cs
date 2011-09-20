@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// A specialized container for holding a set of code items.
     /// </summary>
-    public class SetCodeItems : List<CodeItemBase>
+    public class SetCodeItems : List<BaseCodeItem>
     {
     }
 }

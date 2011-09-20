@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code property.
     /// </summary>
-    public class CodeItemProperty : CodeItemBase
+    public class CodeItemProperty : BaseCodeItemElement
     {
         private int? _complexity;
 

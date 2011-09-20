@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var codeItem = value as CodeItemBase;
+            var codeItem = value as BaseCodeItem;
             if (codeItem == null) return null;
 
             string partialImageName = GetPartialImageName(codeItem);
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>The partial image name, otherwise false.</returns>
-        private static string GetPartialImageName(CodeItemBase codeItem)
+        private static string GetPartialImageName(BaseCodeItem codeItem)
         {
             string partialImageName = null;
 

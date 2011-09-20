@@ -87,7 +87,8 @@
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
-    <Compile Include="CodeItems\CodeItemBase.cs" />
+    <Compile Include="CodeItems\BaseCodeItem.cs" />
+    <Compile Include="CodeItems\BaseCodeItemElement.cs" />
     <Compile Include="CodeItems\CodeItemClass.cs" />
     <Compile Include="CodeItems\CodeItemDelegate.cs" />
     <Compile Include="CodeItems\CodeItemEnum.cs" />

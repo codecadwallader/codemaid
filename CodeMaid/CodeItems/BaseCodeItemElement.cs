@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -16,13 +16,13 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
-    /// The representation of a code interface.
+    /// A base class representation of all code items that have an underlying VSX CodeElement.
     /// </summary>
-    public class CodeItemInterface : BaseCodeItemElement
+    public abstract class BaseCodeItemElement : BaseCodeItem
     {
         /// <summary>
-        /// Gets or sets the underlying VSX CodeInterface.
+        /// Gets or sets the code element, may be null.
         /// </summary>
-        public CodeInterface CodeInterface { get; set; }
+        public CodeElement CodeElement { get; set; }
     }
 }

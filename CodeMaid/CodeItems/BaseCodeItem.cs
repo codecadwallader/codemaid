@@ -12,7 +12,6 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.Collections.Generic;
-using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -20,16 +19,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// A base class representation of all code items.
     /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
-    public abstract class CodeItemBase
+    public abstract class BaseCodeItem
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeItemBase"/> class.
+        /// Initializes a new instance of the <see cref="BaseCodeItem"/> class.
         /// </summary>
-        protected CodeItemBase()
+        protected BaseCodeItem()
         {
-            Children = new List<CodeItemBase>();
+            Children = new List<BaseCodeItem>();
         }
 
         #endregion Constructors
@@ -52,19 +51,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the code element, may be null.
-        /// </summary>
-        public CodeElement CodeElement { get; set; }
-
-        /// <summary>
         /// Gets or sets the parent.
         /// </summary>
-        public CodeItemBase Parent { get; set; }
+        public BaseCodeItem Parent { get; set; }
 
         /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>
-        public IEnumerable<CodeItemBase> Children { get; private set; }
+        public IEnumerable<BaseCodeItem> Children { get; private set; }
 
         #endregion Properties
     }

@@ -59,7 +59,7 @@
                 Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type ci:CodeItemBase}">
+    <DataTemplate DataType="{x:Type ci:BaseCodeItem}">
         <DockPanel>
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 

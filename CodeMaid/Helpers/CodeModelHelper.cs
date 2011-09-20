@@ -201,7 +201,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeElement">The CodeElement to walk (add and recurse).</param>
         private static void RetrieveCodeItemsRecursively(SetCodeItems codeItems, CodeElement codeElement)
         {
-            var parentCodeItem = FactoryCodeItems.CreateCodeItem(codeElement);
+            var parentCodeItem = FactoryCodeItems.CreateCodeItemElement(codeElement);
             if (parentCodeItem != null)
             {
                 codeItems.Add(parentCodeItem);

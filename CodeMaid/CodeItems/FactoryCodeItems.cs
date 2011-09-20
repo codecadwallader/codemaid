@@ -21,15 +21,15 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     public static class FactoryCodeItems
     {
         /// <summary>
-        /// Attempts to generate a code item from the specified code element.
+        /// Attempts to generate a code item element from the specified code element.
         /// </summary>
         /// <param name="codeElement">The code element.</param>
-        /// <returns>A generated code item, otherwise null.</returns>
-        public static CodeItemBase CreateCodeItem(CodeElement codeElement)
+        /// <returns>A generated code item element, otherwise null.</returns>
+        public static BaseCodeItemElement CreateCodeItemElement(CodeElement codeElement)
         {
             if (codeElement == null) return null;
 
-            CodeItemBase codeItem;
+            BaseCodeItemElement codeItem;
             bool isNameless = false;
 
             switch (codeElement.Kind)

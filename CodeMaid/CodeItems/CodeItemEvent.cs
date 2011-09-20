@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code event.
     /// </summary>
-    public class CodeItemEvent : CodeItemBase
+    public class CodeItemEvent : BaseCodeItemElement
     {
     }
 }

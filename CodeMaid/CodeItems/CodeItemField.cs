@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code field.
     /// </summary>
-    public class CodeItemField : CodeItemBase
+    public class CodeItemField : BaseCodeItemElement
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeVariable.

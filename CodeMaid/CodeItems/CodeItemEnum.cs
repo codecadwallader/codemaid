@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code enumeration.
     /// </summary>
-    public class CodeItemEnum : CodeItemBase
+    public class CodeItemEnum : BaseCodeItemElement
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeEnum.

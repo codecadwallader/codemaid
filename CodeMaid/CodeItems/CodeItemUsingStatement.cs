@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code using statemen.
     /// </summary>
-    public class CodeItemUsingStatement : CodeItemBase
+    public class CodeItemUsingStatement : BaseCodeItemElement
     {
     }
 }

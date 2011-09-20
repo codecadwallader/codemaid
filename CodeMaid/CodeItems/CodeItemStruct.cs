@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code struct.
     /// </summary>
-    public class CodeItemStruct : CodeItemBase
+    public class CodeItemStruct : BaseCodeItemElement
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeStruct.
