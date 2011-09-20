@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using SteveCadwallader.CodeMaid.CodeItems;
 
@@ -24,12 +23,26 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
     {
         #region Fields
 
+        private readonly QuidnuncCodeTreeBuilder _codeTreeBuilder;
+
         private QuidnuncInteractionMode _interactionMode;
         private QuidnuncLayoutMode _layoutMode;
         private SetCodeItems _rawCodeItems;
         private SetCodeItems _organizedCodeItems;
 
         #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuidnuncViewModel"/> class.
+        /// </summary>
+        public QuidnuncViewModel()
+        {
+            _codeTreeBuilder = new QuidnuncCodeTreeBuilder(UpdateOrganizedCodeItems);
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -67,7 +80,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 {
                     _layoutMode = value;
 
-                    UpdateOrganizedCodeItems();
+                    RequestUpdatedOrganizedCodeItems();
                     NotifyPropertyChanged("LayoutMode");
                 }
             }
@@ -85,7 +98,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 {
                     _rawCodeItems = value;
 
-                    UpdateOrganizedCodeItems();
+                    RequestUpdatedOrganizedCodeItems();
                     NotifyPropertyChanged("RawCodeItems");
                 }
             }
@@ -133,88 +146,19 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Methods
 
         /// <summary>
-        /// Updates the organized code items collection based on the current mode and raw items.
+        /// Requests an asynchronous update of the organized code items.
         /// </summary>
-        private void UpdateOrganizedCodeItems()
+        private void RequestUpdatedOrganizedCodeItems()
         {
-            switch (LayoutMode)
-            {
-                case QuidnuncLayoutMode.FileLayout:
-                    OrganizedCodeItems = OrganizeCodeItemsByFileLayout(RawCodeItems);
-                    break;
-
-                case QuidnuncLayoutMode.TypeLayout:
-                    OrganizedCodeItems = OrganizeCodeItemsByTypeLayout(RawCodeItems);
-                    break;
-
-                case QuidnuncLayoutMode.AlphaLayout:
-                    OrganizedCodeItems = OrganizeCodeItemsByAlphaLayout(RawCodeItems);
-                    break;
-
-                default:
-                    OrganizedCodeItems = RawCodeItems;
-                    break;
-            }
+            _codeTreeBuilder.RetrieveCodeTreeAsync(new QuidnuncCodeTreeRequest(RawCodeItems, LayoutMode));
         }
 
         /// <summary>
-        /// Organizes the code items by file layout.
+        /// Updates the organized code items collection with the specified code items.
         /// </summary>
-        /// <param name="rawCodeItems">The raw code items.</param>
-        /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByFileLayout(IEnumerable<CodeItemBase> rawCodeItems)
+        private void UpdateOrganizedCodeItems(SetCodeItems setCodeItems)
         {
-            var organizedCodeItems = new SetCodeItems();
-
-            if (rawCodeItems != null)
-            {
-                organizedCodeItems.AddRange(rawCodeItems);
-
-                // Sort the list of code items by starting location.
-                organizedCodeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
-            }
-
-            return organizedCodeItems;
-        }
-
-        /// <summary>
-        /// Organizes the code items by type layout.
-        /// </summary>
-        /// <param name="rawCodeItems">The raw code items.</param>
-        /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByTypeLayout(IEnumerable<CodeItemBase> rawCodeItems)
-        {
-            var organizedCodeItems = new SetCodeItems();
-
-            if (rawCodeItems != null)
-            {
-                organizedCodeItems.AddRange(rawCodeItems);
-
-                // Sort the list of code items by name.
-                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
-            }
-
-            return organizedCodeItems;
-        }
-
-        /// <summary>
-        /// Organizes the code items by alpha layout.
-        /// </summary>
-        /// <param name="rawCodeItems">The raw code items.</param>
-        /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByAlphaLayout(IEnumerable<CodeItemBase> rawCodeItems)
-        {
-            var organizedCodeItems = new SetCodeItems();
-
-            if (rawCodeItems != null)
-            {
-                organizedCodeItems.AddRange(rawCodeItems);
-
-                // Sort the list of code items by name.
-                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
-            }
-
-            return organizedCodeItems;
+            OrganizedCodeItems = setCodeItems;
         }
 
         #endregion Methods

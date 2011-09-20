@@ -223,6 +223,8 @@
     <Compile Include="Quidnunc\CodeItemToAttributeStringConverter.cs" />
     <Compile Include="Quidnunc\ComplexityToColorConverter.cs" />
     <Compile Include="Quidnunc\QuidnuncCodeModelRetriever.cs" />
+    <Compile Include="Quidnunc\QuidnuncCodeTreeBuilder.cs" />
+    <Compile Include="Quidnunc\QuidnuncCodeTreeRequest.cs" />
     <Compile Include="Quidnunc\QuidnuncInteractionMode.cs" />
     <Compile Include="Quidnunc\QuidnuncLayoutMode.cs" />
     <Compile Include="Quidnunc\QuidnuncToolWindow.cs" />
