@@ -54,14 +54,23 @@
         </TextBlock>
     </DataTemplate>
 
+    <DataTemplate x:Key="imageDataTemplate">
+        <Image Height="16" Width="16" Margin="0,0,4,0"
+                Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type ci:CodeItemBase}">
         <DockPanel>
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ci:CodeItemClass}">
         <DockPanel Margin="0,2">
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+
             <TextBlock Text="{Binding Name}" Style="{StaticResource topLevelNameStyle}" />
 
             <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
@@ -77,6 +86,8 @@
             <ContentControl DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource attributesDataTemplate}" />
 
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
     </DataTemplate>
@@ -88,6 +99,8 @@
 
             <ContentControl DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource attributesDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
