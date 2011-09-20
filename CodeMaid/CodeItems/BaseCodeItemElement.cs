@@ -24,5 +24,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the code element, may be null.
         /// </summary>
         public CodeElement CodeElement { get; set; }
+
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public abstract vsCMAccess Access { get; }
     }
 }

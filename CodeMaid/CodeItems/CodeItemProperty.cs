@@ -29,6 +29,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeProperty CodeProperty { get; set; }
 
         /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeProperty != null ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity

@@ -15,6 +15,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -39,13 +40,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var codeItem = value as BaseCodeItem;
+            var codeItem = value as BaseCodeItemElement;
             if (codeItem == null) return null;
 
-            string partialImageName = GetPartialImageName(codeItem);
-            if (partialImageName == null) return null;
-
-            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Quidnunc/Images/VSObject_{0}.bmp", partialImageName);
+            string uriString = BuildImageURIString(codeItem);
+            if (uriString == null) return null;
 
             return new BitmapImage(new Uri(uriString, UriKind.Relative));
         }
@@ -64,11 +63,28 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Attempts to get a partial image name based on the specified code item.
+        /// Attempts to build an image URI from the specified code item.
         /// </summary>
         /// <param name="codeItem">The code item.</param>
-        /// <returns>The partial image name, otherwise false.</returns>
-        private static string GetPartialImageName(BaseCodeItem codeItem)
+        /// <returns>The built URI, otherwise null.</returns>
+        private static string BuildImageURIString(BaseCodeItemElement codeItem)
+        {
+            string typeComponent = GetTypeComponentString(codeItem);
+            string accessComponent = GetAccessString(codeItem);
+
+            if (typeComponent == null) return null;
+
+            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Quidnunc/Images/VSObject_{0}{1}.bmp", typeComponent, accessComponent);
+
+            return uriString;
+        }
+
+        /// <summary>
+        /// Attempts to get the type component string based on the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>The type component of the partial image name, otherwise null.</returns>
+        private static string GetTypeComponentString(BaseCodeItemElement codeItem)
         {
             string partialImageName = null;
 
@@ -90,7 +106,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
             else if (codeItem is CodeItemField)
             {
-                partialImageName = "Field";
+                partialImageName = ((CodeItemField)codeItem).IsConstant ? "Constant" : "Field";
             }
             else if (codeItem is CodeItemInterface)
             {
@@ -98,7 +114,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
             else if (codeItem is CodeItemMethod)
             {
-                partialImageName = "Method";
+                partialImageName = ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
             }
             else if (codeItem is CodeItemProperty)
             {
@@ -110,6 +126,24 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
 
             return partialImageName;
+        }
+
+        /// <summary>
+        /// Gets an access string from the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>The access string, otherwise an empty string.</returns>
+        private static string GetAccessString(BaseCodeItemElement codeItem)
+        {
+            switch (codeItem.Access)
+            {
+                case vsCMAccess.vsCMAccessAssemblyOrFamily: return "_Friend";
+                case vsCMAccess.vsCMAccessPrivate: return "_Private";
+                case vsCMAccess.vsCMAccessProject: return "_Sealed";
+                case vsCMAccess.vsCMAccessProtected: return "_Protected";
+                case vsCMAccess.vsCMAccessPublic: return string.Empty;
+                default: return string.Empty;
+            }
         }
     }
 }

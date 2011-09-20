@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using EnvDTE;
+
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
@@ -18,5 +20,12 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemUsingStatement : BaseCodeItemElement
     {
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return vsCMAccess.vsCMAccessDefault; }
+        }
     }
 }

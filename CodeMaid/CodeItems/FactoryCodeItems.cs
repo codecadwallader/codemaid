@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using EnvDTE;
+using EnvDTE80;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -47,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                     break;
 
                 case vsCMElement.vsCMElementEvent:
-                    codeItem = new CodeItemEvent();
+                    codeItem = new CodeItemEvent { CodeEvent = codeElement as CodeEvent };
                     break;
 
                 case vsCMElement.vsCMElementFunction:

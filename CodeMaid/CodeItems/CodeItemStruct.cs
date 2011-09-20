@@ -24,5 +24,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the underlying VSX CodeStruct.
         /// </summary>
         public CodeStruct CodeStruct { get; set; }
+
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeStruct != null ? CodeStruct.Access : vsCMAccess.vsCMAccessDefault; }
+        }
     }
 }

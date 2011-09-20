@@ -26,6 +26,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeClass CodeClass { get; set; }
 
         /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
         /// Gets the namespace.
         /// </summary>
         public string Namespace

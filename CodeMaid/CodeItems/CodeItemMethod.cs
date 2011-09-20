@@ -29,6 +29,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeFunction CodeFunction { get; set; }
 
         /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeFunction != null ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity
@@ -42,6 +50,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
 
                 return _complexity.Value;
             }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this method is overloaded.
+        /// </summary>
+        public bool IsOverloaded
+        {
+            get { return CodeFunction != null && CodeFunction.IsOverloaded; }
         }
     }
 }

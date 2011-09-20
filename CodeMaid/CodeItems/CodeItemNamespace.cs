@@ -24,5 +24,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the underlying VSX CodeNamespace.
         /// </summary>
         public CodeNamespace CodeNamespace { get; set; }
+
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return vsCMAccess.vsCMAccessDefault; }
+        }
     }
 }

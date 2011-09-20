@@ -24,5 +24,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the underlying VSX CodeInterface.
         /// </summary>
         public CodeInterface CodeInterface { get; set; }
+
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessDefault; }
+        }
     }
 }

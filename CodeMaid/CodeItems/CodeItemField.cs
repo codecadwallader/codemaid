@@ -24,5 +24,21 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the underlying VSX CodeVariable.
         /// </summary>
         public CodeVariable CodeVariable { get; set; }
+
+        /// <summary>
+        /// Gets the access level.
+        /// </summary>
+        public override vsCMAccess Access
+        {
+            get { return CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this field is a constant.
+        /// </summary>
+        public bool IsConstant
+        {
+            get { return CodeVariable != null && CodeVariable.IsConstant; }
+        }
     }
 }
