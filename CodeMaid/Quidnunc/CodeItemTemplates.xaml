@@ -55,7 +55,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="imageDataTemplate">
-        <Image Height="16" Width="16" Margin="0,0,4,0"
+        <Image Height="16" Width="16" Margin="0,0,4,0" RenderOptions.BitmapScalingMode="NearestNeighbor"
                 Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
     </DataTemplate>
 

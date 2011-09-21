@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             if (typeComponent == null) return null;
 
-            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Quidnunc/Images/VSObject_{0}{1}.bmp", typeComponent, accessComponent);
+            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Quidnunc/Images/{0}{1}.png", typeComponent, accessComponent);
 
             return uriString;
         }
