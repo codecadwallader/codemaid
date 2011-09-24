@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var codeItem = value as BaseCodeItemElement;
+            var codeItem = value as BaseCodeItem;
             if (codeItem == null) return null;
 
             string uriString = BuildImageURIString(codeItem);
@@ -67,10 +67,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>The built URI, otherwise null.</returns>
-        private static string BuildImageURIString(BaseCodeItemElement codeItem)
+        private static string BuildImageURIString(BaseCodeItem codeItem)
         {
             string typeComponent = GetTypeComponentString(codeItem);
-            string accessComponent = GetAccessString(codeItem);
+            string accessComponent = GetAccessString(codeItem as BaseCodeItemElement);
 
             if (typeComponent == null) return null;
 
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>The type component of the partial image name, otherwise null.</returns>
-        private static string GetTypeComponentString(BaseCodeItemElement codeItem)
+        private static string GetTypeComponentString(BaseCodeItem codeItem)
         {
             string partialImageName = null;
 
@@ -137,6 +137,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             {
                 partialImageName = "Properties";
             }
+            else if (codeItem is CodeItemRegion)
+            {
+                partialImageName = "Region";
+            }
             else if (codeItem is CodeItemStruct)
             {
                 partialImageName = "Structure";
@@ -152,6 +156,8 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>The access string, otherwise an empty string.</returns>
         private static string GetAccessString(BaseCodeItemElement codeItem)
         {
+            if (codeItem == null) return string.Empty;
+
             switch (codeItem.Access)
             {
                 case vsCMAccess.vsCMAccessAssemblyOrFamily: return "_Friend";
