@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
@@ -144,12 +145,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 organizedCodeItems.AddRange(structuredCodeItems);
 
                 // Sort the list of code items by name recursively.
-                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
-
-                foreach (var codeItem in organizedCodeItems)
-                {
-                    codeItem.Children.Sort((x, y) => x.Name.CompareTo(y.Name));
-                }
+                RecursivelySort(organizedCodeItems, new CodeItemNameComparer());
             }
 
             return organizedCodeItems;
@@ -208,13 +204,31 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             if (rawCodeItems != null)
             {
-                organizedCodeItems.AddRange(rawCodeItems);
+                var codeItemsWithoutRegions = rawCodeItems.Where(x => !(x is CodeItemRegion));
 
-                // Sort the list of code items by name.
-                organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
+                var structuredCodeItems = OrganizeCodeItemsByFileLayout(codeItemsWithoutRegions);
+                organizedCodeItems.AddRange(structuredCodeItems);
+
+                // Sort the list of code items by type recursively.
+                RecursivelySort(organizedCodeItems, new CodeItemTypeComparer());
             }
 
             return organizedCodeItems;
+        }
+
+        /// <summary>
+        /// Recursively sorts the specified code items by the specified sort comparer.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <param name="sortComparer">The sort comparer.</param>
+        private static void RecursivelySort(SetCodeItems codeItems, IComparer<BaseCodeItem> sortComparer)
+        {
+            codeItems.Sort(sortComparer);
+
+            foreach (var codeItem in codeItems)
+            {
+                RecursivelySort(codeItem.Children, sortComparer);
+            }
         }
 
         #endregion Methods

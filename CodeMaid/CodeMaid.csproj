@@ -138,6 +138,8 @@
     <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CodeCleanupHelper.cs" />
+    <Compile Include="Helpers\CodeItemNameComparer.cs" />
+    <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
