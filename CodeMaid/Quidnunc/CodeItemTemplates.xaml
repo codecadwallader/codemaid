@@ -15,7 +15,7 @@
     <Style x:Key="defaultStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}" />
 
     <Style x:Key="topLevelNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
@@ -67,7 +67,8 @@
         </DockPanel>
     </HierarchicalDataTemplate>
 
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemClass}" ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate x:Key="topLevelCodeItemDataTemplate" DataType="{x:Type ci:BaseCodeItem}"
+            ItemsSource="{Binding Children}" ItemTemplate="{x:Null}">
         <DockPanel Margin="0,2">
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 

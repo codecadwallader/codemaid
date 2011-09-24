@@ -14,10 +14,11 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <TreeView ItemsSource="{Binding OrganizedCodeItems}">
-            <!--<TreeView.ItemContainerStyle>
+        <TreeView ItemsSource="{Binding OrganizedCodeItems}" ItemTemplate="{StaticResource topLevelCodeItemDataTemplate}">
+            <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="Padding" Value="10,2" />
+                    <Setter Property="IsExpanded" Value="True" />
+                    <!--<Setter Property="Padding" Value="10,2" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -36,9 +37,9 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
-                    </Setter>
+                    </Setter>-->
                 </Style>
-            </TreeView.ItemContainerStyle>-->
+            </TreeView.ItemContainerStyle>
         </TreeView>
     </DockPanel>
 </UserControl>

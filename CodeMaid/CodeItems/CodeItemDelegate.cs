@@ -32,5 +32,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessDefault; }
         }
+
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        public string Namespace
+        {
+            get { return CodeDelegate != null ? CodeDelegate.Namespace.Name : null; }
+        }
     }
 }
