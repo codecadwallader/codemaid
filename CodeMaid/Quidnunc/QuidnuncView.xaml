@@ -39,8 +39,8 @@
                 <Setter Property="BorderBrush" Value="{StaticResource FTreeViewItemHasItems}" />
                 <Setter Property="BorderThickness" Value="0,1" />
                 <Setter Property="IsExpanded" Value="True" />
-                <Setter Property="Margin" Value="0,2" />
-                <Setter Property="Padding" Value="0,2,10,2" />
+                <Setter Property="Margin" Value="0,2,0,0" />
+                <Setter Property="Padding" Value="4,2,10,2" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -57,7 +57,8 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2"
-                                            Background="{TemplateBinding Background}">
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
@@ -69,11 +70,11 @@
                                                     Style="{StaticResource treeViewToggleButton}" />
 
                                             <ContentPresenter x:Name="PART_Header" Grid.Column="1"
-                                                    ContentSource="Header" Margin="{TemplateBinding Padding}" />
+                                                    ContentSource="Header" />
                                         </Grid>
                                     </Border>
 
-                                    <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" />
+                                    <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0" />
                                 </Grid>
                             </Border>
 
