@@ -72,7 +72,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         private static void OnDoWork(object sender, DoWorkEventArgs e)
         {
             var request = e.Argument as QuidnuncCodeTreeRequest;
-            if (request == null) return;
+            if (request == null || request.RawCodeItems == null) return;
+
+            ClearHierarchyInformation(request.RawCodeItems);
 
             SetCodeItems codeItems = null;
 
@@ -110,6 +112,18 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 {
                     _callback(codeItems);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Clears any hierarchy information from the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private static void ClearHierarchyInformation(IEnumerable<BaseCodeItem> codeItems)
+        {
+            foreach (var codeItem in codeItems)
+            {
+                codeItem.Children.Clear();
             }
         }
 
