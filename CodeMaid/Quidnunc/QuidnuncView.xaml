@@ -46,9 +46,9 @@
                         <ControlTemplate TargetType="{x:Type TreeViewItem}">
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}">
-                                <Grid>
+                                <Grid IsSharedSizeScope="True">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -57,14 +57,21 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2"
-                                            Background="{TemplateBinding Background}" />
+                                            Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                                    <ToggleButton x:Name="expander" ClickMode="Press"
-                                            IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                            Style="{StaticResource treeViewToggleButton}" />
+                                            <ToggleButton x:Name="expander" ClickMode="Press"
+                                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Style="{StaticResource treeViewToggleButton}" />
 
-                                    <ContentPresenter x:Name="PART_Header" Grid.Column="1" ContentSource="Header"
-                                            Margin="{TemplateBinding Padding}" />
+                                            <ContentPresenter x:Name="PART_Header" Grid.Column="1"
+                                                    ContentSource="Header" Margin="{TemplateBinding Padding}" />
+                                        </Grid>
+                                    </Border>
 
                                     <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" />
                                 </Grid>
