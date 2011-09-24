@@ -34,6 +34,15 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this field is static.
+        /// </summary>
+        /// <value></value>
+        public override bool IsStatic
+        {
+            get { return CodeVariable != null && CodeVariable.IsShared; }
+        }
+
+        /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
         public bool IsConstant

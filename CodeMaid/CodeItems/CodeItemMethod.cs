@@ -37,6 +37,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this method is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeFunction != null && CodeFunction.IsShared; }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity

@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         {
             var strings = new List<string>();
 
-            if (method.CodeFunction.IsShared)
+            if (method.IsStatic)
             {
                 strings.Add("s");
             }

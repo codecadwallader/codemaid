@@ -29,5 +29,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets the access level.
         /// </summary>
         public abstract vsCMAccess Access { get; }
+
+        /// <summary>
+        /// Gets a flag indicating if this instance is static.
+        /// </summary>
+        public virtual bool IsStatic
+        {
+            get { return false; }
+        }
     }
 }
