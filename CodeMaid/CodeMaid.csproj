@@ -364,6 +364,16 @@
     <Resource Include="Quidnunc\Images\Structure_Private.png" />
     <Resource Include="Quidnunc\Images\Structure_Protected.png" />
     <Resource Include="Quidnunc\Images\Structure_Sealed.png" />
+    <Resource Include="Quidnunc\Images\MethodConstructor.png" />
+    <Resource Include="Quidnunc\Images\MethodDestructor.png" />
+    <Resource Include="Quidnunc\Images\MethodConstructor_Friend.png" />
+    <Resource Include="Quidnunc\Images\MethodConstructor_Private.png" />
+    <Resource Include="Quidnunc\Images\MethodConstructor_Protected.png" />
+    <Resource Include="Quidnunc\Images\MethodConstructor_Sealed.png" />
+    <Resource Include="Quidnunc\Images\MethodDestructor_Friend.png" />
+    <Resource Include="Quidnunc\Images\MethodDestructor_Private.png" />
+    <Resource Include="Quidnunc\Images\MethodDestructor_Protected.png" />
+    <Resource Include="Quidnunc\Images\MethodDestructor_Sealed.png" />
     <Content Include="Resources\about.png" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />

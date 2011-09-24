@@ -53,6 +53,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this method is a constructor.
+        /// </summary>
+        public bool IsConstructor
+        {
+            get { return CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor; }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this method is a destructor.
+        /// </summary>
+        public bool IsDestructor
+        {
+            get { return CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor; }
+        }
+
+        /// <summary>
         /// Gets a flag indicating if this method is overloaded.
         /// </summary>
         public bool IsOverloaded

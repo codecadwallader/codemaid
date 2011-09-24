@@ -114,7 +114,24 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             }
             else if (codeItem is CodeItemMethod)
             {
-                partialImageName = ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
+                var codeMethod = (CodeItemMethod)codeItem;
+
+                if (codeMethod.IsConstructor)
+                {
+                    partialImageName = "MethodConstructor";
+                }
+                else if (codeMethod.IsDestructor)
+                {
+                    partialImageName = "MethodDestructor";
+                }
+                else if (codeMethod.IsOverloaded)
+                {
+                    partialImageName = "MethodOverload";
+                }
+                else
+                {
+                    partialImageName = "Method";
+                }
             }
             else if (codeItem is CodeItemProperty)
             {

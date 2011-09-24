@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
-using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -75,20 +74,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         {
             var strings = new List<string>();
 
-            switch (method.CodeFunction.FunctionKind)
-            {
-                case vsCMFunction.vsCMFunctionConstructor: strings.Add("c"); break;
-                case vsCMFunction.vsCMFunctionDestructor: strings.Add("d"); break;
-            }
-
             if (method.CodeFunction.IsShared)
             {
                 strings.Add("s");
-            }
-
-            if (method.CodeFunction.IsOverloaded)
-            {
-                strings.Add("o");
             }
 
             return string.Join(", ", strings.ToArray());
