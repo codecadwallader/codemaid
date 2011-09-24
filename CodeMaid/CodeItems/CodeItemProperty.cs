@@ -37,6 +37,19 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this property is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get
+            {
+                return CodeProperty != null &&
+                       ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
+                        (CodeProperty.Setter != null && CodeProperty.Setter.IsShared));
+            }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity

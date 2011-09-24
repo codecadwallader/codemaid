@@ -91,6 +91,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         {
             var strings = new List<string>();
 
+            if (property.IsStatic)
+            {
+                strings.Add("s");
+            }
+
             if (property.CodeProperty.Getter != null) // Readable
             {
                 strings.Add("r");
