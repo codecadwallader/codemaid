@@ -70,27 +70,9 @@
                 Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
     </DataTemplate>
 
-    <!-- Hierarchical Data Templates -->
-    <HierarchicalDataTemplate x:Key="topLevelCodeItemDataTemplate" DataType="{x:Type ci:BaseCodeItem}"
-            ItemsSource="{Binding Children}" ItemTemplate="{x:Null}">
-        <DockPanel Margin="0,2">
-            <ContentControl DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource complexityDataTemplate}" />
-
-            <ContentControl DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource attributesDataTemplate}" />
-
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
-
-            <TextBlock Text="{Binding Name}" Style="{StaticResource topLevelNameStyle}" />
-
-            <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
-                    Style="{StaticResource namespaceStyle}" />
-        </DockPanel>
-    </HierarchicalDataTemplate>
-
+    <!-- Hierarchical Data Template -->
     <HierarchicalDataTemplate DataType="{x:Type ci:BaseCodeItem}" ItemsSource="{Binding Children}">
-        <DockPanel>
+        <DockPanel x:Name="root">
             <ContentControl DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource complexityDataTemplate}" />
 
@@ -99,7 +81,19 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
-            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
+            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
+
+            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
+                    Style="{StaticResource namespaceStyle}" Visibility="Collapsed" />
         </DockPanel>
+        <HierarchicalDataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=2}}"
+                    Value="{x:Null}">
+                <Setter TargetName="root" Property="Margin" Value="0,2" />
+                <Setter TargetName="name" Property="Style" Value="{StaticResource topLevelNameStyle}" />
+                <Setter TargetName="namespace" Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>
     </HierarchicalDataTemplate>
 </ResourceDictionary>

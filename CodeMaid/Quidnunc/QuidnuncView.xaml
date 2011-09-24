@@ -96,7 +96,6 @@
 
     <DockPanel>
         <TreeView ItemsSource="{Binding OrganizedCodeItems}"
-                ItemContainerStyle="{StaticResource treeViewItemContainerStyle}"
-                ItemTemplate="{StaticResource topLevelCodeItemDataTemplate}" Padding="0" />
+                ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0" />
     </DockPanel>
 </UserControl>
