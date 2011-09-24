@@ -11,8 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-using System.Collections.Generic;
-
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
@@ -28,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// </summary>
         protected BaseCodeItem()
         {
-            Children = new List<BaseCodeItem>();
+            Children = new SetCodeItems();
         }
 
         #endregion Constructors
@@ -53,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>
-        public ICollection<BaseCodeItem> Children { get; private set; }
+        public SetCodeItems Children { get; private set; }
 
         #endregion Properties
     }

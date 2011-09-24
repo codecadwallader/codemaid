@@ -119,7 +119,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Clears any hierarchy information from the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private static void ClearHierarchyInformation(IEnumerable<BaseCodeItem> codeItems)
+        private static void ClearHierarchyInformation(SetCodeItems codeItems)
         {
             foreach (var codeItem in codeItems)
             {
@@ -138,10 +138,18 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             if (rawCodeItems != null)
             {
-                organizedCodeItems.AddRange(rawCodeItems);
+                var codeItemsWithoutRegions = rawCodeItems.Where(x => !(x is CodeItemRegion));
 
-                // Sort the list of code items by name.
+                var structuredCodeItems = OrganizeCodeItemsByFileLayout(codeItemsWithoutRegions);
+                organizedCodeItems.AddRange(structuredCodeItems);
+
+                // Sort the list of code items by name recursively.
                 organizedCodeItems.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+                foreach (var codeItem in organizedCodeItems)
+                {
+                    codeItem.Children.Sort((x, y) => x.Name.CompareTo(y.Name));
+                }
             }
 
             return organizedCodeItems;
@@ -152,18 +160,17 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByFileLayout(SetCodeItems rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByFileLayout(IEnumerable<BaseCodeItem> rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
             if (rawCodeItems != null)
             {
                 // Sort the raw list of code items by starting location.
-                rawCodeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
-
+                var sortedCodeItems = rawCodeItems.OrderBy(x => x.StartLine);
                 var codeItemStack = new Stack<BaseCodeItem>();
 
-                foreach (var codeItem in rawCodeItems)
+                foreach (var codeItem in sortedCodeItems)
                 {
                     while (true)
                     {
