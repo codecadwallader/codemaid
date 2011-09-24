@@ -36,11 +36,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             switch (codeElement.Kind)
             {
                 case vsCMElement.vsCMElementClass:
-                    codeItem = new CodeItemClass { CodeClass = codeElement as CodeClass };
+                    codeItem = new CodeItemClass { CodeClass = codeElement as CodeClass2 };
                     break;
 
                 case vsCMElement.vsCMElementDelegate:
-                    codeItem = new CodeItemDelegate { CodeDelegate = codeElement as CodeDelegate };
+                    codeItem = new CodeItemDelegate { CodeDelegate = codeElement as CodeDelegate2 };
                     break;
 
                 case vsCMElement.vsCMElementEnum:
@@ -52,7 +52,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                     break;
 
                 case vsCMElement.vsCMElementFunction:
-                    codeItem = new CodeItemMethod { CodeFunction = codeElement as CodeFunction };
+                    codeItem = new CodeItemMethod { CodeFunction = codeElement as CodeFunction2 };
                     break;
 
                 case vsCMElement.vsCMElementImportStmt:
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                     break;
 
                 case vsCMElement.vsCMElementInterface:
-                    codeItem = new CodeItemInterface { CodeInterface = codeElement as CodeInterface };
+                    codeItem = new CodeItemInterface { CodeInterface = codeElement as CodeInterface2 };
                     break;
 
                 case vsCMElement.vsCMElementNamespace:
@@ -73,11 +73,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                     break;
 
                 case vsCMElement.vsCMElementStruct:
-                    codeItem = new CodeItemStruct { CodeStruct = codeElement as CodeStruct };
+                    codeItem = new CodeItemStruct { CodeStruct = codeElement as CodeStruct2 };
                     break;
 
                 case vsCMElement.vsCMElementVariable:
-                    codeItem = new CodeItemField { CodeVariable = codeElement as CodeVariable };
+                    codeItem = new CodeItemField { CodeVariable = codeElement as CodeVariable2 };
                     break;
 
                 default:

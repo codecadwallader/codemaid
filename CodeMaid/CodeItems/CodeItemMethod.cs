@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using EnvDTE;
+using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
@@ -26,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets or sets the underlying VSX CodeFunction.
         /// </summary>
-        public CodeFunction CodeFunction { get; set; }
+        public CodeFunction2 CodeFunction { get; set; }
 
         /// <summary>
         /// Gets the access level.

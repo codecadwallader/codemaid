@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using EnvDTE;
+using EnvDTE80;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -23,7 +24,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets or sets the underlying VSX CodeVariable.
         /// </summary>
-        public CodeVariable CodeVariable { get; set; }
+        public CodeVariable2 CodeVariable { get; set; }
 
         /// <summary>
         /// Gets the access level.
@@ -36,7 +37,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets a flag indicating if this field is static.
         /// </summary>
-        /// <value></value>
         public override bool IsStatic
         {
             get { return CodeVariable != null && CodeVariable.IsShared; }

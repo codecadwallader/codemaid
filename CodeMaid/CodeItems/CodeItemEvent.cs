@@ -33,5 +33,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeEvent != null ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault; }
         }
+
+        /// <summary>
+        /// Gets a flag indicating if this event is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeEvent != null && CodeEvent.IsShared; }
+        }
     }
 }
