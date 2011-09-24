@@ -46,6 +46,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             {
                 attributeStrings = GenerateAttributeStrings((CodeItemProperty)value);
             }
+            else if (value is CodeItemField && ((CodeItemField)value).IsConstant)
+            {
+                // Avoid showing static attribute for constants since it is redundant.
+                return string.Empty;
+            }
             else if (value is BaseCodeItemElement)
             {
                 attributeStrings = GenerateAttributeStrings((BaseCodeItemElement)value);
