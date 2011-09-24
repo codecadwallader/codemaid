@@ -13,7 +13,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
@@ -252,11 +251,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     {
                         CodeItemRegion region = regionStack.Pop();
                         region.EndLine = cursor.Line;
-
-                        if (regionStack.Any())
-                        {
-                            region.Parent = regionStack.Peek();
-                        }
 
                         codeItems.Add(region);
                     }

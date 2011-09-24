@@ -51,11 +51,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent.
-        /// </summary>
-        public BaseCodeItem Parent { get; set; }
-
-        /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>
         public IEnumerable<BaseCodeItem> Children { get; private set; }
