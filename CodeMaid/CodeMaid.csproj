@@ -376,6 +376,8 @@
     <Resource Include="Quidnunc\Images\MethodDestructor_Private.png" />
     <Resource Include="Quidnunc\Images\MethodDestructor_Protected.png" />
     <Resource Include="Quidnunc\Images\MethodDestructor_Sealed.png" />
+    <Resource Include="Quidnunc\Images\Collapsed.png" />
+    <Resource Include="Quidnunc\Images\Expanded.png" />
     <Content Include="Resources\about.png" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
