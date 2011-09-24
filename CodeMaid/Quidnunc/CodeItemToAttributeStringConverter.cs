@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 using SteveCadwallader.CodeMaid.CodeItems;
 
@@ -39,17 +40,22 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is CodeItemMethod)
-            {
-                return GenerateAttributeStringForMethod((CodeItemMethod)value);
-            }
+            IEnumerable<string> attributeStrings;
 
             if (value is CodeItemProperty)
             {
-                return GenerateAttributeStringForProperty((CodeItemProperty)value);
+                attributeStrings = GenerateAttributeStrings((CodeItemProperty)value);
+            }
+            else if (value is BaseCodeItemElement)
+            {
+                attributeStrings = GenerateAttributeStrings((BaseCodeItemElement)value);
+            }
+            else
+            {
+                return string.Empty;
             }
 
-            return null;
+            return string.Join(", ", attributeStrings.ToArray());
         }
 
         /// <summary>
@@ -66,35 +72,32 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Generates an attribute string for the specified method.
+        /// Generates attribute strings for the specified element.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <returns>The generated string.</returns>
-        private static string GenerateAttributeStringForMethod(CodeItemMethod method)
+        /// <param name="element">The element.</param>
+        /// <returns>The attribute strings.</returns>
+        private static IEnumerable<string> GenerateAttributeStrings(BaseCodeItemElement element)
         {
             var strings = new List<string>();
 
-            if (method.IsStatic)
+            if (element.IsStatic)
             {
                 strings.Add("s");
             }
 
-            return string.Join(", ", strings.ToArray());
+            return strings;
         }
 
         /// <summary>
-        /// Generates an attribute string for the specified property.
+        /// Generates attribute strings for the specified property.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns>The generated string.</returns>
-        private static object GenerateAttributeStringForProperty(CodeItemProperty property)
+        /// <returns>The attribute strings.</returns>
+        private static IEnumerable<string> GenerateAttributeStrings(CodeItemProperty property)
         {
             var strings = new List<string>();
 
-            if (property.IsStatic)
-            {
-                strings.Add("s");
-            }
+            strings.AddRange(GenerateAttributeStrings((BaseCodeItemElement)property));
 
             if (property.CodeProperty.Getter != null) // Readable
             {
@@ -106,7 +109,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 strings.Add("w");
             }
 
-            return string.Join(", ", strings.ToArray());
+            return strings;
         }
     }
 }
