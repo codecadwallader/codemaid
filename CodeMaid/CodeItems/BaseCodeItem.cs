@@ -53,7 +53,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>
-        public IEnumerable<BaseCodeItem> Children { get; private set; }
+        public ICollection<BaseCodeItem> Children { get; private set; }
 
         #endregion Properties
     }

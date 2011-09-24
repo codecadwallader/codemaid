@@ -59,15 +59,15 @@
                 Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type ci:BaseCodeItem}">
+    <HierarchicalDataTemplate DataType="{x:Type ci:BaseCodeItem}" ItemsSource="{Binding Children}">
         <DockPanel>
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultStyle}" />
         </DockPanel>
-    </DataTemplate>
+    </HierarchicalDataTemplate>
 
-    <DataTemplate DataType="{x:Type ci:CodeItemClass}">
+    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemClass}" ItemsSource="{Binding Children}">
         <DockPanel Margin="0,2">
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
@@ -76,7 +76,7 @@
             <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
                     Style="{StaticResource namespaceStyle}" />
         </DockPanel>
-    </DataTemplate>
+    </HierarchicalDataTemplate>
 
     <DataTemplate DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>

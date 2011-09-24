@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -113,11 +114,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Organizes the code items by alpha layout.
+        /// Organizes the specified code items by alpha layout.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByAlphaLayout(IEnumerable<BaseCodeItem> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByAlphaLayout(SetCodeItems rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
@@ -133,31 +134,54 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Organizes the code items by file layout.
+        /// Organizes the specified code items by file layout.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByFileLayout(IEnumerable<BaseCodeItem> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByFileLayout(SetCodeItems rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
             if (rawCodeItems != null)
             {
-                organizedCodeItems.AddRange(rawCodeItems);
+                // Sort the raw list of code items by starting location.
+                rawCodeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
 
-                // Sort the list of code items by starting location.
-                organizedCodeItems.Sort((x, y) => x.StartLine.CompareTo(y.StartLine));
+                var codeItemStack = new Stack<BaseCodeItem>();
+
+                foreach (var codeItem in rawCodeItems)
+                {
+                    while (true)
+                    {
+                        if (!codeItemStack.Any())
+                        {
+                            organizedCodeItems.Add(codeItem);
+                            codeItemStack.Push(codeItem);
+                            break;
+                        }
+
+                        var top = codeItemStack.Peek();
+                        if (codeItem.StartLine < top.EndLine)
+                        {
+                            top.Children.Add(codeItem);
+                            codeItemStack.Push(codeItem);
+                            break;
+                        }
+
+                        codeItemStack.Pop();
+                    }
+                }
             }
 
             return organizedCodeItems;
         }
 
         /// <summary>
-        /// Organizes the code items by type layout.
+        /// Organizes the specified code items by type layout.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByTypeLayout(IEnumerable<BaseCodeItem> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByTypeLayout(SetCodeItems rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
