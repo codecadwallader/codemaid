@@ -58,7 +58,8 @@
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2"
                                             Background="{TemplateBinding Background}"
-                                            Padding="{TemplateBinding Padding}">
+                                            Padding="{TemplateBinding Padding}"
+                                            Mouse.MouseDown="OnTreeViewItemHeaderMouseDown">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
@@ -84,7 +85,8 @@
                                 </Trigger>
                                 <Trigger Property="HasItems" Value="False">
                                     <Setter TargetName="expander" Property="Visibility" Value="Hidden" />
-                                    <Setter Property="Background" Value="White" />
+                                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="BorderThickness" Value="0" />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="True">

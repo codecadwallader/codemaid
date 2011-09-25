@@ -13,6 +13,8 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
@@ -52,6 +54,26 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             Dispatcher.BeginInvoke(
                 new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Snooper.CenterOnWhole)));
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a mouse down event.
+        /// Used to toggle the expansion of a tree view item upon middle click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Middle) return;
+
+            var source = e.Source as DependencyObject;
+            if (source == null) return;
+
+            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            if (treeViewItem != null)
+            {
+                treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+            }
         }
     }
 }
