@@ -21,14 +21,14 @@ using SteveCadwallader.CodeMaid.CodeItems;
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
-    /// Converts a code item into an attribute string.
+    /// Converts a code item into a metadata string.
     /// </summary>
-    public class CodeItemToAttributeStringConverter : IValueConverter
+    public class CodeItemToMetadataStringConverter : IValueConverter
     {
         /// <summary>
-        /// A default instance of the <see cref="CodeItemToAttributeStringConverter"/>.
+        /// A default instance of the <see cref="CodeItemToMetadataStringConverter"/>.
         /// </summary>
-        public static CodeItemToAttributeStringConverter Default = new CodeItemToAttributeStringConverter();
+        public static CodeItemToMetadataStringConverter Default = new CodeItemToMetadataStringConverter();
 
         /// <summary>
         /// Converts a value.
@@ -40,27 +40,27 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            IEnumerable<string> attributeStrings;
+            IEnumerable<string> metadataStrings;
 
             if (value is CodeItemProperty)
             {
-                attributeStrings = GenerateAttributeStrings((CodeItemProperty)value);
+                metadataStrings = GenerateMetadataStrings((CodeItemProperty)value);
             }
             else if (value is CodeItemField && ((CodeItemField)value).IsConstant)
             {
-                // Avoid showing static attribute for constants since it is redundant.
+                // Avoid showing static metadata for constants since it is redundant.
                 return string.Empty;
             }
             else if (value is BaseCodeItemElement)
             {
-                attributeStrings = GenerateAttributeStrings((BaseCodeItemElement)value);
+                metadataStrings = GenerateMetadataStrings((BaseCodeItemElement)value);
             }
             else
             {
                 return string.Empty;
             }
 
-            return string.Join(", ", attributeStrings.ToArray());
+            return string.Join(", ", metadataStrings.ToArray());
         }
 
         /// <summary>
@@ -77,11 +77,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Generates attribute strings for the specified element.
+        /// Generates metadata strings for the specified element.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns>The attribute strings.</returns>
-        private static IEnumerable<string> GenerateAttributeStrings(BaseCodeItemElement element)
+        /// <returns>The metadata strings.</returns>
+        private static IEnumerable<string> GenerateMetadataStrings(BaseCodeItemElement element)
         {
             var strings = new List<string>();
 
@@ -94,15 +94,15 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Generates attribute strings for the specified property.
+        /// Generates metadata strings for the specified property.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns>The attribute strings.</returns>
-        private static IEnumerable<string> GenerateAttributeStrings(CodeItemProperty property)
+        /// <returns>The metadata strings.</returns>
+        private static IEnumerable<string> GenerateMetadataStrings(CodeItemProperty property)
         {
             var strings = new List<string>();
 
-            strings.AddRange(GenerateAttributeStrings((BaseCodeItemElement)property));
+            strings.AddRange(GenerateMetadataStrings((BaseCodeItemElement)property));
 
             if (property.CodeProperty.Getter != null) // Readable
             {

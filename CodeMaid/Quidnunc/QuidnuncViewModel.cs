@@ -58,6 +58,22 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         public Document Document { get; set; }
 
         /// <summary>
+        /// Gets a flag indicating if item complexity should be shown.
+        /// </summary>
+        public bool ShowItemComplexity
+        {
+            get { return Package.Options.Snooper.ShowItemComplexity; }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if item metadata should be shown.
+        /// </summary>
+        public bool ShowItemMetadata
+        {
+            get { return Package.Options.Snooper.ShowItemMetadata; }
+        }
+
+        /// <summary>
         /// Gets or sets the current interaction mode.
         /// </summary>
         public QuidnuncInteractionMode InteractionMode
