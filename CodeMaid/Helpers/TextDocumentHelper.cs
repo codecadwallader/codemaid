@@ -114,21 +114,52 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             try
             {
+                bool weightedCenter = true;
+                object viewRangeEnd = null;
+
                 var codeItemElement = codeItem as BaseCodeItemElement;
                 if (codeItemElement != null)
                 {
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
+
+                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.StartPoint, false);
+
+                    if (weightedCenter)
+                    {
+                        viewRangeEnd = codeItemElement.CodeElement.EndPoint;
+                    }
+                }
+                else
+                {
+                    textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
+
+                    if (weightedCenter)
+                    {
+                        var editPoint = textDocument.StartPoint.CreateEditPoint();
+
+                        editPoint.MoveToLineAndOffset(codeItem.StartLine, 1);
+                        int start = editPoint.AbsoluteCharOffset;
+
+                        editPoint.MoveToLineAndOffset(codeItem.EndLine, 1);
+                        int end = editPoint.AbsoluteCharOffset;
+
+                        viewRangeEnd = end - start;
+                    }
                 }
 
-                //TODO: Options for top/center/weighted-center?
-                textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
+                textDocument.Selection.AnchorPoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, viewRangeEnd);
+
                 textDocument.Selection.FindText(codeItem.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
                 textDocument.Selection.MoveToPoint(textDocument.Selection.AnchorPoint, false);
-                textDocument.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
             }
             catch (Exception)
             {
                 // Move operation may fail if element is no longer available.
+            }
+            finally
+            {
+                // Always set focus within the code editor window.
+                document.Activate();
             }
         }
 
