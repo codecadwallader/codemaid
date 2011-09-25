@@ -1,6 +1,6 @@
 ﻿namespace SteveCadwallader.CodeMaid.Options
 {
-    partial class SnooperOptionsControl
+    partial class SpadeOptionsControl
     {
         /// <summary>
         /// Required designer variable.
@@ -199,13 +199,13 @@
             this.showItemMetadataExampleLabel.TabIndex = 1;
             this.showItemMetadataExampleLabel.Text = "Example: \"s\" for static";
             // 
-            // SnooperOptionsControl
+            // SpadeOptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.navigationGroupBox);
             this.Controls.Add(this.displayGroupBox);
-            this.Name = "SnooperOptionsControl";
+            this.Name = "SpadeOptionsControl";
             this.Size = new System.Drawing.Size(350, 200);
             this.displayGroupBox.ResumeLayout(false);
             this.displayGroupBox.PerformLayout();

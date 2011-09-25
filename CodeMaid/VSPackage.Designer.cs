@@ -153,7 +153,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snooper.
+        ///   Looks up a localized string similar to Spade.
         /// </summary>
         internal static string _128 {
             get {

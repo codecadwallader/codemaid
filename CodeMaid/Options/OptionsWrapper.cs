@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="cleanupInsertOptionsPage">The cleanup insert options page.</param>
         /// <param name="cleanupRemoveOptionsPage">The cleanup remove options page.</param>
         /// <param name="cleanupUpdateOptionsPage">The cleanup update options page.</param>
-        /// <param name="snooperOptionsPage">The snooper options page.</param>
+        /// <param name="spadeOptionsPage">The spade options page.</param>
         /// <param name="switchFileOptionsPage">The switch file options page.</param>
         public OptionsWrapper(BuildProgressOptionsPage buildProgressOptionsPage,
                               CleanupFileTypesOptionsPage cleanupFileTypesOptionsPage,
@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Options
                               CleanupInsertOptionsPage cleanupInsertOptionsPage,
                               CleanupRemoveOptionsPage cleanupRemoveOptionsPage,
                               CleanupUpdateOptionsPage cleanupUpdateOptionsPage,
-                              SnooperOptionsPage snooperOptionsPage,
+                              SpadeOptionsPage spadeOptionsPage,
                               SwitchFileOptionsPage switchFileOptionsPage)
         {
             BuildProgress = buildProgressOptionsPage;
@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Options
             CleanupInsert = cleanupInsertOptionsPage;
             CleanupRemove = cleanupRemoveOptionsPage;
             CleanupUpdate = cleanupUpdateOptionsPage;
-            Snooper = snooperOptionsPage;
+            Spade = spadeOptionsPage;
             SwitchFile = switchFileOptionsPage;
         }
 
@@ -85,9 +85,9 @@ namespace SteveCadwallader.CodeMaid.Options
         public CleanupUpdateOptionsPage CleanupUpdate { get; private set; }
 
         /// <summary>
-        /// Gets the snooper options.
+        /// Gets the spade options.
         /// </summary>
-        public SnooperOptionsPage Snooper { get; private set; }
+        public SpadeOptionsPage Spade { get; private set; }
 
         /// <summary>
         /// Gets the switch file options.

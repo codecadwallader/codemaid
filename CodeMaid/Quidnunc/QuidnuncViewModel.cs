@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         public bool ShowItemComplexity
         {
-            get { return Package.Options.Snooper.ShowItemComplexity; }
+            get { return Package.Options.Spade.ShowItemComplexity; }
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         public bool ShowItemMetadata
         {
-            get { return Package.Options.Snooper.ShowItemMetadata; }
+            get { return Package.Options.Spade.ShowItemMetadata; }
         }
 
         /// <summary>

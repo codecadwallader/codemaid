@@ -54,8 +54,8 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
                 var package = ((QuidnuncViewModel)values[1]).Package;
                 if (package != null)
                 {
-                    int warningThreshold = package.Options.Snooper.ComplexityWarningThreshold;
-                    int alertThreshold = package.Options.Snooper.ComplexityAlertThreshold;
+                    int warningThreshold = package.Options.Spade.ComplexityWarningThreshold;
+                    int alertThreshold = package.Options.Spade.ComplexityAlertThreshold;
 
                     if (complexity >= alertThreshold)
                     {

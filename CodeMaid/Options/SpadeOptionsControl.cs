@@ -17,25 +17,25 @@ using System.Windows.Forms;
 namespace SteveCadwallader.CodeMaid.Options
 {
     /// <summary>
-    /// The options control hosting snooper options.
+    /// The options control hosting spade options.
     /// </summary>
-    public partial class SnooperOptionsControl : UserControl
+    public partial class SpadeOptionsControl : UserControl
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperOptionsControl"/> class.
+        /// Initializes a new instance of the <see cref="SpadeOptionsControl"/> class.
         /// </summary>
-        public SnooperOptionsControl()
+        public SpadeOptionsControl()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperOptionsControl"/> class.
+        /// Initializes a new instance of the <see cref="SpadeOptionsControl"/> class.
         /// </summary>
         /// <param name="optionsPage">The options page.</param>
-        public SnooperOptionsControl(SnooperOptionsPage optionsPage)
+        public SpadeOptionsControl(SpadeOptionsPage optionsPage)
             : this()
         {
             OptionsPage = optionsPage;
@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// Gets or sets the options page behind this control.
         /// </summary>
-        private SnooperOptionsPage OptionsPage { get; set; }
+        private SpadeOptionsPage OptionsPage { get; set; }
 
         #endregion Private Properties
 

@@ -164,7 +164,7 @@ Written by Steve Cadwallader, for more information visit http://www.bitbucket.or
     <comment>Options page</comment>
   </data>
   <data name="128" xml:space="preserve">
-    <value>Snooper</value>
+    <value>Spade</value>
     <comment>Options page</comment>
   </data>
   <data name="600" type="System.Resources.ResXFileRef, System.Windows.Forms">

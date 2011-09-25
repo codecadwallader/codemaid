@@ -204,13 +204,13 @@
     <Compile Include="Options\OptionsHelper.cs" />
     <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Options\SnooperOptionsControl.cs">
+    <Compile Include="Options\SpadeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Options\SnooperOptionsControl.Designer.cs">
-      <DependentUpon>SnooperOptionsControl.cs</DependentUpon>
+    <Compile Include="Options\SpadeOptionsControl.Designer.cs">
+      <DependentUpon>SpadeOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Options\SnooperOptionsPage.cs">
+    <Compile Include="Options\SpadeOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Options\SwitchFileOptionsControl.cs">
@@ -282,8 +282,8 @@
     <EmbeddedResource Include="Options\CleanupUpdateOptionsControl.resx">
       <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Options\SnooperOptionsControl.resx">
-      <DependentUpon>SnooperOptionsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Options\SpadeOptionsControl.resx">
+      <DependentUpon>SpadeOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
       <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>

@@ -20,19 +20,19 @@ using Microsoft.VisualStudio.Shell;
 namespace SteveCadwallader.CodeMaid.Options
 {
     /// <summary>
-    /// An options page for snooper options that are integrated into the IDE options window.
+    /// An options page for spade options that are integrated into the IDE options window.
     /// </summary>
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [CLSCompliant(false), ComVisible(true)]
     [Guid("bff0adb0-1a53-4e58-bfb4-b38ec00487b7")]
-    public class SnooperOptionsPage : DialogPage
+    public class SpadeOptionsPage : DialogPage
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SnooperOptionsPage"/> class.
+        /// Initializes a new instance of the <see cref="SpadeOptionsPage"/> class.
         /// </summary>
-        public SnooperOptionsPage()
+        public SpadeOptionsPage()
         {
             // Set the default settings, will be trumped if there are stored values.
             CenterOnWhole = true;
@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         protected override IWin32Window Window
         {
-            get { return new SnooperOptionsControl(this); }
+            get { return new SpadeOptionsControl(this); }
         }
 
         #endregion Overrides
