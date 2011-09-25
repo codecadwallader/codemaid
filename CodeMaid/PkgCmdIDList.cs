@@ -26,16 +26,16 @@ namespace SteveCadwallader.CodeMaid
         public const uint CmdIDCodeMaidConfiguration = 0x1800;
         public const uint CmdIDCodeMaidFindInSolutionExplorer = 0x1900;
         public const uint CmdIDCodeMaidJoinLines = 0x2000;
-        public const uint CmdIDCodeMaidQuidnuncInteractionReorder = 0x2100;
-        public const uint CmdIDCodeMaidQuidnuncInteractionSelect = 0x2200;
-        public const uint CmdIDCodeMaidQuidnuncLayoutAlpha = 0x2300;
-        public const uint CmdIDCodeMaidQuidnuncLayoutFile = 0x2400;
-        public const uint CmdIDCodeMaidQuidnuncLayoutType = 0x2500;
-        public const uint CmdIDCodeMaidQuidnuncRefresh = 0x2600;
-        public const uint CmdIDCodeMaidQuidnuncToolWindow = 0x2700;
-        public const uint CmdIDCodeMaidReadOnlyToggle = 0x2800;
+        public const uint CmdIDCodeMaidReadOnlyToggle = 0x2100;
+        public const uint CmdIDCodeMaidSpadeInteractionReorder = 0x2200;
+        public const uint CmdIDCodeMaidSpadeInteractionSelect = 0x2300;
+        public const uint CmdIDCodeMaidSpadeLayoutAlpha = 0x2400;
+        public const uint CmdIDCodeMaidSpadeLayoutFile = 0x2500;
+        public const uint CmdIDCodeMaidSpadeLayoutType = 0x2600;
+        public const uint CmdIDCodeMaidSpadeRefresh = 0x2700;
+        public const uint CmdIDCodeMaidSpadeToolWindow = 0x2800;
         public const uint CmdIDCodeMaidSwitchFile = 0x2900;
 
-        public const int ToolbarIDCodeMaidToolbarQuidnunc = 0x1040;
+        public const int ToolbarIDCodeMaidToolbarSpade = 0x1040;
     };
 }

@@ -18,19 +18,19 @@ using Microsoft.VisualStudio.Shell.Interop;
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for launching the quidnunc tool window.
+    /// A command that provides for launching the Spade tool window.
     /// </summary>
-    internal class QuidnuncToolWindowCommand : BaseCommand
+    internal class SpadeToolWindowCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncToolWindowCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeToolWindowCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal QuidnuncToolWindowCommand(CodeMaidPackage package)
+        internal SpadeToolWindowCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncToolWindow))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSpadeToolWindow))
         {
         }
 
@@ -43,13 +43,13 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                var quidnuncFrame = quidnunc.Frame as IVsWindowFrame;
-                if (quidnuncFrame != null)
+                var spadeFrame = spade.Frame as IVsWindowFrame;
+                if (spadeFrame != null)
                 {
-                    quidnuncFrame.Show();
+                    spadeFrame.Show();
                 }
             }
         }
@@ -64,23 +64,23 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <param name="document">The document that was saved.</param>
         internal void OnAfterDocumentSave(Document document)
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.NotifyDocumentSave(document);
+                spade.NotifyDocumentSave(document);
             }
         }
 
         /// <summary>
-        /// Called when a window change has occurred, potentially to be used by the quidnunc tool window.
+        /// Called when a window change has occurred, potentially to be used by the Spade tool window.
         /// </summary>
         /// <param name="document">The document that got focus, may be null.</param>
         internal void OnWindowChange(Document document)
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.NotifyActiveDocument(document);
+                spade.NotifyActiveDocument(document);
             }
         }
 

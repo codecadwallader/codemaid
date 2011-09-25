@@ -11,26 +11,21 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// An enumeration of layout modes for Quidnunc.
+    /// An enumeration of interaction modes for Spade.
     /// </summary>
-    public enum QuidnuncLayoutMode
+    public enum SpadeInteractionMode
     {
         /// <summary>
-        /// The default layout following the file line order.
+        /// The default selection mode.
         /// </summary>
-        FileLayout,
+        Select,
 
         /// <summary>
-        /// A layout following the C# standards that groups items by type and accessibility.
+        /// Reorder mode (drag and drop).
         /// </summary>
-        TypeLayout,
-
-        /// <summary>
-        /// A layout following alphabetical order.
-        /// </summary>
-        AlphaLayout
+        Reorder,
     }
 }

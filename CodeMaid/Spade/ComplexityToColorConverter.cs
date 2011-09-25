@@ -16,10 +16,10 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// Converts a complexity score into its associated color value using the passed QuidnuncViewModel to determine the complexity configuration state.
+    /// Converts a complexity score into its associated color value using the passed SpadeViewModel to determine the complexity configuration state.
     /// </summary>
     public class ComplexityToColorConverter : IMultiValueConverter
     {
@@ -48,10 +48,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values != null && values.Length >= 2 &&
-                values[0] is int && values[1] is QuidnuncViewModel)
+                values[0] is int && values[1] is SpadeViewModel)
             {
                 int complexity = (int)values[0];
-                var package = ((QuidnuncViewModel)values[1]).Package;
+                var package = ((SpadeViewModel)values[1]).Package;
                 if (package != null)
                 {
                     int warningThreshold = package.Options.Spade.ComplexityWarningThreshold;

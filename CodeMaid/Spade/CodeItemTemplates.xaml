@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Quidnunc">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade">
 
     <!-- Styles -->
     <Style TargetType="{x:Type TextBlock}">
@@ -54,7 +54,7 @@
                 <MultiBinding Converter="{x:Static local:ComplexityToColorConverter.Default}">
                     <Binding Path="Complexity" />
                     <Binding Path="DataContext"
-                            RelativeSource="{RelativeSource FindAncestor, AncestorType=local:QuidnuncView}" />
+                            RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />
                 </MultiBinding>
             </TextBlock.Foreground>
         </TextBlock>
@@ -88,12 +88,12 @@
         </DockPanel>
         <HierarchicalDataTemplate.Triggers>
             <DataTrigger
-                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:QuidnuncView}}"
+                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
                     Value="False">
                 <Setter TargetName="complexity" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <DataTrigger
-                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:QuidnuncView}}"
+                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
                     Value="False">
                 <Setter TargetName="metadata" Property="Visibility" Value="Collapsed" />
             </DataTrigger>

@@ -13,24 +13,24 @@
 
 using System.Windows.Forms;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// The top level view hosted within the <see cref="QuidnuncToolWindow"/>.
+    /// The top level view hosted within the <see cref="SpadeToolWindow"/>.
     /// </summary>
-    internal partial class QuidnuncViewHost : UserControl
+    internal partial class SpadeViewHost : UserControl
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncViewHost"/> class.
+        /// Initializes a new instance of the <see cref="SpadeViewHost"/> class.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        internal QuidnuncViewHost(QuidnuncViewModel viewModel)
+        internal SpadeViewHost(SpadeViewModel viewModel)
         {
             InitializeComponent();
 
-            elementHost.Child = new QuidnuncView
+            elementHost.Child = new SpadeView
                                     {
                                         DataContext = viewModel
                                     };

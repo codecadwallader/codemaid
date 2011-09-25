@@ -12,24 +12,24 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.ComponentModel.Design;
-using SteveCadwallader.CodeMaid.Quidnunc;
+using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for setting quidnunc to file layout mode.
+    /// A command that provides for setting Spade to type layout mode.
     /// </summary>
-    internal class QuidnuncLayoutFileCommand : BaseCommand
+    internal class SpadeLayoutTypeCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncLayoutFileCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeLayoutTypeCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal QuidnuncLayoutFileCommand(CodeMaidPackage package)
+        internal SpadeLayoutTypeCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncLayoutFile, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncLayoutFile))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeLayoutType, (int)PkgCmdIDList.CmdIDCodeMaidSpadeLayoutType))
         {
         }
 
@@ -42,10 +42,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                Checked = quidnunc.LayoutMode == QuidnuncLayoutMode.FileLayout;
+                Checked = spade.LayoutMode == SpadeLayoutMode.TypeLayout;
             }
         }
 
@@ -54,10 +54,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.LayoutMode = QuidnuncLayoutMode.FileLayout;
+                spade.LayoutMode = SpadeLayoutMode.TypeLayout;
             }
         }
 

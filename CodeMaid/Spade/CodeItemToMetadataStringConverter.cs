@@ -18,7 +18,7 @@ using System.Linq;
 using System.Windows.Data;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
     /// Converts a code item into a metadata string.

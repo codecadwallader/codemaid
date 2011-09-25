@@ -20,19 +20,19 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// The quidnunc tool window pane.
+    /// The Spade tool window pane.
     /// </summary>
     [Guid("75d09b86-471e-4b30-8720-362d13ad0a45")]
-    public class QuidnuncToolWindow : ToolWindowPane, IVsWindowFrameNotify3
+    public class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
         #region Fields
 
-        private readonly QuidnuncCodeModelRetriever _codeModelRetriever;
-        private readonly QuidnuncViewHost _viewHost;
-        private readonly QuidnuncViewModel _viewModel;
+        private readonly SpadeCodeModelRetriever _codeModelRetriever;
+        private readonly SpadeViewHost _viewHost;
+        private readonly SpadeViewModel _viewModel;
 
         private Document _document;
         private bool _isVisible;
@@ -42,25 +42,25 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="SpadeToolWindow"/> class.
         /// </summary>
-        public QuidnuncToolWindow() :
+        public SpadeToolWindow() :
             base(null)
         {
             // Set the tool window caption.
-            Caption = "CodeMaid Quidnunc";
+            Caption = "Spade";
 
             // Set the tool window image from resources.
             BitmapResourceID = 501;
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.
-            ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarQuidnuncBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarQuidnunc);
+            ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarSpadeBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
-            _codeModelRetriever = new QuidnuncCodeModelRetriever(UpdateViewModelRawCodeItems);
-            _viewModel = new QuidnuncViewModel();
-            _viewHost = new QuidnuncViewHost(_viewModel);
+            _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
+            _viewModel = new SpadeViewModel();
+            _viewHost = new SpadeViewHost(_viewModel);
         }
 
         #endregion Constructors
@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the interaction mode.
         /// </summary>
-        public QuidnuncInteractionMode InteractionMode
+        public SpadeInteractionMode InteractionMode
         {
             get { return _viewModel.InteractionMode; }
             set { _viewModel.InteractionMode = value; }
@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the layout mode.
         /// </summary>
-        public QuidnuncLayoutMode LayoutMode
+        public SpadeLayoutMode LayoutMode
         {
             get { return _viewModel.LayoutMode; }
             set { _viewModel.LayoutMode = value; }
@@ -135,7 +135,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         }
 
         /// <summary>
-        /// Refresh the quinunc tool window.
+        /// Refresh the Spade tool window.
         /// </summary>
         public void Refresh()
         {

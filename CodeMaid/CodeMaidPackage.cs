@@ -27,7 +27,7 @@ using SteveCadwallader.CodeMaid.BuildProgress;
 using SteveCadwallader.CodeMaid.Commands;
 using SteveCadwallader.CodeMaid.Events;
 using SteveCadwallader.CodeMaid.Options;
-using SteveCadwallader.CodeMaid.Quidnunc;
+using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(SpadeOptionsPage), "CodeMaid", "Spade", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 65, Width = 500, Style = VsDockStyle.Float, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
-    [ProvideToolWindow(typeof(QuidnuncToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
+    [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
     {
@@ -126,17 +126,17 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the quidnunc tool window.
+        /// Gets the Spade tool window.
         /// </summary>
         /// <remarks>
-        /// Finds the first instance of the quidnunc tool window, creating it if necessary.
+        /// Finds the first instance of the Spade tool window, creating it if necessary.
         /// </remarks>
-        public QuidnuncToolWindow Quidnunc
+        public SpadeToolWindow Spade
         {
             get
             {
-                return _quidnunc ??
-                    (_quidnunc = (FindToolWindow(typeof(QuidnuncToolWindow), 0, true) as QuidnuncToolWindow));
+                return _spade ??
+                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
             }
         }
 
@@ -288,14 +288,14 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
-                _commands.Add(new QuidnuncInteractionReorderCommand(this));
-                _commands.Add(new QuidnuncInteractionSelectCommand(this));
-                _commands.Add(new QuidnuncLayoutAlphaCommand(this));
-                _commands.Add(new QuidnuncLayoutFileCommand(this));
-                _commands.Add(new QuidnuncLayoutTypeCommand(this));
-                _commands.Add(new QuidnuncRefreshCommand(this));
-                _commands.Add(new QuidnuncToolWindowCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
+                _commands.Add(new SpadeInteractionReorderCommand(this));
+                _commands.Add(new SpadeInteractionSelectCommand(this));
+                _commands.Add(new SpadeLayoutAlphaCommand(this));
+                _commands.Add(new SpadeLayoutFileCommand(this));
+                _commands.Add(new SpadeLayoutTypeCommand(this));
+                _commands.Add(new SpadeRefreshCommand(this));
+                _commands.Add(new SpadeToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
 
                 // Add all commands to the menu command service.
@@ -334,7 +334,7 @@ namespace SteveCadwallader.CodeMaid
             {
                 var buildProgressToolWindowCommand = _commands.OfType<BuildProgressToolWindowCommand>().First();
                 var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
-                var quidnuncToolWindowCommand = _commands.OfType<QuidnuncToolWindowCommand>().First();
+                var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
                 BuildStatusEventListener = new BuildStatusEventListener(this);
                 BuildStatusEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
@@ -343,10 +343,10 @@ namespace SteveCadwallader.CodeMaid
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
-                RunningDocumentTableEventListener.AfterSave += quidnuncToolWindowCommand.OnAfterDocumentSave;
+                RunningDocumentTableEventListener.AfterSave += spadeToolWindowCommand.OnAfterDocumentSave;
 
                 WindowEventListener = new WindowEventListener(this);
-                WindowEventListener.OnWindowChange += quidnuncToolWindowCommand.OnWindowChange;
+                WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
             }
         }
 
@@ -409,9 +409,9 @@ namespace SteveCadwallader.CodeMaid
         private OptionsWrapper _optionsWrapper;
 
         /// <summary>
-        /// The quidnunc tool window.
+        /// The Spade tool window.
         /// </summary>
-        private QuidnuncToolWindow _quidnunc;
+        private SpadeToolWindow _spade;
 
         #endregion Private Fields
     }

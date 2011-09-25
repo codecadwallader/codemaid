@@ -18,17 +18,17 @@ using System.Windows.Input;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// The WPF based control/view for the <see cref="QuidnuncToolWindow"/>.
+    /// The WPF based control/view for the <see cref="SpadeToolWindow"/>.
     /// </summary>
-    public partial class QuidnuncView
+    public partial class SpadeView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncView"/> class.
+        /// Initializes a new instance of the <see cref="SpadeView"/> class.
         /// </summary>
-        public QuidnuncView()
+        public SpadeView()
         {
             InitializeComponent();
         }
@@ -36,9 +36,9 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets the view model.
         /// </summary>
-        private QuidnuncViewModel ViewModel
+        private SpadeViewModel ViewModel
         {
-            get { return DataContext as QuidnuncViewModel; }
+            get { return DataContext as SpadeViewModel; }
         }
 
         /// <summary>

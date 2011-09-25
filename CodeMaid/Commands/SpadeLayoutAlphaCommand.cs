@@ -12,23 +12,24 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.ComponentModel.Design;
+using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for refreshing the quidnunc tool window.
+    /// A command that provides for setting Spade to alphabetical layout mode.
     /// </summary>
-    internal class QuidnuncRefreshCommand : BaseCommand
+    internal class SpadeLayoutAlphaCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncRefreshCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeLayoutAlphaCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal QuidnuncRefreshCommand(CodeMaidPackage package)
+        internal SpadeLayoutAlphaCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncRefresh, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncRefresh))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeLayoutAlpha, (int)PkgCmdIDList.CmdIDCodeMaidSpadeLayoutAlpha))
         {
         }
 
@@ -37,14 +38,26 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region BaseCommand Methods
 
         /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            var spade = Package.Spade;
+            if (spade != null)
+            {
+                Checked = spade.LayoutMode == SpadeLayoutMode.AlphaLayout;
+            }
+        }
+
+        /// <summary>
         /// Called to execute the command.
         /// </summary>
         protected override void OnExecute()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.Refresh();
+                spade.LayoutMode = SpadeLayoutMode.AlphaLayout;
             }
         }
 

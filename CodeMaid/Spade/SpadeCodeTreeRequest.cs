@@ -13,19 +13,19 @@
 
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
     /// A simple class for containing a request to build a code tree.
     /// </summary>
-    internal class QuidnuncCodeTreeRequest
+    internal class SpadeCodeTreeRequest
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncCodeTreeRequest"/> class.
+        /// Initializes a new instance of the <see cref="SpadeCodeTreeRequest"/> class.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="layoutMode">The layout mode.</param>
-        internal QuidnuncCodeTreeRequest(SetCodeItems rawCodeItems, QuidnuncLayoutMode layoutMode)
+        internal SpadeCodeTreeRequest(SetCodeItems rawCodeItems, SpadeLayoutMode layoutMode)
         {
             RawCodeItems = rawCodeItems;
             LayoutMode = layoutMode;
@@ -39,6 +39,6 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets the layout mode.
         /// </summary>
-        internal QuidnuncLayoutMode LayoutMode { get; private set; }
+        internal SpadeLayoutMode LayoutMode { get; private set; }
     }
 }

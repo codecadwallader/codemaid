@@ -32,11 +32,11 @@ namespace SteveCadwallader.CodeMaid
 
         // Toolbar menu group guids.
         public static readonly Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid("ed596e0f-d1cb-46e7-8dd3-741758451f27");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncInteractionGroup = new Guid("af1b903c-c03d-4002-95e4-c1533dce1a62");
-        public static readonly Guid GuidCodeMaidToolbarQuidnuncMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
+        public static readonly Guid GuidCodeMaidToolbarSpadeBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
+        public static readonly Guid GuidCodeMaidToolbarSpadeRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
+        public static readonly Guid GuidCodeMaidToolbarSpadeLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
+        public static readonly Guid GuidCodeMaidToolbarSpadeInteractionGroup = new Guid("af1b903c-c03d-4002-95e4-c1533dce1a62");
+        public static readonly Guid GuidCodeMaidToolbarSpadeMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Miscellaneous context menu group guids.
         public static readonly Guid GuidCodeMaidContextASPXWindowGroup = new Guid("d4cee201-6b18-4265-8693-a0cb38cf070b");
@@ -67,14 +67,14 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidCommandConfiguration = new Guid("56718f89-01d2-4405-99b5-4aa665af5947");
         public static readonly Guid GuidCodeMaidCommandFindInSolutionExplorer = new Guid("9e7a4c5b-5de4-418c-8ede-71fcfa4e811f");
         public static readonly Guid GuidCodeMaidCommandJoinLines = new Guid("7912f0a2-ada9-4888-9d2f-cde09cd310c6");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncInteractionReorder = new Guid("c2da2b86-a279-4af7-96cf-2b500cb7c6ab");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncInteractionSelect = new Guid("35ec90d0-6ee0-4f30-83fe-739bc68fc4db");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncLayoutAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncLayoutFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncLayoutType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncRefresh = new Guid("6e26b076-d635-4a6e-82a8-ba10483f5414");
-        public static readonly Guid GuidCodeMaidCommandQuidnuncToolWindow = new Guid("aaf6a75d-2ccc-4081-b1ab-76306653807c");
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
+        public static readonly Guid GuidCodeMaidCommandSpadeInteractionReorder = new Guid("c2da2b86-a279-4af7-96cf-2b500cb7c6ab");
+        public static readonly Guid GuidCodeMaidCommandSpadeInteractionSelect = new Guid("35ec90d0-6ee0-4f30-83fe-739bc68fc4db");
+        public static readonly Guid GuidCodeMaidCommandSpadeLayoutAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
+        public static readonly Guid GuidCodeMaidCommandSpadeLayoutFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
+        public static readonly Guid GuidCodeMaidCommandSpadeLayoutType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");
+        public static readonly Guid GuidCodeMaidCommandSpadeRefresh = new Guid("6e26b076-d635-4a6e-82a8-ba10483f5414");
+        public static readonly Guid GuidCodeMaidCommandSpadeToolWindow = new Guid("aaf6a75d-2ccc-4081-b1ab-76306653807c");
         public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
     };
 }

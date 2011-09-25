@@ -12,24 +12,24 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.ComponentModel.Design;
-using SteveCadwallader.CodeMaid.Quidnunc;
+using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for setting quidnunc to reorder interaction mode.
+    /// A command that provides for setting Spade to file layout mode.
     /// </summary>
-    internal class QuidnuncInteractionReorderCommand : BaseCommand
+    internal class SpadeLayoutFileCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncInteractionReorderCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeLayoutFileCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal QuidnuncInteractionReorderCommand(CodeMaidPackage package)
+        internal SpadeLayoutFileCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncInteractionReorder, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncInteractionReorder))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeLayoutFile, (int)PkgCmdIDList.CmdIDCodeMaidSpadeLayoutFile))
         {
         }
 
@@ -42,10 +42,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                Checked = quidnunc.InteractionMode == QuidnuncInteractionMode.Reorder;
+                Checked = spade.LayoutMode == SpadeLayoutMode.FileLayout;
             }
         }
 
@@ -54,10 +54,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.InteractionMode = QuidnuncInteractionMode.Reorder;
+                spade.LayoutMode = SpadeLayoutMode.FileLayout;
             }
         }
 

@@ -17,12 +17,12 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
     /// A helper class for performing asynchronous code model retrievals.
     /// </summary>
-    internal class QuidnuncCodeModelRetriever
+    internal class SpadeCodeModelRetriever
     {
         #region Fields
 
@@ -35,10 +35,10 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncCodeModelRetriever"/> class.
+        /// Initializes a new instance of the <see cref="SpadeCodeModelRetriever"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal QuidnuncCodeModelRetriever(Action<SetCodeItems> callback)
+        internal SpadeCodeModelRetriever(Action<SetCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;

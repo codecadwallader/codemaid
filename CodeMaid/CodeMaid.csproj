@@ -115,15 +115,15 @@
     <Compile Include="Commands\ConfigurationCommand.cs" />
     <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
-    <Compile Include="Commands\QuidnuncInteractionReorderCommand.cs" />
-    <Compile Include="Commands\QuidnuncInteractionSelectCommand.cs" />
-    <Compile Include="Commands\QuidnuncLayoutAlphaCommand.cs" />
-    <Compile Include="Commands\QuidnuncLayoutFileCommand.cs" />
-    <Compile Include="Commands\QuidnuncLayoutTypeCommand.cs" />
-    <Compile Include="Commands\QuidnuncRefreshCommand.cs" />
+    <Compile Include="Commands\SpadeInteractionReorderCommand.cs" />
+    <Compile Include="Commands\SpadeInteractionSelectCommand.cs" />
+    <Compile Include="Commands\SpadeLayoutAlphaCommand.cs" />
+    <Compile Include="Commands\SpadeLayoutFileCommand.cs" />
+    <Compile Include="Commands\SpadeLayoutTypeCommand.cs" />
+    <Compile Include="Commands\SpadeRefreshCommand.cs" />
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
-    <Compile Include="Commands\QuidnuncToolWindowCommand.cs" />
+    <Compile Include="Commands\SpadeToolWindowCommand.cs" />
     <Compile Include="Dialogs\CleanupProgress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,30 +224,25 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
-    <Compile Include="Quidnunc\CodeItemToMetadataStringConverter.cs" />
-    <Compile Include="Quidnunc\CodeItemToImageConverter.cs" />
-    <Compile Include="Quidnunc\ComplexityToColorConverter.cs" />
-    <Compile Include="Quidnunc\QuidnuncCodeModelRetriever.cs" />
-    <Compile Include="Quidnunc\QuidnuncCodeTreeBuilder.cs" />
-    <Compile Include="Quidnunc\QuidnuncCodeTreeRequest.cs" />
-    <Compile Include="Quidnunc\QuidnuncInteractionMode.cs" />
-    <Compile Include="Quidnunc\QuidnuncLayoutMode.cs" />
-    <Compile Include="Quidnunc\QuidnuncToolWindow.cs" />
-    <Compile Include="Quidnunc\QuidnuncResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuidnuncResources.resx</DependentUpon>
+    <Compile Include="Spade\CodeItemToMetadataStringConverter.cs" />
+    <Compile Include="Spade\CodeItemToImageConverter.cs" />
+    <Compile Include="Spade\ComplexityToColorConverter.cs" />
+    <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
+    <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
+    <Compile Include="Spade\SpadeCodeTreeRequest.cs" />
+    <Compile Include="Spade\SpadeInteractionMode.cs" />
+    <Compile Include="Spade\SpadeLayoutMode.cs" />
+    <Compile Include="Spade\SpadeToolWindow.cs" />
+    <Compile Include="Spade\SpadeView.xaml.cs">
+      <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncView.xaml.cs">
-      <DependentUpon>QuidnuncView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Quidnunc\QuidnuncViewHost.cs">
+    <Compile Include="Spade\SpadeViewHost.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncViewHost.Designer.cs">
-      <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
+    <Compile Include="Spade\SpadeViewHost.Designer.cs">
+      <DependentUpon>SpadeViewHost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Quidnunc\QuidnuncViewModel.cs" />
+    <Compile Include="Spade\SpadeViewModel.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -288,13 +283,8 @@
     <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
       <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Quidnunc\QuidnuncResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuidnuncResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Quidnunc\QuidnuncViewHost.resx">
-      <DependentUpon>QuidnuncViewHost.cs</DependentUpon>
+    <EmbeddedResource Include="Spade\SpadeViewHost.resx">
+      <DependentUpon>SpadeViewHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
@@ -312,74 +302,74 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Quidnunc\Images\Class.png" />
-    <Resource Include="Quidnunc\Images\Class_Friend.png" />
-    <Resource Include="Quidnunc\Images\Class_Private.png" />
-    <Resource Include="Quidnunc\Images\Class_Protected.png" />
-    <Resource Include="Quidnunc\Images\Class_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Constant.png" />
-    <Resource Include="Quidnunc\Images\Constant_Friend.png" />
-    <Resource Include="Quidnunc\Images\Constant_Private.png" />
-    <Resource Include="Quidnunc\Images\Constant_Protected.png" />
-    <Resource Include="Quidnunc\Images\Constant_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Delegate.png" />
-    <Resource Include="Quidnunc\Images\Delegate_Friend.png" />
-    <Resource Include="Quidnunc\Images\Delegate_Private.png" />
-    <Resource Include="Quidnunc\Images\Delegate_Protected.png" />
-    <Resource Include="Quidnunc\Images\Delegate_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Enum.png" />
-    <Resource Include="Quidnunc\Images\Enum_Friend.png" />
-    <Resource Include="Quidnunc\Images\Enum_Private.png" />
-    <Resource Include="Quidnunc\Images\Enum_Protected.png" />
-    <Resource Include="Quidnunc\Images\Enum_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Event.png" />
-    <Resource Include="Quidnunc\Images\Event_Friend.png" />
-    <Resource Include="Quidnunc\Images\Event_Private.png" />
-    <Resource Include="Quidnunc\Images\Event_Protected.png" />
-    <Resource Include="Quidnunc\Images\Event_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Field.png" />
-    <Resource Include="Quidnunc\Images\Field_Friend.png" />
-    <Resource Include="Quidnunc\Images\Field_Private.png" />
-    <Resource Include="Quidnunc\Images\Field_Protected.png" />
-    <Resource Include="Quidnunc\Images\Field_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Interface.png" />
-    <Resource Include="Quidnunc\Images\Interface_Friend.png" />
-    <Resource Include="Quidnunc\Images\Interface_Private.png" />
-    <Resource Include="Quidnunc\Images\Interface_Protected.png" />
-    <Resource Include="Quidnunc\Images\Interface_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Method.png" />
-    <Resource Include="Quidnunc\Images\MethodOverload.png" />
-    <Resource Include="Quidnunc\Images\MethodOverload_Friend.png" />
-    <Resource Include="Quidnunc\Images\MethodOverload_Private.png" />
-    <Resource Include="Quidnunc\Images\MethodOverload_Protected.png" />
-    <Resource Include="Quidnunc\Images\MethodOverload_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Method_Friend.png" />
-    <Resource Include="Quidnunc\Images\Method_Private.png" />
-    <Resource Include="Quidnunc\Images\Method_Protected.png" />
-    <Resource Include="Quidnunc\Images\Method_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Properties.png" />
-    <Resource Include="Quidnunc\Images\Properties_Friend.png" />
-    <Resource Include="Quidnunc\Images\Properties_Private.png" />
-    <Resource Include="Quidnunc\Images\Properties_Protected.png" />
-    <Resource Include="Quidnunc\Images\Properties_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Structure.png" />
-    <Resource Include="Quidnunc\Images\Structure_Friend.png" />
-    <Resource Include="Quidnunc\Images\Structure_Private.png" />
-    <Resource Include="Quidnunc\Images\Structure_Protected.png" />
-    <Resource Include="Quidnunc\Images\Structure_Sealed.png" />
-    <Resource Include="Quidnunc\Images\MethodConstructor.png" />
-    <Resource Include="Quidnunc\Images\MethodDestructor.png" />
-    <Resource Include="Quidnunc\Images\MethodConstructor_Friend.png" />
-    <Resource Include="Quidnunc\Images\MethodConstructor_Private.png" />
-    <Resource Include="Quidnunc\Images\MethodConstructor_Protected.png" />
-    <Resource Include="Quidnunc\Images\MethodConstructor_Sealed.png" />
-    <Resource Include="Quidnunc\Images\MethodDestructor_Friend.png" />
-    <Resource Include="Quidnunc\Images\MethodDestructor_Private.png" />
-    <Resource Include="Quidnunc\Images\MethodDestructor_Protected.png" />
-    <Resource Include="Quidnunc\Images\MethodDestructor_Sealed.png" />
-    <Resource Include="Quidnunc\Images\Collapsed.png" />
-    <Resource Include="Quidnunc\Images\Expanded.png" />
-    <Resource Include="Quidnunc\Images\Region.png" />
+    <Resource Include="Spade\Images\Class.png" />
+    <Resource Include="Spade\Images\Class_Friend.png" />
+    <Resource Include="Spade\Images\Class_Private.png" />
+    <Resource Include="Spade\Images\Class_Protected.png" />
+    <Resource Include="Spade\Images\Class_Sealed.png" />
+    <Resource Include="Spade\Images\Constant.png" />
+    <Resource Include="Spade\Images\Constant_Friend.png" />
+    <Resource Include="Spade\Images\Constant_Private.png" />
+    <Resource Include="Spade\Images\Constant_Protected.png" />
+    <Resource Include="Spade\Images\Constant_Sealed.png" />
+    <Resource Include="Spade\Images\Delegate.png" />
+    <Resource Include="Spade\Images\Delegate_Friend.png" />
+    <Resource Include="Spade\Images\Delegate_Private.png" />
+    <Resource Include="Spade\Images\Delegate_Protected.png" />
+    <Resource Include="Spade\Images\Delegate_Sealed.png" />
+    <Resource Include="Spade\Images\Enum.png" />
+    <Resource Include="Spade\Images\Enum_Friend.png" />
+    <Resource Include="Spade\Images\Enum_Private.png" />
+    <Resource Include="Spade\Images\Enum_Protected.png" />
+    <Resource Include="Spade\Images\Enum_Sealed.png" />
+    <Resource Include="Spade\Images\Event.png" />
+    <Resource Include="Spade\Images\Event_Friend.png" />
+    <Resource Include="Spade\Images\Event_Private.png" />
+    <Resource Include="Spade\Images\Event_Protected.png" />
+    <Resource Include="Spade\Images\Event_Sealed.png" />
+    <Resource Include="Spade\Images\Field.png" />
+    <Resource Include="Spade\Images\Field_Friend.png" />
+    <Resource Include="Spade\Images\Field_Private.png" />
+    <Resource Include="Spade\Images\Field_Protected.png" />
+    <Resource Include="Spade\Images\Field_Sealed.png" />
+    <Resource Include="Spade\Images\Interface.png" />
+    <Resource Include="Spade\Images\Interface_Friend.png" />
+    <Resource Include="Spade\Images\Interface_Private.png" />
+    <Resource Include="Spade\Images\Interface_Protected.png" />
+    <Resource Include="Spade\Images\Interface_Sealed.png" />
+    <Resource Include="Spade\Images\Method.png" />
+    <Resource Include="Spade\Images\MethodOverload.png" />
+    <Resource Include="Spade\Images\MethodOverload_Friend.png" />
+    <Resource Include="Spade\Images\MethodOverload_Private.png" />
+    <Resource Include="Spade\Images\MethodOverload_Protected.png" />
+    <Resource Include="Spade\Images\MethodOverload_Sealed.png" />
+    <Resource Include="Spade\Images\Method_Friend.png" />
+    <Resource Include="Spade\Images\Method_Private.png" />
+    <Resource Include="Spade\Images\Method_Protected.png" />
+    <Resource Include="Spade\Images\Method_Sealed.png" />
+    <Resource Include="Spade\Images\Properties.png" />
+    <Resource Include="Spade\Images\Properties_Friend.png" />
+    <Resource Include="Spade\Images\Properties_Private.png" />
+    <Resource Include="Spade\Images\Properties_Protected.png" />
+    <Resource Include="Spade\Images\Properties_Sealed.png" />
+    <Resource Include="Spade\Images\Structure.png" />
+    <Resource Include="Spade\Images\Structure_Friend.png" />
+    <Resource Include="Spade\Images\Structure_Private.png" />
+    <Resource Include="Spade\Images\Structure_Protected.png" />
+    <Resource Include="Spade\Images\Structure_Sealed.png" />
+    <Resource Include="Spade\Images\MethodConstructor.png" />
+    <Resource Include="Spade\Images\MethodDestructor.png" />
+    <Resource Include="Spade\Images\MethodConstructor_Friend.png" />
+    <Resource Include="Spade\Images\MethodConstructor_Private.png" />
+    <Resource Include="Spade\Images\MethodConstructor_Protected.png" />
+    <Resource Include="Spade\Images\MethodConstructor_Sealed.png" />
+    <Resource Include="Spade\Images\MethodDestructor_Friend.png" />
+    <Resource Include="Spade\Images\MethodDestructor_Private.png" />
+    <Resource Include="Spade\Images\MethodDestructor_Protected.png" />
+    <Resource Include="Spade\Images\MethodDestructor_Sealed.png" />
+    <Resource Include="Spade\Images\Collapsed.png" />
+    <Resource Include="Spade\Images\Expanded.png" />
+    <Resource Include="Spade\Images\Region.png" />
     <Content Include="Resources\about.png" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
@@ -406,11 +396,11 @@
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Quidnunc\CodeItemTemplates.xaml">
+    <Page Include="Spade\CodeItemTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Quidnunc\QuidnuncView.xaml">
+    <Page Include="Spade\SpadeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,28 +18,28 @@ using System.Linq;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
     /// A helper class for performing asynchronous code tree building.
     /// </summary>
-    internal class QuidnuncCodeTreeBuilder
+    internal class SpadeCodeTreeBuilder
     {
         #region Fields
 
         private readonly BackgroundWorker _bw;
         private readonly Action<SetCodeItems> _callback;
-        private QuidnuncCodeTreeRequest _pendingRequest;
+        private SpadeCodeTreeRequest _pendingRequest;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncCodeTreeBuilder"/> class.
+        /// Initializes a new instance of the <see cref="SpadeCodeTreeBuilder"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal QuidnuncCodeTreeBuilder(Action<SetCodeItems> callback)
+        internal SpadeCodeTreeBuilder(Action<SetCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Builds a code tree asynchronously from the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
-        internal void RetrieveCodeTreeAsync(QuidnuncCodeTreeRequest request)
+        internal void RetrieveCodeTreeAsync(SpadeCodeTreeRequest request)
         {
             if (_bw.IsBusy)
             {
@@ -72,7 +72,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
         private static void OnDoWork(object sender, DoWorkEventArgs e)
         {
-            var request = e.Argument as QuidnuncCodeTreeRequest;
+            var request = e.Argument as SpadeCodeTreeRequest;
             if (request == null || request.RawCodeItems == null) return;
 
             ClearHierarchyInformation(request.RawCodeItems);
@@ -81,15 +81,15 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             switch (request.LayoutMode)
             {
-                case QuidnuncLayoutMode.AlphaLayout:
+                case SpadeLayoutMode.AlphaLayout:
                     codeItems = OrganizeCodeItemsByAlphaLayout(request.RawCodeItems);
                     break;
 
-                case QuidnuncLayoutMode.FileLayout:
+                case SpadeLayoutMode.FileLayout:
                     codeItems = OrganizeCodeItemsByFileLayout(request.RawCodeItems);
                     break;
 
-                case QuidnuncLayoutMode.TypeLayout:
+                case SpadeLayoutMode.TypeLayout:
                     codeItems = OrganizeCodeItemsByTypeLayout(request.RawCodeItems);
                     break;
             }

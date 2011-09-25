@@ -15,19 +15,19 @@ using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// The view model representing the state and commands available to the <see cref="QuidnuncViewHost"/>.
+    /// The view model representing the state and commands available to the <see cref="SpadeViewHost"/>.
     /// </summary>
-    public class QuidnuncViewModel : INotifyPropertyChanged
+    public class SpadeViewModel : INotifyPropertyChanged
     {
         #region Fields
 
-        private readonly QuidnuncCodeTreeBuilder _codeTreeBuilder;
+        private readonly SpadeCodeTreeBuilder _codeTreeBuilder;
 
-        private QuidnuncInteractionMode _interactionMode;
-        private QuidnuncLayoutMode _layoutMode;
+        private SpadeInteractionMode _interactionMode;
+        private SpadeLayoutMode _layoutMode;
         private SetCodeItems _rawCodeItems;
         private SetCodeItems _organizedCodeItems;
 
@@ -36,11 +36,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SpadeViewModel"/> class.
         /// </summary>
-        public QuidnuncViewModel()
+        public SpadeViewModel()
         {
-            _codeTreeBuilder = new QuidnuncCodeTreeBuilder(UpdateOrganizedCodeItems);
+            _codeTreeBuilder = new SpadeCodeTreeBuilder(UpdateOrganizedCodeItems);
         }
 
         #endregion Constructors
@@ -76,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the current interaction mode.
         /// </summary>
-        public QuidnuncInteractionMode InteractionMode
+        public SpadeInteractionMode InteractionMode
         {
             get { return _interactionMode; }
             set
@@ -93,7 +93,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// <summary>
         /// Gets or sets the current layout mode.
         /// </summary>
-        public QuidnuncLayoutMode LayoutMode
+        public SpadeLayoutMode LayoutMode
         {
             get { return _layoutMode; }
             set
@@ -172,7 +172,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilder.RetrieveCodeTreeAsync(new QuidnuncCodeTreeRequest(RawCodeItems, LayoutMode));
+            _codeTreeBuilder.RetrieveCodeTreeAsync(new SpadeCodeTreeRequest(RawCodeItems, LayoutMode));
         }
 
         /// <summary>

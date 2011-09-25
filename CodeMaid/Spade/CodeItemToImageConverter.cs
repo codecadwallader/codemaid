@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Quidnunc
+namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
     /// Converts a code item into an image.
@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
 
             if (typeComponent == null) return null;
 
-            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Quidnunc/Images/{0}{1}.png", typeComponent, accessComponent);
+            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/Spade/Images/{0}{1}.png", typeComponent, accessComponent);
 
             return uriString;
         }

@@ -1,6 +1,6 @@
-﻿namespace SteveCadwallader.CodeMaid.Quidnunc
+﻿namespace SteveCadwallader.CodeMaid.Spade
 {
-    partial class QuidnuncViewHost
+    partial class SpadeViewHost
     {
         /// <summary>
         /// Required designer variable.
@@ -40,14 +40,14 @@
             this.elementHost.TabIndex = 0;
             this.elementHost.Child = null;
             // 
-            // QuidnuncViewHost
+            // SpadeViewHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.elementHost);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "QuidnuncViewHost";
+            this.Name = "SpadeViewHost";
             this.ResumeLayout(false);
 
         }

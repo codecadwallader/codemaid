@@ -12,24 +12,24 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.ComponentModel.Design;
-using SteveCadwallader.CodeMaid.Quidnunc;
+using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for setting quidnunc to selection interaction mode.
+    /// A command that provides for setting Spade to selection interaction mode.
     /// </summary>
-    internal class QuidnuncInteractionSelectCommand : BaseCommand
+    internal class SpadeInteractionSelectCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuidnuncInteractionSelectCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeInteractionSelectCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal QuidnuncInteractionSelectCommand(CodeMaidPackage package)
+        internal SpadeInteractionSelectCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandQuidnuncInteractionSelect, (int)PkgCmdIDList.CmdIDCodeMaidQuidnuncInteractionSelect))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeInteractionSelect, (int)PkgCmdIDList.CmdIDCodeMaidSpadeInteractionSelect))
         {
         }
 
@@ -42,10 +42,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                Checked = quidnunc.InteractionMode == QuidnuncInteractionMode.Select;
+                Checked = spade.InteractionMode == SpadeInteractionMode.Select;
             }
         }
 
@@ -54,10 +54,10 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var quidnunc = Package.Quidnunc;
-            if (quidnunc != null)
+            var spade = Package.Spade;
+            if (spade != null)
             {
-                quidnunc.InteractionMode = QuidnuncInteractionMode.Select;
+                spade.InteractionMode = SpadeInteractionMode.Select;
             }
         }
 
