@@ -11,8 +11,8 @@
                 <ResourceDictionary Source="CodeItemTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="FTreeViewItemHasItems" Color="#FFE8F0F6" />
-            <SolidColorBrush x:Key="FTreeViewItemIMO" Color="#FFE8F6F4" />
+            <SolidColorBrush x:Key="FTreeViewItemParent" Color="#FFE0EDF6" />
+            <SolidColorBrush x:Key="FTreeViewItemHighlight" Color="#FFE0F6F3" />
 
             <Style x:Key="treeViewToggleButton" TargetType="{x:Type ToggleButton}">
                 <Setter Property="Focusable" Value="False" />
@@ -35,11 +35,11 @@
             </Style>
 
             <Style x:Key="treeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}">
-                <Setter Property="Background" Value="{StaticResource FTreeViewItemHasItems}" />
-                <Setter Property="BorderBrush" Value="{StaticResource FTreeViewItemHasItems}" />
+                <Setter Property="Background" Value="{StaticResource FTreeViewItemParent}" />
+                <Setter Property="BorderBrush" Value="{StaticResource FTreeViewItemParent}" />
                 <Setter Property="BorderThickness" Value="0,1" />
                 <Setter Property="IsExpanded" Value="True" />
-                <Setter Property="Margin" Value="0,2,0,0" />
+                <Setter Property="Margin" Value="0,0,0,2" />
                 <Setter Property="Padding" Value="4,2,10,2" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -88,10 +88,10 @@
                                     <Setter Property="BorderThickness" Value="0" />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemIMO}" />
+                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
                                 </Trigger>
                                 <Trigger SourceName="headerBorder" Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemIMO}" />
+                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
                                     <Setter Property="Cursor" Value="Hand" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
