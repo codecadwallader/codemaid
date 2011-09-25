@@ -31,7 +31,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             if (codeElement == null) return null;
 
             BaseCodeItemElement codeItem;
-            bool isNameless = false;
 
             switch (codeElement.Kind)
             {
@@ -57,7 +56,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
 
                 case vsCMElement.vsCMElementImportStmt:
                     codeItem = new CodeItemUsingStatement();
-                    isNameless = true;
                     break;
 
                 case vsCMElement.vsCMElementInterface:
@@ -85,16 +83,35 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             }
 
             // Populate the common fields.
-            codeItem.StartLine = codeElement.StartPoint.Line;
-            codeItem.EndLine = codeElement.EndPoint.Line;
             codeItem.CodeElement = codeElement;
-
-            if (!isNameless)
-            {
-                codeItem.Name = codeElement.Name;
-            }
+            RefreshCodeItemElement(codeItem);
 
             return codeItem;
+        }
+
+        /// <summary>
+        /// Refreshes the common fields on the specified code item from its internal code element.
+        /// </summary>
+        /// <param name="codeItem">The code item to populate.</param>
+        public static void RefreshCodeItemElement(BaseCodeItemElement codeItem)
+        {
+            codeItem.StartLine = codeItem.CodeElement.StartPoint.Line;
+            codeItem.EndLine = codeItem.CodeElement.EndPoint.Line;
+
+            if (!IsNameless(codeItem))
+            {
+                codeItem.Name = codeItem.CodeElement.Name;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified code item is nameless.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>True if the specified code item has no name, otherwise false.</returns>
+        private static bool IsNameless(BaseCodeItemElement codeItem)
+        {
+            return codeItem is CodeItemUsingStatement;
         }
     }
 }

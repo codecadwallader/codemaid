@@ -112,12 +112,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var textDocument = document.Object("TextDocument") as TextDocument;
             if (textDocument == null) return;
 
-            //TODO: Cursor at first character of name?
-            //TODO: Options for top/center/weighted-center?
-            textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
-            textDocument.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, false);
+            try
+            {
+                var codeItemElement = codeItem as BaseCodeItemElement;
+                if (codeItemElement != null)
+                {
+                    FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
+                }
 
-            textDocument.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
+                //TODO: Cursor at first character of name?
+                //TODO: Options for top/center/weighted-center?
+                textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
+                textDocument.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, false);
+                textDocument.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
+            }
+            catch (Exception)
+            {
+                // Move operation may fail if element is no longer available.
+            }
         }
 
         /// <summary>
