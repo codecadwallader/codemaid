@@ -120,10 +120,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
                 }
 
-                //TODO: Cursor at first character of name?
                 //TODO: Options for top/center/weighted-center?
                 textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
-                textDocument.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, false);
+                textDocument.Selection.FindText(codeItem.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
+                textDocument.Selection.MoveToPoint(textDocument.Selection.AnchorPoint, false);
                 textDocument.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
             }
             catch (Exception)
