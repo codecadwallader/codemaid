@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Options
             HandleIDEVersionDifferences();
 
             sortUsingStatementsCheckBox.Checked = OptionsPage.SortUsingStatements;
-            updateRegionDirectivesCheckBox.Checked = OptionsPage.UpdateRegionDirectives;
+            updateEndRegionDirectivesCheckBox.Checked = OptionsPage.UpdateEndRegionDirectives;
         }
 
         #endregion Constructors
@@ -70,13 +70,13 @@ namespace SteveCadwallader.CodeMaid.Options
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of the updateRegionDirectivesCheckBox control.
+        /// Handles the CheckedChanged event of the updateEndRegionDirectivesCheckBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void updateRegionDirectivesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void updateEndRegionDirectivesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            OptionsPage.UpdateRegionDirectives = updateRegionDirectivesCheckBox.Checked;
+            OptionsPage.UpdateEndRegionDirectives = updateEndRegionDirectivesCheckBox.Checked;
         }
 
         #endregion Private Event Handlers

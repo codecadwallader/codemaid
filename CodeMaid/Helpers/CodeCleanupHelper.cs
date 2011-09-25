@@ -245,7 +245,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertExplicitAccessModifiersOnProperties(properties);
 
             // Perform update cleanup.
-            UpdateRegionDirectives(textDocument);
+            UpdateEndRegionDirectives(textDocument);
         }
 
         /// <summary>
@@ -772,9 +772,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// enough to warrant a separate copy of the code.
         /// </remarks>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void UpdateRegionDirectives(TextDocument textDocument)
+        private void UpdateEndRegionDirectives(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupUpdate.UpdateRegionDirectives) return;
+            if (!Package.Options.CleanupUpdate.UpdateEndRegionDirectives) return;
 
             Stack<String> regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();

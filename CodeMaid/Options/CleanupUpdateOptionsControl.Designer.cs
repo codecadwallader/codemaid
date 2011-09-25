@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.updateGroupBox = new System.Windows.Forms.GroupBox();
-            this.updateRegionDirectivesExampleLabel = new System.Windows.Forms.Label();
             this.sortUsingStatementsCheckBox = new System.Windows.Forms.CheckBox();
-            this.updateRegionDirectivesCheckBox = new System.Windows.Forms.CheckBox();
+            this.updateEndRegionDirectivesCheckBox = new System.Windows.Forms.CheckBox();
+            this.updateEndRegionDirectivesExampleLabel = new System.Windows.Forms.Label();
             this.updateGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,24 +40,14 @@
             this.updateGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.updateGroupBox.Controls.Add(this.sortUsingStatementsCheckBox);
-            this.updateGroupBox.Controls.Add(this.updateRegionDirectivesCheckBox);
-            this.updateGroupBox.Controls.Add(this.updateRegionDirectivesExampleLabel);
+            this.updateGroupBox.Controls.Add(this.updateEndRegionDirectivesCheckBox);
+            this.updateGroupBox.Controls.Add(this.updateEndRegionDirectivesExampleLabel);
             this.updateGroupBox.Location = new System.Drawing.Point(3, 3);
             this.updateGroupBox.Name = "updateGroupBox";
             this.updateGroupBox.Size = new System.Drawing.Size(344, 85);
             this.updateGroupBox.TabIndex = 0;
             this.updateGroupBox.TabStop = false;
             this.updateGroupBox.Text = "Update";
-            // 
-            // updateRegionDirectivesExampleLabel
-            // 
-            this.updateRegionDirectivesExampleLabel.AutoSize = true;
-            this.updateRegionDirectivesExampleLabel.Location = new System.Drawing.Point(39, 64);
-            this.updateRegionDirectivesExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
-            this.updateRegionDirectivesExampleLabel.Name = "updateRegionDirectivesExampleLabel";
-            this.updateRegionDirectivesExampleLabel.Size = new System.Drawing.Size(151, 13);
-            this.updateRegionDirectivesExampleLabel.TabIndex = 2;
-            this.updateRegionDirectivesExampleLabel.Text = "Example: #endregion Methods";
             // 
             // sortUsingStatementsCheckBox
             // 
@@ -70,16 +60,26 @@
             this.sortUsingStatementsCheckBox.UseVisualStyleBackColor = true;
             this.sortUsingStatementsCheckBox.CheckedChanged += new System.EventHandler(this.sortUsingStatementsCheckBox_CheckedChanged);
             // 
-            // updateRegionDirectivesCheckBox
+            // updateEndRegionDirectivesCheckBox
             // 
-            this.updateRegionDirectivesCheckBox.AutoSize = true;
-            this.updateRegionDirectivesCheckBox.Location = new System.Drawing.Point(7, 44);
-            this.updateRegionDirectivesCheckBox.Name = "updateRegionDirectivesCheckBox";
-            this.updateRegionDirectivesCheckBox.Size = new System.Drawing.Size(141, 17);
-            this.updateRegionDirectivesCheckBox.TabIndex = 1;
-            this.updateRegionDirectivesCheckBox.Text = "Update region directives";
-            this.updateRegionDirectivesCheckBox.UseVisualStyleBackColor = true;
-            this.updateRegionDirectivesCheckBox.CheckedChanged += new System.EventHandler(this.updateRegionDirectivesCheckBox_CheckedChanged);
+            this.updateEndRegionDirectivesCheckBox.AutoSize = true;
+            this.updateEndRegionDirectivesCheckBox.Location = new System.Drawing.Point(7, 44);
+            this.updateEndRegionDirectivesCheckBox.Name = "updateEndRegionDirectivesCheckBox";
+            this.updateEndRegionDirectivesCheckBox.Size = new System.Drawing.Size(242, 17);
+            this.updateEndRegionDirectivesCheckBox.TabIndex = 1;
+            this.updateEndRegionDirectivesCheckBox.Text = "Update endregion directives with region name";
+            this.updateEndRegionDirectivesCheckBox.UseVisualStyleBackColor = true;
+            this.updateEndRegionDirectivesCheckBox.CheckedChanged += new System.EventHandler(this.updateEndRegionDirectivesCheckBox_CheckedChanged);
+            // 
+            // updateEndRegionDirectivesExampleLabel
+            // 
+            this.updateEndRegionDirectivesExampleLabel.AutoSize = true;
+            this.updateEndRegionDirectivesExampleLabel.Location = new System.Drawing.Point(39, 64);
+            this.updateEndRegionDirectivesExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
+            this.updateEndRegionDirectivesExampleLabel.Name = "updateEndRegionDirectivesExampleLabel";
+            this.updateEndRegionDirectivesExampleLabel.Size = new System.Drawing.Size(151, 13);
+            this.updateEndRegionDirectivesExampleLabel.TabIndex = 2;
+            this.updateEndRegionDirectivesExampleLabel.Text = "Example: #endregion Methods";
             // 
             // CleanupUpdateOptionsControl
             // 
@@ -97,8 +97,8 @@
         #endregion Component Designer generated code
 
         private System.Windows.Forms.GroupBox updateGroupBox;
-        private System.Windows.Forms.CheckBox updateRegionDirectivesCheckBox;
+        private System.Windows.Forms.CheckBox updateEndRegionDirectivesCheckBox;
         private System.Windows.Forms.CheckBox sortUsingStatementsCheckBox;
-        private System.Windows.Forms.Label updateRegionDirectivesExampleLabel;
+        private System.Windows.Forms.Label updateEndRegionDirectivesExampleLabel;
     }
 }

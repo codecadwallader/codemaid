@@ -36,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             // Set the default settings, will be trumped if there are stored values.
             SortUsingStatements = true;
-            UpdateRegionDirectives = true;
+            UpdateEndRegionDirectives = true;
         }
 
         #endregion Constructors
@@ -49,9 +49,9 @@ namespace SteveCadwallader.CodeMaid.Options
         public bool SortUsingStatements { get; set; }
 
         [Category("CodeMaid")]
-        [DisplayName(@"Update region directives")]
+        [DisplayName(@"Update endregion directives")]
         [Description("On cleanup code, sets endregion tags with their matching region name.\r\nExample: '#endregion Methods'.")]
-        public bool UpdateRegionDirectives { get; set; }
+        public bool UpdateEndRegionDirectives { get; set; }
 
         #endregion Public Properties
 
