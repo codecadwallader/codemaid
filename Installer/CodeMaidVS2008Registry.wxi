@@ -6,7 +6,7 @@
     <Registry Name="UseInterface" Value="1" Type="integer" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\Packages\{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="SteveCadwallader.CodeMaid.CodeMaidPackage, SteveCadwallader.CodeMaid, Version=0.3.7.41368, Culture=neutral, PublicKeyToken=5e10ffd6b4d2c330" Type="string">
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\Packages\{4c82e17d-927e-42d2-8460-b473ac7df316}" Value="SteveCadwallader.CodeMaid.CodeMaidPackage, SteveCadwallader.CodeMaid, Version=0.3.7.1, Culture=neutral, PublicKeyToken=5e10ffd6b4d2c330" Type="string">
     <Registry Name="InprocServer32" Value="[SystemFolder]mscoree.dll" Type="string" />
     <Registry Name="Class" Value="SteveCadwallader.CodeMaid.CodeMaidPackage" Type="string" />
     <Registry Name="CodeBase" Value="[#File_SteveCadwallader.CodeMaid.dll]" Type="string" />
@@ -29,7 +29,7 @@
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\ToolsOptionsPages\CodeMaid\Build Status" Value="#126" Type="string">
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\ToolsOptionsPages\CodeMaid\Build Progress" Value="#126" Type="string">
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
     <Registry Name="Page" Value="{7e14280f-a7ec-4326-bb1e-57e0f5053920}" Type="string" />
   </Registry>
@@ -59,7 +59,7 @@
     <Registry Name="Page" Value="{df0e8a40-bb30-440e-984f-abeaaee669cb}" Type="string" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\ToolsOptionsPages\CodeMaid\Snooper" Value="#128" Type="string">
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\ToolsOptionsPages\CodeMaid\Spade" Value="#128" Type="string">
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
     <Registry Name="Page" Value="{bff0adb0-1a53-4e58-bfb4-b38ec00487b7}" Type="string" />
   </Registry>
@@ -69,8 +69,8 @@
     <Registry Name="Page" Value="{0e984617-c912-44ac-bd8b-1930c0d00198}" Type="string" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\AutomationProperties\CodeMaid\Build Status">
-    <Registry Name="Name" Value="CodeMaid.Build Status" Type="string" />
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\AutomationProperties\CodeMaid\Build Progress">
+    <Registry Name="Name" Value="CodeMaid.Build Progress" Type="string" />
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
   </Registry>
 
@@ -99,8 +99,8 @@
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\AutomationProperties\CodeMaid\Snooper">
-    <Registry Name="Name" Value="CodeMaid.Snooper" Type="string" />
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\AutomationProperties\CodeMaid\Spade">
+    <Registry Name="Name" Value="CodeMaid.Spade" Type="string" />
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
   </Registry>
 
@@ -118,7 +118,7 @@
   </Registry>
 
   <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\9.0\ToolWindows\{75d09b86-471e-4b30-8720-362d13ad0a45}" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string">
-    <Registry Name="Name" Value="SteveCadwallader.CodeMaid.Snooper.SnooperToolWindow" Type="string" />
+    <Registry Name="Name" Value="SteveCadwallader.CodeMaid.Spade.SpadeToolWindow" Type="string" />
     <Registry Name="Orientation" Value="Left" Type="string" />
     <Registry Name="Style" Value="Tabbed" Type="string" />
     <Registry Name="Window" Value="{3ae79031-e1bc-11d0-8f78-00a0c9110057}" Type="string" />

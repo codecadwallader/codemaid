@@ -79,11 +79,8 @@ namespace SteveCadwallader.CodeMaid
         #region Public Integration Properties
 
         /// <summary>
-        /// Gets the build progress tool window.
+        /// Gets the build progress tool window, creating it if necessary.
         /// </summary>
-        /// <remarks>
-        /// Finds the first instance of the build progress tool window, creating it if necessary.
-        /// </remarks>
         public BuildProgressToolWindow BuildProgress
         {
             get
@@ -126,12 +123,21 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the Spade tool window.
+        /// Gets the Spade tool window, iff it already exists.
         /// </summary>
-        /// <remarks>
-        /// Finds the first instance of the Spade tool window, creating it if necessary.
-        /// </remarks>
         public SpadeToolWindow Spade
+        {
+            get
+            {
+                return _spade ??
+                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
+            }
+        }
+
+        /// <summary>
+        /// Gets the Spade tool window, creating it if necessary.
+        /// </summary>
+        public SpadeToolWindow SpadeForceLoad
         {
             get
             {

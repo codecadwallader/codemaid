@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            var spade = Package.Spade;
+            var spade = Package.SpadeForceLoad;
             if (spade != null)
             {
                 var spadeFrame = spade.Frame as IVsWindowFrame;
