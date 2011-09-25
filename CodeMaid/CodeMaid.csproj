@@ -115,6 +115,7 @@
     <Compile Include="Commands\ConfigurationCommand.cs" />
     <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
+    <Compile Include="Commands\SpadeConfigurationCommand.cs" />
     <Compile Include="Commands\SpadeInteractionReorderCommand.cs" />
     <Compile Include="Commands\SpadeInteractionSelectCommand.cs" />
     <Compile Include="Commands\SpadeLayoutAlphaCommand.cs" />

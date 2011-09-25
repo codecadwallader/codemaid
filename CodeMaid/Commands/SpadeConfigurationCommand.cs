@@ -16,19 +16,19 @@ using System.ComponentModel.Design;
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for launching the CodeMaid configuration to the general cleanup page.
+    /// A command that provides for launching the CodeMaid configuration to the Spade page.
     /// </summary>
-    internal class ConfigurationCommand : BaseCommand
+    internal class SpadeConfigurationCommand : BaseCommand
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpadeConfigurationCommand"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal ConfigurationCommand(CodeMaidPackage package)
+        internal SpadeConfigurationCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandConfiguration, (int)PkgCmdIDList.CmdIDCodeMaidConfiguration))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeConfiguration, (int)PkgCmdIDList.CmdIDCodeMaidSpadeConfiguration))
         {
         }
 
@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Package.ShowOptionPage(Package.Options.CleanupGeneral.GetType());
+            Package.ShowOptionPage(Package.Options.Spade.GetType());
         }
 
         #endregion BaseCommand Methods

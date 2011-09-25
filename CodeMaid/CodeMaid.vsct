@@ -254,6 +254,14 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100" type="Button">
+        <Icon guid="GuidImageConfig" id="IconConfig" />
+        <Strings>
+          <CommandName>CmdIDCodeMaidSpadeConfiguration</CommandName>
+          <ButtonText>C&amp;onfiguration...</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandSpadeInteractionReorder" id="CmdIDCodeMaidSpadeInteractionReorder" priority="0x0100" type="Button">
         <Icon guid="GuidImageHand" id="IconHand" />
         <Strings>
@@ -452,9 +460,6 @@
     <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100">
-      <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
-    </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
@@ -504,6 +509,10 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100">
+      <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeInteractionReorder" id="CmdIDCodeMaidSpadeInteractionReorder" priority="0x0400">
@@ -764,36 +773,40 @@
       <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2100" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandSpadeConfiguration" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
+      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2200" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandSpadeInteractionReorder" value="{c2da2b86-a279-4af7-96cf-2b500cb7c6ab}">
-      <IDSymbol name="CmdIDCodeMaidSpadeInteractionReorder" value="0x2200" />
+      <IDSymbol name="CmdIDCodeMaidSpadeInteractionReorder" value="0x2300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeInteractionSelect" value="{35ec90d0-6ee0-4f30-83fe-739bc68fc4db}">
-      <IDSymbol name="CmdIDCodeMaidSpadeInteractionSelect" value="0x2300" />
+      <IDSymbol name="CmdIDCodeMaidSpadeInteractionSelect" value="0x2400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2400" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x2700" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x2800" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x2900" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2900" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3000" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
