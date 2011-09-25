@@ -122,7 +122,7 @@
     <comment>Package name</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
+    <value>CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
 
 Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/</value>
     <comment>Package description</comment>
@@ -160,7 +160,7 @@ Written by Steve Cadwallader, for more information visit http://www.bitbucket.or
     <comment>Options page</comment>
   </data>
   <data name="126" xml:space="preserve">
-    <value>Build Status</value>
+    <value>Build Progress</value>
     <comment>Options page</comment>
   </data>
   <data name="128" xml:space="preserve">

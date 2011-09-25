@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SteveCadwallader.CodeMaid")]
-[assembly: AssemblyDescription("CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.")]
+[assembly: AssemblyDescription("CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Steve Cadwallader")]
 [assembly: AssemblyProduct("CodeMaid")]

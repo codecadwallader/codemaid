@@ -52,7 +52,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true)]
     [ProvideOptionPage(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true)]
     [ProvideOptionPage(typeof(CleanupUpdateOptionsPage), "CodeMaid", @"Cleanup\Update", 116, 124, true)]
-    [ProvideOptionPage(typeof(BuildProgressOptionsPage), "CodeMaid", "Build Status", 116, 126, true)]
+    [ProvideOptionPage(typeof(BuildProgressOptionsPage), "CodeMaid", "Build Progress", 116, 126, true)]
     [ProvideOptionPage(typeof(SpadeOptionsPage), "CodeMaid", "Spade", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 65, Width = 500, Style = VsDockStyle.Float, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
@@ -145,9 +145,9 @@ namespace SteveCadwallader.CodeMaid
         #region Private Event Listener Properties
 
         /// <summary>
-        /// Gets or sets the build status event listener.
+        /// Gets or sets the build progress event listener.
         /// </summary>
-        private BuildStatusEventListener BuildStatusEventListener { get; set; }
+        private BuildProgressEventListener BuildProgressEventListener { get; set; }
 
         /// <summary>
         /// Gets or sets the running document table event listener.
@@ -337,10 +337,10 @@ namespace SteveCadwallader.CodeMaid
                 var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
-                BuildStatusEventListener = new BuildStatusEventListener(this);
-                BuildStatusEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
-                BuildStatusEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
-                BuildStatusEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
+                BuildProgressEventListener = new BuildProgressEventListener(this);
+                BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
+                BuildProgressEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
+                BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
@@ -364,9 +364,9 @@ namespace SteveCadwallader.CodeMaid
             base.Dispose(disposing);
 
             // Dispose of any event listeners.
-            if (BuildStatusEventListener != null)
+            if (BuildProgressEventListener != null)
             {
-                BuildStatusEventListener.Dispose();
+                BuildProgressEventListener.Dispose();
             }
 
             if (RunningDocumentTableEventListener != null)

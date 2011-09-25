@@ -132,7 +132,7 @@
       <DependentUpon>CleanupProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="Events\BaseEventListener.cs" />
-    <Compile Include="Events\BuildStatusEventListener.cs" />
+    <Compile Include="Events\BuildProgressEventListener.cs" />
     <Compile Include="Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Events\ShellEventListener.cs" />
     <Compile Include="Events\WindowEventListener.cs" />

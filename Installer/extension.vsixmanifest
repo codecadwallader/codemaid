@@ -4,7 +4,7 @@
     <Name>CodeMaid</Name>
     <Author>Steve Cadwallader</Author>
     <Version>0.3.7</Version>
-    <Description xml:space="preserve">CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build status, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.</Description>
+    <Description xml:space="preserve">CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>http://www.bitbucket.org/s_cadwallader/codemaid/</MoreInfoUrl>
     <License>lgpl-3.0.rtf</License>

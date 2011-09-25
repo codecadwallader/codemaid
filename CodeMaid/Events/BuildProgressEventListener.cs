@@ -16,17 +16,17 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.Events
 {
     /// <summary>
-    /// A class that encapsulates listening for build status events.
+    /// A class that encapsulates listening for build progress events.
     /// </summary>
-    internal class BuildStatusEventListener : BaseEventListener
+    internal class BuildProgressEventListener : BaseEventListener
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildStatusEventListener"/> class.
+        /// Initializes a new instance of the <see cref="BuildProgressEventListener"/> class.
         /// </summary>
         /// <param name="package">The package hosting the event listener.</param>
-        internal BuildStatusEventListener(CodeMaidPackage package)
+        internal BuildProgressEventListener(CodeMaidPackage package)
             : base(package)
         {
             // Store access to the build events, otherwise events will not register properly via DTE.
