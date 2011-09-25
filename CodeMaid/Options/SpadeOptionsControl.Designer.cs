@@ -88,7 +88,7 @@
             // showItemComplexityCheckBox
             // 
             this.showItemComplexityCheckBox.AutoSize = true;
-            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 62);
+            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 65);
             this.showItemComplexityCheckBox.Name = "showItemComplexityCheckBox";
             this.showItemComplexityCheckBox.Size = new System.Drawing.Size(148, 17);
             this.showItemComplexityCheckBox.TabIndex = 2;
@@ -99,7 +99,7 @@
             // warningThresholdLabel
             // 
             this.warningThresholdLabel.AutoSize = true;
-            this.warningThresholdLabel.Location = new System.Drawing.Point(40, 82);
+            this.warningThresholdLabel.Location = new System.Drawing.Point(40, 85);
             this.warningThresholdLabel.Name = "warningThresholdLabel";
             this.warningThresholdLabel.Size = new System.Drawing.Size(93, 13);
             this.warningThresholdLabel.TabIndex = 3;
@@ -107,7 +107,7 @@
             // 
             // warningThresholdUpDown
             // 
-            this.warningThresholdUpDown.Location = new System.Drawing.Point(141, 80);
+            this.warningThresholdUpDown.Location = new System.Drawing.Point(141, 83);
             this.warningThresholdUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -127,7 +127,7 @@
             // alertThresholdLabel
             // 
             this.alertThresholdLabel.AutoSize = true;
-            this.alertThresholdLabel.Location = new System.Drawing.Point(40, 108);
+            this.alertThresholdLabel.Location = new System.Drawing.Point(40, 111);
             this.alertThresholdLabel.Name = "alertThresholdLabel";
             this.alertThresholdLabel.Size = new System.Drawing.Size(74, 13);
             this.alertThresholdLabel.TabIndex = 5;
@@ -135,7 +135,7 @@
             // 
             // alertThresholdUpDown
             // 
-            this.alertThresholdUpDown.Location = new System.Drawing.Point(141, 106);
+            this.alertThresholdUpDown.Location = new System.Drawing.Point(141, 109);
             this.alertThresholdUpDown.Maximum = new decimal(new int[] {
             1000,
             0,

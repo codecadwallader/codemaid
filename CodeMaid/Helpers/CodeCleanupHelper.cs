@@ -135,7 +135,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     Package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
 
                     // Perform the set of configured cleanups based on the language.
-                    cleanupMethod(document);
+                    cleanupMethod(document, isAutoSave);
 
                     Package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
                 }
@@ -166,7 +166,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>The code cleanup method, otherwise null.</returns>
-        private Action<Document> FindCodeCleanupMethod(Document document)
+        private Action<Document, bool> FindCodeCleanupMethod(Document document)
         {
             switch (document.Language)
             {
@@ -194,13 +194,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Attempts to run code cleanup on the specified CSharp document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        private void RunCodeCleanupCSharp(Document document)
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
             RunVSFormatting(textDocument);
-            RemoveUnusedUsingStatements();
+            RemoveUnusedUsingStatements(isAutoSave);
             SortUsingStatements();
 
             // Interpret the document into a collection of elements.
@@ -251,7 +252,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Attempts to run code cleanup on the specified C/C++ document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        private void RunCodeCleanupC(Document document)
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RunCodeCleanupC(Document document, bool isAutoSave)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
@@ -269,7 +271,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Attempts to run code cleanup on the specified generic document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        private void RunCodeCleanupGeneric(Document document)
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
@@ -626,9 +629,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Run the visual studio built-in remove unused using statements command.
         /// </summary>
-        private void RemoveUnusedUsingStatements()
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RemoveUnusedUsingStatements(bool isAutoSave)
         {
             if (!Package.Options.CleanupRemove.RemoveUnusedUsingStatements) return;
+            if (isAutoSave && Package.Options.CleanupRemove.RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave) return;
 
             // Requires VS2008 (version 9).
             if (Package.IDEVersion >= 9)

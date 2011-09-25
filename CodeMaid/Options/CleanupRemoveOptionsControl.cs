@@ -48,7 +48,10 @@ namespace SteveCadwallader.CodeMaid.Options
             removeBlankLinesBeforeClosingBraceCheckBox.Checked = OptionsPage.RemoveBlankLinesBeforeClosingBrace;
             removeMultipleConsecutiveBlankLinesCheckBox.Checked = OptionsPage.RemoveMultipleConsecutiveBlankLines;
             removeUnusedUsingStatementsCheckBox.Checked = OptionsPage.RemoveUnusedUsingStatements;
+            removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Checked = OptionsPage.RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave;
             removeEndOfLineWhitespaceCheckBox.Checked = OptionsPage.RemoveEndOfLineWhitespace;
+
+            UpdateRemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSaveState();
         }
 
         #endregion Constructors
@@ -122,6 +125,20 @@ namespace SteveCadwallader.CodeMaid.Options
         private void removeUnusedUsingStatementsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             OptionsPage.RemoveUnusedUsingStatements = removeUnusedUsingStatementsCheckBox.Checked;
+
+            UpdateRemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSaveState();
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave = removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Checked;
+
+            UpdateRemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSaveState();
         }
 
         /// <summary>
@@ -152,6 +169,21 @@ namespace SteveCadwallader.CodeMaid.Options
                 removeUnusedUsingStatementsCheckBox.Enabled = false;
                 removeUnusedUsingStatementsCheckBox.Text += @" (Requires VS2008 or later)";
             }
+        }
+
+        /// <summary>
+        /// Updates the state of the remove unused using statements except during auto cleanup on save controls.
+        /// </summary>
+        private void UpdateRemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSaveState()
+        {
+            removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Enabled =
+                removeUnusedUsingStatementsCheckBox.Enabled && removeUnusedUsingStatementsCheckBox.Checked;
+
+            removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Enabled =
+                removeUnusedUsingStatementsCheckBox.Enabled && removeUnusedUsingStatementsCheckBox.Checked;
+
+            removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Visible =
+                !removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Checked;
         }
 
         #endregion Private Methods

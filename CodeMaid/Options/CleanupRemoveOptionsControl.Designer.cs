@@ -36,6 +36,8 @@
             this.removeMultipleConsecutiveBlankLinesCheckBox = new System.Windows.Forms.CheckBox();
             this.unusedGroupBox = new System.Windows.Forms.GroupBox();
             this.removeUnusedUsingStatementsCheckBox = new System.Windows.Forms.CheckBox();
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox = new System.Windows.Forms.CheckBox();
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel = new System.Windows.Forms.Label();
             this.whitespaceGroupBox = new System.Windows.Forms.GroupBox();
             this.removeEndOfLineWhitespaceCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesGroupBox.SuspendLayout();
@@ -54,7 +56,7 @@
             this.blankLinesGroupBox.Controls.Add(this.removeMultipleConsecutiveBlankLinesCheckBox);
             this.blankLinesGroupBox.Location = new System.Drawing.Point(3, 3);
             this.blankLinesGroupBox.Name = "blankLinesGroupBox";
-            this.blankLinesGroupBox.Size = new System.Drawing.Size(344, 141);
+            this.blankLinesGroupBox.Size = new System.Drawing.Size(276, 141);
             this.blankLinesGroupBox.TabIndex = 0;
             this.blankLinesGroupBox.TabStop = false;
             this.blankLinesGroupBox.Text = "Blank lines";
@@ -119,9 +121,11 @@
             this.unusedGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.unusedGroupBox.Controls.Add(this.removeUnusedUsingStatementsCheckBox);
-            this.unusedGroupBox.Location = new System.Drawing.Point(3, 150);
+            this.unusedGroupBox.Controls.Add(this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox);
+            this.unusedGroupBox.Controls.Add(this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel);
+            this.unusedGroupBox.Location = new System.Drawing.Point(3, 203);
             this.unusedGroupBox.Name = "unusedGroupBox";
-            this.unusedGroupBox.Size = new System.Drawing.Size(344, 47);
+            this.unusedGroupBox.Size = new System.Drawing.Size(276, 84);
             this.unusedGroupBox.TabIndex = 1;
             this.unusedGroupBox.TabStop = false;
             this.unusedGroupBox.Text = "Unused";
@@ -137,14 +141,36 @@
             this.removeUnusedUsingStatementsCheckBox.UseVisualStyleBackColor = true;
             this.removeUnusedUsingStatementsCheckBox.CheckedChanged += new System.EventHandler(this.removeUnusedUsingStatementsCheckBox_CheckedChanged);
             // 
+            // removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox
+            // 
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.AutoSize = true;
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Location = new System.Drawing.Point(26, 43);
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Margin = new System.Windows.Forms.Padding(23, 3, 3, 3);
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Name = "removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox";
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Size = new System.Drawing.Size(222, 17);
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.TabIndex = 1;
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.Text = "Except during automatic cleanup on save";
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.UseVisualStyleBackColor = true;
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox.CheckedChanged += new System.EventHandler(this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox_CheckedChanged);
+            // 
+            // removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel
+            // 
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.AutoSize = true;
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Location = new System.Drawing.Point(45, 63);
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Name = "removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel";
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Size = new System.Drawing.Size(227, 13);
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.TabIndex = 2;
+            this.removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel.Text = "Note: Removing during save can cause issues";
+            // 
             // whitespaceGroupBox
             // 
             this.whitespaceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.whitespaceGroupBox.Controls.Add(this.removeEndOfLineWhitespaceCheckBox);
-            this.whitespaceGroupBox.Location = new System.Drawing.Point(3, 203);
+            this.whitespaceGroupBox.Location = new System.Drawing.Point(3, 150);
             this.whitespaceGroupBox.Name = "whitespaceGroupBox";
-            this.whitespaceGroupBox.Size = new System.Drawing.Size(344, 47);
+            this.whitespaceGroupBox.Size = new System.Drawing.Size(276, 47);
             this.whitespaceGroupBox.TabIndex = 2;
             this.whitespaceGroupBox.TabStop = false;
             this.whitespaceGroupBox.Text = "Whitespace";
@@ -164,11 +190,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.blankLinesGroupBox);
             this.Controls.Add(this.unusedGroupBox);
             this.Controls.Add(this.whitespaceGroupBox);
             this.Name = "CleanupRemoveOptionsControl";
-            this.Size = new System.Drawing.Size(350, 250);
+            this.Size = new System.Drawing.Size(282, 250);
             this.blankLinesGroupBox.ResumeLayout(false);
             this.blankLinesGroupBox.PerformLayout();
             this.unusedGroupBox.ResumeLayout(false);
@@ -191,5 +218,7 @@
         private System.Windows.Forms.CheckBox removeUnusedUsingStatementsCheckBox;
         private System.Windows.Forms.GroupBox whitespaceGroupBox;
         private System.Windows.Forms.CheckBox removeEndOfLineWhitespaceCheckBox;
+        private System.Windows.Forms.CheckBox removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveCheckBox;
+        private System.Windows.Forms.Label removeUnusedUsingStatementsExceptDuringAutoCleanupOnSaveExplanationLabel;
     }
 }

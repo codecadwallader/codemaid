@@ -42,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.Options
             RemoveEndOfLineWhitespace = true;
             RemoveMultipleConsecutiveBlankLines = true;
             RemoveUnusedUsingStatements = true;
+            RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave = true;
         }
 
         #endregion Constructors
@@ -82,6 +83,11 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Remove unused using statements")]
         [Description("On cleanup code, removes unused using statements (requires VS2008 or later).")]
         public bool RemoveUnusedUsingStatements { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Remove unused using statements except during automatic cleanup on save")]
+        [Description("On cleanup code, removes unused using statements (requires VS2008 or later) except during automatic cleanup on save.")]
+        public bool RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave { get; set; }
 
         #endregion Public Properties
 
