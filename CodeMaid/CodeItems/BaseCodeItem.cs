@@ -11,12 +11,15 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System.Diagnostics;
+
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
     /// A base class representation of all code items.
     /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
+    [DebuggerDisplay("{GetType().Name,nq}: {Name}")]
     public abstract class BaseCodeItem
     {
         #region Constructors
