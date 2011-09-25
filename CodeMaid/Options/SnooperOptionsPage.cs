@@ -35,13 +35,24 @@ namespace SteveCadwallader.CodeMaid.Options
         public SnooperOptionsPage()
         {
             // Set the default settings, will be trumped if there are stored values.
+            CenterOnWhole = true;
             ComplexityWarningThreshold = 10;
             ComplexityAlertThreshold = 15;
+            ShowItemComplexity = true;
+            ShowItemMetadata = true;
         }
 
         #endregion Constructors
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the option for centering on the whole item upon navigation.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Center on whole item upon navigation")]
+        [Description("An option to center on the whole item upon navigation")]
+        public bool CenterOnWhole { get; set; }
 
         /// <summary>
         /// Gets or sets the option for the complexity warning threshold.
@@ -58,6 +69,22 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Complexity alert threshold")]
         [Description("The threshold at which items are considered to have a complexity score of status 'alert'.")]
         public int ComplexityAlertThreshold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the option to show the item complexity.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Show itemcomplexity")]
+        [Description("An option to determine if the item complexity should be shown.")]
+        public bool ShowItemComplexity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the option to show item metadata.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Show item metadata")]
+        [Description("An option to determine if the item metadata should be shown.")]
+        public bool ShowItemMetadata { get; set; }
 
         #endregion Public Properties
 

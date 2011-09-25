@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             if (codeItem == null || viewModel == null) return;
 
             Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem)));
+                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Snooper.CenterOnWhole)));
         }
     }
 }

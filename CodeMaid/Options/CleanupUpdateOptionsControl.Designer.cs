@@ -29,38 +29,38 @@
         private void InitializeComponent()
         {
             this.updateGroupBox = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.updateRegionDirectivesExampleLabel = new System.Windows.Forms.Label();
             this.sortUsingStatementsCheckBox = new System.Windows.Forms.CheckBox();
             this.updateRegionDirectivesCheckBox = new System.Windows.Forms.CheckBox();
             this.updateGroupBox.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // updateGroupBox
-            //
+            // 
             this.updateGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateGroupBox.Controls.Add(this.label1);
             this.updateGroupBox.Controls.Add(this.sortUsingStatementsCheckBox);
             this.updateGroupBox.Controls.Add(this.updateRegionDirectivesCheckBox);
+            this.updateGroupBox.Controls.Add(this.updateRegionDirectivesExampleLabel);
             this.updateGroupBox.Location = new System.Drawing.Point(3, 3);
             this.updateGroupBox.Name = "updateGroupBox";
             this.updateGroupBox.Size = new System.Drawing.Size(344, 85);
             this.updateGroupBox.TabIndex = 0;
             this.updateGroupBox.TabStop = false;
             this.updateGroupBox.Text = "Update";
-            //
-            // label1
-            //
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 64);
-            this.label1.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Example: #endregion Methods";
-            //
+            // 
+            // updateRegionDirectivesExampleLabel
+            // 
+            this.updateRegionDirectivesExampleLabel.AutoSize = true;
+            this.updateRegionDirectivesExampleLabel.Location = new System.Drawing.Point(39, 64);
+            this.updateRegionDirectivesExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
+            this.updateRegionDirectivesExampleLabel.Name = "updateRegionDirectivesExampleLabel";
+            this.updateRegionDirectivesExampleLabel.Size = new System.Drawing.Size(151, 13);
+            this.updateRegionDirectivesExampleLabel.TabIndex = 2;
+            this.updateRegionDirectivesExampleLabel.Text = "Example: #endregion Methods";
+            // 
             // sortUsingStatementsCheckBox
-            //
+            // 
             this.sortUsingStatementsCheckBox.AutoSize = true;
             this.sortUsingStatementsCheckBox.Location = new System.Drawing.Point(7, 20);
             this.sortUsingStatementsCheckBox.Name = "sortUsingStatementsCheckBox";
@@ -69,9 +69,9 @@
             this.sortUsingStatementsCheckBox.Text = "Sort using statements";
             this.sortUsingStatementsCheckBox.UseVisualStyleBackColor = true;
             this.sortUsingStatementsCheckBox.CheckedChanged += new System.EventHandler(this.sortUsingStatementsCheckBox_CheckedChanged);
-            //
+            // 
             // updateRegionDirectivesCheckBox
-            //
+            // 
             this.updateRegionDirectivesCheckBox.AutoSize = true;
             this.updateRegionDirectivesCheckBox.Location = new System.Drawing.Point(7, 44);
             this.updateRegionDirectivesCheckBox.Name = "updateRegionDirectivesCheckBox";
@@ -80,9 +80,9 @@
             this.updateRegionDirectivesCheckBox.Text = "Update region directives";
             this.updateRegionDirectivesCheckBox.UseVisualStyleBackColor = true;
             this.updateRegionDirectivesCheckBox.CheckedChanged += new System.EventHandler(this.updateRegionDirectivesCheckBox_CheckedChanged);
-            //
+            // 
             // CleanupUpdateOptionsControl
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.updateGroupBox);
@@ -91,6 +91,7 @@
             this.updateGroupBox.ResumeLayout(false);
             this.updateGroupBox.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion Component Designer generated code
@@ -98,6 +99,6 @@
         private System.Windows.Forms.GroupBox updateGroupBox;
         private System.Windows.Forms.CheckBox updateRegionDirectivesCheckBox;
         private System.Windows.Forms.CheckBox sortUsingStatementsCheckBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label updateRegionDirectivesExampleLabel;
     }
 }

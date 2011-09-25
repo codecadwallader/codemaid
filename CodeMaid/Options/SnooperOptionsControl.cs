@@ -40,8 +40,16 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage = optionsPage;
 
+            navigationCenterOnWholeRadioButton.Checked = OptionsPage.CenterOnWhole;
+            navigationCenterOnNameRadioButton.Checked = !OptionsPage.CenterOnWhole;
+
+            showItemMetadataCheckBox.Checked = OptionsPage.ShowItemMetadata;
+            showItemComplexityCheckBox.Checked = OptionsPage.ShowItemComplexity;
+
             warningThresholdUpDown.Value = OptionsPage.ComplexityWarningThreshold;
             alertThresholdUpDown.Value = OptionsPage.ComplexityAlertThreshold;
+
+            UpdateComplexityThresholdEnabledState();
         }
 
         #endregion Constructors
@@ -56,6 +64,48 @@ namespace SteveCadwallader.CodeMaid.Options
         #endregion Private Properties
 
         #region Private Event Handlers
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the navigationCenterOnWholeRadioButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void navigationCenterOnWholeRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.CenterOnWhole = navigationCenterOnWholeRadioButton.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the navigationCenterOnNameRadioButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void navigationCenterOnNameRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.CenterOnWhole = navigationCenterOnWholeRadioButton.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the showItemMetadataCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void showItemMetadataCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.ShowItemMetadata = showItemMetadataCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the showItemComplexityCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void showItemComplexityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.ShowItemComplexity = showItemComplexityCheckBox.Checked;
+
+            UpdateComplexityThresholdEnabledState();
+        }
 
         /// <summary>
         /// Handles the ValueChanged event of the warningThresholdUpDown control.
@@ -88,5 +138,20 @@ namespace SteveCadwallader.CodeMaid.Options
         }
 
         #endregion Private Event Handlers
+
+        #region Private Methods
+
+        /// <summary>
+        /// Updates the enabled state of the complexity threshold controls.
+        /// </summary>
+        private void UpdateComplexityThresholdEnabledState()
+        {
+            warningThresholdLabel.Enabled = showItemComplexityCheckBox.Checked;
+            warningThresholdUpDown.Enabled = showItemComplexityCheckBox.Checked;
+            alertThresholdLabel.Enabled = showItemComplexityCheckBox.Checked;
+            alertThresholdUpDown.Enabled = showItemComplexityCheckBox.Checked;
+        }
+
+        #endregion Private Methods
     }
 }

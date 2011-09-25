@@ -107,14 +107,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="codeItem">The code item.</param>
-        internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem)
+        /// <param name="centerOnWhole">True if the whole element should be used for centering.</param>
+        internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem, bool centerOnWhole)
         {
             var textDocument = document.Object("TextDocument") as TextDocument;
             if (textDocument == null) return;
 
             try
             {
-                bool weightedCenter = true;
                 object viewRangeEnd = null;
 
                 var codeItemElement = codeItem as BaseCodeItemElement;
@@ -124,7 +124,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                     textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.StartPoint, false);
 
-                    if (weightedCenter)
+                    if (centerOnWhole)
                     {
                         viewRangeEnd = codeItemElement.CodeElement.EndPoint;
                     }
@@ -133,7 +133,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
 
-                    if (weightedCenter)
+                    if (centerOnWhole)
                     {
                         var editPoint = textDocument.StartPoint.CreateEditPoint();
 
