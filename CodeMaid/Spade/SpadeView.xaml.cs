@@ -42,38 +42,65 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
-        /// Called when when the SelectedItem has changed.
+        /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by TreeView).
+        /// Used to jump to a code item upon enter, or toggle the expansion state upon space.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="eventArgs">The event arguments containing the event data.</param>
-        private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> eventArgs)
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
-            var codeItem = eventArgs.NewValue as BaseCodeItem;
-            var viewModel = ViewModel;
-            if (codeItem == null || viewModel == null) return;
+            var treeViewItem = e.Source as TreeViewItem;
+            if (treeViewItem == null) return;
 
-            Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
+            switch (e.Key)
+            {
+                case Key.Return:
+                    JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+                    break;
+
+                case Key.Space:
+                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                    break;
+            }
         }
 
         /// <summary>
         /// Called when the header of a TreeViewItem receives a mouse down event.
-        /// Used to toggle the expansion of a tree view item upon middle click.
+        /// Used to jump to a code item upon left click, or toggle the expansion state upon middle click.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton != MouseButton.Middle) return;
-
             var source = e.Source as DependencyObject;
             if (source == null) return;
 
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
-            if (treeViewItem != null)
+            if (treeViewItem == null) return;
+
+            switch (e.ChangedButton)
             {
-                treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                case MouseButton.Left:
+                    JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+                    break;
+
+                case MouseButton.Middle:
+                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                    break;
             }
+        }
+
+        /// <summary>
+        /// Jumps to the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        private void JumpToCodeItem(BaseCodeItem codeItem)
+        {
+            var viewModel = ViewModel;
+            if (codeItem == null || viewModel == null) return;
+
+            Dispatcher.BeginInvoke(
+                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
         }
     }
 }

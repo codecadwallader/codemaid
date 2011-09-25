@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.displayGroupBox = new System.Windows.Forms.GroupBox();
+            this.showItemMetadataCheckBox = new System.Windows.Forms.CheckBox();
+            this.showItemMetadataExampleLabel = new System.Windows.Forms.Label();
+            this.showItemComplexityCheckBox = new System.Windows.Forms.CheckBox();
             this.warningThresholdLabel = new System.Windows.Forms.Label();
             this.warningThresholdUpDown = new System.Windows.Forms.NumericUpDown();
             this.alertThresholdLabel = new System.Windows.Forms.Label();
@@ -37,9 +40,6 @@
             this.navigationCenterLabel = new System.Windows.Forms.Label();
             this.navigationCenterOnWholeRadioButton = new System.Windows.Forms.RadioButton();
             this.navigationCenterOnNameRadioButton = new System.Windows.Forms.RadioButton();
-            this.showItemMetadataCheckBox = new System.Windows.Forms.CheckBox();
-            this.showItemComplexityCheckBox = new System.Windows.Forms.CheckBox();
-            this.showItemMetadataExampleLabel = new System.Windows.Forms.Label();
             this.displayGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningThresholdUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertThresholdUpDown)).BeginInit();
@@ -63,6 +63,38 @@
             this.displayGroupBox.TabIndex = 1;
             this.displayGroupBox.TabStop = false;
             this.displayGroupBox.Text = "Display";
+            // 
+            // showItemMetadataCheckBox
+            // 
+            this.showItemMetadataCheckBox.AutoSize = true;
+            this.showItemMetadataCheckBox.Location = new System.Drawing.Point(7, 20);
+            this.showItemMetadataCheckBox.Name = "showItemMetadataCheckBox";
+            this.showItemMetadataCheckBox.Size = new System.Drawing.Size(122, 17);
+            this.showItemMetadataCheckBox.TabIndex = 0;
+            this.showItemMetadataCheckBox.Text = "Show item metadata";
+            this.showItemMetadataCheckBox.UseVisualStyleBackColor = true;
+            this.showItemMetadataCheckBox.CheckedChanged += new System.EventHandler(this.showItemMetadataCheckBox_CheckedChanged);
+            // 
+            // showItemMetadataExampleLabel
+            // 
+            this.showItemMetadataExampleLabel.AutoSize = true;
+            this.showItemMetadataExampleLabel.Location = new System.Drawing.Point(40, 40);
+            this.showItemMetadataExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
+            this.showItemMetadataExampleLabel.Name = "showItemMetadataExampleLabel";
+            this.showItemMetadataExampleLabel.Size = new System.Drawing.Size(111, 13);
+            this.showItemMetadataExampleLabel.TabIndex = 1;
+            this.showItemMetadataExampleLabel.Text = "Example: \"s\" for static";
+            // 
+            // showItemComplexityCheckBox
+            // 
+            this.showItemComplexityCheckBox.AutoSize = true;
+            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 62);
+            this.showItemComplexityCheckBox.Name = "showItemComplexityCheckBox";
+            this.showItemComplexityCheckBox.Size = new System.Drawing.Size(148, 17);
+            this.showItemComplexityCheckBox.TabIndex = 2;
+            this.showItemComplexityCheckBox.Text = "Show McCabe complexity";
+            this.showItemComplexityCheckBox.UseVisualStyleBackColor = true;
+            this.showItemComplexityCheckBox.CheckedChanged += new System.EventHandler(this.showItemComplexityCheckBox_CheckedChanged);
             // 
             // warningThresholdLabel
             // 
@@ -148,56 +180,24 @@
             this.navigationCenterOnWholeRadioButton.AutoSize = true;
             this.navigationCenterOnWholeRadioButton.Location = new System.Drawing.Point(154, 21);
             this.navigationCenterOnWholeRadioButton.Name = "navigationCenterOnWholeRadioButton";
-            this.navigationCenterOnWholeRadioButton.Size = new System.Drawing.Size(53, 17);
+            this.navigationCenterOnWholeRadioButton.Size = new System.Drawing.Size(75, 17);
             this.navigationCenterOnWholeRadioButton.TabIndex = 1;
             this.navigationCenterOnWholeRadioButton.TabStop = true;
-            this.navigationCenterOnWholeRadioButton.Text = "whole";
+            this.navigationCenterOnWholeRadioButton.Text = "whole item";
             this.navigationCenterOnWholeRadioButton.UseVisualStyleBackColor = true;
             this.navigationCenterOnWholeRadioButton.CheckedChanged += new System.EventHandler(this.navigationCenterOnWholeRadioButton_CheckedChanged);
             // 
             // navigationCenterOnNameRadioButton
             // 
             this.navigationCenterOnNameRadioButton.AutoSize = true;
-            this.navigationCenterOnNameRadioButton.Location = new System.Drawing.Point(213, 21);
+            this.navigationCenterOnNameRadioButton.Location = new System.Drawing.Point(235, 21);
             this.navigationCenterOnNameRadioButton.Name = "navigationCenterOnNameRadioButton";
-            this.navigationCenterOnNameRadioButton.Size = new System.Drawing.Size(51, 17);
+            this.navigationCenterOnNameRadioButton.Size = new System.Drawing.Size(73, 17);
             this.navigationCenterOnNameRadioButton.TabIndex = 2;
             this.navigationCenterOnNameRadioButton.TabStop = true;
-            this.navigationCenterOnNameRadioButton.Text = "name";
+            this.navigationCenterOnNameRadioButton.Text = "name only";
             this.navigationCenterOnNameRadioButton.UseVisualStyleBackColor = true;
             this.navigationCenterOnNameRadioButton.CheckedChanged += new System.EventHandler(this.navigationCenterOnNameRadioButton_CheckedChanged);
-            // 
-            // showItemMetadataCheckBox
-            // 
-            this.showItemMetadataCheckBox.AutoSize = true;
-            this.showItemMetadataCheckBox.Location = new System.Drawing.Point(7, 20);
-            this.showItemMetadataCheckBox.Name = "showItemMetadataCheckBox";
-            this.showItemMetadataCheckBox.Size = new System.Drawing.Size(122, 17);
-            this.showItemMetadataCheckBox.TabIndex = 0;
-            this.showItemMetadataCheckBox.Text = "Show item metadata";
-            this.showItemMetadataCheckBox.UseVisualStyleBackColor = true;
-            this.showItemMetadataCheckBox.CheckedChanged += new System.EventHandler(this.showItemMetadataCheckBox_CheckedChanged);
-            // 
-            // showItemComplexityCheckBox
-            // 
-            this.showItemComplexityCheckBox.AutoSize = true;
-            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 62);
-            this.showItemComplexityCheckBox.Name = "showItemComplexityCheckBox";
-            this.showItemComplexityCheckBox.Size = new System.Drawing.Size(148, 17);
-            this.showItemComplexityCheckBox.TabIndex = 2;
-            this.showItemComplexityCheckBox.Text = "Show McCabe complexity";
-            this.showItemComplexityCheckBox.UseVisualStyleBackColor = true;
-            this.showItemComplexityCheckBox.CheckedChanged += new System.EventHandler(this.showItemComplexityCheckBox_CheckedChanged);
-            // 
-            // showItemMetadataExampleLabel
-            // 
-            this.showItemMetadataExampleLabel.AutoSize = true;
-            this.showItemMetadataExampleLabel.Location = new System.Drawing.Point(40, 40);
-            this.showItemMetadataExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
-            this.showItemMetadataExampleLabel.Name = "showItemMetadataExampleLabel";
-            this.showItemMetadataExampleLabel.Size = new System.Drawing.Size(111, 13);
-            this.showItemMetadataExampleLabel.TabIndex = 1;
-            this.showItemMetadataExampleLabel.Text = "Example: \"s\" for static";
             // 
             // SpadeOptionsControl
             // 
