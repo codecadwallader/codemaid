@@ -216,6 +216,7 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
             // Late initialize the Package, not available during constructor.
             _viewModel.Package = Package;
 
+            _viewModel.Document = Document;
             _viewModel.RawCodeItems = codeItems;
         }
 

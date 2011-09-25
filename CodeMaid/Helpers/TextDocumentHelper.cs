@@ -14,6 +14,7 @@
 using System;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -99,6 +100,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 point.Insert(Environment.NewLine);
             }
+        }
+
+        /// <summary>
+        /// Attempts to move the cursor to the specified code item.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="codeItem">The code item.</param>
+        internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem)
+        {
+            var textDocument = document.Object("TextDocument") as TextDocument;
+            if (textDocument == null) return;
+
+            //TODO: Cursor at first character of name?
+            //TODO: Options for top/center/weighted-center?
+            textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
+            textDocument.Selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText, false);
+
+            textDocument.Selection.ActivePoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, null);
         }
 
         /// <summary>

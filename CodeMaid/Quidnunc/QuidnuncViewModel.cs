@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.ComponentModel;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Quidnunc
@@ -50,6 +51,11 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         /// Gets or sets the hosting package.
         /// </summary>
         public CodeMaidPackage Package { get; set; }
+
+        /// <summary>
+        /// Gets or sets the document.
+        /// </summary>
+        public Document Document { get; set; }
 
         /// <summary>
         /// Gets or sets the current interaction mode.

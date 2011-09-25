@@ -11,6 +11,11 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System;
+using System.Windows;
+using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Helpers;
+
 namespace SteveCadwallader.CodeMaid.Quidnunc
 {
     /// <summary>
@@ -24,6 +29,29 @@ namespace SteveCadwallader.CodeMaid.Quidnunc
         public QuidnuncView()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets the view model.
+        /// </summary>
+        private QuidnuncViewModel ViewModel
+        {
+            get { return DataContext as QuidnuncViewModel; }
+        }
+
+        /// <summary>
+        /// Called when when the SelectedItem has changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="eventArgs">The event arguments containing the event data.</param>
+        private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> eventArgs)
+        {
+            var codeItem = eventArgs.NewValue as BaseCodeItem;
+            var viewModel = ViewModel;
+            if (codeItem == null || viewModel == null) return;
+
+            Dispatcher.BeginInvoke(
+                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem)));
         }
     }
 }

@@ -104,6 +104,7 @@
 
     <DockPanel>
         <TreeView ItemsSource="{Binding OrganizedCodeItems}"
-                ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0" />
+                ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
+                SelectedItemChanged="OnSelectedItemChanged" />
     </DockPanel>
 </UserControl>
