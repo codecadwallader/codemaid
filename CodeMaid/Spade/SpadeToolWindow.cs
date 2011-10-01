@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Spade
     /// <summary>
     /// The Spade tool window pane.
     /// </summary>
-    [Guid("75d09b86-471e-4b30-8720-362d13ad0a45")]
+    [Guid("92d392ca-91fd-40f6-b697-64e2182a28ef")]
     public class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
         #region Fields

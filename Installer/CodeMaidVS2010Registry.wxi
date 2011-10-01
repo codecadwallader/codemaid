@@ -117,7 +117,7 @@
     <Registry Name="Float" Value="0, 0, 500, 65" Type="string" />
   </Registry>
 
-  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\ToolWindows\{75d09b86-471e-4b30-8720-362d13ad0a45}" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string">
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\ToolWindows\{92d392ca-91fd-40f6-b697-64e2182a28ef}" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string">
     <Registry Name="Name" Value="SteveCadwallader.CodeMaid.Spade.SpadeToolWindow" Type="string" />
     <Registry Name="Orientation" Value="Left" Type="string" />
     <Registry Name="Style" Value="Tabbed" Type="string" />
