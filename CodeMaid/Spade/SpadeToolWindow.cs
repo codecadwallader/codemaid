@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             base(null)
         {
             // Set the tool window caption.
-            Caption = "Spade";
+            Caption = "CodeMaid Spade";
 
             // Set the tool window image from resources.
             BitmapResourceID = 501;
