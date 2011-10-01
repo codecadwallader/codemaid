@@ -77,5 +77,8 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidCommandSpadeRefresh = new Guid("6e26b076-d635-4a6e-82a8-ba10483f5414");
         public static readonly Guid GuidCodeMaidCommandSpadeToolWindow = new Guid("aaf6a75d-2ccc-4081-b1ab-76306653807c");
         public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
+
+        // Output pane guid.
+        public static readonly Guid GuidCodeMaidOutputPane = new Guid("4e7ba904-9311-4dd0-abe5-a61c1739780f");
     };
 }
