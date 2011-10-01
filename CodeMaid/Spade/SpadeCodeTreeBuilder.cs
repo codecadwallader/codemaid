@@ -109,10 +109,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             else if (e.Error == null)
             {
                 var codeItems = e.Result as SetCodeItems;
-                if (codeItems != null)
-                {
-                    _callback(codeItems);
-                }
+                _callback(codeItems);
             }
         }
 
