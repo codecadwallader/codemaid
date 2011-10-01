@@ -112,9 +112,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
-            // Force a refresh by resetting the document.
-            Document = null;
-            Document = document;
+            ConditionallyUpdateCodeModel();
         }
 
         /// <summary>
@@ -139,13 +137,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public void Refresh()
         {
-            var document = Document;
-            if (document != null)
-            {
-                // Force a refresh by resetting the document.
-                Document = null;
-                Document = document;
-            }
+            ConditionallyUpdateCodeModel();
         }
 
         #endregion Public Methods
@@ -198,11 +190,16 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         private void ConditionallyUpdateCodeModel()
         {
-            if (IsVisible && Document != null)
-            {
-                // Clear any existing code items while processing.
-                UpdateViewModelRawCodeItems(null);
+            if (!IsVisible) return;
 
+            // Late initialize the Package, not available during constructor.
+            _viewModel.Package = Package;
+            _viewModel.Document = Document;
+            _viewModel.RawCodeItems = null;
+
+            if (Document != null)
+            {
+                _viewModel.IsLoading = true;
                 _codeModelRetriever.RetrieveCodeModelAsync(Document);
             }
         }
@@ -213,11 +210,8 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="codeItems">The code items.</param>
         private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
         {
-            // Late initialize the Package, not available during constructor.
-            _viewModel.Package = Package;
-
-            _viewModel.Document = Document;
             _viewModel.RawCodeItems = codeItems;
+            _viewModel.IsLoading = false;
         }
 
         #endregion Private Methods

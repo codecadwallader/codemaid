@@ -106,7 +106,16 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <TreeView ItemsSource="{Binding OrganizedCodeItems}"
-            ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+    <Grid>
+        <TreeView ItemsSource="{Binding OrganizedCodeItems}"
+                ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Visibility="{Binding IsLoading, Converter={x:Static local:BooleanToVisibilityConverter.Inverse}}" />
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                Visibility="{Binding IsLoading, Converter={x:Static local:BooleanToVisibilityConverter.Default}}">
+            <TextBlock Text="Loading" />
+            <TextBlock Text="{Binding Document.Name}" />
+        </StackPanel>
+    </Grid>
 </UserControl>

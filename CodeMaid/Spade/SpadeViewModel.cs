@@ -26,10 +26,12 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private readonly SpadeCodeTreeBuilder _codeTreeBuilder;
 
+        private Document _document;
         private SpadeInteractionMode _interactionMode;
+        private bool _isLoading;
         private SpadeLayoutMode _layoutMode;
-        private SetCodeItems _rawCodeItems;
         private SetCodeItems _organizedCodeItems;
+        private SetCodeItems _rawCodeItems;
 
         #endregion Fields
 
@@ -48,29 +50,20 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Properties
 
         /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        public CodeMaidPackage Package { get; set; }
-
-        /// <summary>
         /// Gets or sets the document.
         /// </summary>
-        public Document Document { get; set; }
-
-        /// <summary>
-        /// Gets a flag indicating if item complexity should be shown.
-        /// </summary>
-        public bool ShowItemComplexity
+        public Document Document
         {
-            get { return Package.Options.Spade.ShowItemComplexity; }
-        }
+            get { return _document; }
+            set
+            {
+                if (_document != value)
+                {
+                    _document = value;
 
-        /// <summary>
-        /// Gets a flag indicating if item metadata should be shown.
-        /// </summary>
-        public bool ShowItemMetadata
-        {
-            get { return Package.Options.Spade.ShowItemMetadata; }
+                    NotifyPropertyChanged("Document");
+                }
+            }
         }
 
         /// <summary>
@@ -86,6 +79,23 @@ namespace SteveCadwallader.CodeMaid.Spade
                     _interactionMode = value;
 
                     NotifyPropertyChanged("InteractionMode");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if code items are loading.
+        /// </summary>
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                if (_isLoading != value)
+                {
+                    _isLoading = value;
+
+                    NotifyPropertyChanged("IsLoading");
                 }
             }
         }
@@ -109,6 +119,27 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
+        /// Gets the organized code items.
+        /// </summary>
+        public SetCodeItems OrganizedCodeItems
+        {
+            get { return _organizedCodeItems; }
+            private set
+            {
+                if (_organizedCodeItems != value)
+                {
+                    _organizedCodeItems = value;
+                    NotifyPropertyChanged("OrganizedCodeItems");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        public CodeMaidPackage Package { get; set; }
+
+        /// <summary>
         /// Gets or sets the raw code items.
         /// </summary>
         public SetCodeItems RawCodeItems
@@ -127,19 +158,19 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
-        /// Gets the organized code items.
+        /// Gets a flag indicating if item complexity should be shown.
         /// </summary>
-        public SetCodeItems OrganizedCodeItems
+        public bool ShowItemComplexity
         {
-            get { return _organizedCodeItems; }
-            private set
-            {
-                if (_organizedCodeItems != value)
-                {
-                    _organizedCodeItems = value;
-                    NotifyPropertyChanged("OrganizedCodeItems");
-                }
-            }
+            get { return Package.Options.Spade.ShowItemComplexity; }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if item metadata should be shown.
+        /// </summary>
+        public bool ShowItemMetadata
+        {
+            get { return Package.Options.Spade.ShowItemMetadata; }
         }
 
         #endregion Properties
