@@ -37,6 +37,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int first = CalculateNumericRepresentation(x);
             int second = CalculateNumericRepresentation(y);
 
+            if (first == second)
+            {
+                // Fall back to line placement comparison for matching elements.
+                return x.StartLine.CompareTo(y.StartLine);
+            }
+
             return first.CompareTo(second);
         }
 

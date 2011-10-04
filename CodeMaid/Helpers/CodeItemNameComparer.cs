@@ -33,7 +33,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </returns>
         public override int Compare(BaseCodeItem x, BaseCodeItem y)
         {
-            return x.Name.CompareTo(y.Name);
+            int nameComparison = x.Name.CompareTo(y.Name);
+
+            if (nameComparison == 0)
+            {
+                // Fall back to line placement comparison for matching elements.
+                return x.StartLine.CompareTo(y.StartLine);
+            }
+
+            return nameComparison;
         }
     }
 }
