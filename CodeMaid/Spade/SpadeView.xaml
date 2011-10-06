@@ -14,7 +14,7 @@
             <SolidColorBrush x:Key="FTreeViewItemParent" Color="#FFE0EDF6" />
             <SolidColorBrush x:Key="FTreeViewItemHighlight" Color="#FFE0F6F3" />
 
-            <Style x:Key="treeViewToggleButton" TargetType="{x:Type ToggleButton}">
+            <Style x:Key="treeViewItemToggleButton" TargetType="{x:Type ToggleButton}">
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -34,6 +34,16 @@
                 </Setter>
             </Style>
 
+            <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" HasDropShadow="True" Placement="Left">
+                <ToolTip.Template>
+                    <ControlTemplate TargetType="{x:Type ToolTip}">
+                        <Border Background="LightGoldenrodYellow" Padding="5">
+                            <ContentPresenter Content="{Binding}" />
+                        </Border>
+                    </ControlTemplate>
+                </ToolTip.Template>
+            </ToolTip>
+
             <Style x:Key="treeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}">
                 <Setter Property="Background" Value="{StaticResource FTreeViewItemParent}" />
                 <Setter Property="BorderBrush" Value="{StaticResource FTreeViewItemParent}" />
@@ -41,6 +51,7 @@
                 <Setter Property="IsExpanded" Value="True" />
                 <Setter Property="Margin" Value="0,0,0,2" />
                 <Setter Property="Padding" Value="4,2,10,2" />
+                <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />
 
                 <Setter Property="Template">
@@ -70,7 +81,7 @@
 
                                             <ToggleButton x:Name="expander" ClickMode="Press"
                                                     IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    Style="{StaticResource treeViewToggleButton}" />
+                                                    Style="{StaticResource treeViewItemToggleButton}" />
 
                                             <ContentPresenter x:Name="PART_Header" Grid.Column="1"
                                                     ContentSource="Header" />
@@ -114,8 +125,8 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                 Visibility="{Binding IsLoading, Converter={x:Static local:BooleanToVisibilityConverter.Default}}">
-            <TextBlock Text="Loading" />
-            <TextBlock Text="{Binding Document.Name}" />
+            <TextBlock FontSize="12" Text="Loading" />
+            <TextBlock FontSize="14" Text="{Binding Document.Name}" />
         </StackPanel>
     </Grid>
 </UserControl>
