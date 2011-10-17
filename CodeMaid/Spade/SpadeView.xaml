@@ -34,12 +34,19 @@
                 </Setter>
             </Style>
 
-            <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" HasDropShadow="True" Placement="Left">
+            <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
                 <ToolTip.Template>
                     <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <Border Background="LightGoldenrodYellow" Padding="5">
-                            <ContentPresenter Content="{Binding}" />
-                        </Border>
+                        <DockPanel>
+                            <Path DockPanel.Dock="Right" Data="M0,0 L6,6 L0,12 Z" Height="12" Width="12"
+                                    Margin="-1,0,0,0" VerticalAlignment="Center" Fill="LightGoldenrodYellow"
+                                    Stroke="DimGray" StrokeThickness="1" />
+
+                            <Border Background="LightGoldenrodYellow" BorderBrush="DimGray" BorderThickness="1"
+                                    CornerRadius="3" Padding="5">
+                                <ContentPresenter Content="{Binding}" />
+                            </Border>
+                        </DockPanel>
                     </ControlTemplate>
                 </ToolTip.Template>
             </ToolTip>
