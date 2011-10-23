@@ -86,67 +86,23 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <returns>The type component of the partial image name, otherwise null.</returns>
         private static string GetTypeComponentString(BaseCodeItem codeItem)
         {
-            string partialImageName = null;
-
-            if (codeItem is CodeItemClass)
+            switch (codeItem.Kind)
             {
-                partialImageName = "Class";
+                case KindCodeItem.Class: return "Class";
+                case KindCodeItem.Constant: return "Constant";
+                case KindCodeItem.Constructor: return "MethodConstructor";
+                case KindCodeItem.Delegate: return "Delegate";
+                case KindCodeItem.Destructor: return "MethodDestructor";
+                case KindCodeItem.Enum: return "Enum";
+                case KindCodeItem.Event: return "Event";
+                case KindCodeItem.Field: return "Field";
+                case KindCodeItem.Interface: return "Interface";
+                case KindCodeItem.Method: return ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
+                case KindCodeItem.Property: return "Properties";
+                case KindCodeItem.Region: return "Region";
+                case KindCodeItem.Struct: return "Structure";
+                default: return null;
             }
-            else if (codeItem is CodeItemDelegate)
-            {
-                partialImageName = "Delegate";
-            }
-            else if (codeItem is CodeItemEnum)
-            {
-                partialImageName = "Enum";
-            }
-            else if (codeItem is CodeItemEvent)
-            {
-                partialImageName = "Event";
-            }
-            else if (codeItem is CodeItemField)
-            {
-                partialImageName = ((CodeItemField)codeItem).IsConstant ? "Constant" : "Field";
-            }
-            else if (codeItem is CodeItemInterface)
-            {
-                partialImageName = "Interface";
-            }
-            else if (codeItem is CodeItemMethod)
-            {
-                var codeMethod = (CodeItemMethod)codeItem;
-
-                if (codeMethod.IsConstructor)
-                {
-                    partialImageName = "MethodConstructor";
-                }
-                else if (codeMethod.IsDestructor)
-                {
-                    partialImageName = "MethodDestructor";
-                }
-                else if (codeMethod.IsOverloaded)
-                {
-                    partialImageName = "MethodOverload";
-                }
-                else
-                {
-                    partialImageName = "Method";
-                }
-            }
-            else if (codeItem is CodeItemProperty)
-            {
-                partialImageName = "Properties";
-            }
-            else if (codeItem is CodeItemRegion)
-            {
-                partialImageName = "Region";
-            }
-            else if (codeItem is CodeItemStruct)
-            {
-                partialImageName = "Structure";
-            }
-
-            return partialImageName;
         }
 
         /// <summary>
