@@ -40,24 +40,24 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            var codeItem = value as BaseCodeItemElement;
+            if (codeItem == null) return string.Empty;
+
             IEnumerable<string> metadataStrings;
 
-            if (value is CodeItemProperty)
+            switch (codeItem.Kind)
             {
-                metadataStrings = GenerateMetadataStrings((CodeItemProperty)value);
-            }
-            else if (value is CodeItemField && ((CodeItemField)value).IsConstant)
-            {
-                // Avoid showing static metadata for constants since it is redundant.
-                return string.Empty;
-            }
-            else if (value is BaseCodeItemElement)
-            {
-                metadataStrings = GenerateMetadataStrings((BaseCodeItemElement)value);
-            }
-            else
-            {
-                return string.Empty;
+                case KindCodeItem.Constant:
+                    // Avoid showing static metadata for constants since it is redundant.
+                    return string.Empty;
+
+                case KindCodeItem.Property:
+                    metadataStrings = GenerateMetadataStrings((CodeItemProperty)codeItem);
+                    break;
+
+                default:
+                    metadataStrings = GenerateMetadataStrings(codeItem);
+                    break;
             }
 
             return string.Join(", ", metadataStrings.ToArray());
