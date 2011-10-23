@@ -27,6 +27,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeVariable2 CodeVariable { get; set; }
 
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public override KindCodeItem Kind
+        {
+            get { return IsConstant ? KindCodeItem.Constant : KindCodeItem.Field; }
+        }
+
+        /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access

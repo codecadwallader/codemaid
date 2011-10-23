@@ -26,6 +26,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeEnum CodeEnum { get; set; }
 
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public override KindCodeItem Kind
+        {
+            get { return KindCodeItem.Enum; }
+        }
+
+        /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access

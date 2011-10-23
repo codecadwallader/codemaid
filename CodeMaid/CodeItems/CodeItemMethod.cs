@@ -30,6 +30,27 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeFunction2 CodeFunction { get; set; }
 
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public override KindCodeItem Kind
+        {
+            get
+            {
+                if (IsConstructor)
+                {
+                    return KindCodeItem.Constructor;
+                }
+
+                if (IsDestructor)
+                {
+                    return KindCodeItem.Destructor;
+                }
+
+                return KindCodeItem.Method;
+            }
+        }
+
+        /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access

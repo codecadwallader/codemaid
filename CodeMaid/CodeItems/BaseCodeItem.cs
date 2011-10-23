@@ -37,6 +37,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         #region Properties
 
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public abstract KindCodeItem Kind { get; }
+
+        /// <summary>
         /// Gets or sets the start line.
         /// </summary>
         public int StartLine { get; set; }

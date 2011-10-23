@@ -208,9 +208,21 @@ namespace SteveCadwallader.CodeMaid.Spade
 
                 // Sort the list of code items by type recursively.
                 RecursivelySort(organizedCodeItems, new CodeItemTypeComparer());
+
+                // Group the list of code items by type recursively.
+                RecursivelyGroupByType(organizedCodeItems);
             }
 
             return organizedCodeItems;
+        }
+
+        /// <summary>
+        /// Recursively groups the specified code items based on their type into pseudo-regions.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private static void RecursivelyGroupByType(SetCodeItems codeItems)
+        {
+            //TODO: Implement.
         }
 
         /// <summary>

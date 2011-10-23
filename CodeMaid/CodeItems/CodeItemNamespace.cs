@@ -26,6 +26,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public CodeNamespace CodeNamespace { get; set; }
 
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public override KindCodeItem Kind
+        {
+            get { return KindCodeItem.Namespace; }
+        }
+
+        /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access

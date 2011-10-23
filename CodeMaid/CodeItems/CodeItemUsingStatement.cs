@@ -21,6 +21,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     public class CodeItemUsingStatement : BaseCodeItemElement
     {
         /// <summary>
+        /// Gets the kind.
+        /// </summary>
+        public override KindCodeItem Kind
+        {
+            get { return KindCodeItem.Using; }
+        }
+
+        /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access

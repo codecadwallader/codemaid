@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -14,16 +14,26 @@
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
-    /// The representation of a code region.
+    /// An enumeration of kind of code items.
+    /// Does not 1:1 correspond to the code item classes (ex: CodeItemMethod includes constructors and destructors).
     /// </summary>
-    public class CodeItemRegion : BaseCodeItem
+    public enum KindCodeItem
     {
-        /// <summary>
-        /// Gets the kind.
-        /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Region; }
-        }
+        Constant,
+        Field,
+        Constructor,
+        Destructor,
+        Delegate,
+        Event,
+        Enum,
+        Interface,
+        Property,
+        Method,
+        Struct,
+        Class,
+
+        Namespace,
+        Region,
+        Using
     }
 }
