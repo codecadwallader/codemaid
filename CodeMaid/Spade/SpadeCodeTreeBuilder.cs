@@ -210,43 +210,48 @@ namespace SteveCadwallader.CodeMaid.Spade
                 RecursivelySort(organizedCodeItems, new CodeItemTypeComparer());
 
                 // Group the list of code items by type recursively.
-                RecursivelyGroupByType(organizedCodeItems);
+                foreach (var codeItem in organizedCodeItems)
+                {
+                    RecursivelyGroupByType(codeItem);
+                }
             }
 
             return organizedCodeItems;
         }
 
         /// <summary>
-        /// Recursively groups the specified code items based on their type into pseudo-regions.
+        /// Recursively groups the children within the specified item based on their type.
         /// </summary>
-        /// <param name="codeItems">The code items.</param>
-        private static void RecursivelyGroupByType(SetCodeItems codeItems)
+        /// <param name="codeItem">The code item.</param>
+        private static void RecursivelyGroupByType(BaseCodeItem codeItem)
         {
-            // Process every parent item that is not a region and has children.
-            foreach (var parent in codeItems.Where(x => x.Kind != KindCodeItem.Region && x.Children.Any()))
+            // Skip any code item that is already a region or does not have children.
+            if (codeItem.Kind == KindCodeItem.Region || !codeItem.Children.Any())
             {
-                // Capture the parent's current children, then clear them out so they can be re-added.
-                var children = parent.Children.ToArray();
-                parent.Children.Clear();
+                return;
+            }
 
-                CodeItemRegion lastGroup = null;
-                KindCodeItem? lastKind = null;
+            // Capture the current children, then clear them out so they can be re-added.
+            var children = codeItem.Children.ToArray();
+            codeItem.Children.Clear();
 
-                foreach (var child in children)
+            CodeItemRegion group = null;
+            KindCodeItem? kind = null;
+
+            foreach (var child in children)
+            {
+                // Create a new group unless the right kind has already been defined.
+                if (group == null || kind != child.Kind)
                 {
-                    // Create a new region grouping unless one has already been defined.
-                    if (lastGroup == null || lastKind != child.Kind)
-                    {
-                        lastGroup = new CodeItemRegion { Name = child.Kind.GetDescription() };
-                        lastKind = child.Kind;
+                    group = new CodeItemRegion { Name = child.Kind.GetDescription() };
+                    kind = child.Kind;
 
-                        parent.Children.Add(lastGroup);
-                    }
-
-                    // Add the child to the region grouping and recurse.
-                    lastGroup.Children.Add(child);
-                    RecursivelyGroupByType(child.Children);
+                    codeItem.Children.Add(group);
                 }
+
+                // Add the child to the group and recurse.
+                group.Children.Add(child);
+                RecursivelyGroupByType(child);
             }
         }
 
