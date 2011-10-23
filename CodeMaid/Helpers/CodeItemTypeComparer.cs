@@ -70,64 +70,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
             const int structOffset = 11;
             const int classOffset = 12;
 
-            if (codeItem is CodeItemClass)
+            switch (codeItem.Kind)
             {
-                return classOffset;
+                case KindCodeItem.Class: return classOffset;
+                case KindCodeItem.Constant: return constantOffset;
+                case KindCodeItem.Constructor: return constructorOffset;
+                case KindCodeItem.Delegate: return delegateOffset;
+                case KindCodeItem.Destructor: return destructorOffset;
+                case KindCodeItem.Enum: return enumOffset;
+                case KindCodeItem.Event: return eventOffset;
+                case KindCodeItem.Field: return fieldOffset;
+                case KindCodeItem.Interface: return interfaceOffset;
+                case KindCodeItem.Method: return methodOffset;
+                case KindCodeItem.Property: return propertyOffset;
+                case KindCodeItem.Struct: return structOffset;
+                default: return 0;
             }
-
-            if (codeItem is CodeItemDelegate)
-            {
-                return delegateOffset;
-            }
-
-            if (codeItem is CodeItemEnum)
-            {
-                return enumOffset;
-            }
-
-            if (codeItem is CodeItemEvent)
-            {
-                return eventOffset;
-            }
-
-            if (codeItem is CodeItemField)
-            {
-                return ((CodeItemField)codeItem).IsConstant ? constantOffset : fieldOffset;
-            }
-
-            if (codeItem is CodeItemInterface)
-            {
-                return interfaceOffset;
-            }
-
-            if (codeItem is CodeItemMethod)
-            {
-                var codeMethod = (CodeItemMethod)codeItem;
-
-                if (codeMethod.IsConstructor)
-                {
-                    return constructorOffset;
-                }
-
-                if (codeMethod.IsDestructor)
-                {
-                    return destructorOffset;
-                }
-
-                return methodOffset;
-            }
-
-            if (codeItem is CodeItemProperty)
-            {
-                return propertyOffset;
-            }
-
-            if (codeItem is CodeItemStruct)
-            {
-                return structOffset;
-            }
-
-            return 0;
         }
 
         private static int CalculateAccessOffset(BaseCodeItem codeItem)
