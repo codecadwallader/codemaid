@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         private Document _document;
         private SpadeInteractionMode _interactionMode;
         private bool _isLoading;
+        private bool _isRefreshing;
         private SpadeLayoutMode _layoutMode;
         private SetCodeItems _organizedCodeItems;
         private SetCodeItems _rawCodeItems;
@@ -96,6 +97,23 @@ namespace SteveCadwallader.CodeMaid.Spade
                     _isLoading = value;
 
                     NotifyPropertyChanged("IsLoading");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if code items are refreshing.
+        /// </summary>
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+
+                    NotifyPropertyChanged("IsRefreshing");
                 }
             }
         }

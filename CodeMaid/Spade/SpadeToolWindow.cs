@@ -112,7 +112,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
-            ConditionallyUpdateCodeModel();
+            Refresh();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public void Refresh()
         {
-            ConditionallyUpdateCodeModel();
+            ConditionallyUpdateCodeModel(true);
         }
 
         #endregion Public Methods
@@ -155,7 +155,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_document != value)
                 {
                     _document = value;
-                    ConditionallyUpdateCodeModel();
+                    ConditionallyUpdateCodeModel(false);
                 }
             }
         }
@@ -171,7 +171,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    ConditionallyUpdateCodeModel();
+                    ConditionallyUpdateCodeModel(false);
                 }
             }
         }
@@ -188,18 +188,31 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Conditionally updates the code model.
         /// </summary>
-        private void ConditionallyUpdateCodeModel()
+        /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
+        private void ConditionallyUpdateCodeModel(bool isRefresh)
         {
             if (!IsVisible) return;
 
             // Late initialize the Package, not available during constructor.
             _viewModel.Package = Package;
             _viewModel.Document = Document;
-            _viewModel.RawCodeItems = null;
+
+            if (Document == null || !isRefresh)
+            {
+                _viewModel.RawCodeItems = null;
+            }
 
             if (Document != null)
             {
-                _viewModel.IsLoading = true;
+                if (isRefresh)
+                {
+                    _viewModel.IsRefreshing = true;
+                }
+                else
+                {
+                    _viewModel.IsLoading = true;
+                }
+
                 _codeModelRetriever.RetrieveCodeModelAsync(Document);
             }
         }
@@ -212,6 +225,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             _viewModel.RawCodeItems = codeItems;
             _viewModel.IsLoading = false;
+            _viewModel.IsRefreshing = false;
         }
 
         #endregion Private Methods

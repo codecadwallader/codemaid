@@ -124,16 +124,36 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid TextElement.FontFamily="Tahoma">
         <TreeView ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                Visibility="{Binding IsLoading, Converter={x:Static local:BooleanToVisibilityConverter.Inverse}}" />
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
-                Visibility="{Binding IsLoading, Converter={x:Static local:BooleanToVisibilityConverter.Default}}">
-            <TextBlock FontSize="12" Text="Loading" />
-            <TextBlock FontSize="14" Text="{Binding Document.Name}" />
-        </StackPanel>
+        <Border Background="#80FFFFFF"
+                Visibility="{Binding IsRefreshing, Converter={x:Static local:BooleanToVisibilityConverter.Default}}" />
+
+        <ContentControl Content="{Binding}" VerticalAlignment="Center">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <Border x:Name="outerBorder" Background="White" BorderBrush="Black" BorderThickness="0,1"
+                            Margin="1,0" Padding="0,5" Visibility="Collapsed">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="stateLabel" FontSize="12" />
+                            <TextBlock FontSize="14" Text="{Binding Document.Name}" />
+                        </StackPanel>
+                    </Border>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="Loading" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
+                            <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="Refreshing" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </Grid>
 </UserControl>
