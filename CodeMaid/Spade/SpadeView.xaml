@@ -135,21 +135,22 @@
         <ContentControl Content="{Binding}" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <Border x:Name="outerBorder" Background="White" BorderBrush="Black" BorderThickness="0,1"
+                    <Border x:Name="outerBorder" Background="White" BorderBrush="#FF057463" BorderThickness="0,1"
                             Margin="1,0" Padding="0,5" Visibility="Collapsed">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock x:Name="stateLabel" FontSize="12" />
-                            <TextBlock FontSize="14" Text="{Binding Document.Name}" />
+                            <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic" Foreground="#464646" />
+                            <TextBlock FontSize="14" FontWeight="Bold" Foreground="#FF057463"
+                                    Text="{Binding Document.Name}" />
                         </StackPanel>
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsLoading}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="Loading" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="loading" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="Refreshing" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="refreshing" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
