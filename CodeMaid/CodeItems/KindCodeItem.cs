@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System.ComponentModel;
+
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
@@ -19,21 +21,49 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public enum KindCodeItem
     {
+        [Description("Constants")]
         Constant,
+
+        [Description("Fields")]
         Field,
+
+        [Description("Constructors")]
         Constructor,
+
+        [Description("Destructors")]
         Destructor,
+
+        [Description("Delegates")]
         Delegate,
+
+        [Description("Events")]
         Event,
+
+        [Description("Enums")]
         Enum,
+
+        [Description("Interfaces")]
         Interface,
+
+        [Description("Properties")]
         Property,
+
+        [Description("Methods")]
         Method,
+
+        [Description("Structs")]
         Struct,
+
+        [Description("Classes")]
         Class,
 
+        [Description("Namespaces")]
         Namespace,
+
+        [Description("Regions")]
         Region,
+
+        [Description("Usings")]
         Using
     }
 }

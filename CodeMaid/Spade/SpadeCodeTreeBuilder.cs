@@ -222,7 +222,32 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="codeItems">The code items.</param>
         private static void RecursivelyGroupByType(SetCodeItems codeItems)
         {
-            //TODO: Implement.
+            // Process every parent item that is not a region and has children.
+            foreach (var parent in codeItems.Where(x => x.Kind != KindCodeItem.Region && x.Children.Any()))
+            {
+                // Capture the parent's current children, then clear them out so they can be re-added.
+                var children = parent.Children.ToArray();
+                parent.Children.Clear();
+
+                CodeItemRegion lastGroup = null;
+                KindCodeItem? lastKind = null;
+
+                foreach (var child in children)
+                {
+                    // Create a new region grouping unless one has already been defined.
+                    if (lastGroup == null || lastKind != child.Kind)
+                    {
+                        lastGroup = new CodeItemRegion { Name = child.Kind.GetDescription() };
+                        lastKind = child.Kind;
+
+                        parent.Children.Add(lastGroup);
+                    }
+
+                    // Add the child to the region grouping and recurse.
+                    lastGroup.Children.Add(child);
+                    RecursivelyGroupByType(child.Children);
+                }
+            }
         }
 
         /// <summary>

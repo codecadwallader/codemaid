@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         private void JumpToCodeItem(BaseCodeItem codeItem)
         {
             var viewModel = ViewModel;
-            if (codeItem == null || viewModel == null) return;
+            if (codeItem == null || viewModel == null || codeItem.StartLine <= 0) return;
 
             Dispatcher.BeginInvoke(
                 new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
