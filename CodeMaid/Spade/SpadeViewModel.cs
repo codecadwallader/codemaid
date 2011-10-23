@@ -111,6 +111,10 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_layoutMode != value)
                 {
                     _layoutMode = value;
+                    if (_layoutMode != SpadeLayoutMode.FileLayout)
+                    {
+                        InteractionMode = SpadeInteractionMode.Select;
+                    }
 
                     RequestUpdatedOrganizedCodeItems();
                     NotifyPropertyChanged("LayoutMode");
