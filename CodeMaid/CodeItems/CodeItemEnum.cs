@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code enumeration.
     /// </summary>
-    public class CodeItemEnum : BaseCodeItemElement
+    public class CodeItemEnum : BaseCodeItemElementParent
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeEnum.
@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace
+        public override string Namespace
         {
             get { return CodeEnum != null ? CodeEnum.Namespace.Name : null; }
         }

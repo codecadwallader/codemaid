@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code interface.
     /// </summary>
-    public class CodeItemInterface : BaseCodeItemElement
+    public class CodeItemInterface : BaseCodeItemElementParent
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeInterface.
@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace
+        public override string Namespace
         {
             get { return CodeInterface != null ? CodeInterface.Namespace.Name : null; }
         }

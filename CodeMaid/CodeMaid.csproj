@@ -89,6 +89,7 @@
     <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="CodeItems\BaseCodeItem.cs" />
     <Compile Include="CodeItems\BaseCodeItemElement.cs" />
+    <Compile Include="CodeItems\BaseCodeItemElementParent.cs" />
     <Compile Include="CodeItems\CodeItemClass.cs" />
     <Compile Include="CodeItems\CodeItemDelegate.cs" />
     <Compile Include="CodeItems\CodeItemEnum.cs" />

@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code struct.
     /// </summary>
-    public class CodeItemStruct : BaseCodeItemElement
+    public class CodeItemStruct : BaseCodeItemElementParent
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeStruct.
@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace
+        public override string Namespace
         {
             get { return CodeStruct != null ? CodeStruct.Namespace.Name : null; }
         }

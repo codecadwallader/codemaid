@@ -97,7 +97,7 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="parentCodeItemDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+    <HierarchicalDataTemplate DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
         <DockPanel Margin="0,2">
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
@@ -106,30 +106,14 @@
             <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
                     Style="{StaticResource namespaceStyle}" />
         </DockPanel>
-    </DataTemplate>
+    </HierarchicalDataTemplate>
 
     <!-- Specific CodeItem Templates -->
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemClass}" ItemsSource="{Binding Children}">
-        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parentCodeItemDataTemplate}" />
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemEnum}" ItemsSource="{Binding Children}">
-        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parentCodeItemDataTemplate}" />
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemInterface}" ItemsSource="{Binding Children}">
-        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parentCodeItemDataTemplate}" />
-    </HierarchicalDataTemplate>
-
     <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemRegion}" ItemsSource="{Binding Children}">
         <DockPanel>
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemStruct}" ItemsSource="{Binding Children}">
-        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parentCodeItemDataTemplate}" />
     </HierarchicalDataTemplate>
 </ResourceDictionary>

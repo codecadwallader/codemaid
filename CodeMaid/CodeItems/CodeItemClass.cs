@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code class.
     /// </summary>
-    public class CodeItemClass : BaseCodeItemElement
+    public class CodeItemClass : BaseCodeItemElementParent
     {
         /// <summary>
         /// Gets or sets the underlying VSX CodeClass.
@@ -53,7 +53,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace
+        public override string Namespace
         {
             get { return CodeClass != null ? CodeClass.Namespace.Name : null; }
         }
