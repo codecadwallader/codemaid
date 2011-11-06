@@ -25,29 +25,18 @@
         <Setter Property="FontStyle" Value="Italic" />
     </Style>
 
+    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+
     <Style x:Key="metadataStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="Foreground" Value="#666666" />
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
-    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="Margin" Value="10,0,0,0" />
-    </Style>
-
-    <!-- Common Templates -->
-    <DataTemplate x:Key="metadataDataTemplate">
-        <TextBlock x:Name="metadataTextBlock"
-                Text="{Binding Converter={x:Static local:CodeItemToMetadataStringConverter.Default}}"
-                Style="{StaticResource metadataStyle}" />
-        <DataTemplate.Triggers>
-            <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Trigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
-
+    <!-- Common component templates -->
     <DataTemplate x:Key="complexityDataTemplate">
         <TextBlock x:Name="complexityTextBlock" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}">
             <TextBlock.Foreground>
@@ -59,6 +48,11 @@
             </TextBlock.Foreground>
         </TextBlock>
         <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
             <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
@@ -70,8 +64,24 @@
                 Source="{Binding Converter={x:Static local:CodeItemToImageConverter.Default}}" />
     </DataTemplate>
 
-    <!-- Common CodeItem Templates -->
-    <DataTemplate DataType="{x:Type ci:BaseCodeItem}">
+    <DataTemplate x:Key="metadataDataTemplate">
+        <TextBlock x:Name="metadataTextBlock"
+                Text="{Binding Converter={x:Static local:CodeItemToMetadataStringConverter.Default}}"
+                Style="{StaticResource metadataStyle}" />
+        <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!-- CodeItem templates -->
+    <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource complexityDataTemplate}" />
@@ -83,22 +93,14 @@
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
-        <DataTemplate.Triggers>
-            <DataTrigger
-                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
-                    Value="False">
-                <Setter TargetName="complexity" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            <DataTrigger
-                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
-                    Value="False">
-                <Setter TargetName="metadata" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
 
-    <HierarchicalDataTemplate DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}"
+            ItemsSource="{Binding Children}">
         <DockPanel Margin="0,2">
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource parentNameStyle}" />
@@ -108,12 +110,23 @@
         </DockPanel>
     </HierarchicalDataTemplate>
 
-    <!-- Specific CodeItem Templates -->
-    <HierarchicalDataTemplate DataType="{x:Type ci:CodeItemRegion}" ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}"
+            ItemsSource="{Binding Children}">
         <DockPanel>
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
     </HierarchicalDataTemplate>
+
+    <DataTemplate x:Key="standardDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+        <DockPanel>
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+        </DockPanel>
+    </DataTemplate>
 </ResourceDictionary>
