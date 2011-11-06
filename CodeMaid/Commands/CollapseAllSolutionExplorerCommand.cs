@@ -39,6 +39,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region BaseCommand Methods
 
         /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            Enabled = Package.IDE.Solution.IsOpen;
+        }
+
+        /// <summary>
         /// Called to execute the command.
         /// </summary>
         protected override void OnExecute()
