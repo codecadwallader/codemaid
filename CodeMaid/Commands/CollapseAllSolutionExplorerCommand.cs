@@ -39,21 +39,16 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region BaseCommand Methods
 
         /// <summary>
-        /// Called to update the current status of the command.
-        /// </summary>
-        protected override void OnBeforeQueryStatus()
-        {
-            var topItem = TopUIHierarchyItem;
-
-            Enabled = topItem != null && UIHierarchyHelper.HasExpandedChildren(topItem);
-        }
-
-        /// <summary>
         /// Called to execute the command.
         /// </summary>
         protected override void OnExecute()
         {
-            UIHierarchyHelper.CollapseRecursively(TopUIHierarchyItem);
+            var topItem = TopUIHierarchyItem;
+
+            if (topItem != null && UIHierarchyHelper.HasExpandedChildren(topItem))
+            {
+                UIHierarchyHelper.CollapseRecursively(TopUIHierarchyItem);
+            }
         }
 
         #endregion BaseCommand Methods

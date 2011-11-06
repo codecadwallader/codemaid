@@ -57,6 +57,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
+        /// Determines whether the environment is in a valid state for cleanup.
+        /// </summary>
+        /// <returns>True if cleanup can occur, false otherwise.</returns>
+        internal bool IsCleanupEnvironmentAvailable()
+        {
+            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
+        }
+
+        /// <summary>
         /// Determines if the specified document should be cleaned up.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -86,15 +95,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Internal Methods
 
         #region Private Methods
-
-        /// <summary>
-        /// Determines whether the environment is in a valid state for cleanup.
-        /// </summary>
-        /// <returns>True if cleanup can occur, false otherwise.</returns>
-        private bool IsCleanupEnvironmentAvailable()
-        {
-            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
-        }
 
         /// <summary>
         /// Determines whether the language for the specified document is included by configuration.

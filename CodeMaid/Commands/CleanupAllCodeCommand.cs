@@ -44,22 +44,20 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region BaseCommand Members
 
         /// <summary>
-        /// Called to update the current status of the command.
-        /// </summary>
-        protected override void OnBeforeQueryStatus()
-        {
-            Enabled = AllProjectItems.Any();
-        }
-
-        /// <summary>
         /// Called to execute the command.
         /// </summary>
         protected override void OnExecute()
         {
-            if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
-                                @"CodeMaid: Confirmation for Cleanup All Code",
-                                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-                == DialogResult.Yes)
+            if (!CodeCleanupAvailabilityHelper.IsCleanupEnvironmentAvailable())
+            {
+                MessageBox.Show(@"Cleanup cannot run while debugging.",
+                                @"CodeMaid: Cleanup All Code",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
+                                     @"CodeMaid: Confirmation for Cleanup All Code",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                         == DialogResult.Yes)
             {
                 using (new ActiveDocumentRestorer(Package))
                 {
