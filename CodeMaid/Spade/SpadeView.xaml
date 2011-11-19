@@ -40,11 +40,12 @@
                         <DockPanel>
                             <Path DockPanel.Dock="Right" Data="M0,0 L6,6 L0,12 Z" Height="12" Width="12"
                                     Margin="-1,0,0,0" VerticalAlignment="Center" Fill="LightGoldenrodYellow"
-                                    Stroke="DimGray" StrokeThickness="1" />
+                                    Stroke="Khaki" StrokeThickness="1" />
 
-                            <Border Background="LightGoldenrodYellow" BorderBrush="DimGray" BorderThickness="1"
+                            <Border Background="LightGoldenrodYellow" BorderBrush="Khaki" BorderThickness="1"
                                     CornerRadius="3" Padding="5">
-                                <ContentPresenter Content="{Binding}" />
+                                <ContentPresenter Content="{Binding}"
+                                        ContentTemplate="{StaticResource methodToolTipDataTemplate}" />
                             </Border>
                         </DockPanel>
                     </ControlTemplate>

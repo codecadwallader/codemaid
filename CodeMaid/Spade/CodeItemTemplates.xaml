@@ -129,4 +129,9 @@
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
     </DataTemplate>
+
+    <!-- CodeItem tool tip templates -->
+    <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
 </ResourceDictionary>
