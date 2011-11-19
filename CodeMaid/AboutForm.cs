@@ -30,8 +30,6 @@ namespace SteveCadwallader.CodeMaid
         public AboutForm()
         {
             InitializeComponent();
-
-            UpdateVersionLabels();
         }
 
         #endregion Constructors
@@ -86,18 +84,6 @@ namespace SteveCadwallader.CodeMaid
             {
                 // Do nothing if default application handler is not associated.
             }
-        }
-
-        /// <summary>
-        /// Updates the version labels.
-        /// </summary>
-        private void UpdateVersionLabels()
-        {
-            string versionNumber = VSPackage._114;
-            string versionString = "v" + versionNumber;
-
-            Text = "About CodeMaid " + versionString;
-            versionLabel.Text = versionString;
         }
 
         #endregion Private Methods
