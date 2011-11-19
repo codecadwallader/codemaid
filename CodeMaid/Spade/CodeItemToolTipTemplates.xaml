@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade">
+
+    <!-- CodeItem tool tip templates -->
+    <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>
