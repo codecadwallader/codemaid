@@ -11,6 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -104,6 +107,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public bool IsOverloaded
         {
             get { return CodeFunction != null && CodeFunction.IsOverloaded; }
+        }
+
+        /// <summary>
+        /// Gets the return type.
+        /// </summary>
+        public string Type
+        {
+            get { return CodeFunction != null ? CodeFunction.Type.AsString : null; }
+        }
+
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        public IEnumerable<CodeParameter> Parameters
+        {
+            get { return CodeFunction != null ? CodeFunction.Parameters.Cast<CodeParameter>() : new CodeParameter[0]; }
         }
     }
 }

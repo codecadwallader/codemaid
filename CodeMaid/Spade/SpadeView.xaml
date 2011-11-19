@@ -38,17 +38,15 @@
             <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
                 <ToolTip.Template>
                     <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <DockPanel>
-                            <Path DockPanel.Dock="Right" Data="M0,0 L6,6 L0,12 Z" Height="12" Width="12"
-                                    Margin="-1,0,0,0" VerticalAlignment="Center" Fill="LightGoldenrodYellow"
-                                    Stroke="Khaki" StrokeThickness="1" />
-
-                            <Border Background="LightGoldenrodYellow" BorderBrush="Khaki" BorderThickness="1"
-                                    CornerRadius="3" Padding="5">
-                                <ContentPresenter Content="{Binding}"
-                                        ContentTemplate="{StaticResource methodToolTipDataTemplate}" />
-                            </Border>
-                        </DockPanel>
+                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="3" Margin="1"
+                                Padding="5">
+                            <ContentPresenter Content="{Binding}">
+                                <ContentPresenter.ContentTemplateSelector>
+                                    <local:CodeItemToolTipTemplateSelector
+                                            MethodDataTemplate="{StaticResource methodToolTipDataTemplate}" />
+                                </ContentPresenter.ContentTemplateSelector>
+                            </ContentPresenter>
+                        </Border>
                     </ControlTemplate>
                 </ToolTip.Template>
             </ToolTip>

@@ -233,6 +233,7 @@
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="Spade\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="Spade\CodeItemToImageConverter.cs" />
+    <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
     <Compile Include="Spade\ComplexityToColorConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
