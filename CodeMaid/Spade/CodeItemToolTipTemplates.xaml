@@ -32,6 +32,7 @@
     <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}"
             BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="0,2" />
     </Style>
 
     <!-- Common component templates -->
@@ -80,7 +81,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="complexityToolTipDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Complexity: " Foreground="#666666" />
             <TextBlock x:Name="complexityTextBlock" Text="{Binding}">
                 <TextBlock.Foreground>
@@ -105,7 +106,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="metadataToolTipDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Metadata: " Foreground="#666666" />
             <TextBlock x:Name="metadataTextBlock"
                     Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
@@ -124,19 +125,19 @@
 
     <DataTemplate x:Key="extendedDisplayToolTipDataTemplate">
         <StackPanel TextElement.FontStyle="Italic">
-            <Separator x:Name="separator" />
+            <Separator x:Name="separator" Margin="0,4" />
 
             <ContentControl x:Name="complexity" Content="{Binding Complexity}"
-                    ContentTemplate="{StaticResource complexityToolTipDataTemplate}" Margin="5,0" />
+                    ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
 
             <ContentControl x:Name="metadata" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataToolTipDataTemplate}" Margin="5,0" />
+                    ContentTemplate="{StaticResource metadataToolTipDataTemplate}" />
         </StackPanel>
         <DataTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition SourceName="complexity" Property="Visibility" Value="Collapsed" />
-                    <Condition SourceName="metadata" Property="Visibility" Value="Collapsed" />
+                    <Condition SourceName="complexity" Property="ActualHeight" Value="0" />
+                    <Condition SourceName="metadata" Property="ActualHeight" Value="0" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
@@ -167,6 +168,8 @@
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
@@ -179,6 +182,8 @@
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 

@@ -52,7 +52,8 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                     .TrimStart('\n')
                     .TrimEnd('\n')
                     .Replace(Environment.NewLine, "  ")
-                    .Replace("\n", "  ");
+                    .Replace("\n", "  ")
+                    .Trim();
 
                 return result;
             }
