@@ -37,13 +37,14 @@
     </Style>
 
     <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="11" />
         <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="Foreground" Value="#AAAAAA" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style x:Key="parameterTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterStyle}">
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="#666666" />
     </Style>
 
     <!-- Common component templates -->
@@ -132,7 +133,7 @@
     </DataTemplate>
 
     <!-- CodeItem templates -->
-    <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+    <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource complexityDataTemplate}" />
@@ -164,7 +165,7 @@
         </DockPanel>
     </HierarchicalDataTemplate>
 
-    <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+    <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource complexityDataTemplate}" />
