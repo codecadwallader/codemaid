@@ -79,15 +79,13 @@
     </DataTemplate>
 
     <!-- CodeItem tool tip templates -->
-    <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+    <DataTemplate x:Key="defaultToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItemElement}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
                         Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
-
-                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
@@ -112,6 +110,21 @@
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
                 <TextBlock Text="()" Style="{StaticResource parameterToolTipTextStyle}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                        Style="{StaticResource defaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+
+                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />

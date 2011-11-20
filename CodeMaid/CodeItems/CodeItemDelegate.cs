@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return CodeDelegate != null ? CodeDelegate.Type.AsString : null; }
+            get { return "delegate"; }
         }
 
         /// <summary>

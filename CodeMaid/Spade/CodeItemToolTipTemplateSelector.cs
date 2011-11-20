@@ -30,6 +30,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         public DataTemplate ConstructorDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the default data template.
+        /// </summary>
+        public DataTemplate DefaultDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the destructor data template.
         /// </summary>
         public DataTemplate DestructorDataTemplate { get; set; }
@@ -58,6 +63,17 @@ namespace SteveCadwallader.CodeMaid.Spade
                 {
                     case KindCodeItem.Constructor:
                         return ConstructorDataTemplate;
+
+                    case KindCodeItem.Class:
+                    case KindCodeItem.Constant:
+                    case KindCodeItem.Delegate:
+                    case KindCodeItem.Enum:
+                    case KindCodeItem.Event:
+                    case KindCodeItem.Field:
+                    case KindCodeItem.Interface:
+                    case KindCodeItem.Property:
+                    case KindCodeItem.Struct:
+                        return DefaultDataTemplate;
 
                     case KindCodeItem.Destructor:
                         return DestructorDataTemplate;
