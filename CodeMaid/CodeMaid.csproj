@@ -232,12 +232,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
-    <Compile Include="Spade\BooleanToVisibilityConverter.cs" />
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />
-    <Compile Include="Spade\CodeItemToMetadataStringConverter.cs" />
-    <Compile Include="Spade\CodeItemToImageConverter.cs" />
     <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
-    <Compile Include="Spade\ComplexityToColorConverter.cs" />
+    <Compile Include="Spade\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Spade\Converters\CodeItemToImageConverter.cs" />
+    <Compile Include="Spade\Converters\CodeItemToMetadataStringConverter.cs" />
+    <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
     <Compile Include="Spade\SpadeCodeTreeRequest.cs" />

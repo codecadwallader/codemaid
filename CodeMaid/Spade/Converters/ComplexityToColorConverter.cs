@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -16,7 +16,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace SteveCadwallader.CodeMaid.Spade
+namespace SteveCadwallader.CodeMaid.Spade.Converters
 {
     /// <summary>
     /// Converts a complexity score into its associated color value using the passed SpadeViewModel to determine the complexity configuration state.

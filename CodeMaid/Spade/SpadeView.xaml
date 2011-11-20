@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade" mc:Ignorable="d"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -137,7 +138,7 @@
         </TreeView>
 
         <Border Background="#80FFFFFF"
-                Visibility="{Binding IsRefreshing, Converter={x:Static local:BooleanToVisibilityConverter.Default}}" />
+                Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
         <ContentControl Content="{Binding}" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
