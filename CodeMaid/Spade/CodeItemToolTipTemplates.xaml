@@ -32,6 +32,7 @@
     <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}"
             BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="#FF008000" />
         <Setter Property="Margin" Value="0,2" />
     </Style>
 

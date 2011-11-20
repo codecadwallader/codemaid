@@ -39,8 +39,8 @@
             <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
                 <ToolTip.Template>
                     <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="3" Margin="1"
-                                Padding="5">
+                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2"
+                                Padding="7,5">
                             <ContentPresenter Content="{Binding}">
                                 <ContentPresenter.ContentTemplateSelector>
                                     <local:CodeItemToolTipTemplateSelector
