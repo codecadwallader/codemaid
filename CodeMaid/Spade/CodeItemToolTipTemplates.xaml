@@ -104,4 +104,16 @@
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
         </StackPanel>
     </DataTemplate>
+
+    <DataTemplate x:Key="destructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+
+                <TextBlock Text="()" Style="{StaticResource parameterToolTipTextStyle}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

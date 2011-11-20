@@ -30,6 +30,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         public DataTemplate ConstructorDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the destructor data template.
+        /// </summary>
+        public DataTemplate DestructorDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the method data template.
         /// </summary>
         public DataTemplate MethodDataTemplate { get; set; }
@@ -53,6 +58,9 @@ namespace SteveCadwallader.CodeMaid.Spade
                 {
                     case KindCodeItem.Constructor:
                         return ConstructorDataTemplate;
+
+                    case KindCodeItem.Destructor:
+                        return DestructorDataTemplate;
 
                     case KindCodeItem.Method:
                         return MethodDataTemplate;
