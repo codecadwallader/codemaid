@@ -63,6 +63,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -238,6 +241,7 @@
     <Compile Include="Spade\Converters\CodeItemToImageConverter.cs" />
     <Compile Include="Spade\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
+    <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
     <Compile Include="Spade\SpadeCodeTreeRequest.cs" />

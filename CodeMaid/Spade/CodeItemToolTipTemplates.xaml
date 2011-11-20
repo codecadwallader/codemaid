@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems">
+        xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters">
 
     <!-- Styles -->
     <Style x:Key="defaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
@@ -25,6 +26,11 @@
             BasedOn="{StaticResource parameterToolTipTextStyle}">
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="Black" />
+    </Style>
+
+    <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}"
+            BasedOn="{StaticResource defaultToolTipTextStyle}">
+        <Setter Property="FontStyle" Value="Italic" />
     </Style>
 
     <!-- Common component templates -->
@@ -63,10 +69,11 @@
     </DataTemplate>
 
     <DataTemplate x:Key="commentDataTemplate">
-        <TextBlock x:Name="comment" Text="{Binding}" />
+        <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}"
+                Style="{StaticResource commentToolTipTextStyle}" />
         <DataTemplate.Triggers>
-            <Trigger SourceName="comment" Property="Text" Value="{x:Null}">
-                <Setter TargetName="comment" Property="Visibility" Value="Collapsed" />
+            <Trigger SourceName="comment" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
         </DataTemplate.Triggers>
     </DataTemplate>
