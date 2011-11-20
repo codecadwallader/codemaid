@@ -43,6 +43,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeDelegate != null ? CodeDelegate.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return CodeDelegate != null ? CodeDelegate.Type.AsString : null; }
+        }
+
+        /// <summary>
         /// Gets the namespace.
         /// </summary>
         public string Namespace

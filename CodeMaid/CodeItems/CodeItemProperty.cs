@@ -58,6 +58,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeProperty != null ? CodeProperty.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return CodeProperty != null ? CodeProperty.Type.AsString : null; }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity

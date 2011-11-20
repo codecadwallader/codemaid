@@ -49,5 +49,21 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeEvent != null && CodeEvent.IsShared; }
         }
+
+        /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeEvent != null ? CodeEvent.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return CodeEvent != null ? CodeEvent.Type.AsString : null; }
+        }
     }
 }

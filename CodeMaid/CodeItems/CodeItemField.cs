@@ -51,6 +51,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeVariable != null ? CodeVariable.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return CodeVariable != null ? CodeVariable.Type.AsString : null; }
+        }
+
+        /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
         public bool IsConstant

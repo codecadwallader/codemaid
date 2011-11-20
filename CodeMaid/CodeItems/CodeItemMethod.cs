@@ -69,6 +69,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeFunction != null ? CodeFunction.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the return type.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return CodeFunction != null ? CodeFunction.Type.AsString : null; }
+        }
+
+        /// <summary>
         /// Gets the complexity.
         /// </summary>
         public int Complexity
@@ -109,27 +125,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
-        /// Gets the return type.
-        /// </summary>
-        public string Type
-        {
-            get { return CodeFunction != null ? CodeFunction.Type.AsString : null; }
-        }
-
-        /// <summary>
         /// Gets the parameters.
         /// </summary>
         public IEnumerable<CodeParameter> Parameters
         {
             get { return CodeFunction != null ? CodeFunction.Parameters.Cast<CodeParameter>() : new CodeParameter[0]; }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public string DocComment
-        {
-            get { return CodeFunction != null ? CodeFunction.DocComment : null; }
         }
     }
 }

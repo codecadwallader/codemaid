@@ -42,6 +42,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeEnum != null ? CodeEnum.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return "enum"; }
+        }
+
+        /// <summary>
         /// Gets the namespace.
         /// </summary>
         public override string Namespace

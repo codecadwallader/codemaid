@@ -40,5 +40,21 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return vsCMAccess.vsCMAccessDefault; }
         }
+
+        /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeNamespace != null ? CodeNamespace.DocComment : null; }
+        }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public override string TypeString
+        {
+            get { return "namespace"; }
+        }
     }
 }

@@ -82,7 +82,8 @@
     <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Type, StringFormat='{}{0} '}" Style="{StaticResource defaultToolTipTextStyle}" />
+                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                        Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 

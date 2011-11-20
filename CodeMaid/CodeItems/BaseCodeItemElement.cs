@@ -37,5 +37,15 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return false; }
         }
+
+        /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public abstract string DocComment { get; }
+
+        /// <summary>
+        /// Gets the type string.
+        /// </summary>
+        public abstract string TypeString { get; }
     }
 }
