@@ -13,7 +13,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -123,6 +122,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public IEnumerable<CodeParameter> Parameters
         {
             get { return CodeFunction != null ? CodeFunction.Parameters.Cast<CodeParameter>() : new CodeParameter[0]; }
+        }
+
+        /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public string DocComment
+        {
+            get { return CodeFunction != null ? CodeFunction.DocComment : null; }
         }
     }
 }
