@@ -36,6 +36,7 @@
             this.warningThresholdUpDown = new System.Windows.Forms.NumericUpDown();
             this.alertThresholdLabel = new System.Windows.Forms.Label();
             this.alertThresholdUpDown = new System.Windows.Forms.NumericUpDown();
+            this.showMethodParametersCheckBox = new System.Windows.Forms.CheckBox();
             this.navigationGroupBox = new System.Windows.Forms.GroupBox();
             this.navigationCenterLabel = new System.Windows.Forms.Label();
             this.navigationCenterOnWholeRadioButton = new System.Windows.Forms.RadioButton();
@@ -57,9 +58,10 @@
             this.displayGroupBox.Controls.Add(this.warningThresholdUpDown);
             this.displayGroupBox.Controls.Add(this.alertThresholdLabel);
             this.displayGroupBox.Controls.Add(this.alertThresholdUpDown);
+            this.displayGroupBox.Controls.Add(this.showMethodParametersCheckBox);
             this.displayGroupBox.Location = new System.Drawing.Point(3, 56);
             this.displayGroupBox.Name = "displayGroupBox";
-            this.displayGroupBox.Size = new System.Drawing.Size(344, 141);
+            this.displayGroupBox.Size = new System.Drawing.Size(344, 166);
             this.displayGroupBox.TabIndex = 1;
             this.displayGroupBox.TabStop = false;
             this.displayGroupBox.Text = "Display";
@@ -152,6 +154,17 @@
             0});
             this.alertThresholdUpDown.ValueChanged += new System.EventHandler(this.alertThresholdUpDown_ValueChanged);
             // 
+            // showMethodParametersCheckBox
+            // 
+            this.showMethodParametersCheckBox.AutoSize = true;
+            this.showMethodParametersCheckBox.Location = new System.Drawing.Point(7, 140);
+            this.showMethodParametersCheckBox.Name = "showMethodParametersCheckBox";
+            this.showMethodParametersCheckBox.Size = new System.Drawing.Size(146, 17);
+            this.showMethodParametersCheckBox.TabIndex = 7;
+            this.showMethodParametersCheckBox.Text = "Show method parameters";
+            this.showMethodParametersCheckBox.UseVisualStyleBackColor = true;
+            this.showMethodParametersCheckBox.CheckedChanged += new System.EventHandler(this.showMethodParametersCheckBox_CheckedChanged);
+            // 
             // navigationGroupBox
             // 
             this.navigationGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -206,7 +219,7 @@
             this.Controls.Add(this.navigationGroupBox);
             this.Controls.Add(this.displayGroupBox);
             this.Name = "SpadeOptionsControl";
-            this.Size = new System.Drawing.Size(350, 200);
+            this.Size = new System.Drawing.Size(350, 225);
             this.displayGroupBox.ResumeLayout(false);
             this.displayGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningThresholdUpDown)).EndInit();
@@ -231,5 +244,6 @@
         private System.Windows.Forms.CheckBox showItemComplexityCheckBox;
         private System.Windows.Forms.CheckBox showItemMetadataCheckBox;
         private System.Windows.Forms.Label showItemMetadataExampleLabel;
+        private System.Windows.Forms.CheckBox showMethodParametersCheckBox;
     }
 }

@@ -49,6 +49,8 @@ namespace SteveCadwallader.CodeMaid.Options
             warningThresholdUpDown.Value = OptionsPage.ComplexityWarningThreshold;
             alertThresholdUpDown.Value = OptionsPage.ComplexityAlertThreshold;
 
+            showMethodParametersCheckBox.Checked = OptionsPage.ShowMethodParameters;
+
             UpdateComplexityThresholdEnabledState();
         }
 
@@ -135,6 +137,16 @@ namespace SteveCadwallader.CodeMaid.Options
             }
 
             OptionsPage.ComplexityAlertThreshold = Convert.ToInt32(alertThresholdUpDown.Value);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the showMethodParametersCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void showMethodParametersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.ShowMethodParameters = showMethodParametersCheckBox.Checked;
         }
 
         #endregion Private Event Handlers

@@ -195,6 +195,14 @@ namespace SteveCadwallader.CodeMaid.Spade
             get { return Package.Options.Spade.ShowItemMetadata; }
         }
 
+        /// <summary>
+        /// Gets a flag indicating if method parameters should be shown.
+        /// </summary>
+        public bool ShowMethodParameters
+        {
+            get { return Package.Options.Spade.ShowMethodParameters; }
+        }
+
         #endregion Properties
 
         #region INotifyPropertyChanged Implementation

@@ -122,6 +122,13 @@
 
             <TextBlock Text=")" Style="{StaticResource parameterStyle}" />
         </StackPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowMethodParameters, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <!-- CodeItem templates -->
