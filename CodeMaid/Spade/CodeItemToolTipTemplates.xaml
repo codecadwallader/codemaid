@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade">
 
     <!-- Styles -->
     <Style x:Key="defaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
@@ -34,7 +35,7 @@
     </Style>
 
     <!-- Common component templates -->
-    <DataTemplate x:Key="parametersDataTemplate">
+    <DataTemplate x:Key="parametersToolTipDataTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="(" Style="{StaticResource parameterToolTipTextStyle}" />
 
@@ -68,11 +69,36 @@
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="commentDataTemplate">
+    <DataTemplate x:Key="commentToolTipDataTemplate">
         <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}"
                 Style="{StaticResource commentToolTipTextStyle}" />
         <DataTemplate.Triggers>
             <Trigger SourceName="comment" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="complexityToolTipDataTemplate">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" TextElement.FontStyle="Italic">
+            <TextBlock Text="Complexity: " />
+            <TextBlock x:Name="complexityTextBlock" Text="{Binding}" FontStyle="Italic">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{x:Static cnv:ComplexityToColorConverter.Default}">
+                        <Binding />
+                        <Binding Path="DataContext"
+                                    RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
         </DataTemplate.Triggers>
@@ -88,7 +114,7 @@
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
@@ -97,10 +123,11 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}" />
+                <ContentControl Content="{Binding Parameters}"
+                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
@@ -112,7 +139,7 @@
                 <TextBlock Text="()" Style="{StaticResource parameterToolTipTextStyle}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
@@ -124,10 +151,16 @@
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}" />
+                <ContentControl Content="{Binding Parameters}"
+                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+
+            <Separator />
+
+            <ContentControl Content="{Binding Complexity}"
+                    ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

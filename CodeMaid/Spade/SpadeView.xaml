@@ -63,6 +63,7 @@
                 <Setter Property="Margin" Value="0,0,0,2" />
                 <Setter Property="Padding" Value="4,2,10,2" />
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
+                <Setter Property="ToolTipService.ShowDuration" Value="60000" />
                 <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />
 
                 <Setter Property="Template">
