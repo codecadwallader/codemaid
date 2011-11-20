@@ -74,11 +74,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="AboutForm.xaml.cs">
+      <DependentUpon>AboutForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AboutFormHost.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
+    <Compile Include="AboutFormHost.Designer.cs">
+      <DependentUpon>AboutFormHost.cs</DependentUpon>
     </Compile>
     <Compile Include="BuildProgress\BuildProgressControl.cs">
       <SubType>UserControl</SubType>
@@ -258,8 +261,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
+    <EmbeddedResource Include="AboutFormHost.resx">
+      <DependentUpon>AboutFormHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
@@ -378,7 +381,7 @@
     <Resource Include="Spade\Images\Collapsed.png" />
     <Resource Include="Spade\Images\Expanded.png" />
     <Resource Include="Spade\Images\Region.png" />
-    <Content Include="Resources\about.png" />
+    <Resource Include="Resources\about.png" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
     <Content Include="Resources\closeLocked.bmp" />
@@ -404,6 +407,10 @@
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AboutForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Spade\CodeItemTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

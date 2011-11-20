@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            new AboutForm().ShowDialog();
+            new AboutFormHost().ShowDialog();
         }
 
         #endregion BaseCommand Methods

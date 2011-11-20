@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             Caption = "CodeMaid Spade";
 
             // Set the tool window image from resources.
-            BitmapResourceID = 503;
+            BitmapResourceID = 508;
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.

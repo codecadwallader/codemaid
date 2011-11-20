@@ -1,6 +1,6 @@
 ﻿namespace SteveCadwallader.CodeMaid
 {
-    partial class AboutForm
+    partial class AboutFormHost
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.closeButton = new System.Windows.Forms.Button();
+            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
             this.SuspendLayout();
             // 
             // closeButton
@@ -41,18 +42,27 @@
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             // 
-            // AboutForm
+            // elementHost
+            // 
+            this.elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost.Location = new System.Drawing.Point(0, 0);
+            this.elementHost.Name = "elementHost";
+            this.elementHost.Size = new System.Drawing.Size(878, 264);
+            this.elementHost.TabIndex = 1;
+            this.elementHost.Child = null;
+            // 
+            // AboutFormHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SteveCadwallader.CodeMaid.VSPackage._600;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(878, 264);
             this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.elementHost);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AboutForm";
+            this.Name = "AboutFormHost";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -63,5 +73,7 @@
         #endregion Windows Form Designer generated code
 
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Integration.ElementHost elementHost;
+
     }
 }
