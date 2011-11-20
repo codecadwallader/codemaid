@@ -49,14 +49,16 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                 if (summaryTag == null) return string.Empty;
 
                 var result = summaryTag.Value
-                    .Replace(Environment.NewLine, string.Empty)
-                    .Replace("\n", string.Empty);
+                    .TrimStart('\n')
+                    .TrimEnd('\n')
+                    .Replace(Environment.NewLine, "  ")
+                    .Replace("\n", "  ");
 
                 return result;
             }
             catch (Exception)
             {
-                return null;
+                return string.Empty;
             }
         }
 

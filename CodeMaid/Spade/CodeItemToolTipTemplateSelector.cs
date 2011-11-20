@@ -25,6 +25,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Properties
 
         /// <summary>
+        /// Gets or sets the constructor data template.
+        /// </summary>
+        public DataTemplate ConstructorDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the method data template.
         /// </summary>
         public DataTemplate MethodDataTemplate { get; set; }
@@ -46,6 +51,9 @@ namespace SteveCadwallader.CodeMaid.Spade
             {
                 switch (codeItem.Kind)
                 {
+                    case KindCodeItem.Constructor:
+                        return ConstructorDataTemplate;
+
                     case KindCodeItem.Method:
                         return MethodDataTemplate;
                 }

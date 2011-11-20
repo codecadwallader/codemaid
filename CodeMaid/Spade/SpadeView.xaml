@@ -44,6 +44,7 @@
                             <ContentPresenter Content="{Binding}">
                                 <ContentPresenter.ContentTemplateSelector>
                                     <local:CodeItemToolTipTemplateSelector
+                                            ConstructorDataTemplate="{StaticResource constructorToolTipDataTemplate}"
                                             MethodDataTemplate="{StaticResource methodToolTipDataTemplate}" />
                                 </ContentPresenter.ContentTemplateSelector>
                             </ContentPresenter>
