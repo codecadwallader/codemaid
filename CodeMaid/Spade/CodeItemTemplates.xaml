@@ -36,16 +36,12 @@
         <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
-    <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontStyle" Value="Italic" />
+    <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="Foreground" Value="#666666" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
     <Style x:Key="parameterTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterStyle}">
-        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
 
@@ -139,6 +135,9 @@
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+
+            <ContentControl Content="{Binding Parameters}"
+                    ContentTemplate="{StaticResource parametersDataTemplate}" />
         </DockPanel>
     </DataTemplate>
 

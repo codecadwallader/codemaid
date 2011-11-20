@@ -3,9 +3,6 @@
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="CodeItemTemplates.xaml" />
-    </ResourceDictionary.MergedDictionaries>
 
     <!-- Styles -->
     <Style x:Key="defaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
@@ -27,6 +24,18 @@
         <Setter Property="Margin" Value="0,2" />
     </Style>
 
+    <Style x:Key="parameterToolTipStyle" TargetType="{x:Type TextBlock}"
+            BasedOn="{StaticResource defaultToolTipTextStyle}">
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="#666666" />
+    </Style>
+
+    <Style x:Key="parameterToolTipTypeStyle" TargetType="{x:Type TextBlock}"
+            BasedOn="{StaticResource parameterToolTipStyle}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+
     <!-- Common component templates -->
     <DataTemplate x:Key="commentToolTipDataTemplate">
         <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}"
@@ -36,6 +45,40 @@
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
         </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="parametersToolTipDataTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="(" Style="{StaticResource parameterToolTipStyle}" />
+
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="separator" Text=", " Style="{StaticResource parameterToolTipStyle}" />
+
+                            <TextBlock Text="{Binding Type.AsString, StringFormat='{}{0} '}"
+                                    Style="{StaticResource parameterToolTipTypeStyle}" />
+
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource parameterToolTipStyle}" />
+                        </StackPanel>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
+                                    Value="{x:Null}">
+                                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Text=")" Style="{StaticResource parameterToolTipStyle}" />
+        </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="complexityToolTipDataTemplate">
@@ -121,7 +164,8 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}" />
+                <ContentControl Content="{Binding Parameters}"
+                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
@@ -135,7 +179,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <TextBlock Text="()" Style="{StaticResource parameterStyle}" />
+                <TextBlock Text="()" Style="{StaticResource parameterToolTipStyle}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
@@ -152,8 +196,8 @@
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}" ContentTemplate="{StaticResource parametersDataTemplate}"
-                        TextElement.FontFamily="Consolas" />
+                <ContentControl Content="{Binding Parameters}"
+                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
