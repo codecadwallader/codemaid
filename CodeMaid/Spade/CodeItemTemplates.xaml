@@ -7,8 +7,8 @@
     <!-- Styles -->
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Tahoma" />
-        <Setter Property="Foreground" Value="Black" />
         <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -21,9 +21,9 @@
     </Style>
 
     <Style x:Key="namespaceStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="Foreground" Value="#666666" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="#666666" />
     </Style>
 
     <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -33,8 +33,20 @@
 
     <Style x:Key="metadataStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="Foreground" Value="#666666" />
-        <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+
+    <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="parameterTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterStyle}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Black" />
     </Style>
 
     <!-- Common component templates -->
@@ -79,6 +91,40 @@
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
         </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="parametersDataTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="(" Style="{StaticResource parameterStyle}" />
+
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="separator" Text=", " Style="{StaticResource parameterStyle}" />
+
+                            <TextBlock Text="{Binding Type.AsString, StringFormat='{}{0} '}"
+                                    Style="{StaticResource parameterTypeStyle}" />
+
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource parameterStyle}" />
+                        </StackPanel>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
+                                    Value="{x:Null}">
+                                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Text=")" Style="{StaticResource parameterStyle}" />
+        </StackPanel>
     </DataTemplate>
 
     <!-- CodeItem templates -->
