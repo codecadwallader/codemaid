@@ -137,6 +137,7 @@
             <TreeView.ItemTemplateSelector>
                 <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource methodDataTemplate}"
                         ParentDataTemplate="{StaticResource parentDataTemplate}"
+                        PropertyDataTemplate="{StaticResource propertyDataTemplate}"
                         RegionDataTemplate="{StaticResource regionDataTemplate}"
                         StandardDataTemplate="{StaticResource standardDataTemplate}" />
             </TreeView.ItemTemplateSelector>

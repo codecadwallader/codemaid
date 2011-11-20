@@ -35,6 +35,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         public DataTemplate ParentDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the property data template.
+        /// </summary>
+        public DataTemplate PropertyDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the region data template.
         /// </summary>
         public DataTemplate RegionDataTemplate { get; set; }
@@ -64,7 +69,6 @@ namespace SteveCadwallader.CodeMaid.Spade
                     case KindCodeItem.Constructor:
                     case KindCodeItem.Destructor:
                     case KindCodeItem.Method:
-                    case KindCodeItem.Property:
                         return MethodDataTemplate;
 
                     case KindCodeItem.Class:
@@ -72,6 +76,9 @@ namespace SteveCadwallader.CodeMaid.Spade
                     case KindCodeItem.Interface:
                     case KindCodeItem.Struct:
                         return ParentDataTemplate;
+
+                    case KindCodeItem.Property:
+                        return PropertyDataTemplate;
 
                     case KindCodeItem.Region:
                         return RegionDataTemplate;

@@ -37,6 +37,7 @@
     </Style>
 
     <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Foreground" Value="#666666" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
@@ -155,6 +156,20 @@
                     Style="{StaticResource namespaceStyle}" />
         </DockPanel>
     </HierarchicalDataTemplate>
+
+    <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+        <DockPanel>
+            <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource complexityDataTemplate}" />
+
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+        </DockPanel>
+    </DataTemplate>
 
     <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}"
             ItemsSource="{Binding Children}">
