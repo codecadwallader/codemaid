@@ -163,4 +163,22 @@
                     ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
+
+    <DataTemplate x:Key="propertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                        Style="{StaticResource defaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+
+            <Separator />
+
+            <ContentControl Content="{Binding Complexity}"
+                    ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

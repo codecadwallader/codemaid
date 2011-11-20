@@ -44,6 +44,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public DataTemplate MethodDataTemplate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property data template.
+        /// </summary>
+        public DataTemplate PropertyDataTemplate { get; set; }
+
         #endregion Properties
 
         #region Methods
@@ -71,7 +76,6 @@ namespace SteveCadwallader.CodeMaid.Spade
                     case KindCodeItem.Event:
                     case KindCodeItem.Field:
                     case KindCodeItem.Interface:
-                    case KindCodeItem.Property:
                     case KindCodeItem.Struct:
                         return DefaultDataTemplate;
 
@@ -80,6 +84,9 @@ namespace SteveCadwallader.CodeMaid.Spade
 
                     case KindCodeItem.Method:
                         return MethodDataTemplate;
+
+                    case KindCodeItem.Property:
+                        return PropertyDataTemplate;
                 }
             }
 
