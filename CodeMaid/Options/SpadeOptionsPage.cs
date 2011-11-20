@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Options
             ComplexityAlertThreshold = 15;
             ShowItemComplexity = true;
             ShowItemMetadata = true;
-            ShowMethodParameters = false;
+            ShowMethodParameters = true;
         }
 
         #endregion Constructors

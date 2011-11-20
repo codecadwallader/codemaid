@@ -28,9 +28,9 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         /// </summary>
         public static ComplexityToColorConverter Default = new ComplexityToColorConverter();
 
-        private static readonly SolidColorBrush _BrushNormal = Brushes.Black;
-        private static readonly SolidColorBrush _BrushWarning = new SolidColorBrush(Color.FromRgb(0xEB, 0x81, 0x81));
-        private static readonly SolidColorBrush _BrushAlert = new SolidColorBrush(Color.FromRgb(0xF2, 0x33, 0x33));
+        private static readonly SolidColorBrush BrushNormal = Brushes.Black;
+        private static readonly SolidColorBrush BrushWarning = new SolidColorBrush(Color.FromRgb(0xEB, 0x81, 0x81));
+        private static readonly SolidColorBrush BrushAlert = new SolidColorBrush(Color.FromRgb(0xF2, 0x33, 0x33));
 
         /// <summary>
         /// Converts source values to a value for the binding target. The data binding engine calls this method when it propagates the values from source bindings to the binding target.
@@ -59,17 +59,17 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
 
                     if (complexity >= alertThreshold)
                     {
-                        return _BrushAlert;
+                        return BrushAlert;
                     }
 
                     if (complexity >= warningThreshold)
                     {
-                        return _BrushWarning;
+                        return BrushWarning;
                     }
                 }
             }
 
-            return _BrushNormal;
+            return BrushNormal;
         }
 
         /// <summary>

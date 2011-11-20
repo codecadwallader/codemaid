@@ -36,17 +36,6 @@
         <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
-    <Style x:Key="parameterStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="FontSize" Value="11" />
-        <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="Foreground" Value="#AAAAAA" />
-        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-    </Style>
-
-    <Style x:Key="parameterTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterStyle}">
-        <Setter Property="Foreground" Value="#666666" />
-    </Style>
-
     <!-- Common component templates -->
     <DataTemplate x:Key="complexityDataTemplate">
         <TextBlock x:Name="complexityTextBlock" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}">
@@ -91,47 +80,6 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="parametersDataTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="(" Style="{StaticResource parameterStyle}" />
-
-            <ItemsControl ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="separator" Text=", " Style="{StaticResource parameterStyle}" />
-
-                            <TextBlock Text="{Binding Type.AsString, StringFormat='{}{0} '}"
-                                    Style="{StaticResource parameterTypeStyle}" />
-
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource parameterStyle}" />
-                        </StackPanel>
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
-                                    Value="{x:Null}">
-                                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <TextBlock Text=")" Style="{StaticResource parameterStyle}" />
-        </StackPanel>
-        <DataTemplate.Triggers>
-            <DataTrigger
-                    Binding="{Binding DataContext.ShowMethodParameters, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
-                    Value="False">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
-
     <!-- CodeItem templates -->
     <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
@@ -143,11 +91,17 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
 
-            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
-
-            <ContentControl Content="{Binding Parameters}"
-                    ContentTemplate="{StaticResource parametersDataTemplate}" />
+            <ContentControl x:Name="name"
+                    Content="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.Default}}" />
         </DockPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowMethodParameters, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="True">
+                <Setter TargetName="name" Property="Content"
+                        Value="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.WithParameters}}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}"

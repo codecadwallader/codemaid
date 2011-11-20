@@ -242,6 +242,7 @@
     <Compile Include="Spade\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
     <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
     <Compile Include="Spade\SpadeCodeTreeRequest.cs" />
