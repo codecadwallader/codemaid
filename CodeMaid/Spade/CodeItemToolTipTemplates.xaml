@@ -81,13 +81,13 @@
 
     <DataTemplate x:Key="complexityToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" TextElement.FontStyle="Italic">
-            <TextBlock Text="Complexity: " />
-            <TextBlock x:Name="complexityTextBlock" Text="{Binding}" FontStyle="Italic">
+            <TextBlock Text="Complexity: " Foreground="#666666" />
+            <TextBlock x:Name="complexityTextBlock" Text="{Binding}">
                 <TextBlock.Foreground>
                     <MultiBinding Converter="{x:Static cnv:ComplexityToColorConverter.Default}">
                         <Binding />
                         <Binding Path="DataContext"
-                                    RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />
+                                RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />
                     </MultiBinding>
                 </TextBlock.Foreground>
             </TextBlock>
@@ -99,6 +99,24 @@
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="metadataToolTipDataTemplate">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" TextElement.FontStyle="Italic">
+            <TextBlock Text="Metadata: " Foreground="#666666" />
+            <TextBlock x:Name="metadataTextBlock"
+                    Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Default}}" />
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger
+                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
         </DataTemplate.Triggers>
@@ -161,10 +179,12 @@
 
             <ContentControl Content="{Binding Complexity}"
                     ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource metadataToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="propertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+    <DataTemplate x:Key="propertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
@@ -179,6 +199,8 @@
 
             <ContentControl Content="{Binding Complexity}"
                     ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource metadataToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
