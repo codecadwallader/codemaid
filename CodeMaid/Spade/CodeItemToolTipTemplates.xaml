@@ -108,7 +108,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" TextElement.FontStyle="Italic">
             <TextBlock Text="Metadata: " Foreground="#666666" />
             <TextBlock x:Name="metadataTextBlock"
-                    Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Default}}" />
+                    Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
         </StackPanel>
         <DataTemplate.Triggers>
             <DataTrigger

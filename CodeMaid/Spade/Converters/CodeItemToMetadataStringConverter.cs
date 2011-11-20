@@ -25,10 +25,30 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
     /// </summary>
     public class CodeItemToMetadataStringConverter : IValueConverter
     {
+        #region Fields
+
         /// <summary>
         /// A default instance of the <see cref="CodeItemToMetadataStringConverter"/>.
         /// </summary>
         public static CodeItemToMetadataStringConverter Default = new CodeItemToMetadataStringConverter();
+
+        /// <summary>
+        /// An instance of the <see cref="CodeItemToMetadataStringConverter"/> that uses extended strings.
+        /// </summary>
+        public static CodeItemToMetadataStringConverter Extended = new CodeItemToMetadataStringConverter { UseExtendedStrings = true };
+
+        #endregion Fields
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the flag indicating if extended strings should be used.
+        /// </summary>
+        public bool UseExtendedStrings { get; set; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Converts a value.
@@ -81,13 +101,13 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         /// </summary>
         /// <param name="element">The element.</param>
         /// <returns>The metadata strings.</returns>
-        private static IEnumerable<string> GenerateMetadataStrings(BaseCodeItemElement element)
+        private IEnumerable<string> GenerateMetadataStrings(BaseCodeItemElement element)
         {
             var strings = new List<string>();
 
             if (element.IsStatic)
             {
-                strings.Add("s");
+                strings.Add(UseExtendedStrings ? "static" : "s");
             }
 
             return strings;
@@ -98,23 +118,25 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         /// </summary>
         /// <param name="property">The property.</param>
         /// <returns>The metadata strings.</returns>
-        private static IEnumerable<string> GenerateMetadataStrings(CodeItemProperty property)
+        private IEnumerable<string> GenerateMetadataStrings(CodeItemProperty property)
         {
             var strings = new List<string>();
 
             strings.AddRange(GenerateMetadataStrings((BaseCodeItemElement)property));
 
-            if (property.CodeProperty.Getter != null) // Readable
+            if (property.CodeProperty.Getter != null)
             {
-                strings.Add("r");
+                strings.Add(UseExtendedStrings ? "read" : "r");
             }
 
-            if (property.CodeProperty.Setter != null) // Writeable
+            if (property.CodeProperty.Setter != null)
             {
-                strings.Add("w");
+                strings.Add(UseExtendedStrings ? "write" : "w");
             }
 
             return strings;
         }
+
+        #endregion Methods
     }
 }
