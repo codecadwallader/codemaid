@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Spade
     /// <summary>
     /// A helper class for performing asynchronous code tree building.
     /// </summary>
-    internal class SpadeCodeTreeBuilder
+    internal class CodeTreeBuilder
     {
         #region Fields
 
@@ -36,10 +36,10 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpadeCodeTreeBuilder"/> class.
+        /// Initializes a new instance of the <see cref="CodeTreeBuilder"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal SpadeCodeTreeBuilder(Action<SetCodeItems> callback)
+        internal CodeTreeBuilder(Action<SetCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -70,6 +70,11 @@ namespace SteveCadwallader.CodeMaid.Spade
             }
         }
 
+        /// <summary>
+        /// Called when the background worker should perform its work.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance containing the event data.</param>
         private static void OnDoWork(object sender, DoWorkEventArgs e)
         {
             var request = e.Argument as CodeTreeRequest;
@@ -100,6 +105,11 @@ namespace SteveCadwallader.CodeMaid.Spade
             }
         }
 
+        /// <summary>
+        /// Called when the background worker has completed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
         private void OnRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (_pendingRequest != null)

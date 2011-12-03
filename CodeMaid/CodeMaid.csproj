@@ -246,8 +246,8 @@
     <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
-    <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
-    <Compile Include="Spade\SpadeCodeTreeRequest.cs" />
+    <Compile Include="Spade\CodeTreeBuilder.cs" />
+    <Compile Include="Spade\CodeTreeRequest.cs" />
     <Compile Include="Spade\SpadeInteractionMode.cs" />
     <Compile Include="Spade\TreeLayoutMode.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />

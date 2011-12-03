@@ -24,7 +24,7 @@ namespace SteveCadwallader.CodeMaid.Spade
     {
         #region Fields
 
-        private readonly SpadeCodeTreeBuilder _codeTreeBuilder;
+        private readonly CodeTreeBuilder _codeTreeBuilder;
 
         private Document _document;
         private SpadeInteractionMode _interactionMode;
@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public SpadeViewModel()
         {
-            _codeTreeBuilder = new SpadeCodeTreeBuilder(UpdateOrganizedCodeItems);
+            _codeTreeBuilder = new CodeTreeBuilder(UpdateOrganizedCodeItems);
         }
 
         #endregion Constructors
