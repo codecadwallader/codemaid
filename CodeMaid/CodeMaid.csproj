@@ -150,6 +150,7 @@
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
+    <Compile Include="Helpers\CodeReorderHelper.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />
