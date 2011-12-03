@@ -42,6 +42,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
+        /// Gets a starting point adjusted for leading comments.
+        /// </summary>
+        /// <param name="originalPoint">The original point.</param>
+        /// <returns>The adjusted starting point.</returns>
+        internal static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
+        {
+            var point = originalPoint.CreateEditPoint();
+
+            while (!point.AtStartOfDocument)
+            {
+                string text = point.GetLines(point.Line - 1, point.Line);
+
+                if (Regex.IsMatch(text, @"\s*//"))
+                {
+                    point.LineUp(1);
+                    point.StartOfLine();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return point;
+        }
+
+        /// <summary>
         /// Gets the text between the specified start point and the first match.
         /// </summary>
         /// <param name="startPoint">The start point.</param>

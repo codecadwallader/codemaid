@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System;
+using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
@@ -28,8 +30,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal static void MoveAbove(BaseCodeItem itemToMove, BaseCodeItem baseItem)
+        /// <param name="textDocument">The text document.</param>
+        internal static void MoveAbove(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
+            FactoryCodeItems.RefreshCodeItemElement(itemToMove);
+            var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
+            var moveEndPoint = itemToMove.CodeElement.EndPoint;
+
+            textDocument.Selection.MoveToPoint(moveStartPoint, false);
+            textDocument.Selection.MoveToPoint(moveEndPoint, true);
+            textDocument.Selection.Cut();
+
+            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
+
+            textDocument.Selection.MoveToPoint(baseStartPoint, false);
+            textDocument.Selection.Paste();
+            textDocument.Selection.Insert(Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
         }
 
         /// <summary>
@@ -37,7 +54,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal static void MoveBelow(BaseCodeItem itemToMove, BaseCodeItem baseItem)
+        /// <param name="textDocument">The text document.</param>
+        internal static void MoveBelow(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
         }
 
@@ -47,6 +65,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="document">The document for reorganizing.</param>
         internal static void Reorganize(Document document)
         {
+            TextDocument textDocument = (TextDocument)document.Object("TextDocument");
+
+            var rawCodeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+            var codeItems = rawCodeItems.OfType<BaseCodeItemElement>().Where(x => !(x is CodeItemUsingStatement || x is CodeItemNamespace)).ToList();
+
+            //TODO: Build back into a hierarchy like Spade.. elements at the same level in the hierarchy should be organized.
+            //TODO: Probably want to factor out some of SpadeCodeTreeBuilder's logic into a code sorting helper..
+
+            //TODO: Replace logic.  Stub test that will take second element and move it above the first.
+            if (codeItems.Count() >= 2)
+            {
+                MoveAbove(codeItems[1], codeItems[0], textDocument);
+            }
         }
 
         #endregion Internal Methods
