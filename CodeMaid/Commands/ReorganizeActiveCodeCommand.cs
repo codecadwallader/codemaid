@@ -13,6 +13,7 @@
 
 using System.ComponentModel.Design;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -42,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = false;
+            Enabled = CanReorganizeActiveDocument();
 
             if (Enabled)
             {
@@ -59,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            CodeReorderHelper.Reorganize(ActiveDocument);
         }
 
         #endregion BaseCommand Methods
@@ -71,5 +73,20 @@ namespace SteveCadwallader.CodeMaid.Commands
         private Document ActiveDocument { get { return Package.IDE.ActiveDocument; } }
 
         #endregion Private Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Determines whether the active document can be reorganized.
+        /// </summary>
+        /// <returns>True if document can be reorganized, otherwise false.</returns>
+        private bool CanReorganizeActiveDocument()
+        {
+            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
+                   ActiveDocument != null &&
+                   ActiveDocument.Language == "CSharp";
+        }
+
+        #endregion Methods
     }
 }

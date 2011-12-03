@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -18,14 +19,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// <summary>
     /// A helper class for reordering code.
     /// </summary>
-    internal class CodeReorderHelper
+    internal static class CodeReorderHelper
     {
+        #region Internal Methods
+
         /// <summary>
         /// Moves the specified item above the specified base.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal void MoveAbove(BaseCodeItem itemToMove, BaseCodeItem baseItem)
+        internal static void MoveAbove(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
         }
 
@@ -34,8 +37,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal void MoveBelow(BaseCodeItem itemToMove, BaseCodeItem baseItem)
+        internal static void MoveBelow(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
         }
+
+        /// <summary>
+        /// Reorganizes the specified document.
+        /// </summary>
+        /// <param name="document">The document for reorganizing.</param>
+        internal static void Reorganize(Document document)
+        {
+        }
+
+        #endregion Internal Methods
     }
 }
