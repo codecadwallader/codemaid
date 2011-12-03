@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private readonly BackgroundWorker _bw;
         private readonly Action<SetCodeItems> _callback;
-        private SpadeCodeTreeRequest _pendingRequest;
+        private CodeTreeRequest _pendingRequest;
 
         #endregion Fields
 
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// Builds a code tree asynchronously from the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
-        internal void RetrieveCodeTreeAsync(SpadeCodeTreeRequest request)
+        internal void RetrieveCodeTreeAsync(CodeTreeRequest request)
         {
             if (_bw.IsBusy)
             {
@@ -72,7 +72,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private static void OnDoWork(object sender, DoWorkEventArgs e)
         {
-            var request = e.Argument as SpadeCodeTreeRequest;
+            var request = e.Argument as CodeTreeRequest;
             if (request == null || request.RawCodeItems == null) return;
 
             ClearHierarchyInformation(request.RawCodeItems);

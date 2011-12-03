@@ -18,14 +18,14 @@ namespace SteveCadwallader.CodeMaid.Spade
     /// <summary>
     /// A simple class for containing a request to build a code tree.
     /// </summary>
-    internal class SpadeCodeTreeRequest
+    internal class CodeTreeRequest
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpadeCodeTreeRequest"/> class.
+        /// Initializes a new instance of the <see cref="CodeTreeRequest"/> class.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="layoutMode">The layout mode.</param>
-        internal SpadeCodeTreeRequest(SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
+        internal CodeTreeRequest(SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
         {
             RawCodeItems = rawCodeItems;
             LayoutMode = layoutMode;

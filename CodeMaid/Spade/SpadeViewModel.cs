@@ -233,7 +233,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilder.RetrieveCodeTreeAsync(new SpadeCodeTreeRequest(RawCodeItems, LayoutMode));
+            _codeTreeBuilder.RetrieveCodeTreeAsync(new CodeTreeRequest(RawCodeItems, LayoutMode));
         }
 
         /// <summary>
