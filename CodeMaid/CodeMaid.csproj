@@ -118,6 +118,7 @@
     <Compile Include="Commands\CleanupAllCodeCommand.cs" />
     <Compile Include="Commands\CleanupSelectedCodeCommand.cs" />
     <Compile Include="Commands\CloseAllReadOnlyCommand.cs" />
+    <Compile Include="Commands\ReorganizeActiveCodeCommand.cs" />
     <Compile Include="Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Commands\CollapseSelectedSolutionExplorerCommand.cs" />
     <Compile Include="Commands\ConfigurationCommand.cs" />
@@ -403,7 +404,7 @@
     <Content Include="Resources\progress.bmp" />
     <None Include="Resources\progressToolWindow.bmp" />
     <Content Include="Resources\refresh.bmp" />
-    <Content Include="Resources\reorder.bmp" />
+    <Content Include="Resources\reorganize.bmp" />
     <Content Include="Resources\sortAlpha.bmp" />
     <Content Include="Resources\sortNumeric.bmp" />
     <Content Include="Resources\sortType.bmp" />

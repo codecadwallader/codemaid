@@ -254,6 +254,27 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
+        <Icon guid="GuidImageUnlock" id="IconUnlock" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidReadOnlyToggle</CommandName>
+          <ButtonText>&amp;Read-Only Toggle</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageReorganize" id="IconReorganize" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <CommandName>CmdIDCodeMaidReorganizeActiveCode</CommandName>
+          <ButtonText>Reorgani&amp;ze Code</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100" type="Button">
         <Icon guid="GuidImageConfig" id="IconConfig" />
         <Strings>
@@ -318,16 +339,6 @@
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
-        <Icon guid="GuidImageUnlock" id="IconUnlock" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <CommandName>CmdIDCodeMaidReadOnlyToggle</CommandName>
-          <ButtonText>&amp;Read-Only Toggle</ButtonText>
-        </Strings>
-      </Button>
-
       <Button guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSwitch" id="IconSwitch" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -360,7 +371,7 @@
       <Bitmap guid="GuidImageLock" href="Resources\lock.bmp" usedList="IconLock" />
       <Bitmap guid="GuidImageProgress" href="Resources\progress.bmp" usedList="IconProgress" />
       <Bitmap guid="GuidImageRefresh" href="Resources\refresh.bmp" usedList="IconRefresh" />
-      <Bitmap guid="GuidImageReorder" href="Resources\reorder.bmp" usedList="IconReorder" />
+      <Bitmap guid="GuidImageReorganize" href="Resources\reorganize.bmp" usedList="IconReorganize" />
       <Bitmap guid="GuidImageSortAlpha" href="Resources\sortAlpha.bmp" usedList="IconSortAlpha" />
       <Bitmap guid="GuidImageSortNumeric" href="Resources\sortNumeric.bmp" usedList="IconSortNumeric" />
       <Bitmap guid="GuidImageSortType" href="Resources\sortType.bmp" usedList="IconSortType" />
@@ -511,6 +522,20 @@
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100">
       <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
     </CommandPlacement>
@@ -543,35 +568,28 @@
       <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
-      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextASPXCodeWindowGroup" id="GroupIDCodeMaidContextASPXCodeWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextCSSWindowGroup" id="GroupIDCodeMaidContextCSSWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
   </CommandPlacements>
@@ -773,40 +791,44 @@
       <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2100" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandReorganizeActiveCode" value="{60bd7c93-ff19-4351-8d2f-8761bdfc6a2a}">
+      <IDSymbol name="CmdIDCodeMaidReorganizeActiveCode" value="0x2200" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandSpadeConfiguration" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
-      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2200" />
+      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeInteractionReorder" value="{c2da2b86-a279-4af7-96cf-2b500cb7c6ab}">
-      <IDSymbol name="CmdIDCodeMaidSpadeInteractionReorder" value="0x2300" />
+      <IDSymbol name="CmdIDCodeMaidSpadeInteractionReorder" value="0x2400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeInteractionSelect" value="{35ec90d0-6ee0-4f30-83fe-739bc68fc4db}">
-      <IDSymbol name="CmdIDCodeMaidSpadeInteractionSelect" value="0x2400" />
+      <IDSymbol name="CmdIDCodeMaidSpadeInteractionSelect" value="0x2500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2700" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x2800" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x2900" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x2900" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3000" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3000" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3100" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
@@ -849,8 +871,8 @@
     <GuidSymbol name="GuidImageRefresh" value="{fad83984-8b84-4176-98a0-7bd92ef7b3be}">
       <IDSymbol name="IconRefresh" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageReorder" value="{8591e1d2-3204-4e9d-9789-c8de79bc5313}">
-      <IDSymbol name="IconReorder" value="1" />
+    <GuidSymbol name="GuidImageReorganize" value="{8591e1d2-3204-4e9d-9789-c8de79bc5313}">
+      <IDSymbol name="IconReorganize" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageSortAlpha" value="{735bc8ba-0eaf-4fa3-a8ce-6f2e23c615b6}">
       <IDSymbol name="IconSortAlpha" value="1" />

@@ -68,6 +68,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidCommandFindInSolutionExplorer = new Guid("9e7a4c5b-5de4-418c-8ede-71fcfa4e811f");
         public static readonly Guid GuidCodeMaidCommandJoinLines = new Guid("7912f0a2-ada9-4888-9d2f-cde09cd310c6");
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
+        public static readonly Guid GuidCodeMaidCommandReorganizeActiveCode = new Guid("60bd7c93-ff19-4351-8d2f-8761bdfc6a2a");
         public static readonly Guid GuidCodeMaidCommandSpadeConfiguration = new Guid("d068f0d3-267c-45b5-a02f-14f3422b8540");
         public static readonly Guid GuidCodeMaidCommandSpadeInteractionReorder = new Guid("c2da2b86-a279-4af7-96cf-2b500cb7c6ab");
         public static readonly Guid GuidCodeMaidCommandSpadeInteractionSelect = new Guid("35ec90d0-6ee0-4f30-83fe-739bc68fc4db");

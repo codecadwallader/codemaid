@@ -296,6 +296,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
+                _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SpadeConfigurationCommand(this));
                 _commands.Add(new SpadeInteractionReorderCommand(this));
                 _commands.Add(new SpadeInteractionSelectCommand(this));
