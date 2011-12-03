@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                Checked = spade.LayoutMode == SpadeLayoutMode.TypeLayout;
+                Checked = spade.LayoutMode == TreeLayoutMode.TypeLayout;
             }
         }
 
@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                spade.LayoutMode = SpadeLayoutMode.TypeLayout;
+                spade.LayoutMode = TreeLayoutMode.TypeLayout;
             }
         }
 

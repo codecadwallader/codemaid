@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="layoutMode">The layout mode.</param>
-        internal SpadeCodeTreeRequest(SetCodeItems rawCodeItems, SpadeLayoutMode layoutMode)
+        internal SpadeCodeTreeRequest(SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
         {
             RawCodeItems = rawCodeItems;
             LayoutMode = layoutMode;
@@ -39,6 +39,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Gets the layout mode.
         /// </summary>
-        internal SpadeLayoutMode LayoutMode { get; private set; }
+        internal TreeLayoutMode LayoutMode { get; private set; }
     }
 }

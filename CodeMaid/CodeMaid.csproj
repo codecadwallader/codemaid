@@ -249,7 +249,7 @@
     <Compile Include="Spade\SpadeCodeTreeBuilder.cs" />
     <Compile Include="Spade\SpadeCodeTreeRequest.cs" />
     <Compile Include="Spade\SpadeInteractionMode.cs" />
-    <Compile Include="Spade\SpadeLayoutMode.cs" />
+    <Compile Include="Spade\TreeLayoutMode.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />
     <Compile Include="Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
@@ -430,6 +430,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CodeTree\" />
   </ItemGroup>
   <PropertyGroup>
     <!--

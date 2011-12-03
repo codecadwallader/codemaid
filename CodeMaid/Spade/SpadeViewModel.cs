@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         private SpadeInteractionMode _interactionMode;
         private bool _isLoading;
         private bool _isRefreshing;
-        private SpadeLayoutMode _layoutMode;
+        private TreeLayoutMode _layoutMode;
         private SetCodeItems _organizedCodeItems;
         private SetCodeItems _rawCodeItems;
 
@@ -121,7 +121,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Gets or sets the current layout mode.
         /// </summary>
-        public SpadeLayoutMode LayoutMode
+        public TreeLayoutMode LayoutMode
         {
             get { return _layoutMode; }
             set
@@ -129,7 +129,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_layoutMode != value)
                 {
                     _layoutMode = value;
-                    if (_layoutMode != SpadeLayoutMode.FileLayout)
+                    if (_layoutMode != TreeLayoutMode.FileLayout)
                     {
                         InteractionMode = SpadeInteractionMode.Select;
                     }

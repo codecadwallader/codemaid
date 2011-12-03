@@ -14,9 +14,9 @@
 namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// An enumeration of layout modes for Spade.
+    /// An enumeration of code tree layout modes.
     /// </summary>
-    public enum SpadeLayoutMode
+    public enum TreeLayoutMode
     {
         /// <summary>
         /// The default layout following the file line order.

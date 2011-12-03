@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             if (spade != null)
             {
                 Checked = spade.InteractionMode == SpadeInteractionMode.Reorder;
-                Enabled = spade.LayoutMode == SpadeLayoutMode.FileLayout;
+                Enabled = spade.LayoutMode == TreeLayoutMode.FileLayout;
             }
         }
 

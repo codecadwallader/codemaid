@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Gets or sets the layout mode.
         /// </summary>
-        public SpadeLayoutMode LayoutMode
+        public TreeLayoutMode LayoutMode
         {
             get { return _viewModel.LayoutMode; }
             set { _viewModel.LayoutMode = value; }

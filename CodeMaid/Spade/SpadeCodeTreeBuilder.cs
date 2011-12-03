@@ -81,15 +81,15 @@ namespace SteveCadwallader.CodeMaid.Spade
 
             switch (request.LayoutMode)
             {
-                case SpadeLayoutMode.AlphaLayout:
+                case TreeLayoutMode.AlphaLayout:
                     codeItems = OrganizeCodeItemsByAlphaLayout(request.RawCodeItems);
                     break;
 
-                case SpadeLayoutMode.FileLayout:
+                case TreeLayoutMode.FileLayout:
                     codeItems = OrganizeCodeItemsByFileLayout(request.RawCodeItems);
                     break;
 
-                case SpadeLayoutMode.TypeLayout:
+                case TreeLayoutMode.TypeLayout:
                     codeItems = OrganizeCodeItemsByTypeLayout(request.RawCodeItems);
                     break;
             }
