@@ -50,7 +50,36 @@ namespace SteveCadwallader.CodeMaid.CodeTree
 
         #endregion Constructors
 
-        #region Methods
+        #region Internal Methods
+
+        /// <summary>
+        /// Builds a code tree from the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>The built code tree, otherwise null.</returns>
+        internal static SetCodeItems RetrieveCodeTree(CodeTreeRequest request)
+        {
+            ClearHierarchyInformation(request.RawCodeItems);
+
+            SetCodeItems codeItems = null;
+
+            switch (request.LayoutMode)
+            {
+                case TreeLayoutMode.AlphaLayout:
+                    codeItems = OrganizeCodeItemsByAlphaLayout(request.RawCodeItems);
+                    break;
+
+                case TreeLayoutMode.FileLayout:
+                    codeItems = OrganizeCodeItemsByFileLayout(request.RawCodeItems);
+                    break;
+
+                case TreeLayoutMode.TypeLayout:
+                    codeItems = OrganizeCodeItemsByTypeLayout(request.RawCodeItems);
+                    break;
+            }
+
+            return codeItems;
+        }
 
         /// <summary>
         /// Builds a code tree asynchronously from the specified request.
@@ -70,6 +99,10 @@ namespace SteveCadwallader.CodeMaid.CodeTree
             }
         }
 
+        #endregion Internal Methods
+
+        #region Private Methods
+
         /// <summary>
         /// Called when the background worker should perform its work.
         /// </summary>
@@ -80,24 +113,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
             var request = e.Argument as CodeTreeRequest;
             if (request == null || request.RawCodeItems == null) return;
 
-            ClearHierarchyInformation(request.RawCodeItems);
-
-            SetCodeItems codeItems = null;
-
-            switch (request.LayoutMode)
-            {
-                case TreeLayoutMode.AlphaLayout:
-                    codeItems = OrganizeCodeItemsByAlphaLayout(request.RawCodeItems);
-                    break;
-
-                case TreeLayoutMode.FileLayout:
-                    codeItems = OrganizeCodeItemsByFileLayout(request.RawCodeItems);
-                    break;
-
-                case TreeLayoutMode.TypeLayout:
-                    codeItems = OrganizeCodeItemsByTypeLayout(request.RawCodeItems);
-                    break;
-            }
+            var codeItems = RetrieveCodeTree(request);
 
             if (!e.Cancel)
             {
@@ -280,6 +296,6 @@ namespace SteveCadwallader.CodeMaid.CodeTree
             }
         }
 
-        #endregion Methods
+        #endregion Private Methods
     }
 }
