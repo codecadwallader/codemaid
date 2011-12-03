@@ -31,15 +31,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
         /// <param name="textDocument">The text document.</param>
-        internal static void MoveAbove(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
+        internal static void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
-            FactoryCodeItems.RefreshCodeItemElement(itemToMove);
-            var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
-            var moveEndPoint = itemToMove.CodeElement.EndPoint;
-
-            textDocument.Selection.MoveToPoint(moveStartPoint, false);
-            textDocument.Selection.MoveToPoint(moveEndPoint, true);
-            textDocument.Selection.Cut();
+            CutItemToMoveOntoClipboard(itemToMove, textDocument);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
@@ -55,8 +49,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
         /// <param name="textDocument">The text document.</param>
-        internal static void MoveBelow(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
+        internal static void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
+            CutItemToMoveOntoClipboard(itemToMove, textDocument);
+
+            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            var baseEndPoint = baseItem.CodeElement.EndPoint;
+
+            textDocument.Selection.MoveToPoint(baseEndPoint, false);
+            textDocument.Selection.Insert(Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+            textDocument.Selection.Paste();
         }
 
         /// <summary>
@@ -73,13 +75,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
             //TODO: Build back into a hierarchy like Spade.. elements at the same level in the hierarchy should be organized.
             //TODO: Probably want to factor out some of SpadeCodeTreeBuilder's logic into a code sorting helper..
 
-            //TODO: Replace logic.  Stub test that will take second element and move it above the first.
+            //TODO: Replace logic.  Stub test that will take first element and move it below the second.
             if (codeItems.Count() >= 2)
             {
-                MoveAbove(codeItems[1], codeItems[0], textDocument);
+                MoveItemBelowBase(codeItems[0], codeItems[1], textDocument);
             }
         }
 
         #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Cuts the item to move onto the clipboard.
+        /// </summary>
+        /// <param name="itemToMove">The item to move.</param>
+        /// <param name="textDocument">The text document.</param>
+        private static void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove, TextDocument textDocument)
+        {
+            FactoryCodeItems.RefreshCodeItemElement(itemToMove);
+            var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
+            var moveEndPoint = itemToMove.CodeElement.EndPoint;
+
+            textDocument.Selection.MoveToPoint(moveStartPoint, false);
+            textDocument.Selection.MoveToPoint(moveEndPoint, true);
+            textDocument.Selection.Cut();
+        }
+
+        #endregion Private Methods
     }
 }
