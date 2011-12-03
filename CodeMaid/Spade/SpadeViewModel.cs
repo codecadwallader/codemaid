@@ -14,6 +14,7 @@
 using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.CodeTree;
 
 namespace SteveCadwallader.CodeMaid.Spade
 {

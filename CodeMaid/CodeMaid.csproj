@@ -102,6 +102,9 @@
     <Compile Include="CodeItems\FactoryCodeItems.cs" />
     <Compile Include="CodeItems\SetCodeItems.cs" />
     <Compile Include="CodeItems\KindCodeItem.cs" />
+    <Compile Include="CodeTree\CodeTreeBuilder.cs" />
+    <Compile Include="CodeTree\CodeTreeRequest.cs" />
+    <Compile Include="CodeTree\TreeLayoutMode.cs" />
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\BuildProgressToolWindowCommand.cs" />
@@ -246,10 +249,7 @@
     <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
-    <Compile Include="Spade\CodeTreeBuilder.cs" />
-    <Compile Include="Spade\CodeTreeRequest.cs" />
     <Compile Include="Spade\SpadeInteractionMode.cs" />
-    <Compile Include="Spade\TreeLayoutMode.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />
     <Compile Include="Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
@@ -430,9 +430,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CodeTree\" />
   </ItemGroup>
   <PropertyGroup>
     <!--

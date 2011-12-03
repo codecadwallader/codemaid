@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -13,7 +13,7 @@
 
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Spade
+namespace SteveCadwallader.CodeMaid.CodeTree
 {
     /// <summary>
     /// A simple class for containing a request to build a code tree.
