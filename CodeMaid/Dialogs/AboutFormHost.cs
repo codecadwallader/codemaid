@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -13,7 +13,7 @@
 
 using System.Windows.Forms;
 
-namespace SteveCadwallader.CodeMaid
+namespace SteveCadwallader.CodeMaid.Dialogs
 {
     /// <summary>
     /// The about form hosting dialog.

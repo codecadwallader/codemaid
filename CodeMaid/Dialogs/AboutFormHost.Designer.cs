@@ -1,4 +1,4 @@
-﻿namespace SteveCadwallader.CodeMaid
+namespace SteveCadwallader.CodeMaid.Dialogs
 {
     partial class AboutFormHost
     {

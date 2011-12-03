@@ -77,15 +77,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.xaml.cs">
-      <DependentUpon>AboutForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AboutFormHost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutFormHost.Designer.cs">
-      <DependentUpon>AboutFormHost.cs</DependentUpon>
-    </Compile>
     <Compile Include="BuildProgress\BuildProgressControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +125,15 @@
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
     <Compile Include="Commands\SpadeToolWindowCommand.cs" />
+    <Compile Include="Dialogs\AboutForm.xaml.cs">
+      <DependentUpon>AboutForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AboutFormHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutFormHost.Designer.cs">
+      <DependentUpon>AboutFormHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CleanupProgress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,11 +268,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AboutFormHost.resx">
-      <DependentUpon>AboutFormHost.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutFormHost.resx">
+      <DependentUpon>AboutFormHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
       <DependentUpon>CleanupProgress.cs</DependentUpon>
@@ -414,9 +414,9 @@
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AboutForm.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Dialogs\AboutForm.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Spade\CodeItemTemplates.xaml">
       <SubType>Designer</SubType>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SteveCadwallader.CodeMaid.AboutForm"
+<UserControl x:Class="SteveCadwallader.CodeMaid.Dialogs.AboutForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="300" Width="300">
     <UserControl.Background>
