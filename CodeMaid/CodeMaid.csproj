@@ -103,6 +103,7 @@
     <Compile Include="CodeItems\SetCodeItems.cs" />
     <Compile Include="CodeItems\KindCodeItem.cs" />
     <Compile Include="CodeTree\CodeTreeBuilder.cs" />
+    <Compile Include="CodeTree\CodeTreeBuilderAsync.cs" />
     <Compile Include="CodeTree\CodeTreeRequest.cs" />
     <Compile Include="CodeTree\TreeLayoutMode.cs" />
     <Compile Include="Commands\AboutCommand.cs" />

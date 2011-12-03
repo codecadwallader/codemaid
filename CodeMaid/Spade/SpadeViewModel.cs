@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Spade
     {
         #region Fields
 
-        private readonly CodeTreeBuilder _codeTreeBuilder;
+        private readonly CodeTreeBuilderAsync _codeTreeBuilderAsync;
 
         private Document _document;
         private SpadeInteractionMode _interactionMode;
@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public SpadeViewModel()
         {
-            _codeTreeBuilder = new CodeTreeBuilder(UpdateOrganizedCodeItems);
+            _codeTreeBuilderAsync = new CodeTreeBuilderAsync(UpdateOrganizedCodeItems);
         }
 
         #endregion Constructors
@@ -234,7 +234,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilder.RetrieveCodeTreeAsync(new CodeTreeRequest(RawCodeItems, LayoutMode));
+            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(RawCodeItems, LayoutMode));
         }
 
         /// <summary>
