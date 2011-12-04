@@ -78,9 +78,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
 
-            textDocument.Selection.MoveToPoint(baseStartPoint, false);
-            textDocument.Selection.Paste();
-            textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+            baseStartPoint.Paste();
+            baseStartPoint.Insert(Environment.NewLine + Environment.NewLine);
         }
 
         /// <summary>
@@ -96,11 +95,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             CutItemToMoveOntoClipboard(itemToMove, textDocument);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
-            var baseEndPoint = baseItem.CodeElement.EndPoint;
+            var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
 
-            textDocument.Selection.MoveToPoint(baseEndPoint, false);
-            textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
-            textDocument.Selection.Paste();
+            baseEndPoint.Insert(Environment.NewLine + Environment.NewLine);
+            baseEndPoint.Paste();
         }
 
         /// <summary>
@@ -183,9 +181,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
             var moveEndPoint = itemToMove.CodeElement.EndPoint;
 
-            textDocument.Selection.MoveToPoint(moveStartPoint, false);
-            textDocument.Selection.MoveToPoint(moveEndPoint, true);
-            textDocument.Selection.Cut();
+            moveStartPoint.Cut(moveEndPoint, false);
         }
 
         /// <summary>
