@@ -181,7 +181,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             textDocument.Selection.MoveToPoint(moveStartPoint, false);
             textDocument.Selection.MoveToPoint(moveEndPoint, true);
             textDocument.Selection.Cut();
-            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
         }
 
         /// <summary>
