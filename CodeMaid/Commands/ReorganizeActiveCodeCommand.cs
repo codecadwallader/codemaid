@@ -32,6 +32,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandReorganizeActiveCode, (int)PkgCmdIDList.CmdIDCodeMaidReorganizeActiveCode))
         {
+            CodeReorderHelper = CodeReorderHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -72,9 +73,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         private Document ActiveDocument { get { return Package.IDE.ActiveDocument; } }
 
+        /// <summary>
+        /// Gets or sets the code reorder helper.
+        /// </summary>
+        private CodeReorderHelper CodeReorderHelper { get; set; }
+
         #endregion Private Properties
 
-        #region Methods
+        #region Private Methods
 
         /// <summary>
         /// Determines whether the active document can be reorganized.
@@ -87,6 +93,6 @@ namespace SteveCadwallader.CodeMaid.Commands
                    ActiveDocument.Language == "CSharp";
         }
 
-        #endregion Methods
+        #endregion Private Methods
     }
 }

@@ -22,8 +22,45 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// <summary>
     /// A helper class for reordering code.
     /// </summary>
-    internal static class CodeReorderHelper
+    internal class CodeReorderHelper
     {
+        #region Constructors
+
+        /// <summary>
+        /// The singleton instance of the <see cref="CodeReorderHelper"/> class.
+        /// </summary>
+        private static CodeReorderHelper _instance;
+
+        /// <summary>
+        /// Gets an instance of the <see cref="CodeReorderHelper"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>An instance of the <see cref="CodeReorderHelper"/> class.</returns>
+        internal static CodeReorderHelper GetInstance(CodeMaidPackage package)
+        {
+            return _instance ?? (_instance = new CodeReorderHelper(package));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeReorderHelper"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        private CodeReorderHelper(CodeMaidPackage package)
+        {
+            Package = package;
+        }
+
+        #endregion Constructors
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        private CodeMaidPackage Package { get; set; }
+
+        #endregion Private Properties
+
         #region Internal Methods
 
         /// <summary>
@@ -72,7 +109,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Reorganizes the specified document.
         /// </summary>
         /// <param name="document">The document for reorganizing.</param>
-        internal static void Reorganize(Document document)
+        internal void Reorganize(Document document)
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
