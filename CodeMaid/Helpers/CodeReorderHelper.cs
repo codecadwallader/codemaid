@@ -86,10 +86,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BaseCodeItemElement baseItem = null;
             var codeLevel = codeTree.OfType<BaseCodeItemElement>();
 
-            //TODO: Sort by Type, then by Name.  Will require pulling out CodeItemTypeComparer logic more generically.
-
             // Iterate across the items in the desired order.
-            foreach (var itemToMove in codeLevel.OrderBy(x => x.Name))
+            foreach (var itemToMove in codeLevel.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
             {
                 if (baseItem == null)
                 {

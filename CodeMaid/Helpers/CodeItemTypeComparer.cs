@@ -46,7 +46,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return first.CompareTo(second);
         }
 
-        private static int CalculateNumericRepresentation(BaseCodeItem codeItem)
+        /// <summary>
+        /// Calculates an ordered numeric representation of the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>A numeric representation.</returns>
+        public static int CalculateNumericRepresentation(BaseCodeItem codeItem)
         {
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
