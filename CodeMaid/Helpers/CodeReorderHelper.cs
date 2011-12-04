@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.CodeTree;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -33,6 +34,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal static void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
+            if (itemToMove == baseItem) return;
+
             CutItemToMoveOntoClipboard(itemToMove, textDocument);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
@@ -40,7 +43,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             textDocument.Selection.MoveToPoint(baseStartPoint, false);
             textDocument.Selection.Paste();
-            textDocument.Selection.Insert(Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+            textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
         }
 
         /// <summary>
@@ -51,13 +55,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal static void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
         {
+            if (itemToMove == baseItem) return;
+
             CutItemToMoveOntoClipboard(itemToMove, textDocument);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseEndPoint = baseItem.CodeElement.EndPoint;
 
             textDocument.Selection.MoveToPoint(baseEndPoint, false);
-            textDocument.Selection.Insert(Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+            textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
             textDocument.Selection.Paste();
         }
 
@@ -69,17 +76,34 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             TextDocument textDocument = (TextDocument)document.Object("TextDocument");
 
-            var rawCodeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
-            var codeItems = rawCodeItems.OfType<BaseCodeItemElement>().Where(x => !(x is CodeItemUsingStatement || x is CodeItemNamespace)).ToList();
+            // Retrieve all relevant code items.
+            var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+            codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
 
-            //TODO: Build back into a hierarchy like Spade.. elements at the same level in the hierarchy should be organized.
-            //TODO: Probably want to factor out some of SpadeCodeTreeBuilder's logic into a code sorting helper..
+            // Build the code tree based on the current file layout.
+            var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
 
-            //TODO: Replace logic.  Stub test that will take first element and move it below the second.
-            if (codeItems.Count() >= 2)
+            BaseCodeItemElement baseItem = null;
+            var codeLevel = codeTree.OfType<BaseCodeItemElement>();
+
+            //TODO: Sort by Type, then by Name.  Will require pulling out CodeItemTypeComparer logic more generically.
+
+            // Iterate across the items in the desired order.
+            foreach (var itemToMove in codeLevel.OrderBy(x => x.Name))
             {
-                MoveItemBelowBase(codeItems[0], codeItems[1], textDocument);
+                if (baseItem == null)
+                {
+                    MoveItemAboveBase(itemToMove, codeLevel.FirstOrDefault(), textDocument);
+                    baseItem = itemToMove;
+                }
+                else
+                {
+                    MoveItemBelowBase(itemToMove, baseItem, textDocument);
+                    baseItem = itemToMove;
+                }
             }
+
+            //TODO: Recurse down the tree.
         }
 
         #endregion Internal Methods
@@ -100,6 +124,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             textDocument.Selection.MoveToPoint(moveStartPoint, false);
             textDocument.Selection.MoveToPoint(moveEndPoint, true);
             textDocument.Selection.Cut();
+            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
         }
 
         #endregion Private Methods
