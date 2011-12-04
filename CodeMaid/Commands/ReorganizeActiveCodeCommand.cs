@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CanReorganizeActiveDocument();
+            Enabled = CodeReorderHelper.CanReorganize(ActiveDocument);
 
             if (Enabled)
             {
@@ -79,20 +79,5 @@ namespace SteveCadwallader.CodeMaid.Commands
         private CodeReorderHelper CodeReorderHelper { get; set; }
 
         #endregion Private Properties
-
-        #region Private Methods
-
-        /// <summary>
-        /// Determines whether the active document can be reorganized.
-        /// </summary>
-        /// <returns>True if document can be reorganized, otherwise false.</returns>
-        private bool CanReorganizeActiveDocument()
-        {
-            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
-                   ActiveDocument != null &&
-                   ActiveDocument.Language == "CSharp";
-        }
-
-        #endregion Private Methods
     }
 }

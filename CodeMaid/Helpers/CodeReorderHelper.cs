@@ -106,6 +106,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Determines whether the specified document can be reorganized.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if document can be reorganized, otherwise false.</returns>
+        internal bool CanReorganize(Document document)
+        {
+            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
+                   document != null &&
+                   document.Language == "CSharp";
+        }
+
+        /// <summary>
         /// Reorganizes the specified document.
         /// </summary>
         /// <param name="document">The document for reorganizing.</param>
