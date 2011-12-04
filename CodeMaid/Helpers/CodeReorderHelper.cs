@@ -68,12 +68,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        /// <param name="textDocument">The text document.</param>
-        internal static void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
+        internal static void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
             if (itemToMove == baseItem) return;
 
-            CutItemToMoveOntoClipboard(itemToMove, textDocument);
+            CutItemToMoveOntoClipboard(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
@@ -87,12 +86,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        /// <param name="textDocument">The text document.</param>
-        internal static void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem, TextDocument textDocument)
+        internal static void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
             if (itemToMove == baseItem) return;
 
-            CutItemToMoveOntoClipboard(itemToMove, textDocument);
+            CutItemToMoveOntoClipboard(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
@@ -133,8 +131,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
-                TextDocument textDocument = (TextDocument)document.Object("TextDocument");
-
                 // Retrieve all relevant code items.
                 var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
                 codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
@@ -143,7 +139,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
 
                 // Recursively reorganize the code tree.
-                RecursivelyReorganize(codeTree, textDocument);
+                RecursivelyReorganize(codeTree);
 
                 Package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
             }
@@ -174,22 +170,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Cuts the item to move onto the clipboard.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
-        /// <param name="textDocument">The text document.</param>
-        private static void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove, TextDocument textDocument)
+        private static void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove)
         {
             FactoryCodeItems.RefreshCodeItemElement(itemToMove);
             var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
             var moveEndPoint = itemToMove.CodeElement.EndPoint;
 
             moveStartPoint.Cut(moveEndPoint, false);
+            moveStartPoint.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
         }
 
         /// <summary>
         /// Recursively reorganizes the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        /// <param name="textDocument">The text document.</param>
-        private static void RecursivelyReorganize(SetCodeItems codeItems, TextDocument textDocument)
+        private static void RecursivelyReorganize(SetCodeItems codeItems)
         {
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
             BaseCodeItemElement baseItem = null;
@@ -197,18 +192,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Iterate across the items in the desired order.
             foreach (var itemToMove in codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
             {
-                RecursivelyReorganize(itemToMove.Children, textDocument);
+                RecursivelyReorganize(itemToMove.Children);
 
                 if (baseItem == null)
                 {
                     // The first desired item should be placed above the first actual item.
-                    MoveItemAboveBase(itemToMove, codeItemElements.First(), textDocument);
+                    MoveItemAboveBase(itemToMove, codeItemElements.First());
                     baseItem = itemToMove;
                 }
                 else
                 {
                     // All other items should be placed after the last placed item in the desired order.
-                    MoveItemBelowBase(itemToMove, baseItem, textDocument);
+                    MoveItemBelowBase(itemToMove, baseItem);
                     baseItem = itemToMove;
                 }
             }
