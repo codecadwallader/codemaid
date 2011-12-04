@@ -197,6 +197,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Iterate across the items in the desired order.
             foreach (var itemToMove in codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
             {
+                RecursivelyReorganize(itemToMove.Children, textDocument);
+
                 if (baseItem == null)
                 {
                     // The first desired item should be placed above the first actual item.
@@ -209,8 +211,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     MoveItemBelowBase(itemToMove, baseItem, textDocument);
                     baseItem = itemToMove;
                 }
-
-                RecursivelyReorganize(itemToMove.Children, textDocument);
             }
         }
 
