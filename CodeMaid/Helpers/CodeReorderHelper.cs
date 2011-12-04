@@ -152,6 +152,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             catch (Exception ex)
             {
                 Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex);
+                if (shouldCloseUndoContext)
+                {
+                    Package.IDE.UndoContext.SetAborted();
+                    shouldCloseUndoContext = false;
+                }
             }
             finally
             {
