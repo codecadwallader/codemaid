@@ -83,25 +83,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Build the code tree based on the current file layout.
             var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
 
-            BaseCodeItemElement baseItem = null;
-            var codeLevel = codeTree.OfType<BaseCodeItemElement>();
-
-            // Iterate across the items in the desired order.
-            foreach (var itemToMove in codeLevel.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
-            {
-                if (baseItem == null)
-                {
-                    MoveItemAboveBase(itemToMove, codeLevel.FirstOrDefault(), textDocument);
-                    baseItem = itemToMove;
-                }
-                else
-                {
-                    MoveItemBelowBase(itemToMove, baseItem, textDocument);
-                    baseItem = itemToMove;
-                }
-            }
-
-            //TODO: Recurse down the tree.
+            // Recursively reorganize the code tree.
+            RecursivelyReorganize(codeTree, textDocument);
         }
 
         #endregion Internal Methods
@@ -123,6 +106,36 @@ namespace SteveCadwallader.CodeMaid.Helpers
             textDocument.Selection.MoveToPoint(moveEndPoint, true);
             textDocument.Selection.Cut();
             textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+        }
+
+        /// <summary>
+        /// Recursively reorganizes the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <param name="textDocument">The text document.</param>
+        private static void RecursivelyReorganize(SetCodeItems codeItems, TextDocument textDocument)
+        {
+            var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
+            BaseCodeItemElement baseItem = null;
+
+            // Iterate across the items in the desired order.
+            foreach (var itemToMove in codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
+            {
+                if (baseItem == null)
+                {
+                    // The first desired item should be placed above the first actual item.
+                    MoveItemAboveBase(itemToMove, codeItemElements.First(), textDocument);
+                    baseItem = itemToMove;
+                }
+                else
+                {
+                    // All other items should be placed after the last placed item in the desired order.
+                    MoveItemBelowBase(itemToMove, baseItem, textDocument);
+                    baseItem = itemToMove;
+                }
+
+                RecursivelyReorganize(itemToMove.Children, textDocument);
+            }
         }
 
         #endregion Private Methods
