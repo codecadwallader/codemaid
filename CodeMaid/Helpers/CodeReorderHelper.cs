@@ -80,7 +80,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             textDocument.Selection.MoveToPoint(baseStartPoint, false);
             textDocument.Selection.Paste();
-            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
             textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
         }
 
@@ -100,7 +99,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var baseEndPoint = baseItem.CodeElement.EndPoint;
 
             textDocument.Selection.MoveToPoint(baseEndPoint, false);
-            textDocument.Selection.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
             textDocument.Selection.Insert(Environment.NewLine + Environment.NewLine, (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
             textDocument.Selection.Paste();
         }
