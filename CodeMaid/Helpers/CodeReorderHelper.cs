@@ -76,9 +76,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
+            var pastePoint = baseStartPoint.CreateEditPoint();
 
-            baseStartPoint.Paste();
-            baseStartPoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.Paste();
+            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            baseStartPoint.SmartFormat(pastePoint);
         }
 
         /// <summary>
@@ -94,9 +96,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
+            var pastePoint = baseEndPoint.CreateEditPoint();
 
-            baseEndPoint.Insert(Environment.NewLine + Environment.NewLine);
-            baseEndPoint.Paste();
+            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.Paste();
+            baseEndPoint.SmartFormat(pastePoint);
         }
 
         /// <summary>
