@@ -54,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 string text = point.GetLines(point.Line - 1, point.Line);
 
-                if (Regex.IsMatch(text, @"\s*//"))
+                if (Regex.IsMatch(text, @"^\s*//"))
                 {
                     point.LineUp(1);
                     point.StartOfLine();
@@ -100,9 +100,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 point.LineUp(1);
                 point.StartOfLine();
                 string text = point.GetLines(point.Line, point.Line + 1);
-                if (!Regex.IsMatch(text, @"\s*//")) // Keep moving until we hit a non XML document line.
+                if (!Regex.IsMatch(text, @"^\s*//")) // Keep moving until we hit a non XML document line.
                 {
-                    if (Regex.IsMatch(text, @"\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
+                    if (Regex.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
                     {
                         point.EndOfLine();
                         point.Insert(Environment.NewLine);
