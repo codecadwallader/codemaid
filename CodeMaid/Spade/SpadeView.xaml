@@ -83,7 +83,7 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2"
-                                            Background="{TemplateBinding Background}"
+                                            Background="{TemplateBinding Background}" Cursor="Hand"
                                             Padding="{TemplateBinding Padding}"
                                             Mouse.MouseDown="OnTreeViewItemHeaderMouseDown">
                                         <Grid>
