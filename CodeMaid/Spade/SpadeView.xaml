@@ -85,7 +85,8 @@
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2"
                                             Background="{TemplateBinding Background}" Cursor="Hand"
                                             Padding="{TemplateBinding Padding}"
-                                            Mouse.MouseDown="OnTreeViewItemHeaderMouseDown">
+                                            Mouse.MouseDown="OnTreeViewItemHeaderMouseDown"
+                                            Mouse.MouseMove="OnTreeViewItemHeaderMouseMove">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />

@@ -25,6 +25,14 @@ namespace SteveCadwallader.CodeMaid.Spade
     /// </summary>
     public partial class SpadeView
     {
+        #region Fields
+
+        private Point _startPoint;
+
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeView"/> class.
         /// </summary>
@@ -33,6 +41,10 @@ namespace SteveCadwallader.CodeMaid.Spade
             InitializeComponent();
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the view model.
         /// </summary>
@@ -40,6 +52,10 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             get { return DataContext as SpadeViewModel; }
         }
+
+        #endregion Properties
+
+        #region Event Handlers
 
         /// <summary>
         /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by TreeView).
@@ -66,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         /// <summary>
         /// Called when the header of a TreeViewItem receives a mouse down event.
-        /// Used to jump to a code item upon left click, or toggle the expansion state upon middle click.
+        /// Used to jump to a code item, start detecting a drag and drop operation, or toggle the expansion state depending on conditions.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
@@ -81,7 +97,14 @@ namespace SteveCadwallader.CodeMaid.Spade
             switch (e.ChangedButton)
             {
                 case MouseButton.Left:
-                    JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+                    if (ViewModel.InteractionMode == SpadeInteractionMode.Reorder)
+                    {
+                        _startPoint = e.GetPosition(null);
+                    }
+                    else
+                    {
+                        JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+                    }
                     break;
 
                 case MouseButton.Middle:
@@ -89,6 +112,37 @@ namespace SteveCadwallader.CodeMaid.Spade
                     break;
             }
         }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a mouse move event.
+        /// Used to conditionally initiate a drag and drop operation.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
+        {
+            if (ViewModel.InteractionMode != SpadeInteractionMode.Reorder ||
+                e.LeftButton != MouseButtonState.Pressed) return;
+
+            var delta = _startPoint - e.GetPosition(null);
+            if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
+                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
+
+            var source = sender as DependencyObject;
+            if (source == null) return;
+
+            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            if (treeViewItem == null) return;
+
+            var codeItem = treeViewItem.DataContext as BaseCodeItem;
+            if (codeItem == null) return;
+
+            DragDrop.DoDragDrop(treeViewItem, new DataObject(codeItem), DragDropEffects.Move);
+        }
+
+        #endregion Event Handlers
+
+        #region Methods
 
         /// <summary>
         /// Jumps to the specified code item.
@@ -102,5 +156,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             Dispatcher.BeginInvoke(
                 new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
         }
+
+        #endregion Methods
     }
 }
