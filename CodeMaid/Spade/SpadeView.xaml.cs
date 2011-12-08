@@ -137,7 +137,34 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItem = treeViewItem.DataContext as BaseCodeItem;
             if (codeItem == null) return;
 
-            DragDrop.DoDragDrop(treeViewItem, new DataObject(codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItem), codeItem), DragDropEffects.Move);
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a drop event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
+        {
+            if (sender == e.Source ||
+                !e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
+
+            var source = sender as DependencyObject;
+            if (source == null) return;
+
+            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            if (treeViewItem == null) return;
+
+            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
+            if (baseCodeItem == null) return;
+
+            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
+            if (codeItemToMove == null) return;
+
+            var itemToMove = codeItemToMove as BaseCodeItemElement;
+            var baseItem = baseCodeItem as BaseCodeItemElement;
+            CodeReorderHelper.MoveItemAboveBase(itemToMove, baseItem);
         }
 
         #endregion Event Handlers
