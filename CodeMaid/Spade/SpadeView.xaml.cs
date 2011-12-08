@@ -134,10 +134,10 @@ namespace SteveCadwallader.CodeMaid.Spade
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
             if (treeViewItem == null) return;
 
-            var codeItem = treeViewItem.DataContext as BaseCodeItem;
+            var codeItem = treeViewItem.DataContext as BaseCodeItemElement;
             if (codeItem == null) return;
 
-            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItem), codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
         }
 
         /// <summary>
@@ -147,24 +147,21 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
-            if (sender == e.Source ||
-                !e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
+            if (!e.Data.GetDataPresent(typeof(BaseCodeItemElement))) return;
 
             var source = sender as DependencyObject;
             if (source == null) return;
 
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
-            if (treeViewItem == null) return;
+            if (treeViewItem == null || e.Source == treeViewItem) return;
 
-            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
+            var baseCodeItem = treeViewItem.DataContext as BaseCodeItemElement;
             if (baseCodeItem == null) return;
 
-            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
+            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
             if (codeItemToMove == null) return;
 
-            var itemToMove = codeItemToMove as BaseCodeItemElement;
-            var baseItem = baseCodeItem as BaseCodeItemElement;
-            CodeReorderHelper.MoveItemAboveBase(itemToMove, baseItem);
+            CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
         }
 
         #endregion Event Handlers
