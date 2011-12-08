@@ -162,6 +162,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             if (codeItemToMove == null) return;
 
             CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+            Refresh();
         }
 
         #endregion Event Handlers
@@ -179,6 +180,14 @@ namespace SteveCadwallader.CodeMaid.Spade
 
             Dispatcher.BeginInvoke(
                 new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
+        }
+
+        /// <summary>
+        /// Requests a refresh of Spade.
+        /// </summary>
+        private void Refresh()
+        {
+            ViewModel.RequestRefresh();
         }
 
         #endregion Methods

@@ -62,6 +62,9 @@ namespace SteveCadwallader.CodeMaid.Spade
             _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new SpadeViewModel();
             _viewHost = new SpadeViewHost(_viewModel);
+
+            // Register for view model requests to be refreshed.
+            _viewModel.RequestingRefresh += (sender, args) => Refresh();
         }
 
         #endregion Constructors

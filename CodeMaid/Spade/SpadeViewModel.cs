@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System;
 using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
@@ -48,6 +49,15 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         #endregion Constructors
+
+        #region Events
+
+        /// <summary>
+        /// An event that is raised when a refresh is requested.
+        /// </summary>
+        public event EventHandler RequestingRefresh;
+
+        #endregion Events
 
         #region Properties
 
@@ -228,6 +238,17 @@ namespace SteveCadwallader.CodeMaid.Spade
         #endregion INotifyPropertyChanged Implementation
 
         #region Methods
+
+        /// <summary>
+        /// Requests a refresh.
+        /// </summary>
+        public void RequestRefresh()
+        {
+            if (RequestingRefresh != null)
+            {
+                RequestingRefresh(this, EventArgs.Empty);
+            }
+        }
 
         /// <summary>
         /// Requests an asynchronous update of the organized code items.
