@@ -38,9 +38,9 @@ namespace SteveCadwallader.CodeMaid.Options
             CenterOnWhole = true;
             ComplexityWarningThreshold = 10;
             ComplexityAlertThreshold = 15;
+            ShowMethodParameters = true;
             ShowItemComplexity = true;
             ShowItemMetadata = true;
-            ShowMethodParameters = true;
         }
 
         #endregion Constructors
@@ -72,6 +72,14 @@ namespace SteveCadwallader.CodeMaid.Options
         public int ComplexityAlertThreshold { get; set; }
 
         /// <summary>
+        /// Gets or sets the option to show method parameters.
+        /// </summary>
+        [Category("CodeMaid")]
+        [DisplayName(@"Show method parameters")]
+        [Description("An option to determine if method parameters should be shown.")]
+        public bool ShowMethodParameters { get; set; }
+
+        /// <summary>
         /// Gets or sets the option to show the item complexity.
         /// </summary>
         [Category("CodeMaid")]
@@ -86,14 +94,6 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Show item metadata")]
         [Description("An option to determine if the item metadata should be shown.")]
         public bool ShowItemMetadata { get; set; }
-
-        /// <summary>
-        /// Gets or sets the option to show method parameters.
-        /// </summary>
-        [Category("CodeMaid")]
-        [DisplayName(@"Show method parameters")]
-        [Description("An option to determine if method parameters should be shown.")]
-        public bool ShowMethodParameters { get; set; }
 
         #endregion Public Properties
 

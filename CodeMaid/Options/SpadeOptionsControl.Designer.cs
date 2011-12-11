@@ -62,17 +62,17 @@
             this.displayGroupBox.Location = new System.Drawing.Point(3, 56);
             this.displayGroupBox.Name = "displayGroupBox";
             this.displayGroupBox.Size = new System.Drawing.Size(344, 166);
-            this.displayGroupBox.TabIndex = 1;
+            this.displayGroupBox.TabIndex = 0;
             this.displayGroupBox.TabStop = false;
             this.displayGroupBox.Text = "Display";
             // 
             // showItemMetadataCheckBox
             // 
             this.showItemMetadataCheckBox.AutoSize = true;
-            this.showItemMetadataCheckBox.Location = new System.Drawing.Point(7, 20);
+            this.showItemMetadataCheckBox.Location = new System.Drawing.Point(7, 44);
             this.showItemMetadataCheckBox.Name = "showItemMetadataCheckBox";
             this.showItemMetadataCheckBox.Size = new System.Drawing.Size(122, 17);
-            this.showItemMetadataCheckBox.TabIndex = 0;
+            this.showItemMetadataCheckBox.TabIndex = 1;
             this.showItemMetadataCheckBox.Text = "Show item metadata";
             this.showItemMetadataCheckBox.UseVisualStyleBackColor = true;
             this.showItemMetadataCheckBox.CheckedChanged += new System.EventHandler(this.showItemMetadataCheckBox_CheckedChanged);
@@ -80,20 +80,20 @@
             // showItemMetadataExampleLabel
             // 
             this.showItemMetadataExampleLabel.AutoSize = true;
-            this.showItemMetadataExampleLabel.Location = new System.Drawing.Point(40, 40);
+            this.showItemMetadataExampleLabel.Location = new System.Drawing.Point(40, 64);
             this.showItemMetadataExampleLabel.Margin = new System.Windows.Forms.Padding(43, 0, 3, 0);
             this.showItemMetadataExampleLabel.Name = "showItemMetadataExampleLabel";
             this.showItemMetadataExampleLabel.Size = new System.Drawing.Size(111, 13);
-            this.showItemMetadataExampleLabel.TabIndex = 1;
+            this.showItemMetadataExampleLabel.TabIndex = 2;
             this.showItemMetadataExampleLabel.Text = "Example: \"s\" for static";
             // 
             // showItemComplexityCheckBox
             // 
             this.showItemComplexityCheckBox.AutoSize = true;
-            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 65);
+            this.showItemComplexityCheckBox.Location = new System.Drawing.Point(7, 89);
             this.showItemComplexityCheckBox.Name = "showItemComplexityCheckBox";
             this.showItemComplexityCheckBox.Size = new System.Drawing.Size(148, 17);
-            this.showItemComplexityCheckBox.TabIndex = 2;
+            this.showItemComplexityCheckBox.TabIndex = 3;
             this.showItemComplexityCheckBox.Text = "Show McCabe complexity";
             this.showItemComplexityCheckBox.UseVisualStyleBackColor = true;
             this.showItemComplexityCheckBox.CheckedChanged += new System.EventHandler(this.showItemComplexityCheckBox_CheckedChanged);
@@ -101,15 +101,15 @@
             // warningThresholdLabel
             // 
             this.warningThresholdLabel.AutoSize = true;
-            this.warningThresholdLabel.Location = new System.Drawing.Point(40, 85);
+            this.warningThresholdLabel.Location = new System.Drawing.Point(40, 109);
             this.warningThresholdLabel.Name = "warningThresholdLabel";
             this.warningThresholdLabel.Size = new System.Drawing.Size(93, 13);
-            this.warningThresholdLabel.TabIndex = 3;
+            this.warningThresholdLabel.TabIndex = 4;
             this.warningThresholdLabel.Text = "Warning threshold";
             // 
             // warningThresholdUpDown
             // 
-            this.warningThresholdUpDown.Location = new System.Drawing.Point(141, 83);
+            this.warningThresholdUpDown.Location = new System.Drawing.Point(141, 107);
             this.warningThresholdUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -117,7 +117,7 @@
             0});
             this.warningThresholdUpDown.Name = "warningThresholdUpDown";
             this.warningThresholdUpDown.Size = new System.Drawing.Size(50, 20);
-            this.warningThresholdUpDown.TabIndex = 4;
+            this.warningThresholdUpDown.TabIndex = 5;
             this.warningThresholdUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.warningThresholdUpDown.Value = new decimal(new int[] {
             10,
@@ -129,15 +129,15 @@
             // alertThresholdLabel
             // 
             this.alertThresholdLabel.AutoSize = true;
-            this.alertThresholdLabel.Location = new System.Drawing.Point(40, 111);
+            this.alertThresholdLabel.Location = new System.Drawing.Point(40, 135);
             this.alertThresholdLabel.Name = "alertThresholdLabel";
             this.alertThresholdLabel.Size = new System.Drawing.Size(74, 13);
-            this.alertThresholdLabel.TabIndex = 5;
+            this.alertThresholdLabel.TabIndex = 6;
             this.alertThresholdLabel.Text = "Alert threshold";
             // 
             // alertThresholdUpDown
             // 
-            this.alertThresholdUpDown.Location = new System.Drawing.Point(141, 109);
+            this.alertThresholdUpDown.Location = new System.Drawing.Point(141, 133);
             this.alertThresholdUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -145,7 +145,7 @@
             0});
             this.alertThresholdUpDown.Name = "alertThresholdUpDown";
             this.alertThresholdUpDown.Size = new System.Drawing.Size(50, 20);
-            this.alertThresholdUpDown.TabIndex = 6;
+            this.alertThresholdUpDown.TabIndex = 7;
             this.alertThresholdUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.alertThresholdUpDown.Value = new decimal(new int[] {
             15,
@@ -157,10 +157,10 @@
             // showMethodParametersCheckBox
             // 
             this.showMethodParametersCheckBox.AutoSize = true;
-            this.showMethodParametersCheckBox.Location = new System.Drawing.Point(7, 140);
+            this.showMethodParametersCheckBox.Location = new System.Drawing.Point(7, 20);
             this.showMethodParametersCheckBox.Name = "showMethodParametersCheckBox";
             this.showMethodParametersCheckBox.Size = new System.Drawing.Size(146, 17);
-            this.showMethodParametersCheckBox.TabIndex = 7;
+            this.showMethodParametersCheckBox.TabIndex = 0;
             this.showMethodParametersCheckBox.Text = "Show method parameters";
             this.showMethodParametersCheckBox.UseVisualStyleBackColor = true;
             this.showMethodParametersCheckBox.CheckedChanged += new System.EventHandler(this.showMethodParametersCheckBox_CheckedChanged);
