@@ -29,6 +29,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </remarks>
     internal class CodeCleanupHelper
     {
+        #region Fields
+
+        private UndoTransactionHelper _undoTransactionHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -65,13 +71,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Attempts to run code cleanup on the specified project item.
         /// </summary>
         /// <param name="projectItem">The project item for cleanup.</param>
-        /// <returns>True if cleanup successfully ran, false otherwise.</returns>
-        internal bool Cleanup(ProjectItem projectItem)
+        internal void Cleanup(ProjectItem projectItem)
         {
-            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(projectItem))
-            {
-                return false;
-            }
+            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(projectItem)) return;
 
             // Attempt to open the document if not already opened.
             bool wasOpen = projectItem.get_IsOpen(Constants.vsViewKindTextView);
@@ -89,18 +91,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (projectItem.Document != null)
             {
-                bool result = Cleanup(projectItem.Document, false);
+                Cleanup(projectItem.Document, false);
 
                 // Close the document if it was opened for cleanup.
                 if (Package.Options.CleanupGeneral.AutoCloseIfOpenedByCleanup && !wasOpen)
                 {
                     projectItem.Document.Close(vsSaveChanges.vsSaveChangesYes);
                 }
-
-                return result;
             }
-
-            return false;
         }
 
         /// <summary>
@@ -108,58 +106,32 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        /// <returns>True if cleanup successfully ran, false otherwise.</returns>
-        internal bool Cleanup(Document document, bool isAutoSave)
+        internal void Cleanup(Document document, bool isAutoSave)
         {
-            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(document))
-            {
-                return false;
-            }
+            if (!CodeCleanupAvailabilityHelper.ShouldCleanup(document)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
 
-            // Conditionally start an undo transaction (unless auto-saving, configuration option disabled or inside one already).
-            bool shouldCloseUndoContext = false;
-            if (!isAutoSave && Package.Options.CleanupGeneral.WrapCleanupInASingleUndoTransaction && !Package.IDE.UndoContext.IsOpen)
-            {
-                Package.IDE.UndoContext.Open("CodeMaid Cleanup", false);
-                shouldCloseUndoContext = true;
-            }
-
-            try
-            {
-                var cleanupMethod = FindCodeCleanupMethod(document);
-                if (cleanupMethod != null)
+            UndoTransactionHelper.Run(
+                () => !isAutoSave && Package.Options.CleanupGeneral.WrapCleanupInASingleUndoTransaction,
+                delegate
                 {
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
+                    var cleanupMethod = FindCodeCleanupMethod(document);
+                    if (cleanupMethod != null)
+                    {
+                        Package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
 
-                    // Perform the set of configured cleanups based on the language.
-                    cleanupMethod(document, isAutoSave);
+                        // Perform the set of configured cleanups based on the language.
+                        cleanupMethod(document, isAutoSave);
 
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped cleaning '{0}': {1}", document.Name, ex);
-                if (shouldCloseUndoContext)
+                        Package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
+                    }
+                },
+                delegate(Exception ex)
                 {
-                    Package.IDE.UndoContext.SetAborted();
-                    shouldCloseUndoContext = false;
-                }
-                return false;
-            }
-            finally
-            {
-                // Always close the undo transaction to prevent ongoing interference with the IDE.
-                if (shouldCloseUndoContext)
-                {
-                    Package.IDE.UndoContext.Close();
-                }
-            }
+                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped cleaning '{0}': {1}", document.Name, ex);
+                });
         }
 
         #endregion Internal Methods
@@ -954,6 +926,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets or sets the hosting package.
         /// </summary>
         private CodeMaidPackage Package { get; set; }
+
+        /// <summary>
+        /// Gets the lazy-initialized undo transaction helper.
+        /// </summary>
+        private UndoTransactionHelper UndoTransactionHelper
+        {
+            get { return _undoTransactionHelper ?? (_undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Cleanup")); }
+        }
 
         #endregion Private Properties
     }
