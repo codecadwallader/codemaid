@@ -120,8 +120,6 @@
     <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Commands\JoinLinesCommand.cs" />
     <Compile Include="Commands\SpadeConfigurationCommand.cs" />
-    <Compile Include="Commands\SpadeInteractionReorderCommand.cs" />
-    <Compile Include="Commands\SpadeInteractionSelectCommand.cs" />
     <Compile Include="Commands\SpadeLayoutAlphaCommand.cs" />
     <Compile Include="Commands\SpadeLayoutFileCommand.cs" />
     <Compile Include="Commands\SpadeLayoutTypeCommand.cs" />
@@ -250,7 +248,6 @@
     <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
-    <Compile Include="Spade\SpadeInteractionMode.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />
     <Compile Include="Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
@@ -396,9 +393,7 @@
     <Content Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />
-    <Content Include="Resources\cursor.bmp" />
     <Content Include="Resources\find.bmp" />
-    <Content Include="Resources\hand.bmp" />
     <Content Include="Resources\info.bmp" />
     <Content Include="Resources\join.bmp" />
     <Content Include="Resources\lock.bmp" />

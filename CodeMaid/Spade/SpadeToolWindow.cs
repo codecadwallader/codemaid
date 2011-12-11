@@ -72,15 +72,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the interaction mode.
-        /// </summary>
-        public SpadeInteractionMode InteractionMode
-        {
-            get { return _viewModel.InteractionMode; }
-            set { _viewModel.InteractionMode = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the layout mode.
         /// </summary>
         public TreeLayoutMode LayoutMode

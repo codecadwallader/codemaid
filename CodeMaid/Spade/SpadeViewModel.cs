@@ -29,7 +29,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         private readonly CodeTreeBuilderAsync _codeTreeBuilderAsync;
 
         private Document _document;
-        private SpadeInteractionMode _interactionMode;
         private bool _isLoading;
         private bool _isRefreshing;
         private TreeLayoutMode _layoutMode;
@@ -79,23 +78,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
-        /// Gets or sets the current interaction mode.
-        /// </summary>
-        public SpadeInteractionMode InteractionMode
-        {
-            get { return _interactionMode; }
-            set
-            {
-                if (_interactionMode != value)
-                {
-                    _interactionMode = value;
-
-                    NotifyPropertyChanged("InteractionMode");
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a flag indicating if code items are loading.
         /// </summary>
         public bool IsLoading
@@ -140,10 +122,6 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_layoutMode != value)
                 {
                     _layoutMode = value;
-                    if (_layoutMode != TreeLayoutMode.FileLayout)
-                    {
-                        InteractionMode = SpadeInteractionMode.Select;
-                    }
 
                     RequestUpdatedOrganizedCodeItems();
                     NotifyPropertyChanged("LayoutMode");

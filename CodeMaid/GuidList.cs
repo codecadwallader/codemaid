@@ -35,7 +35,6 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidToolbarSpadeBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
         public static readonly Guid GuidCodeMaidToolbarSpadeRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
         public static readonly Guid GuidCodeMaidToolbarSpadeLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
-        public static readonly Guid GuidCodeMaidToolbarSpadeInteractionGroup = new Guid("af1b903c-c03d-4002-95e4-c1533dce1a62");
         public static readonly Guid GuidCodeMaidToolbarSpadeMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Miscellaneous context menu group guids.
@@ -70,8 +69,6 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
         public static readonly Guid GuidCodeMaidCommandReorganizeActiveCode = new Guid("60bd7c93-ff19-4351-8d2f-8761bdfc6a2a");
         public static readonly Guid GuidCodeMaidCommandSpadeConfiguration = new Guid("d068f0d3-267c-45b5-a02f-14f3422b8540");
-        public static readonly Guid GuidCodeMaidCommandSpadeInteractionReorder = new Guid("c2da2b86-a279-4af7-96cf-2b500cb7c6ab");
-        public static readonly Guid GuidCodeMaidCommandSpadeInteractionSelect = new Guid("35ec90d0-6ee0-4f30-83fe-739bc68fc4db");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");

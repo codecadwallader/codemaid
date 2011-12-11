@@ -298,8 +298,6 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SpadeConfigurationCommand(this));
-                _commands.Add(new SpadeInteractionReorderCommand(this));
-                _commands.Add(new SpadeInteractionSelectCommand(this));
                 _commands.Add(new SpadeLayoutAlphaCommand(this));
                 _commands.Add(new SpadeLayoutFileCommand(this));
                 _commands.Add(new SpadeLayoutTypeCommand(this));
