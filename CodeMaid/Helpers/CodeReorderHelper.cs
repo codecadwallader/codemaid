@@ -24,6 +24,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeReorderHelper
     {
+        #region Fields
+
+        private UndoTransactionHelper _undoTransactionHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -58,6 +64,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets or sets the hosting package.
         /// </summary>
         private CodeMaidPackage Package { get; set; }
+
+        /// <summary>
+        /// Gets the lazy-initialized undo transaction helper.
+        /// </summary>
+        private UndoTransactionHelper UndoTransactionHelper
+        {
+            get { return _undoTransactionHelper ?? (_undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Reorganize")); }
+        }
 
         #endregion Private Properties
 
@@ -123,9 +137,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!CanReorganize(document)) return;
 
-            var undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Reorganize");
-
-            undoTransactionHelper.Run(
+            UndoTransactionHelper.Run(
                 delegate
                 {
                     Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
