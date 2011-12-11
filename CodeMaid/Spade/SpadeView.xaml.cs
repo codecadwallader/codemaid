@@ -137,7 +137,11 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItem = treeViewItem.DataContext as BaseCodeItemElement;
             if (codeItem == null) return;
 
+            treeViewItem.Opacity = 0.5;
+
             DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
+
+            treeViewItem.Opacity = 1;
         }
 
         /// <summary>
@@ -161,7 +165,18 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
             if (codeItemToMove == null) return;
 
-            CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+            var dropPoint = e.GetPosition(treeViewItem);
+            bool dropAbove = dropPoint.Y <= treeViewItem.ActualHeight / 2;
+
+            if (dropAbove)
+            {
+                CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+            }
+            else
+            {
+                CodeReorderHelper.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+            }
+
             Refresh();
         }
 
