@@ -205,6 +205,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             pastePoint.Paste();
             pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.EndOfLine();
             baseStartPoint.SmartFormat(pastePoint);
         }
 
