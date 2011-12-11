@@ -27,8 +27,6 @@ namespace SteveCadwallader.CodeMaid.Spade
     {
         #region Fields
 
-        private const string DragSource = "DragSource";
-
         private CodeReorderHelper _codeReorderHelper;
         private Point? _startPoint;
 
@@ -139,10 +137,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
             treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
 
-            var dataObject = new DataObject(typeof(BaseCodeItemElement), codeItem);
-            dataObject.SetData(DragSource, treeViewItem);
-
-            DragDrop.DoDragDrop(treeViewItem, dataObject, DragDropEffects.Move);
+            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
 
             treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
             _startPoint = null;
@@ -177,21 +172,24 @@ namespace SteveCadwallader.CodeMaid.Spade
             var targetTreeViewItem = FindParentTreeViewItem(sender);
 
             if (targetTreeViewItem != null &&
-                targetTreeViewItem != e.Data.GetData(DragSource) &&
-                targetTreeViewItem.DataContext is BaseCodeItemElement &&
                 e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
             {
-                bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
+                var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItemElement;
+                var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
 
-                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, isDropOnTopHalfOfTarget);
-                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
+                if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !codeItemToMove.IsAncestorOf(baseCodeItem))
+                {
+                    bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
+
+                    targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, isDropOnTopHalfOfTarget);
+                    targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
+                    return;
+                }
             }
-            else
-            {
-                // Not a valid drop target.
-                e.Effects = DragDropEffects.None;
-                e.Handled = true;
-            }
+
+            // Not a valid drop target.
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
         }
 
         /// <summary>

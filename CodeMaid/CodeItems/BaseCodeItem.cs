@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
 using System.Diagnostics;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -62,5 +63,19 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public SetCodeItems Children { get; private set; }
 
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if this item is an ancestor of the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>True if an ancestor of the specified item, otherwise false.</returns>
+        public bool IsAncestorOf(BaseCodeItem item)
+        {
+            return Children.Contains(item) || Children.Any(x => x.IsAncestorOf(item));
+        }
+
+        #endregion Methods
     }
 }
