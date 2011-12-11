@@ -62,7 +62,6 @@
                 <Setter Property="BorderBrush" Value="{StaticResource FTreeViewItemParent}" />
                 <Setter Property="BorderThickness" Value="0,1" />
                 <Setter Property="IsExpanded" Value="True" />
-                <Setter Property="Margin" Value="0,0,0,2" />
                 <Setter Property="Padding" Value="4,2,10,2" />
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
@@ -84,8 +83,8 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2" AllowDrop="True"
-                                            Background="{TemplateBinding Background}" Cursor="Hand"
-                                            Padding="{TemplateBinding Padding}"
+                                            Background="{TemplateBinding Background}" BorderBrush="White"
+                                            BorderThickness="0,0,0,2" Cursor="Hand" Padding="{TemplateBinding Padding}"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
                                             DragOver="OnTreeViewItemHeaderDragEvent"
                                             DragLeave="OnTreeViewItemHeaderDragLeave" Drop="OnTreeViewItemHeaderDrop"
@@ -105,12 +104,12 @@
                                                     ContentSource="Header" />
 
                                             <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
-                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1"
+                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1" Margin="0,-3,0,0"
                                                     VerticalAlignment="Top"
                                                     Visibility="{Binding Path=(local:SpadeView.ShowDropAboveTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
                                             <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
-                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1"
+                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1" Margin="0,0,0,-4"
                                                     VerticalAlignment="Bottom"
                                                     Visibility="{Binding Path=(local:SpadeView.ShowDropBelowTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
                                         </Grid>
