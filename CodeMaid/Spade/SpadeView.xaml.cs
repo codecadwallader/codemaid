@@ -139,32 +139,12 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
-        /// Called when the header of a TreeViewItem receives a drag enter event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
-        private void OnTreeViewItemHeaderDragEnter(object sender, DragEventArgs e)
-        {
-            HandleHeaderDragEvent(sender, e);
-        }
-
-        /// <summary>
-        /// Called when the header of a TreeViewItem receives a drag over event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
-        private void OnTreeViewItemHeaderDragOver(object sender, DragEventArgs e)
-        {
-            HandleHeaderDragEvent(sender, e);
-        }
-
-        /// <summary>
         /// Handles the drag events for a TreeViewItem header.
         /// Used to conditionally determine if a drop operation is allowed or not.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
-        private static void HandleHeaderDragEvent(object sender, DragEventArgs e)
+        private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
             bool isValidDrop = false;
 
