@@ -33,7 +33,6 @@ namespace SteveCadwallader.CodeMaid.Events
             // Store access to the window events, otherwise events will not register properly via DTE.
             WindowEvents = Package.IDE.Events.get_WindowEvents(null);
             WindowEvents.WindowActivated += WindowEvents_WindowActivated;
-            WindowEvents.WindowClosing += WindowEvents_WindowClosing;
         }
 
         #endregion Constructors
@@ -75,15 +74,6 @@ namespace SteveCadwallader.CodeMaid.Events
             }
         }
 
-        /// <summary>
-        /// An event handler for a window closing.
-        /// </summary>
-        /// <param name="window">The window being closed.</param>
-        private void WindowEvents_WindowClosing(Window window)
-        {
-            RaiseWindowChange(null);
-        }
-
         #endregion Private Event Handlers
 
         #region Private Methods
@@ -117,7 +107,6 @@ namespace SteveCadwallader.CodeMaid.Events
                 if (disposing && WindowEvents != null)
                 {
                     WindowEvents.WindowActivated -= WindowEvents_WindowActivated;
-                    WindowEvents.WindowClosing -= WindowEvents_WindowClosing;
                 }
             }
         }
