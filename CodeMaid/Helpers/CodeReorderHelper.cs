@@ -123,47 +123,30 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!CanReorganize(document)) return;
 
-            // Start an undo transaction (unless inside one already).
-            bool shouldCloseUndoContext = false;
-            if (!Package.IDE.UndoContext.IsOpen)
-            {
-                Package.IDE.UndoContext.Open("CodeMaid Reorganize", false);
-                shouldCloseUndoContext = true;
-            }
+            var undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Reorganize");
 
-            try
-            {
-                Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
-
-                // Retrieve all relevant code items.
-                var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
-                codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
-
-                // Build the code tree based on the current file layout.
-                var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
-
-                // Recursively reorganize the code tree.
-                RecursivelyReorganize(codeTree);
-
-                Package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
-            }
-            catch (Exception ex)
-            {
-                Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex);
-                if (shouldCloseUndoContext)
+            undoTransactionHelper.Run(
+                delegate
                 {
-                    Package.IDE.UndoContext.SetAborted();
-                    shouldCloseUndoContext = false;
-                }
-            }
-            finally
-            {
-                // Always close the undo transaction to prevent ongoing interference with the IDE.
-                if (shouldCloseUndoContext)
+                    Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
+
+                    // Retrieve all relevant code items.
+                    var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+                    codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
+
+                    // Build the code tree based on the current file layout.
+                    var codeTree =
+                        CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
+
+                    // Recursively reorganize the code tree.
+                    RecursivelyReorganize(codeTree);
+
+                    Package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
+                },
+                delegate(Exception ex)
                 {
-                    Package.IDE.UndoContext.Close();
-                }
-            }
+                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex);
+                });
         }
 
         #endregion Internal Methods

@@ -50,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="tryAction">The action to be performed within a try block.</param>
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
-        public void Go(Action tryAction, Action<Exception> catchAction)
+        public void Run(Action tryAction, Action<Exception> catchAction)
         {
             // Start an undo transaction (unless inside one already).
             bool shouldCloseUndoContext = false;
