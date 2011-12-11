@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Spade.Converters
 {
@@ -87,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                         textBlock.Inlines.Add(CreateRun(", "));
                     }
 
-                    textBlock.Inlines.Add(CreateTypeRun(methodParameter.Type.AsString + " "));
+                    textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
                     textBlock.Inlines.Add(CreateRun(methodParameter.Name));
                 }
 

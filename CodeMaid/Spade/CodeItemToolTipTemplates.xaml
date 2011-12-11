@@ -62,7 +62,8 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="separator" Text=", " Style="{StaticResource parameterToolTipStyle}" />
 
-                            <TextBlock Text="{Binding Type.AsString, StringFormat='{}{0} '}"
+                            <TextBlock
+                                    Text="{Binding Type.AsString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
                                     Style="{StaticResource parameterToolTipTypeStyle}" />
 
                             <TextBlock Text="{Binding Name}" Style="{StaticResource parameterToolTipStyle}" />
@@ -149,7 +150,8 @@
     <DataTemplate x:Key="defaultToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItemElement}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
                         Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
@@ -191,7 +193,8 @@
     <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
                         Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
@@ -209,7 +212,8 @@
     <DataTemplate x:Key="propertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding TypeString, StringFormat='{}{0} '}"
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
                         Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
