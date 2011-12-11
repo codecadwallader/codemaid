@@ -88,10 +88,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = e.Source as DependencyObject;
-            if (source == null) return;
-
-            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;
 
             switch (e.ChangedButton)
@@ -128,10 +125,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
 
-            var source = sender as DependencyObject;
-            if (source == null) return;
-
-            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            var treeViewItem = FindParentTreeViewItem(sender);
             if (treeViewItem == null) return;
 
             var codeItem = treeViewItem.DataContext as BaseCodeItemElement;
@@ -145,6 +139,53 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
+        /// Called when the header of a TreeViewItem receives a drag enter event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderDragEnter(object sender, DragEventArgs e)
+        {
+            HandleHeaderDragEvent(sender, e);
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a drag over event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderDragOver(object sender, DragEventArgs e)
+        {
+            HandleHeaderDragEvent(sender, e);
+        }
+
+        /// <summary>
+        /// Handles the drag events for a TreeViewItem header.
+        /// Used to conditionally determine if a drop operation is allowed or not.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private static void HandleHeaderDragEvent(object sender, DragEventArgs e)
+        {
+            bool isValidDrop = false;
+
+            if (e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
+            {
+                var treeViewItem = FindParentTreeViewItem(sender);
+                if (treeViewItem != null && e.Source != treeViewItem &&
+                    treeViewItem.DataContext is BaseCodeItemElement)
+                {
+                    isValidDrop = true;
+                }
+            }
+
+            if (!isValidDrop)
+            {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
         /// Called when the header of a TreeViewItem receives a drop event.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -153,10 +194,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             if (!e.Data.GetDataPresent(typeof(BaseCodeItemElement))) return;
 
-            var source = sender as DependencyObject;
-            if (source == null) return;
-
-            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            var treeViewItem = FindParentTreeViewItem(sender);
             if (treeViewItem == null || e.Source == treeViewItem) return;
 
             var baseCodeItem = treeViewItem.DataContext as BaseCodeItemElement;
@@ -183,6 +221,21 @@ namespace SteveCadwallader.CodeMaid.Spade
         #endregion Event Handlers
 
         #region Methods
+
+        /// <summary>
+        /// Attempts to find the parent TreeViewItem from the specified event source.
+        /// </summary>
+        /// <param name="eventSource">The event source.</param>
+        /// <returns>The parent TreeViewItem, otherwise null.</returns>
+        private static TreeViewItem FindParentTreeViewItem(object eventSource)
+        {
+            var source = eventSource as DependencyObject;
+            if (source == null) return null;
+
+            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+
+            return treeViewItem;
+        }
 
         /// <summary>
         /// Jumps to the specified code item.

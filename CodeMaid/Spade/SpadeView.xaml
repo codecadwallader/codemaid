@@ -84,7 +84,9 @@
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2" AllowDrop="True"
                                             Background="{TemplateBinding Background}" Cursor="Hand"
-                                            Padding="{TemplateBinding Padding}" Drop="OnTreeViewItemHeaderDrop"
+                                            Padding="{TemplateBinding Padding}"
+                                            DragEnter="OnTreeViewItemHeaderDragEnter"
+                                            DragOver="OnTreeViewItemHeaderDragOver" Drop="OnTreeViewItemHeaderDrop"
                                             Mouse.MouseDown="OnTreeViewItemHeaderMouseDown"
                                             Mouse.MouseMove="OnTreeViewItemHeaderMouseMove">
                                         <Grid>
