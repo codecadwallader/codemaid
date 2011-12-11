@@ -76,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                     case KindCodeItem.Event:
                     case KindCodeItem.Field:
                     case KindCodeItem.Interface:
+                    case KindCodeItem.Region:
                     case KindCodeItem.Struct:
                         return DefaultDataTemplate;
 
