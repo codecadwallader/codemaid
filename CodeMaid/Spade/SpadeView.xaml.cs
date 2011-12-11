@@ -27,6 +27,8 @@ namespace SteveCadwallader.CodeMaid.Spade
     {
         #region Fields
 
+        private const string DragSource = "DragSource";
+
         private Point _startPoint;
 
         #endregion Fields
@@ -56,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         /// <param name="target">The target.</param>
         /// <returns>The value.</returns>
-        public static bool GetShowDropAboveTarget(TreeViewItem target)
+        public static bool GetShowDropAboveTarget(UIElement target)
         {
             return (bool)target.GetValue(ShowDropAboveTargetProperty);
         }
@@ -66,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="value">The value.</param>
-        public static void SetShowDropAboveTarget(TreeViewItem target, bool value)
+        public static void SetShowDropAboveTarget(UIElement target, bool value)
         {
             target.SetValue(ShowDropAboveTargetProperty, value);
         }
@@ -86,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         /// <param name="target">The target.</param>
         /// <returns>The value.</returns>
-        public static bool GetShowDropBelowTarget(TreeViewItem target)
+        public static bool GetShowDropBelowTarget(UIElement target)
         {
             return (bool)target.GetValue(ShowDropBelowTargetProperty);
         }
@@ -96,7 +98,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="value">The value.</param>
-        public static void SetShowDropBelowTarget(TreeViewItem target, bool value)
+        public static void SetShowDropBelowTarget(UIElement target, bool value)
         {
             target.SetValue(ShowDropBelowTargetProperty, value);
         }
@@ -185,7 +187,10 @@ namespace SteveCadwallader.CodeMaid.Spade
 
             treeViewItem.Opacity = 0.5;
 
-            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
+            var dataObject = new DataObject(typeof(BaseCodeItemElement), codeItem);
+            dataObject.SetData(DragSource, treeViewItem);
+
+            DragDrop.DoDragDrop(treeViewItem, dataObject, DragDropEffects.Move);
 
             treeViewItem.Opacity = 1;
         }
@@ -214,30 +219,24 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
+            var targetTreeViewItem = FindParentTreeViewItem(sender);
+
+            if (targetTreeViewItem != null &&
+                targetTreeViewItem != e.Data.GetData(DragSource) &&
+                targetTreeViewItem.DataContext is BaseCodeItemElement &&
+                e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
             {
-                var treeViewItem = FindParentTreeViewItem(sender);
-                if (treeViewItem != null && e.Source != treeViewItem &&
-                    treeViewItem.DataContext is BaseCodeItemElement)
-                {
-                    if (IsDropOnTopHalfOfTarget(e, treeViewItem))
-                    {
-                        treeViewItem.SetValue(ShowDropAboveTargetProperty, true);
-                        treeViewItem.SetValue(ShowDropBelowTargetProperty, false);
-                    }
-                    else
-                    {
-                        treeViewItem.SetValue(ShowDropAboveTargetProperty, false);
-                        treeViewItem.SetValue(ShowDropBelowTargetProperty, true);
-                    }
+                bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
 
-                    return;
-                }
+                targetTreeViewItem.SetValue(ShowDropAboveTargetProperty, isDropOnTopHalfOfTarget);
+                targetTreeViewItem.SetValue(ShowDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
             }
-
-            // Not a valid drop target.
-            e.Effects = DragDropEffects.None;
-            e.Handled = true;
+            else
+            {
+                // Not a valid drop target.
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -248,11 +247,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDragLeave(object sender, DragEventArgs e)
         {
-            var treeViewItem = FindParentTreeViewItem(sender);
-            if (treeViewItem != null)
+            var targetTreeViewItem = FindParentTreeViewItem(sender);
+            if (targetTreeViewItem != null)
             {
-                treeViewItem.SetValue(ShowDropAboveTargetProperty, false);
-                treeViewItem.SetValue(ShowDropBelowTargetProperty, false);
+                targetTreeViewItem.SetValue(ShowDropAboveTargetProperty, false);
+                targetTreeViewItem.SetValue(ShowDropBelowTargetProperty, false);
             }
         }
 
