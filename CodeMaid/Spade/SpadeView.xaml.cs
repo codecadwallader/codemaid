@@ -28,6 +28,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Fields
 
         private CodeReorderHelper _codeReorderHelper;
+        private TreeViewItem _dragCandidate;
         private Point? _startPoint;
 
         #endregion Fields
@@ -105,6 +106,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 case MouseButton.Left:
                     if (treeViewItem.DataContext is BaseCodeItemElement)
                     {
+                        _dragCandidate = treeViewItem;
                         _startPoint = e.GetPosition(null);
                     }
                     break;
@@ -123,23 +125,22 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_startPoint.HasValue) return;
+            if (_dragCandidate == null || !_startPoint.HasValue) return;
 
             var delta = _startPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
 
-            var treeViewItem = FindParentTreeViewItem(sender);
-            if (treeViewItem == null) return;
-
-            var codeItem = treeViewItem.DataContext as BaseCodeItemElement;
+            var codeItem = _dragCandidate.DataContext as BaseCodeItemElement;
             if (codeItem == null) return;
 
-            treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
 
-            DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
 
-            treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+
+            _dragCandidate = null;
             _startPoint = null;
         }
 
@@ -151,6 +152,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
+            _dragCandidate = null;
             _startPoint = null;
 
             if (e.ChangedButton != MouseButton.Left) return;
