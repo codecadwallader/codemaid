@@ -162,6 +162,7 @@
     <Compile Include="Helpers\CursorPositionRestorer.cs" />
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
+    <Compile Include="Helpers\UndoTransactionHelper.cs" />
     <Compile Include="Options\BuildProgressOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
