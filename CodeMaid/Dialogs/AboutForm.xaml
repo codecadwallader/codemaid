@@ -5,49 +5,56 @@
         <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Resources/about.png" />
     </UserControl.Background>
     <UserControl.Resources>
-        <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="Transparent">
-                            <Rectangle x:Name="Rectangle" Margin="-2" Stroke="#464646" StrokeThickness="2" RadiusX="4"
-                                    RadiusY="4" Visibility="Collapsed">
-                                <Rectangle.Effect>
-                                    <BlurEffect />
-                                </Rectangle.Effect>
-                            </Rectangle>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand" />
-                                <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidColorResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <Style x:Key="underlineLinkButton" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="Transparent">
-                            <Rectangle x:Name="Rectangle" Height="2" Margin="0,0,0,-5" Stroke="#464646"
-                                    StrokeThickness="2" VerticalAlignment="Bottom" Visibility="Collapsed" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand" />
-                                <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="Transparent">
+                                <Rectangle x:Name="Rectangle" Margin="-2" Stroke="{StaticResource FCodeMaidGray}"
+                                        StrokeThickness="2" RadiusX="4" RadiusY="4" Visibility="Collapsed">
+                                    <Rectangle.Effect>
+                                        <BlurEffect />
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="underlineLinkButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="Transparent">
+                                <Rectangle x:Name="Rectangle" Height="2" Margin="0,0,0,-5"
+                                        Stroke="{StaticResource FCodeMaidGray}" StrokeThickness="2"
+                                        VerticalAlignment="Bottom" Visibility="Collapsed" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Canvas>

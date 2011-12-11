@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidColorResources.xaml" />
                 <ResourceDictionary Source="CodeItemTemplates.xaml" />
                 <ResourceDictionary Source="CodeItemToolTipTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -102,14 +103,18 @@
 
                                             <ContentPresenter x:Name="PART_Header" Grid.Column="1"
                                                     ContentSource="Header" />
+
+                                            <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
+                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1"
+                                                    VerticalAlignment="Top"
+                                                    Visibility="{Binding Path=(local:SpadeView.ShowDropAboveTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+                                            <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
+                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1"
+                                                    VerticalAlignment="Bottom"
+                                                    Visibility="{Binding Path=(local:SpadeView.ShowDropBelowTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
                                         </Grid>
                                     </Border>
-
-                                    <Rectangle Grid.ColumnSpan="2" Fill="Orange" Height="1" VerticalAlignment="Top"
-                                            Visibility="{Binding Path=(local:SpadeView.ShowDropAboveTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
-
-                                    <Rectangle Grid.ColumnSpan="2" Fill="Orange" Height="1" VerticalAlignment="Bottom"
-                                            Visibility="{Binding Path=(local:SpadeView.ShowDropBelowTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
                                     <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0" />
                                 </Grid>
@@ -159,11 +164,12 @@
         <ContentControl Content="{Binding}" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <Border x:Name="outerBorder" Background="White" BorderBrush="#FF057463" BorderThickness="0,1"
-                            Margin="1,0" Padding="0,5" Visibility="Collapsed">
+                    <Border x:Name="outerBorder" Background="White" BorderBrush="{StaticResource FCodeMaidGreen}"
+                            BorderThickness="0,1" Margin="1,0" Padding="0,5" Visibility="Collapsed">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic" Foreground="#464646" />
-                            <TextBlock FontSize="14" FontWeight="Bold" Foreground="#FF057463"
+                            <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic"
+                                    Foreground="{StaticResource FCodeMaidGray}" />
+                            <TextBlock FontSize="14" FontWeight="Bold" Foreground="{StaticResource FCodeMaidGreen}"
                                     Text="{Binding Document.Name}" />
                         </StackPanel>
                     </Border>

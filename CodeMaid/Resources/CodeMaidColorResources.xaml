@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="FCodeMaidGreen" Color="#FF057463" />
+    <SolidColorBrush x:Key="FCodeMaidGray" Color="#FF464646" />
+</ResourceDictionary>
