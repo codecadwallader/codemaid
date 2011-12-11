@@ -45,8 +45,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Methods
 
         /// <summary>
-        /// Runs the specified try action within a try block, and conditionally the catch action within a catch block
-        /// all conditionally within the context of an undo transaction.
+        /// Runs the specified try action within a try block.
+        /// </summary>
+        /// <param name="tryAction">The action to be performed within a try block.</param>
+        public void Run(Action tryAction)
+        {
+            Run(() => true, tryAction, ex => { });
+        }
+
+        /// <summary>
+        /// Runs the specified try action within a try block, and conditionally the catch action within a catch block.
         /// </summary>
         /// <param name="tryAction">The action to be performed within a try block.</param>
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>

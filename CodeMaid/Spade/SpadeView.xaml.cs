@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private const string DragSource = "DragSource";
 
+        private CodeReorderHelper _codeReorderHelper;
         private Point? _startPoint;
 
         #endregion Fields
@@ -46,6 +47,14 @@ namespace SteveCadwallader.CodeMaid.Spade
         #endregion Constructors
 
         #region Properties
+
+        /// <summary>
+        /// Gets the lazy-initialized code reorder helper.
+        /// </summary>
+        private CodeReorderHelper CodeReorderHelper
+        {
+            get { return _codeReorderHelper ?? (_codeReorderHelper = CodeReorderHelper.GetInstance(ViewModel.Package)); }
+        }
 
         /// <summary>
         /// Gets the view model.

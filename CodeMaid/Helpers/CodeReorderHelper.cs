@@ -78,23 +78,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
-        /// Moves the specified item above the specified base.
+        /// Moves the specified item above the specified base within an undo transaction.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal static void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        internal void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
-            if (itemToMove == baseItem) return;
-
-            CutItemToMoveOntoClipboard(itemToMove);
-
-            FactoryCodeItems.RefreshCodeItemElement(baseItem);
-            var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
-            var pastePoint = baseStartPoint.CreateEditPoint();
-
-            pastePoint.Paste();
-            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
-            baseStartPoint.SmartFormat(pastePoint);
+            UndoTransactionHelper.Run(() => RepositionItemAboveBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -102,19 +92,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal static void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        internal void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
-            if (itemToMove == baseItem) return;
-
-            CutItemToMoveOntoClipboard(itemToMove);
-
-            FactoryCodeItems.RefreshCodeItemElement(baseItem);
-            var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
-            var pastePoint = baseEndPoint.CreateEditPoint();
-
-            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
-            pastePoint.Paste();
-            baseEndPoint.SmartFormat(pastePoint);
+            UndoTransactionHelper.Run(() => RepositionItemBelowBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -196,16 +176,56 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 if (baseItem == null)
                 {
                     // The first desired item should be placed above the first actual item.
-                    MoveItemAboveBase(itemToMove, codeItemElements.First());
+                    RepositionItemAboveBase(itemToMove, codeItemElements.First());
                     baseItem = itemToMove;
                 }
                 else
                 {
                     // All other items should be placed after the last placed item in the desired order.
-                    MoveItemBelowBase(itemToMove, baseItem);
+                    RepositionItemBelowBase(itemToMove, baseItem);
                     baseItem = itemToMove;
                 }
             }
+        }
+
+        /// <summary>
+        /// Repositions the specified item above the specified base.
+        /// </summary>
+        /// <param name="itemToMove">The item to move.</param>
+        /// <param name="baseItem">The base item.</param>
+        private static void RepositionItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        {
+            if (itemToMove == baseItem) return;
+
+            CutItemToMoveOntoClipboard(itemToMove);
+
+            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
+            var pastePoint = baseStartPoint.CreateEditPoint();
+
+            pastePoint.Paste();
+            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            baseStartPoint.SmartFormat(pastePoint);
+        }
+
+        /// <summary>
+        /// Repositions the specified item below the specified base.
+        /// </summary>
+        /// <param name="itemToMove">The item to move.</param>
+        /// <param name="baseItem">The base item.</param>
+        private static void RepositionItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        {
+            if (itemToMove == baseItem) return;
+
+            CutItemToMoveOntoClipboard(itemToMove);
+
+            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
+            var pastePoint = baseEndPoint.CreateEditPoint();
+
+            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.Paste();
+            baseEndPoint.SmartFormat(pastePoint);
         }
 
         #endregion Private Methods
