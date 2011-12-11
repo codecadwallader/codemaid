@@ -104,15 +104,9 @@
                                             <ContentPresenter x:Name="PART_Header" Grid.Column="1"
                                                     ContentSource="Header" />
 
-                                            <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
-                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1" Margin="0,-3,0,0"
-                                                    VerticalAlignment="Top"
-                                                    Visibility="{Binding Path=(local:SpadeView.ShowDropAboveTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
-
-                                            <Rectangle Grid.ColumnSpan="2" SnapsToDevicePixels="True"
-                                                    Fill="{StaticResource FCodeMaidGreen}" Height="1" Margin="0,0,0,-4"
-                                                    VerticalAlignment="Bottom"
-                                                    Visibility="{Binding Path=(local:SpadeView.ShowDropBelowTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+                                            <Rectangle x:Name="dropTargetCue" Grid.ColumnSpan="2"
+                                                    SnapsToDevicePixels="True" Fill="{StaticResource FCodeMaidGreen}"
+                                                    Height="1" Visibility="Collapsed" />
                                         </Grid>
                                     </Border>
 
@@ -136,6 +130,19 @@
                                 <Trigger SourceName="headerBorder" Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
                                     <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                                <Trigger Property="local:DragDropAttachedProperties.IsBeingDragged" Value="True">
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </Trigger>
+                                <Trigger Property="local:DragDropAttachedProperties.IsDropAboveTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Top" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-3,0,0" />
+                                </Trigger>
+                                <Trigger Property="local:DragDropAttachedProperties.IsDropBelowTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Bottom" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,0,0,-4" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

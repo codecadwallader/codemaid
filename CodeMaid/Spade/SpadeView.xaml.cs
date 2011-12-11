@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private const string DragSource = "DragSource";
 
-        private Point _startPoint;
+        private Point? _startPoint;
 
         #endregion Fields
 
@@ -44,66 +44,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         #endregion Constructors
-
-        #region ShowDropAboveTarget (Attached Property)
-
-        /// <summary>
-        /// The dependency property definition for the ShowDropAboveTarget attached property.
-        /// </summary>
-        public static DependencyProperty ShowDropAboveTargetProperty = DependencyProperty.RegisterAttached(
-            "ShowDropAboveTarget", typeof(bool), typeof(SpadeView));
-
-        /// <summary>
-        /// Gets the ShowDropAboveTarget value from the specified target.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>The value.</returns>
-        public static bool GetShowDropAboveTarget(UIElement target)
-        {
-            return (bool)target.GetValue(ShowDropAboveTargetProperty);
-        }
-
-        /// <summary>
-        /// Sets the ShowDropAboveTarget value on the specified target.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="value">The value.</param>
-        public static void SetShowDropAboveTarget(UIElement target, bool value)
-        {
-            target.SetValue(ShowDropAboveTargetProperty, value);
-        }
-
-        #endregion ShowDropAboveTarget (Attached Property)
-
-        #region ShowDropBelowTarget (Attached Property)
-
-        /// <summary>
-        /// The dependency property definition for the ShowDropBelowTarget attached property.
-        /// </summary>
-        public static DependencyProperty ShowDropBelowTargetProperty = DependencyProperty.RegisterAttached(
-            "ShowDropBelowTarget", typeof(bool), typeof(SpadeView));
-
-        /// <summary>
-        /// Gets the ShowDropBelowTarget value from the specified target.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>The value.</returns>
-        public static bool GetShowDropBelowTarget(UIElement target)
-        {
-            return (bool)target.GetValue(ShowDropBelowTargetProperty);
-        }
-
-        /// <summary>
-        /// Sets the ShowDropBelowTarget value on the specified target.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="value">The value.</param>
-        public static void SetShowDropBelowTarget(UIElement target, bool value)
-        {
-            target.SetValue(ShowDropBelowTargetProperty, value);
-        }
-
-        #endregion ShowDropBelowTarget (Attached Property)
 
         #region Properties
 
@@ -156,7 +96,10 @@ namespace SteveCadwallader.CodeMaid.Spade
             switch (e.ChangedButton)
             {
                 case MouseButton.Left:
-                    _startPoint = e.GetPosition(null);
+                    if (treeViewItem.DataContext is BaseCodeItemElement)
+                    {
+                        _startPoint = e.GetPosition(null);
+                    }
                     break;
 
                 case MouseButton.Middle:
@@ -173,9 +116,9 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton != MouseButtonState.Pressed) return;
+            if (!_startPoint.HasValue) return;
 
-            var delta = _startPoint - e.GetPosition(null);
+            var delta = _startPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
 
@@ -185,14 +128,15 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItem = treeViewItem.DataContext as BaseCodeItemElement;
             if (codeItem == null) return;
 
-            treeViewItem.Opacity = 0.5;
+            treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
 
             var dataObject = new DataObject(typeof(BaseCodeItemElement), codeItem);
             dataObject.SetData(DragSource, treeViewItem);
 
             DragDrop.DoDragDrop(treeViewItem, dataObject, DragDropEffects.Move);
 
-            treeViewItem.Opacity = 1;
+            treeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            _startPoint = null;
         }
 
         /// <summary>
@@ -203,6 +147,8 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
+            _startPoint = null;
+
             if (e.ChangedButton != MouseButton.Left) return;
 
             var treeViewItem = FindParentTreeViewItem(e.Source);
@@ -228,8 +174,8 @@ namespace SteveCadwallader.CodeMaid.Spade
             {
                 bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
 
-                targetTreeViewItem.SetValue(ShowDropAboveTargetProperty, isDropOnTopHalfOfTarget);
-                targetTreeViewItem.SetValue(ShowDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
+                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, isDropOnTopHalfOfTarget);
+                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
             }
             else
             {
@@ -250,8 +196,8 @@ namespace SteveCadwallader.CodeMaid.Spade
             var targetTreeViewItem = FindParentTreeViewItem(sender);
             if (targetTreeViewItem != null)
             {
-                targetTreeViewItem.SetValue(ShowDropAboveTargetProperty, false);
-                targetTreeViewItem.SetValue(ShowDropBelowTargetProperty, false);
+                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
+                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
             }
         }
 

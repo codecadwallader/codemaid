@@ -247,6 +247,7 @@
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
     <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
+    <Compile Include="Spade\DragDropAttachedProperties.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />
     <Compile Include="Spade\SpadeView.xaml.cs">
