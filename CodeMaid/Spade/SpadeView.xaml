@@ -89,7 +89,8 @@
                                             DragOver="OnTreeViewItemHeaderDragEvent"
                                             DragLeave="OnTreeViewItemHeaderDragLeave" Drop="OnTreeViewItemHeaderDrop"
                                             Mouse.MouseDown="OnTreeViewItemHeaderMouseDown"
-                                            Mouse.MouseMove="OnTreeViewItemHeaderMouseMove">
+                                            Mouse.MouseMove="OnTreeViewItemHeaderMouseMove"
+                                            Mouse.MouseUp="OnTreeViewItemHeaderMouseUp">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />

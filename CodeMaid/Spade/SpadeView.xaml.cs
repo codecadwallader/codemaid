@@ -142,7 +142,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         /// <summary>
         /// Called when the header of a TreeViewItem receives a mouse down event.
-        /// Used to jump to a code item, start detecting a drag and drop operation, or toggle the expansion state depending on conditions.
+        /// Used to start detecting a drag and drop operation or toggle the expansion state depending on conditions.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
@@ -154,14 +154,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             switch (e.ChangedButton)
             {
                 case MouseButton.Left:
-                    if (ViewModel.InteractionMode == SpadeInteractionMode.Reorder)
-                    {
-                        _startPoint = e.GetPosition(null);
-                    }
-                    else
-                    {
-                        JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
-                    }
+                    _startPoint = e.GetPosition(null);
                     break;
 
                 case MouseButton.Middle:
@@ -178,8 +171,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (ViewModel.InteractionMode != SpadeInteractionMode.Reorder ||
-                e.LeftButton != MouseButtonState.Pressed) return;
+            if (e.LeftButton != MouseButtonState.Pressed) return;
 
             var delta = _startPoint - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
@@ -196,6 +188,22 @@ namespace SteveCadwallader.CodeMaid.Spade
             DragDrop.DoDragDrop(treeViewItem, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
 
             treeViewItem.Opacity = 1;
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a mouse up event.
+        /// Used to conditionally jump to a code item.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left) return;
+
+            var treeViewItem = FindParentTreeViewItem(e.Source);
+            if (treeViewItem == null) return;
+
+            JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
         }
 
         /// <summary>
