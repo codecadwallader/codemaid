@@ -86,7 +86,8 @@
                                             Background="{TemplateBinding Background}" Cursor="Hand"
                                             Padding="{TemplateBinding Padding}"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
-                                            DragOver="OnTreeViewItemHeaderDragEvent" Drop="OnTreeViewItemHeaderDrop"
+                                            DragOver="OnTreeViewItemHeaderDragEvent"
+                                            DragLeave="OnTreeViewItemHeaderDragLeave" Drop="OnTreeViewItemHeaderDrop"
                                             Mouse.MouseDown="OnTreeViewItemHeaderMouseDown"
                                             Mouse.MouseMove="OnTreeViewItemHeaderMouseMove">
                                         <Grid>
@@ -103,6 +104,12 @@
                                                     ContentSource="Header" />
                                         </Grid>
                                     </Border>
+
+                                    <Rectangle Grid.ColumnSpan="2" Fill="Orange" Height="1" VerticalAlignment="Top"
+                                            Visibility="{Binding Path=(local:SpadeView.ShowDropAboveTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+                                    <Rectangle Grid.ColumnSpan="2" Fill="Orange" Height="1" VerticalAlignment="Bottom"
+                                            Visibility="{Binding Path=(local:SpadeView.ShowDropBelowTarget), RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
                                     <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0" />
                                 </Grid>

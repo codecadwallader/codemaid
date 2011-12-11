@@ -43,6 +43,66 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         #endregion Constructors
 
+        #region ShowDropAboveTarget (Attached Property)
+
+        /// <summary>
+        /// The dependency property definition for the ShowDropAboveTarget attached property.
+        /// </summary>
+        public static DependencyProperty ShowDropAboveTargetProperty = DependencyProperty.RegisterAttached(
+            "ShowDropAboveTarget", typeof(bool), typeof(SpadeView));
+
+        /// <summary>
+        /// Gets the ShowDropAboveTarget value from the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The value.</returns>
+        public static bool GetShowDropAboveTarget(TreeViewItem target)
+        {
+            return (bool)target.GetValue(ShowDropAboveTargetProperty);
+        }
+
+        /// <summary>
+        /// Sets the ShowDropAboveTarget value on the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="value">The value.</param>
+        public static void SetShowDropAboveTarget(TreeViewItem target, bool value)
+        {
+            target.SetValue(ShowDropAboveTargetProperty, value);
+        }
+
+        #endregion ShowDropAboveTarget (Attached Property)
+
+        #region ShowDropBelowTarget (Attached Property)
+
+        /// <summary>
+        /// The dependency property definition for the ShowDropBelowTarget attached property.
+        /// </summary>
+        public static DependencyProperty ShowDropBelowTargetProperty = DependencyProperty.RegisterAttached(
+            "ShowDropBelowTarget", typeof(bool), typeof(SpadeView));
+
+        /// <summary>
+        /// Gets the ShowDropBelowTarget value from the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The value.</returns>
+        public static bool GetShowDropBelowTarget(TreeViewItem target)
+        {
+            return (bool)target.GetValue(ShowDropBelowTargetProperty);
+        }
+
+        /// <summary>
+        /// Sets the ShowDropBelowTarget value on the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="value">The value.</param>
+        public static void SetShowDropBelowTarget(TreeViewItem target, bool value)
+        {
+            target.SetValue(ShowDropBelowTargetProperty, value);
+        }
+
+        #endregion ShowDropBelowTarget (Attached Property)
+
         #region Properties
 
         /// <summary>
@@ -146,22 +206,45 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
-            bool isValidDrop = false;
-
             if (e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
             {
                 var treeViewItem = FindParentTreeViewItem(sender);
                 if (treeViewItem != null && e.Source != treeViewItem &&
                     treeViewItem.DataContext is BaseCodeItemElement)
                 {
-                    isValidDrop = true;
+                    if (IsDropOnTopHalfOfTarget(e, treeViewItem))
+                    {
+                        treeViewItem.SetValue(ShowDropAboveTargetProperty, true);
+                        treeViewItem.SetValue(ShowDropBelowTargetProperty, false);
+                    }
+                    else
+                    {
+                        treeViewItem.SetValue(ShowDropAboveTargetProperty, false);
+                        treeViewItem.SetValue(ShowDropBelowTargetProperty, true);
+                    }
+
+                    return;
                 }
             }
 
-            if (!isValidDrop)
+            // Not a valid drop target.
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a drag leave event.
+        /// Used to conditionally clear the show drop attached properties.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private void OnTreeViewItemHeaderDragLeave(object sender, DragEventArgs e)
+        {
+            var treeViewItem = FindParentTreeViewItem(sender);
+            if (treeViewItem != null)
             {
-                e.Effects = DragDropEffects.None;
-                e.Handled = true;
+                treeViewItem.SetValue(ShowDropAboveTargetProperty, false);
+                treeViewItem.SetValue(ShowDropBelowTargetProperty, false);
             }
         }
 
@@ -183,10 +266,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
             if (codeItemToMove == null) return;
 
-            var dropPoint = e.GetPosition(treeViewItem);
-            bool dropAbove = dropPoint.Y <= treeViewItem.ActualHeight / 2;
-
-            if (dropAbove)
+            if (IsDropOnTopHalfOfTarget(e, treeViewItem))
             {
                 CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
             }
@@ -215,6 +295,19 @@ namespace SteveCadwallader.CodeMaid.Spade
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
 
             return treeViewItem;
+        }
+
+        /// <summary>
+        /// Determines whether the drag event occurs in the top half of the specified target.
+        /// </summary>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>True if drag event occurs in the top half of the specified target, otherwise false.</returns>
+        private static bool IsDropOnTopHalfOfTarget(DragEventArgs e, FrameworkElement target)
+        {
+            var dropPoint = e.GetPosition(target);
+
+            return dropPoint.Y <= target.ActualHeight / 2;
         }
 
         /// <summary>
