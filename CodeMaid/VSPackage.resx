@@ -122,9 +122,9 @@
     <comment>Package name</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
+    <value>CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, XAML, XML, ASP, HTML, CSS and JavaScript coding.
 
-Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/</value>
+Written by Steve Cadwallader, for more information visit http://www.codemaid.net/</value>
     <comment>Package description</comment>
   </data>
   <data name="1" xml:space="preserve">

@@ -79,9 +79,9 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.
+        ///   Looks up a localized string similar to CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, XAML, XML, ASP, HTML, CSS and JavaScript coding.
         ///
-        ///Written by Steve Cadwallader, for more information visit http://www.bitbucket.org/s_cadwallader/codemaid/.
+        ///Written by Steve Cadwallader, for more information visit http://www.codemaid.net/.
         /// </summary>
         internal static string _112 {
             get {

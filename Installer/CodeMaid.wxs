@@ -13,7 +13,7 @@
     Language='1033' Codepage='1252' Version='$(var.ProductVersion)' Manufacturer='Steve Cadwallader'>
 
     <Package Keywords='CodeMaid Installer' Description='CodeMaid $(var.ProductVersion) Installer' Manufacturer='Steve Cadwallader'
-      Comments='CodeMaid is a free and open source Visual Studio 2005/2008/2010 package that handles some of your repetitive work for you.  Code cleanup (C#/C++/XAML/XML/ASP/HTML/CSS/JavaScript), extended build progress, complexity calculations and miscellaneous other features that make C# development in Visual Studio even easier.'
+      Comments='CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, XAML, XML, ASP, HTML, CSS and JavaScript coding.'
       InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
     <!-- Upgrade definition -->
@@ -40,7 +40,7 @@
     <UIRef Id='WixUI_ErrorProgressText' />
 
     <!-- Properties -->
-    <Property Id="ARPHELPLINK" Value="http://www.bitbucket.org/s_cadwallader/codemaid/" />
+    <Property Id="ARPHELPLINK" Value="http://www.codemaid.net/" />
     <Property Id="ARPPRODUCTICON" Value="CodeMaid.ico" />
 
     <Property Id="DEVENV2005_EXE_PATH">
