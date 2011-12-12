@@ -13,7 +13,6 @@
 
 using System.ComponentModel.Design;
 using SteveCadwallader.CodeMaid.CodeTree;
-using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
