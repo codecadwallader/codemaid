@@ -138,7 +138,7 @@
       <Custom Action="CA_VS2005_SETUP" Before="InstallFinalize"> DEVENV2005_EXE_PATH </Custom>
       <Custom Action="CA_VS2008_SETUP" Before="InstallFinalize"> DEVENV2008_EXE_PATH </Custom>
       <Custom Action="CA_VS2010_SETUP" Before="InstallFinalize"> DEVENV2010_EXE_PATH </Custom>
-      <RemoveExistingProducts After="InstallFinalize" />
+      <RemoveExistingProducts After="InstallInitialize" />
     </InstallExecuteSequence>
 
   </Product>
