@@ -78,10 +78,11 @@ namespace RegistryIntegration
                                   StartInfo =
                                       {
                                           UseShellExecute = false,
-                                          CreateNoWindow = true,
+                                          CreateNoWindow = false,
                                           FileName = GetRegPkgPath(),
                                           Arguments =
-                                              String.Format(@"/wixfile:{0} /codebase SteveCadwallader.CodeMaid.dll", CODEMAID_VS2008_WIX_FRAGMENT_PATH)
+                                              String.Format(@"/wixfile:{0} /codebase ""{1}\SteveCadwallader.CodeMaid.dll""",
+                                                            CODEMAID_VS2008_WIX_FRAGMENT_PATH, Environment.CurrentDirectory)
                                       }
                               };
 
