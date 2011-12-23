@@ -45,8 +45,8 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeToolWindow"/> class.
         /// </summary>
-        public SpadeToolWindow() :
-            base(null)
+        public SpadeToolWindow()
+            : base(null)
         {
             // Set the tool window caption.
             Caption = "CodeMaid Spade";
@@ -125,6 +125,15 @@ namespace SteveCadwallader.CodeMaid.Spade
             // Register for events to this window.
             ((IVsWindowFrame)Frame).SetProperty(
                 (int)__VSFPROPID.VSFPROPID_ViewHelper, this);
+
+            // Pass the package over to the view model, not available during constructor.
+            _viewModel.Package = Package;
+
+            // Attempt to initialize the Document, may have been set before Spade was created.
+            if (Document == null && Package != null)
+            {
+                Document = Package.IDE.ActiveDocument;
+            }
         }
 
         /// <summary>
@@ -188,8 +197,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             if (!IsVisible) return;
 
-            // Late initialize the Package, not available during constructor.
-            _viewModel.Package = Package;
             _viewModel.Document = Document;
 
             if (Document == null || !isRefresh)
