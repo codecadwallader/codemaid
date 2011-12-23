@@ -205,6 +205,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             pastePoint.Paste();
             pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+
             pastePoint.EndOfLine();
             baseStartPoint.SmartFormat(pastePoint);
         }
@@ -225,8 +226,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var pastePoint = baseEndPoint.CreateEditPoint();
 
             pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+
+            var formatPoint = pastePoint.CreateEditPoint();
+
             pastePoint.Paste();
-            baseEndPoint.SmartFormat(pastePoint);
+
+            formatPoint.EndOfLine();
+            baseEndPoint.SmartFormat(formatPoint);
         }
 
         #endregion Private Methods
