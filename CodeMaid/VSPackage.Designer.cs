@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PAE2IJKPJRP1MMIMZMK3J2ZZM1CPZMA2DJMEJ9R2DCK8R2KAPMCKKEAJJCA2AZQMQEJKQDKJDDZRZDEJQAZDPRITKHE8ZDZ1E1HJH0CPCER2PPAZD1Q3HKACKRC1KEJ3.
+        ///   Looks up a localized string similar to PCQHJ1C2QHIKAKJJCQCJQDMQEMRCRQC8PPCJK9E2R3KRE2Z1A2MPCICAZRCJI1JAZ1KIJRRQK9IMZQDMA9QQDEQ9MTCCC1HZQDQRK2DIEKPZJARZMME3Q1PERJH1J3D1.
         /// </summary>
         internal static string _1 {
             get {
@@ -90,7 +90,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.3.8.1.
+        ///   Looks up a localized string similar to 0.3.9.
         /// </summary>
         internal static string _114 {
             get {

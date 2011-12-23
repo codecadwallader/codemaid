@@ -145,17 +145,17 @@ namespace RegistryIntegration
         /// <summary>
         /// The version number for Visual Studio 2005.
         /// </summary>
-        private const string VS2005_VERSION = "8.0";
+        private const string VS2005_VERSION = @"\8.0\";
 
         /// <summary>
         /// The version number for Visual Studio 2008.
         /// </summary>
-        private const string VS2008_VERSION = "9.0";
+        private const string VS2008_VERSION = @"\9.0\";
 
         /// <summary>
         /// The version number for Visual Studio 2010.
         /// </summary>
-        private const string VS2010_VERSION = "10.0";
+        private const string VS2010_VERSION = @"\10.0\";
 
         #endregion Private Constants
     }
