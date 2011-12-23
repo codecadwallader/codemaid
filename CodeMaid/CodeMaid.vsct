@@ -292,7 +292,7 @@
         <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
         <Strings>
           <CommandName>CmdIDCodeMaidSpadeLayoutFile</CommandName>
-          <ButtonText>Layout numerically (file order)</ButtonText>
+          <ButtonText>Layout by file order</ButtonText>
         </Strings>
       </Button>
 
