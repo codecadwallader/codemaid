@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void OnWebsiteLinkClick(object sender, RoutedEventArgs e)
         {
-            //TODO: Wire up Website link.
+            LaunchLink(@"http://codemaid.net/");
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void OnRSSLinkClick(object sender, RoutedEventArgs e)
         {
-            //TODO: Wire up RSS link.
+            LaunchLink(@"http://codemaid.net/feed/");
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void OnGooglePlusLinkClick(object sender, RoutedEventArgs e)
         {
-            //TODO: Wire up Google+ link.
+            LaunchLink(@"https://plus.google.com/u/0/104818751344933095922/");
         }
 
         #endregion Event Handlers
