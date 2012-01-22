@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2011 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
@@ -47,5 +48,23 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets the type string.
         /// </summary>
         public abstract string TypeString { get; }
+
+        /// <summary>
+        /// Tries to execute the specified function, returning the default of the type on error.
+        /// </summary>
+        /// <typeparam name="T">The result type.</typeparam>
+        /// <param name="func">The function to execute.</param>
+        /// <returns>The result of the function, otherwise the default for the result type.</returns>
+        protected static T TryDefault<T>(Func<T> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
     }
 }

@@ -105,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// </summary>
         public bool IsConstructor
         {
-            get { return CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor; }
+            get { return TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor); }
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// </summary>
         public bool IsDestructor
         {
-            get { return CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor; }
+            get { return TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor); }
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// </summary>
         public bool IsOverloaded
         {
-            get { return CodeFunction != null && CodeFunction.IsOverloaded; }
+            get { return TryDefault(() => CodeFunction != null && CodeFunction.IsOverloaded); }
         }
 
         /// <summary>
