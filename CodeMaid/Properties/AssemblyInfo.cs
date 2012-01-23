@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Steve Cadwallader")]
 [assembly: AssemblyProduct("CodeMaid")]
-[assembly: AssemblyCopyright("Copyright 2007-2011 Steve Cadwallader (LGPL v3)")]
+[assembly: AssemblyCopyright("Copyright 2007-2012 Steve Cadwallader (LGPL v3)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
