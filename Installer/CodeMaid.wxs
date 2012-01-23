@@ -31,7 +31,9 @@
     <WixVariable Id='WixUILicenseRtf' Value='../CodeMaid/Resources/lgpl-3.0.rtf' />
     <WixVariable Id='WixUIBannerBmp' Value='../CodeMaid/Resources/CodeMaidInstaller_Banner.bmp' />
     <WixVariable Id='WixUIDialogBmp' Value='../CodeMaid/Resources/CodeMaidInstaller_Dialog.bmp' />
+    <WixVariable Id='WixUISupportPerUser' Value='0' />
 
+    <Property Id='ALLUSERS' Value='1' />
     <Property Id='ApplicationFolderName' Value='CodeMaid' />
     <Property Id='WixAppFolder' Value='WixPerMachineFolder' />
     <Property Id='WIXUI_EXITDIALOGOPTIONALTEXT' Value='Thanks for installing CodeMaid.  If Visual Studio is currently running please be sure to restart it.' />
