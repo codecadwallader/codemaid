@@ -84,15 +84,16 @@
     <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource complexityDataTemplate}" />
+                    ContentTemplate="{StaticResource complexityDataTemplate}" Focusable="False" />
 
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
             <ContentControl x:Name="name"
-                    Content="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.Default}}" />
+                    Content="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.Default}}"
+                    Focusable="False" />
         </DockPanel>
         <DataTemplate.Triggers>
             <DataTrigger
@@ -108,9 +109,9 @@
             ItemsSource="{Binding Children}">
         <DockPanel Margin="0,2">
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource parentNameStyle}" />
 
@@ -122,12 +123,12 @@
     <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource complexityDataTemplate}" />
+                    ContentTemplate="{StaticResource complexityDataTemplate}" Focusable="False" />
 
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
@@ -136,7 +137,7 @@
     <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}"
             ItemsSource="{Binding Children}">
         <DockPanel>
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>
@@ -145,9 +146,9 @@
     <DataTemplate x:Key="standardDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
         <DockPanel>
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataDataTemplate}" />
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
             <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
         </DockPanel>

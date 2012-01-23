@@ -155,7 +155,7 @@
     <Grid TextElement.FontFamily="Tahoma">
         <TreeView ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemTemplateSelector>
                 <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource methodDataTemplate}"
                         ParentDataTemplate="{StaticResource parentDataTemplate}"
