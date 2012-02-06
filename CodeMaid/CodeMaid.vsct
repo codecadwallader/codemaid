@@ -150,7 +150,7 @@
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
           <CommandName>CmdIDCodeMaidAbout</CommandName>
-          <ButtonText>About CodeMaid &amp;v0.3.9 ...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.4.0 ...</ButtonText>
         </Strings>
       </Button>
 
