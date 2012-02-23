@@ -171,7 +171,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Iterate across the items in the desired order.
             foreach (var itemToMove in codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
             {
-                RecursivelyReorganize(itemToMove.Children);
+                if (itemToMove.Children.Any() && !(itemToMove is CodeItemEnum))
+                {
+                    RecursivelyReorganize(itemToMove.Children);
+                }
 
                 if (baseItem == null)
                 {
