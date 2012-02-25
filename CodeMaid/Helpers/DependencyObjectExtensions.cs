@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Attempts to find the closest visual ancestor of the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the ancestor.</typeparam>
-        /// <param name="obj">The object.</param>
+        /// <param name="obj">The object to search.</param>
         /// <returns>The closest matching visual ancestor, otherwise null.</returns>
         public static T FindVisualAncestor<T>(this DependencyObject obj)
             where T : DependencyObject
@@ -40,6 +40,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
 
                 parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Attempts to find a visual child of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of the child.</typeparam>
+        /// <param name="obj">The object to search.</param>
+        /// <returns>A matching visual child, otherwise null.</returns>
+        public static T FindVisualChild<T>(this DependencyObject obj)
+            where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child is T)
+                {
+                    return (T)child;
+                }
+
+                var descendant = FindVisualChild<T>(child);
+                if (descendant != null)
+                {
+                    return descendant;
+                }
             }
 
             return null;

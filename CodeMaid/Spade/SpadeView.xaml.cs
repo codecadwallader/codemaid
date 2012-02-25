@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private CodeReorderHelper _codeReorderHelper;
         private TreeViewItem _dragCandidate;
+        private ScrollViewer _scrollViewer;
         private Point? _startPoint;
 
         #endregion Fields
@@ -53,6 +54,14 @@ namespace SteveCadwallader.CodeMaid.Spade
         private CodeReorderHelper CodeReorderHelper
         {
             get { return _codeReorderHelper ?? (_codeReorderHelper = CodeReorderHelper.GetInstance(ViewModel.Package)); }
+        }
+
+        /// <summary>
+        /// Gets the lazy-initialized scroll viewer.
+        /// </summary>
+        private ScrollViewer ScrollViewer
+        {
+            get { return _scrollViewer ?? (_scrollViewer = this.FindVisualChild<ScrollViewer>()); }
         }
 
         /// <summary>
@@ -171,6 +180,8 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
+            HandleDragScrolling(ScrollViewer, e);
+
             var targetTreeViewItem = FindParentTreeViewItem(sender);
 
             if (targetTreeViewItem != null &&
@@ -257,6 +268,29 @@ namespace SteveCadwallader.CodeMaid.Spade
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
 
             return treeViewItem;
+        }
+
+        /// <summary>
+        /// Handles scrolling the specified scroll viewer if the drag event indicates the drag operation
+        /// is nearing the scroll viewers top or bottom boundaries.
+        /// </summary>
+        /// <param name="scrollViewer">The scroll viewer.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        private static void HandleDragScrolling(ScrollViewer scrollViewer, DragEventArgs e)
+        {
+            const int threshold = 20;
+            const int offset = 10;
+
+            var mousePoint = e.GetPosition(scrollViewer);
+
+            if (mousePoint.Y < threshold)
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - offset);
+            }
+            else if (mousePoint.Y > (scrollViewer.ActualHeight - threshold))
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + offset);
+            }
         }
 
         /// <summary>
