@@ -221,6 +221,15 @@
     <Compile Include="Options\OptionsHelper.cs" />
     <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
+    <Compile Include="Options\ReorganizeOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\ReorganizeOptionsControl.Designer.cs">
+      <DependentUpon>ReorganizeOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\ReorganizeOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Options\SpadeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -296,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupUpdateOptionsControl.resx">
       <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\ReorganizeOptionsControl.resx">
+      <DependentUpon>ReorganizeOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SpadeOptionsControl.resx">
       <DependentUpon>SpadeOptionsControl.cs</DependentUpon>

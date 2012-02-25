@@ -179,6 +179,15 @@ namespace SteveCadwallader.CodeMaid {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Reorganize.
+        /// </summary>
+        internal static string _134 {
+            get {
+                return ResourceManager.GetString("134", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Icon _400 {
             get {
                 object obj = ResourceManager.GetObject("400", resourceCulture);

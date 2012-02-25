@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="cleanupInsertOptionsPage">The cleanup insert options page.</param>
         /// <param name="cleanupRemoveOptionsPage">The cleanup remove options page.</param>
         /// <param name="cleanupUpdateOptionsPage">The cleanup update options page.</param>
+        /// <param name="reorganizeOptionsPage">The reorganize options page.</param>
         /// <param name="spadeOptionsPage">The spade options page.</param>
         /// <param name="switchFileOptionsPage">The switch file options page.</param>
         public OptionsWrapper(BuildProgressOptionsPage buildProgressOptionsPage,
@@ -37,6 +38,7 @@ namespace SteveCadwallader.CodeMaid.Options
                               CleanupInsertOptionsPage cleanupInsertOptionsPage,
                               CleanupRemoveOptionsPage cleanupRemoveOptionsPage,
                               CleanupUpdateOptionsPage cleanupUpdateOptionsPage,
+                              ReorganizeOptionsPage reorganizeOptionsPage,
                               SpadeOptionsPage spadeOptionsPage,
                               SwitchFileOptionsPage switchFileOptionsPage)
         {
@@ -46,6 +48,7 @@ namespace SteveCadwallader.CodeMaid.Options
             CleanupInsert = cleanupInsertOptionsPage;
             CleanupRemove = cleanupRemoveOptionsPage;
             CleanupUpdate = cleanupUpdateOptionsPage;
+            Reorganize = reorganizeOptionsPage;
             Spade = spadeOptionsPage;
             SwitchFile = switchFileOptionsPage;
         }
@@ -83,6 +86,11 @@ namespace SteveCadwallader.CodeMaid.Options
         /// Gets the cleanup update options.
         /// </summary>
         public CleanupUpdateOptionsPage CleanupUpdate { get; private set; }
+
+        /// <summary>
+        /// Gets the reorganization options.
+        /// </summary>
+        public ReorganizeOptionsPage Reorganize { get; private set; }
 
         /// <summary>
         /// Gets the spade options.
