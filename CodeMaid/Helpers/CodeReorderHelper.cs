@@ -160,38 +160,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Recursively reorganizes the specified code items.
-        /// </summary>
-        /// <param name="codeItems">The code items.</param>
-        private static void RecursivelyReorganize(SetCodeItems codeItems)
-        {
-            var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
-            BaseCodeItemElement baseItem = null;
-
-            // Iterate across the items in the desired order.
-            foreach (var itemToMove in codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x)).ThenBy(y => y.Name))
-            {
-                if (itemToMove.Children.Any() && !(itemToMove is CodeItemEnum))
-                {
-                    RecursivelyReorganize(itemToMove.Children);
-                }
-
-                if (baseItem == null)
-                {
-                    // The first desired item should be placed above the first actual item.
-                    RepositionItemAboveBase(itemToMove, codeItemElements.First());
-                    baseItem = itemToMove;
-                }
-                else
-                {
-                    // All other items should be placed after the last placed item in the desired order.
-                    RepositionItemBelowBase(itemToMove, baseItem);
-                    baseItem = itemToMove;
-                }
-            }
-        }
-
-        /// <summary>
         /// Repositions the specified item above the specified base.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
@@ -236,6 +204,44 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             formatPoint.EndOfLine();
             baseEndPoint.SmartFormat(formatPoint);
+        }
+
+        /// <summary>
+        /// Recursively reorganizes the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private void RecursivelyReorganize(SetCodeItems codeItems)
+        {
+            var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
+            BaseCodeItemElement baseItem = null;
+
+            // Organize the items in the desired order.
+            var orderedItems = codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x));
+            orderedItems = Package.Options.Reorganize.AlphabetizeMembersOfTheSameGroup
+                               ? orderedItems.ThenBy(y => y.Name)
+                               : orderedItems.ThenBy(y => y.StartLine);
+
+            // Iterate across the items in the desired order.
+            foreach (var itemToMove in orderedItems)
+            {
+                if (itemToMove.Children.Any() && !(itemToMove is CodeItemEnum))
+                {
+                    RecursivelyReorganize(itemToMove.Children);
+                }
+
+                if (baseItem == null)
+                {
+                    // The first desired item should be placed above the first actual item.
+                    RepositionItemAboveBase(itemToMove, codeItemElements.First());
+                    baseItem = itemToMove;
+                }
+                else
+                {
+                    // All other items should be placed after the last placed item in the desired order.
+                    RepositionItemBelowBase(itemToMove, baseItem);
+                    baseItem = itemToMove;
+                }
+            }
         }
 
         #endregion Private Methods
