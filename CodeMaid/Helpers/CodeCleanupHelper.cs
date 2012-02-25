@@ -113,6 +113,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
 
+            // Conditionally start cleanup with reorganization.
+            if (Package.Options.Reorganize.RunAtStartOfCleanup)
+            {
+                CodeReorderHelper.GetInstance(Package).Reorganize(document);
+            }
+
             UndoTransactionHelper.Run(
                 () => !isAutoSave && Package.Options.CleanupGeneral.WrapCleanupInASingleUndoTransaction,
                 delegate
