@@ -59,6 +59,11 @@
     <Registry Name="Page" Value="{df0e8a40-bb30-440e-984f-abeaaee669cb}" Type="string" />
   </Registry>
 
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\ToolsOptionsPages\CodeMaid\Reorganize" Value="#134" Type="string">
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+    <Registry Name="Page" Value="{7c8cb02c-1532-4f33-b60e-fbf15c2b7bcb}" Type="string" />
+  </Registry>
+
   <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\ToolsOptionsPages\CodeMaid\Spade" Value="#128" Type="string">
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
     <Registry Name="Page" Value="{bff0adb0-1a53-4e58-bfb4-b38ec00487b7}" Type="string" />
@@ -96,6 +101,11 @@
 
   <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\AutomationProperties\CodeMaid\Cleanup\Update">
     <Registry Name="Name" Value="CodeMaid.Cleanup\Update" Type="string" />
+    <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
+  </Registry>
+
+  <Registry Root="HKLM" Key="Software\Microsoft\VisualStudio\10.0\AutomationProperties\CodeMaid\Reorganize">
+    <Registry Name="Name" Value="CodeMaid.Reorganize" Type="string" />
     <Registry Name="Package" Value="{4c82e17d-927e-42d2-8460-b473ac7df316}" Type="string" />
   </Registry>
 

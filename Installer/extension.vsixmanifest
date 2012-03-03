@@ -16,6 +16,10 @@
         <Edition>Pro</Edition>
         <Edition>Express_All</Edition>
       </VisualStudio>
+      <VisualStudio Version="11.0">
+        <Edition>Pro</Edition>
+        <Edition>Express_All</Edition>
+      </VisualStudio>
     </SupportedProducts>
     <SupportedFrameworkRuntimeEdition MinVersion="2.0" MaxVersion="4.0" />
   </Identifier>

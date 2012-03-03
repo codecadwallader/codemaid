@@ -35,6 +35,7 @@ namespace RegistryIntegration
                 string vs2008WixFragmentContent = GenerateVS2008WixFragment();
                 DuplicateVS2005WixFragment(vs2008WixFragmentContent);
                 DuplicateVS2010WixFragment(vs2008WixFragmentContent);
+                DuplicateVS2012WixFragment(vs2008WixFragmentContent);
             }
             catch (Exception ex)
             {
@@ -118,6 +119,19 @@ namespace RegistryIntegration
             File.WriteAllText(CODEMAID_VS2010_WIX_FRAGMENT_PATH, vs2010WixFragmentContent);
         }
 
+        /// <summary>
+        /// Creates the VS2012 wix fragment from copying the VS2008 wix fragment.
+        /// </summary>
+        /// <param name="vs2008WixFragmentContent">The content of the VS2008 wix fragment.</param>
+        private static void DuplicateVS2012WixFragment(string vs2008WixFragmentContent)
+        {
+            Console.WriteLine("----= Duplicating CodeMaidVS2012Registry WiX fragment =----");
+
+            string vs2012WixFragmentContent = vs2008WixFragmentContent.Replace(VS2008_VERSION, VS2012_VERSION);
+
+            File.WriteAllText(CODEMAID_VS2012_WIX_FRAGMENT_PATH, vs2012WixFragmentContent);
+        }
+
         #endregion Private Methods
 
         #region Private Constants
@@ -143,6 +157,11 @@ namespace RegistryIntegration
         private const string CODEMAID_VS2010_WIX_FRAGMENT_PATH = @"..\..\Installer\CodeMaidVS2010Registry.wxi";
 
         /// <summary>
+        /// The path to the CodeMaid VS2012 WiX fragment.
+        /// </summary>
+        private const string CODEMAID_VS2012_WIX_FRAGMENT_PATH = @"..\..\Installer\CodeMaidVS2012Registry.wxi";
+
+        /// <summary>
         /// The version number for Visual Studio 2005.
         /// </summary>
         private const string VS2005_VERSION = @"\8.0\";
@@ -156,6 +175,11 @@ namespace RegistryIntegration
         /// The version number for Visual Studio 2010.
         /// </summary>
         private const string VS2010_VERSION = @"\10.0\";
+
+        /// <summary>
+        /// The version number for Visual Studio 2012.
+        /// </summary>
+        private const string VS2012_VERSION = @"\11.0\";
 
         #endregion Private Constants
     }

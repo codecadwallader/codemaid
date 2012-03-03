@@ -3,6 +3,7 @@
 <?define VisualStudioRegistryRoot2005 = "Software\Microsoft\VisualStudio\8.0" ?>
 <?define VisualStudioRegistryRoot2008 = "Software\Microsoft\VisualStudio\9.0" ?>
 <?define VisualStudioRegistryRoot2010 = "Software\Microsoft\VisualStudio\10.0" ?>
+<?define VisualStudioRegistryRoot2012 = "Software\Microsoft\VisualStudio\11.0" ?>
 
 <?define ProductVersion = "0.4.0" ?>
 <?define UpgradeCode = "57A7DBA7-283D-43A1-BBAA-8745434E91A3" ?>
@@ -54,14 +55,21 @@
     <Property Id="DEVENV2010_EXE_PATH">
       <RegistrySearch Id="RegSearch_Devenv2010_Exe_Path" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2010)\Setup\VS" Name="EnvironmentPath" Type="raw" />
     </Property>
+    <Property Id="DEVENV2012_EXE_PATH">
+      <RegistrySearch Id="RegSearch_Devenv2012_Exe_Path" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2012)\Setup\VS" Name="EnvironmentPath" Type="raw" />
+    </Property>
+
     <Property Id="VS2010_DIRECTORY">
       <RegistrySearch Id="RegSearch_VS2010_Directory" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2010)\Setup\VS" Name="EnvironmentDirectory" Type="directory" />
+    </Property>
+    <Property Id="VS2012_DIRECTORY">
+      <RegistrySearch Id="RegSearch_VS2012_Directory" Root="HKLM" Key="$(var.VisualStudioRegistryRoot2012)\Setup\VS" Name="EnvironmentDirectory" Type="directory" />
     </Property>
 
     <!-- Launch conditions -->
     <Condition Message="[ProductName] requires administrator privileges in order to be installed."> Privileged </Condition>
-    <Condition Message="[ProductName] requires either Visual Studio 2008 or Visual Studio 2010 to be installed.">
-      DEVENV2008_EXE_PATH OR DEVENV2010_EXE_PATH
+    <Condition Message="[ProductName] requires either Visual Studio 2008, Visual Studio 2010 or Visual Studio 2012 to be installed.">
+      DEVENV2008_EXE_PATH OR DEVENV2010_EXE_PATH OR DEVENV2012_EXE_PATH
     </Condition>
 
     <!-- Components -->
@@ -80,19 +88,39 @@
           <Component Id="VS2010Registry" Guid="C27B5E10-2132-45D2-9233-C0D3E7399B41">
             <?include CodeMaidVS2010Registry.wxi ?>
           </Component>
+          <Component Id="VS2012Registry" Guid="9A5CBC34-D766-43E8-ABE2-6A2B7D41CE15">
+            <?include CodeMaidVS2012Registry.wxi ?>
+          </Component>
         </Directory>
       </Directory>
 
-      <Directory Id="VS2010_DIRECTORY" Name=".">
-        <Directory Id="VSIXExtensions" Name="Extensions">
-          <Directory Id="VSIXCompany" Name="Steve Cadwallader">
-            <Directory Id="VSIXProduct" Name="CodeMaid">
-              <Directory Id="VSIXVersion" Name="$(var.ProductVersion)">
-                <Component Id="VSIXManifest" Guid="E40B59D0-D56F-4827-A162-A0F52AB7675C">
-                  <File Id="VSIXManifest" Name="extension.vsixmanifest" Source="extension.vsixmanifest" />
-                  <File Id="VSIXIcon" Name="CodeMaid.png" Source="..\CodeMaid\Resources\CodeMaid.png" />
-                  <File Id="VSIXPreviewImage" Name="CodeMaid_Large.png" Source="..\CodeMaid\Resources\CodeMaid_Large.png" />
-                  <File Id="VSIXLicense" Name="lgpl-3.0.rtf" Source="..\CodeMaid\Resources\lgpl-3.0.rtf" />
+      <Directory Id="VS2010_DIRECTORY" Name="VS2010">
+        <Directory Id="VS2010_Extensions" Name="Extensions">
+          <Directory Id="VS2010_Company" Name="Steve Cadwallader">
+            <Directory Id="VS2010_Product" Name="CodeMaid">
+              <Directory Id="VS2010_Version" Name="$(var.ProductVersion)">
+                <Component Id="VS2010_VSIX" Guid="E40B59D0-D56F-4827-A162-A0F52AB7675C">
+                  <File Id="VS2010_VSIXManifest" Name="extension.vsixmanifest" Source="extension.vsixmanifest" />
+                  <File Id="VS2010_VSIXIcon" Name="CodeMaid.png" Source="..\CodeMaid\Resources\CodeMaid.png" />
+                  <File Id="VS2010_VSIXPreviewImage" Name="CodeMaid_Large.png" Source="..\CodeMaid\Resources\CodeMaid_Large.png" />
+                  <File Id="VS2010_VSIXLicense" Name="lgpl-3.0.rtf" Source="..\CodeMaid\Resources\lgpl-3.0.rtf" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="VS2012_DIRECTORY" Name="VS2012">
+        <Directory Id="VS2012_Extensions" Name="Extensions">
+          <Directory Id="VS2012_Company" Name="Steve Cadwallader">
+            <Directory Id="VS2012_Product" Name="CodeMaid">
+              <Directory Id="VS2012_Version" Name="$(var.ProductVersion)">
+                <Component Id="VS2012_VSIX" Guid="5A26BC17-1EB4-416D-A321-F9FE735267C4">
+                  <File Id="VS2012_VSIXManifest" Name="extension.vsixmanifest" Source="extension.vsixmanifest" />
+                  <File Id="VS2012_VSIXIcon" Name="CodeMaid.png" Source="..\CodeMaid\Resources\CodeMaid.png" />
+                  <File Id="VS2012_VSIXPreviewImage" Name="CodeMaid_Large.png" Source="..\CodeMaid\Resources\CodeMaid_Large.png" />
+                  <File Id="VS2012_VSIXLicense" Name="lgpl-3.0.rtf" Source="..\CodeMaid\Resources\lgpl-3.0.rtf" />
                 </Component>
               </Directory>
             </Directory>
@@ -121,9 +149,17 @@
       <Feature Id='VS2010Integration' Level='1'
                Title='Visual Studio 2010 Integration' Description='Integrate with Visual Studio 2010, which has been detected on this system.'>
         <ComponentRef Id='MainExecutable' />
-        <ComponentRef Id='VSIXManifest' />
+        <ComponentRef Id='VS2010_VSIX' />
         <ComponentRef Id='VS2010Registry' />
         <Condition Level='0'>NOT DEVENV2010_EXE_PATH</Condition>
+      </Feature>
+
+      <Feature Id='VS2012Integration' Level='1'
+               Title='Visual Studio 2012 Integration' Description='Integrate with Visual Studio 2012, which has been detected on this system.'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='VS2012_VSIX' />
+        <ComponentRef Id='VS2012Registry' />
+        <Condition Level='0'>NOT DEVENV2012_EXE_PATH</Condition>
       </Feature>
     </Feature>
 
@@ -133,6 +169,7 @@
     <CustomAction Id="CA_VS2005_SETUP" Property="DEVENV2005_EXE_PATH" ExeCommand="/setup" Impersonate="no" Execute="deferred" />
     <CustomAction Id="CA_VS2008_SETUP" Property="DEVENV2008_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
     <CustomAction Id="CA_VS2010_SETUP" Property="DEVENV2010_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="CA_VS2012_SETUP" Property="DEVENV2012_EXE_PATH" ExeCommand="/setup /nosetupvstemplates" Impersonate="no" Execute="deferred" />
 
     <InstallExecuteSequence>
       <Custom Action="AlreadyInstalled" After="FindRelatedProducts"> ALREADYINSTALLED </Custom>
@@ -140,6 +177,7 @@
       <Custom Action="CA_VS2005_SETUP" Before="InstallFinalize"> DEVENV2005_EXE_PATH </Custom>
       <Custom Action="CA_VS2008_SETUP" Before="InstallFinalize"> DEVENV2008_EXE_PATH </Custom>
       <Custom Action="CA_VS2010_SETUP" Before="InstallFinalize"> DEVENV2010_EXE_PATH </Custom>
+      <Custom Action="CA_VS2012_SETUP" Before="InstallFinalize"> DEVENV2012_EXE_PATH </Custom>
       <RemoveExistingProducts After="InstallInitialize" />
     </InstallExecuteSequence>
 
