@@ -69,7 +69,7 @@
             this.orderGroupBox.Size = new System.Drawing.Size(344, 47);
             this.orderGroupBox.TabIndex = 1;
             this.orderGroupBox.TabStop = false;
-            this.orderGroupBox.Text = "General";
+            this.orderGroupBox.Text = "Order";
             // 
             // alphabetizeMembersOfTheSameGroupCheckBox
             // 
