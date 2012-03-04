@@ -48,9 +48,9 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                 var summaryTag = xElement.Descendants("summary").FirstOrDefault();
                 if (summaryTag == null) return string.Empty;
 
-                var result = summaryTag.Value
-                    .TrimStart('\n')
-                    .TrimEnd('\n')
+                var result = summaryTag.ToString()
+                    .Replace("<summary>", "")
+                    .Replace("</summary>", "")
                     .Replace(Environment.NewLine, "  ")
                     .Replace("\n", "  ")
                     .Trim();
