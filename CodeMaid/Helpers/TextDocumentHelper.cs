@@ -158,19 +158,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
                 else
                 {
-                    textDocument.Selection.MoveToLineAndOffset(codeItem.StartLine, 1, false);
+                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.StartOffset, false);
 
                     if (centerOnWhole)
                     {
-                        var editPoint = textDocument.StartPoint.CreateEditPoint();
-
-                        editPoint.MoveToLineAndOffset(codeItem.StartLine, 1);
-                        int start = editPoint.AbsoluteCharOffset;
-
-                        editPoint.MoveToLineAndOffset(codeItem.EndLine, 1);
-                        int end = editPoint.AbsoluteCharOffset;
-
-                        viewRangeEnd = end - start;
+                        viewRangeEnd = codeItem.EndOffset - codeItem.StartOffset;
                     }
                 }
 

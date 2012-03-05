@@ -244,7 +244,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var orderedItems = codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x));
             orderedItems = Package.Options.Reorganize.AlphabetizeMembersOfTheSameGroup
                                ? orderedItems.ThenBy(y => y.Name)
-                               : orderedItems.ThenBy(y => y.StartLine);
+                               : orderedItems.ThenBy(y => y.StartOffset);
 
             // Iterate across the items in the desired order.
             foreach (var itemToMove in orderedItems)

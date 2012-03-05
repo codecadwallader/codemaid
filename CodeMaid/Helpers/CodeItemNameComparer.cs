@@ -37,8 +37,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (nameComparison == 0)
             {
-                // Fall back to line placement comparison for matching elements.
-                return x.StartLine.CompareTo(y.StartLine);
+                // Fall back to position comparison for matching elements.
+                return x.StartOffset.CompareTo(y.StartOffset);
             }
 
             return nameComparison;

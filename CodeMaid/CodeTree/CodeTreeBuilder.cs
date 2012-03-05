@@ -104,8 +104,8 @@ namespace SteveCadwallader.CodeMaid.CodeTree
 
             if (rawCodeItems != null)
             {
-                // Sort the raw list of code items by starting location.
-                var sortedCodeItems = rawCodeItems.OrderBy(x => x.StartLine);
+                // Sort the raw list of code items by starting position.
+                var sortedCodeItems = rawCodeItems.OrderBy(x => x.StartOffset);
                 var codeItemStack = new Stack<BaseCodeItem>();
 
                 foreach (var codeItem in sortedCodeItems)
@@ -120,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
                         }
 
                         var top = codeItemStack.Peek();
-                        if (codeItem.StartLine < top.EndLine)
+                        if (codeItem.EndOffset < top.EndOffset)
                         {
                             top.Children.Add(codeItem);
                             codeItemStack.Push(codeItem);

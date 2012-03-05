@@ -48,9 +48,19 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public int StartLine { get; set; }
 
         /// <summary>
+        /// Gets or sets the start offset.
+        /// </summary>
+        public int StartOffset { get; set; }
+
+        /// <summary>
         /// Gets or sets the end line.
         /// </summary>
         public int EndLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the end offset.
+        /// </summary>
+        public int EndOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the name, may be empty.

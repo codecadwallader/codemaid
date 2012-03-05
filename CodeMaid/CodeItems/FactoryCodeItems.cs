@@ -96,7 +96,9 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public static void RefreshCodeItemElement(BaseCodeItemElement codeItem)
         {
             codeItem.StartLine = codeItem.CodeElement.StartPoint.Line;
+            codeItem.StartOffset = codeItem.CodeElement.StartPoint.AbsoluteCharOffset;
             codeItem.EndLine = codeItem.CodeElement.EndPoint.Line;
+            codeItem.EndOffset = codeItem.CodeElement.EndPoint.AbsoluteCharOffset;
 
             if (!IsNameless(codeItem))
             {
