@@ -160,6 +160,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Determines if the two specified items should be separated by a newline.
+        /// </summary>
+        /// <param name="firstItem">The first item.</param>
+        /// <param name="secondItem">The second item.</param>
+        /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
+        private static bool ShouldBeSeparatedByNewLine(BaseCodeItemElement firstItem, BaseCodeItemElement secondItem)
+        {
+            if (firstItem is CodeItemField && firstItem.StartLine == firstItem.EndLine &&
+                secondItem is CodeItemField && secondItem.StartLine == secondItem.EndLine)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Repositions the specified item above the specified base.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
@@ -175,7 +192,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var pastePoint = baseStartPoint.CreateEditPoint();
 
             pastePoint.Paste();
-            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.Insert(Environment.NewLine);
+            if (ShouldBeSeparatedByNewLine(itemToMove, baseItem))
+            {
+                pastePoint.Insert(Environment.NewLine);
+            }
 
             pastePoint.EndOfLine();
             baseStartPoint.SmartFormat(pastePoint);
@@ -196,7 +217,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
             var pastePoint = baseEndPoint.CreateEditPoint();
 
-            pastePoint.Insert(Environment.NewLine + Environment.NewLine);
+            pastePoint.Insert(Environment.NewLine);
+            if (ShouldBeSeparatedByNewLine(itemToMove, baseItem))
+            {
+                pastePoint.Insert(Environment.NewLine);
+            }
 
             var formatPoint = pastePoint.CreateEditPoint();
 
