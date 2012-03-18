@@ -88,8 +88,15 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                         textBlock.Inlines.Add(CreateRun(", "));
                     }
 
-                    textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
-                    textBlock.Inlines.Add(CreateRun(methodParameter.Name));
+                    try
+                    {
+                        textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
+                        textBlock.Inlines.Add(CreateRun(methodParameter.Name));
+                    }
+                    catch (Exception)
+                    {
+                        textBlock.Inlines.Add(CreateRun("?"));
+                    }
                 }
 
                 textBlock.Inlines.Add(CreateRun(")"));
