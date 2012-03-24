@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
@@ -227,10 +228,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             Stack<CodeItemRegion> regionStack = new Stack<CodeItemRegion>(); // Nested working hierarchy.
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
             TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
+            string pattern = UsePOSIXRegEx(document) ? @"^:b*\#" : @"^[ \t]*#";
 
             // Keep pushing cursor forwards (FindPattern uses cursor as ref parameter) until finished.
             while (cursor != null &&
-                   cursor.FindPattern(@"^:b*\#", TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
+                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
             {
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
@@ -264,6 +266,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 cursor.EndOfLine();
             }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument Find/Replace actions.
+        /// Applies to pre-Visual Studio 11 versions.
+        /// Determines the IDE version through the specified document's DTE object.
+        /// </summary>
+        /// <param name="document">The document which can access the DTE object.</param>
+        /// <returns>True is POSIX regular expressions should be used, otherwise false.</returns>
+        private static bool UsePOSIXRegEx(Document document)
+        {
+            var dte = document.DTE;
+            double ideVersion = Convert.ToDouble(dte.Version, CultureInfo.InvariantCulture);
+
+            return ideVersion < 11;
         }
 
         #endregion Private Methods

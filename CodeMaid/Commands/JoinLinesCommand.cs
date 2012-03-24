@@ -64,10 +64,11 @@ namespace SteveCadwallader.CodeMaid.Commands
                         textSelection.EndOfLine(true);
                     }
 
+                    string pattern = Package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
+                    const string replacement = @" ";
+
                     // Substitute all new lines (and optional surrounding whitespace) with a single space.
-                    TextDocumentHelper.SubstituteAllStringMatches(textSelection,
-                        @":b*\n:b*",
-                        @" ");
+                    TextDocumentHelper.SubstituteAllStringMatches(textSelection, pattern, replacement);
 
                     // Move the cursor forward and clear the selection.
                     textSelection.CharRight(false, 1);

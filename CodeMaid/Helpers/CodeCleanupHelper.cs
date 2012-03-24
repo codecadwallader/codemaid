@@ -280,37 +280,53 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeRegionTags) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"{[^\n\{]}\n{:b*}\#region",
-                @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#region");
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"{[^\n\{]}\n{:b*}\#region"
+                                 : @"([^\r\n\{])\r?\n([ \t]*)#region";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#region"
+                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#region";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
-        /// Inserts a blank line after #region tags except where adjacent to a brace
-        /// for the specified text document.
+        /// Inserts a blank line after #region tags for the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
         private void InsertBlankLinePaddingAfterRegionTags(TextDocument textDocument)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterRegionTags) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"^{:b*}\#region{.*}\n{.}",
-                @"\1\#region\2" + Environment.NewLine + Environment.NewLine + @"\3");
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"^{:b*}\#region{.*}\n{.}"
+                                 : @"^([ \t]*)#region([^\r\n]*)\r?\n([^\r\n])";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\1\#region\2" + Environment.NewLine + Environment.NewLine + @"\3"
+                                     : @"$1#region$2" + Environment.NewLine + Environment.NewLine + @"$3";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
-        /// Inserts a blank line before #endregion tags except where adjacent to a brace
-        /// for the specified text document.
+        /// Inserts a blank line before #endregion tags for the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
         private void InsertBlankLinePaddingBeforeEndRegionTags(TextDocument textDocument)
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEndRegionTags) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"{.}\n{:b*}\#endregion",
-                @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#endregion");
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"{.}\n{:b*}\#endregion"
+                                 : @"([^\r\n])\r?\n([ \t]*)#endregion";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#endregion"
+                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#endregion";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -322,9 +338,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEndRegionTags) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}",
-                @"\1\#endregion\2" + Environment.NewLine + Environment.NewLine + @"\3");
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}"
+                                 : @"^([ \t]*)#endregion([^\r\n]*)\r?\n([ \t]*[^ \t\r\n\}])";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\1\#endregion\2" + Environment.NewLine + Environment.NewLine + @"\3"
+                                     : @"$1#endregion$2" + Environment.NewLine + Environment.NewLine + @"$3";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -687,9 +709,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupRemove.RemoveBlankLinesAfterOpeningBrace) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"\{{:b*(//.*)*}\n\n",
-                @"\{\1" + Environment.NewLine);
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"\{{:b*(//.*)*}\n\n"
+                                 : @"\{([^\r\n]*)(\r?\n){2,}";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\{\1" + Environment.NewLine
+                                     : @"{$1" + Environment.NewLine;
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -700,9 +728,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupRemove.RemoveBlankLinesBeforeClosingBrace) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"\n\n{:b*}\}",
-                Environment.NewLine + @"\1\}");
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"\n\n{:b*}\}"
+                                 : @"(\r?\n){2,}([ \t]*)\}";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? Environment.NewLine + @"\1\}"
+                                     : Environment.NewLine + @"$2}";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -713,9 +747,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupRemove.RemoveEndOfLineWhitespace) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @":b+\n",
-                Environment.NewLine);
+            string pattern = Package.UsePOSIXRegEx ? @":b+\n" : @"[ \t]+\r?\n";
+            string replacement = Environment.NewLine;
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -726,9 +761,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupRemove.RemoveMultipleConsecutiveBlankLines) return;
 
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument,
-                @"\n\n\n+",
-                Environment.NewLine + Environment.NewLine);
+            string pattern = Package.UsePOSIXRegEx ? @"\n\n\n+" : @"(\r?\n){3,}";
+            string replacement = Environment.NewLine + Environment.NewLine;
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -762,10 +798,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             Stack<String> regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
+            string pattern = Package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
 
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
-                   cursor.FindPattern(@"^:b*\#", TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
+                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
             {
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
