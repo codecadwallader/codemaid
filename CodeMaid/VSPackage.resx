@@ -128,11 +128,11 @@ Written by Steve Cadwallader, for more information visit http://www.codemaid.net
     <comment>Package description</comment>
   </data>
   <data name="1" xml:space="preserve">
-    <value>DKMDRCJRIRCDEMPDPIEEJ8Q0J3ZIHCM2CTRIE9JHKTQKH1IIPTCZQMC0H0HKPCJ9M9K9C9JEADC2CEPHHMPAJCM9I1H3CPRRMQKCERJEZJAHCAC0KHP0MMDDPKMAREDQ</value>
+    <value>CDPTRZKDQMDZQAR2DIH9DJDMJPHZK8ATEEAIDZJ3DIPPKII2E2HJKMZCK8RCCMZIQJK2DTKHRRAHP2P3JKP2P9QPK3CIETKCMTKQA2PAM2ETJREMM9HTP3E1CDPDHZA3</value>
     <comment>Package load key</comment>
   </data>
   <data name="114" xml:space="preserve">
-    <value>0.4.0</value>
+    <value>0.4.1</value>
     <comment>Package version</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
