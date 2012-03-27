@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters" mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}"
+        PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -156,6 +157,17 @@
         <TreeView ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
+            <TreeView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel>
+                        <StackPanel.LayoutTransform>
+                            <ScaleTransform
+                                    ScaleX="{Binding ScaleFactor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SpadeView}}}"
+                                    ScaleY="{Binding ScaleFactor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SpadeView}}}" />
+                        </StackPanel.LayoutTransform>
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </TreeView.ItemsPanel>
             <TreeView.ItemTemplateSelector>
                 <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource methodDataTemplate}"
                         ParentDataTemplate="{StaticResource parentDataTemplate}"

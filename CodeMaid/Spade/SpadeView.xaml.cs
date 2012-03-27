@@ -74,7 +74,76 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         #endregion Properties
 
+        #region ScaleFactor (Dependency Property)
+
+        /// <summary>
+        /// The dependency property definition for the ScaleFactor property.
+        /// </summary>
+        public static DependencyProperty ScaleFactorProperty = DependencyProperty.Register(
+            "ScaleFactor", typeof(double), typeof(SpadeView),
+            new FrameworkPropertyMetadata(1.0d, null, OnCoerceScaleFactor));
+
+        /// <summary>
+        /// Gets or sets the scale factor.
+        /// </summary>
+        public double ScaleFactor
+        {
+            get { return (double)GetValue(ScaleFactorProperty); }
+            set { SetValue(ScaleFactorProperty, value); }
+        }
+
+        /// <summary>
+        /// Called to coerce the value of the ScaleFactor.
+        /// </summary>
+        /// <param name="obj">The dependency object where the value has changed..</param>
+        /// <param name="basevalue">The base value.</param>
+        /// <returns>The coerced value.</returns>
+        private static object OnCoerceScaleFactor(DependencyObject obj, object basevalue)
+        {
+            double value = (double)basevalue;
+
+            value = Math.Max(0.2, value);
+            value = Math.Min(5.0, value);
+
+            return value;
+        }
+
+        #endregion ScaleFactor (Dependency Property)
+
         #region Event Handlers
+
+        /// <summary>
+        /// Called when a PreviewMouseDown event is received.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control &&
+                e.ChangedButton == MouseButton.Middle &&
+                e.ButtonState == MouseButtonState.Pressed)
+            {
+                ClearValue(ScaleFactorProperty);
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Called when a PreviewMouseWheel event is received.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
+        private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Delta != 0)
+            {
+                var steps = e.Delta / 120;
+                var percentage = 1 + (0.05 * steps);
+
+                ScaleFactor *= percentage;
+                e.Handled = true;
+            }
+        }
 
         /// <summary>
         /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by TreeView).
