@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using EnvDTE80;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Spade.Converters
@@ -71,6 +72,12 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                     // Avoid showing static metadata for constants since it is redundant.
                     return string.Empty;
 
+                case KindCodeItem.Constructor:
+                case KindCodeItem.Destructor:
+                case KindCodeItem.Method:
+                    metadataStrings = GenerateMetadataStrings((CodeItemMethod)codeItem);
+                    break;
+
                 case KindCodeItem.Property:
                     metadataStrings = GenerateMetadataStrings((CodeItemProperty)codeItem);
                     break;
@@ -80,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
                     break;
             }
 
-            return string.Join(", ", metadataStrings.ToArray());
+            return string.Join(", ", metadataStrings.Distinct().ToArray());
         }
 
         /// <summary>
@@ -114,6 +121,39 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         }
 
         /// <summary>
+        /// Generates metadata strings for the specified method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>The metadata strings.</returns>
+        private IEnumerable<string> GenerateMetadataStrings(CodeItemMethod method)
+        {
+            var strings = new List<string>();
+
+            strings.AddRange(GenerateMetadataStrings((BaseCodeItemElement)method));
+
+            switch (method.OverrideKind)
+            {
+                case vsCMOverrideKind.vsCMOverrideKindAbstract:
+                    strings.Add(UseExtendedStrings ? "abstract" : "a");
+                    break;
+
+                case vsCMOverrideKind.vsCMOverrideKindVirtual:
+                    strings.Add(UseExtendedStrings ? "virtual" : "v");
+                    break;
+
+                case vsCMOverrideKind.vsCMOverrideKindOverride:
+                    strings.Add(UseExtendedStrings ? "override" : "o");
+                    break;
+
+                case vsCMOverrideKind.vsCMOverrideKindNew:
+                    strings.Add(UseExtendedStrings ? "new" : "n");
+                    break;
+            }
+
+            return strings;
+        }
+
+        /// <summary>
         /// Generates metadata strings for the specified property.
         /// </summary>
         /// <param name="property">The property.</param>
@@ -121,18 +161,25 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         private IEnumerable<string> GenerateMetadataStrings(CodeItemProperty property)
         {
             var strings = new List<string>();
+            var methodStrings = new List<string>();
 
             strings.AddRange(GenerateMetadataStrings((BaseCodeItemElement)property));
 
             if (property.CodeProperty.Getter != null)
             {
                 strings.Add(UseExtendedStrings ? "read" : "r");
+
+                methodStrings.AddRange(GenerateMetadataStrings(new CodeItemMethod { CodeFunction = property.CodeProperty.Getter as CodeFunction2 }));
             }
 
             if (property.CodeProperty.Setter != null)
             {
                 strings.Add(UseExtendedStrings ? "write" : "w");
+
+                methodStrings.AddRange(GenerateMetadataStrings(new CodeItemMethod { CodeFunction = property.CodeProperty.Setter as CodeFunction2 }));
             }
+
+            strings.AddRange(methodStrings);
 
             return strings;
         }

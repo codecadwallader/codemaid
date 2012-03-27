@@ -125,6 +125,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the override kind (abstract, virtual, override, new), defaulting to none.
+        /// </summary>
+        public vsCMOverrideKind OverrideKind
+        {
+            get { return TryDefault(() => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone); }
+        }
+
+        /// <summary>
         /// Gets the parameters.
         /// </summary>
         public IEnumerable<CodeParameter> Parameters
