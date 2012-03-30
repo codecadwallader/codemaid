@@ -180,7 +180,7 @@
         <Border Background="#80FFFFFF"
                 Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
-        <ContentControl Content="{Binding}" VerticalAlignment="Center">
+        <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <Border x:Name="outerBorder" Background="White" BorderBrush="{StaticResource FCodeMaidGreen}"
