@@ -183,6 +183,45 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Attempts to select the text of the specified code item.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="codeItem">The code item.</param>
+        internal static void SelectCodeItem(Document document, BaseCodeItem codeItem)
+        {
+            var textDocument = document.Object("TextDocument") as TextDocument;
+            if (textDocument == null) return;
+
+            try
+            {
+                var codeItemElement = codeItem as BaseCodeItemElement;
+                if (codeItemElement != null)
+                {
+                    FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
+
+                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.StartPoint, false);
+                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.EndPoint, true);
+                }
+                else
+                {
+                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.StartOffset, false);
+                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.EndOffset, true);
+                }
+
+                textDocument.Selection.SwapAnchor();
+            }
+            catch (Exception)
+            {
+                // Select operation may fail if element is no longer available.
+            }
+            finally
+            {
+                // Always set focus within the code editor window.
+                document.Activate();
+            }
+        }
+
+        /// <summary>
         /// Substitutes all occurrences in the specified text document of
         /// the specified pattern string with the specified replacement string.
         /// </summary>

@@ -396,6 +396,19 @@ namespace SteveCadwallader.CodeMaid.Spade
             ViewModel.RequestRefresh();
         }
 
+        /// <summary>
+        /// Selects the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        private void SelectCodeItem(BaseCodeItem codeItem)
+        {
+            var viewModel = ViewModel;
+            if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
+
+            Dispatcher.BeginInvoke(
+                new Action(() => TextDocumentHelper.SelectCodeItem(viewModel.Document, codeItem)));
+        }
+
         #endregion Methods
     }
 }
