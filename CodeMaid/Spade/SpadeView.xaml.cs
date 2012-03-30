@@ -15,6 +15,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
@@ -323,6 +324,14 @@ namespace SteveCadwallader.CodeMaid.Spade
         #endregion Event Handlers
 
         #region Methods
+
+        /// <summary>
+        /// Redirects the focus into the tree view.
+        /// </summary>
+        public void RedirectFocus()
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => Keyboard.Focus(treeView)));
+        }
 
         /// <summary>
         /// Attempts to find the parent TreeViewItem from the specified event source.

@@ -30,10 +30,13 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             InitializeComponent();
 
-            elementHost.Child = new SpadeView
+            var spadeView = new SpadeView
                                     {
                                         DataContext = viewModel
                                     };
+
+            elementHost.Child = spadeView;
+            elementHost.GotFocus += (sender, args) => spadeView.RedirectFocus();
         }
 
         #endregion Constructors

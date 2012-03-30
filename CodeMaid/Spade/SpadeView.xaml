@@ -154,7 +154,7 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
-        <TreeView ItemsSource="{Binding OrganizedCodeItems}"
+        <TreeView x:Name="treeView" ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource treeViewItemContainerStyle}" Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemsPanel>
