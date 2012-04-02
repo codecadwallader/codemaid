@@ -245,7 +245,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     string regionName = regionText.Substring(7).Trim();
 
                     // Push the parsed region info onto the top of the stack.
-                    regionStack.Push(new CodeItemRegion { Name = regionName, StartLine = cursor.Line, StartOffset = cursor.AbsoluteCharOffset });
+                    regionStack.Push(new CodeItemRegion { Name = regionName, StartLine = cursor.Line, StartOffset = cursor.AbsoluteCharOffset - 1 });
                 }
                 else if (regionText.StartsWith("endregion"))
                 {
@@ -253,7 +253,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     {
                         CodeItemRegion region = regionStack.Pop();
                         region.EndLine = cursor.Line;
-                        region.EndOffset = cursor.AbsoluteCharOffset;
+                        region.EndOffset = eolCursor.AbsoluteCharOffset;
 
                         codeItems.Add(region);
                     }
