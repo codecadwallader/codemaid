@@ -30,6 +30,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         private CodeReorderHelper _codeReorderHelper;
         private TreeViewItem _dragCandidate;
+        private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
         private Point? _startPoint;
 
@@ -177,13 +178,20 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
         {
+            _isDoubleClick = false;
+
             var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;
 
             switch (e.ChangedButton)
             {
                 case MouseButton.Left:
-                    if (treeViewItem.DataContext is BaseCodeItemElement)
+                    if (e.ClickCount == 2)
+                    {
+                        _isDoubleClick = true;
+                        e.Handled = true;
+                    }
+                    else if (treeViewItem.DataContext is BaseCodeItemElement)
                     {
                         _dragCandidate = treeViewItem;
                         _startPoint = e.GetPosition(null);
@@ -239,7 +247,16 @@ namespace SteveCadwallader.CodeMaid.Spade
             var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;
 
-            JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
+
+            if (_isDoubleClick)
+            {
+                SelectCodeItem(baseCodeItem);
+            }
+            else
+            {
+                JumpToCodeItem(baseCodeItem);
+            }
         }
 
         /// <summary>
