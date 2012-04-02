@@ -63,6 +63,7 @@
             this.insertExplicitAccessModifiersOnMethodsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnPropertiesCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnStructsCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesPaddingGroupBox.SuspendLayout();
             this.blankLinesTableLayoutPanel.SuspendLayout();
             this.explicitAccessModifiersGroupBox.SuspendLayout();
@@ -76,7 +77,7 @@
             this.blankLinesPaddingGroupBox.Controls.Add(this.blankLinesTableLayoutPanel);
             this.blankLinesPaddingGroupBox.Location = new System.Drawing.Point(3, 3);
             this.blankLinesPaddingGroupBox.Name = "blankLinesPaddingGroupBox";
-            this.blankLinesPaddingGroupBox.Size = new System.Drawing.Size(293, 253);
+            this.blankLinesPaddingGroupBox.Size = new System.Drawing.Size(276, 253);
             this.blankLinesPaddingGroupBox.TabIndex = 0;
             this.blankLinesPaddingGroupBox.TabStop = false;
             this.blankLinesPaddingGroupBox.Text = "Blank lines";
@@ -436,12 +437,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnClassesCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnEnumerationsCheckBox);
+            this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnInterfacesCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnMethodsCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnPropertiesCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnStructsCheckBox);
             this.explicitAccessModifiersGroupBox.Location = new System.Drawing.Point(3, 262);
             this.explicitAccessModifiersGroupBox.Name = "explicitAccessModifiersGroupBox";
-            this.explicitAccessModifiersGroupBox.Size = new System.Drawing.Size(293, 136);
+            this.explicitAccessModifiersGroupBox.Size = new System.Drawing.Size(276, 160);
             this.explicitAccessModifiersGroupBox.TabIndex = 1;
             this.explicitAccessModifiersGroupBox.TabStop = false;
             this.explicitAccessModifiersGroupBox.Text = "Explicit access modifiers";
@@ -471,10 +473,10 @@
             // insertExplicitAccessModifiersOnMethodsCheckBox
             // 
             this.insertExplicitAccessModifiersOnMethodsCheckBox.AutoSize = true;
-            this.insertExplicitAccessModifiersOnMethodsCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.insertExplicitAccessModifiersOnMethodsCheckBox.Location = new System.Drawing.Point(6, 88);
             this.insertExplicitAccessModifiersOnMethodsCheckBox.Name = "insertExplicitAccessModifiersOnMethodsCheckBox";
             this.insertExplicitAccessModifiersOnMethodsCheckBox.Size = new System.Drawing.Size(226, 17);
-            this.insertExplicitAccessModifiersOnMethodsCheckBox.TabIndex = 2;
+            this.insertExplicitAccessModifiersOnMethodsCheckBox.TabIndex = 3;
             this.insertExplicitAccessModifiersOnMethodsCheckBox.Text = "Insert explicit access modifiers on methods";
             this.insertExplicitAccessModifiersOnMethodsCheckBox.UseVisualStyleBackColor = true;
             this.insertExplicitAccessModifiersOnMethodsCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnMethodsCheckBox_CheckedChanged);
@@ -482,10 +484,10 @@
             // insertExplicitAccessModifiersOnPropertiesCheckBox
             // 
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.AutoSize = true;
-            this.insertExplicitAccessModifiersOnPropertiesCheckBox.Location = new System.Drawing.Point(6, 88);
+            this.insertExplicitAccessModifiersOnPropertiesCheckBox.Location = new System.Drawing.Point(6, 111);
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.Name = "insertExplicitAccessModifiersOnPropertiesCheckBox";
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.Size = new System.Drawing.Size(232, 17);
-            this.insertExplicitAccessModifiersOnPropertiesCheckBox.TabIndex = 3;
+            this.insertExplicitAccessModifiersOnPropertiesCheckBox.TabIndex = 4;
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.Text = "Insert explicit access modifiers on properties";
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.UseVisualStyleBackColor = true;
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnPropertiesCheckBox_CheckedChanged);
@@ -493,13 +495,24 @@
             // insertExplicitAccessModifiersOnStructsCheckBox
             // 
             this.insertExplicitAccessModifiersOnStructsCheckBox.AutoSize = true;
-            this.insertExplicitAccessModifiersOnStructsCheckBox.Location = new System.Drawing.Point(6, 111);
+            this.insertExplicitAccessModifiersOnStructsCheckBox.Location = new System.Drawing.Point(6, 134);
             this.insertExplicitAccessModifiersOnStructsCheckBox.Name = "insertExplicitAccessModifiersOnStructsCheckBox";
             this.insertExplicitAccessModifiersOnStructsCheckBox.Size = new System.Drawing.Size(217, 17);
-            this.insertExplicitAccessModifiersOnStructsCheckBox.TabIndex = 4;
+            this.insertExplicitAccessModifiersOnStructsCheckBox.TabIndex = 5;
             this.insertExplicitAccessModifiersOnStructsCheckBox.Text = "Insert explicit access modifiers on structs";
             this.insertExplicitAccessModifiersOnStructsCheckBox.UseVisualStyleBackColor = true;
             this.insertExplicitAccessModifiersOnStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnStructsCheckBox_CheckedChanged);
+            // 
+            // insertExplicitAccessModifiersOnInterfacesCheckBox
+            // 
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.AutoSize = true;
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.Name = "insertExplicitAccessModifiersOnInterfacesCheckBox";
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.Size = new System.Drawing.Size(232, 17);
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.TabIndex = 2;
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.Text = "Insert explicit access modifiers on interfaces";
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.UseVisualStyleBackColor = true;
+            this.insertExplicitAccessModifiersOnInterfacesCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnInterfacesCheckBox_CheckedChanged);
             // 
             // CleanupInsertOptionsControl
             // 
@@ -509,7 +522,7 @@
             this.Controls.Add(this.blankLinesPaddingGroupBox);
             this.Controls.Add(this.explicitAccessModifiersGroupBox);
             this.Name = "CleanupInsertOptionsControl";
-            this.Size = new System.Drawing.Size(299, 300);
+            this.Size = new System.Drawing.Size(282, 300);
             this.blankLinesPaddingGroupBox.ResumeLayout(false);
             this.blankLinesPaddingGroupBox.PerformLayout();
             this.blankLinesTableLayoutPanel.ResumeLayout(false);
@@ -557,5 +570,6 @@
         private System.Windows.Forms.CheckBox insertBlankLinePaddingBeforeEnumerationsCheckBox;
         private System.Windows.Forms.CheckBox insertBlankLinePaddingAfterEnumerationsCheckBox;
         private System.Windows.Forms.CheckBox insertExplicitAccessModifiersOnStructsCheckBox;
+        private System.Windows.Forms.CheckBox insertExplicitAccessModifiersOnInterfacesCheckBox;
     }
 }

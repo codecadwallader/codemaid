@@ -118,6 +118,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Gets the declaration of the specified code interface as a string.
+        /// </summary>
+        /// <param name="codeInterface">The code interface.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetInterfaceDeclaration(CodeInterface codeInterface)
+        {
+            // Get the start point after the attributes.
+            var startPoint = codeInterface.GetStartPoint(vsCMPart.vsCMPartHeader);
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
+        }
+
+        /// <summary>
         /// Gets the declaration of the specified code method as a string.
         /// </summary>
         /// <param name="codeFunction">The code method.</param>

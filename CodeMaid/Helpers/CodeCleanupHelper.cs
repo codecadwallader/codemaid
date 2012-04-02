@@ -194,6 +194,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
             var classes = codeItems.OfType<CodeItemClass>().ToList();
             var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
+            var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
             var methods = codeItems.OfType<CodeItemMethod>().ToList();
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
             var structs = codeItems.OfType<CodeItemStruct>().ToList();
@@ -225,6 +226,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertBlankLinePaddingAfterProperties(properties);
             InsertExplicitAccessModifiersOnClasses(classes);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
+            InsertExplicitAccessModifiersOnInterfaces(interfaces);
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
             InsertExplicitAccessModifiersOnStructs(structs);
@@ -531,6 +533,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Set the access value to itself to cause the code to be added.
                     codeEnum.Access = codeEnum.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on interfaces where they are not specified.
+        /// </summary>
+        /// <param name="interfaces">The interfaces.</param>
+        private void InsertExplicitAccessModifiersOnInterfaces(IEnumerable<CodeItemInterface> interfaces)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnInterfaces) return;
+
+            foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
+            {
+                var interfaceDeclaration = CodeModelHelper.GetInterfaceDeclaration(codeInterface);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(interfaceDeclaration, codeInterface.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeInterface.Access = codeInterface.Access;
                 }
             }
         }

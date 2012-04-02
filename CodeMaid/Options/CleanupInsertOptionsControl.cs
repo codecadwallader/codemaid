@@ -76,6 +76,8 @@ namespace SteveCadwallader.CodeMaid.Options
                 OptionsPage.InsertExplicitAccessModifiersOnClasses;
             insertExplicitAccessModifiersOnEnumerationsCheckBox.Checked =
                 OptionsPage.InsertExplicitAccessModifiersOnEnumerations;
+            insertExplicitAccessModifiersOnInterfacesCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnInterfaces;
             insertExplicitAccessModifiersOnMethodsCheckBox.Checked =
                 OptionsPage.InsertExplicitAccessModifiersOnMethods;
             insertExplicitAccessModifiersOnPropertiesCheckBox.Checked =
@@ -293,6 +295,17 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.InsertExplicitAccessModifiersOnEnumerations =
                 insertExplicitAccessModifiersOnEnumerationsCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnInterfacesCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnInterfacesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnInterfaces =
+                insertExplicitAccessModifiersOnInterfacesCheckBox.Checked;
         }
 
         /// <summary>

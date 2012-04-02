@@ -53,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertBlankLinePaddingAfterProperties = true;
             InsertExplicitAccessModifiersOnClasses = true;
             InsertExplicitAccessModifiersOnEnumerations = true;
+            InsertExplicitAccessModifiersOnInterfaces = true;
             InsertExplicitAccessModifiersOnMethods = true;
             InsertExplicitAccessModifiersOnProperties = true;
             InsertExplicitAccessModifiersOnStructs = true;
@@ -151,6 +152,11 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert explicit access modifiers on enumerations")]
         [Description("On cleanup code, inserts explicit access modifiers on enumerations if they are not specified.")]
         public bool InsertExplicitAccessModifiersOnEnumerations { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on interfaces")]
+        [Description("On cleanup code, inserts explicit access modifiers on interfaces if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnInterfaces { get; set; }
 
         [Category("CodeMaid")]
         [DisplayName(@"Insert explicit access modifiers on methods")]
