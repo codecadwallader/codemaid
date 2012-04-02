@@ -149,7 +149,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
 
-                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.StartPoint, false);
+                    var startPoint = GetStartPointAdjustedForComments(codeItemElement.CodeElement.StartPoint);
+
+                    textDocument.Selection.MoveToPoint(startPoint, false);
 
                     if (centerOnWhole)
                     {
@@ -199,7 +201,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
 
-                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.StartPoint, false);
+                    var startPoint = GetStartPointAdjustedForComments(codeItemElement.CodeElement.StartPoint);
+
+                    textDocument.Selection.MoveToPoint(startPoint, false);
                     textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.EndPoint, true);
                 }
                 else
