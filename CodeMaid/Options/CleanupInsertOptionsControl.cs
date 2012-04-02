@@ -80,6 +80,8 @@ namespace SteveCadwallader.CodeMaid.Options
                 OptionsPage.InsertExplicitAccessModifiersOnMethods;
             insertExplicitAccessModifiersOnPropertiesCheckBox.Checked =
                 OptionsPage.InsertExplicitAccessModifiersOnProperties;
+            insertExplicitAccessModifiersOnStructsCheckBox.Checked =
+                OptionsPage.InsertExplicitAccessModifiersOnStructs;
         }
 
         #endregion Constructors
@@ -313,6 +315,17 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             OptionsPage.InsertExplicitAccessModifiersOnProperties =
                 insertExplicitAccessModifiersOnPropertiesCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the insertExplicitAccessModifiersOnStructsCheckBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void insertExplicitAccessModifiersOnStructsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OptionsPage.InsertExplicitAccessModifiersOnStructs =
+                insertExplicitAccessModifiersOnStructsCheckBox.Checked;
         }
 
         #endregion Private Event Handlers

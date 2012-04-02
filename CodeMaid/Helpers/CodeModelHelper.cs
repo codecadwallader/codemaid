@@ -146,6 +146,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Gets the declaration of the specified code struct as a string.
+        /// </summary>
+        /// <param name="codeStruct">The code struct.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetStructDeclaration(CodeStruct codeStruct)
+        {
+            // Get the start point after the attributes.
+            var startPoint = codeStruct.GetStartPoint(vsCMPart.vsCMPartHeader);
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
+        }
+
+        /// <summary>
         /// Walks the given document and constructs a <see cref="SetCodeItems"/> of CodeItems within it excluding regions.
         /// </summary>
         /// <param name="document">The document to walk.</param>

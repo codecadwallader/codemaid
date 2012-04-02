@@ -62,6 +62,7 @@
             this.insertExplicitAccessModifiersOnEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnMethodsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnPropertiesCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertExplicitAccessModifiersOnStructsCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesPaddingGroupBox.SuspendLayout();
             this.blankLinesTableLayoutPanel.SuspendLayout();
             this.explicitAccessModifiersGroupBox.SuspendLayout();
@@ -75,7 +76,7 @@
             this.blankLinesPaddingGroupBox.Controls.Add(this.blankLinesTableLayoutPanel);
             this.blankLinesPaddingGroupBox.Location = new System.Drawing.Point(3, 3);
             this.blankLinesPaddingGroupBox.Name = "blankLinesPaddingGroupBox";
-            this.blankLinesPaddingGroupBox.Size = new System.Drawing.Size(310, 253);
+            this.blankLinesPaddingGroupBox.Size = new System.Drawing.Size(293, 253);
             this.blankLinesPaddingGroupBox.TabIndex = 0;
             this.blankLinesPaddingGroupBox.TabStop = false;
             this.blankLinesPaddingGroupBox.Text = "Blank lines";
@@ -437,9 +438,10 @@
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnEnumerationsCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnMethodsCheckBox);
             this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnPropertiesCheckBox);
+            this.explicitAccessModifiersGroupBox.Controls.Add(this.insertExplicitAccessModifiersOnStructsCheckBox);
             this.explicitAccessModifiersGroupBox.Location = new System.Drawing.Point(3, 262);
             this.explicitAccessModifiersGroupBox.Name = "explicitAccessModifiersGroupBox";
-            this.explicitAccessModifiersGroupBox.Size = new System.Drawing.Size(310, 110);
+            this.explicitAccessModifiersGroupBox.Size = new System.Drawing.Size(293, 136);
             this.explicitAccessModifiersGroupBox.TabIndex = 1;
             this.explicitAccessModifiersGroupBox.TabStop = false;
             this.explicitAccessModifiersGroupBox.Text = "Explicit access modifiers";
@@ -488,6 +490,17 @@
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.UseVisualStyleBackColor = true;
             this.insertExplicitAccessModifiersOnPropertiesCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnPropertiesCheckBox_CheckedChanged);
             // 
+            // insertExplicitAccessModifiersOnStructsCheckBox
+            // 
+            this.insertExplicitAccessModifiersOnStructsCheckBox.AutoSize = true;
+            this.insertExplicitAccessModifiersOnStructsCheckBox.Location = new System.Drawing.Point(6, 111);
+            this.insertExplicitAccessModifiersOnStructsCheckBox.Name = "insertExplicitAccessModifiersOnStructsCheckBox";
+            this.insertExplicitAccessModifiersOnStructsCheckBox.Size = new System.Drawing.Size(217, 17);
+            this.insertExplicitAccessModifiersOnStructsCheckBox.TabIndex = 4;
+            this.insertExplicitAccessModifiersOnStructsCheckBox.Text = "Insert explicit access modifiers on structs";
+            this.insertExplicitAccessModifiersOnStructsCheckBox.UseVisualStyleBackColor = true;
+            this.insertExplicitAccessModifiersOnStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnStructsCheckBox_CheckedChanged);
+            // 
             // CleanupInsertOptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -496,7 +509,7 @@
             this.Controls.Add(this.blankLinesPaddingGroupBox);
             this.Controls.Add(this.explicitAccessModifiersGroupBox);
             this.Name = "CleanupInsertOptionsControl";
-            this.Size = new System.Drawing.Size(316, 300);
+            this.Size = new System.Drawing.Size(299, 300);
             this.blankLinesPaddingGroupBox.ResumeLayout(false);
             this.blankLinesPaddingGroupBox.PerformLayout();
             this.blankLinesTableLayoutPanel.ResumeLayout(false);
@@ -543,5 +556,6 @@
         private System.Windows.Forms.Label blankLinesEnumerationsLabel;
         private System.Windows.Forms.CheckBox insertBlankLinePaddingBeforeEnumerationsCheckBox;
         private System.Windows.Forms.CheckBox insertBlankLinePaddingAfterEnumerationsCheckBox;
+        private System.Windows.Forms.CheckBox insertExplicitAccessModifiersOnStructsCheckBox;
     }
 }

@@ -196,6 +196,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
             var methods = codeItems.OfType<CodeItemMethod>().ToList();
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
+            var structs = codeItems.OfType<CodeItemStruct>().ToList();
 
             // Perform removal cleanup.
             RemoveEOLWhitespace(textDocument);
@@ -226,6 +227,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
+            InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform update cleanup.
             UpdateEndRegionDirectives(textDocument);
@@ -627,6 +629,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Set the access value to itself to cause the code to be added.
                     codeProperty.Access = codeProperty.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on structs where they are not specified.
+        /// </summary>
+        /// <param name="structs">The structs.</param>
+        private void InsertExplicitAccessModifiersOnStructs(IEnumerable<CodeItemStruct> structs)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnStructs) return;
+
+            foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))
+            {
+                var structDeclaration = CodeModelHelper.GetStructDeclaration(codeStruct);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(structDeclaration, codeStruct.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeStruct.Access = codeStruct.Access;
                 }
             }
         }

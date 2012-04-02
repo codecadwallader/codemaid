@@ -55,6 +55,7 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertExplicitAccessModifiersOnEnumerations = true;
             InsertExplicitAccessModifiersOnMethods = true;
             InsertExplicitAccessModifiersOnProperties = true;
+            InsertExplicitAccessModifiersOnStructs = true;
         }
 
         #endregion Constructors
@@ -160,6 +161,11 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert explicit access modifiers on properties")]
         [Description("On cleanup code, inserts explicit access modifiers on properties if they are not specified.")]
         public bool InsertExplicitAccessModifiersOnProperties { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert explicit access modifiers on structs")]
+        [Description("On cleanup code, inserts explicit access modifiers on structs if they are not specified.")]
+        public bool InsertExplicitAccessModifiersOnStructs { get; set; }
 
         #endregion Public Properties
 
