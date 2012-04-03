@@ -194,6 +194,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
             var classes = codeItems.OfType<CodeItemClass>().ToList();
             var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
+            var events = codeItems.OfType<CodeItemEvent>().ToList();
             var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
             var methods = codeItems.OfType<CodeItemMethod>().ToList();
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
@@ -226,6 +227,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertBlankLinePaddingAfterProperties(properties);
             InsertExplicitAccessModifiersOnClasses(classes);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
+            InsertExplicitAccessModifiersOnEvents(events);
             InsertExplicitAccessModifiersOnInterfaces(interfaces);
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
@@ -533,6 +535,48 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Set the access value to itself to cause the code to be added.
                     codeEnum.Access = codeEnum.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on events where they are not specified.
+        /// </summary>
+        /// <param name="events">The events.</param>
+        private void InsertExplicitAccessModifiersOnEvents(IEnumerable<CodeItemEvent> events)
+        {
+            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnEvents) return;
+
+            foreach (var codeEvent in events.Select(x => x.CodeEvent).Where(y => y != null))
+            {
+                try
+                {
+                    // Skip events defined inside an interface.
+                    if (codeEvent.Parent is CodeInterface)
+                    {
+                        continue;
+                    }
+
+                    // Skip explicit interface implementations.
+                    // Name is reported different for CodeEvent - so combine with parent to determine if interface is being explicitly specified.
+                    if (codeEvent.Parent is CodeElement &&
+                        codeEvent.FullName != (((CodeElement)codeEvent.Parent).FullName + "." + codeEvent.Name))
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+                    // Skip this event if unable to analyze.
+                    continue;
+                }
+
+                var eventDeclaration = CodeModelHelper.GetEventDeclaration(codeEvent);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(eventDeclaration, codeEvent.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeEvent.Access = codeEvent.Access;
                 }
             }
         }

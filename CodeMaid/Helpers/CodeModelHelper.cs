@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using EnvDTE80;
 using SteveCadwallader.CodeMaid.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -115,6 +116,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var startPoint = codeEnum.GetStartPoint(vsCMPart.vsCMPartHeader);
 
             return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
+        }
+
+        /// <summary>
+        /// Gets the declaration of the specified code event as a string.
+        /// </summary>
+        /// <param name="codeEvent">The code event.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetEventDeclaration(CodeEvent codeEvent)
+        {
+            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for events).
+            var startPoint = codeEvent.Attributes.Count > 0
+                                 ? codeEvent.GetEndPoint(vsCMPart.vsCMPartAttributesWithDelimiter)
+                                 : codeEvent.StartPoint;
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[\{;]");
         }
 
         /// <summary>
