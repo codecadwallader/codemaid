@@ -39,18 +39,26 @@ namespace SteveCadwallader.CodeMaid.Options
             InsertBlankLinePaddingAfterUsingStatementBlocks = true;
             InsertBlankLinePaddingBeforeNamespaces = true;
             InsertBlankLinePaddingAfterNamespaces = true;
-            InsertBlankLinePaddingBeforeClasses = true;
-            InsertBlankLinePaddingAfterClasses = true;
-            InsertBlankLinePaddingBeforeEnumerations = true;
-            InsertBlankLinePaddingAfterEnumerations = true;
             InsertBlankLinePaddingBeforeRegionTags = true;
             InsertBlankLinePaddingAfterRegionTags = true;
             InsertBlankLinePaddingBeforeEndRegionTags = true;
             InsertBlankLinePaddingAfterEndRegionTags = true;
+            InsertBlankLinePaddingBeforeClasses = true;
+            InsertBlankLinePaddingAfterClasses = true;
+            InsertBlankLinePaddingBeforeEnumerations = true;
+            InsertBlankLinePaddingAfterEnumerations = true;
+            InsertBlankLinePaddingBeforeEvents = true;
+            InsertBlankLinePaddingAfterEvents = true;
+            InsertBlankLinePaddingBeforeFieldsWithComments = true;
+            InsertBlankLinePaddingAfterFieldsWithComments = true;
+            InsertBlankLinePaddingBeforeInterfaces = true;
+            InsertBlankLinePaddingAfterInterfaces = true;
             InsertBlankLinePaddingBeforeMethods = true;
             InsertBlankLinePaddingAfterMethods = true;
             InsertBlankLinePaddingBeforeProperties = true;
             InsertBlankLinePaddingAfterProperties = true;
+            InsertBlankLinePaddingBeforeStructs = true;
+            InsertBlankLinePaddingAfterStructs = true;
             InsertExplicitAccessModifiersOnClasses = true;
             InsertExplicitAccessModifiersOnEnumerations = true;
             InsertExplicitAccessModifiersOnEvents = true;
@@ -85,26 +93,6 @@ namespace SteveCadwallader.CodeMaid.Options
         public bool InsertBlankLinePaddingAfterNamespaces { get; set; }
 
         [Category("CodeMaid")]
-        [DisplayName(@"Insert blank line padding before classes")]
-        [Description("On cleanup code, inserts a single blank line of padding before a class except where adjacent to a brace.")]
-        public bool InsertBlankLinePaddingBeforeClasses { get; set; }
-
-        [Category("CodeMaid")]
-        [DisplayName(@"Insert blank line padding after classes")]
-        [Description("On cleanup code, inserts a single blank line of padding after a class except where adjacent to a brace.")]
-        public bool InsertBlankLinePaddingAfterClasses { get; set; }
-
-        [Category("CodeMaid")]
-        [DisplayName(@"Insert blank line padding before enumerations")]
-        [Description("On cleanup code, inserts a single blank line of padding before an enumeration except where adjacent to a brace.")]
-        public bool InsertBlankLinePaddingBeforeEnumerations { get; set; }
-
-        [Category("CodeMaid")]
-        [DisplayName(@"Insert blank line padding after enumerations")]
-        [Description("On cleanup code, inserts a single blank line of padding after an enumeration except where adjacent to a brace.")]
-        public bool InsertBlankLinePaddingAfterEnumerations { get; set; }
-
-        [Category("CodeMaid")]
         [DisplayName(@"Insert blank line padding before #region tags")]
         [Description("On cleanup code, inserts a single blank line of padding before a #region tag except where adjacent to a brace.")]
         public bool InsertBlankLinePaddingBeforeRegionTags { get; set; }
@@ -125,6 +113,56 @@ namespace SteveCadwallader.CodeMaid.Options
         public bool InsertBlankLinePaddingAfterEndRegionTags { get; set; }
 
         [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before classes")]
+        [Description("On cleanup code, inserts a single blank line of padding before a class except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeClasses { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after classes")]
+        [Description("On cleanup code, inserts a single blank line of padding after a class except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterClasses { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before enumerations")]
+        [Description("On cleanup code, inserts a single blank line of padding before an enumeration except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeEnumerations { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after enumerations")]
+        [Description("On cleanup code, inserts a single blank line of padding after an enumeration except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterEnumerations { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before events")]
+        [Description("On cleanup code, inserts a single blank line of padding before an event except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeEvents { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after events")]
+        [Description("On cleanup code, inserts a single blank line of padding after an event except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterEvents { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before fields with comments")]
+        [Description("On cleanup code, inserts a single blank line of padding before a field with a comment except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeFieldsWithComments { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after fields with comments")]
+        [Description("On cleanup code, inserts a single blank line of padding after a field with a comment except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterFieldsWithComments { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before interfaces")]
+        [Description("On cleanup code, inserts a single blank line of padding before an interface except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeInterfaces { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after interfaces")]
+        [Description("On cleanup code, inserts a single blank line of padding after an interface except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterInterfaces { get; set; }
+
+        [Category("CodeMaid")]
         [DisplayName(@"Insert blank line padding before methods")]
         [Description("On cleanup code, inserts a single blank line of padding before a method except where adjacent to a brace.")]
         public bool InsertBlankLinePaddingBeforeMethods { get; set; }
@@ -143,6 +181,16 @@ namespace SteveCadwallader.CodeMaid.Options
         [DisplayName(@"Insert blank line padding after properties")]
         [Description("On cleanup code, inserts a single blank line of padding after a property except where adjacent to a brace.")]
         public bool InsertBlankLinePaddingAfterProperties { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding before structs")]
+        [Description("On cleanup code, inserts a single blank line of padding before a struct except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingBeforeStructs { get; set; }
+
+        [Category("CodeMaid")]
+        [DisplayName(@"Insert blank line padding after structs")]
+        [Description("On cleanup code, inserts a single blank line of padding after a struct except where adjacent to a brace.")]
+        public bool InsertBlankLinePaddingAfterStructs { get; set; }
 
         [Category("CodeMaid")]
         [DisplayName(@"Insert explicit access modifiers on classes")]
