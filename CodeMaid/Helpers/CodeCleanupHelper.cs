@@ -195,6 +195,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var classes = codeItems.OfType<CodeItemClass>().ToList();
             var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
             var events = codeItems.OfType<CodeItemEvent>().ToList();
+            var fields = codeItems.OfType<CodeItemField>().ToList();
             var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
             var methods = codeItems.OfType<CodeItemMethod>().ToList();
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
@@ -221,10 +222,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertBlankLinePaddingAfterClasses(classes);
             InsertBlankLinePaddingBeforeEnumerations(enumerations);
             InsertBlankLinePaddingAfterEnumerations(enumerations);
+            InsertBlankLinePaddingBeforeEvents(events);
+            InsertBlankLinePaddingAfterEvents(events);
+            InsertBlankLinePaddingBeforeFieldsWithComments(fields);
+            InsertBlankLinePaddingAfterFieldsWithComments(fields);
+            InsertBlankLinePaddingBeforeInterfaces(interfaces);
+            InsertBlankLinePaddingAfterInterfaces(interfaces);
             InsertBlankLinePaddingBeforeMethods(methods);
             InsertBlankLinePaddingAfterMethods(methods);
             InsertBlankLinePaddingBeforeProperties(properties);
             InsertBlankLinePaddingAfterProperties(properties);
+            InsertBlankLinePaddingBeforeStructs(structs);
+            InsertBlankLinePaddingAfterStructs(structs);
             InsertExplicitAccessModifiersOnClasses(classes);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnEvents(events);
@@ -450,6 +459,72 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Inserts a blank line before the specified events except where adjacent to a brace.
+        /// </summary>
+        /// <param name="events">The events to pad.</param>
+        private void InsertBlankLinePaddingBeforeEvents(IEnumerable<CodeItemEvent> events)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEvents) return;
+
+            InsertBlankLinePaddingBeforeCodeItems(events);
+        }
+
+        /// <summary>
+        /// Inserts a blank line after the specified events except where adjacent to a brace.
+        /// </summary>
+        /// <param name="events">The events to pad.</param>
+        private void InsertBlankLinePaddingAfterEvents(IEnumerable<CodeItemEvent> events)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEvents) return;
+
+            InsertBlankLinePaddingAfterCodeItems(events);
+        }
+
+        /// <summary>
+        /// Inserts a blank line before the specified fields with comments except where adjacent to a brace.
+        /// </summary>
+        /// <param name="fieldsWithComments">The fields with comments to pad.</param>
+        private void InsertBlankLinePaddingBeforeFieldsWithComments(IEnumerable<CodeItemField> fieldsWithComments)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeFieldsWithComments) return;
+
+            InsertBlankLinePaddingBeforeCodeItems(fieldsWithComments);
+        }
+
+        /// <summary>
+        /// Inserts a blank line after the specified fields with comments except where adjacent to a brace.
+        /// </summary>
+        /// <param name="fieldsWithComments">The fields with comments to pad.</param>
+        private void InsertBlankLinePaddingAfterFieldsWithComments(IEnumerable<CodeItemField> fieldsWithComments)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterFieldsWithComments) return;
+
+            InsertBlankLinePaddingAfterCodeItems(fieldsWithComments);
+        }
+
+        /// <summary>
+        /// Inserts a blank line before the specified interfaces except where adjacent to a brace.
+        /// </summary>
+        /// <param name="interfaces">The interfaces to pad.</param>
+        private void InsertBlankLinePaddingBeforeInterfaces(IEnumerable<CodeItemInterface> interfaces)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeInterfaces) return;
+
+            InsertBlankLinePaddingBeforeCodeItems(interfaces);
+        }
+
+        /// <summary>
+        /// Inserts a blank line after the specified interfaces except where adjacent to a brace.
+        /// </summary>
+        /// <param name="interfaces">The interfaces to pad.</param>
+        private void InsertBlankLinePaddingAfterInterfaces(IEnumerable<CodeItemInterface> interfaces)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterInterfaces) return;
+
+            InsertBlankLinePaddingAfterCodeItems(interfaces);
+        }
+
+        /// <summary>
         /// Inserts a blank line before the specified methods except where adjacent to a brace.
         /// </summary>
         /// <param name="methods">The methods to pad.</param>
@@ -491,6 +566,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterProperties) return;
 
             InsertBlankLinePaddingAfterCodeItems(properties);
+        }
+
+        /// <summary>
+        /// Inserts a blank line before the specified structs except where adjacent to a brace.
+        /// </summary>
+        /// <param name="structs">The structs to pad.</param>
+        private void InsertBlankLinePaddingBeforeStructs(IEnumerable<CodeItemStruct> structs)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeStructs) return;
+
+            InsertBlankLinePaddingBeforeCodeItems(structs);
+        }
+
+        /// <summary>
+        /// Inserts a blank line after the specified structs except where adjacent to a brace.
+        /// </summary>
+        /// <param name="structs">The structs to pad.</param>
+        private void InsertBlankLinePaddingAfterStructs(IEnumerable<CodeItemStruct> structs)
+        {
+            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterStructs) return;
+
+            InsertBlankLinePaddingAfterCodeItems(structs);
         }
 
         /// <summary>

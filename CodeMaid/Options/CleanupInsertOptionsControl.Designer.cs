@@ -39,24 +39,36 @@
             this.blankLinesNamespacesLabel = new System.Windows.Forms.Label();
             this.insertBlankLinePaddingBeforeNamespacesCheckBox = new System.Windows.Forms.CheckBox();
             this.insertBlankLinePaddingAfterNamespacesCheckBox = new System.Windows.Forms.CheckBox();
-            this.blankLinesClassesLabel = new System.Windows.Forms.Label();
-            this.insertBlankLinePaddingBeforeClassesCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingAfterClassesCheckBox = new System.Windows.Forms.CheckBox();
-            this.blankLinesEnumerationsLabel = new System.Windows.Forms.Label();
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesRegionTagsLabel = new System.Windows.Forms.Label();
             this.insertBlankLinePaddingBeforeRegionTagsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertBlankLinePaddingAfterRegionTagsCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesEndregionTagsLabel = new System.Windows.Forms.Label();
             this.insertBlankLinePaddingBeforeEndRegionTagsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertBlankLinePaddingAfterEndRegionTagsCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesClassesLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeClassesCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterClassesCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesEnumerationsLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesEventsLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeEventsCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterEventsCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesFieldsWithCommentsLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesInterfacesLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterInterfacesCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesMethodsLabel = new System.Windows.Forms.Label();
             this.insertBlankLinePaddingBeforeMethodsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertBlankLinePaddingAfterMethodsCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesPropertiesLabel = new System.Windows.Forms.Label();
             this.insertBlankLinePaddingBeforePropertiesCheckBox = new System.Windows.Forms.CheckBox();
             this.insertBlankLinePaddingAfterPropertiesCheckBox = new System.Windows.Forms.CheckBox();
+            this.blankLinesStructsLabel = new System.Windows.Forms.Label();
+            this.insertBlankLinePaddingBeforeStructsCheckBox = new System.Windows.Forms.CheckBox();
+            this.insertBlankLinePaddingAfterStructsCheckBox = new System.Windows.Forms.CheckBox();
             this.explicitAccessModifiersGroupBox = new System.Windows.Forms.GroupBox();
             this.insertExplicitAccessModifiersOnClassesCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnEnumerationsCheckBox = new System.Windows.Forms.CheckBox();
@@ -65,18 +77,6 @@
             this.insertExplicitAccessModifiersOnMethodsCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnPropertiesCheckBox = new System.Windows.Forms.CheckBox();
             this.insertExplicitAccessModifiersOnStructsCheckBox = new System.Windows.Forms.CheckBox();
-            this.blankLinesStructsLabel = new System.Windows.Forms.Label();
-            this.insertBlankLinePaddingBeforeStructsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingAfterStructsCheckBox = new System.Windows.Forms.CheckBox();
-            this.blankLinesEventsLabel = new System.Windows.Forms.Label();
-            this.blankLinesFieldsWithCommentsLabel = new System.Windows.Forms.Label();
-            this.blankLinesInterfacesLabel = new System.Windows.Forms.Label();
-            this.insertBlankLinePaddingAfterEventsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingBeforeEventsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox = new System.Windows.Forms.CheckBox();
-            this.insertBlankLinePaddingAfterInterfacesCheckBox = new System.Windows.Forms.CheckBox();
             this.blankLinesPaddingGroupBox.SuspendLayout();
             this.blankLinesTableLayoutPanel.SuspendLayout();
             this.explicitAccessModifiersGroupBox.SuspendLayout();
@@ -262,72 +262,6 @@
             this.insertBlankLinePaddingAfterNamespacesCheckBox.UseVisualStyleBackColor = true;
             this.insertBlankLinePaddingAfterNamespacesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterNamespacesCheckBox_CheckedChanged);
             // 
-            // blankLinesClassesLabel
-            // 
-            this.blankLinesClassesLabel.AutoSize = true;
-            this.blankLinesClassesLabel.Location = new System.Drawing.Point(3, 115);
-            this.blankLinesClassesLabel.Name = "blankLinesClassesLabel";
-            this.blankLinesClassesLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesClassesLabel.Size = new System.Drawing.Size(53, 23);
-            this.blankLinesClassesLabel.TabIndex = 14;
-            this.blankLinesClassesLabel.Text = "Classes";
-            this.blankLinesClassesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // insertBlankLinePaddingBeforeClassesCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeClassesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeClassesCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeClassesCheckBox.Location = new System.Drawing.Point(152, 119);
-            this.insertBlankLinePaddingBeforeClassesCheckBox.Name = "insertBlankLinePaddingBeforeClassesCheckBox";
-            this.insertBlankLinePaddingBeforeClassesCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeClassesCheckBox.TabIndex = 15;
-            this.insertBlankLinePaddingBeforeClassesCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeClassesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeClassesCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingAfterClassesCheckBox
-            // 
-            this.insertBlankLinePaddingAfterClassesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterClassesCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterClassesCheckBox.Location = new System.Drawing.Point(202, 119);
-            this.insertBlankLinePaddingAfterClassesCheckBox.Name = "insertBlankLinePaddingAfterClassesCheckBox";
-            this.insertBlankLinePaddingAfterClassesCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterClassesCheckBox.TabIndex = 16;
-            this.insertBlankLinePaddingAfterClassesCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterClassesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterClassesCheckBox_CheckedChanged);
-            // 
-            // blankLinesEnumerationsLabel
-            // 
-            this.blankLinesEnumerationsLabel.AutoSize = true;
-            this.blankLinesEnumerationsLabel.Location = new System.Drawing.Point(3, 138);
-            this.blankLinesEnumerationsLabel.Name = "blankLinesEnumerationsLabel";
-            this.blankLinesEnumerationsLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesEnumerationsLabel.Size = new System.Drawing.Size(81, 23);
-            this.blankLinesEnumerationsLabel.TabIndex = 17;
-            this.blankLinesEnumerationsLabel.Text = "Enumerations";
-            this.blankLinesEnumerationsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // insertBlankLinePaddingBeforeEnumerationsCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Location = new System.Drawing.Point(152, 142);
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Name = "insertBlankLinePaddingBeforeEnumerationsCheckBox";
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.TabIndex = 18;
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeEnumerationsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingAfterEnumerationsCheckBox
-            // 
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Location = new System.Drawing.Point(202, 142);
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Name = "insertBlankLinePaddingAfterEnumerationsCheckBox";
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.TabIndex = 19;
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterEnumerationsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterEnumerationsCheckBox_CheckedChanged);
-            // 
             // blankLinesRegionTagsLabel
             // 
             this.blankLinesRegionTagsLabel.AutoSize = true;
@@ -394,6 +328,171 @@
             this.insertBlankLinePaddingAfterEndRegionTagsCheckBox.UseVisualStyleBackColor = true;
             this.insertBlankLinePaddingAfterEndRegionTagsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterEndRegionTagsCheckBox_CheckedChanged);
             // 
+            // blankLinesClassesLabel
+            // 
+            this.blankLinesClassesLabel.AutoSize = true;
+            this.blankLinesClassesLabel.Location = new System.Drawing.Point(3, 115);
+            this.blankLinesClassesLabel.Name = "blankLinesClassesLabel";
+            this.blankLinesClassesLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesClassesLabel.Size = new System.Drawing.Size(53, 23);
+            this.blankLinesClassesLabel.TabIndex = 14;
+            this.blankLinesClassesLabel.Text = "Classes";
+            this.blankLinesClassesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeClassesCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeClassesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeClassesCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeClassesCheckBox.Location = new System.Drawing.Point(152, 119);
+            this.insertBlankLinePaddingBeforeClassesCheckBox.Name = "insertBlankLinePaddingBeforeClassesCheckBox";
+            this.insertBlankLinePaddingBeforeClassesCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeClassesCheckBox.TabIndex = 15;
+            this.insertBlankLinePaddingBeforeClassesCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeClassesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeClassesCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterClassesCheckBox
+            // 
+            this.insertBlankLinePaddingAfterClassesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterClassesCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterClassesCheckBox.Location = new System.Drawing.Point(202, 119);
+            this.insertBlankLinePaddingAfterClassesCheckBox.Name = "insertBlankLinePaddingAfterClassesCheckBox";
+            this.insertBlankLinePaddingAfterClassesCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterClassesCheckBox.TabIndex = 16;
+            this.insertBlankLinePaddingAfterClassesCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterClassesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterClassesCheckBox_CheckedChanged);
+            // 
+            // blankLinesEnumerationsLabel
+            // 
+            this.blankLinesEnumerationsLabel.AutoSize = true;
+            this.blankLinesEnumerationsLabel.Location = new System.Drawing.Point(3, 138);
+            this.blankLinesEnumerationsLabel.Name = "blankLinesEnumerationsLabel";
+            this.blankLinesEnumerationsLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesEnumerationsLabel.Size = new System.Drawing.Size(81, 23);
+            this.blankLinesEnumerationsLabel.TabIndex = 17;
+            this.blankLinesEnumerationsLabel.Text = "Enumerations";
+            this.blankLinesEnumerationsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeEnumerationsCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Location = new System.Drawing.Point(152, 142);
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Name = "insertBlankLinePaddingBeforeEnumerationsCheckBox";
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.TabIndex = 18;
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeEnumerationsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeEnumerationsCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterEnumerationsCheckBox
+            // 
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Location = new System.Drawing.Point(202, 142);
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Name = "insertBlankLinePaddingAfterEnumerationsCheckBox";
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.TabIndex = 19;
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterEnumerationsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterEnumerationsCheckBox_CheckedChanged);
+            // 
+            // blankLinesEventsLabel
+            // 
+            this.blankLinesEventsLabel.AutoSize = true;
+            this.blankLinesEventsLabel.Location = new System.Drawing.Point(3, 161);
+            this.blankLinesEventsLabel.Name = "blankLinesEventsLabel";
+            this.blankLinesEventsLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesEventsLabel.Size = new System.Drawing.Size(50, 23);
+            this.blankLinesEventsLabel.TabIndex = 20;
+            this.blankLinesEventsLabel.Text = "Events";
+            this.blankLinesEventsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeEventsCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeEventsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeEventsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeEventsCheckBox.Location = new System.Drawing.Point(152, 165);
+            this.insertBlankLinePaddingBeforeEventsCheckBox.Name = "insertBlankLinePaddingBeforeEventsCheckBox";
+            this.insertBlankLinePaddingBeforeEventsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeEventsCheckBox.TabIndex = 21;
+            this.insertBlankLinePaddingBeforeEventsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeEventsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeEventsCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterEventsCheckBox
+            // 
+            this.insertBlankLinePaddingAfterEventsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterEventsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterEventsCheckBox.Location = new System.Drawing.Point(202, 165);
+            this.insertBlankLinePaddingAfterEventsCheckBox.Name = "insertBlankLinePaddingAfterEventsCheckBox";
+            this.insertBlankLinePaddingAfterEventsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterEventsCheckBox.TabIndex = 22;
+            this.insertBlankLinePaddingAfterEventsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterEventsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterEventsCheckBox_CheckedChanged);
+            // 
+            // blankLinesFieldsWithCommentsLabel
+            // 
+            this.blankLinesFieldsWithCommentsLabel.AutoSize = true;
+            this.blankLinesFieldsWithCommentsLabel.Location = new System.Drawing.Point(3, 184);
+            this.blankLinesFieldsWithCommentsLabel.Name = "blankLinesFieldsWithCommentsLabel";
+            this.blankLinesFieldsWithCommentsLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesFieldsWithCommentsLabel.Size = new System.Drawing.Size(117, 23);
+            this.blankLinesFieldsWithCommentsLabel.TabIndex = 23;
+            this.blankLinesFieldsWithCommentsLabel.Text = "Fields with comments";
+            this.blankLinesFieldsWithCommentsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Location = new System.Drawing.Point(152, 188);
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Name = "insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox";
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.TabIndex = 24;
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterFieldsWithCommentsCheckBox
+            // 
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Location = new System.Drawing.Point(202, 188);
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Name = "insertBlankLinePaddingAfterFieldsWithCommentsCheckBox";
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.TabIndex = 25;
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox_CheckedChanged);
+            // 
+            // blankLinesInterfacesLabel
+            // 
+            this.blankLinesInterfacesLabel.AutoSize = true;
+            this.blankLinesInterfacesLabel.Location = new System.Drawing.Point(3, 207);
+            this.blankLinesInterfacesLabel.Name = "blankLinesInterfacesLabel";
+            this.blankLinesInterfacesLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesInterfacesLabel.Size = new System.Drawing.Size(64, 23);
+            this.blankLinesInterfacesLabel.TabIndex = 26;
+            this.blankLinesInterfacesLabel.Text = "Interfaces";
+            this.blankLinesInterfacesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeInterfacesCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Location = new System.Drawing.Point(152, 211);
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Name = "insertBlankLinePaddingBeforeInterfacesCheckBox";
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.TabIndex = 27;
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeInterfacesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeInterfacesCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterInterfacesCheckBox
+            // 
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.Location = new System.Drawing.Point(202, 211);
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.Name = "insertBlankLinePaddingAfterInterfacesCheckBox";
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.TabIndex = 28;
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterInterfacesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterInterfacesCheckBox_CheckedChanged);
+            // 
             // blankLinesMethodsLabel
             // 
             this.blankLinesMethodsLabel.AutoSize = true;
@@ -459,6 +558,39 @@
             this.insertBlankLinePaddingAfterPropertiesCheckBox.TabIndex = 34;
             this.insertBlankLinePaddingAfterPropertiesCheckBox.UseVisualStyleBackColor = true;
             this.insertBlankLinePaddingAfterPropertiesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterPropertiesCheckBox_CheckedChanged);
+            // 
+            // blankLinesStructsLabel
+            // 
+            this.blankLinesStructsLabel.AutoSize = true;
+            this.blankLinesStructsLabel.Location = new System.Drawing.Point(3, 276);
+            this.blankLinesStructsLabel.Name = "blankLinesStructsLabel";
+            this.blankLinesStructsLabel.Padding = new System.Windows.Forms.Padding(5);
+            this.blankLinesStructsLabel.Size = new System.Drawing.Size(50, 23);
+            this.blankLinesStructsLabel.TabIndex = 35;
+            this.blankLinesStructsLabel.Text = "Structs";
+            this.blankLinesStructsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // insertBlankLinePaddingBeforeStructsCheckBox
+            // 
+            this.insertBlankLinePaddingBeforeStructsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingBeforeStructsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingBeforeStructsCheckBox.Location = new System.Drawing.Point(152, 280);
+            this.insertBlankLinePaddingBeforeStructsCheckBox.Name = "insertBlankLinePaddingBeforeStructsCheckBox";
+            this.insertBlankLinePaddingBeforeStructsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingBeforeStructsCheckBox.TabIndex = 36;
+            this.insertBlankLinePaddingBeforeStructsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingBeforeStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeStructsCheckBox_CheckedChanged);
+            // 
+            // insertBlankLinePaddingAfterStructsCheckBox
+            // 
+            this.insertBlankLinePaddingAfterStructsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.insertBlankLinePaddingAfterStructsCheckBox.AutoSize = true;
+            this.insertBlankLinePaddingAfterStructsCheckBox.Location = new System.Drawing.Point(202, 280);
+            this.insertBlankLinePaddingAfterStructsCheckBox.Name = "insertBlankLinePaddingAfterStructsCheckBox";
+            this.insertBlankLinePaddingAfterStructsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.insertBlankLinePaddingAfterStructsCheckBox.TabIndex = 37;
+            this.insertBlankLinePaddingAfterStructsCheckBox.UseVisualStyleBackColor = true;
+            this.insertBlankLinePaddingAfterStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterStructsCheckBox_CheckedChanged);
             // 
             // explicitAccessModifiersGroupBox
             // 
@@ -555,138 +687,6 @@
             this.insertExplicitAccessModifiersOnStructsCheckBox.UseVisualStyleBackColor = true;
             this.insertExplicitAccessModifiersOnStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertExplicitAccessModifiersOnStructsCheckBox_CheckedChanged);
             // 
-            // blankLinesStructsLabel
-            // 
-            this.blankLinesStructsLabel.AutoSize = true;
-            this.blankLinesStructsLabel.Location = new System.Drawing.Point(3, 276);
-            this.blankLinesStructsLabel.Name = "blankLinesStructsLabel";
-            this.blankLinesStructsLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesStructsLabel.Size = new System.Drawing.Size(50, 23);
-            this.blankLinesStructsLabel.TabIndex = 35;
-            this.blankLinesStructsLabel.Text = "Structs";
-            this.blankLinesStructsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // insertBlankLinePaddingBeforeStructsCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeStructsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeStructsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeStructsCheckBox.Location = new System.Drawing.Point(152, 280);
-            this.insertBlankLinePaddingBeforeStructsCheckBox.Name = "insertBlankLinePaddingBeforeStructsCheckBox";
-            this.insertBlankLinePaddingBeforeStructsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeStructsCheckBox.TabIndex = 36;
-            this.insertBlankLinePaddingBeforeStructsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeStructsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingAfterStructsCheckBox
-            // 
-            this.insertBlankLinePaddingAfterStructsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterStructsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterStructsCheckBox.Location = new System.Drawing.Point(202, 280);
-            this.insertBlankLinePaddingAfterStructsCheckBox.Name = "insertBlankLinePaddingAfterStructsCheckBox";
-            this.insertBlankLinePaddingAfterStructsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterStructsCheckBox.TabIndex = 37;
-            this.insertBlankLinePaddingAfterStructsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterStructsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterStructsCheckBox_CheckedChanged);
-            // 
-            // blankLinesEventsLabel
-            // 
-            this.blankLinesEventsLabel.AutoSize = true;
-            this.blankLinesEventsLabel.Location = new System.Drawing.Point(3, 161);
-            this.blankLinesEventsLabel.Name = "blankLinesEventsLabel";
-            this.blankLinesEventsLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesEventsLabel.Size = new System.Drawing.Size(50, 23);
-            this.blankLinesEventsLabel.TabIndex = 20;
-            this.blankLinesEventsLabel.Text = "Events";
-            this.blankLinesEventsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // blankLinesFieldsWithCommentsLabel
-            // 
-            this.blankLinesFieldsWithCommentsLabel.AutoSize = true;
-            this.blankLinesFieldsWithCommentsLabel.Location = new System.Drawing.Point(3, 184);
-            this.blankLinesFieldsWithCommentsLabel.Name = "blankLinesFieldsWithCommentsLabel";
-            this.blankLinesFieldsWithCommentsLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesFieldsWithCommentsLabel.Size = new System.Drawing.Size(117, 23);
-            this.blankLinesFieldsWithCommentsLabel.TabIndex = 23;
-            this.blankLinesFieldsWithCommentsLabel.Text = "Fields with comments";
-            this.blankLinesFieldsWithCommentsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // blankLinesInterfacesLabel
-            // 
-            this.blankLinesInterfacesLabel.AutoSize = true;
-            this.blankLinesInterfacesLabel.Location = new System.Drawing.Point(3, 207);
-            this.blankLinesInterfacesLabel.Name = "blankLinesInterfacesLabel";
-            this.blankLinesInterfacesLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.blankLinesInterfacesLabel.Size = new System.Drawing.Size(64, 23);
-            this.blankLinesInterfacesLabel.TabIndex = 26;
-            this.blankLinesInterfacesLabel.Text = "Interfaces";
-            this.blankLinesInterfacesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // insertBlankLinePaddingAfterEventsCheckBox
-            // 
-            this.insertBlankLinePaddingAfterEventsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterEventsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterEventsCheckBox.Location = new System.Drawing.Point(202, 165);
-            this.insertBlankLinePaddingAfterEventsCheckBox.Name = "insertBlankLinePaddingAfterEventsCheckBox";
-            this.insertBlankLinePaddingAfterEventsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterEventsCheckBox.TabIndex = 22;
-            this.insertBlankLinePaddingAfterEventsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterEventsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterEventsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingBeforeEventsCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeEventsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeEventsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeEventsCheckBox.Location = new System.Drawing.Point(152, 165);
-            this.insertBlankLinePaddingBeforeEventsCheckBox.Name = "insertBlankLinePaddingBeforeEventsCheckBox";
-            this.insertBlankLinePaddingBeforeEventsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeEventsCheckBox.TabIndex = 21;
-            this.insertBlankLinePaddingBeforeEventsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeEventsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeEventsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Location = new System.Drawing.Point(152, 188);
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Name = "insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox";
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.TabIndex = 24;
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeFieldsWithCommentsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingAfterFieldsWithCommentsCheckBox
-            // 
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Location = new System.Drawing.Point(202, 188);
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Name = "insertBlankLinePaddingAfterFieldsWithCommentsCheckBox";
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.TabIndex = 25;
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterFieldsWithCommentsCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingBeforeInterfacesCheckBox
-            // 
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Location = new System.Drawing.Point(152, 211);
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Name = "insertBlankLinePaddingBeforeInterfacesCheckBox";
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.TabIndex = 27;
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingBeforeInterfacesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingBeforeInterfacesCheckBox_CheckedChanged);
-            // 
-            // insertBlankLinePaddingAfterInterfacesCheckBox
-            // 
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.AutoSize = true;
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.Location = new System.Drawing.Point(202, 211);
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.Name = "insertBlankLinePaddingAfterInterfacesCheckBox";
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.TabIndex = 28;
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.UseVisualStyleBackColor = true;
-            this.insertBlankLinePaddingAfterInterfacesCheckBox.CheckedChanged += new System.EventHandler(this.insertBlankLinePaddingAfterInterfacesCheckBox_CheckedChanged);
-            // 
             // CleanupInsertOptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -695,7 +695,7 @@
             this.Controls.Add(this.blankLinesPaddingGroupBox);
             this.Controls.Add(this.explicitAccessModifiersGroupBox);
             this.Name = "CleanupInsertOptionsControl";
-            this.Size = new System.Drawing.Size(333, 300);
+            this.Size = new System.Drawing.Size(316, 300);
             this.blankLinesPaddingGroupBox.ResumeLayout(false);
             this.blankLinesPaddingGroupBox.PerformLayout();
             this.blankLinesTableLayoutPanel.ResumeLayout(false);
