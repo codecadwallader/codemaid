@@ -488,7 +488,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeFieldsWithComments) return;
 
-            InsertBlankLinePaddingBeforeCodeItems(fieldsWithComments);
+            InsertBlankLinePaddingBeforeCodeItems(fieldsWithComments.Where(field => field.StartPoint.Line < field.EndPoint.Line));
         }
 
         /// <summary>
@@ -499,7 +499,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterFieldsWithComments) return;
 
-            InsertBlankLinePaddingAfterCodeItems(fieldsWithComments);
+            InsertBlankLinePaddingAfterCodeItems(fieldsWithComments.Where(field => field.StartPoint.Line < field.EndPoint.Line));
         }
 
         /// <summary>

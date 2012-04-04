@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Text.RegularExpressions;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
@@ -25,6 +26,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the code element, may be null.
         /// </summary>
         public CodeElement CodeElement { get; set; }
+
+        /// <summary>
+        /// Gets the start point adjusted for leading comments, may be null.
+        /// </summary>
+        public EditPoint StartPoint
+        {
+            get { return CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.StartPoint) : null; }
+        }
+
+        /// <summary>
+        /// Gets the end point, may be null.
+        /// </summary>
+        public EditPoint EndPoint
+        {
+            get { return CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null; }
+        }
 
         /// <summary>
         /// Gets the access level.
@@ -65,6 +82,33 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             {
                 return default(T);
             }
+        }
+
+        /// <summary>
+        /// Gets a starting point adjusted for leading comments.
+        /// </summary>
+        /// <param name="originalPoint">The original point.</param>
+        /// <returns>The adjusted starting point.</returns>
+        private static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
+        {
+            var point = originalPoint.CreateEditPoint();
+
+            while (!point.AtStartOfDocument)
+            {
+                string text = point.GetLines(point.Line - 1, point.Line);
+
+                if (Regex.IsMatch(text, @"^\s*//"))
+                {
+                    point.LineUp(1);
+                    point.StartOfLine();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return point;
         }
     }
 }
