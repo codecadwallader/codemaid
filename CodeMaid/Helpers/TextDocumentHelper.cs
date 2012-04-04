@@ -42,33 +42,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
-        /// Gets a starting point adjusted for leading comments.
-        /// </summary>
-        /// <param name="originalPoint">The original point.</param>
-        /// <returns>The adjusted starting point.</returns>
-        internal static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
-        {
-            var point = originalPoint.CreateEditPoint();
-
-            while (!point.AtStartOfDocument)
-            {
-                string text = point.GetLines(point.Line - 1, point.Line);
-
-                if (Regex.IsMatch(text, @"^\s*//"))
-                {
-                    point.LineUp(1);
-                    point.StartOfLine();
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return point;
-        }
-
-        /// <summary>
         /// Gets the text between the specified start point and the first match.
         /// </summary>
         /// <param name="startPoint">The start point.</param>
@@ -95,20 +68,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineBeforePoint(EditPoint point)
         {
-            while (!point.AtStartOfDocument) // Move the cursor above any adjacent XML document comments.
+            if (point.AtStartOfDocument) return;
+
+            point.LineUp(1);
+            point.StartOfLine();
+            string text = point.GetLines(point.Line, point.Line + 1);
+            if (Regex.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
             {
-                point.LineUp(1);
-                point.StartOfLine();
-                string text = point.GetLines(point.Line, point.Line + 1);
-                if (!Regex.IsMatch(text, @"^\s*//")) // Keep moving until we hit a non XML document line.
-                {
-                    if (Regex.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
-                    {
-                        point.EndOfLine();
-                        point.Insert(Environment.NewLine);
-                    }
-                    break;
-                }
+                point.EndOfLine();
+                point.Insert(Environment.NewLine);
             }
         }
 
@@ -149,13 +117,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
 
-                    var startPoint = GetStartPointAdjustedForComments(codeItemElement.CodeElement.StartPoint);
-
-                    textDocument.Selection.MoveToPoint(startPoint, false);
+                    textDocument.Selection.MoveToPoint(codeItemElement.StartPoint, false);
 
                     if (centerOnWhole)
                     {
-                        viewRangeEnd = codeItemElement.CodeElement.EndPoint;
+                        viewRangeEnd = codeItemElement.EndPoint;
                     }
                 }
                 else
@@ -201,10 +167,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
 
-                    var startPoint = GetStartPointAdjustedForComments(codeItemElement.CodeElement.StartPoint);
-
-                    textDocument.Selection.MoveToPoint(startPoint, false);
-                    textDocument.Selection.MoveToPoint(codeItemElement.CodeElement.EndPoint, true);
+                    textDocument.Selection.MoveToPoint(codeItemElement.StartPoint, false);
+                    textDocument.Selection.MoveToPoint(codeItemElement.EndPoint, true);
                 }
                 else
                 {

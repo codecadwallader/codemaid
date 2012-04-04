@@ -152,8 +152,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private static void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove)
         {
             FactoryCodeItems.RefreshCodeItemElement(itemToMove);
-            var moveStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(itemToMove.CodeElement.StartPoint);
-            var moveEndPoint = itemToMove.CodeElement.EndPoint;
+            var moveStartPoint = itemToMove.StartPoint;
+            var moveEndPoint = itemToMove.EndPoint;
 
             moveStartPoint.Cut(moveEndPoint, false);
             moveStartPoint.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
@@ -188,7 +188,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             CutItemToMoveOntoClipboard(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
-            var baseStartPoint = TextDocumentHelper.GetStartPointAdjustedForComments(baseItem.CodeElement.StartPoint);
+            var baseStartPoint = baseItem.StartPoint;
             var pastePoint = baseStartPoint.CreateEditPoint();
 
             pastePoint.Paste();
@@ -214,7 +214,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             CutItemToMoveOntoClipboard(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
-            var baseEndPoint = baseItem.CodeElement.EndPoint.CreateEditPoint();
+            var baseEndPoint = baseItem.EndPoint;
             var pastePoint = baseEndPoint.CreateEditPoint();
 
             pastePoint.Insert(Environment.NewLine);

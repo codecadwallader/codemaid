@@ -1084,7 +1084,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {
-                EditPoint startPoint = codeItem.CodeElement.StartPoint.CreateEditPoint();
+                EditPoint startPoint = codeItem.StartPoint;
 
                 TextDocumentHelper.InsertBlankLineBeforePoint(startPoint);
             }
@@ -1100,7 +1100,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
             {
-                EditPoint endPoint = codeItem.CodeElement.EndPoint.CreateEditPoint();
+                EditPoint endPoint = codeItem.EndPoint;
 
                 TextDocumentHelper.InsertBlankLineAfterPoint(endPoint);
             }
