@@ -24,7 +24,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// A helper class for cleaning up code.
     /// </summary>
     /// <remarks>
-    /// Note:  All text replacements search against '\n' but insert/replace
+    /// Note:  All POSIXRegEx text replacements search against '\n' but insert/replace
     ///        with Environment.NewLine.  This handles line endings correctly.
     /// </remarks>
     internal class CodeCleanupHelper
@@ -60,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             Package = package;
 
+            BlankLinePaddingHelper = BlankLinePaddingHelper.GetInstance(Package);
             CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
         }
 
@@ -201,6 +202,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
             var structs = codeItems.OfType<CodeItemStruct>().ToList();
 
+            // Build up more complicated collections.
+            var usingStatementBlocks = GetCodeItemBlocks(usingStatements).ToList();
+            var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
+            var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
+            var fieldsWithComments = fields.Where(x => x.StartPoint.Line < x.EndPoint.Line).ToList();
+
             // Perform removal cleanup.
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
@@ -209,31 +216,44 @@ namespace SteveCadwallader.CodeMaid.Helpers
             RemoveBlankLinesBeforeClosingBrace(textDocument);
             RemoveMultipleConsecutiveBlankLines(textDocument);
 
-            // Perform insertion cleanup.
-            InsertBlankLinePaddingBeforeRegionTags(textDocument);
-            InsertBlankLinePaddingAfterRegionTags(textDocument);
-            InsertBlankLinePaddingBeforeEndRegionTags(textDocument);
-            InsertBlankLinePaddingAfterEndRegionTags(textDocument);
-            InsertBlankLinePaddingBeforeUsingStatementBlocks(usingStatements);
-            InsertBlankLinePaddingAfterUsingStatementBlocks(usingStatements);
-            InsertBlankLinePaddingBeforeNamespaces(namespaces);
-            InsertBlankLinePaddingAfterNamespaces(namespaces);
-            InsertBlankLinePaddingBeforeClasses(classes);
-            InsertBlankLinePaddingAfterClasses(classes);
-            InsertBlankLinePaddingBeforeEnumerations(enumerations);
-            InsertBlankLinePaddingAfterEnumerations(enumerations);
-            InsertBlankLinePaddingBeforeEvents(events);
-            InsertBlankLinePaddingAfterEvents(events);
-            InsertBlankLinePaddingBeforeFieldsWithComments(fields);
-            InsertBlankLinePaddingAfterFieldsWithComments(fields);
-            InsertBlankLinePaddingBeforeInterfaces(interfaces);
-            InsertBlankLinePaddingAfterInterfaces(interfaces);
-            InsertBlankLinePaddingBeforeMethods(methods);
-            InsertBlankLinePaddingAfterMethods(methods);
-            InsertBlankLinePaddingBeforeProperties(properties);
-            InsertBlankLinePaddingAfterProperties(properties);
-            InsertBlankLinePaddingBeforeStructs(structs);
-            InsertBlankLinePaddingAfterStructs(structs);
+            // Perform insertion of blank line padding cleanup.
+            BlankLinePaddingHelper.InsertPaddingBeforeRegionTags(textDocument);
+            BlankLinePaddingHelper.InsertPaddingAfterRegionTags(textDocument);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeEndRegionTags(textDocument);
+            BlankLinePaddingHelper.InsertPaddingAfterEndRegionTags(textDocument);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(namespaces);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(namespaces);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(classes);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(classes);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(enumerations);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(enumerations);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(events);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(events);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(fieldsWithComments);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(fieldsWithComments);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(interfaces);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(interfaces);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(methods);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(methods);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(properties);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(properties);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(structs);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(structs);
+
+            // Perform insertion of explicit access modifier cleanup.
             InsertExplicitAccessModifiersOnClasses(classes);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnEvents(events);
@@ -285,310 +305,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Private Language Methods
 
         #region Private Cleanup Methods
-
-        /// <summary>
-        /// Inserts a blank line before #region tags except where adjacent to a brace
-        /// for the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        private void InsertBlankLinePaddingBeforeRegionTags(TextDocument textDocument)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeRegionTags) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"{[^\n\{]}\n{:b*}\#region"
-                                 : @"([^\r\n\{])\r?\n([ \t]*)#region";
-
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#region"
-                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#region";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after #region tags for the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        private void InsertBlankLinePaddingAfterRegionTags(TextDocument textDocument)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterRegionTags) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"^{:b*}\#region{.*}\n{.}"
-                                 : @"^([ \t]*)#region([^\r\n]*)\r?\n([^\r\n])";
-
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\1\#region\2" + Environment.NewLine + Environment.NewLine + @"\3"
-                                     : @"$1#region$2" + Environment.NewLine + Environment.NewLine + @"$3";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before #endregion tags for the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        private void InsertBlankLinePaddingBeforeEndRegionTags(TextDocument textDocument)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEndRegionTags) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"{.}\n{:b*}\#endregion"
-                                 : @"([^\r\n])\r?\n([ \t]*)#endregion";
-
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#endregion"
-                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#endregion";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after #endregion tags except where adjacent to a brace
-        /// for the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        private void InsertBlankLinePaddingAfterEndRegionTags(TextDocument textDocument)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEndRegionTags) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}"
-                                 : @"^([ \t]*)#endregion([^\r\n]*)\r?\n([ \t]*[^ \t\r\n\}])";
-
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\1\#endregion\2" + Environment.NewLine + Environment.NewLine + @"\3"
-                                     : @"$1#endregion$2" + Environment.NewLine + Environment.NewLine + @"$3";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified using statements except where adjacent to a brace.
-        /// </summary>
-        /// <param name="usingStatements">The using statements to pad.</param>
-        private void InsertBlankLinePaddingBeforeUsingStatementBlocks(IEnumerable<CodeItemUsingStatement> usingStatements)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeUsingStatementBlocks) return;
-
-            var usingStatementBlocks = GetCodeItemBlocks(usingStatements);
-            var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First());
-
-            InsertBlankLinePaddingBeforeCodeItems(usingStatementsThatStartBlocks);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified using statements except where adjacent to a brace.
-        /// </summary>
-        /// <param name="usingStatements">The using statements to pad.</param>
-        private void InsertBlankLinePaddingAfterUsingStatementBlocks(IEnumerable<CodeItemUsingStatement> usingStatements)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterUsingStatementBlocks) return;
-
-            var usingStatementBlocks = GetCodeItemBlocks(usingStatements);
-            var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last());
-
-            InsertBlankLinePaddingAfterCodeItems(usingStatementsThatEndBlocks);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified namespaces except where adjacent to a brace.
-        /// </summary>
-        /// <param name="namespaces">The namespaces to pad.</param>
-        private void InsertBlankLinePaddingBeforeNamespaces(IEnumerable<CodeItemNamespace> namespaces)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeNamespaces) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(namespaces);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified namespaces except where adjacent to a brace.
-        /// </summary>
-        /// <param name="namespaces">The namespaces to pad.</param>
-        private void InsertBlankLinePaddingAfterNamespaces(IEnumerable<CodeItemNamespace> namespaces)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterNamespaces) return;
-
-            InsertBlankLinePaddingAfterCodeItems(namespaces);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified classes except where adjacent to a brace.
-        /// </summary>
-        /// <param name="classes">The classes to pad.</param>
-        private void InsertBlankLinePaddingBeforeClasses(IEnumerable<CodeItemClass> classes)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeClasses) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(classes);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified classes except where adjacent to a brace.
-        /// </summary>
-        /// <param name="classes">The classes to pad.</param>
-        private void InsertBlankLinePaddingAfterClasses(IEnumerable<CodeItemClass> classes)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterClasses) return;
-
-            InsertBlankLinePaddingAfterCodeItems(classes);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified enumerations except where adjacent to a brace.
-        /// </summary>
-        /// <param name="enumerations">The enumerations to pad.</param>
-        private void InsertBlankLinePaddingBeforeEnumerations(IEnumerable<CodeItemEnum> enumerations)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEnumerations) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(enumerations);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified enumerations except where adjacent to a brace.
-        /// </summary>
-        /// <param name="enumerations">The enumerations to pad.</param>
-        private void InsertBlankLinePaddingAfterEnumerations(IEnumerable<CodeItemEnum> enumerations)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEnumerations) return;
-
-            InsertBlankLinePaddingAfterCodeItems(enumerations);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified events except where adjacent to a brace.
-        /// </summary>
-        /// <param name="events">The events to pad.</param>
-        private void InsertBlankLinePaddingBeforeEvents(IEnumerable<CodeItemEvent> events)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEvents) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(events);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified events except where adjacent to a brace.
-        /// </summary>
-        /// <param name="events">The events to pad.</param>
-        private void InsertBlankLinePaddingAfterEvents(IEnumerable<CodeItemEvent> events)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEvents) return;
-
-            InsertBlankLinePaddingAfterCodeItems(events);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified fields with comments except where adjacent to a brace.
-        /// </summary>
-        /// <param name="fieldsWithComments">The fields with comments to pad.</param>
-        private void InsertBlankLinePaddingBeforeFieldsWithComments(IEnumerable<CodeItemField> fieldsWithComments)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeFieldsWithComments) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(fieldsWithComments.Where(field => field.StartPoint.Line < field.EndPoint.Line));
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified fields with comments except where adjacent to a brace.
-        /// </summary>
-        /// <param name="fieldsWithComments">The fields with comments to pad.</param>
-        private void InsertBlankLinePaddingAfterFieldsWithComments(IEnumerable<CodeItemField> fieldsWithComments)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterFieldsWithComments) return;
-
-            InsertBlankLinePaddingAfterCodeItems(fieldsWithComments.Where(field => field.StartPoint.Line < field.EndPoint.Line));
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified interfaces except where adjacent to a brace.
-        /// </summary>
-        /// <param name="interfaces">The interfaces to pad.</param>
-        private void InsertBlankLinePaddingBeforeInterfaces(IEnumerable<CodeItemInterface> interfaces)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeInterfaces) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(interfaces);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified interfaces except where adjacent to a brace.
-        /// </summary>
-        /// <param name="interfaces">The interfaces to pad.</param>
-        private void InsertBlankLinePaddingAfterInterfaces(IEnumerable<CodeItemInterface> interfaces)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterInterfaces) return;
-
-            InsertBlankLinePaddingAfterCodeItems(interfaces);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified methods except where adjacent to a brace.
-        /// </summary>
-        /// <param name="methods">The methods to pad.</param>
-        private void InsertBlankLinePaddingBeforeMethods(IEnumerable<CodeItemMethod> methods)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeMethods) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(methods);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified methods except where adjacent to a brace.
-        /// </summary>
-        /// <param name="methods">The methods to pad.</param>
-        private void InsertBlankLinePaddingAfterMethods(IEnumerable<CodeItemMethod> methods)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterMethods) return;
-
-            InsertBlankLinePaddingAfterCodeItems(methods);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified properties except where adjacent to a brace.
-        /// </summary>
-        /// <param name="properties">The properties to pad.</param>
-        private void InsertBlankLinePaddingBeforeProperties(IEnumerable<CodeItemProperty> properties)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeProperties) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(properties);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified properties except where adjacent to a brace.
-        /// </summary>
-        /// <param name="properties">The properties to pad.</param>
-        private void InsertBlankLinePaddingAfterProperties(IEnumerable<CodeItemProperty> properties)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterProperties) return;
-
-            InsertBlankLinePaddingAfterCodeItems(properties);
-        }
-
-        /// <summary>
-        /// Inserts a blank line before the specified structs except where adjacent to a brace.
-        /// </summary>
-        /// <param name="structs">The structs to pad.</param>
-        private void InsertBlankLinePaddingBeforeStructs(IEnumerable<CodeItemStruct> structs)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeStructs) return;
-
-            InsertBlankLinePaddingBeforeCodeItems(structs);
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified structs except where adjacent to a brace.
-        /// </summary>
-        /// <param name="structs">The structs to pad.</param>
-        private void InsertBlankLinePaddingAfterStructs(IEnumerable<CodeItemStruct> structs)
-        {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterStructs) return;
-
-            InsertBlankLinePaddingAfterCodeItems(structs);
-        }
 
         /// <summary>
         /// Inserts the explicit access modifiers on classes where they are not specified.
@@ -1075,38 +791,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Inserts a blank line before the specified code items except where adjacent to a brace.
-        /// </summary>
-        /// <typeparam name="T">The type of the code item.</typeparam>
-        /// <param name="codeItems">The code items to pad.</param>
-        private static void InsertBlankLinePaddingBeforeCodeItems<T>(IEnumerable<T> codeItems)
-            where T : BaseCodeItemElement
-        {
-            foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
-            {
-                EditPoint startPoint = codeItem.StartPoint;
-
-                TextDocumentHelper.InsertBlankLineBeforePoint(startPoint);
-            }
-        }
-
-        /// <summary>
-        /// Inserts a blank line after the specified code items except where adjacent to a brace.
-        /// </summary>
-        /// <typeparam name="T">The type of the code item.</typeparam>
-        /// <param name="codeItems">The code items to pad.</param>
-        private static void InsertBlankLinePaddingAfterCodeItems<T>(IEnumerable<T> codeItems)
-            where T : BaseCodeItemElement
-        {
-            foreach (T codeItem in codeItems.Where(x => x.CodeElement != null))
-            {
-                EditPoint endPoint = codeItem.EndPoint;
-
-                TextDocumentHelper.InsertBlankLineAfterPoint(endPoint);
-            }
-        }
-
-        /// <summary>
         /// Determines if the access modifier is explicitly defined on the specified code element declaration.
         /// </summary>
         /// <param name="codeElementDeclaration">The code element declaration.</param>
@@ -1144,6 +828,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Private Constants
 
         #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the blank line padding helper.
+        /// </summary>
+        private BlankLinePaddingHelper BlankLinePaddingHelper { get; set; }
 
         /// <summary>
         /// Gets or sets the code cleanup availability helper.

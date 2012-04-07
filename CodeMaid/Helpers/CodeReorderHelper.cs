@@ -54,11 +54,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private CodeReorderHelper(CodeMaidPackage package)
         {
             Package = package;
+
+            BlankLinePaddingHelper = BlankLinePaddingHelper.GetInstance(Package);
         }
 
         #endregion Constructors
 
         #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the blank line padding helper.
+        /// </summary>
+        private BlankLinePaddingHelper BlankLinePaddingHelper { get; set; }
 
         /// <summary>
         /// Gets or sets the hosting package.
@@ -149,7 +156,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Cuts the item to move onto the clipboard.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
-        private static void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove)
+        private void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove)
         {
             FactoryCodeItems.RefreshCodeItemElement(itemToMove);
             var moveStartPoint = itemToMove.StartPoint;
@@ -165,15 +172,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="firstItem">The first item.</param>
         /// <param name="secondItem">The second item.</param>
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
-        private static bool ShouldBeSeparatedByNewLine(BaseCodeItemElement firstItem, BaseCodeItemElement secondItem)
+        private bool ShouldBeSeparatedByNewLine(BaseCodeItemElement firstItem, BaseCodeItemElement secondItem)
         {
-            if (firstItem is CodeItemField && firstItem.StartLine == firstItem.EndLine &&
-                secondItem is CodeItemField && secondItem.StartLine == secondItem.EndLine)
-            {
-                return false;
-            }
-
-            return true;
+            return BlankLinePaddingHelper.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
+                   BlankLinePaddingHelper.ShouldInstanceBePrecededByBlankLine(secondItem);
         }
 
         /// <summary>
@@ -181,9 +183,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        private static void RepositionItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        private void RepositionItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
             if (itemToMove == baseItem) return;
+
+            bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
 
             CutItemToMoveOntoClipboard(itemToMove);
 
@@ -193,7 +197,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             pastePoint.Paste();
             pastePoint.Insert(Environment.NewLine);
-            if (ShouldBeSeparatedByNewLine(itemToMove, baseItem))
+            if (separateWithNewLine)
             {
                 pastePoint.Insert(Environment.NewLine);
             }
@@ -207,9 +211,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        private static void RepositionItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        private void RepositionItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
         {
             if (itemToMove == baseItem) return;
+
+            bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
 
             CutItemToMoveOntoClipboard(itemToMove);
 
@@ -218,7 +224,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var pastePoint = baseEndPoint.CreateEditPoint();
 
             pastePoint.Insert(Environment.NewLine);
-            if (ShouldBeSeparatedByNewLine(itemToMove, baseItem))
+            if (separateWithNewLine)
             {
                 pastePoint.Insert(Environment.NewLine);
             }

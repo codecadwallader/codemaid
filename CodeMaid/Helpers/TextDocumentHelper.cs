@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// A static helper class for working with text documents.
     /// </summary>
     /// <remarks>
-    /// Note:  All text replacements search against '\n' but insert/replace
+    /// Note:  All POSIXRegEx text replacements search against '\n' but insert/replace
     ///        with Environment.NewLine.  This handles line endings correctly.
     /// </remarks>
     internal static class TextDocumentHelper
