@@ -197,7 +197,7 @@
             this.excludeExpressionDefaultLabel.Name = "excludeExpressionDefaultLabel";
             this.excludeExpressionDefaultLabel.Size = new System.Drawing.Size(182, 13);
             this.excludeExpressionDefaultLabel.TabIndex = 1;
-            this.excludeExpressionDefaultLabel.Text = "*.Designer.cs ; *.resx";
+            this.excludeExpressionDefaultLabel.Text = ".*.Designer.cs ; .*.resx";
             // 
             // excludeExpressionResetButton
             // 
@@ -228,9 +228,9 @@
             this.excludeDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.excludeDescriptionLabel.Location = new System.Drawing.Point(20, 116);
             this.excludeDescriptionLabel.Name = "excludeDescriptionLabel";
-            this.excludeDescriptionLabel.Size = new System.Drawing.Size(166, 13);
+            this.excludeDescriptionLabel.Size = new System.Drawing.Size(315, 13);
             this.excludeDescriptionLabel.TabIndex = 3;
-            this.excludeDescriptionLabel.Text = "Semicolon separates expressions.";
+            this.excludeDescriptionLabel.Text = "Regular expression syntax (note leading .*).  Semicolon separator.";
             // 
             // CleanupFileTypesOptionsControl
             // 
