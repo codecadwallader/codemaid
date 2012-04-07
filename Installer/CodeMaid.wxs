@@ -5,7 +5,7 @@
 <?define VisualStudioRegistryRoot2010 = "Software\Microsoft\VisualStudio\10.0" ?>
 <?define VisualStudioRegistryRoot2012 = "Software\Microsoft\VisualStudio\11.0" ?>
 
-<?define ProductVersion = "0.4.1" ?>
+<?define ProductVersion = "0.4.2" ?>
 <?define UpgradeCode = "57A7DBA7-283D-43A1-BBAA-8745434E91A3" ?>
 
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
