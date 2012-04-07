@@ -61,16 +61,19 @@
         <Button Canvas.Left="456" Canvas.Top="142" Height="16" Width="229" Style="{StaticResource underlineLinkButton}"
                 Click="OnWebsiteLinkClick" />
 
-        <Button Canvas.Left="647" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
+        <Button Canvas.Left="615" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnEmailLinkClick" />
 
-        <Button Canvas.Left="692" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
+        <Button Canvas.Left="660" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnTwitterLinkClick" />
 
-        <Button Canvas.Left="736" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
+        <Button Canvas.Left="704" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnRSSLinkClick" />
 
-        <Button Canvas.Left="780" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
+        <Button Canvas.Left="748" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnGooglePlusLinkClick" />
+
+        <Button Canvas.Left="790" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnTrelloLinkClick" />
     </Canvas>
 </UserControl>

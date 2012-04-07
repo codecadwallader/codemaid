@@ -86,6 +86,16 @@ namespace SteveCadwallader.CodeMaid.Dialogs
             LaunchLink(@"https://plus.google.com/u/0/104818751344933095922/");
         }
 
+        /// <summary>
+        /// Called when the Trello link is clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        private void OnTrelloLinkClick(object sender, RoutedEventArgs e)
+        {
+            LaunchLink(@"https://trello.com/board/feature-ideas/4f6e6dcc255ed1e9085b8665");
+        }
+
         #endregion Event Handlers
 
         #region Methods
