@@ -343,14 +343,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Methods
 
         /// <summary>
-        /// Redirects the focus into the tree view.
-        /// </summary>
-        public void RedirectFocus()
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => Keyboard.Focus(treeView)));
-        }
-
-        /// <summary>
         /// Attempts to find the parent TreeViewItem from the specified event source.
         /// </summary>
         /// <param name="eventSource">The event source.</param>

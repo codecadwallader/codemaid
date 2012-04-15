@@ -13,7 +13,6 @@
 
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -32,7 +31,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Fields
 
         private readonly SpadeCodeModelRetriever _codeModelRetriever;
-        private readonly SpadeViewHost _viewHost;
         private readonly SpadeViewModel _viewModel;
 
         private Document _document;
@@ -61,10 +59,12 @@ namespace SteveCadwallader.CodeMaid.Spade
             // Setup the associated classes.
             _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new SpadeViewModel();
-            _viewHost = new SpadeViewHost(_viewModel);
 
             // Register for view model requests to be refreshed.
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
+
+            // Create and set the view.
+            base.Content = new SpadeView { DataContext = _viewModel };
         }
 
         #endregion Constructors
@@ -78,14 +78,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         {
             get { return _viewModel.LayoutMode; }
             set { _viewModel.LayoutMode = value; }
-        }
-
-        /// <summary>
-        /// Retrieves the window associated with this window pane.
-        /// </summary>
-        public override IWin32Window Window
-        {
-            get { return _viewHost; }
         }
 
         #endregion Public Properties

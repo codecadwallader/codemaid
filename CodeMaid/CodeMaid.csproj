@@ -313,12 +313,6 @@
     <Compile Include="Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Spade\SpadeViewHost.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Spade\SpadeViewHost.Designer.cs">
-      <DependentUpon>SpadeViewHost.cs</DependentUpon>
-    </Compile>
     <Compile Include="Spade\SpadeViewModel.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -362,9 +356,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
       <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Spade\SpadeViewHost.resx">
-      <DependentUpon>SpadeViewHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
