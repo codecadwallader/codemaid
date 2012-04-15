@@ -404,6 +404,7 @@
     <Resource Include="Spade\Images\Expanded.png" />
     <Resource Include="Spade\Images\Region.png" />
     <Resource Include="Resources\about.png" />
+    <Content Include="extension.vsixmanifest" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
     <Content Include="Resources\closeLocked.bmp" />
