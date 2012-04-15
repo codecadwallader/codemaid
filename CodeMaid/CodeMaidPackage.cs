@@ -42,8 +42,7 @@ namespace SteveCadwallader.CodeMaid
     /// register itself and its components with the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [DefaultRegistryRoot(@"Software\Microsoft\VisualStudio\9.0")] // Defines the default registry root path (for VS2005 and VS2008)
-    [InstalledProductRegistration(true, "#110", "#112", "#114", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "#114", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideLoadKey("Standard", "0.4.2", "CodeMaid", "Steve Cadwallader", 1)]
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
