@@ -18,16 +18,16 @@ using System.Windows;
 namespace SteveCadwallader.CodeMaid.Dialogs
 {
     /// <summary>
-    /// Interaction logic for AboutForm.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class AboutForm
+    public partial class AboutWindow
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AboutForm"/> class.
+        /// Initializes a new instance of the <see cref="AboutWindow"/> class.
         /// </summary>
-        public AboutForm()
+        public AboutWindow()
         {
             InitializeComponent();
         }
@@ -35,6 +35,16 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         #endregion Constructors
 
         #region Event Handlers
+
+        /// <summary>
+        /// Called when an uncaptured left mouse button down event is received on the background.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void OnMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
 
         /// <summary>
         /// Called when the Website link is clicked.

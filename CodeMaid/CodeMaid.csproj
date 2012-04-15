@@ -174,14 +174,8 @@
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
     <Compile Include="Commands\SpadeToolWindowCommand.cs" />
-    <Compile Include="Dialogs\AboutForm.xaml.cs">
-      <DependentUpon>AboutForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\AboutFormHost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\AboutFormHost.Designer.cs">
-      <DependentUpon>AboutFormHost.cs</DependentUpon>
+    <Compile Include="Dialogs\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\CleanupProgress.cs">
       <SubType>Form</SubType>
@@ -323,9 +317,6 @@
   <ItemGroup>
     <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\AboutFormHost.resx">
-      <DependentUpon>AboutFormHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
       <DependentUpon>CleanupProgress.cs</DependentUpon>
@@ -478,7 +469,7 @@
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Dialogs\AboutForm.xaml">
+    <Page Include="Dialogs\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

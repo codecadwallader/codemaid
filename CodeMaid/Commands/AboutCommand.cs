@@ -17,7 +17,7 @@ using SteveCadwallader.CodeMaid.Dialogs;
 namespace SteveCadwallader.CodeMaid.Commands
 {
     /// <summary>
-    /// A command that provides for launching the CodeMaid configuration.
+    /// A command that provides for launching the CodeMaid about window.
     /// </summary>
     internal class AboutCommand : BaseCommand
     {
@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            new AboutFormHost().ShowDialog();
+            new AboutWindow().ShowDialog();
         }
 
         #endregion BaseCommand Methods
