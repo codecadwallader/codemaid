@@ -7,6 +7,5 @@ syntax: glob
 _ReSharper*/
 
 # Files
-*.user
 *.suo
 Thumbs.db

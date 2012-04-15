@@ -451,6 +451,18 @@
     <Resource Include="Spade\Images\Expanded.png" />
     <Resource Include="Spade\Images\Region.png" />
     <Resource Include="Resources\about.png" />
+    <Content Include="CodeMaid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="CodeMaid_Large.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="lgpl-3.0.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest" />
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />

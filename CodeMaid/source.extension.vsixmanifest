@@ -10,7 +10,7 @@
     <License>lgpl-3.0.rtf</License>
     <Icon>CodeMaid.png</Icon>
     <PreviewImage>CodeMaid_Large.png</PreviewImage>
-    <InstalledByMsi>true</InstalledByMsi>
+    <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
@@ -21,7 +21,7 @@
         <Edition>Express_All</Edition>
       </VisualStudio>
     </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="2.0" MaxVersion="4.0" />
+    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
   </Identifier>
   <References>
     <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">
