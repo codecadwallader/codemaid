@@ -1,0 +1,27 @@
+﻿<Window x:Class="SteveCadwallader.CodeMaid.Dialogs.CleanupProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Dialogs"
+        Icon="/SteveCadwallader.CodeMaid;component/Resources/CodeMaid.ico" Title="CodeMaid: Cleanup Progress"
+        Height="180" Width="400" Closing="OnClosing"
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow"
+        FocusManager.FocusedElement="{Binding ElementName=cancelButton}">
+    <DockPanel DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:CleanupProgressWindow}}">
+        <Grid DockPanel.Dock="Bottom" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <Button x:Name="cancelButton" Content="Cancel" Click="OnCancelButtonClick" IsCancel="True"
+                    HorizontalAlignment="Right" Margin="10" MinWidth="75" />
+        </Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="{Binding CurrentFileName, StringFormat='Cleaning {0}...'}" FontSize="14" TextTrimming="CharacterEllipsis" />
+            <ProgressBar Height="30" Margin="0,5" Maximum="{Binding CountTotal}" Value="{Binding CountProgress}" />
+            <TextBlock HorizontalAlignment="Center" TextTrimming="CharacterEllipsis">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} of {1}">
+                        <Binding Path="CountProgress" />
+                        <Binding Path="CountTotal" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+    </DockPanel>
+</Window>

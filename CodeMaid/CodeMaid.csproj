@@ -177,11 +177,8 @@
     <Compile Include="Dialogs\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\CleanupProgress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\CleanupProgress.Designer.cs">
-      <DependentUpon>CleanupProgress.cs</DependentUpon>
+    <Compile Include="Dialogs\CleanupProgressWindow.xaml.cs">
+      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\BaseEventListener.cs" />
     <Compile Include="Events\BuildProgressEventListener.cs" />
@@ -318,9 +315,6 @@
     <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
       <DependentUpon>BuildProgressControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CleanupProgress.resx">
-      <DependentUpon>CleanupProgress.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Options\BuildProgressOptionsControl.resx">
       <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -449,7 +443,7 @@
     <Content Include="Resources\cleanupAll.bmp" />
     <Content Include="Resources\cleanup.bmp" />
     <Content Include="Resources\closeLocked.bmp" />
-    <Content Include="Resources\CodeMaid.ico" />
+    <Resource Include="Resources\CodeMaid.ico" />
     <Content Include="Resources\collapse.bmp" />
     <Content Include="Resources\config.bmp" />
     <Content Include="Resources\find.bmp" />
@@ -472,6 +466,10 @@
     <Page Include="Dialogs\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\CleanupProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\CodeMaidColorResources.xaml">
       <SubType>Designer</SubType>

@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             using (new ActiveDocumentRestorer(Package))
             {
-                new CleanupProgress(Package, SelectedProjectItems).ShowDialog();
+                new CleanupProgressWindow(Package, SelectedProjectItems).ShowDialog();
             }
         }
 

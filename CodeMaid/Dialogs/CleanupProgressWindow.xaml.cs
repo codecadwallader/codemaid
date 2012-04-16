@@ -11,45 +11,42 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
+using System.Windows;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Dialogs
 {
     /// <summary>
-    /// A cleanup progress dialog.
+    /// Interaction logic for CleanupProgressWindow.xaml
     /// </summary>
-    public partial class CleanupProgress : Form
+    public partial class CleanupProgressWindow
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CleanupProgress"/> class.
+        /// Initializes a new instance of the <see cref="CleanupProgressWindow"/> class.
         /// </summary>
-        public CleanupProgress()
+        public CleanupProgressWindow()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CleanupProgress"/> class.
+        /// Initializes a new instance of the <see cref="CleanupProgressWindow"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <param name="projectItems">The project items.</param>
-        public CleanupProgress(CodeMaidPackage package, IEnumerable<ProjectItem> projectItems)
+        public CleanupProgressWindow(CodeMaidPackage package, IEnumerable<ProjectItem> projectItems)
             : this()
         {
             CodeCleanupHelper = CodeCleanupHelper.GetInstance(package);
 
             // Initialize UI elements.
-            currentFileLabel.Text = string.Empty;
-            fileCountLabel.Text = string.Empty;
-            _totalCount = projectItems.Count();
+            CountTotal = projectItems.Count();
 
             // Initialize background worker.
             _backgroundWorker = new BackgroundWorker
@@ -66,6 +63,63 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         }
 
         #endregion Constructors
+
+        #region CurrentFileName (Dependency Property)
+
+        /// <summary>
+        /// The dependency property definition for the CurrentFileName property.
+        /// </summary>
+        public static DependencyProperty CurrentFileNameProperty = DependencyProperty.Register(
+            "CurrentFileName", typeof(string), typeof(CleanupProgressWindow));
+
+        /// <summary>
+        /// Gets or sets the current file name.
+        /// </summary>
+        public string CurrentFileName
+        {
+            get { return (string)GetValue(CurrentFileNameProperty); }
+            set { SetValue(CurrentFileNameProperty, value); }
+        }
+
+        #endregion CurrentFileName (Dependency Property)
+
+        #region CountProgress (Dependency Property)
+
+        /// <summary>
+        /// The dependency property definition for the CountProgress property.
+        /// </summary>
+        public static DependencyProperty CountProgressProperty = DependencyProperty.Register(
+            "CountProgress", typeof(int), typeof(CleanupProgressWindow));
+
+        /// <summary>
+        /// Gets or sets the progress count.
+        /// </summary>
+        public int CountProgress
+        {
+            get { return (int)GetValue(CountProgressProperty); }
+            set { SetValue(CountProgressProperty, value); }
+        }
+
+        #endregion CountProgress (Dependency Property)
+
+        #region CountTotal (Dependency Property)
+
+        /// <summary>
+        /// The dependency property definition for the CountTotal property.
+        /// </summary>
+        public static DependencyProperty CountTotalProperty = DependencyProperty.Register(
+            "CountTotal", typeof(int), typeof(CleanupProgressWindow));
+
+        /// <summary>
+        /// Gets or sets the total count.
+        /// </summary>
+        public int CountTotal
+        {
+            get { return (int)GetValue(CountTotalProperty); }
+            set { SetValue(CountTotalProperty, value); }
+        }
+
+        #endregion CountTotal (Dependency Property)
 
         #region Private Properties
 
@@ -113,9 +167,8 @@ namespace SteveCadwallader.CodeMaid.Dialogs
             int currentCount = e.ProgressPercentage;
             var currentItem = (ProjectItem)e.UserState;
 
-            currentFileLabel.Text = string.Format("Cleaning {0}", currentItem.Name);
-            progressBar.Value = (currentCount * 100) / _totalCount;
-            fileCountLabel.Text = string.Format("{0} of {1}", currentCount, _totalCount);
+            CountProgress = currentCount;
+            CurrentFileName = currentItem.Name;
         }
 
         /// <summary>
@@ -126,25 +179,25 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Close the dialog.
-            DialogResult = DialogResult.OK;
+            DialogResult = true;
         }
 
         /// <summary>
-        /// Handles the Click event of the cancelButton control.
+        /// Called when the cancel button is clicked.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void cancelButton_Click(object sender, EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
         {
             CancelCleanup();
         }
 
         /// <summary>
-        /// Handles the FormClosing event of the CleanupProgress control.
+        /// Called when the window is attempting to close.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
-        private void CleanupProgress_FormClosing(object sender, FormClosingEventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        private void OnClosing(object sender, CancelEventArgs e)
         {
             if (_backgroundWorker.IsBusy)
             {
@@ -162,8 +215,8 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         /// </summary>
         private void CancelCleanup()
         {
-            cancelButton.Enabled = false;
-            cancelButton.Text = @"Canceling...";
+            cancelButton.IsEnabled = false;
+            cancelButton.Content = @"Canceling...";
 
             _backgroundWorker.CancelAsync();
         }
@@ -173,7 +226,6 @@ namespace SteveCadwallader.CodeMaid.Dialogs
         #region Private Fields
 
         private readonly BackgroundWorker _backgroundWorker;
-        private readonly int _totalCount;
 
         #endregion Private Fields
     }
