@@ -183,6 +183,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         {
             Caption = DefaultCaption;
             _viewModel.IsBuildActive = false;
+            _viewModel.IsProgressIndeterminate = false;
             _viewModel.ProgressPercentage = 0;
         }
 

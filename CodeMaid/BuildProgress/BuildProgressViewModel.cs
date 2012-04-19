@@ -49,6 +49,9 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                 if (_isBuildActive != value)
                 {
                     _isBuildActive = value;
+                    NotifyPropertyChanged("IsBuildActive");
+                    NotifyPropertyChanged("ShowProgressPercentage");
+
                     CancelBuildCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -68,6 +71,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                 {
                     _isProgressIndeterminate = value;
                     NotifyPropertyChanged("IsProgressIndeterminate");
+                    NotifyPropertyChanged("ShowProgressPercentage");
                 }
             }
         }
@@ -93,6 +97,14 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                     NotifyPropertyChanged("ProgressPercentage");
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the progress percentage should be shown.
+        /// </summary>
+        public bool ShowProgressPercentage
+        {
+            get { return IsBuildActive && !IsProgressIndeterminate; }
         }
 
         #endregion Properties
