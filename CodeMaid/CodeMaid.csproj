@@ -172,6 +172,12 @@
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
     <Compile Include="Commands\SpadeToolWindowCommand.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\CodeItemToImageConverter.cs" />
+    <Compile Include="Converters\CodeItemToMetadataStringConverter.cs" />
+    <Compile Include="Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="Converters\MethodToNameTextBlockConverter.cs" />
+    <Compile Include="Converters\TypeStringConverter.cs" />
     <Compile Include="Dialogs\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -290,13 +296,7 @@
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
-    <Compile Include="Spade\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Spade\Converters\CodeItemToImageConverter.cs" />
-    <Compile Include="Spade\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
-    <Compile Include="Spade\Converters\DocCommentToStringConverter.cs" />
-    <Compile Include="Spade\Converters\MethodToNameTextBlockConverter.cs" />
-    <Compile Include="Spade\Converters\TypeStringConverter.cs" />
     <Compile Include="Spade\DragDropAttachedProperties.cs" />
     <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
     <Compile Include="Spade\SpadeToolWindow.cs" />

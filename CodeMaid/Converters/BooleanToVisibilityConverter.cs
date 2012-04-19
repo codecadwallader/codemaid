@@ -16,7 +16,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SteveCadwallader.CodeMaid.Spade.Converters
+namespace SteveCadwallader.CodeMaid.Converters
 {
     /// <summary>
     /// Converts a boolean value into a visiblity enumeration result.

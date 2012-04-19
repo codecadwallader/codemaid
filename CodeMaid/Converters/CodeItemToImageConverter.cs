@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Spade.Converters
+namespace SteveCadwallader.CodeMaid.Converters
 {
     /// <summary>
     /// Converts a code item into an image.

@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -20,7 +20,7 @@ using System.Windows.Media;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Spade.Converters
+namespace SteveCadwallader.CodeMaid.Converters
 {
     /// <summary>
     /// Converts a method into a single TextBlock object containing its name and optionally its parameters.

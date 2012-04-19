@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -12,21 +12,21 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
-using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
-using SteveCadwallader.CodeMaid.Helpers;
+using System.Xml.Linq;
 
-namespace SteveCadwallader.CodeMaid.Spade.Converters
+namespace SteveCadwallader.CodeMaid.Converters
 {
     /// <summary>
-    /// Converts a type string into a simpler value using the <see cref="TypeFormatHelper"/>.
+    /// Converts the specified doc comment into a simpler string.
     /// </summary>
-    public class TypeStringConverter : IValueConverter
+    public class DocCommentToStringConverter : IValueConverter
     {
         /// <summary>
-        /// A default instance of the <see cref="TypeStringConverter"/>.
+        /// A default instance of the <see cref="DocCommentToStringConverter"/>.
         /// </summary>
-        public static TypeStringConverter Default = new TypeStringConverter();
+        public static DocCommentToStringConverter Default = new DocCommentToStringConverter();
 
         /// <summary>
         /// Converts a value.
@@ -36,9 +36,31 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return TypeFormatHelper.Format(value as string);
+            var str = value as string;
+            if (string.IsNullOrEmpty(str)) return string.Empty;
+
+            try
+            {
+                var xElement = XElement.Parse(str);
+
+                var summaryTag = xElement.Descendants("summary").FirstOrDefault();
+                if (summaryTag == null) return string.Empty;
+
+                var result = summaryTag.ToString()
+                    .Replace("<summary>", "")
+                    .Replace("</summary>", "")
+                    .Replace(Environment.NewLine, "  ")
+                    .Replace("\n", "  ")
+                    .Trim();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -49,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Spade.Converters
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }

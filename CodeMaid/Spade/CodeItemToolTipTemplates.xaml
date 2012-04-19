@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade"
+        xmlns:spadeCnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters">
 
     <!-- Styles -->
     <Style x:Key="defaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
@@ -87,7 +88,7 @@
             <TextBlock Text="Complexity: " Foreground="#666666" />
             <TextBlock x:Name="complexityTextBlock" Text="{Binding}">
                 <TextBlock.Foreground>
-                    <MultiBinding Converter="{x:Static cnv:ComplexityToColorConverter.Default}">
+                    <MultiBinding Converter="{x:Static spadeCnv:ComplexityToColorConverter.Default}">
                         <Binding />
                         <Binding Path="DataContext"
                                 RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />

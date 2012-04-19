@@ -19,7 +19,7 @@ using System.Windows.Data;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Spade.Converters
+namespace SteveCadwallader.CodeMaid.Converters
 {
     /// <summary>
     /// Converts a code item into a metadata string.
