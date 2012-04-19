@@ -12,10 +12,10 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
@@ -27,11 +27,13 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     [Guid("260978c3-582c-487d-ab12-c1fdde07c578")]
     public class BuildProgressToolWindow : ToolWindowPane
     {
-        #region Constants
+        #region Fields
 
         private const string DefaultCaption = "Build Progress";
 
-        #endregion Constants
+        private readonly BuildProgressViewModel _viewModel;
+
+        #endregion Fields
 
         #region Constructors
 
@@ -48,21 +50,16 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             BitmapResourceID = 502;
             BitmapIndex = 0;
 
+            // Create the view model.
+            _viewModel = new BuildProgressViewModel();
+
             // Set the tool window content.
-            Control = new BuildProgressControl();
+            base.Content = new BuildProgressView { DataContext = _viewModel };
         }
 
         #endregion Constructors
 
         #region Properties
-
-        /// <summary>
-        /// Retrieves the window associated with this window pane.
-        /// </summary>
-        public override IWin32Window Window
-        {
-            get { return Control; }
-        }
 
         /// <summary>
         /// Gets or sets the last known build action.
@@ -73,11 +70,6 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// Gets or sets the last known build scope.
         /// </summary>
         private vsBuildScope BuildScope { get; set; }
-
-        /// <summary>
-        /// Gets or sets the contol hosted within this tool window.
-        /// </summary>
-        private BuildProgressControl Control { get; set; }
 
         /// <summary>
         /// Gets or sets the number of projects built.
@@ -125,8 +117,8 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         {
             base.OnToolWindowCreated();
 
-            // Pass the package down to the control.
-            Control.Package = Package;
+            // Pass the package over to the view model, not available during constructor.
+            _viewModel.Package = Package;
         }
 
         /// <summary>
@@ -143,17 +135,17 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             if (BuildScope == vsBuildScope.vsBuildScopeSolution)
             {
                 NumberOfProjectsToBeBuilt = GetNumberOfProjectsToBeBuilt();
-                Control.IsProgressIndeterminate = false;
+                _viewModel.IsProgressIndeterminate = false;
             }
             else
             {
                 NumberOfProjectsToBeBuilt = 0;
-                Control.IsProgressIndeterminate = true;
+                _viewModel.IsProgressIndeterminate = true;
             }
 
             Caption = DefaultCaption;
-            Control.IsCancelEnabled = true;
-            Control.ProgressPercentage = 0;
+            _viewModel.IsBuildActive = true;
+            _viewModel.ProgressPercentage = 0;
         }
 
         /// <summary>
@@ -171,15 +163,15 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             string progressString = string.Empty;
             if (NumberOfProjectsToBeBuilt > 0)
             {
-                string projectsString = NumberOfProjectsToBeBuilt.ToString();
-                string completeString = (++NumberOfProjectsBuilt).ToString().PadLeft(projectsString.Length);
+                string projectsString = NumberOfProjectsToBeBuilt.ToString(CultureInfo.CurrentUICulture);
+                string completeString = (++NumberOfProjectsBuilt).ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
 
                 progressString = string.Format(" {0} of {1}", completeString, projectsString);
             }
 
             Caption = String.Format("{0}: {1}{2} \"{3}\"...",
                                     DefaultCaption, buildString, progressString, projectName);
-            Control.ProgressPercentage = ProgressPercentage;
+            _viewModel.ProgressPercentage = ProgressPercentage;
         }
 
         /// <summary>
@@ -190,8 +182,8 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         internal void NotifyBuildDone(vsBuildScope scope, vsBuildAction action)
         {
             Caption = DefaultCaption;
-            Control.IsCancelEnabled = false;
-            Control.ProgressPercentage = 0;
+            _viewModel.IsBuildActive = false;
+            _viewModel.ProgressPercentage = 0;
         }
 
         /// <summary>

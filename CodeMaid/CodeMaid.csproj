@@ -124,13 +124,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildProgress\BuildProgressControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BuildProgress\BuildProgressControl.Designer.cs">
-      <DependentUpon>BuildProgressControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
+    <Compile Include="BuildProgress\BuildProgressView.xaml.cs">
+      <DependentUpon>BuildProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildProgress\BuildProgressViewModel.cs" />
     <Compile Include="CodeItems\BaseCodeItem.cs" />
     <Compile Include="CodeItems\BaseCodeItemElement.cs" />
     <Compile Include="CodeItems\BaseCodeItemElementParent.cs" />
@@ -193,6 +191,7 @@
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\CodeReorderHelper.cs" />
+    <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />
@@ -312,9 +311,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BuildProgress\BuildProgressControl.resx">
-      <DependentUpon>BuildProgressControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Options\BuildProgressOptionsControl.resx">
       <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -463,6 +459,10 @@
     <Content Include="Resources\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BuildProgress\BuildProgressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
