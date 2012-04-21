@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         protected override void OnExecute()
         {
             Package.ShowOptionPage(Package.Options.CleanupGeneral.GetType());
-            //new OptionsWindow { DataContext = new OptionsViewModel() }.Show();
+            //new OptionsWindow { DataContext = new OptionsViewModel() }.ShowDialog();
         }
 
         #endregion BaseCommand Methods

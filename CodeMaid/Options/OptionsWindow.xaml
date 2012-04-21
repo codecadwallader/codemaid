@@ -1,12 +1,13 @@
-﻿<Window x:Class="SteveCadwallader.CodeMaid.Options.OptionsWindow"
+﻿<ui:DialogWindow x:Class="SteveCadwallader.CodeMaid.Options.OptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options" mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
-        MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False"
-        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options"
+        xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
+        Title="CodeMaid Options" MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,7 +16,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid TextElement.FontFamily="Tahoma">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -25,8 +26,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView Margin="5">
-            <TreeViewItem Header="Cleaning" IsExpanded="True">
+        <TreeView BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
+            <TreeViewItem Header="Cleaning" IsSelected="True">
                 <TreeViewItem Header="Automatic" />
                 <TreeViewItem Header="File Types" />
                 <TreeViewItem Header="Stuff" />
@@ -37,13 +38,22 @@
             <TreeViewItem Header="Switching" />
         </TreeView>
 
+        <DockPanel Grid.Column="1" Margin="0,10,10,10">
+            <Border DockPanel.Dock="Top" Background="{StaticResource FTreeViewItemHighlight}"
+                    BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
+                <TextBlock Text="Cleaning: Automatic" />
+            </Border>
+
+            <ContentPresenter />
+        </DockPanel>
+
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Margin="5" />
+        <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Margin="10" />
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Save" Command="{Binding SaveCommand}" Margin="5" IsDefault="True" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5" IsCancel="True" />
+            <Button Content="Save" Command="{Binding SaveCommand}" Margin="10" MinWidth="75" IsDefault="True" />
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="10" MinWidth="75" IsCancel="True" />
         </StackPanel>
     </Grid>
-</Window>
+</ui:DialogWindow>
