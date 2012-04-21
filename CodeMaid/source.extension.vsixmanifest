@@ -29,5 +29,6 @@
     </Reference>
   </References>
   <Content>
+    <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
   </Content>
 </Vsix>
