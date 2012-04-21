@@ -208,6 +208,7 @@
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Options\BuildProgressOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,6 +264,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Options\OptionsHelper.cs" />
+    <Compile Include="Options\OptionsViewModel.cs" />
+    <Compile Include="Options\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
     <Compile Include="Options\ReorganizeOptionsControl.cs">
@@ -468,6 +473,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\CleanupProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\OptionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

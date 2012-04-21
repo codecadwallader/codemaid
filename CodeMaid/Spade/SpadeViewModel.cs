@@ -12,17 +12,17 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
-using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Spade
 {
     /// <summary>
-    /// The view model representing the state and commands available to the <see cref="SpadeViewHost"/>.
+    /// The view model representing the state and commands available to Spade.
     /// </summary>
-    public class SpadeViewModel : INotifyPropertyChanged
+    public class SpadeViewModel : ViewModelBase
     {
         #region Fields
 
@@ -193,27 +193,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         #endregion Properties
-
-        #region INotifyPropertyChanged Implementation
-
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises the <see cref="PropertyChanged"/> event.
-        /// </summary>
-        /// <param name="propertyName">The name of the property.</param>
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #endregion INotifyPropertyChanged Implementation
 
         #region Methods
 

@@ -12,7 +12,6 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
-using System.ComponentModel;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.BuildProgress
@@ -20,20 +19,8 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     /// <summary>
     /// The view model representing the state and commands for showing build progress.
     /// </summary>
-    public class BuildProgressViewModel : INotifyPropertyChanged
+    public class BuildProgressViewModel : ViewModelBase
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildProgressViewModel"/> class.
-        /// </summary>
-        public BuildProgressViewModel()
-        {
-            CancelBuildCommand = new DelegateCommand(OnCancelBuildCommandExecuted, OnCancelBuildCommandCanExecute);
-        }
-
-        #endregion Constructors
-
         #region Properties
 
         private bool _isBuildActive;
@@ -111,10 +98,15 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
 
         #region Commands
 
+        private DelegateCommand _cancelBuildCommand;
+
         /// <summary>
-        /// Gets or sets the cancel build command.
+        /// Gets the cancel build command.
         /// </summary>
-        public DelegateCommand CancelBuildCommand { get; private set; }
+        public DelegateCommand CancelBuildCommand
+        {
+            get { return _cancelBuildCommand ?? (_cancelBuildCommand = new DelegateCommand(OnCancelBuildCommandExecuted, OnCancelBuildCommandCanExecute)); }
+        }
 
         /// <summary>
         /// Called when the <see cref="CancelBuildCommand"/> needs to determine if it can execute.
@@ -146,26 +138,5 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         }
 
         #endregion Commands
-
-        #region INotifyPropertyChanged Implementation
-
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises the <see cref="PropertyChanged"/> event.
-        /// </summary>
-        /// <param name="propertyName">The name of the property.</param>
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #endregion INotifyPropertyChanged Implementation
     }
 }
