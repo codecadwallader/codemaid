@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidColorResources.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidTheme.xaml" />
                 <ResourceDictionary Source="CodeItemTemplates.xaml" />
                 <ResourceDictionary Source="CodeItemToolTipTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
