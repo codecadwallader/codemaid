@@ -10,7 +10,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

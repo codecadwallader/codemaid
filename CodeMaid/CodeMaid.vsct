@@ -339,24 +339,24 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="GuidImageCleanup" href="Resources\cleanup.bmp" usedList="IconCleanup" />
-      <Bitmap guid="GuidImageCleanupAll" href="Resources\cleanupAll.bmp" usedList="IconCleanupAll" />
-      <Bitmap guid="GuidImageCloseLocked" href="Resources\closeLocked.bmp" usedList="IconCloseLocked"/>
-      <Bitmap guid="GuidImageCollapse" href="Resources\collapse.bmp" usedList="IconCollapse" />
-      <Bitmap guid="GuidImageConfig" href="Resources\config.bmp" usedList="IconConfig" />
-      <Bitmap guid="GuidImageFind" href="Resources\find.bmp" usedList="IconFind"/>
-      <Bitmap guid="GuidImageInfo" href="Resources\info.bmp" usedList="IconInfo"/>
-      <Bitmap guid="GuidImageJoin" href="Resources\join.bmp" usedList="IconJoin" />
-      <Bitmap guid="GuidImageLock" href="Resources\lock.bmp" usedList="IconLock" />
-      <Bitmap guid="GuidImageProgress" href="Resources\progress.bmp" usedList="IconProgress" />
-      <Bitmap guid="GuidImageRefresh" href="Resources\refresh.bmp" usedList="IconRefresh" />
-      <Bitmap guid="GuidImageReorganize" href="Resources\reorganize.bmp" usedList="IconReorganize" />
-      <Bitmap guid="GuidImageSortAlpha" href="Resources\sortAlpha.bmp" usedList="IconSortAlpha" />
-      <Bitmap guid="GuidImageSortNumeric" href="Resources\sortNumeric.bmp" usedList="IconSortNumeric" />
-      <Bitmap guid="GuidImageSortType" href="Resources\sortType.bmp" usedList="IconSortType" />
-      <Bitmap guid="GuidImageSpade" href="Resources\spade.bmp" usedList="IconSpade" />
-      <Bitmap guid="GuidImageSwitch" href="Resources\switch.bmp" usedList="IconSwitch" />
-      <Bitmap guid="GuidImageUnlock" href="Resources\unlock.bmp" usedList="IconUnlock" />
+      <Bitmap guid="GuidImageCleanup" href="Images\cleanup.bmp" usedList="IconCleanup" />
+      <Bitmap guid="GuidImageCleanupAll" href="Images\cleanupAll.bmp" usedList="IconCleanupAll" />
+      <Bitmap guid="GuidImageCloseLocked" href="Images\closeLocked.bmp" usedList="IconCloseLocked"/>
+      <Bitmap guid="GuidImageCollapse" href="Images\collapse.bmp" usedList="IconCollapse" />
+      <Bitmap guid="GuidImageConfig" href="Images\config.bmp" usedList="IconConfig" />
+      <Bitmap guid="GuidImageFind" href="Images\find.bmp" usedList="IconFind"/>
+      <Bitmap guid="GuidImageInfo" href="Images\info.bmp" usedList="IconInfo"/>
+      <Bitmap guid="GuidImageJoin" href="Images\join.bmp" usedList="IconJoin" />
+      <Bitmap guid="GuidImageLock" href="Images\lock.bmp" usedList="IconLock" />
+      <Bitmap guid="GuidImageProgress" href="Images\progress.bmp" usedList="IconProgress" />
+      <Bitmap guid="GuidImageRefresh" href="Images\refresh.bmp" usedList="IconRefresh" />
+      <Bitmap guid="GuidImageReorganize" href="Images\reorganize.bmp" usedList="IconReorganize" />
+      <Bitmap guid="GuidImageSortAlpha" href="Images\sortAlpha.bmp" usedList="IconSortAlpha" />
+      <Bitmap guid="GuidImageSortNumeric" href="Images\sortNumeric.bmp" usedList="IconSortNumeric" />
+      <Bitmap guid="GuidImageSortType" href="Images\sortType.bmp" usedList="IconSortType" />
+      <Bitmap guid="GuidImageSpade" href="Images\spade.bmp" usedList="IconSpade" />
+      <Bitmap guid="GuidImageSwitch" href="Images\switch.bmp" usedList="IconSwitch" />
+      <Bitmap guid="GuidImageUnlock" href="Images\unlock.bmp" usedList="IconUnlock" />
     </Bitmaps>
   </Commands>
 

@@ -318,30 +318,39 @@
   <ItemGroup>
     <EmbeddedResource Include="Options\BuildProgressOptionsControl.resx">
       <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupFileTypesOptionsControl.resx">
       <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupGeneralOptionsControl.resx">
       <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupInsertOptionsControl.resx">
       <DependentUpon>CleanupInsertOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupRemoveOptionsControl.resx">
       <DependentUpon>CleanupRemoveOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\CleanupUpdateOptionsControl.resx">
       <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\ReorganizeOptionsControl.resx">
       <DependentUpon>ReorganizeOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SpadeOptionsControl.resx">
       <DependentUpon>SpadeOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
       <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
@@ -427,7 +436,7 @@
     <Resource Include="Spade\Images\Collapsed.png" />
     <Resource Include="Spade\Images\Expanded.png" />
     <Resource Include="Spade\Images\Region.png" />
-    <Resource Include="Resources\about.png" />
+    <Resource Include="Images\about.png" />
     <Content Include="CodeMaid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -441,27 +450,27 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest" />
-    <Content Include="Resources\cleanupAll.bmp" />
-    <Content Include="Resources\cleanup.bmp" />
-    <Content Include="Resources\closeLocked.bmp" />
-    <Resource Include="Resources\CodeMaid.ico" />
-    <Content Include="Resources\collapse.bmp" />
-    <Content Include="Resources\config.bmp" />
-    <Content Include="Resources\find.bmp" />
-    <Content Include="Resources\info.bmp" />
-    <Content Include="Resources\join.bmp" />
-    <Content Include="Resources\lock.bmp" />
-    <Content Include="Resources\progress.bmp" />
-    <None Include="Resources\progressToolWindow.bmp" />
-    <Content Include="Resources\refresh.bmp" />
-    <Content Include="Resources\reorganize.bmp" />
-    <Content Include="Resources\sortAlpha.bmp" />
-    <Content Include="Resources\sortNumeric.bmp" />
-    <Content Include="Resources\sortType.bmp" />
-    <Content Include="Resources\spade.bmp" />
-    <None Include="Resources\spadeToolWindow.bmp" />
-    <Content Include="Resources\switch.bmp" />
-    <Content Include="Resources\unlock.bmp" />
+    <Content Include="Images\cleanupAll.bmp" />
+    <Content Include="Images\cleanup.bmp" />
+    <Content Include="Images\closeLocked.bmp" />
+    <Resource Include="Images\CodeMaid.ico" />
+    <Content Include="Images\collapse.bmp" />
+    <Content Include="Images\config.bmp" />
+    <Content Include="Images\find.bmp" />
+    <Content Include="Images\info.bmp" />
+    <Content Include="Images\join.bmp" />
+    <Content Include="Images\lock.bmp" />
+    <Content Include="Images\progress.bmp" />
+    <None Include="Images\progressToolWindow.bmp" />
+    <Content Include="Images\refresh.bmp" />
+    <Content Include="Images\reorganize.bmp" />
+    <Content Include="Images\sortAlpha.bmp" />
+    <Content Include="Images\sortNumeric.bmp" />
+    <Content Include="Images\sortType.bmp" />
+    <Content Include="Images\spade.bmp" />
+    <None Include="Images\spadeToolWindow.bmp" />
+    <Content Include="Images\switch.bmp" />
+    <Content Include="Images\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="BuildProgress\BuildProgressView.xaml">
@@ -480,7 +489,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\CodeMaidTheme.xaml">
+    <Page Include="Themes\CodeMaidTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

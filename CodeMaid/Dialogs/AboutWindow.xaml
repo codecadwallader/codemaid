@@ -4,12 +4,12 @@
         Width="878" Height="264" MouseLeftButtonDown="OnMouseLeftButtonDown"
         ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Background>
-        <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Resources/about.png" />
+        <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Images/about.png" />
     </Window.Background>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">
