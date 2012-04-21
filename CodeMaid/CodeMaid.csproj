@@ -433,8 +433,8 @@
     <Resource Include="Spade\Images\MethodDestructor_Private.png" />
     <Resource Include="Spade\Images\MethodDestructor_Protected.png" />
     <Resource Include="Spade\Images\MethodDestructor_Sealed.png" />
-    <Resource Include="Spade\Images\Collapsed.png" />
-    <Resource Include="Spade\Images\Expanded.png" />
+    <Resource Include="Themes\Images\Collapsed.png" />
+    <Resource Include="Themes\Images\Expanded.png" />
     <Resource Include="Spade\Images\Region.png" />
     <Resource Include="Images\about.png" />
     <Content Include="CodeMaid.png">
@@ -502,6 +502,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Spade\SpadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\TreeViews.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

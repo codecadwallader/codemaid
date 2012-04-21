@@ -4,9 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options" mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Title="CodeMaid Options" MinHeight="480" MinWidth="640" Height="600" Width="800"
-        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
+        MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,10 +31,10 @@
                 <TreeViewItem Header="File Types" />
                 <TreeViewItem Header="Stuff" />
             </TreeViewItem>
-            <TreeViewItem Header="Digging (Spade)"  />
-            <TreeViewItem Header="Progressing"  />
-            <TreeViewItem Header="Reorganizing"  />
-            <TreeViewItem Header="Switching"  />
+            <TreeViewItem Header="Digging (Spade)" />
+            <TreeViewItem Header="Progressing" />
+            <TreeViewItem Header="Reorganizing" />
+            <TreeViewItem Header="Switching" />
         </TreeView>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
