@@ -218,6 +218,10 @@
     <Compile Include="Options\BuildProgressOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\CleaningAutomaticViewModel.cs" />
+    <Compile Include="Options\CleaningFileTypesViewModel.cs" />
+    <Compile Include="Options\CleaningGeneralViewModel.cs" />
+    <Compile Include="Options\CleaningViewModel.cs" />
     <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,13 +267,16 @@
     <Compile Include="Options\CleanupUpdateOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\DiggingViewModel.cs" />
     <Compile Include="Options\OptionsHelper.cs" />
+    <Compile Include="Options\OptionsPageViewModel.cs" />
     <Compile Include="Options\OptionsViewModel.cs" />
     <Compile Include="Options\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
+    <Compile Include="Options\ProgressingViewModel.cs" />
     <Compile Include="Options\ReorganizeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -279,6 +286,7 @@
     <Compile Include="Options\ReorganizeOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\ReorganizingViewModel.cs" />
     <Compile Include="Options\SpadeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -297,6 +305,7 @@
     <Compile Include="Options\SwitchFileOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />

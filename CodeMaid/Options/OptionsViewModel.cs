@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Collections.Generic;
+using System.Linq;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Options
@@ -20,6 +22,75 @@ namespace SteveCadwallader.CodeMaid.Options
     /// </summary>
     public class OptionsViewModel : ViewModelBase
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
+        /// </summary>
+        public OptionsViewModel()
+        {
+            Pages = new List<OptionsPageViewModel>
+                        {
+                            new CleaningViewModel
+                                {
+                                    Children = new OptionsPageViewModel[]
+                                                   {
+                                                       new CleaningAutomaticViewModel(),
+                                                       new CleaningFileTypesViewModel(),
+                                                       new CleaningGeneralViewModel()
+                                                   }
+                                },
+                            new DiggingViewModel(),
+                            new ProgressingViewModel(),
+                            new ReorganizingViewModel(),
+                            new SwitchingViewModel()
+                        };
+
+            SelectedPage = Pages.SelectMany(x => x.Children).FirstOrDefault(y => y is CleaningGeneralViewModel);
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        private IEnumerable<OptionsPageViewModel> _pages;
+
+        /// <summary>
+        /// Gets or sets the option pages.
+        /// </summary>
+        public IEnumerable<OptionsPageViewModel> Pages
+        {
+            get { return _pages; }
+            set
+            {
+                if (_pages != value)
+                {
+                    _pages = value;
+                    NotifyPropertyChanged("Pages");
+                }
+            }
+        }
+
+        private OptionsPageViewModel _selectedPage;
+
+        /// <summary>
+        /// Gets or sets the selected option page.
+        /// </summary>
+        public OptionsPageViewModel SelectedPage
+        {
+            get { return _selectedPage; }
+            set
+            {
+                if (_selectedPage != value)
+                {
+                    _selectedPage = value;
+                    NotifyPropertyChanged("SelectedPage");
+                }
+            }
+        }
+
+        #endregion Properties
+
         #region ResetToDefaults Command
 
         private DelegateCommand _resetToDefaultsCommand;

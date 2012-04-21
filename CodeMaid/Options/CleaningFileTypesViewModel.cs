@@ -14,18 +14,16 @@
 namespace SteveCadwallader.CodeMaid.Options
 {
     /// <summary>
-    /// Interaction logic for OptionsWindow.xaml
+    /// The view model for cleaning file types options.
     /// </summary>
-    public partial class OptionsWindow
+    public class CleaningFileTypesViewModel : OptionsPageViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionsWindow"/> class.
+        /// Gets the header.
         /// </summary>
-        public OptionsWindow()
+        public override string Header
         {
-            HasMaximizeButton = true;
-
-            InitializeComponent();
+            get { return "File Types"; }
         }
     }
 }

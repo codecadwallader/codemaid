@@ -26,22 +26,20 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
-            <TreeViewItem Header="Cleaning" IsSelected="True">
-                <TreeViewItem Header="Automatic" />
-                <TreeViewItem Header="File Types" />
-                <TreeViewItem Header="Stuff" />
-            </TreeViewItem>
-            <TreeViewItem Header="Digging (Spade)" />
-            <TreeViewItem Header="Progressing" />
-            <TreeViewItem Header="Reorganizing" />
-            <TreeViewItem Header="Switching" />
+        <TreeView ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1"
+                Margin="10" TextElement.FontSize="14">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:OptionsPageViewModel}"
+                        ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Header}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
         </TreeView>
 
         <DockPanel Grid.Column="1" Margin="0,10,10,10">
             <Border DockPanel.Dock="Top" Background="{StaticResource FTreeViewItemHighlight}"
                     BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
-                <TextBlock Text="Cleaning: Automatic" />
+                <TextBlock Text="{Binding SelectedPage.Header}" FontSize="14" />
             </Border>
 
             <ContentPresenter />
