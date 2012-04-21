@@ -450,27 +450,27 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest" />
-    <Content Include="Images\cleanupAll.bmp" />
-    <Content Include="Images\cleanup.bmp" />
-    <Content Include="Images\closeLocked.bmp" />
+    <Content Include="Images\IDE\cleanupAll.bmp" />
+    <Content Include="Images\IDE\cleanup.bmp" />
+    <Content Include="Images\IDE\closeLocked.bmp" />
     <Resource Include="Images\CodeMaid.ico" />
-    <Content Include="Images\collapse.bmp" />
-    <Content Include="Images\config.bmp" />
-    <Content Include="Images\find.bmp" />
-    <Content Include="Images\info.bmp" />
-    <Content Include="Images\join.bmp" />
-    <Content Include="Images\lock.bmp" />
-    <Content Include="Images\progress.bmp" />
-    <None Include="Images\progressToolWindow.bmp" />
-    <Content Include="Images\refresh.bmp" />
-    <Content Include="Images\reorganize.bmp" />
-    <Content Include="Images\sortAlpha.bmp" />
-    <Content Include="Images\sortNumeric.bmp" />
-    <Content Include="Images\sortType.bmp" />
-    <Content Include="Images\spade.bmp" />
-    <None Include="Images\spadeToolWindow.bmp" />
-    <Content Include="Images\switch.bmp" />
-    <Content Include="Images\unlock.bmp" />
+    <Content Include="Images\IDE\collapse.bmp" />
+    <Content Include="Images\IDE\config.bmp" />
+    <Content Include="Images\IDE\find.bmp" />
+    <Content Include="Images\IDE\info.bmp" />
+    <Content Include="Images\IDE\join.bmp" />
+    <Content Include="Images\IDE\lock.bmp" />
+    <Content Include="Images\IDE\progress.bmp" />
+    <None Include="Images\IDE\progressToolWindow.bmp" />
+    <Content Include="Images\IDE\refresh.bmp" />
+    <Content Include="Images\IDE\reorganize.bmp" />
+    <Content Include="Images\IDE\sortAlpha.bmp" />
+    <Content Include="Images\IDE\sortNumeric.bmp" />
+    <Content Include="Images\IDE\sortType.bmp" />
+    <Content Include="Images\IDE\spade.bmp" />
+    <None Include="Images\IDE\spadeToolWindow.bmp" />
+    <Content Include="Images\IDE\switch.bmp" />
+    <Content Include="Images\IDE\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="BuildProgress\BuildProgressView.xaml">
