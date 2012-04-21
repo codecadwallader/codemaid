@@ -61,7 +61,17 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public DelegateCommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted)); }
+            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted, OnSaveCommandCanExecute)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SaveCommand"/> needs to determine if it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>True if the command can execute, otherwise false.</returns>
+        private bool OnSaveCommandCanExecute(object parameter)
+        {
+            return false;
         }
 
         /// <summary>

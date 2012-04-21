@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System.ComponentModel.Design;
+using SteveCadwallader.CodeMaid.Options;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -42,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         protected override void OnExecute()
         {
             Package.ShowOptionPage(Package.Options.CleanupGeneral.GetType());
+            //new OptionsWindow { DataContext = new OptionsViewModel() }.Show();
         }
 
         #endregion BaseCommand Methods

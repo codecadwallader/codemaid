@@ -5,7 +5,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Title="CodeMaid Options" MinHeight="480" MinWidth="640">
+        Title="CodeMaid Options" MinHeight="480" MinWidth="640" Height="600" Width="800"
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Resources/CodeMaidColorResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -15,6 +24,20 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <TreeView Margin="5">
+            <TreeViewItem Header="Cleaning" IsExpanded="True">
+                <TreeViewItem Header="Automatic" />
+                <TreeViewItem Header="File Types" />
+                <TreeViewItem Header="Stuff" />
+            </TreeViewItem>
+            <TreeViewItem Header="Digging (Spade)"  />
+            <TreeViewItem Header="Progressing"  />
+            <TreeViewItem Header="Reorganizing"  />
+            <TreeViewItem Header="Switching"  />
+        </TreeView>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
         <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Margin="5" />
 

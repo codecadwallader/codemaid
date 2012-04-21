@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideOptionPage(typeof(ReorganizeOptionsPage), "CodeMaid", "Reorganize", 116, 134, true)]
     [ProvideOptionPage(typeof(SpadeOptionsPage), "CodeMaid", "Spade", 116, 128, true)]
     [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
-    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 65, Width = 500, Style = VsDockStyle.Float, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
+    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
