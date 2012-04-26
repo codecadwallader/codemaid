@@ -125,6 +125,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case KindCodeItem.Event:
                     return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEvents;
 
+                case KindCodeItem.Constant:
                 case KindCodeItem.Field:
                     return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeFieldsWithComments;
 
@@ -172,6 +173,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case KindCodeItem.Event:
                     return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEvents;
 
+                case KindCodeItem.Constant:
                 case KindCodeItem.Field:
                     return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterFieldsWithComments;
 
