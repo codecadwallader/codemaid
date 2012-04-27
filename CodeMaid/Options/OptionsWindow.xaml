@@ -5,8 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options"
         xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
-        mc:Ignorable="d" d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Title="CodeMaid Options" MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:helpers="clr-namespace:SteveCadwallader.CodeMaid.Helpers" mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
+        MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -28,6 +30,9 @@
 
         <TreeView ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1"
                 Margin="10" TextElement.FontSize="14">
+            <i:Interaction.Behaviors>
+                <helpers:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
+            </i:Interaction.Behaviors>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type local:OptionsPageViewModel}"
                         ItemsSource="{Binding Children}">
@@ -42,7 +47,7 @@
                 <TextBlock Text="{Binding SelectedPage.Header}" FontSize="14" />
             </Border>
 
-            <ContentPresenter />
+            <ContentPresenter Content="{Binding SelectedPage}" />
         </DockPanel>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />

@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid
     [InstalledProductRegistration("#110", "#112", "#114", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideLoadKey("Standard", "0.4.2", "CodeMaid", "Steve Cadwallader", 1)]
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
+    [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideOptionPage(typeof(CleanupFileTypesOptionsPage), "CodeMaid", @"Cleanup\File Types", 116, 132, true)]
     [ProvideOptionPage(typeof(CleanupGeneralOptionsPage), "CodeMaid", @"Cleanup\General", 116, 118, true)]
