@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="CleaningDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -47,7 +48,7 @@
                 <TextBlock Text="{Binding SelectedPage.Header}" FontSize="14" />
             </Border>
 
-            <ContentPresenter Content="{Binding SelectedPage}" />
+            <ContentPresenter Content="{Binding SelectedPage}" Margin="10,10,0,0" />
         </DockPanel>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />

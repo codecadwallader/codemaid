@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = Pages.SelectMany(x => x.Children).FirstOrDefault(y => y is CleaningGeneralViewModel);
+            SelectedPage = Pages.SelectMany(x => x.Children).FirstOrDefault(y => y is CleaningAutomaticViewModel);
         }
 
         #endregion Constructors
