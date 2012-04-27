@@ -53,6 +53,24 @@ namespace SteveCadwallader.CodeMaid.Options
 
         #region Properties
 
+        private bool? _dialogResult;
+
+        /// <summary>
+        /// Gets or sets the dialog result.
+        /// </summary>
+        public bool? DialogResult
+        {
+            get { return _dialogResult; }
+            set
+            {
+                if (_dialogResult != value)
+                {
+                    _dialogResult = value;
+                    NotifyPropertyChanged("DialogResult");
+                }
+            }
+        }
+
         private IEnumerable<OptionsPageViewModel> _pages;
 
         /// <summary>
@@ -173,6 +191,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnCancelCommandExecuted(object parameter)
         {
+            DialogResult = false;
         }
 
         #endregion Cancel Command

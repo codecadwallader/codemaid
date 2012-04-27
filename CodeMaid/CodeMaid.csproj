@@ -323,6 +323,7 @@
       <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Spade\SpadeViewModel.cs" />
+    <Compile Include="UI\WindowAttachedProperties.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

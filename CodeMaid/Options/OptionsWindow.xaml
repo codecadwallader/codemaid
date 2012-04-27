@@ -1,15 +1,16 @@
-﻿<ui:DialogWindow x:Class="SteveCadwallader.CodeMaid.Options.OptionsWindow"
+﻿<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.Options.OptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options"
-        xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:helpers="clr-namespace:SteveCadwallader.CodeMaid.Helpers" mc:Ignorable="d"
+        xmlns:helpers="clr-namespace:SteveCadwallader.CodeMaid.Helpers"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
         MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False" Topmost="True"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -60,4 +61,4 @@
             <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="10" MinWidth="75" IsCancel="True" />
         </StackPanel>
     </Grid>
-</ui:DialogWindow>
+</platformUI:DialogWindow>
