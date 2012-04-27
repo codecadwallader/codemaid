@@ -14,6 +14,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
+using System.Windows.Media;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -47,11 +48,89 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="e">The <see cref="System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnSelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var treeViewItem = e.NewValue as TreeViewItem;
-            if (treeViewItem != null)
+            var behavior = obj as TreeViewBindableSelectedItemBehavior;
+            if (behavior != null)
             {
-                treeViewItem.SetValue(TreeViewItem.IsSelectedProperty, true);
+                var treeView = behavior.AssociatedObject;
+                if (treeView != null)
+                {
+                    var treeViewItem = FindTreeViewItemRecursively(treeView, e.NewValue);
+                    if (treeViewItem != null)
+                    {
+                        treeViewItem.SetValue(TreeViewItem.IsSelectedProperty, true);
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// Attempts to find a TreeViewItem recursively that is the container for the specified content to find.
+        /// </summary>
+        /// <remarks>
+        /// Source: http://blogs.msdn.com/b/wpfsdk/archive/2010/02/23/finding-an-object-treeviewitem.aspx.
+        /// </remarks>
+        /// <param name="itemsControl">The items control.</param>
+        /// <param name="contentToFind">The content to find.</param>
+        /// <returns>The matching TreeViewItem, otherwise null.</returns>
+        private static TreeViewItem FindTreeViewItemRecursively(ItemsControl itemsControl, object contentToFind)
+        {
+            if (itemsControl == null)
+            {
+                return null;
+            }
+
+            if (itemsControl.DataContext == contentToFind)
+            {
+                return itemsControl as TreeViewItem;
+            }
+
+            ForceItemsControlToGenerateContainers(itemsControl);
+
+            for (int i = 0; i < itemsControl.Items.Count; i++)
+            {
+                var childItemsControl = itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as ItemsControl;
+                var result = FindTreeViewItemRecursively(childItemsControl, contentToFind);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Forces the specified items control to generate containers for its items.
+        /// </summary>
+        /// <param name="itemsControl">The items control.</param>
+        private static void ForceItemsControlToGenerateContainers(ItemsControl itemsControl)
+        {
+            itemsControl.ApplyTemplate();
+
+            var itemsPresenter = (ItemsPresenter)itemsControl.Template.FindName("ItemsHost", itemsControl);
+
+            if (itemsPresenter != null)
+            {
+                itemsPresenter.ApplyTemplate();
+            }
+            else
+            {
+                // The Tree template has not named the ItemsPresenter,
+                // so walk the descendents and find the child.
+                itemsPresenter = itemsControl.FindVisualChild<ItemsPresenter>();
+
+                if (itemsPresenter == null)
+                {
+                    itemsControl.UpdateLayout();
+
+                    itemsPresenter = itemsControl.FindVisualChild<ItemsPresenter>();
+                }
+            }
+
+            var itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+
+            // Ensure that the generator for this panel has been created.
+            var children = itemsHostPanel.Children;
         }
 
         #endregion SelectedItem (Dependency Property)
@@ -64,7 +143,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         protected override void OnAttached()
         {
             base.OnAttached();
-            
+
             AssociatedObject.SelectedItemChanged += OnSelectedItemChanged;
         }
 
