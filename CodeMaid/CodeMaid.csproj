@@ -131,6 +131,9 @@
       <DependentUpon>BuildProgressView.xaml</DependentUpon>
     </Compile>
     <Compile Include="BuildProgress\BuildProgressViewModel.cs" />
+    <Compile Include="CleanupProgress\CleanupProgressWindow.xaml.cs">
+      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CodeItems\BaseCodeItem.cs" />
     <Compile Include="CodeItems\BaseCodeItemElement.cs" />
     <Compile Include="CodeItems\BaseCodeItemElementParent.cs" />
@@ -182,9 +185,6 @@
     <Compile Include="Converters\TypeStringConverter.cs" />
     <Compile Include="Dialogs\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\CleanupProgressWindow.xaml.cs">
-      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\BaseEventListener.cs" />
     <Compile Include="Events\BuildProgressEventListener.cs" />
@@ -490,13 +490,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\AboutWindow.xaml">
+    <Page Include="CleanupProgress\CleanupProgressWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Dialogs\CleanupProgressWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Dialogs\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Options\CleaningDataTemplate.xaml">
       <SubType>Designer</SubType>

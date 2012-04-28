@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Dialogs;
+using SteveCadwallader.CodeMaid.CleanupProgress;
 using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Commands
