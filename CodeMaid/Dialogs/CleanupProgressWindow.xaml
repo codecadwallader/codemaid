@@ -36,7 +36,7 @@
 
         <Border Grid.Row="1" Background="{StaticResource FCodeMaidGray}">
             <Button x:Name="cancelButton" Content="Cancel" Click="OnCancelButtonClick" IsCancel="True"
-                    HorizontalAlignment="Right" Margin="10" MinWidth="75" Padding="5,2" />
+                    HorizontalAlignment="Right" Style="{StaticResource ButtonDialog}" />
         </Border>
     </Grid>
 </platformUI:DialogWindow>
