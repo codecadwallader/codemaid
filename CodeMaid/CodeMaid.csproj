@@ -125,6 +125,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ProvideBindingPathAttribute.cs" />
     <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="BuildProgress\BuildProgressView.xaml.cs">
       <DependentUpon>BuildProgressView.xaml</DependentUpon>
@@ -306,9 +307,6 @@
     <Compile Include="Options\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
-    <Compile Include="ProvideBindingPathAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
