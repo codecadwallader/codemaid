@@ -1,10 +1,15 @@
 <platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.CleanupProgress.CleanupProgressWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.CleanupProgress"
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        d:DataContext="{d:DesignInstance local:CleanupProgressViewModel, IsDesignTimeCreatable=False}"
         Icon="/SteveCadwallader.CodeMaid;component/Images/CodeMaid.ico" Title="CodeMaid: Cleanup Progress" Height="180"
-        Width="400" Closing="OnClosing" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
+        Width="400" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
+        ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}" Closing="OnClosing"
         FocusManager.FocusedElement="{Binding ElementName=cancelButton}">
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
@@ -14,7 +19,7 @@
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>
 
-    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:CleanupProgressWindow}}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -35,8 +40,18 @@
         </StackPanel>
 
         <Border Grid.Row="1" Background="{StaticResource FCodeMaidGray}">
-            <Button x:Name="cancelButton" Content="Cancel" Click="OnCancelButtonClick" IsCancel="True"
-                    HorizontalAlignment="Right" Style="{StaticResource ButtonDialog}" />
+            <Button x:Name="cancelButton" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDialog}">
+                        <Setter Property="Content" Value="Cancel" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCanceling}" Value="True">
+                                <Setter Property="Content" Value="Canceling..." />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Border>
     </Grid>
 </platformUI:DialogWindow>

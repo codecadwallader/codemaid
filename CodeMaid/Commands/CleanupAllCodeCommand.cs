@@ -69,7 +69,10 @@ namespace SteveCadwallader.CodeMaid.Commands
             {
                 using (new ActiveDocumentRestorer(Package))
                 {
-                    new CleanupProgressWindow(Package, AllProjectItems).ShowDialog();
+                    var viewModel = new CleanupProgressViewModel(Package, AllProjectItems);
+                    var window = new CleanupProgressWindow { DataContext = viewModel };
+
+                    window.ShowDialog();
                 }
             }
         }

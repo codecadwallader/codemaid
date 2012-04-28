@@ -131,6 +131,7 @@
       <DependentUpon>BuildProgressView.xaml</DependentUpon>
     </Compile>
     <Compile Include="BuildProgress\BuildProgressViewModel.cs" />
+    <Compile Include="CleanupProgress\CleanupProgressViewModel.cs" />
     <Compile Include="CleanupProgress\CleanupProgressWindow.xaml.cs">
       <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
     </Compile>
