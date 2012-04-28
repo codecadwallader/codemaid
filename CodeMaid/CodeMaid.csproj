@@ -198,19 +198,15 @@
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\CodeReorderHelper.cs" />
-    <Compile Include="Helpers\DelegateCommand.cs" />
-    <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
     <Compile Include="Helpers\CursorPositionRestorer.cs" />
-    <Compile Include="Helpers\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="Helpers\TypeFormatHelper.cs" />
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
-    <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Options\BuildProgressOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -323,6 +319,10 @@
       <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Spade\SpadeViewModel.cs" />
+    <Compile Include="UI\DelegateCommand.cs" />
+    <Compile Include="UI\DependencyObjectExtensions.cs" />
+    <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
+    <Compile Include="UI\ViewModelBase.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>

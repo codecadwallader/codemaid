@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
 {

@@ -9,10 +9,12 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="100" Value="{Binding ProgressPercentage}" />
+        <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="100"
+                Value="{Binding ProgressPercentage}" />
 
-        <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat='{}{0}%'}" Margin="5,0" VerticalAlignment="Center"
-                   Visibility="{Binding ShowProgressPercentage, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+        <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat='{}{0}%'}" Margin="5,0"
+                VerticalAlignment="Center"
+                Visibility="{Binding ShowProgressPercentage, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
         <Button Grid.Column="2" Content="Cancel" Command="{Binding CancelBuildCommand}" Margin="10,0,0,0" />
     </Grid>

@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options"
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:helpers="clr-namespace:SteveCadwallader.CodeMaid.Helpers"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
         MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False" Topmost="True"
@@ -33,7 +32,7 @@
         <TreeView ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1"
                 Margin="10" TextElement.FontSize="14">
             <i:Interaction.Behaviors>
-                <helpers:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
+                <ui:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
             </i:Interaction.Behaviors>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type local:OptionsPageViewModel}"

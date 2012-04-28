@@ -11,17 +11,16 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 using System;
 using System.Text;
-using System.IO;
 
 namespace Microsoft.VisualStudio.Shell
 {
     /// <summary>
     /// This attribute registers a path that should be probed for candidate assemblies at assembly load time.
-    /// 
+    ///
     /// For example:
     ///   [...\VisualStudio\10.0\BindingPaths\{5C48C732-5C7F-40f0-87A7-05C4F15BC8C3}]
     ///     "$PackageFolder$"=""
-    ///     
+    ///
     /// This would register the "PackageFolder" (i.e. the location of the pkgdef file) as a directory to be probed
     /// for assemblies to load.
     /// </summary>
@@ -49,7 +48,7 @@ namespace Microsoft.VisualStudio.Shell
 
             using (Key childKey = context.CreateKey(GetPathToKey(context)))
             {
-                StringBuilder keyName = new StringBuilder(context.ComponentPath); 
+                StringBuilder keyName = new StringBuilder(context.ComponentPath);
                 if (!string.IsNullOrEmpty(SubPath))
                 {
                     keyName.Append("\\");

@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Options
 {

@@ -15,7 +15,7 @@ using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
-using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
 {
