@@ -15,7 +15,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 
-namespace SteveCadwallader.CodeMaid.Dialogs
+namespace SteveCadwallader.CodeMaid.About
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml

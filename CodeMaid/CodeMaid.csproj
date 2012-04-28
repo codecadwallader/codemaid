@@ -183,7 +183,7 @@
     <Compile Include="Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="Converters\TypeStringConverter.cs" />
-    <Compile Include="Dialogs\AboutWindow.xaml.cs">
+    <Compile Include="About\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\BaseEventListener.cs" />
@@ -494,7 +494,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Dialogs\AboutWindow.xaml">
+    <Page Include="About\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
