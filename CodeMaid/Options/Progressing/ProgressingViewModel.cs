@@ -35,8 +35,8 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         /// </summary>
         public override void LoadSettings()
         {
-            ShowBuildProgressOnBuildStart = Settings.Default.ShowBuildProgressOnBuildStart;
-            HideBuildProgressOnBuildStop = Settings.Default.HideBuildProgressOnBuildStop;
+            ShowBuildProgressOnBuildStart = Settings.Default.Progressing_ShowBuildProgressOnBuildStart;
+            HideBuildProgressOnBuildStop = Settings.Default.Progressing_HideBuildProgressOnBuildStop;
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
-            Settings.Default.HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
+            Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
+            Settings.Default.Progressing_HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
         }
 
         #endregion Base Members

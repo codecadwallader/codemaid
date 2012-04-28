@@ -26,24 +26,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowBuildProgressOnBuildStart {
+        public bool Progressing_ShowBuildProgressOnBuildStart {
             get {
-                return ((bool)(this["ShowBuildProgressOnBuildStart"]));
+                return ((bool)(this["Progressing_ShowBuildProgressOnBuildStart"]));
             }
             set {
-                this["ShowBuildProgressOnBuildStart"] = value;
+                this["Progressing_ShowBuildProgressOnBuildStart"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool HideBuildProgressOnBuildStop {
+        public bool Progressing_HideBuildProgressOnBuildStop {
             get {
-                return ((bool)(this["HideBuildProgressOnBuildStop"]));
+                return ((bool)(this["Progressing_HideBuildProgressOnBuildStop"]));
             }
             set {
-                this["HideBuildProgressOnBuildStop"] = value;
+                this["Progressing_HideBuildProgressOnBuildStop"] = value;
             }
         }
     }

@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public OptionsViewModel()
         {
-            Pages = new List<OptionsPageViewModel>
+            Pages = new OptionsPageViewModel[]
                         {
                             new CleaningViewModel
                                 {
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = Pages.SelectMany(x => x.Children).FirstOrDefault(y => y is CleaningAutomaticViewModel);
+            SelectedPage = AllPages.FirstOrDefault(x => x is CleaningAutomaticViewModel);
         }
 
         #endregion Constructors
@@ -71,6 +71,14 @@ namespace SteveCadwallader.CodeMaid.Options
                     NotifyPropertyChanged("DialogResult");
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets all option pages by flattening the hierarchy.
+        /// </summary>
+        public IEnumerable<OptionsPageViewModel> AllPages
+        {
+            get { return Pages.SelectMany(x => x.Children); }
         }
 
         private IEnumerable<OptionsPageViewModel> _pages;
@@ -130,7 +138,8 @@ namespace SteveCadwallader.CodeMaid.Options
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
             Settings.Default.Reset();
-            foreach (var optionsPageViewModel in Pages)
+
+            foreach (var optionsPageViewModel in AllPages)
             {
                 optionsPageViewModel.LoadSettings();
             }
@@ -156,12 +165,13 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
-            foreach (var optionsPageViewModel in Pages)
+            foreach (var optionsPageViewModel in AllPages)
             {
                 optionsPageViewModel.SaveSettings();
             }
 
             Settings.Default.Save();
+
             DialogResult = true;
         }
 
