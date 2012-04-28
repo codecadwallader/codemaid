@@ -276,7 +276,7 @@
     </Compile>
     <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Options\ProgressingViewModel.cs" />
+    <Compile Include="Options\Progressing\ProgressingViewModel.cs" />
     <Compile Include="Options\ReorganizeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -504,6 +504,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options\OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\Progressing\ProgressingDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
