@@ -308,6 +308,11 @@
     <Compile Include="Options\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
     <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
@@ -379,6 +384,7 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +469,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="source.extension.vsixmanifest" />
     <Content Include="Images\IDE\cleanupAll.bmp" />
     <Content Include="Images\IDE\cleanup.bmp" />

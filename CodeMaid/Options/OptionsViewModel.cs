@@ -14,6 +14,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SteveCadwallader.CodeMaid.Options.Progressing;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Options
@@ -119,17 +120,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public DelegateCommand ResetToDefaultsCommand
         {
-            get { return _resetToDefaultsCommand ?? (_resetToDefaultsCommand = new DelegateCommand(OnResetToDefaultsCommandExecuted, OnResetToDefaultsCommandCanExecute)); }
-        }
-
-        /// <summary>
-        /// Called when the <see cref="ResetToDefaultsCommand"/> needs to determine if it can execute.
-        /// </summary>
-        /// <param name="parameter">The command parameter.</param>
-        /// <returns>True if the command can execute, otherwise false.</returns>
-        private bool OnResetToDefaultsCommandCanExecute(object parameter)
-        {
-            return false;
+            get { return _resetToDefaultsCommand ?? (_resetToDefaultsCommand = new DelegateCommand(OnResetToDefaultsCommandExecuted)); }
         }
 
         /// <summary>
@@ -138,6 +129,11 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
+            Settings.Default.Reset();
+            foreach (var optionsPageViewModel in Pages)
+            {
+                optionsPageViewModel.LoadSettings();
+            }
         }
 
         #endregion ResetToDefaults Command
@@ -151,17 +147,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public DelegateCommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted, OnSaveCommandCanExecute)); }
-        }
-
-        /// <summary>
-        /// Called when the <see cref="SaveCommand"/> needs to determine if it can execute.
-        /// </summary>
-        /// <param name="parameter">The command parameter.</param>
-        /// <returns>True if the command can execute, otherwise false.</returns>
-        private bool OnSaveCommandCanExecute(object parameter)
-        {
-            return false;
+            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted)); }
         }
 
         /// <summary>
@@ -170,6 +156,13 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
+            foreach (var optionsPageViewModel in Pages)
+            {
+                optionsPageViewModel.SaveSettings();
+            }
+
+            Settings.Default.Save();
+            DialogResult = true;
         }
 
         #endregion Save Command

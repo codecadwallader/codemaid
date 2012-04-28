@@ -21,6 +21,18 @@ namespace SteveCadwallader.CodeMaid.Options
     /// </summary>
     public abstract class OptionsPageViewModel : ViewModelBase
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsPageViewModel"/> class.
+        /// </summary>
+        protected OptionsPageViewModel()
+        {
+            LoadSettings();
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         /// <summary>
@@ -35,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public IEnumerable<OptionsPageViewModel> Children
         {
-            get { return _children; }
+            get { return _children ?? (_children = new OptionsPageViewModel[0]); }
             set
             {
                 if (_children != value)
@@ -44,6 +56,20 @@ namespace SteveCadwallader.CodeMaid.Options
                     NotifyPropertyChanged("Children");
                 }
             }
+        }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public virtual void LoadSettings()
+        {
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public virtual void SaveSettings()
+        {
         }
 
         #endregion Properties

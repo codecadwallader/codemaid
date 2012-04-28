@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.Options.Progressing
 {
     /// <summary>
@@ -18,6 +20,8 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
     /// </summary>
     public class ProgressingViewModel : OptionsPageViewModel
     {
+        #region Base Members
+
         /// <summary>
         /// Gets the header.
         /// </summary>
@@ -25,6 +29,28 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         {
             get { return "Progressing"; }
         }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public override void LoadSettings()
+        {
+            ShowBuildProgressOnBuildStart = Settings.Default.ShowBuildProgressOnBuildStart;
+            HideBuildProgressOnBuildStop = Settings.Default.HideBuildProgressOnBuildStop;
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public override void SaveSettings()
+        {
+            Settings.Default.ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
+            Settings.Default.HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
+        }
+
+        #endregion Base Members
+
+        #region Options
 
         private bool _showBuildProgressOnBuildStart;
 
@@ -61,5 +87,7 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
                 }
             }
         }
+
+        #endregion Options
     }
 }
