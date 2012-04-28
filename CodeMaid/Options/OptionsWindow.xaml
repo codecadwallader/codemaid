@@ -10,14 +10,14 @@
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}" Title="CodeMaid Options"
         MinHeight="480" MinWidth="640" Height="600" Width="800" ShowInTaskbar="False" Topmost="True"
         WindowStartupLocation="CenterScreen" ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
-    <Window.Resources>
+    <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
                 <ResourceDictionary Source="CleaningDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </platformUI:DialogWindow.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
         <Grid.RowDefinitions>
