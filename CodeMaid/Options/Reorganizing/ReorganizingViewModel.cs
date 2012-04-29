@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
     /// </summary>
     public class ReorganizingViewModel : OptionsPageViewModel
     {
-        #region Base Members
+        #region Overrides of OptionsPageViewModel
 
         /// <summary>
         /// Gets the header.
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
             Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
         }
 
-        #endregion Base Members
+        #endregion Overrides of OptionsPageViewModel
 
         #region Options
 

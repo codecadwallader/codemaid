@@ -44,7 +44,8 @@ namespace SteveCadwallader.CodeMaid.Options
                                     Children = new OptionsPageViewModel[]
                                                    {
                                                        new CleaningGeneralViewModel(),
-                                                       new CleaningFileTypesViewModel()
+                                                       new CleaningFileTypesViewModel(),
+                                                       new CleaningActionsViewModel()
                                                    }
                                 },
                             new DiggingViewModel(),

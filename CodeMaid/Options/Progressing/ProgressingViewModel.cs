@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
     /// </summary>
     public class ProgressingViewModel : OptionsPageViewModel
     {
-        #region Base Members
+        #region Overrides of OptionsPageViewModel
 
         /// <summary>
         /// Gets the header.
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
             Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
         }
 
-        #endregion Base Members
+        #endregion Overrides of OptionsPageViewModel
 
         #region Options
 

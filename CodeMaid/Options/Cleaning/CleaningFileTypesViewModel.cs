@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
     /// </summary>
     public class CleaningFileTypesViewModel : OptionsPageViewModel
     {
-        #region Base Members
+        #region Overrides of OptionsPageViewModel
 
         /// <summary>
         /// Gets the header.
@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
         }
 
-        #endregion Base Members
+        #endregion Overrides of OptionsPageViewModel
 
         #region Options
 

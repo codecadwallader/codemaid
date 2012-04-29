@@ -220,6 +220,7 @@
     <Compile Include="Options\BuildProgressOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\Cleaning\CleaningActionsViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
@@ -509,6 +510,10 @@
     <Page Include="About\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\Cleaning\CleaningActionsDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
       <SubType>Designer</SubType>

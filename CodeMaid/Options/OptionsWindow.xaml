@@ -53,6 +53,7 @@
                 <ContentPresenter.Resources>
                     <ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="Cleaning/CleaningActionsDataTemplate.xaml" />
                             <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
                             <ResourceDictionary Source="Cleaning/CleaningGeneralDataTemplate.xaml" />
                             <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />

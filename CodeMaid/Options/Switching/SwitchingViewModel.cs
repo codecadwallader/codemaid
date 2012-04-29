@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Options.Switching
     /// </summary>
     public class SwitchingViewModel : OptionsPageViewModel
     {
-        #region Base Members
+        #region Overrides of OptionsPageViewModel
 
         /// <summary>
         /// Gets the header.
@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Options.Switching
             Settings.Default.Switching_RelatedFileExtensionsExpression = RelatedFileExtensionsExpression;
         }
 
-        #endregion Base Members
+        #endregion Overrides of OptionsPageViewModel
 
         #region Options
 

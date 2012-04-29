@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
     /// </summary>
     public class DiggingViewModel : OptionsPageViewModel
     {
-        #region Base Members
+        #region Overrides of OptionsPageViewModel
 
         /// <summary>
         /// Gets the header.
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
             Settings.Default.Digging_ShowMethodParameters = ShowMethodParameters;
         }
 
-        #endregion Base Members
+        #endregion Overrides of OptionsPageViewModel
 
         #region Options
 

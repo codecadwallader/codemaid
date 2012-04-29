@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -14,9 +14,9 @@
 namespace SteveCadwallader.CodeMaid.Options.Cleaning
 {
     /// <summary>
-    /// The view model for cleaning options - a parent to more specific view models.
+    /// The view model for cleaning actions options.
     /// </summary>
-    public class CleaningParentViewModel : OptionsPageViewModel
+    public class CleaningActionsViewModel : OptionsPageViewModel
     {
         #region Overrides of OptionsPageViewModel
 
@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         /// </summary>
         public override string Header
         {
-            get { return "Cleaning"; }
+            get { return "Actions"; }
         }
 
         /// <summary>
@@ -43,5 +43,9 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         }
 
         #endregion Overrides of OptionsPageViewModel
+
+        #region Options
+
+        #endregion Options
     }
 }
