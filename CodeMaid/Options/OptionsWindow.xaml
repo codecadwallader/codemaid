@@ -16,8 +16,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
-                <ResourceDictionary Source="CleaningDataTemplate.xaml" />
+                <ResourceDictionary Source="Cleaning/CleaningDataTemplate.xaml" />
+                <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
+                <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
+                <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="{x:Type CheckBox}">

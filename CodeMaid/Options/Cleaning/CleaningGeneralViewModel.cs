@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -11,19 +11,19 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.Options
+namespace SteveCadwallader.CodeMaid.Options.Cleaning
 {
     /// <summary>
-    /// The view model for cleaning file types options.
+    /// The view model for cleaning general options.
     /// </summary>
-    public class CleaningFileTypesViewModel : OptionsPageViewModel
+    public class CleaningGeneralViewModel : OptionsPageViewModel
     {
         /// <summary>
         /// Gets the header.
         /// </summary>
         public override string Header
         {
-            get { return "File Types"; }
+            get { return "General"; }
         }
     }
 }

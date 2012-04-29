@@ -15,7 +15,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using SteveCadwallader.CodeMaid.Options.Cleaning;
+using SteveCadwallader.CodeMaid.Options.Digging;
 using SteveCadwallader.CodeMaid.Options.Progressing;
+using SteveCadwallader.CodeMaid.Options.Reorganizing;
+using SteveCadwallader.CodeMaid.Options.Switching;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 

@@ -218,10 +218,10 @@
     <Compile Include="Options\BuildProgressOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\CleaningAutomaticViewModel.cs" />
-    <Compile Include="Options\CleaningFileTypesViewModel.cs" />
-    <Compile Include="Options\CleaningGeneralViewModel.cs" />
-    <Compile Include="Options\CleaningViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningAutomaticViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningViewModel.cs" />
     <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -267,7 +267,7 @@
     <Compile Include="Options\CleanupUpdateOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\DiggingViewModel.cs" />
+    <Compile Include="Options\Digging\DiggingViewModel.cs" />
     <Compile Include="Options\OptionsHelper.cs" />
     <Compile Include="Options\OptionsPageViewModel.cs" />
     <Compile Include="Options\OptionsViewModel.cs" />
@@ -286,7 +286,7 @@
     <Compile Include="Options\ReorganizeOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\ReorganizingViewModel.cs" />
+    <Compile Include="Options\Reorganizing\ReorganizingViewModel.cs" />
     <Compile Include="Options\SpadeOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -305,7 +305,7 @@
     <Compile Include="Options\SwitchFileOptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\SwitchingViewModel.cs" />
+    <Compile Include="Options\Switching\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -509,7 +509,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Options\CleaningDataTemplate.xaml">
+    <Page Include="Options\Cleaning\CleaningDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\Digging\DiggingDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,6 +522,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options\Progressing\ProgressingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\Reorganizing\ReorganizingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\Switching\SwitchingDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
