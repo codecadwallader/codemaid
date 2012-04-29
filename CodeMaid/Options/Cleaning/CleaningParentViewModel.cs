@@ -14,9 +14,9 @@
 namespace SteveCadwallader.CodeMaid.Options.Cleaning
 {
     /// <summary>
-    /// The view model for cleaning options.
+    /// The view model for cleaning options - a parent to more specific view models.
     /// </summary>
-    public class CleaningViewModel : OptionsPageViewModel
+    public class CleaningParentViewModel : OptionsPageViewModel
     {
         #region Base Members
 

@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Options
         {
             Pages = new OptionsPageViewModel[]
                         {
-                            new CleaningViewModel
+                            new CleaningParentViewModel
                                 {
                                     Children = new OptionsPageViewModel[]
                                                    {

@@ -223,7 +223,7 @@
     <Compile Include="Options\Cleaning\CleaningAutomaticViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
     <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -511,7 +511,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Options\Cleaning\CleaningDataTemplate.xaml">
+    <Page Include="Options\Cleaning\CleaningParentDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

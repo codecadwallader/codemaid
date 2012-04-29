@@ -16,7 +16,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
-                <ResourceDictionary Source="Cleaning/CleaningDataTemplate.xaml" />
+                <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                 <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
