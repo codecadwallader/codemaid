@@ -46,5 +46,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Progressing_HideBuildProgressOnBuildStop"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Reorganizing_AlphabetizeMembersOfTheSameGroup {
+            get {
+                return ((bool)(this["Reorganizing_AlphabetizeMembersOfTheSameGroup"]));
+            }
+            set {
+                this["Reorganizing_AlphabetizeMembersOfTheSameGroup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_RunAtStartOfCleanup {
+            get {
+                return ((bool)(this["Reorganizing_RunAtStartOfCleanup"]));
+            }
+            set {
+                this["Reorganizing_RunAtStartOfCleanup"] = value;
+            }
+        }
     }
 }

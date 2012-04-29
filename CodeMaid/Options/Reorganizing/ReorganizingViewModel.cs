@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.Options.Reorganizing
 {
     /// <summary>
@@ -18,6 +20,8 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
     /// </summary>
     public class ReorganizingViewModel : OptionsPageViewModel
     {
+        #region Base Members
+
         /// <summary>
         /// Gets the header.
         /// </summary>
@@ -25,5 +29,65 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
         {
             get { return "Reorganizing"; }
         }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public override void LoadSettings()
+        {
+            RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
+            AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public override void SaveSettings()
+        {
+            Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
+            Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
+        }
+
+        #endregion Base Members
+
+        #region Options
+
+        private bool _runAtStartOfCleanup;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
+        /// </summary>
+        public bool RunAtStartOfCleanup
+        {
+            get { return _runAtStartOfCleanup; }
+            set
+            {
+                if (_runAtStartOfCleanup != value)
+                {
+                    _runAtStartOfCleanup = value;
+                    NotifyPropertyChanged("RunAtStartOfCleanup");
+                }
+            }
+        }
+
+        private bool _alphabetizeMembersOfTheSameGroup;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if members of the same group should be alphabetized.
+        /// </summary>
+        public bool AlphabetizeMembersOfTheSameGroup
+        {
+            get { return _alphabetizeMembersOfTheSameGroup; }
+            set
+            {
+                if (_alphabetizeMembersOfTheSameGroup != value)
+                {
+                    _alphabetizeMembersOfTheSameGroup = value;
+                    NotifyPropertyChanged("AlphabetizeMembersOfTheSameGroup");
+                }
+            }
+        }
+
+        #endregion Options
     }
 }
