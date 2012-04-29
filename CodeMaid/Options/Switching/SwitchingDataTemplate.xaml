@@ -1,4 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options.Switching"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters">
+    <DataTemplate DataType="{x:Type local:SwitchingViewModel}">
+        <StackPanel>
+            <TextBlock Text="Related file extensions" />
+            <TextBox AcceptsReturn="True" Height="200"
+                    Text="{Binding RelatedFileExtensionsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
+                    VerticalScrollBarVisibility="Auto" />
+            <TextBlock FontStyle="Italic" Text="Place each set on a separate line." />
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

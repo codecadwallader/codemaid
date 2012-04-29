@@ -35,8 +35,8 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         /// </summary>
         public override void LoadSettings()
         {
-            ShowBuildProgressOnBuildStart = Settings.Default.Progressing_ShowBuildProgressOnBuildStart;
             HideBuildProgressOnBuildStop = Settings.Default.Progressing_HideBuildProgressOnBuildStop;
+            ShowBuildProgressOnBuildStart = Settings.Default.Progressing_ShowBuildProgressOnBuildStart;
         }
 
         /// <summary>
@@ -44,31 +44,13 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
             Settings.Default.Progressing_HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
+            Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
         }
 
         #endregion Base Members
 
         #region Options
-
-        private bool _showBuildProgressOnBuildStart;
-
-        /// <summary>
-        /// Gets or sets a flag indicating if build progress should be shown when a build starts.
-        /// </summary>
-        public bool ShowBuildProgressOnBuildStart
-        {
-            get { return _showBuildProgressOnBuildStart; }
-            set
-            {
-                if (_showBuildProgressOnBuildStart != value)
-                {
-                    _showBuildProgressOnBuildStart = value;
-                    NotifyPropertyChanged("ShowBuildProgressOnBuildStart");
-                }
-            }
-        }
 
         private bool _hideBuildProgressOnBuildStop;
 
@@ -84,6 +66,24 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
                 {
                     _hideBuildProgressOnBuildStop = value;
                     NotifyPropertyChanged("HideBuildProgressOnBuildStop");
+                }
+            }
+        }
+
+        private bool _showBuildProgressOnBuildStart;
+
+        /// <summary>
+        /// Gets or sets a flag indicating if build progress should be shown when a build starts.
+        /// </summary>
+        public bool ShowBuildProgressOnBuildStart
+        {
+            get { return _showBuildProgressOnBuildStart; }
+            set
+            {
+                if (_showBuildProgressOnBuildStart != value)
+                {
+                    _showBuildProgressOnBuildStart = value;
+                    NotifyPropertyChanged("ShowBuildProgressOnBuildStart");
                 }
             }
         }

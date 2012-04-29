@@ -15,7 +15,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Switching_RelatedFileExtensionsExpression" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.cpp .h ; .xaml .xaml.cs ; .xml .xsd</Value>
+      <Value Profile="(Default)">.cpp .h||.xaml .xaml.cs||.xml .xsd</Value>
     </Setting>
     <Setting Name="Digging_CenterOnWhole" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -42,7 +42,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_ExclusionExpression" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.*.Designer.cs ; .*.resx</Value>
+      <Value Profile="(Default)">.*.Designer.cs||.*.resx</Value>
     </Setting>
     <Setting Name="Cleaning_IncludeCPlusPlus" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

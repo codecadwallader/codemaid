@@ -26,6 +26,10 @@
             <Style TargetType="{x:Type CheckBox}">
                 <Setter Property="Margin" Value="0,5" />
             </Style>
+
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="0,5" />
+            </Style>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>
 

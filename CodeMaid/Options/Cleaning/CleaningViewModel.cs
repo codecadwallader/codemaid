@@ -43,9 +43,5 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         }
 
         #endregion Base Members
-
-        #region Options
-
-        #endregion Options
     }
 }

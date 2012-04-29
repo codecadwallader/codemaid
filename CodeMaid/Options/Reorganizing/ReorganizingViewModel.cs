@@ -35,8 +35,8 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
         /// </summary>
         public override void LoadSettings()
         {
-            RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
             AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
+            RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
         }
 
         /// <summary>
@@ -44,31 +44,13 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
             Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
+            Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
         }
 
         #endregion Base Members
 
         #region Options
-
-        private bool _runAtStartOfCleanup;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
-        /// </summary>
-        public bool RunAtStartOfCleanup
-        {
-            get { return _runAtStartOfCleanup; }
-            set
-            {
-                if (_runAtStartOfCleanup != value)
-                {
-                    _runAtStartOfCleanup = value;
-                    NotifyPropertyChanged("RunAtStartOfCleanup");
-                }
-            }
-        }
 
         private bool _alphabetizeMembersOfTheSameGroup;
 
@@ -84,6 +66,24 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
                 {
                     _alphabetizeMembersOfTheSameGroup = value;
                     NotifyPropertyChanged("AlphabetizeMembersOfTheSameGroup");
+                }
+            }
+        }
+
+        private bool _runAtStartOfCleanup;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
+        /// </summary>
+        public bool RunAtStartOfCleanup
+        {
+            get { return _runAtStartOfCleanup; }
+            set
+            {
+                if (_runAtStartOfCleanup != value)
+                {
+                    _runAtStartOfCleanup = value;
+                    NotifyPropertyChanged("RunAtStartOfCleanup");
                 }
             }
         }

@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.Options.Switching
 {
     /// <summary>
@@ -33,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.Options.Switching
         /// </summary>
         public override void LoadSettings()
         {
+            RelatedFileExtensionsExpression = Settings.Default.Switching_RelatedFileExtensionsExpression;
         }
 
         /// <summary>
@@ -40,11 +43,30 @@ namespace SteveCadwallader.CodeMaid.Options.Switching
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Switching_RelatedFileExtensionsExpression = RelatedFileExtensionsExpression;
         }
 
         #endregion Base Members
 
         #region Options
+
+        private string _relatedFileExtensionsExpression;
+
+        /// <summary>
+        /// Gets or sets the expression for related file extensions.
+        /// </summary>
+        public string RelatedFileExtensionsExpression
+        {
+            get { return _relatedFileExtensionsExpression; }
+            set
+            {
+                if (_relatedFileExtensionsExpression != value)
+                {
+                    _relatedFileExtensionsExpression = value;
+                    NotifyPropertyChanged("RelatedFileExtensionsExpression");
+                }
+            }
+        }
 
         #endregion Options
     }
