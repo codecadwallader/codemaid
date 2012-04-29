@@ -2,6 +2,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningActionsViewModel}">
+        <DataTemplate.Resources>
+            <Style TargetType="{x:Type ToggleButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </DataTemplate.Resources>
         <StackPanel>
             <GroupBox Header="Visual Studio commands">
                 <StackPanel>
@@ -20,51 +31,78 @@
 
             <GroupBox Header="Insert" Margin="0,10,0,0">
                 <StackPanel>
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterClasses}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterEndRegionTags}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterEnumerations}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterEvents}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterFieldsMultiLine}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterInterfaces}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterMethods}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterNamespaces}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterProperties}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterRegionTags}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingAfterUsingStatementBlocks}" />
+                    <WrapPanel>
+                        <TextBlock Text="Insert blank line padding before" VerticalAlignment="Center" />
 
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeClasses}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeEndRegionTags}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeEvents}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeFieldsMultiLine}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeInterfaces}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeNamespaces}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeProperties}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeRegionTags}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertBlankLinePaddingBeforeUsingStatementBlocks}" />
+                        <ToggleButton Content="using statement blocks"
+                                IsChecked="{Binding InsertBlankLinePaddingBeforeUsingStatementBlocks}" />
+                        <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingBeforeNamespaces}" />
+                        <ToggleButton Content="#region tags"
+                                IsChecked="{Binding InsertBlankLinePaddingBeforeRegionTags}" />
+                        <ToggleButton Content="#endregion tags"
+                                IsChecked="{Binding InsertBlankLinePaddingBeforeEndRegionTags}" />
 
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnEvents}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnInterfaces}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnMethods}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnProperties}" />
-                    <CheckBox Content="" IsChecked="{Binding InsertExplicitAccessModifiersOnStructs}" />
+                        <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingBeforeClasses}" />
+                        <ToggleButton Content="enumerations"
+                                IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />
+                        <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingBeforeEvents}" />
+                        <ToggleButton Content="multi-line fields"
+                                IsChecked="{Binding InsertBlankLinePaddingBeforeFieldsMultiLine}" />
+                        <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingBeforeInterfaces}" />
+                        <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
+                        <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingBeforeProperties}" />
+                        <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <TextBlock Text="Insert blank line padding after" VerticalAlignment="Center" />
+
+                        <ToggleButton Content="using statement blocks"
+                                IsChecked="{Binding InsertBlankLinePaddingAfterUsingStatementBlocks}" />
+                        <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingAfterNamespaces}" />
+                        <ToggleButton Content="#region tags" IsChecked="{Binding InsertBlankLinePaddingAfterRegionTags}" />
+                        <ToggleButton Content="#endregion tags"
+                                IsChecked="{Binding InsertBlankLinePaddingAfterEndRegionTags}" />
+
+                        <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingAfterClasses}" />
+                        <ToggleButton Content="enumerations"
+                                IsChecked="{Binding InsertBlankLinePaddingAfterEnumerations}" />
+                        <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingAfterEvents}" />
+                        <ToggleButton Content="multi-line fields"
+                                IsChecked="{Binding InsertBlankLinePaddingAfterFieldsMultiLine}" />
+                        <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingAfterInterfaces}" />
+                        <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingAfterMethods}" />
+                        <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingAfterProperties}" />
+                        <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <TextBlock Text="Insert explicit access modifiers on" VerticalAlignment="Center" />
+                        <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
+                        <ToggleButton Content="enumerations"
+                                IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
+                        <ToggleButton Content="events" IsChecked="{Binding InsertExplicitAccessModifiersOnEvents}" />
+                        <ToggleButton Content="interfaces"
+                                IsChecked="{Binding InsertExplicitAccessModifiersOnInterfaces}" />
+                        <ToggleButton Content="methods" IsChecked="{Binding InsertExplicitAccessModifiersOnMethods}" />
+                        <ToggleButton Content="properties"
+                                IsChecked="{Binding InsertExplicitAccessModifiersOnProperties}" />
+                        <ToggleButton Content="structs" IsChecked="{Binding InsertExplicitAccessModifiersOnStructs}" />
+                    </WrapPanel>
                 </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Remove" Margin="0,10,0,0">
                 <StackPanel>
-                    <CheckBox Content="Remove blank lines at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
-                    <CheckBox Content="Remove blank lines after opening brace"
-                            IsChecked="{Binding RemoveBlankLinesAfterOpeningBrace}" />
-                    <CheckBox Content="Remove blank lines before closing brace"
-                            IsChecked="{Binding RemoveBlankLinesBeforeClosingBrace}" />
-                    <CheckBox Content="Remove blank lines at bottom of file"
-                            IsChecked="{Binding RemoveBlankLinesAtBottom}" />
+                    <WrapPanel>
+                        <TextBlock Text="Remove blank lines" VerticalAlignment="Center" />
+                        <ToggleButton Content="at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
+                        <ToggleButton Content="after opening brace"
+                                IsChecked="{Binding RemoveBlankLinesAfterOpeningBrace}" />
+                        <ToggleButton Content="before closing brace"
+                                IsChecked="{Binding RemoveBlankLinesBeforeClosingBrace}" />
+                        <ToggleButton Content="at bottom of file" IsChecked="{Binding RemoveBlankLinesAtBottom}" />
+                    </WrapPanel>
 
                     <CheckBox Content="Remove end of line whitespace" IsChecked="{Binding RemoveEndOfLineWhitespace}" />
 
@@ -75,7 +113,7 @@
 
             <GroupBox Header="Update" Margin="0,10,0,0">
                 <StackPanel>
-                    <CheckBox Content="Update endregion directives with region name"
+                    <CheckBox Content="Update #endregion tags with region name"
                             IsChecked="{Binding UpdateEndRegionDirectives}" />
                     <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,0" />
                 </StackPanel>
