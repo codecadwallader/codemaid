@@ -14,6 +14,7 @@
 using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -83,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             {
                 buildProgress.NotifyBuildBegin(scope, action);
 
-                if (Package.Options.BuildProgress.AutoShowBuildProgressOnBuildStart)
+                if (Settings.Default.Progressing_ShowBuildProgressOnBuildStart)
                 {
                     ShowBuildProgressToolWindowWithoutActivation();
                 }
@@ -118,7 +119,7 @@ namespace SteveCadwallader.CodeMaid.Commands
             {
                 buildProgress.NotifyBuildDone(scope, action);
 
-                if (Package.Options.BuildProgress.AutoHideBuildProgressOnBuildStop)
+                if (Settings.Default.Progressing_HideBuildProgressOnBuildStop)
                 {
                     HideBuildProgressToolWindow();
                 }

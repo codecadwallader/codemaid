@@ -42,7 +42,6 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            //Package.ShowOptionPage(Package.Options.CleanupGeneral.GetType());
             new OptionsWindow { DataContext = new OptionsViewModel() }.ShowDialog();
         }
 

@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public IEnumerable<OptionsPageViewModel> AllPages
         {
-            get { return Pages.SelectMany(x => x.Children); }
+            get { return Pages.Union(Pages.SelectMany(x => x.Children)); }
         }
 
         private IEnumerable<OptionsPageViewModel> _pages;
