@@ -61,16 +61,12 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// Loads the settings.
         /// </summary>
-        public virtual void LoadSettings()
-        {
-        }
+        public abstract void LoadSettings();
 
         /// <summary>
         /// Saves the settings.
         /// </summary>
-        public virtual void SaveSettings()
-        {
-        }
+        public abstract void SaveSettings();
 
         #endregion Properties
     }

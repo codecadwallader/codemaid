@@ -18,6 +18,8 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
     /// </summary>
     public class CleaningFileTypesViewModel : OptionsPageViewModel
     {
+        #region Base Members
+
         /// <summary>
         /// Gets the header.
         /// </summary>
@@ -25,5 +27,25 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         {
             get { return "File Types"; }
         }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public override void LoadSettings()
+        {
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public override void SaveSettings()
+        {
+        }
+
+        #endregion Base Members
+
+        #region Options
+
+        #endregion Options
     }
 }

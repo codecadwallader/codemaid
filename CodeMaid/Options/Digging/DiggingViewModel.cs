@@ -18,6 +18,8 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
     /// </summary>
     public class DiggingViewModel : OptionsPageViewModel
     {
+        #region Base Members
+
         /// <summary>
         /// Gets the header.
         /// </summary>
@@ -25,5 +27,25 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
         {
             get { return "Digging (Spade)"; }
         }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public override void LoadSettings()
+        {
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public override void SaveSettings()
+        {
+        }
+
+        #endregion Base Members
+
+        #region Options
+
+        #endregion Options
     }
 }
