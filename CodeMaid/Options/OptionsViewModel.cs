@@ -11,8 +11,10 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using SteveCadwallader.CodeMaid.Options.Progressing;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
@@ -137,11 +139,19 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
-            Settings.Default.Reset();
+            var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
+                                         @"This action cannot be undone.",
+                                         @"CodeMaid: Confirmation for reset all settings",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-            foreach (var optionsPageViewModel in AllPages)
+            if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                optionsPageViewModel.LoadSettings();
+                Settings.Default.Reset();
+
+                foreach (var optionsPageViewModel in AllPages)
+                {
+                    optionsPageViewModel.LoadSettings();
+                }
             }
         }
 
