@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.Options.Cleaning
 {
     /// <summary>
@@ -33,6 +35,8 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         /// </summary>
         public override void LoadSettings()
         {
+            AutoCleanupOnFileSave = Settings.Default.Cleaning_AutoCleanupOnFileSave;
+            AutoSaveAndCloseIfOpenedByCleanup = Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup;
         }
 
         /// <summary>
@@ -40,11 +44,49 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Cleaning_AutoCleanupOnFileSave = AutoCleanupOnFileSave;
+            Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup = AutoSaveAndCloseIfOpenedByCleanup;
         }
 
         #endregion Base Members
 
         #region Options
+
+        private bool _autoCleanupOnFileSave;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if cleanup should run automatically on file save.
+        /// </summary>
+        public bool AutoCleanupOnFileSave
+        {
+            get { return _autoCleanupOnFileSave; }
+            set
+            {
+                if (_autoCleanupOnFileSave != value)
+                {
+                    _autoCleanupOnFileSave = value;
+                    NotifyPropertyChanged("AutoCleanupOnFileSave");
+                }
+            }
+        }
+
+        private bool _autoSaveAndCloseIfOpenedByCleanup;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if files should be automatically saved and closed if opened by cleanup.
+        /// </summary>
+        public bool AutoSaveAndCloseIfOpenedByCleanup
+        {
+            get { return _autoSaveAndCloseIfOpenedByCleanup; }
+            set
+            {
+                if (_autoSaveAndCloseIfOpenedByCleanup != value)
+                {
+                    _autoSaveAndCloseIfOpenedByCleanup = value;
+                    NotifyPropertyChanged("AutoSaveAndCloseIfOpenedByCleanup");
+                }
+            }
+        }
 
         #endregion Options
     }

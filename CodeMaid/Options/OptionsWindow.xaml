@@ -54,6 +54,7 @@
                     <ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
                             <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
+                            <ResourceDictionary Source="Cleaning/CleaningGeneralDataTemplate.xaml" />
                             <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
                             <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                             <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />

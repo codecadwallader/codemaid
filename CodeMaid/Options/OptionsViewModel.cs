@@ -43,9 +43,8 @@ namespace SteveCadwallader.CodeMaid.Options
                                 {
                                     Children = new OptionsPageViewModel[]
                                                    {
-                                                       new CleaningAutomaticViewModel(),
-                                                       new CleaningFileTypesViewModel(),
-                                                       new CleaningGeneralViewModel()
+                                                       new CleaningGeneralViewModel(),
+                                                       new CleaningFileTypesViewModel()
                                                    }
                                 },
                             new DiggingViewModel(),
@@ -54,7 +53,7 @@ namespace SteveCadwallader.CodeMaid.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = AllPages.FirstOrDefault(x => x is CleaningAutomaticViewModel);
+            SelectedPage = AllPages.FirstOrDefault(x => x is CleaningGeneralViewModel);
         }
 
         #endregion Constructors
