@@ -13,14 +13,11 @@
                             Margin="5" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Display">
+            <GroupBox Header="Display" Margin="0,10,0,0">
                 <StackPanel>
                     <CheckBox Content="Show method parameters" IsChecked="{Binding ShowMethodParameters}" />
-
                     <CheckBox Content="Show item metadata" IsChecked="{Binding ShowItemMetadata}" />
-                    <TextBlock FontStyle="Italic" Margin="25,0,0,0" Text="Example: 's' for static" />
-
-                    <CheckBox Content="Show McCabe complexity" IsChecked="{Binding ShowItemComplexity}" />
+                    <CheckBox Content="Show item complexity (McCabe)" IsChecked="{Binding ShowItemComplexity}" />
                     <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="25,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -33,11 +30,11 @@
 
                         <TextBlock Text="Warning threshold" Margin="0,0,5,0" VerticalAlignment="Center" />
                         <TextBox Grid.Column="1" Text="{Binding ComplexityWarningThreshold}" TextAlignment="Right"
-                                Width="50" />
+                                Width="40" />
 
                         <TextBlock Grid.Row="1" Text="Alert threshold" Margin="0,0,5,0" VerticalAlignment="Center" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold}"
-                                TextAlignment="Right" Width="50" />
+                                TextAlignment="Right" Width="40" />
                     </Grid>
                 </StackPanel>
             </GroupBox>
