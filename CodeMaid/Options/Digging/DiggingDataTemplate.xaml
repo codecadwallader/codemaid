@@ -6,11 +6,10 @@
         <StackPanel>
             <GroupBox Header="Navigation">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="When navigating center on" Margin="0,0,5,0" VerticalAlignment="Center" />
-                    <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" Margin="5" />
+                    <TextBlock Text="When navigating center on" VerticalAlignment="Center" />
+                    <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" />
                     <RadioButton Content="name only"
-                            IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}"
-                            Margin="5" />
+                            IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Display" Margin="0,10,0,0">
@@ -18,7 +17,7 @@
                     <CheckBox Content="Show method parameters" IsChecked="{Binding ShowMethodParameters}" />
                     <CheckBox Content="Show item metadata" IsChecked="{Binding ShowItemMetadata}" />
                     <CheckBox Content="Show item complexity (McCabe)" IsChecked="{Binding ShowItemComplexity}" />
-                    <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="25,0,0,0">
+                    <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="35,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -28,11 +27,11 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Warning threshold" Margin="0,0,5,0" VerticalAlignment="Center" />
+                        <TextBlock Text="Warning threshold" VerticalAlignment="Center" />
                         <TextBox Grid.Column="1" Text="{Binding ComplexityWarningThreshold}" TextAlignment="Right"
                                 Width="40" />
 
-                        <TextBlock Grid.Row="1" Text="Alert threshold" Margin="0,0,5,0" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Text="Alert threshold" VerticalAlignment="Center" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold}"
                                 TextAlignment="Right" Width="40" />
                     </Grid>

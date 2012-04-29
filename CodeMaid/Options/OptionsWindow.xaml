@@ -16,24 +16,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/Themes/CodeMaidTheme.xaml" />
-                <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
-                <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
-                <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
-                <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
-                <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type CheckBox}">
-                <Setter Property="Margin" Value="0,5" />
-            </Style>
-
-            <Style TargetType="{x:Type GroupBox}">
-                <Setter Property="Padding" Value="5" />
-            </Style>
-
-            <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Margin" Value="0,5" />
-            </Style>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>
 
@@ -66,7 +49,40 @@
                 <TextBlock Text="{Binding SelectedPage.Header}" />
             </Border>
 
-            <ContentPresenter Content="{Binding SelectedPage}" Margin="10,10,0,0" />
+            <ContentPresenter Content="{Binding SelectedPage}" Margin="10,10,0,0">
+                <ContentPresenter.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
+                            <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
+                            <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
+                            <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
+                            <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
+                            <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type GroupBox}">
+                            <Setter Property="Padding" Value="10,5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type RadioButton}">
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="5,0" />
+                        </Style>
+
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+                    </ResourceDictionary>
+                </ContentPresenter.Resources>
+            </ContentPresenter>
         </DockPanel>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />

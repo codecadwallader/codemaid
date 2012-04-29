@@ -4,11 +4,11 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters">
     <DataTemplate DataType="{x:Type local:SwitchingViewModel}">
         <StackPanel>
-            <TextBlock Text="Related file extensions" />
+            <TextBlock Text="Sets of related file extensions (ex: .cpp .h)" />
             <TextBox AcceptsReturn="True" Height="200"
                     Text="{Binding RelatedFileExtensionsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
                     VerticalScrollBarVisibility="Auto" />
-            <TextBlock FontStyle="Italic" Text="Place each set on a separate line." />
+            <TextBlock FontStyle="Italic" Text="Place each set on a separate line" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
