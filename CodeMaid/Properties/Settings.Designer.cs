@@ -170,12 +170,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_SortUsingStatements {
+        public bool Cleaning_RunVisualStudioSortUsingStatements {
             get {
-                return ((bool)(this["Cleaning_SortUsingStatements"]));
+                return ((bool)(this["Cleaning_RunVisualStudioSortUsingStatements"]));
             }
             set {
-                this["Cleaning_SortUsingStatements"] = value;
+                this["Cleaning_RunVisualStudioSortUsingStatements"] = value;
             }
         }
         
@@ -314,24 +314,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave {
+        public bool Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave {
             get {
-                return ((bool)(this["Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave"]));
+                return ((bool)(this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"]));
             }
             set {
-                this["Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave"] = value;
+                this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveUnusedUsingStatements {
+        public bool Cleaning_RunVisualStudioRemoveUnusedUsingStatements {
             get {
-                return ((bool)(this["Cleaning_RemoveUnusedUsingStatements"]));
+                return ((bool)(this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"]));
             }
             set {
-                this["Cleaning_RemoveUnusedUsingStatements"] = value;
+                this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"] = value;
             }
         }
         

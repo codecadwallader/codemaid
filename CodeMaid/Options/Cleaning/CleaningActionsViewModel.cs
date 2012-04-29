@@ -47,7 +47,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingAfterRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags;
             InsertBlankLinePaddingAfterStructs = Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;
             InsertBlankLinePaddingAfterUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks;
-
             InsertBlankLinePaddingBeforeClasses = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
             InsertBlankLinePaddingBeforeEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags;
             InsertBlankLinePaddingBeforeEnumerations = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations;
@@ -60,7 +59,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingBeforeRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
             InsertBlankLinePaddingBeforeStructs = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
-
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
             InsertExplicitAccessModifiersOnEvents = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents;
@@ -68,17 +66,16 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertExplicitAccessModifiersOnMethods = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods;
             InsertExplicitAccessModifiersOnProperties = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties;
             InsertExplicitAccessModifiersOnStructs = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs;
-
             RemoveBlankLinesAfterOpeningBrace = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
             RemoveBlankLinesAtBottom = Settings.Default.Cleaning_RemoveBlankLinesAtBottom;
             RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
             RemoveBlankLinesBeforeClosingBrace = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
             RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
             RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
-            RemoveUnusedUsingStatements = Settings.Default.Cleaning_RemoveUnusedUsingStatements;
-            RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave = Settings.Default.Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave;
             RunVisualStudioFormatDocument = Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand;
-            SortUsingStatements = Settings.Default.Cleaning_SortUsingStatements;
+            RunVisualStudioRemoveUnusedUsingStatements = Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements;
+            RunVisualStudioSortUsingStatements = Settings.Default.Cleaning_RunVisualStudioSortUsingStatements;
+            SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
             UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
         }
 
@@ -99,7 +96,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags = InsertBlankLinePaddingAfterRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs = InsertBlankLinePaddingAfterStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks = InsertBlankLinePaddingAfterUsingStatementBlocks;
-
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses = InsertBlankLinePaddingBeforeClasses;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags = InsertBlankLinePaddingBeforeEndRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations = InsertBlankLinePaddingBeforeEnumerations;
@@ -112,7 +108,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags = InsertBlankLinePaddingBeforeRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs = InsertBlankLinePaddingBeforeStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
-
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents = InsertExplicitAccessModifiersOnEvents;
@@ -120,17 +115,16 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods = InsertExplicitAccessModifiersOnMethods;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties = InsertExplicitAccessModifiersOnProperties;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs = InsertExplicitAccessModifiersOnStructs;
-
             Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBrace;
             Settings.Default.Cleaning_RemoveBlankLinesAtBottom = RemoveBlankLinesAtBottom;
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
             Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBrace;
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
-            Settings.Default.Cleaning_RemoveUnusedUsingStatements = RemoveUnusedUsingStatements;
-            Settings.Default.Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave = RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave;
             Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand = RunVisualStudioFormatDocument;
-            Settings.Default.Cleaning_SortUsingStatements = SortUsingStatements;
+            Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements = RunVisualStudioRemoveUnusedUsingStatements;
+            Settings.Default.Cleaning_RunVisualStudioSortUsingStatements = RunVisualStudioSortUsingStatements;
+            Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
             Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
         }
 
@@ -802,42 +796,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             }
         }
 
-        private bool _removeUnusedUsingStatements;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed.
-        /// </summary>
-        public bool RemoveUnusedUsingStatements
-        {
-            get { return _removeUnusedUsingStatements; }
-            set
-            {
-                if (_removeUnusedUsingStatements != value)
-                {
-                    _removeUnusedUsingStatements = value;
-                    NotifyPropertyChanged("RemoveUnusedUsingStatements");
-                }
-            }
-        }
-
-        private bool _removeUnusedUsingStatementsExceptDuringAutoCleanupOnSave;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed except during auto cleanup on save.
-        /// </summary>
-        public bool RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave
-        {
-            get { return _removeUnusedUsingStatementsExceptDuringAutoCleanupOnSave; }
-            set
-            {
-                if (_removeUnusedUsingStatementsExceptDuringAutoCleanupOnSave != value)
-                {
-                    _removeUnusedUsingStatementsExceptDuringAutoCleanupOnSave = value;
-                    NotifyPropertyChanged("RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave");
-                }
-            }
-        }
-
         private bool _runVisualStudioFormatDocument;
 
         /// <summary>
@@ -856,20 +814,56 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             }
         }
 
-        private bool _sortUsingStatements;
+        private bool _runVisualStudioRemoveUnusedUsingStatements;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if unused using statements should be removed.
+        /// </summary>
+        public bool RunVisualStudioRemoveUnusedUsingStatements
+        {
+            get { return _runVisualStudioRemoveUnusedUsingStatements; }
+            set
+            {
+                if (_runVisualStudioRemoveUnusedUsingStatements != value)
+                {
+                    _runVisualStudioRemoveUnusedUsingStatements = value;
+                    NotifyPropertyChanged("RunVisualStudioRemoveUnusedUsingStatements");
+                }
+            }
+        }
+
+        private bool _runVisualStudioSortUsingStatements;
 
         /// <summary>
         /// Gets or sets the flag indicating if using statements should be sorted.
         /// </summary>
-        public bool SortUsingStatements
+        public bool RunVisualStudioSortUsingStatements
         {
-            get { return _sortUsingStatements; }
+            get { return _runVisualStudioSortUsingStatements; }
             set
             {
-                if (_sortUsingStatements != value)
+                if (_runVisualStudioSortUsingStatements != value)
                 {
-                    _sortUsingStatements = value;
-                    NotifyPropertyChanged("SortUsingStatements");
+                    _runVisualStudioSortUsingStatements = value;
+                    NotifyPropertyChanged("RunVisualStudioSortUsingStatements");
+                }
+            }
+        }
+
+        private bool _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if unused using statements should be removed except during auto cleanup on save.
+        /// </summary>
+        public bool SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave
+        {
+            get { return _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave; }
+            set
+            {
+                if (_skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave != value)
+                {
+                    _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = value;
+                    NotifyPropertyChanged("SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave");
                 }
             }
         }

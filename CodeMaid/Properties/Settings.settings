@@ -38,7 +38,7 @@
     <Setting Name="Cleaning_UpdateEndRegionDirectives" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_SortUsingStatements" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_RunVisualStudioSortUsingStatements" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_ExclusionExpression" Type="System.String" Scope="User">
@@ -74,10 +74,10 @@
     <Setting Name="Cleaning_RunVisualStudioFormatDocumentCommand" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_RemoveUnusedUsingStatements" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_RunVisualStudioRemoveUnusedUsingStatements" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_RemoveMultipleConsecutiveBlankLines" Type="System.Boolean" Scope="User">

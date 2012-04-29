@@ -8,12 +8,13 @@
                     <CheckBox Content="Run format document" IsChecked="{Binding RunVisualStudioFormatDocument}" />
 
                     <CheckBox Content="Run remove unused using statements"
-                            IsChecked="{Binding RemoveUnusedUsingStatements}" />
-                    <CheckBox Content="Except during automatic cleanup on save"
-                            IsChecked="{Binding RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave}"
-                            IsEnabled="{Binding RemoveUnusedUsingStatements}" Margin="35,0,5,0" />
+                            IsChecked="{Binding RunVisualStudioRemoveUnusedUsingStatements}" />
+                    <CheckBox Content="Skip during automatic cleanup on save"
+                            IsChecked="{Binding SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave}"
+                            IsEnabled="{Binding RunVisualStudioRemoveUnusedUsingStatements}" Margin="35,5,5,5" />
 
-                    <CheckBox Content="Run sort using statements" IsChecked="{Binding SortUsingStatements}" />
+                    <CheckBox Content="Run sort using statements"
+                            IsChecked="{Binding RunVisualStudioSortUsingStatements}" />
                 </StackPanel>
             </GroupBox>
 
