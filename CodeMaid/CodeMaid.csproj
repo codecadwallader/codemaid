@@ -178,6 +178,7 @@
     <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Commands\SwitchFileCommand.cs" />
     <Compile Include="Commands\SpadeToolWindowCommand.cs" />
+    <Compile Include="Converters\BooleanInverseConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\CodeItemToImageConverter.cs" />
     <Compile Include="Converters\CodeItemToMetadataStringConverter.cs" />

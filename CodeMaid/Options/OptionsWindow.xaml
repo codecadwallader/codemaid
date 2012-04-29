@@ -27,6 +27,10 @@
                 <Setter Property="Margin" Value="0,5" />
             </Style>
 
+            <Style TargetType="{x:Type GroupBox}">
+                <Setter Property="Padding" Value="5" />
+            </Style>
+
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="0,5" />
             </Style>
