@@ -2,6 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningParentViewModel}">
-        <TextBlock Text="Select a sub-category to set options." />
+        <TextBlock Text="Select a sub-category to set options." Margin="5" />
     </DataTemplate>
 </ResourceDictionary>

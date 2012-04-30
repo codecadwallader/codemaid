@@ -49,7 +49,7 @@
                 <TextBlock Text="{Binding SelectedPage.Header}" />
             </Border>
 
-            <ScrollViewer Margin="10,10,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Margin="10,10,0,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ContentPresenter Content="{Binding SelectedPage}">
                     <ContentPresenter.Resources>
                         <ResourceDictionary>
@@ -69,7 +69,7 @@
                             </Style>
 
                             <Style TargetType="{x:Type GroupBox}">
-                                <Setter Property="Padding" Value="10,5" />
+                                <Setter Property="Padding" Value="10,5,10,0" />
                             </Style>
 
                             <Style TargetType="{x:Type RadioButton}">
@@ -81,7 +81,7 @@
                             </Style>
 
                             <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="Margin" Value="5,2.5" />
                             </Style>
                         </ResourceDictionary>
                     </ContentPresenter.Resources>

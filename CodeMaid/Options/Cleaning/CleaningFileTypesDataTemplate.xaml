@@ -33,8 +33,9 @@
 
             <GroupBox Header="Exclude" Margin="0,10,0,0">
                 <StackPanel>
-                    <TextBlock Text="Regular expressions that match file names to exclude (ex: .*.resx)" />
-                    <TextBox AcceptsReturn="True" Height="200"
+                    <TextBlock Text="Regular expressions that match file names to exclude (ex: .*.resx)"
+                            Margin="5,5,5,0" />
+                    <TextBox AcceptsReturn="True" Height="125"
                             Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
                             VerticalScrollBarVisibility="Auto" />
                     <TextBlock FontStyle="Italic" Text="Place each on a separate line" />

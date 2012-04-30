@@ -4,8 +4,8 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters">
     <DataTemplate DataType="{x:Type local:SwitchingViewModel}">
         <StackPanel>
-            <TextBlock Text="Sets of related file extensions (ex: .cpp .h)" />
-            <TextBox AcceptsReturn="True" Height="200"
+            <TextBlock Text="Sets of related file extensions (ex: .cpp .h)" Margin="5,5,5,0" />
+            <TextBox AcceptsReturn="True" Height="125"
                     Text="{Binding RelatedFileExtensionsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
                     VerticalScrollBarVisibility="Auto" />
             <TextBlock FontStyle="Italic" Text="Place each set on a separate line" />

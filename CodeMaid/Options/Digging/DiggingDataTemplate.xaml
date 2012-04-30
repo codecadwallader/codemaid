@@ -17,7 +17,7 @@
                     <CheckBox Content="Show method parameters" IsChecked="{Binding ShowMethodParameters}" />
                     <CheckBox Content="Show item metadata" IsChecked="{Binding ShowItemMetadata}" />
                     <CheckBox Content="Show item complexity (McCabe)" IsChecked="{Binding ShowItemComplexity}" />
-                    <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="35,0,0,0">
+                    <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="35,0,5,5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
