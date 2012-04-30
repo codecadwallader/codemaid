@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using Microsoft.VisualStudio.Package;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -105,13 +106,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             switch (document.Language)
             {
-                case "CSharp": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
-                case "C/C++": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
-                case "CSS": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
-                case "HTML": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
-                case "JScript": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
-                case "XAML": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
-                case "XML": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
+                case "CSharp": return Settings.Default.Cleaning_IncludeCSharp;
+                case "C/C++": return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case "CSS": return Settings.Default.Cleaning_IncludeCSS;
+                case "HTML": return Settings.Default.Cleaning_IncludeHTML;
+                case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "XAML": return Settings.Default.Cleaning_IncludeXAML;
+                case "XML": return Settings.Default.Cleaning_IncludeXML;
                 default: return false;
             }
         }
@@ -148,19 +149,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
                 // Make an exception for JavaScript files - they incorrectly return the HTML language service.
-                return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
+                return Settings.Default.Cleaning_IncludeJavaScript;
             }
 
             var languageServiceGuid = EditorFactory.GetLanguageService(extension);
             switch (languageServiceGuid)
             {
-                case "{694DD9B6-B865-4C5B-AD85-86356E9C88DC}": return Package.Options.CleanupFileTypes.CleanupIncludeCSharp;
-                case "{B2F072B0-ABC1-11D0-9D62-00C04FD9DFD9}": return Package.Options.CleanupFileTypes.CleanupIncludeCPlusPlus;
-                case "{A764E898-518D-11d2-9A89-00C04F79EFC3}": return Package.Options.CleanupFileTypes.CleanupIncludeCSS;
-                case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Package.Options.CleanupFileTypes.CleanupIncludeHTML;
-                case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Package.Options.CleanupFileTypes.CleanupIncludeJavaScript;
-                case "{c9164055-039b-4669-832d-f257bd5554d4}": return Package.Options.CleanupFileTypes.CleanupIncludeXAML;
-                case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Package.Options.CleanupFileTypes.CleanupIncludeXML;
+                case "{694DD9B6-B865-4C5B-AD85-86356E9C88DC}": return Settings.Default.Cleaning_IncludeCSharp;
+                case "{B2F072B0-ABC1-11D0-9D62-00C04FD9DFD9}": return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case "{A764E898-518D-11d2-9A89-00C04F79EFC3}": return Settings.Default.Cleaning_IncludeCSS;
+                case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Settings.Default.Cleaning_IncludeHTML;
+                case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
+                case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default: return false;
             }
         }
@@ -176,14 +177,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             get
             {
-                var cleanupExclusionExpression = Package.Options.CleanupFileTypes.CleanupExclusionExpression;
+                var cleanupExclusionExpression = Settings.Default.Cleaning_ExclusionExpression;
                 if (_cachedCleanupExclusionExpression != cleanupExclusionExpression)
                 {
                     _cleanupExclusions = new List<string>();
 
                     if (!string.IsNullOrEmpty(cleanupExclusionExpression))
                     {
-                        var filters = cleanupExclusionExpression.Split(';')
+                        var filters = cleanupExclusionExpression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
                                                                 .Select(x => x.Trim().ToLower())
                                                                 .Where(y => !string.IsNullOrEmpty(y));
 

@@ -15,6 +15,7 @@ using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
@@ -173,7 +174,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public bool ShowItemComplexity
         {
-            get { return Package.Options.Spade.ShowItemComplexity; }
+            get { return Settings.Default.Digging_ShowItemComplexity; }
         }
 
         /// <summary>
@@ -181,7 +182,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public bool ShowItemMetadata
         {
-            get { return Package.Options.Spade.ShowItemMetadata; }
+            get { return Settings.Default.Digging_ShowItemMetadata; }
         }
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// </summary>
         public bool ShowMethodParameters
         {
-            get { return Package.Options.Spade.ShowMethodParameters; }
+            get { return Settings.Default.Digging_ShowMethodParameters; }
         }
 
         #endregion Properties

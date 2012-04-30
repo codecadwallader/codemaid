@@ -86,15 +86,9 @@
     <DataTemplate x:Key="complexityToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Complexity: " Foreground="#666666" />
-            <TextBlock x:Name="complexityTextBlock" Text="{Binding}">
-                <TextBlock.Foreground>
-                    <MultiBinding Converter="{x:Static spadeCnv:ComplexityToColorConverter.Default}">
-                        <Binding />
-                        <Binding Path="DataContext"
-                                RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SpadeView}" />
-                    </MultiBinding>
-                </TextBlock.Foreground>
-            </TextBlock>
+            <TextBlock x:Name="complexityTextBlock"
+                    Foreground="{Binding Converter={x:Static spadeCnv:ComplexityToColorConverter.Default}}"
+                    Text="{Binding}" />
         </StackPanel>
         <DataTemplate.Triggers>
             <DataTrigger

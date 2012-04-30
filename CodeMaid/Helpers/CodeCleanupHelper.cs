@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -95,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 Cleanup(projectItem.Document, false);
 
                 // Close the document if it was opened for cleanup.
-                if (Package.Options.CleanupGeneral.AutoCloseIfOpenedByCleanup && !wasOpen)
+                if (Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup && !wasOpen)
                 {
                     projectItem.Document.Close(vsSaveChanges.vsSaveChangesYes);
                 }
@@ -115,13 +116,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             document.Activate();
 
             // Conditionally start cleanup with reorganization.
-            if (Package.Options.Reorganize.RunAtStartOfCleanup)
+            if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
                 CodeReorderHelper.GetInstance(Package).Reorganize(document);
             }
 
             UndoTransactionHelper.Run(
-                () => !isAutoSave && Package.Options.CleanupGeneral.WrapCleanupInASingleUndoTransaction,
+                () => !isAutoSave,
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);
@@ -312,7 +313,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="classes">The classes.</param>
         private void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeItemClass> classes)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnClasses) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return;
 
             foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
             {
@@ -338,7 +339,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="enumerations">The enumerations.</param>
         private void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnEnumerations) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations) return;
 
             foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
             {
@@ -358,7 +359,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="events">The events.</param>
         private void InsertExplicitAccessModifiersOnEvents(IEnumerable<CodeItemEvent> events)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnEvents) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents) return;
 
             foreach (var codeEvent in events.Select(x => x.CodeEvent).Where(y => y != null))
             {
@@ -400,7 +401,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="interfaces">The interfaces.</param>
         private void InsertExplicitAccessModifiersOnInterfaces(IEnumerable<CodeItemInterface> interfaces)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnInterfaces) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces) return;
 
             foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
             {
@@ -420,7 +421,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="methods">The methods.</param>
         private void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeItemMethod> methods)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnMethods) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return;
 
             foreach (var codeFunction in methods.Select(x => x.CodeFunction).Where(y => y != null))
             {
@@ -478,7 +479,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="properties">The properties.</param>
         private void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeItemProperty> properties)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnProperties) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return;
 
             foreach (var codeProperty in properties.Select(x => x.CodeProperty).Where(y => y != null))
             {
@@ -518,7 +519,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="structs">The structs.</param>
         private void InsertExplicitAccessModifiersOnStructs(IEnumerable<CodeItemStruct> structs)
         {
-            if (!Package.Options.CleanupInsert.InsertExplicitAccessModifiersOnStructs) return;
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs) return;
 
             foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))
             {
@@ -538,14 +539,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RemoveUnusedUsingStatements(bool isAutoSave)
         {
-            if (!Package.Options.CleanupRemove.RemoveUnusedUsingStatements) return;
-            if (isAutoSave && Package.Options.CleanupRemove.RemoveUnusedUsingStatementsExceptDuringAutoCleanupOnSave) return;
+            if (!Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements) return;
+            if (isAutoSave && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
 
-            // Requires VS2008 (version 9).
-            if (Package.IDEVersion >= 9)
-            {
-                Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
-            }
+            Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
         }
 
         /// <summary>
@@ -554,7 +551,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunVSFormatting(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupGeneral.RunVisualStudioFormatDocumentCommand) return;
+            if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
             try
             {
@@ -576,7 +573,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveBlankLinesAtBottom(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveBlankLinesAtBottom) return;
+            if (!Settings.Default.Cleaning_RemoveBlankLinesAtBottom) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
             cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
@@ -596,7 +593,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveBlankLinesAtTop(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveBlankLinesAtTop) return;
+            if (!Settings.Default.Cleaning_RemoveBlankLinesAtTop) return;
 
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
@@ -608,7 +605,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveBlankLinesAfterOpeningBrace(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveBlankLinesAfterOpeningBrace) return;
+            if (!Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\{{:b*(//.*)*}\n\n"
@@ -627,7 +624,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveBlankLinesBeforeClosingBrace(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveBlankLinesBeforeClosingBrace) return;
+            if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\n\n{:b*}\}"
@@ -646,7 +643,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveEOLWhitespace(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveEndOfLineWhitespace) return;
+            if (!Settings.Default.Cleaning_RemoveEndOfLineWhitespace) return;
 
             string pattern = Package.UsePOSIXRegEx ? @":b+\n" : @"[ \t]+\r?\n";
             string replacement = Environment.NewLine;
@@ -660,7 +657,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RemoveMultipleConsecutiveBlankLines(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupRemove.RemoveMultipleConsecutiveBlankLines) return;
+            if (!Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines) return;
 
             string pattern = Package.UsePOSIXRegEx ? @"\n\n\n+" : @"(\r?\n){3,}";
             string replacement = Environment.NewLine + Environment.NewLine;
@@ -673,13 +670,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void SortUsingStatements()
         {
-            if (!Package.Options.CleanupUpdate.SortUsingStatements) return;
+            if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
 
-            // Requires VS2008 (version 9).
-            if (Package.IDEVersion >= 9)
-            {
-                Package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
-            }
+            Package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
         }
 
         /// <summary>
@@ -694,7 +687,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document to cleanup.</param>
         private void UpdateEndRegionDirectives(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupUpdate.UpdateEndRegionDirectives) return;
+            if (!Settings.Default.Cleaning_UpdateEndRegionDirectives) return;
 
             Stack<String> regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();

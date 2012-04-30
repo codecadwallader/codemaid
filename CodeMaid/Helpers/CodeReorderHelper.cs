@@ -16,6 +16,7 @@ using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -247,8 +248,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BaseCodeItemElement baseItem = null;
 
             // Organize the items in the desired order.
-            var orderedItems = codeItemElements.OrderBy(x => CodeItemTypeComparer.CalculateNumericRepresentation(x));
-            orderedItems = Package.Options.Reorganize.AlphabetizeMembersOfTheSameGroup
+            var orderedItems = codeItemElements.OrderBy(CodeItemTypeComparer.CalculateNumericRepresentation);
+            orderedItems = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup
                                ? orderedItems.ThenBy(y => y.Name)
                                : orderedItems.ThenBy(y => y.StartOffset);
 

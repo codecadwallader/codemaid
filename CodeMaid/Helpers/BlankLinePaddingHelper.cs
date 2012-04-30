@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -117,37 +118,37 @@ namespace SteveCadwallader.CodeMaid.Helpers
             switch (kindCodeItem)
             {
                 case KindCodeItem.Class:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeClasses;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
 
                 case KindCodeItem.Enum:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEnumerations;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations;
 
                 case KindCodeItem.Event:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEvents;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
 
                 case KindCodeItem.Constant:
                 case KindCodeItem.Field:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeFieldsWithComments;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
 
                 case KindCodeItem.Interface:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeInterfaces;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeInterfaces;
 
                 case KindCodeItem.Namespace:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeNamespaces;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeNamespaces;
 
                 case KindCodeItem.Constructor:
                 case KindCodeItem.Destructor:
                 case KindCodeItem.Method:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeMethods;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeMethods;
 
                 case KindCodeItem.Property:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeProperties;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
 
                 case KindCodeItem.Struct:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeStructs;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
 
                 case KindCodeItem.Using:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeUsingStatementBlocks;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
 
                 default:
                     return false;
@@ -165,37 +166,37 @@ namespace SteveCadwallader.CodeMaid.Helpers
             switch (kindCodeItem)
             {
                 case KindCodeItem.Class:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterClasses;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses;
 
                 case KindCodeItem.Enum:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEnumerations;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations;
 
                 case KindCodeItem.Event:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEvents;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
 
                 case KindCodeItem.Constant:
                 case KindCodeItem.Field:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterFieldsWithComments;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
 
                 case KindCodeItem.Interface:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterInterfaces;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterInterfaces;
 
                 case KindCodeItem.Namespace:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterNamespaces;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces;
 
                 case KindCodeItem.Constructor:
                 case KindCodeItem.Destructor:
                 case KindCodeItem.Method:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterMethods;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterMethods;
 
                 case KindCodeItem.Property:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterProperties;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties;
 
                 case KindCodeItem.Struct:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterStructs;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;
 
                 case KindCodeItem.Using:
-                    return Package.Options.CleanupInsert.InsertBlankLinePaddingAfterUsingStatementBlocks;
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks;
 
                 default:
                     return false;
@@ -213,7 +214,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingBeforeRegionTags(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeRegionTags) return;
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"{[^\n\{]}\n{:b*}\#region"
@@ -232,7 +233,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingAfterRegionTags(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterRegionTags) return;
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"^{:b*}\#region{.*}\n{.}"
@@ -251,7 +252,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingBeforeEndRegionTags(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingBeforeEndRegionTags) return;
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"{.}\n{:b*}\#endregion"
@@ -271,7 +272,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingAfterEndRegionTags(TextDocument textDocument)
         {
-            if (!Package.Options.CleanupInsert.InsertBlankLinePaddingAfterEndRegionTags) return;
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}"

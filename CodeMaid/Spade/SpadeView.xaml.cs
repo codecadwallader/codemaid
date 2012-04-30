@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
@@ -404,7 +405,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
 
             Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, viewModel.Package.Options.Spade.CenterOnWhole)));
+                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole)));
         }
 
         /// <summary>

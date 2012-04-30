@@ -26,7 +26,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.BuildProgress;
 using SteveCadwallader.CodeMaid.Commands;
 using SteveCadwallader.CodeMaid.Events;
-using SteveCadwallader.CodeMaid.Options;
 using SteveCadwallader.CodeMaid.Spade;
 
 namespace SteveCadwallader.CodeMaid
@@ -47,15 +46,6 @@ namespace SteveCadwallader.CodeMaid
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
-    [ProvideOptionPage(typeof(CleanupFileTypesOptionsPage), "CodeMaid", @"Cleanup\File Types", 116, 132, true)]
-    [ProvideOptionPage(typeof(CleanupGeneralOptionsPage), "CodeMaid", @"Cleanup\General", 116, 118, true)]
-    [ProvideOptionPage(typeof(CleanupInsertOptionsPage), "CodeMaid", @"Cleanup\Insert", 116, 120, true)]
-    [ProvideOptionPage(typeof(CleanupRemoveOptionsPage), "CodeMaid", @"Cleanup\Remove", 116, 122, true)]
-    [ProvideOptionPage(typeof(CleanupUpdateOptionsPage), "CodeMaid", @"Cleanup\Update", 116, 124, true)]
-    [ProvideOptionPage(typeof(BuildProgressOptionsPage), "CodeMaid", "Build Progress", 116, 126, true)]
-    [ProvideOptionPage(typeof(ReorganizeOptionsPage), "CodeMaid", "Reorganize", 116, 134, true)]
-    [ProvideOptionPage(typeof(SpadeOptionsPage), "CodeMaid", "Spade", 116, 128, true)]
-    [ProvideOptionPage(typeof(SwitchFileOptionsPage), "CodeMaid", "Switch File", 116, 130, true)]
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
@@ -104,26 +94,6 @@ namespace SteveCadwallader.CodeMaid
         /// Gets the version of the running IDE instance.
         /// </summary>
         public double IDEVersion { get { return Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture); } }
-
-        /// <summary>
-        /// Gets the configuration options.
-        /// </summary>
-        public OptionsWrapper Options
-        {
-            get
-            {
-                return _optionsWrapper ??
-                       (_optionsWrapper = new OptionsWrapper(GetOptionsPage<BuildProgressOptionsPage>(),
-                                                             GetOptionsPage<CleanupFileTypesOptionsPage>(),
-                                                             GetOptionsPage<CleanupGeneralOptionsPage>(),
-                                                             GetOptionsPage<CleanupInsertOptionsPage>(),
-                                                             GetOptionsPage<CleanupRemoveOptionsPage>(),
-                                                             GetOptionsPage<CleanupUpdateOptionsPage>(),
-                                                             GetOptionsPage<ReorganizeOptionsPage>(),
-                                                             GetOptionsPage<SpadeOptionsPage>(),
-                                                             GetOptionsPage<SwitchFileOptionsPage>()));
-            }
-        }
 
         /// <summary>
         /// Gets the Spade tool window, iff it already exists.
@@ -276,17 +246,6 @@ namespace SteveCadwallader.CodeMaid
         #region Private Methods
 
         /// <summary>
-        /// Gets the specified options page.
-        /// </summary>
-        /// <typeparam name="T">The type of the options page to retrieve.</typeparam>
-        /// <returns>The retrieved options page.</returns>
-        private T GetOptionsPage<T>()
-            where T : DialogPage
-        {
-            return (T)GetDialogPage(typeof(T));
-        }
-
-        /// <summary>
         /// Register the package commands (which must exist in the .vsct file).
         /// </summary>
         private void RegisterCommands()
@@ -420,11 +379,6 @@ namespace SteveCadwallader.CodeMaid
         /// The top level application instance of the VS IDE that is executing this package.
         /// </summary>
         private DTE2 _ide;
-
-        /// <summary>
-        /// A wrapper for the options.
-        /// </summary>
-        private OptionsWrapper _optionsWrapper;
 
         /// <summary>
         /// The Spade tool window.

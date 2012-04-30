@@ -211,102 +211,19 @@
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
-    <Compile Include="Options\BuildProgressOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\BuildProgressOptionsControl.Designer.cs">
-      <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\BuildProgressOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Options\Cleaning\CleaningActionsViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
-    <Compile Include="Options\CleanupFileTypesOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupFileTypesOptionsControl.Designer.cs">
-      <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\CleanupFileTypesOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupGeneralOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupGeneralOptionsControl.Designer.cs">
-      <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\CleanupGeneralOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupInsertOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupInsertOptionsControl.Designer.cs">
-      <DependentUpon>CleanupInsertOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\CleanupInsertOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupRemoveOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupRemoveOptionsControl.Designer.cs">
-      <DependentUpon>CleanupRemoveOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\CleanupRemoveOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupUpdateOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\CleanupUpdateOptionsControl.Designer.cs">
-      <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\CleanupUpdateOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Options\Digging\DiggingViewModel.cs" />
-    <Compile Include="Options\OptionsHelper.cs" />
     <Compile Include="Options\OptionsPageViewModel.cs" />
     <Compile Include="Options\OptionsViewModel.cs" />
     <Compile Include="Options\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Options\OptionsWrapper.cs" />
     <Compile Include="CodeMaidPackage.cs" />
     <Compile Include="Options\Progressing\ProgressingViewModel.cs" />
-    <Compile Include="Options\ReorganizeOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\ReorganizeOptionsControl.Designer.cs">
-      <DependentUpon>ReorganizeOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\ReorganizeOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Options\Reorganizing\ReorganizingViewModel.cs" />
-    <Compile Include="Options\SpadeOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\SpadeOptionsControl.Designer.cs">
-      <DependentUpon>SpadeOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\SpadeOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\SwitchFileOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Options\SwitchFileOptionsControl.Designer.cs">
-      <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Options\SwitchFileOptionsPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Options\Switching\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
@@ -337,42 +254,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Options\BuildProgressOptionsControl.resx">
-      <DependentUpon>BuildProgressOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\CleanupFileTypesOptionsControl.resx">
-      <DependentUpon>CleanupFileTypesOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\CleanupGeneralOptionsControl.resx">
-      <DependentUpon>CleanupGeneralOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\CleanupInsertOptionsControl.resx">
-      <DependentUpon>CleanupInsertOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\CleanupRemoveOptionsControl.resx">
-      <DependentUpon>CleanupRemoveOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\CleanupUpdateOptionsControl.resx">
-      <DependentUpon>CleanupUpdateOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\ReorganizeOptionsControl.resx">
-      <DependentUpon>ReorganizeOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\SpadeOptionsControl.resx">
-      <DependentUpon>SpadeOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Options\SwitchFileOptionsControl.resx">
-      <DependentUpon>SwitchFileOptionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <Generator>ResXFileCodeGenerator</Generator>

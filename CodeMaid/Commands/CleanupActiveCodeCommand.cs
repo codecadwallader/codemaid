@@ -14,6 +14,7 @@
 using System.ComponentModel.Design;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -75,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// <param name="document">The document about to be saved.</param>
         internal void OnBeforeDocumentSave(Document document)
         {
-            if (!Package.Options.CleanupGeneral.AutoCleanupOnFileSave) return;
+            if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
             if (!CodeCleanupAvailabilityHelper.ShouldCleanup(document)) return;
 
             using (new ActiveDocumentRestorer(Package))

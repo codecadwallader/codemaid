@@ -17,6 +17,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -83,14 +84,14 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             get
             {
-                var relatedFileExtensionsExpression = Package.Options.SwitchFile.RelatedFileExtensionsExpression;
+                var relatedFileExtensionsExpression = Settings.Default.Switching_RelatedFileExtensionsExpression;
                 if (_cachedRelatedFileExtensionsExpression != relatedFileExtensionsExpression)
                 {
                     _relatedFileExtensions = new List<List<string>>();
 
                     if (!string.IsNullOrEmpty(relatedFileExtensionsExpression))
                     {
-                        foreach (var rfeGroup in relatedFileExtensionsExpression.Split(';'))
+                        foreach (var rfeGroup in relatedFileExtensionsExpression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries))
                         {
                             var list = rfeGroup.Split(' ')
                                                .Select(item => item.Trim().ToLower())

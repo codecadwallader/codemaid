@@ -42,7 +42,7 @@
             <GroupBox Header="Insert" Margin="0,10,0,0">
                 <StackPanel>
                     <TextBlock Text="Insert blank line padding before" Margin="5,5,5,0" />
-                    <WrapPanel Margin="35,0,5,10">
+                    <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="using statement blocks"
                                 IsChecked="{Binding InsertBlankLinePaddingBeforeUsingStatementBlocks}" />
                         <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingBeforeNamespaces}" />
@@ -63,8 +63,8 @@
                         <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
                     </WrapPanel>
 
-                    <TextBlock Text="Insert blank line padding after" Margin="5,5,5,0" />
-                    <WrapPanel Margin="35,0,5,10">
+                    <TextBlock Text="Insert blank line padding after" Margin="5,10,5,0" />
+                    <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="using statement blocks"
                                 IsChecked="{Binding InsertBlankLinePaddingAfterUsingStatementBlocks}" />
                         <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingAfterNamespaces}" />
@@ -84,7 +84,7 @@
                         <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
                     </WrapPanel>
 
-                    <TextBlock Text="Insert explicit access modifiers on" Margin="5,5,5,0" />
+                    <TextBlock Text="Insert explicit access modifiers on" Margin="5,10,5,0" />
                     <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
                         <ToggleButton Content="enumerations"
@@ -102,7 +102,7 @@
 
             <GroupBox Header="Remove" Margin="0,10,0,0">
                 <StackPanel>
-                    <TextBlock Text="Remove blank lines" />
+                    <TextBlock Text="Remove blank lines" Margin="5,5,5,0" />
                     <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
                         <ToggleButton Content="after opening brace"
