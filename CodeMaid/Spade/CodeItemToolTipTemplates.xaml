@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.CodeItems"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.Spade"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:spadeCnv="clr-namespace:SteveCadwallader.CodeMaid.Spade.Converters">
 
     <!-- Styles -->
@@ -91,8 +91,7 @@
                     Text="{Binding}" />
         </StackPanel>
         <DataTemplate.Triggers>
-            <DataTrigger
-                    Binding="{Binding DataContext.ShowItemComplexity, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}"
                     Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
@@ -109,8 +108,7 @@
                     Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
         </StackPanel>
         <DataTemplate.Triggers>
-            <DataTrigger
-                    Binding="{Binding DataContext.ShowItemMetadata, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SpadeView}}"
+            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}"
                     Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>

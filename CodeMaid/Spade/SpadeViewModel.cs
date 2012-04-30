@@ -15,7 +15,6 @@ using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
-using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
@@ -167,30 +166,6 @@ namespace SteveCadwallader.CodeMaid.Spade
                     NotifyPropertyChanged("RawCodeItems");
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if item complexity should be shown.
-        /// </summary>
-        public bool ShowItemComplexity
-        {
-            get { return Settings.Default.Digging_ShowItemComplexity; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if item metadata should be shown.
-        /// </summary>
-        public bool ShowItemMetadata
-        {
-            get { return Settings.Default.Digging_ShowItemMetadata; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if method parameters should be shown.
-        /// </summary>
-        public bool ShowMethodParameters
-        {
-            get { return Settings.Default.Digging_ShowMethodParameters; }
         }
 
         #endregion Properties

@@ -127,10 +127,13 @@ namespace SteveCadwallader.CodeMaid.UI
                 }
             }
 
-            var itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+            if (itemsPresenter != null)
+            {
+                var itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
 
-            // Ensure that the generator for this panel has been created.
-            var children = itemsHostPanel.Children;
+                // Ensure that the generator for this panel has been created.
+                var children = itemsHostPanel.Children;
+            }
         }
 
         #endregion SelectedItem (Dependency Property)
