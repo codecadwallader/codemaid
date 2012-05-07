@@ -13,6 +13,7 @@
 
 using System.ComponentModel.Design;
 using SteveCadwallader.CodeMaid.Options;
+using SteveCadwallader.CodeMaid.Options.Digging;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -42,8 +43,7 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            //TODO: Initialize to Digging page.
-            new OptionsWindow { DataContext = new OptionsViewModel() }.ShowDialog();
+            new OptionsWindow { DataContext = new OptionsViewModel(typeof(DiggingViewModel)) }.ShowDialog();
         }
 
         #endregion BaseCommand Methods

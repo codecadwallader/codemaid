@@ -49,7 +49,8 @@
                 <TextBlock Text="{Binding SelectedPage.Header}" />
             </Border>
 
-            <ScrollViewer Margin="10,10,0,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Margin="10,10,0,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                    Focusable="False">
                 <ContentPresenter Content="{Binding SelectedPage}">
                     <ContentPresenter.Resources>
                         <ResourceDictionary>

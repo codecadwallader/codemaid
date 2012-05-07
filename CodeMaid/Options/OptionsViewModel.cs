@@ -35,7 +35,8 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
         /// </summary>
-        public OptionsViewModel()
+        /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
+        public OptionsViewModel(Type initiallySelectedPageType = null)
         {
             Pages = new OptionsPageViewModel[]
                         {
@@ -54,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = AllPages.FirstOrDefault(x => x is CleaningGeneralViewModel);
+            SelectedPage = AllPages.FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(CleaningGeneralViewModel)));
         }
 
         #endregion Constructors

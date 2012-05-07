@@ -38,7 +38,7 @@
                     <TextBox AcceptsReturn="True" Height="125"
                             Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
                             VerticalScrollBarVisibility="Auto" />
-                    <TextBlock FontStyle="Italic" Text="Place each on a separate line" />
+                    <TextBlock FontStyle="Italic" Text="Place each regular expression on a separate line" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>
