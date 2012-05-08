@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using SteveCadwallader.CodeMaid.Options.Cleaning;
@@ -80,6 +81,25 @@ namespace SteveCadwallader.CodeMaid.Options
             }
         }
 
+        private bool _hasChanges;
+
+        /// <summary>
+        /// Gets or sets a flag indicating if there are any changes that need to be saved.
+        /// </summary>
+        public bool HasChanges
+        {
+            get { return _hasChanges; }
+            set
+            {
+                if (_hasChanges != value)
+                {
+                    _hasChanges = value;
+                    NotifyPropertyChanged("HasChanges");
+                    SaveCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets all option pages by flattening the hierarchy.
         /// </summary>
@@ -100,8 +120,18 @@ namespace SteveCadwallader.CodeMaid.Options
             {
                 if (_pages != value)
                 {
+                    foreach (var oldPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()))
+                    {
+                        oldPage.PropertyChanged -= OnPagePropertyChanged;
+                    }
+
                     _pages = value;
                     NotifyPropertyChanged("Pages");
+
+                    foreach (var newPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()))
+                    {
+                        newPage.PropertyChanged += OnPagePropertyChanged;
+                    }
                 }
             }
         }
@@ -157,6 +187,8 @@ namespace SteveCadwallader.CodeMaid.Options
                 {
                     optionsPageViewModel.LoadSettings();
                 }
+
+                HasChanges = false;
             }
         }
 
@@ -171,7 +203,17 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public DelegateCommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted)); }
+            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted, OnSaveCommandCanExecute)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SaveCommand"/> needs to determine if it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>True if the command can execute, otherwise false.</returns>
+        private bool OnSaveCommandCanExecute(object parameter)
+        {
+            return HasChanges;
         }
 
         /// <summary>
@@ -214,5 +256,19 @@ namespace SteveCadwallader.CodeMaid.Options
         }
 
         #endregion Cancel Command
+
+        #region Methods
+
+        /// <summary>
+        /// Called when a page has raised a PropertyChanged event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            HasChanges = true;
+        }
+
+        #endregion Methods
     }
 }
