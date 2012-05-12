@@ -154,17 +154,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Methods
 
         /// <summary>
-        /// Cuts the item to move onto the clipboard.
+        /// Gets the text and removes the specified item.
         /// </summary>
-        /// <param name="itemToMove">The item to move.</param>
-        private void CutItemToMoveOntoClipboard(BaseCodeItemElement itemToMove)
+        /// <param name="itemToRemove">The item to remove.</param>
+        private string GetTextAndRemoveItem(BaseCodeItemElement itemToRemove)
         {
-            FactoryCodeItems.RefreshCodeItemElement(itemToMove);
-            var moveStartPoint = itemToMove.StartPoint;
-            var moveEndPoint = itemToMove.EndPoint;
+            FactoryCodeItems.RefreshCodeItemElement(itemToRemove);
+            var removeStartPoint = itemToRemove.StartPoint;
+            var removeEndPoint = itemToRemove.EndPoint;
 
-            moveStartPoint.Cut(moveEndPoint, false);
-            moveStartPoint.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+            var text = removeStartPoint.GetText(removeEndPoint);
+
+            removeStartPoint.Delete(removeEndPoint);
+            removeStartPoint.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+
+            return text;
         }
 
         /// <summary>
@@ -189,14 +193,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
-
-            CutItemToMoveOntoClipboard(itemToMove);
+            var text = GetTextAndRemoveItem(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseStartPoint = baseItem.StartPoint;
             var pastePoint = baseStartPoint.CreateEditPoint();
 
-            pastePoint.Paste();
+            pastePoint.Insert(text);
             pastePoint.Insert(Environment.NewLine);
             if (separateWithNewLine)
             {
@@ -217,8 +220,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
-
-            CutItemToMoveOntoClipboard(itemToMove);
+            var text = GetTextAndRemoveItem(itemToMove);
 
             FactoryCodeItems.RefreshCodeItemElement(baseItem);
             var baseEndPoint = baseItem.EndPoint;
@@ -232,7 +234,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var formatPoint = pastePoint.CreateEditPoint();
 
-            pastePoint.Paste();
+            pastePoint.Insert(text);
 
             formatPoint.EndOfLine();
             baseEndPoint.SmartFormat(formatPoint);

@@ -72,7 +72,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (shouldKindBePrecededByBlankLine)
             {
-                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
+                if ((codeItem.Kind == KindCodeItem.Constant ||
+                     codeItem.Kind == KindCodeItem.Field) &&
+                    codeItem.StartPoint.Line == codeItem.EndPoint.Line)
                 {
                     return false;
                 }
@@ -98,7 +100,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (shouldKindBeFollowedByBlankLine)
             {
-                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
+                if ((codeItem.Kind == KindCodeItem.Constant ||
+                     codeItem.Kind == KindCodeItem.Field) &&
+                    codeItem.StartPoint.Line == codeItem.EndPoint.Line)
                 {
                     return false;
                 }
