@@ -134,6 +134,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Gets the declaration of the specified code field as a string.
+        /// </summary>
+        /// <param name="codeField">The code field.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetFieldDeclaration(CodeVariable codeField)
+        {
+            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for fields).
+            var startPoint = codeField.Attributes.Count > 0
+                                 ? codeField.GetEndPoint(vsCMPart.vsCMPartAttributesWithDelimiter)
+                                 : codeField.StartPoint;
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[,;]");
+        }
+
+        /// <summary>
         /// Gets the declaration of the specified code interface as a string.
         /// </summary>
         /// <param name="codeInterface">The code interface.</param>

@@ -90,6 +90,7 @@
                         <ToggleButton Content="enumerations"
                                 IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
                         <ToggleButton Content="events" IsChecked="{Binding InsertExplicitAccessModifiersOnEvents}" />
+                        <ToggleButton Content="fields" IsChecked="{Binding InsertExplicitAccessModifiersOnFields}" />
                         <ToggleButton Content="interfaces"
                                 IsChecked="{Binding InsertExplicitAccessModifiersOnInterfaces}" />
                         <ToggleButton Content="methods" IsChecked="{Binding InsertExplicitAccessModifiersOnMethods}" />

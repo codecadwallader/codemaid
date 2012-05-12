@@ -258,6 +258,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             InsertExplicitAccessModifiersOnClasses(classes);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnEvents(events);
+            InsertExplicitAccessModifiersOnFields(fields);
             InsertExplicitAccessModifiersOnInterfaces(interfaces);
             InsertExplicitAccessModifiersOnMethods(methods);
             InsertExplicitAccessModifiersOnProperties(properties);
@@ -391,6 +392,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Set the access value to itself to cause the code to be added.
                     codeEvent.Access = codeEvent.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on fields where they are not specified.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        private void InsertExplicitAccessModifiersOnFields(IEnumerable<CodeItemField> fields)
+        {
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields) return;
+
+            foreach (var codeField in fields.Select(x => x.CodeVariable).Where(y => y != null))
+            {
+                var fieldDeclaration = CodeModelHelper.GetFieldDeclaration(codeField);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(fieldDeclaration, codeField.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeField.Access = codeField.Access;
                 }
             }
         }

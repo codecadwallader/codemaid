@@ -62,6 +62,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
             InsertExplicitAccessModifiersOnEvents = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents;
+            InsertExplicitAccessModifiersOnFields = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields;
             InsertExplicitAccessModifiersOnInterfaces = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces;
             InsertExplicitAccessModifiersOnMethods = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods;
             InsertExplicitAccessModifiersOnProperties = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties;
@@ -111,6 +112,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents = InsertExplicitAccessModifiersOnEvents;
+            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields = InsertExplicitAccessModifiersOnFields;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces = InsertExplicitAccessModifiersOnInterfaces;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods = InsertExplicitAccessModifiersOnMethods;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties = InsertExplicitAccessModifiersOnProperties;
@@ -612,6 +614,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertExplicitAccessModifiersOnEvents = value;
                     NotifyPropertyChanged("InsertExplicitAccessModifiersOnEvents");
+                }
+            }
+        }
+
+        private bool _insertExplicitAccessModifiersOnFields;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if explicit access modifiers should be added on fields.
+        /// </summary>
+        public bool InsertExplicitAccessModifiersOnFields
+        {
+            get { return _insertExplicitAccessModifiersOnFields; }
+            set
+            {
+                if (_insertExplicitAccessModifiersOnFields != value)
+                {
+                    _insertExplicitAccessModifiersOnFields = value;
+                    NotifyPropertyChanged("InsertExplicitAccessModifiersOnFields");
                 }
             }
         }

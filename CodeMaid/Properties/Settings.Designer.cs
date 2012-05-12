@@ -778,5 +778,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnFields {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnFields"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnFields"] = value;
+            }
+        }
     }
 }
