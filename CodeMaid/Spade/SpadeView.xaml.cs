@@ -285,6 +285,9 @@ namespace SteveCadwallader.CodeMaid.Spade
 
                     targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, isDropOnTopHalfOfTarget);
                     targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
+
+                    e.Effects = DragDropEffects.Move;
+                    e.Handled = true;
                     return;
                 }
             }
@@ -338,6 +341,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             }
 
             Refresh();
+            e.Handled = true;
         }
 
         #endregion Event Handlers
