@@ -149,15 +149,13 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <CommandName>CmdIDCodeMaidAbout</CommandName>
-          <ButtonText>About CodeMaid &amp;v0.4.2 ...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.4.2...</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandBuildProgressToolWindow" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageProgress" id="IconProgress" />
         <Strings>
-          <CommandName>CmdIDCodeMaidBuildProgressToolWindow</CommandName>
           <ButtonText>&amp;Build Progress</ButtonText>
         </Strings>
       </Button>
@@ -168,7 +166,6 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCleanupActiveCode</CommandName>
           <ButtonText>&amp;Cleanup Code</ButtonText>
         </Strings>
       </Button>
@@ -178,7 +175,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCleanupAllCode</CommandName>
           <ButtonText>Cleanup &amp;All Code...</ButtonText>
         </Strings>
       </Button>
@@ -188,8 +184,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCleanupSelectedCode</CommandName>
-          <ButtonText>&amp;Cleanup Code</ButtonText>
+          <ButtonText>&amp;Cleanup Selected Code</ButtonText>
         </Strings>
       </Button>
 
@@ -198,7 +193,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCloseAllReadOnly</CommandName>
           <ButtonText>Close All &amp;Read-Only</ButtonText>
         </Strings>
       </Button>
@@ -208,7 +202,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCollapseAllSolutionExplorer</CommandName>
           <ButtonText>Co&amp;llapse All Recursively</ButtonText>
         </Strings>
       </Button>
@@ -218,7 +211,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidCollapseSelectedSolutionExplorer</CommandName>
           <ButtonText>Co&amp;llapse Recursively</ButtonText>
         </Strings>
       </Button>
@@ -226,7 +218,6 @@
       <Button guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100" type="Button">
         <Icon guid="GuidImageConfig" id="IconConfig" />
         <Strings>
-          <CommandName>CmdIDCodeMaidConfiguration</CommandName>
           <ButtonText>C&amp;onfiguration...</ButtonText>
         </Strings>
       </Button>
@@ -236,8 +227,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidFindInSolutionExplorer</CommandName>
-          <ButtonText>&amp;Find in Solution Explorer</ButtonText>
+          <ButtonText>&amp;Find In Solution Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -246,7 +236,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidJoin Lines</CommandName>
           <ButtonText>&amp;Join Lines</ButtonText>
         </Strings>
       </Button>
@@ -256,7 +245,6 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidReadOnlyToggle</CommandName>
           <ButtonText>&amp;Read-Only Toggle</ButtonText>
         </Strings>
       </Button>
@@ -267,7 +255,6 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidReorganizeActiveCode</CommandName>
           <ButtonText>Reorgani&amp;ze Code</ButtonText>
         </Strings>
       </Button>
@@ -275,7 +262,6 @@
       <Button guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100" type="Button">
         <Icon guid="GuidImageConfig" id="IconConfig" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeConfiguration</CommandName>
           <ButtonText>C&amp;onfiguration...</ButtonText>
         </Strings>
       </Button>
@@ -283,7 +269,6 @@
       <Button guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeLayoutAlpha</CommandName>
           <ButtonText>Layout alphabetically</ButtonText>
         </Strings>
       </Button>
@@ -291,7 +276,6 @@
       <Button guid="GuidCodeMaidCommandSpadeLayoutFile" id="CmdIDCodeMaidSpadeLayoutFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeLayoutFile</CommandName>
           <ButtonText>Layout by file order</ButtonText>
         </Strings>
       </Button>
@@ -299,7 +283,6 @@
       <Button guid="GuidCodeMaidCommandSpadeLayoutType" id="CmdIDCodeMaidSpadeLayoutType" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortType" id="IconSortType" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeLayoutType</CommandName>
           <ButtonText>Layout by type</ButtonText>
         </Strings>
       </Button>
@@ -307,7 +290,6 @@
       <Button guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
         <Icon guid="GuidImageRefresh" id="IconRefresh" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeRefresh</CommandName>
           <ButtonText>Refresh Spade</ButtonText>
         </Strings>
       </Button>
@@ -315,7 +297,6 @@
       <Button guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageSpade" id="IconSpade" />
         <Strings>
-          <CommandName>CmdIDCodeMaidSpadeToolWindow</CommandName>
           <ButtonText>&amp;Spade</ButtonText>
         </Strings>
       </Button>
@@ -326,7 +307,6 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <CommandName>CmdIDCodeMaidSwitchFile</CommandName>
           <ButtonText>&amp;Switch File</ButtonText>
         </Strings>
       </Button>
