@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = AllPages.FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(CleaningGeneralViewModel)));
+            SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(CleaningGeneralViewModel)));
         }
 
         #endregion Constructors
@@ -100,14 +100,6 @@ namespace SteveCadwallader.CodeMaid.Options
             }
         }
 
-        /// <summary>
-        /// Gets all option pages by flattening the hierarchy.
-        /// </summary>
-        public IEnumerable<OptionsPageViewModel> AllPages
-        {
-            get { return Pages.Union(Pages.SelectMany(x => x.Children)); }
-        }
-
         private IEnumerable<OptionsPageViewModel> _pages;
 
         /// <summary>
@@ -120,7 +112,7 @@ namespace SteveCadwallader.CodeMaid.Options
             {
                 if (_pages != value)
                 {
-                    foreach (var oldPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()))
+                    foreach (var oldPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()).Flatten())
                     {
                         oldPage.PropertyChanged -= OnPagePropertyChanged;
                     }
@@ -128,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.Options
                     _pages = value;
                     NotifyPropertyChanged("Pages");
 
-                    foreach (var newPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()))
+                    foreach (var newPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()).Flatten())
                     {
                         newPage.PropertyChanged += OnPagePropertyChanged;
                     }
@@ -183,7 +175,7 @@ namespace SteveCadwallader.CodeMaid.Options
             {
                 Settings.Default.Reset();
 
-                foreach (var optionsPageViewModel in AllPages)
+                foreach (var optionsPageViewModel in Pages.Flatten())
                 {
                     optionsPageViewModel.LoadSettings();
                 }
@@ -222,7 +214,7 @@ namespace SteveCadwallader.CodeMaid.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
-            foreach (var optionsPageViewModel in AllPages)
+            foreach (var optionsPageViewModel in Pages.Flatten())
             {
                 optionsPageViewModel.SaveSettings();
             }

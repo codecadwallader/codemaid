@@ -217,6 +217,7 @@
     <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
     <Compile Include="Options\Digging\DiggingViewModel.cs" />
     <Compile Include="Options\OptionsPageViewModel.cs" />
+    <Compile Include="Options\OptionsPageViewModelEnumerableExtensions.cs" />
     <Compile Include="Options\OptionsViewModel.cs" />
     <Compile Include="Options\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>

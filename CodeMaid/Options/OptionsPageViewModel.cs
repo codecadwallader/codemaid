@@ -58,6 +58,10 @@ namespace SteveCadwallader.CodeMaid.Options
             }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Loads the settings.
         /// </summary>
@@ -68,6 +72,6 @@ namespace SteveCadwallader.CodeMaid.Options
         /// </summary>
         public abstract void SaveSettings();
 
-        #endregion Properties
+        #endregion Methods
     }
 }
