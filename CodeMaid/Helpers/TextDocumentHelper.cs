@@ -32,10 +32,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// The common set of options to be used for find and replace patterns.
         /// </summary>
-        // ReSharper disable BitwiseOperatorOnEnumWihtoutFlags
         internal const int StandardFindOptions = (int)(vsFindOptions.vsFindOptionsRegularExpression |
                                                        vsFindOptions.vsFindOptionsMatchInHiddenText);
-        // ReSharper restore BitwiseOperatorOnEnumWihtoutFlags
 
         #endregion Internal Constants
 
@@ -68,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineBeforePoint(EditPoint point)
         {
-            if (point.AtStartOfDocument) return;
+            if (point.Line <= 1) return;
 
             point.LineUp(1);
             point.StartOfLine();
@@ -111,6 +109,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             try
             {
                 object viewRangeEnd = null;
+                TextPoint navigatePoint = null;
 
                 var codeItemElement = codeItem as BaseCodeItemElement;
                 if (codeItemElement != null)
@@ -123,6 +122,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     {
                         viewRangeEnd = codeItemElement.EndPoint;
                     }
+
+                    navigatePoint = codeItemElement.CodeElement.GetStartPoint(vsCMPart.vsCMPartNavigate);
                 }
                 else
                 {
@@ -136,8 +137,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 textDocument.Selection.AnchorPoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, viewRangeEnd);
 
-                textDocument.Selection.FindText(codeItem.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
-                textDocument.Selection.MoveToPoint(textDocument.Selection.AnchorPoint, false);
+                if (navigatePoint != null)
+                {
+                    textDocument.Selection.MoveToPoint(navigatePoint, false);
+                }
+                else
+                {
+                    textDocument.Selection.FindText(codeItem.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
+                    textDocument.Selection.MoveToPoint(textDocument.Selection.AnchorPoint, false);
+                }
             }
             catch (Exception)
             {

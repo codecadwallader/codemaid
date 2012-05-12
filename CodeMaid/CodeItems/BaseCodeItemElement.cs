@@ -93,7 +93,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             var point = originalPoint.CreateEditPoint();
 
-            while (!point.AtStartOfDocument)
+            while (point.Line > 1)
             {
                 string text = point.GetLines(point.Line - 1, point.Line);
 
