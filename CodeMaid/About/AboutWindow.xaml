@@ -61,21 +61,21 @@
 
     <Canvas>
         <Button Canvas.Left="456" Canvas.Top="142" Height="16" Width="229" Style="{StaticResource underlineLinkButton}"
-                Click="OnWebsiteLinkClick" />
+                Click="OnWebsiteLinkClick" ToolTip="Launch CodeMaid's website" />
 
         <Button Canvas.Left="615" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnEmailLinkClick" />
+                Click="OnEmailLinkClick" ToolTip="E-mail CodeMaid" />
 
         <Button Canvas.Left="660" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnTwitterLinkClick" />
+                Click="OnTwitterLinkClick" ToolTip="View CodeMaid's Twitter feed" />
 
         <Button Canvas.Left="704" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnRSSLinkClick" />
+                Click="OnRSSLinkClick" ToolTip="Subscribe to CodeMaid's blog" />
 
         <Button Canvas.Left="748" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnGooglePlusLinkClick" />
+                Click="OnGooglePlusLinkClick" ToolTip="View CodeMaid's Google+ page" />
 
         <Button Canvas.Left="790" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnTrelloLinkClick" />
+                Click="OnTrelloLinkClick" ToolTip="View CodeMaid's Trello boards" />
     </Canvas>
 </Window>
