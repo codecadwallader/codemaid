@@ -194,5 +194,8 @@
     <Setting Name="Cleaning_InsertExplicitAccessModifiersOnFields" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

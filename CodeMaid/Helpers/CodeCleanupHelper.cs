@@ -249,6 +249,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(methods);
 
             BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(properties);
+            BlankLinePaddingHelper.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(properties);
 
             BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(structs);

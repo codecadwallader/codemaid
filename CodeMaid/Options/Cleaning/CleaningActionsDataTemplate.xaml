@@ -4,6 +4,7 @@
     <DataTemplate DataType="{x:Type local:CleaningActionsViewModel}">
         <DataTemplate.Resources>
             <Style TargetType="{x:Type ToggleButton}">
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Margin" Value="5,5,5,0" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -61,6 +62,12 @@
                         <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
                         <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingBeforeProperties}" />
                         <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
+                    </WrapPanel>
+
+                    <TextBlock Text="Insert blank line padding between" Margin="5,10,5,0" />
+                    <WrapPanel Margin="35,0,5,5">
+                        <ToggleButton Content="multi-line property accessors"
+                                IsChecked="{Binding InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors}" />
                     </WrapPanel>
 
                     <TextBlock Text="Insert blank line padding after" Margin="5,10,5,0" />

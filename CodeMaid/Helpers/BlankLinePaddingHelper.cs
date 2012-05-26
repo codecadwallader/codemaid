@@ -317,6 +317,29 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        /// <summary>
+        /// Inserts a blank line between multi-line property accessors.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        internal void InsertPaddingBetweenMultiLinePropertyAccessors(IEnumerable<CodeItemProperty> properties)
+        {
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors) return;
+
+            foreach (var property in properties)
+            {
+                var getter = property.CodeProperty.Getter;
+                var setter = property.CodeProperty.Setter;
+
+                if (getter != null && setter != null && (getter.StartPoint.Line < getter.EndPoint.Line ||
+                                                         setter.StartPoint.Line < setter.EndPoint.Line))
+                {
+                    TextDocumentHelper.InsertBlankLineAfterPoint(setter.EndPoint.Line > getter.EndPoint.Line
+                                                                     ? getter.EndPoint.CreateEditPoint()
+                                                                     : setter.EndPoint.CreateEditPoint());
+                }
+            }
+        }
+
         #endregion Insertion Methods
 
         #region Private Properties

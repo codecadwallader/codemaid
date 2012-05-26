@@ -18,10 +18,12 @@ namespace SteveCadwallader.CodeMaid
     internal static class GuidList
     {
         // Package level guids.
+
         public const string GuidCodeMaidPackageString = "4c82e17d-927e-42d2-8460-b473ac7df316";
         public static readonly Guid GuidCodeMaidPackage = new Guid(GuidCodeMaidPackageString);
 
         // Menu group guids.
+
         public static readonly Guid GuidCodeMaidMenuBaseGroup = new Guid("186512ff-6c4e-42c9-b9a1-032f35109993");
         public static readonly Guid GuidCodeMaidMenuCleanupGroup = new Guid("eb1c95fd-1b99-47ab-913a-62e7f69a0319");
         public static readonly Guid GuidCodeMaidMenuDocumentGroup = new Guid("5c29c8d8-681c-4cf3-8481-cc3ee484639a");
@@ -31,6 +33,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidMenuVisualizeGroup = new Guid("a4ef7624-6477-4860-85bc-46564429f935");
 
         // Toolbar menu group guids.
+
         public static readonly Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid("ed596e0f-d1cb-46e7-8dd3-741758451f27");
         public static readonly Guid GuidCodeMaidToolbarSpadeBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
         public static readonly Guid GuidCodeMaidToolbarSpadeRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
@@ -38,6 +41,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidToolbarSpadeMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Miscellaneous context menu group guids.
+
         public static readonly Guid GuidCodeMaidContextASPXWindowGroup = new Guid("d4cee201-6b18-4265-8693-a0cb38cf070b");
         public static readonly Guid GuidCodeMaidContextASPXCodeWindowGroup = new Guid("9c3012ad-61b1-4272-9ea2-5c07e33a9e2f");
         public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
@@ -48,6 +52,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidContextXAMLWindowGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
 
         // Solution explorer context menu group guids.
+
         public static readonly Guid GuidCodeMaidContextSolutionNodeGroup = new Guid("eda37cf1-ff29-46aa-ba07-05abf7ba6596");
         public static readonly Guid GuidCodeMaidContextSolutionFolderGroup = new Guid("39de3da3-f28c-41fc-85c8-6d0fa801f3f1");
         public static readonly Guid GuidCodeMaidContextProjectNodeGroup = new Guid("a04159ed-c5ee-4146-954a-4e662b297513");
@@ -55,6 +60,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidContextItemNodeGroup = new Guid("36669853-51f0-4da1-828d-d43d67b8450c");
 
         // Command guids.
+
         public static readonly Guid GuidCodeMaidCommandAbout = new Guid("369b04df-0688-4074-911d-d0d6c6a31632");
         public static readonly Guid GuidCodeMaidCommandBuildProgressToolWindow = new Guid("857ff04f-140c-47b1-b10b-dca6154ec26a");
         public static readonly Guid GuidCodeMaidCommandCleanupActiveCode = new Guid("36de540f-25cb-4151-957f-d63a5a3a10a7");
@@ -77,6 +83,7 @@ namespace SteveCadwallader.CodeMaid
         public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
 
         // Output pane guid.
+
         public static readonly Guid GuidCodeMaidOutputPane = new Guid("4e7ba904-9311-4dd0-abe5-a61c1739780f");
     };
 }

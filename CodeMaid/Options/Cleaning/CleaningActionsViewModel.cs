@@ -59,6 +59,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingBeforeRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
             InsertBlankLinePaddingBeforeStructs = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
+            InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
             InsertExplicitAccessModifiersOnEvents = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents;
@@ -109,6 +110,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags = InsertBlankLinePaddingBeforeRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs = InsertBlankLinePaddingBeforeStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
+            Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents = InsertExplicitAccessModifiersOnEvents;
@@ -560,6 +562,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertBlankLinePaddingBeforeUsingStatementBlocks = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingBeforeUsingStatementBlocks");
+                }
+            }
+        }
+
+        private bool _insertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added between properties with multi-line accessors.
+        /// </summary>
+        public bool InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors
+        {
+            get { return _insertBlankLinePaddingBetweenPropertiesMultiLineAccessors; }
+            set
+            {
+                if (_insertBlankLinePaddingBetweenPropertiesMultiLineAccessors != value)
+                {
+                    _insertBlankLinePaddingBetweenPropertiesMultiLineAccessors = value;
+                    NotifyPropertyChanged("InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors");
                 }
             }
         }
