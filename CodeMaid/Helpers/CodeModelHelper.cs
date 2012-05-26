@@ -106,6 +106,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Gets the declaration of the specified code delegate as a string.
+        /// </summary>
+        /// <param name="codeDelegate">The code delegate.</param>
+        /// <returns>The string declaration.</returns>
+        internal static string GetDelegateDeclaration(CodeDelegate codeDelegate)
+        {
+            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for events).
+            var startPoint = codeDelegate.Attributes.Count > 0
+                                 ? codeDelegate.GetEndPoint(vsCMPart.vsCMPartAttributesWithDelimiter)
+                                 : codeDelegate.StartPoint;
+
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[\{;]");
+        }
+
+        /// <summary>
         /// Gets the declaration of the specified code enum as a string.
         /// </summary>
         /// <param name="codeEnum">The code enum.</param>

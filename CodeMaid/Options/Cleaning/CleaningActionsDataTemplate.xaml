@@ -96,6 +96,7 @@
                     <TextBlock Text="Insert explicit access modifiers on" Margin="5,10,5,0" />
                     <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
+                        <ToggleButton Content="delegates" IsChecked="{Binding InsertExplicitAccessModifiersOnDelegates}" />
                         <ToggleButton Content="enumerations"
                                 IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
                         <ToggleButton Content="events" IsChecked="{Binding InsertExplicitAccessModifiersOnEvents}" />

@@ -261,6 +261,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Perform insertion of explicit access modifier cleanup.
             InsertExplicitAccessModifiersOnClasses(classes);
+            InsertExplicitAccessModifiersOnDelegates(delegates);
             InsertExplicitAccessModifiersOnEnumerations(enumerations);
             InsertExplicitAccessModifiersOnEvents(events);
             InsertExplicitAccessModifiersOnFields(fields);
@@ -335,6 +336,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Set the access value to itself to cause the code to be added.
                     codeClass.Access = codeClass.Access;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the explicit access modifiers on delegates where they are not specified.
+        /// </summary>
+        /// <param name="delegates">The delegates.</param>
+        private void InsertExplicitAccessModifiersOnDelegates(IEnumerable<CodeItemDelegate> delegates)
+        {
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates) return;
+
+            foreach (var codeDelegate in delegates.Select(x => x.CodeDelegate).Where(y => y != null))
+            {
+                var delegateDeclaration = CodeModelHelper.GetDelegateDeclaration(codeDelegate);
+
+                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(delegateDeclaration, codeDelegate.Access))
+                {
+                    // Set the access value to itself to cause the code to be added.
+                    codeDelegate.Access = codeDelegate.Access;
                 }
             }
         }

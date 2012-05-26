@@ -63,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
             InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
+            InsertExplicitAccessModifiersOnDelegates = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
             InsertExplicitAccessModifiersOnEvents = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents;
             InsertExplicitAccessModifiersOnFields = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields;
@@ -116,6 +117,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
             Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
+            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = InsertExplicitAccessModifiersOnDelegates;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents = InsertExplicitAccessModifiersOnEvents;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields = InsertExplicitAccessModifiersOnFields;
@@ -640,6 +642,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertExplicitAccessModifiersOnClasses = value;
                     NotifyPropertyChanged("InsertExplicitAccessModifiersOnClasses");
+                }
+            }
+        }
+
+        private bool _insertExplicitAccessModifiersOnDelegates;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if explicit access modifiers should be added on delegates.
+        /// </summary>
+        public bool InsertExplicitAccessModifiersOnDelegates
+        {
+            get { return _insertExplicitAccessModifiersOnDelegates; }
+            set
+            {
+                if (_insertExplicitAccessModifiersOnDelegates != value)
+                {
+                    _insertExplicitAccessModifiersOnDelegates = value;
+                    NotifyPropertyChanged("InsertExplicitAccessModifiersOnDelegates");
                 }
             }
         }
