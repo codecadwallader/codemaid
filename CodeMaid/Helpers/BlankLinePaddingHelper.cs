@@ -124,6 +124,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case KindCodeItem.Class:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
 
+                case KindCodeItem.Delegate:
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates;
+
                 case KindCodeItem.Enum:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations;
 
@@ -171,6 +174,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 case KindCodeItem.Class:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses;
+
+                case KindCodeItem.Delegate:
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterDelegates;
 
                 case KindCodeItem.Enum:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations;

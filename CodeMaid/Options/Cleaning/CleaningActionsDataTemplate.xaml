@@ -53,6 +53,7 @@
                                 IsChecked="{Binding InsertBlankLinePaddingBeforeEndRegionTags}" />
 
                         <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingBeforeClasses}" />
+                        <ToggleButton Content="delegates" IsChecked="{Binding InsertBlankLinePaddingBeforeDelegates}" />
                         <ToggleButton Content="enumerations"
                                 IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />
                         <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingBeforeEvents}" />
@@ -80,6 +81,7 @@
                                 IsChecked="{Binding InsertBlankLinePaddingAfterEndRegionTags}" />
 
                         <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingAfterClasses}" />
+                        <ToggleButton Content="delegates" IsChecked="{Binding InsertBlankLinePaddingAfterDelegates}" />
                         <ToggleButton Content="enumerations"
                                 IsChecked="{Binding InsertBlankLinePaddingAfterEnumerations}" />
                         <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingAfterEvents}" />

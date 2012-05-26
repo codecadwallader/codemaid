@@ -195,6 +195,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
             var classes = codeItems.OfType<CodeItemClass>().ToList();
+            var delegates = codeItems.OfType<CodeItemDelegate>().ToList();
             var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
             var events = codeItems.OfType<CodeItemEvent>().ToList();
             var fields = codeItems.OfType<CodeItemField>().ToList();
@@ -232,6 +233,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(classes);
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(classes);
+
+            BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(delegates);
+            BlankLinePaddingHelper.InsertPaddingAfterCodeElements(delegates);
 
             BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(enumerations);
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(enumerations);

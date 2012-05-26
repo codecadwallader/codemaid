@@ -802,5 +802,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterDelegates {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterDelegates"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterDelegates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeDelegates {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeDelegates"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeDelegates"] = value;
+            }
+        }
     }
 }

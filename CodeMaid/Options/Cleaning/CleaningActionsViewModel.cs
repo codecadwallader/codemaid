@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         public override void LoadSettings()
         {
             InsertBlankLinePaddingAfterClasses = Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses;
+            InsertBlankLinePaddingAfterDelegates = Settings.Default.Cleaning_InsertBlankLinePaddingAfterDelegates;
             InsertBlankLinePaddingAfterEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags;
             InsertBlankLinePaddingAfterEnumerations = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations;
             InsertBlankLinePaddingAfterEvents = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
@@ -48,6 +49,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingAfterStructs = Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;
             InsertBlankLinePaddingAfterUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks;
             InsertBlankLinePaddingBeforeClasses = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
+            InsertBlankLinePaddingBeforeDelegates = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates;
             InsertBlankLinePaddingBeforeEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags;
             InsertBlankLinePaddingBeforeEnumerations = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations;
             InsertBlankLinePaddingBeforeEvents = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
@@ -87,6 +89,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         public override void SaveSettings()
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses = InsertBlankLinePaddingAfterClasses;
+            Settings.Default.Cleaning_InsertBlankLinePaddingAfterDelegates = InsertBlankLinePaddingAfterDelegates;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags = InsertBlankLinePaddingAfterEndRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations = InsertBlankLinePaddingAfterEnumerations;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents = InsertBlankLinePaddingAfterEvents;
@@ -99,6 +102,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs = InsertBlankLinePaddingAfterStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks = InsertBlankLinePaddingAfterUsingStatementBlocks;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses = InsertBlankLinePaddingBeforeClasses;
+            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates = InsertBlankLinePaddingBeforeDelegates;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags = InsertBlankLinePaddingBeforeEndRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations = InsertBlankLinePaddingBeforeEnumerations;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents = InsertBlankLinePaddingBeforeEvents;
@@ -150,6 +154,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertBlankLinePaddingAfterClasses = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingAfterClasses");
+                }
+            }
+        }
+
+        private bool _insertBlankLinePaddingAfterDelegates;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added after delegates.
+        /// </summary>
+        public bool InsertBlankLinePaddingAfterDelegates
+        {
+            get { return _insertBlankLinePaddingAfterDelegates; }
+            set
+            {
+                if (_insertBlankLinePaddingAfterDelegates != value)
+                {
+                    _insertBlankLinePaddingAfterDelegates = value;
+                    NotifyPropertyChanged("InsertBlankLinePaddingAfterDelegates");
                 }
             }
         }
@@ -350,7 +372,9 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                     NotifyPropertyChanged("InsertBlankLinePaddingAfterUsingStatementBlocks");
                 }
             }
-        }        private bool _insertBlankLinePaddingBeforeClasses;
+        }
+
+        private bool _insertBlankLinePaddingBeforeClasses;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank line padding should be added before classes.
@@ -364,6 +388,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertBlankLinePaddingBeforeClasses = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingBeforeClasses");
+                }
+            }
+        }
+
+        private bool _insertBlankLinePaddingBeforeDelegates;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added before delegates.
+        /// </summary>
+        public bool InsertBlankLinePaddingBeforeDelegates
+        {
+            get { return _insertBlankLinePaddingBeforeDelegates; }
+            set
+            {
+                if (_insertBlankLinePaddingBeforeDelegates != value)
+                {
+                    _insertBlankLinePaddingBeforeDelegates = value;
+                    NotifyPropertyChanged("InsertBlankLinePaddingBeforeDelegates");
                 }
             }
         }
