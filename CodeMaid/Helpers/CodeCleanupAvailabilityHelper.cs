@@ -89,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return IsCleanupEnvironmentAvailable() &&
                    projectItem != null &&
                    projectItem.Kind == Constants.vsProjectItemKindPhysicalFile &&
-                //IsProjectItemLanguageIncludedByOptions(projectItem) &&
+                   IsProjectItemLanguageIncludedByOptions(projectItem) &&
                    !IsFileNameExcludedByOptions(projectItem.Name);
         }
 
