@@ -112,12 +112,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetDelegateDeclaration(CodeDelegate codeDelegate)
         {
-            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for events).
+            // Get the start point at the end of the attributes if there are any (vsCMPartHeader is not available for delegates).
             var startPoint = codeDelegate.Attributes.Count > 0
                                  ? codeDelegate.GetEndPoint(vsCMPart.vsCMPartAttributesWithDelimiter)
                                  : codeDelegate.StartPoint;
 
-            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[\{;]");
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @";");
         }
 
         /// <summary>

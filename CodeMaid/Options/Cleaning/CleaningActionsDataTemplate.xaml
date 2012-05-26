@@ -116,6 +116,7 @@
                     <TextBlock Text="Remove blank lines" Margin="5,5,5,0" />
                     <WrapPanel Margin="35,0,5,5">
                         <ToggleButton Content="at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
+                        <ToggleButton Content="after attributes" IsChecked="{Binding RemoveBlankLinesAfterAttributes}" />
                         <ToggleButton Content="after opening brace"
                                 IsChecked="{Binding RemoveBlankLinesAfterOpeningBrace}" />
                         <ToggleButton Content="before closing brace"

@@ -71,6 +71,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertExplicitAccessModifiersOnMethods = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods;
             InsertExplicitAccessModifiersOnProperties = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties;
             InsertExplicitAccessModifiersOnStructs = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs;
+            RemoveBlankLinesAfterAttributes = Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes;
             RemoveBlankLinesAfterOpeningBrace = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
             RemoveBlankLinesAtBottom = Settings.Default.Cleaning_RemoveBlankLinesAtBottom;
             RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
@@ -125,6 +126,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods = InsertExplicitAccessModifiersOnMethods;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties = InsertExplicitAccessModifiersOnProperties;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs = InsertExplicitAccessModifiersOnStructs;
+            Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = RemoveBlankLinesAfterAttributes;
             Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBrace;
             Settings.Default.Cleaning_RemoveBlankLinesAtBottom = RemoveBlankLinesAtBottom;
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
@@ -786,6 +788,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertExplicitAccessModifiersOnStructs = value;
                     NotifyPropertyChanged("InsertExplicitAccessModifiersOnStructs");
+                }
+            }
+        }
+
+        private bool _removeBlankLinesAfterAttributes;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank lines should be removed after attributes.
+        /// </summary>
+        public bool RemoveBlankLinesAfterAttributes
+        {
+            get { return _removeBlankLinesAfterAttributes; }
+            set
+            {
+                if (_removeBlankLinesAfterAttributes != value)
+                {
+                    _removeBlankLinesAfterAttributes = value;
+                    NotifyPropertyChanged("RemoveBlankLinesAfterAttributes");
                 }
             }
         }

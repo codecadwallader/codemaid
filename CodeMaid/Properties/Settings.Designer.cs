@@ -838,5 +838,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertExplicitAccessModifiersOnDelegates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesAfterAttributes {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesAfterAttributes"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesAfterAttributes"] = value;
+            }
+        }
     }
 }

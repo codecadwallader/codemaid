@@ -214,6 +214,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             RemoveEOLWhitespace(textDocument);
             RemoveBlankLinesAtTop(textDocument);
             RemoveBlankLinesAtBottom(textDocument);
+            RemoveBlankLinesAfterAttributes(textDocument);
             RemoveBlankLinesAfterOpeningBrace(textDocument);
             RemoveBlankLinesBeforeClosingBrace(textDocument);
             RemoveMultipleConsecutiveBlankLines(textDocument);
@@ -644,6 +645,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+        }
+
+        /// <summary>
+        /// Removes blank lines after attributes.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RemoveBlankLinesAfterAttributes(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes) return;
+
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"\]{:b*(//.*)*}\n\n"
+                                 : @"\]([^\r\n]*)(\r?\n){2,}";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\]\1" + Environment.NewLine
+                                     : @"]$1" + Environment.NewLine;
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
