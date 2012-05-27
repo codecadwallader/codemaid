@@ -131,12 +131,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
                     // Retrieve all relevant code items.
-                    var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+                    var codeItems = Settings.Default.Reorganizing_KeepMembersWithinRegions
+                                        ? CodeModelHelper.RetrieveCodeItemsIncludingRegions(document)
+                                        : CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+
                     codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
 
                     // Build the code tree based on the current file layout.
-                    var codeTree =
-                        CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
+                    var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
 
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
@@ -246,6 +248,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeItems">The code items.</param>
         private void RecursivelyReorganize(SetCodeItems codeItems)
         {
+            if (!codeItems.Any())
+            {
+                return;
+            }
+
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
             BaseCodeItemElement baseItem = null;
 
@@ -258,7 +265,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Iterate across the items in the desired order.
             foreach (var itemToMove in orderedItems)
             {
-                if (itemToMove.Children.Any() && !(itemToMove is CodeItemEnum))
+                if (!(itemToMove is CodeItemEnum))
                 {
                     RecursivelyReorganize(itemToMove.Children);
                 }
@@ -275,6 +282,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     RepositionItemBelowBase(itemToMove, baseItem);
                     baseItem = itemToMove;
                 }
+            }
+
+            // Recursively reorganize the contents of any regions as well.
+            var codeItemRegions = codeItems.OfType<CodeItemRegion>();
+            foreach (var codeItemRegion in codeItemRegions)
+            {
+                RecursivelyReorganize(codeItemRegion.Children);
             }
         }
 

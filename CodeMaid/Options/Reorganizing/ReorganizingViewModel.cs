@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
         public override void LoadSettings()
         {
             AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
+            KeepMembersWithinRegions = Settings.Default.Reorganizing_KeepMembersWithinRegions;
             RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
         }
 
@@ -45,6 +46,7 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
         public override void SaveSettings()
         {
             Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
+            Settings.Default.Reorganizing_KeepMembersWithinRegions = KeepMembersWithinRegions;
             Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
         }
 
@@ -66,6 +68,24 @@ namespace SteveCadwallader.CodeMaid.Options.Reorganizing
                 {
                     _alphabetizeMembersOfTheSameGroup = value;
                     NotifyPropertyChanged("AlphabetizeMembersOfTheSameGroup");
+                }
+            }
+        }
+
+        private bool _keepMembersWithinRegions;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if members should be kept within regions.
+        /// </summary>
+        public bool KeepMembersWithinRegions
+        {
+            get { return _keepMembersWithinRegions; }
+            set
+            {
+                if (_keepMembersWithinRegions != value)
+                {
+                    _keepMembersWithinRegions = value;
+                    NotifyPropertyChanged("KeepMembersWithinRegions");
                 }
             }
         }

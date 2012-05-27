@@ -850,5 +850,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_RemoveBlankLinesAfterAttributes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Reorganizing_KeepMembersWithinRegions {
+            get {
+                return ((bool)(this["Reorganizing_KeepMembersWithinRegions"]));
+            }
+            set {
+                this["Reorganizing_KeepMembersWithinRegions"] = value;
+            }
+        }
     }
 }

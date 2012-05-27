@@ -6,6 +6,7 @@
             <CheckBox Content="Run reorganize at start of cleanup" IsChecked="{Binding RunAtStartOfCleanup}" />
             <CheckBox Content="Alphabetize members of the same group"
                     IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
+            <CheckBox Content="Keep members within regions" IsChecked="{Binding KeepMembersWithinRegions}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
