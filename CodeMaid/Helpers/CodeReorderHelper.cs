@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
@@ -156,10 +157,29 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Methods
 
         /// <summary>
+        /// Gets the set of reorganizable code item elements from the specified set of code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>The set of reorganizable code item elements.</returns>
+        private static IList<BaseCodeItemElement> GetReorganizableCodeItemElements(SetCodeItems codeItems)
+        {
+            // Get all code item elements.
+            var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
+
+            // Refresh them to make sure all positions are updated.
+            codeItemElements.ForEach(FactoryCodeItems.RefreshCodeItemElement);
+
+            // Pull out the first item in a set if there are items sharing a definition (ex: fields).
+            codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).ToList();
+
+            return codeItemElements;
+        }
+
+        /// <summary>
         /// Gets the text and removes the specified item.
         /// </summary>
         /// <param name="itemToRemove">The item to remove.</param>
-        private string GetTextAndRemoveItem(BaseCodeItemElement itemToRemove)
+        private static string GetTextAndRemoveItem(BaseCodeItemElement itemToRemove)
         {
             FactoryCodeItems.RefreshCodeItemElement(itemToRemove);
             var removeStartPoint = itemToRemove.StartPoint;
@@ -253,7 +273,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return;
             }
 
-            var codeItemElements = codeItems.OfType<BaseCodeItemElement>();
+            var codeItemElements = GetReorganizableCodeItemElements(codeItems);
             BaseCodeItemElement baseItem = null;
 
             // Organize the items in the desired order.
