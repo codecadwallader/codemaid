@@ -54,9 +54,16 @@ namespace SteveCadwallader.CodeMaid.Commands
             Document document = Package.IDE.ActiveDocument;
             if (document != null)
             {
-                Package.IDE.ExecuteCommand("View.TrackActivityinSolutionExplorer", String.Empty);
-                Package.IDE.ExecuteCommand("View.TrackActivityinSolutionExplorer", String.Empty);
-                Package.IDE.ExecuteCommand("View.SolutionExplorer", String.Empty);
+                if (Package.IDEVersion >= 11)
+                {
+                    Package.IDE.ExecuteCommand("SolutionExplorer.SyncWithActiveDocument", String.Empty);
+                }
+                else
+                {
+                    Package.IDE.ExecuteCommand("View.TrackActivityinSolutionExplorer", String.Empty);
+                    Package.IDE.ExecuteCommand("View.TrackActivityinSolutionExplorer", String.Empty);
+                    Package.IDE.ExecuteCommand("View.SolutionExplorer", String.Empty);
+                }
             }
         }
 
