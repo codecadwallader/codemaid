@@ -37,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         {
             HideBuildProgressOnBuildStop = Settings.Default.Progressing_HideBuildProgressOnBuildStop;
             ShowBuildProgressOnBuildStart = Settings.Default.Progressing_ShowBuildProgressOnBuildStart;
+            ShowProgressOnWindowsTaskbar = Settings.Default.Progressing_ShowProgressOnWindowsTaskbar;
         }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
         {
             Settings.Default.Progressing_HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
             Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
+            Settings.Default.Progressing_ShowProgressOnWindowsTaskbar = ShowProgressOnWindowsTaskbar;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -84,6 +86,24 @@ namespace SteveCadwallader.CodeMaid.Options.Progressing
                 {
                     _showBuildProgressOnBuildStart = value;
                     NotifyPropertyChanged("ShowBuildProgressOnBuildStart");
+                }
+            }
+        }
+
+        private bool _showProgressOnWindowsTaskbar;
+
+        /// <summary>
+        /// Gets or sets a flag indicating if build progress should be shown on the windows taskbar.
+        /// </summary>
+        public bool ShowProgressOnWindowsTaskbar
+        {
+            get { return _showProgressOnWindowsTaskbar; }
+            set
+            {
+                if (_showProgressOnWindowsTaskbar != value)
+                {
+                    _showProgressOnWindowsTaskbar = value;
+                    NotifyPropertyChanged("ShowProgressOnWindowsTaskbar");
                 }
             }
         }

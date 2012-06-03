@@ -862,5 +862,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Reorganizing_KeepMembersWithinRegions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Progressing_ShowProgressOnWindowsTaskbar {
+            get {
+                return ((bool)(this["Progressing_ShowProgressOnWindowsTaskbar"]));
+            }
+            set {
+                this["Progressing_ShowProgressOnWindowsTaskbar"] = value;
+            }
+        }
     }
 }

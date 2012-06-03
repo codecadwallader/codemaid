@@ -14,6 +14,7 @@
 using System;
 using System.Windows;
 using System.Windows.Shell;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.BuildProgress
@@ -176,7 +177,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// </summary>
         private void UpdateTaskbarStatus()
         {
-            //TODO: Check settings to confirm.
+            if (!Settings.Default.Progressing_ShowProgressOnWindowsTaskbar) return;
 
             TaskbarItemInfo.ProgressState = IsBuildActive && IsProgressIndeterminate
                                                 ? TaskbarItemProgressState.Indeterminate
