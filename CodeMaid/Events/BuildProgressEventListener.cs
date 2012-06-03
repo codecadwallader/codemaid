@@ -33,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Events
             BuildEvents = Package.IDE.Events.BuildEvents;
             BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
             BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
+            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
             BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
         }
 
@@ -49,6 +50,11 @@ namespace SteveCadwallader.CodeMaid.Events
         /// An event raised when an individual project build has begun.
         /// </summary>
         internal event _dispBuildEvents_OnBuildProjConfigBeginEventHandler BuildProjConfigBegin;
+
+        /// <summary>
+        /// An event raised when an individual project build is done.
+        /// </summary>
+        internal event _dispBuildEvents_OnBuildProjConfigDoneEventHandler BuildProjConfigDone;
 
         /// <summary>
         /// An event raised when a build is done.
@@ -97,6 +103,22 @@ namespace SteveCadwallader.CodeMaid.Events
         }
 
         /// <summary>
+        /// Event raised when the build of an individual project is done.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <param name="projectConfig">The project config.</param>
+        /// <param name="platform">The platform.</param>
+        /// <param name="solutionConfig">The solution config.</param>
+        /// <param name="success">True if project build was successful, otherwise false.</param>
+        private void BuildEvents_OnBuildProjConfigDone(string project, string projectConfig, string platform, string solutionConfig, bool success)
+        {
+            if (BuildProjConfigDone != null)
+            {
+                BuildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
+            }
+        }
+
+        /// <summary>
         /// Event raised when a build is done.
         /// </summary>
         /// <param name="scope">The scope.</param>
@@ -127,6 +149,7 @@ namespace SteveCadwallader.CodeMaid.Events
                 {
                     BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
                     BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
+                    BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
                     BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
                 }
             }

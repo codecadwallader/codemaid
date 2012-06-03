@@ -26,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     {
         #region Fields
 
+        private bool _hasBuildFailed;
         private bool _isBuildActive;
         private bool _isProgressIndeterminate;
         private double _progressPercentage;
@@ -34,6 +35,24 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         #endregion Fields
 
         #region Properties
+
+        /// <summary>
+        /// Gets of sets a flag indicating if a build has failed.
+        /// </summary>
+        public bool HasBuildFailed
+        {
+            get { return _hasBuildFailed; }
+            set
+            {
+                if (_hasBuildFailed != value)
+                {
+                    _hasBuildFailed = value;
+                    NotifyPropertyChanged("HasBuildFailed");
+
+                    UpdateTaskbarStatus();
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets a flag indicating if a build is active.
@@ -179,12 +198,24 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         {
             if (!Settings.Default.Progressing_ShowProgressOnWindowsTaskbar) return;
 
-            TaskbarItemInfo.ProgressState = IsBuildActive && IsProgressIndeterminate
-                                                ? TaskbarItemProgressState.Indeterminate
-                                                : IsBuildActive
-                                                      ? TaskbarItemProgressState.Normal
-                                                      : TaskbarItemProgressState.None;
+            var progressState = TaskbarItemProgressState.None;
+            if (IsBuildActive)
+            {
+                if (HasBuildFailed)
+                {
+                    progressState = TaskbarItemProgressState.Error;
+                }
+                else if (IsProgressIndeterminate)
+                {
+                    progressState = TaskbarItemProgressState.Indeterminate;
+                }
+                else
+                {
+                    progressState = TaskbarItemProgressState.Normal;
+                }
+            }
 
+            TaskbarItemInfo.ProgressState = progressState;
             TaskbarItemInfo.ProgressValue = ProgressPercentage;
         }
 

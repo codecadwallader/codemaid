@@ -108,6 +108,23 @@ namespace SteveCadwallader.CodeMaid.Commands
         }
 
         /// <summary>
+        /// Called when an individual project build is done.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <param name="projectConfig">The project config.</param>
+        /// <param name="platform">The platform.</param>
+        /// <param name="solutionConfig">The solution config.</param>
+        /// <param name="success">True if project build was successful, otherwise false.</param>
+        internal void OnBuildProjConfigDone(string project, string projectConfig, string platform, string solutionConfig, bool success)
+        {
+            var buildProgress = Package.BuildProgress;
+            if (buildProgress != null)
+            {
+                buildProgress.NotifyBuildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
+            }
+        }
+
+        /// <summary>
         /// Called when a build is done.
         /// </summary>
         /// <param name="scope">The scope.</param>

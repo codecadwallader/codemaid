@@ -225,7 +225,7 @@ namespace SteveCadwallader.CodeMaid
         public string GetResourceString(string resourceName)
         {
             string resourceValue;
-            IVsResourceManager resourceManager = (IVsResourceManager)GetService(typeof(SVsResourceManager));
+            var resourceManager = (IVsResourceManager)GetService(typeof(SVsResourceManager));
             if (resourceManager == null)
             {
                 throw new InvalidOperationException(
@@ -315,6 +315,7 @@ namespace SteveCadwallader.CodeMaid
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
                 BuildProgressEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
+                BuildProgressEventListener.BuildProjConfigDone += buildProgressToolWindowCommand.OnBuildProjConfigDone;
                 BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);

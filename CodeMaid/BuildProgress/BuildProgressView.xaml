@@ -10,7 +10,17 @@
         </Grid.ColumnDefinitions>
 
         <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="1"
-                Value="{Binding ProgressPercentage}" />
+                Value="{Binding ProgressPercentage}">
+            <ProgressBar.Style>
+                <Style TargetType="{x:Type ProgressBar}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasBuildFailed}" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
 
         <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat=P0}" Margin="5,0"
                 VerticalAlignment="Center"

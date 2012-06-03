@@ -144,6 +144,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
             }
 
             Caption = DefaultCaption;
+            _viewModel.HasBuildFailed = false;
             _viewModel.IsBuildActive = true;
             _viewModel.ProgressPercentage = 0;
         }
@@ -175,6 +176,22 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         }
 
         /// <summary>
+        /// A method called to notify the the tool window that an individual project build is done.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <param name="projectConfig">The project config.</param>
+        /// <param name="platform">The platform.</param>
+        /// <param name="solutionConfig">The solution config.</param>
+        /// <param name="success">True if project build was successful, otherwise false.</param>
+        internal void NotifyBuildProjConfigDone(string project, string projectConfig, string platform, string solutionConfig, bool success)
+        {
+            if (!success)
+            {
+                _viewModel.HasBuildFailed = true;
+            }
+        }
+
+        /// <summary>
         /// A method called to notify the tool window that a build is done.
         /// </summary>
         /// <param name="scope">The scope.</param>
@@ -182,6 +199,7 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         internal void NotifyBuildDone(vsBuildScope scope, vsBuildAction action)
         {
             Caption = DefaultCaption;
+            _viewModel.HasBuildFailed = false;
             _viewModel.IsBuildActive = false;
             _viewModel.IsProgressIndeterminate = false;
             _viewModel.ProgressPercentage = 0;
