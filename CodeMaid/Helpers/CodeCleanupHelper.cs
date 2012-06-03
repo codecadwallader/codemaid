@@ -676,7 +676,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\{{:b*(//.*)*}\n\n"
-                                 : @"\{([^\r\n]*)(\r?\n){2,}";
+                                 : @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
 
             string replacement = Package.UsePOSIXRegEx
                                      ? @"\{\1" + Environment.NewLine
