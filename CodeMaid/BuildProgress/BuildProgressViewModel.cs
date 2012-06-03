@@ -12,6 +12,8 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Windows;
+using System.Windows.Shell;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.BuildProgress
@@ -21,9 +23,16 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
     /// </summary>
     public class BuildProgressViewModel : ViewModelBase
     {
-        #region Properties
+        #region Fields
 
         private bool _isBuildActive;
+        private bool _isProgressIndeterminate;
+        private double _progressPercentage;
+        private TaskbarItemInfo _taskbarItemInfo;
+
+        #endregion Fields
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets a flag indicating if a build is active.
@@ -40,11 +49,10 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                     NotifyPropertyChanged("ShowProgressPercentage");
 
                     CancelBuildCommand.RaiseCanExecuteChanged();
+                    UpdateTaskbarStatus();
                 }
             }
         }
-
-        private bool _isProgressIndeterminate;
 
         /// <summary>
         /// Gets or sets a flag indicating if the progress is indeterminate.
@@ -59,6 +67,8 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                     _isProgressIndeterminate = value;
                     NotifyPropertyChanged("IsProgressIndeterminate");
                     NotifyPropertyChanged("ShowProgressPercentage");
+
+                    UpdateTaskbarStatus();
                 }
             }
         }
@@ -68,12 +78,10 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// </summary>
         public CodeMaidPackage Package { get; set; }
 
-        private int _progressPercentage;
-
         /// <summary>
         /// Gets or sets the progress percentage.
         /// </summary>
-        public int ProgressPercentage
+        public double ProgressPercentage
         {
             get { return _progressPercentage; }
             set
@@ -82,6 +90,8 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
                 {
                     _progressPercentage = value;
                     NotifyPropertyChanged("ProgressPercentage");
+
+                    UpdateTaskbarStatus();
                 }
             }
         }
@@ -92,6 +102,26 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         public bool ShowProgressPercentage
         {
             get { return IsBuildActive && !IsProgressIndeterminate; }
+        }
+
+        /// <summary>
+        /// Gets the taskbar interface for the Visual Studio application instance.
+        /// </summary>
+        private TaskbarItemInfo TaskbarItemInfo
+        {
+            get
+            {
+                if (_taskbarItemInfo == null)
+                {
+                    _taskbarItemInfo = Application.Current.MainWindow.TaskbarItemInfo;
+                    if (_taskbarItemInfo == null)
+                    {
+                        Application.Current.MainWindow.TaskbarItemInfo = _taskbarItemInfo = new TaskbarItemInfo();
+                    }
+                }
+
+                return _taskbarItemInfo;
+            }
         }
 
         #endregion Properties
@@ -138,5 +168,25 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         }
 
         #endregion Commands
+
+        #region Methods
+
+        /// <summary>
+        /// Updates the taskbar status based on the current build conditions.
+        /// </summary>
+        private void UpdateTaskbarStatus()
+        {
+            //TODO: Check settings to confirm.
+
+            TaskbarItemInfo.ProgressState = IsBuildActive && IsProgressIndeterminate
+                                                ? TaskbarItemProgressState.Indeterminate
+                                                : IsBuildActive
+                                                      ? TaskbarItemProgressState.Normal
+                                                      : TaskbarItemProgressState.None;
+
+            TaskbarItemInfo.ProgressValue = ProgressPercentage;
+        }
+
+        #endregion Methods
     }
 }

@@ -9,10 +9,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="100"
+        <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="1"
                 Value="{Binding ProgressPercentage}" />
 
-        <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat='{}{0}%'}" Margin="5,0"
+        <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat=P0}" Margin="5,0"
                 VerticalAlignment="Center"
                 Visibility="{Binding ShowProgressPercentage, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 

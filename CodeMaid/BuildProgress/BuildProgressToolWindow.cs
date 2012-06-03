@@ -89,14 +89,14 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// <summary>
         /// Gets the progress percentage, otherwise zero if cannot be determined.
         /// </summary>
-        private int ProgressPercentage
+        private double ProgressPercentage
         {
             get
             {
                 double toBeBuilt = NumberOfProjectsToBeBuilt;
 
                 return toBeBuilt > 0
-                           ? (int)(100 * NumberOfProjectsBuilt / toBeBuilt)
+                           ? NumberOfProjectsBuilt / toBeBuilt
                            : 0;
             }
         }
