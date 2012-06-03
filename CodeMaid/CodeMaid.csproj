@@ -207,6 +207,7 @@
     <Compile Include="Events\BuildProgressEventListener.cs" />
     <Compile Include="Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Events\ShellEventListener.cs" />
+    <Compile Include="Events\SolutionEventListener.cs" />
     <Compile Include="Events\WindowEventListener.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />

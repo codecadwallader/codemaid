@@ -36,6 +36,18 @@ namespace SteveCadwallader.CodeMaid.Commands
 
         #endregion Constructors
 
+        #region Properties
+
+        /// <summary>
+        /// Gets the top level (solution) UI hierarchy item.
+        /// </summary>
+        private UIHierarchyItem TopUIHierarchyItem
+        {
+            get { return UIHierarchyHelper.GetTopUIHierarchyItem(Package); }
+        }
+
+        #endregion Properties
+
         #region BaseCommand Methods
 
         /// <summary>
@@ -61,16 +73,16 @@ namespace SteveCadwallader.CodeMaid.Commands
 
         #endregion BaseCommand Methods
 
-        #region Private Properties
+        #region Methods
 
         /// <summary>
-        /// Gets the top level (solution) UI hierarchy item.
+        /// Called when a solution is opened.
         /// </summary>
-        private UIHierarchyItem TopUIHierarchyItem
+        internal void OnSolutionOpened()
         {
-            get { return UIHierarchyHelper.GetTopUIHierarchyItem(Package); }
+            OnExecute();
         }
 
-        #endregion Private Properties
+        #endregion Methods
     }
 }

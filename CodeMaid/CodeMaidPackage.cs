@@ -147,6 +147,11 @@ namespace SteveCadwallader.CodeMaid
         private ShellEventListener ShellEventListener { get; set; }
 
         /// <summary>
+        /// Gets or sets the solution event listener.
+        /// </summary>
+        private SolutionEventListener SolutionEventListener { get; set; }
+
+        /// <summary>
         /// Gets or sets the window event listener.
         /// </summary>
         private WindowEventListener WindowEventListener { get; set; }
@@ -310,6 +315,7 @@ namespace SteveCadwallader.CodeMaid
             {
                 var buildProgressToolWindowCommand = _commands.OfType<BuildProgressToolWindowCommand>().First();
                 var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
+                var collapseAllSolutionExplorerCommand = _commands.OfType<CollapseAllSolutionExplorerCommand>().First();
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
                 BuildProgressEventListener = new BuildProgressEventListener(this);
@@ -321,6 +327,9 @@ namespace SteveCadwallader.CodeMaid
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
                 RunningDocumentTableEventListener.AfterSave += spadeToolWindowCommand.OnAfterDocumentSave;
+
+                SolutionEventListener = new SolutionEventListener(this);
+                SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
 
                 WindowEventListener = new WindowEventListener(this);
                 WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
@@ -353,6 +362,11 @@ namespace SteveCadwallader.CodeMaid
             if (ShellEventListener != null)
             {
                 ShellEventListener.Dispose();
+            }
+
+            if (SolutionEventListener != null)
+            {
+                SolutionEventListener.Dispose();
             }
 
             if (WindowEventListener != null)
