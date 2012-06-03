@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using EnvDTE80;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -46,8 +47,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 CollapseRecursively(childItem);
             }
 
-            // Make sure not to collapse the solution, causes odd behavior.
-            if (!(parentItem.Object is Solution))
+            if (ShouldCollapseItem(parentItem))
             {
                 // Attempt the direct collapse first.
                 parentItem.UIHierarchyItems.Expanded = false;
@@ -114,5 +114,36 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Determines if the specified parent item should be collapsed.
+        /// </summary>
+        /// <param name="parentItem">The parent item.</param>
+        /// <returns>True if the item should be collapsed, otherwise false.</returns>
+        private static bool ShouldCollapseItem(UIHierarchyItem parentItem)
+        {
+            // Make sure not to collapse the solution, causes odd behavior.
+            if (parentItem.Object is Solution)
+            {
+                return false;
+            }
+
+            // Conditionally skip collapsing the only project in a solution.
+            // Note: Visual Studio automatically creates a second invisible project called "Miscellaneous files".
+            if (Settings.Default.Collapsing_KeepSoloProjectExpanded && parentItem.Object is Project)
+            {
+                var solution = parentItem.DTE.Solution;
+                if (solution != null && solution.Projects.Count <= 2)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        #endregion Private Methods
     }
 }

@@ -886,5 +886,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Collapsing_CollapseSolutionWhenOpened"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Collapsing_KeepSoloProjectExpanded {
+            get {
+                return ((bool)(this["Collapsing_KeepSoloProjectExpanded"]));
+            }
+            set {
+                this["Collapsing_KeepSoloProjectExpanded"] = value;
+            }
+        }
     }
 }

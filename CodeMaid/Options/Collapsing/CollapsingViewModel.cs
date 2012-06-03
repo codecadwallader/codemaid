@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Options.Collapsing
         public override void LoadSettings()
         {
             CollapseSolutionWhenOpened = Settings.Default.Collapsing_CollapseSolutionWhenOpened;
+            KeepSoloProjectExpanded = Settings.Default.Collapsing_KeepSoloProjectExpanded;
         }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Options.Collapsing
         public override void SaveSettings()
         {
             Settings.Default.Collapsing_CollapseSolutionWhenOpened = CollapseSolutionWhenOpened;
+            Settings.Default.Collapsing_KeepSoloProjectExpanded = KeepSoloProjectExpanded;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -64,6 +66,24 @@ namespace SteveCadwallader.CodeMaid.Options.Collapsing
                 {
                     _collapseSolutionWhenOpened = value;
                     NotifyPropertyChanged("CollapseSolutionWhenOpened");
+                }
+            }
+        }
+
+        private bool _keepSoloProjectExpanded;
+
+        /// <summary>
+        /// Gets or sets a flag indicating if a solo project should be kept expanded.
+        /// </summary>
+        public bool KeepSoloProjectExpanded
+        {
+            get { return _keepSoloProjectExpanded; }
+            set
+            {
+                if (_keepSoloProjectExpanded != value)
+                {
+                    _keepSoloProjectExpanded = value;
+                    NotifyPropertyChanged("KeepSoloProjectExpanded");
                 }
             }
         }
