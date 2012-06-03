@@ -215,5 +215,8 @@
     <Setting Name="Progressing_ShowProgressOnWindowsTaskbar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Collapsing_CollapseSolutionWhenOpened" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

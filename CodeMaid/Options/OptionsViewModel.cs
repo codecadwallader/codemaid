@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using SteveCadwallader.CodeMaid.Options.Cleaning;
+using SteveCadwallader.CodeMaid.Options.Collapsing;
 using SteveCadwallader.CodeMaid.Options.Digging;
 using SteveCadwallader.CodeMaid.Options.Progressing;
 using SteveCadwallader.CodeMaid.Options.Reorganizing;
@@ -50,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.Options
                                                        new CleaningActionsViewModel()
                                                    }
                                 },
+                            new CollapsingViewModel(),
                             new DiggingViewModel(),
                             new ProgressingViewModel(),
                             new ReorganizingViewModel(),

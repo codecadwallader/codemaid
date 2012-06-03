@@ -230,6 +230,7 @@
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
+    <Compile Include="Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="Options\Digging\DiggingViewModel.cs" />
     <Compile Include="Options\OptionsPageViewModel.cs" />
     <Compile Include="Options\OptionsPageViewModelEnumerableExtensions.cs" />
@@ -423,6 +424,10 @@
     <Page Include="Options\Cleaning\CleaningParentDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\Collapsing\CollapsingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options\Digging\DiggingDataTemplate.xaml">
       <SubType>Designer</SubType>

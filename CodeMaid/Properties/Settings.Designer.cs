@@ -874,5 +874,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Progressing_ShowProgressOnWindowsTaskbar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Collapsing_CollapseSolutionWhenOpened {
+            get {
+                return ((bool)(this["Collapsing_CollapseSolutionWhenOpened"]));
+            }
+            set {
+                this["Collapsing_CollapseSolutionWhenOpened"] = value;
+            }
+        }
     }
 }

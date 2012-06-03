@@ -59,6 +59,7 @@
                                 <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningGeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
+                                <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />

@@ -14,6 +14,7 @@
 using System.ComponentModel.Design;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Commands
 {
@@ -80,6 +81,8 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         internal void OnSolutionOpened()
         {
+            if (!Settings.Default.Collapsing_CollapseSolutionWhenOpened) return;
+
             OnExecute();
         }
 
