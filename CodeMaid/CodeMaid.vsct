@@ -15,13 +15,13 @@
         defining some of the constants that we will use inside the file. -->
 
   <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
-  <Extern href="stdidcmd.h"/>
+  <Extern href="stdidcmd.h" />
 
   <!--This header contains the command ids for the menus provided by the shell. -->
-  <Extern href="vsshlids.h"/>
+  <Extern href="vsshlids.h" />
 
   <!--Definition of some VSCT specific constants. In this sample we use it for the IDs inside the guidOfficeIcon group. -->
-  <Extern href="msobtnid.h"/>
+  <!--<Extern href="msobtnid.h" xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" />-->
 
   <!--The Commands section is where we the commands, menus and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
@@ -37,7 +37,7 @@
     <!-- Menu section definition -->
     <Menus>
       <Menu guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" priority="0x0700" type="Menu">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS"/>
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
         <Strings>
           <ButtonText>&amp;CodeMaid</ButtonText>
           <CommandName>&amp;CodeMaid</CommandName>
@@ -321,11 +321,11 @@
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="GuidImageCleanup" href="Images\IDE\cleanup.bmp" usedList="IconCleanup" />
       <Bitmap guid="GuidImageCleanupAll" href="Images\IDE\cleanupAll.bmp" usedList="IconCleanupAll" />
-      <Bitmap guid="GuidImageCloseLocked" href="Images\IDE\closeLocked.bmp" usedList="IconCloseLocked"/>
+      <Bitmap guid="GuidImageCloseLocked" href="Images\IDE\closeLocked.bmp" usedList="IconCloseLocked" />
       <Bitmap guid="GuidImageCollapse" href="Images\IDE\collapse.bmp" usedList="IconCollapse" />
       <Bitmap guid="GuidImageConfig" href="Images\IDE\config.bmp" usedList="IconConfig" />
-      <Bitmap guid="GuidImageFind" href="Images\IDE\find.bmp" usedList="IconFind"/>
-      <Bitmap guid="GuidImageInfo" href="Images\IDE\info.bmp" usedList="IconInfo"/>
+      <Bitmap guid="GuidImageFind" href="Images\IDE\find.bmp" usedList="IconFind" />
+      <Bitmap guid="GuidImageInfo" href="Images\IDE\info.bmp" usedList="IconInfo" />
       <Bitmap guid="GuidImageJoin" href="Images\IDE\join.bmp" usedList="IconJoin" />
       <Bitmap guid="GuidImageLock" href="Images\IDE\lock.bmp" usedList="IconLock" />
       <Bitmap guid="GuidImageProgress" href="Images\IDE\progress.bmp" usedList="IconProgress" />
@@ -378,23 +378,23 @@
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup"/>
+      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup"/>
+      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
@@ -408,23 +408,23 @@
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup"/>
+      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup"/>
+      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup"/>
+      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0200">
@@ -597,7 +597,7 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="GuidCodeMaidMenuBaseGroup" value="{186512ff-6c4e-42c9-b9a1-032f35109993}">
-      <IDSymbol name="GroupIDCodeMaidMenuBaseGroup" value="0x1020"/>
+      <IDSymbol name="GroupIDCodeMaidMenuBaseGroup" value="0x1020" />
     </GuidSymbol>
 
     <!-- These are the command sets for the menu -->
