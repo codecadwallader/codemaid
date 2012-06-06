@@ -129,7 +129,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     if (cleanupMethod != null)
                     {
                         Package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
-
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document, isAutoSave);
 
@@ -433,6 +432,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             foreach (var codeField in fields.Select(x => x.CodeVariable).Where(y => y != null))
             {
+                try
+                {
+                    // Skip "fields" defined inside an enumeration.
+                    if (codeField.Parent is CodeEnum)
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+                    // Skip this field if unable to analyze.
+                    continue;
+                }
+
                 var fieldDeclaration = CodeModelHelper.GetFieldDeclaration(codeField);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(fieldDeclaration, codeField.Access))
@@ -658,11 +671,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\]{:b*(//.*)*}\n\n"
                                  : @"\]([^\r\n]*)(\r?\n){2,}";
-
             string replacement = Package.UsePOSIXRegEx
                                      ? @"\]\1" + Environment.NewLine
                                      : @"]$1" + Environment.NewLine;
-
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
@@ -677,11 +688,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\{{:b*(//.*)*}\n\n"
                                  : @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
-
             string replacement = Package.UsePOSIXRegEx
                                      ? @"\{\1" + Environment.NewLine
                                      : @"{$1" + Environment.NewLine;
-
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
@@ -696,7 +705,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             string pattern = Package.UsePOSIXRegEx
                                  ? @"\n\n{:b*}\}"
                                  : @"(\r?\n){2,}([ \t]*)\}";
-
             string replacement = Package.UsePOSIXRegEx
                                      ? Environment.NewLine + @"\1\}"
                                      : Environment.NewLine + @"$2}";
@@ -760,7 +768,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
             string pattern = Package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
-
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
                    cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
