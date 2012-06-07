@@ -898,5 +898,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Collapsing_KeepSoloProjectExpanded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UsingStatementsToReinsertWhenRemovedExpression {
+            get {
+                return ((string)(this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"]));
+            }
+            set {
+                this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"] = value;
+            }
+        }
     }
 }

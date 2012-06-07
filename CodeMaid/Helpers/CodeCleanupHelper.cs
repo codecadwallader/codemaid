@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (!CodeCleanupAvailabilityHelper.ShouldCleanup(projectItem)) return;
 
             // Attempt to open the document if not already opened.
-            bool wasOpen = projectItem.get_IsOpen(Constants.vsViewKindTextView);
+            bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView];
             if (!wasOpen)
             {
                 try
@@ -181,7 +181,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
         {
-            TextDocument textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
             RunVSFormatting(textDocument);
@@ -281,7 +281,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupC(Document document, bool isAutoSave)
         {
-            TextDocument textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = (TextDocument)document.Object("TextDocument");
 
             RunVSFormatting(textDocument);
 
@@ -300,7 +300,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
         {
-            TextDocument textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = (TextDocument)document.Object("TextDocument");
 
             RunVSFormatting(textDocument);
 
@@ -643,7 +643,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
             {
                 var backCursor = cursor.CreateEditPoint();
-                backCursor.CharLeft(1);
+                backCursor.CharLeft();
                 backCursor.Delete(cursor);
             }
         }
@@ -764,7 +764,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Settings.Default.Cleaning_UpdateEndRegionDirectives) return;
 
-            Stack<String> regionStack = new Stack<string>();
+            var regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
             string pattern = Package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";

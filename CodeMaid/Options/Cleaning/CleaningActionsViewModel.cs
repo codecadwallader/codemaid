@@ -83,6 +83,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             RunVisualStudioSortUsingStatements = Settings.Default.Cleaning_RunVisualStudioSortUsingStatements;
             SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
             UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
+            UsingStatementsToReinsertWhenRemovedExpression = Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression;
         }
 
         /// <summary>
@@ -138,6 +139,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_RunVisualStudioSortUsingStatements = RunVisualStudioSortUsingStatements;
             Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
             Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
+            Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = UsingStatementsToReinsertWhenRemovedExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -1004,6 +1006,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _updateEndRegionDirectives = value;
                     NotifyPropertyChanged("UpdateEndRegionDirectives");
+                }
+            }
+        }
+
+        private string _usingStatementsToReinsertWhenRemovedExpression;
+
+        /// <summary>
+        /// Gets or sets the expression for using statements that should be re-inserted when removed.
+        /// </summary>
+        public string UsingStatementsToReinsertWhenRemovedExpression
+        {
+            get { return _usingStatementsToReinsertWhenRemovedExpression; }
+            set
+            {
+                if (_usingStatementsToReinsertWhenRemovedExpression != value)
+                {
+                    _usingStatementsToReinsertWhenRemovedExpression = value;
+                    NotifyPropertyChanged("UsingStatementsToReinsertWhenRemovedExpression");
                 }
             }
         }

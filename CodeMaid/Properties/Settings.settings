@@ -221,5 +221,8 @@
     <Setting Name="Collapsing_KeepSoloProjectExpanded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_UsingStatementsToReinsertWhenRemovedExpression" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
