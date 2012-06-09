@@ -48,7 +48,10 @@ namespace SteveCadwallader.CodeMaid.Options
                                                    {
                                                        new CleaningGeneralViewModel(),
                                                        new CleaningFileTypesViewModel(),
-                                                       new CleaningActionsViewModel()
+                                                       new CleaningVisualStudioViewModel(),
+                                                       new CleaningInsertViewModel(),
+                                                       new CleaningRemoveViewModel(),
+                                                       new CleaningUpdateViewModel()
                                                    }
                                 },
                             new CollapsingViewModel(),

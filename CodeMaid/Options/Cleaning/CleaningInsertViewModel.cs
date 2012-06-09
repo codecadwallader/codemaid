@@ -16,9 +16,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.Options.Cleaning
 {
     /// <summary>
-    /// The view model for cleaning actions options.
+    /// The view model for cleaning insert options.
     /// </summary>
-    public class CleaningActionsViewModel : OptionsPageViewModel
+    public class CleaningInsertViewModel : OptionsPageViewModel
     {
         #region Overrides of OptionsPageViewModel
 
@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
         /// </summary>
         public override string Header
         {
-            get { return "Actions"; }
+            get { return "Insert"; }
         }
 
         /// <summary>
@@ -71,19 +71,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertExplicitAccessModifiersOnMethods = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods;
             InsertExplicitAccessModifiersOnProperties = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties;
             InsertExplicitAccessModifiersOnStructs = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs;
-            RemoveBlankLinesAfterAttributes = Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes;
-            RemoveBlankLinesAfterOpeningBrace = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
-            RemoveBlankLinesAtBottom = Settings.Default.Cleaning_RemoveBlankLinesAtBottom;
-            RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
-            RemoveBlankLinesBeforeClosingBrace = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
-            RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
-            RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
-            RunVisualStudioFormatDocument = Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand;
-            RunVisualStudioRemoveUnusedUsingStatements = Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements;
-            RunVisualStudioSortUsingStatements = Settings.Default.Cleaning_RunVisualStudioSortUsingStatements;
-            SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
-            UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
-            UsingStatementsToReinsertWhenRemovedExpression = Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression;
         }
 
         /// <summary>
@@ -127,19 +114,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods = InsertExplicitAccessModifiersOnMethods;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties = InsertExplicitAccessModifiersOnProperties;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs = InsertExplicitAccessModifiersOnStructs;
-            Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = RemoveBlankLinesAfterAttributes;
-            Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBrace;
-            Settings.Default.Cleaning_RemoveBlankLinesAtBottom = RemoveBlankLinesAtBottom;
-            Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
-            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBrace;
-            Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
-            Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
-            Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand = RunVisualStudioFormatDocument;
-            Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements = RunVisualStudioRemoveUnusedUsingStatements;
-            Settings.Default.Cleaning_RunVisualStudioSortUsingStatements = RunVisualStudioSortUsingStatements;
-            Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
-            Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
-            Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = UsingStatementsToReinsertWhenRemovedExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -790,240 +764,6 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertExplicitAccessModifiersOnStructs = value;
                     NotifyPropertyChanged("InsertExplicitAccessModifiersOnStructs");
-                }
-            }
-        }
-
-        private bool _removeBlankLinesAfterAttributes;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if blank lines should be removed after attributes.
-        /// </summary>
-        public bool RemoveBlankLinesAfterAttributes
-        {
-            get { return _removeBlankLinesAfterAttributes; }
-            set
-            {
-                if (_removeBlankLinesAfterAttributes != value)
-                {
-                    _removeBlankLinesAfterAttributes = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAfterAttributes");
-                }
-            }
-        }
-
-        private bool _removeBlankLinesAfterOpeningBrace;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if blank lines should be removed after an opening brace.
-        /// </summary>
-        public bool RemoveBlankLinesAfterOpeningBrace
-        {
-            get { return _removeBlankLinesAfterOpeningBrace; }
-            set
-            {
-                if (_removeBlankLinesAfterOpeningBrace != value)
-                {
-                    _removeBlankLinesAfterOpeningBrace = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAfterOpeningBrace");
-                }
-            }
-        }
-
-        private bool _removeBlankLinesAtBottom;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if blank lines should be removed at the bottom of the file.
-        /// </summary>
-        public bool RemoveBlankLinesAtBottom
-        {
-            get { return _removeBlankLinesAtBottom; }
-            set
-            {
-                if (_removeBlankLinesAtBottom != value)
-                {
-                    _removeBlankLinesAtBottom = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAtBottom");
-                }
-            }
-        }
-
-        private bool _removeBlankLinesAtTop;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if blank lines should be removed at the top of the file.
-        /// </summary>
-        public bool RemoveBlankLinesAtTop
-        {
-            get { return _removeBlankLinesAtTop; }
-            set
-            {
-                if (_removeBlankLinesAtTop != value)
-                {
-                    _removeBlankLinesAtTop = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAtTop");
-                }
-            }
-        }
-
-        private bool _removeBlankLinesBeforeClosingBrace;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if blank lines should be removed before a closing brace.
-        /// </summary>
-        public bool RemoveBlankLinesBeforeClosingBrace
-        {
-            get { return _removeBlankLinesBeforeClosingBrace; }
-            set
-            {
-                if (_removeBlankLinesBeforeClosingBrace != value)
-                {
-                    _removeBlankLinesBeforeClosingBrace = value;
-                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingBrace");
-                }
-            }
-        }
-
-        private bool _removeEndOfLineWhitespace;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if end of line whitespace should be removed.
-        /// </summary>
-        public bool RemoveEndOfLineWhitespace
-        {
-            get { return _removeEndOfLineWhitespace; }
-            set
-            {
-                if (_removeEndOfLineWhitespace != value)
-                {
-                    _removeEndOfLineWhitespace = value;
-                    NotifyPropertyChanged("RemoveEndOfLineWhitespace");
-                }
-            }
-        }
-
-        private bool _removeMultipleConsecutiveBlankLines;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if multiple consecutive blank lines should be removed.
-        /// </summary>
-        public bool RemoveMultipleConsecutiveBlankLines
-        {
-            get { return _removeMultipleConsecutiveBlankLines; }
-            set
-            {
-                if (_removeMultipleConsecutiveBlankLines != value)
-                {
-                    _removeMultipleConsecutiveBlankLines = value;
-                    NotifyPropertyChanged("RemoveMultipleConsecutiveBlankLines");
-                }
-            }
-        }
-
-        private bool _runVisualStudioFormatDocument;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if the Visual Studio format document command should be run.
-        /// </summary>
-        public bool RunVisualStudioFormatDocument
-        {
-            get { return _runVisualStudioFormatDocument; }
-            set
-            {
-                if (_runVisualStudioFormatDocument != value)
-                {
-                    _runVisualStudioFormatDocument = value;
-                    NotifyPropertyChanged("RunVisualStudioFormatDocument");
-                }
-            }
-        }
-
-        private bool _runVisualStudioRemoveUnusedUsingStatements;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed.
-        /// </summary>
-        public bool RunVisualStudioRemoveUnusedUsingStatements
-        {
-            get { return _runVisualStudioRemoveUnusedUsingStatements; }
-            set
-            {
-                if (_runVisualStudioRemoveUnusedUsingStatements != value)
-                {
-                    _runVisualStudioRemoveUnusedUsingStatements = value;
-                    NotifyPropertyChanged("RunVisualStudioRemoveUnusedUsingStatements");
-                }
-            }
-        }
-
-        private bool _runVisualStudioSortUsingStatements;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if using statements should be sorted.
-        /// </summary>
-        public bool RunVisualStudioSortUsingStatements
-        {
-            get { return _runVisualStudioSortUsingStatements; }
-            set
-            {
-                if (_runVisualStudioSortUsingStatements != value)
-                {
-                    _runVisualStudioSortUsingStatements = value;
-                    NotifyPropertyChanged("RunVisualStudioSortUsingStatements");
-                }
-            }
-        }
-
-        private bool _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed except during auto cleanup on save.
-        /// </summary>
-        public bool SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave
-        {
-            get { return _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave; }
-            set
-            {
-                if (_skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave != value)
-                {
-                    _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = value;
-                    NotifyPropertyChanged("SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave");
-                }
-            }
-        }
-
-        private bool _updateEndRegionDirectives;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if end region directives should be updated.
-        /// </summary>
-        public bool UpdateEndRegionDirectives
-        {
-            get { return _updateEndRegionDirectives; }
-            set
-            {
-                if (_updateEndRegionDirectives != value)
-                {
-                    _updateEndRegionDirectives = value;
-                    NotifyPropertyChanged("UpdateEndRegionDirectives");
-                }
-            }
-        }
-
-        private string _usingStatementsToReinsertWhenRemovedExpression;
-
-        /// <summary>
-        /// Gets or sets the expression for using statements that should be re-inserted when removed.
-        /// </summary>
-        public string UsingStatementsToReinsertWhenRemovedExpression
-        {
-            get { return _usingStatementsToReinsertWhenRemovedExpression; }
-            set
-            {
-                if (_usingStatementsToReinsertWhenRemovedExpression != value)
-                {
-                    _usingStatementsToReinsertWhenRemovedExpression = value;
-                    NotifyPropertyChanged("UsingStatementsToReinsertWhenRemovedExpression");
                 }
             }
         }

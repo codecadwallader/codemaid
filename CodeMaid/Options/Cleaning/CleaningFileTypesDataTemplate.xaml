@@ -31,13 +31,11 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Exclude" Margin="0,10,0,0">
+            <GroupBox Header="Exclude">
                 <StackPanel>
-                    <TextBlock Text="Regular expressions that match file names to exclude (ex: .*.resx)"
-                            Margin="5,5,5,0" />
-                    <TextBox AcceptsReturn="True" Height="125"
-                            Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}"
-                            VerticalScrollBarVisibility="Auto" />
+                    <TextBlock Text="Regular expressions that match file names to exclude  (ex: .*.resx )" Margin="5,5,5,0" />
+                    <TextBox Style="{DynamicResource TextBoxMultiLine}"
+                             Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}" />
                     <TextBlock FontStyle="Italic" Text="Place each regular expression on a separate line" />
                 </StackPanel>
             </GroupBox>

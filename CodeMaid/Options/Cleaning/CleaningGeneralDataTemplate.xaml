@@ -4,8 +4,7 @@
     <DataTemplate DataType="{x:Type local:CleaningGeneralViewModel}">
         <StackPanel>
             <CheckBox Content="Automatically run cleanup on file save" IsChecked="{Binding AutoCleanupOnFileSave}" />
-            <CheckBox Content="Automatically save and close documents opened by cleanup"
-                    IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
+            <CheckBox Content="Automatically save and close documents opened by cleanup" IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

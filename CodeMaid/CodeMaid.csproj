@@ -226,10 +226,13 @@
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
-    <Compile Include="Options\Cleaning\CleaningActionsViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningInsertViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningRemoveViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningUpdateViewModel.cs" />
+    <Compile Include="Options\Cleaning\CleaningVisualStudioViewModel.cs" />
     <Compile Include="Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="Options\Digging\DiggingViewModel.cs" />
     <Compile Include="Options\OptionsPageViewModel.cs" />
@@ -409,10 +412,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Options\Cleaning\CleaningActionsDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -421,9 +420,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Options\Cleaning\CleaningInsertDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Options\Cleaning\CleaningParentDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\Cleaning\CleaningRemoveDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\Cleaning\CleaningUpdateDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options\Collapsing\CollapsingDataTemplate.xaml">
       <SubType>Designer</SubType>

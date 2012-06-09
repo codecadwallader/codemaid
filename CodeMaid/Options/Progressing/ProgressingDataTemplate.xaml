@@ -10,7 +10,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Windows taskbar" Margin="0,10,0,0">
+            <GroupBox Header="Windows taskbar">
                 <CheckBox Content="Show build progress on Visual Studio icon in Windows taskbar" IsChecked="{Binding ShowProgressOnWindowsTaskbar}" />
             </GroupBox>
         </StackPanel>
