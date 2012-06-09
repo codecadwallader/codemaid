@@ -218,6 +218,7 @@
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\CodeReorderHelper.cs" />
+    <Compile Include="Helpers\EditPointExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ExplicitAccessModifierHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />

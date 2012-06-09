@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             while (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
             {
                 matches.Add(cursor.CreateEditPoint());
-                cursor = end.CreateEditPoint();
+                cursor = end;
             }
 
             return matches;
@@ -93,7 +93,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             point.LineUp(1);
             point.StartOfLine();
-            string text = point.GetLines(point.Line, point.Line + 1);
+
+            string text = point.GetLine();
             if (Regex.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
             {
                 point.EndOfLine();
@@ -111,7 +112,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             point.LineDown(1);
             point.StartOfLine();
-            string text = point.GetLines(point.Line, point.Line + 1);
+
+            string text = point.GetLine();
             if (Regex.IsMatch(text, @"^\s*[^\s\}]"))
             {
                 point.Insert(Environment.NewLine);

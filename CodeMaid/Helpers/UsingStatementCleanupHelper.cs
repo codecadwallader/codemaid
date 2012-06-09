@@ -83,22 +83,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                        ? @"^{:b*}{0}{:b*}\n}"
                                        : @"^([ \t]*){0}([ \t]*)\r?\n";
 
-            var usingStatementPoints = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
-                                        from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
-                                        select new { usingStatement, editPoint }).ToList();
+            var points = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
+                          from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
+                          select new { editPoint, text = editPoint.GetLine() }).ToList();
 
             Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
 
             // Check each using statement point and re-insert it if removed.
-            foreach (var item in usingStatementPoints)
+            foreach (var point in points)
             {
-                var eolCursor = item.editPoint.CreateEditPoint();
-                eolCursor.EndOfLine();
-
-                string text = item.editPoint.GetText(eolCursor);
-                if (text != item.usingStatement)
+                string text = point.editPoint.GetLine();
+                if (text != point.text)
                 {
-                    item.editPoint.Insert(item.usingStatement);
+                    point.editPoint.Insert(point.text);
+                    point.editPoint.Insert(Environment.NewLine);
                 }
             }
         }
