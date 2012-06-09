@@ -17,6 +17,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Commands
@@ -75,45 +76,6 @@ namespace SteveCadwallader.CodeMaid.Commands
 
         #endregion BaseCommand Methods
 
-        #region Private Properties
-
-        /// <summary>
-        /// A collection of groups, each containing a list of related file extensions.
-        /// </summary>
-        public List<List<string>> RelatedFileExtensions
-        {
-            get
-            {
-                var relatedFileExtensionsExpression = Settings.Default.Switching_RelatedFileExtensionsExpression;
-                if (_cachedRelatedFileExtensionsExpression != relatedFileExtensionsExpression)
-                {
-                    _relatedFileExtensions = new List<List<string>>();
-
-                    if (!string.IsNullOrEmpty(relatedFileExtensionsExpression))
-                    {
-                        foreach (var rfeGroup in relatedFileExtensionsExpression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            var list = rfeGroup.Split(' ')
-                                               .Select(item => item.Trim().ToLower())
-                                               .Where(x => !string.IsNullOrEmpty(x))
-                                               .ToList();
-
-                            if (list.Count >= 2)
-                            {
-                                _relatedFileExtensions.Add(list);
-                            }
-                        }
-                    }
-
-                    _cachedRelatedFileExtensionsExpression = relatedFileExtensionsExpression;
-                }
-
-                return _relatedFileExtensions;
-            }
-        }
-
-        #endregion Private Properties
-
         #region Private Methods
 
         /// <summary>
@@ -143,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Commands
                 var path = document.FullName;
                 if (!string.IsNullOrEmpty(path))
                 {
-                    foreach (var rfeGroup in RelatedFileExtensions)
+                    foreach (var rfeGroup in _relatedFileExtensions.Value)
                     {
                         foreach (var extension in rfeGroup)
                         {
@@ -173,14 +135,17 @@ namespace SteveCadwallader.CodeMaid.Commands
         #region Private Fields
 
         /// <summary>
-        /// The cached state of the related file extensions from options.
+        /// A cached setting set container for accessing sets of related file extensions.
         /// </summary>
-        private string _cachedRelatedFileExtensionsExpression;
-
-        /// <summary>
-        /// A collection of groups, each containing a list of related file extensions.
-        /// </summary>
-        private List<List<string>> _relatedFileExtensions = new List<List<string>>();
+        private readonly CachedSettingSet<IList<string>> _relatedFileExtensions =
+            new CachedSettingSet<IList<string>>(() => Settings.Default.Switching_RelatedFileExtensionsExpression,
+                                                      expression =>
+                                                      expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                                .Select(rfeGroup =>
+                                                                        rfeGroup.Split(' ')
+                                                                                .Select(item => item.Trim().ToLower())
+                                                                                .Where(x => !string.IsNullOrEmpty(x)).ToList())
+                                                                .Where(list => list.Count >= 2).ToList());
 
         #endregion Private Fields
     }

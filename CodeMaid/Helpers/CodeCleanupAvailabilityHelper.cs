@@ -171,34 +171,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Properties
 
         /// <summary>
-        /// Gets a list of cleanup exclusion filters.
+        /// Gets a set of cleanup exclusion filters.
         /// </summary>
-        public List<string> CleanupExclusions
+        public IEnumerable<string> CleanupExclusions
         {
-            get
-            {
-                var cleanupExclusionExpression = Settings.Default.Cleaning_ExclusionExpression;
-                if (_cachedCleanupExclusionExpression != cleanupExclusionExpression)
-                {
-                    _cleanupExclusions = new List<string>();
-
-                    if (!string.IsNullOrEmpty(cleanupExclusionExpression))
-                    {
-                        var filters = cleanupExclusionExpression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                                .Select(x => x.Trim().ToLower())
-                                                                .Where(y => !string.IsNullOrEmpty(y));
-
-                        foreach (var filter in filters)
-                        {
-                            _cleanupExclusions.Add(filter);
-                        }
-                    }
-
-                    _cachedCleanupExclusionExpression = cleanupExclusionExpression;
-                }
-
-                return _cleanupExclusions;
-            }
+            get { return _cleanupExclusions.Value; }
         }
 
         /// <summary>
@@ -219,14 +196,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Fields
 
         /// <summary>
-        /// The cached state of the cleanup exclusion expression from options.
+        /// A cached setting set container for accessing the cleanup exclusions.
         /// </summary>
-        private string _cachedCleanupExclusionExpression;
-
-        /// <summary>
-        /// A list of cleanup exclusion filters.
-        /// </summary>
-        private List<string> _cleanupExclusions = new List<string>();
+        private readonly CachedSettingSet<string> _cleanupExclusions =
+            new CachedSettingSet<string>(() => Settings.Default.Cleaning_ExclusionExpression,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim().ToLower())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
 
         /// <summary>
         /// A default editor factory, used for its knowledge of language service-extension mappings.

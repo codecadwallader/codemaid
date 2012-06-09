@@ -33,6 +33,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private UndoTransactionHelper _undoTransactionHelper;
 
+        /// <summary>
+        /// A cached setting set container for accessing the using statements to reinsert when removed.
+        /// </summary>
+        private readonly CachedSettingSet<string> _usingStatementsToReinsertWhenRemoved =
+            new CachedSettingSet<string>(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
         #endregion Fields
 
         #region Constructors

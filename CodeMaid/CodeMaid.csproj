@@ -211,6 +211,7 @@
     <Compile Include="Events\WindowEventListener.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
+    <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\CodeCleanupHelper.cs" />
     <Compile Include="Helpers\BlankLinePaddingHelper.cs" />
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
