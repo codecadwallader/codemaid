@@ -6,7 +6,7 @@
         <StackPanel>
             <TextBlock Text="Sets of related file extensions  (ex: .cpp .h )" Margin="5,5,5,0" />
             <TextBox Style="{DynamicResource TextBoxMultiLine}"
-                     Text="{Binding RelatedFileExtensionsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}" />
+                     Text="{Binding RelatedFileExtensionsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock FontStyle="Italic" Text="Place each set on a separate line" />
         </StackPanel>
     </DataTemplate>

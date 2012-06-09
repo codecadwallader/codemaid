@@ -28,10 +28,10 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="Warning threshold" VerticalAlignment="Center" />
-                        <TextBox Grid.Column="1" Text="{Binding ComplexityWarningThreshold}" TextAlignment="Right" Width="40" />
+                        <TextBox Grid.Column="1" Text="{Binding ComplexityWarningThreshold, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
 
                         <TextBlock Grid.Row="1" Text="Alert threshold" VerticalAlignment="Center" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold}" TextAlignment="Right" Width="40" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </Grid>
                 </StackPanel>
             </GroupBox>
