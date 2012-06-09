@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
@@ -63,6 +62,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             BlankLinePaddingHelper = BlankLinePaddingHelper.GetInstance(Package);
             CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
+            ExplicitAccessModifierHelper = ExplicitAccessModifierHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -261,15 +261,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(structs);
 
             // Perform insertion of explicit access modifier cleanup.
-            InsertExplicitAccessModifiersOnClasses(classes);
-            InsertExplicitAccessModifiersOnDelegates(delegates);
-            InsertExplicitAccessModifiersOnEnumerations(enumerations);
-            InsertExplicitAccessModifiersOnEvents(events);
-            InsertExplicitAccessModifiersOnFields(fields);
-            InsertExplicitAccessModifiersOnInterfaces(interfaces);
-            InsertExplicitAccessModifiersOnMethods(methods);
-            InsertExplicitAccessModifiersOnProperties(properties);
-            InsertExplicitAccessModifiersOnStructs(structs);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnClasses(classes);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnDelegates(delegates);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnEnumerations(enumerations);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnEvents(events);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnFields(fields);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnInterfaces(interfaces);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnMethods(methods);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnProperties(properties);
+            ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform update cleanup.
             UpdateEndRegionDirectives(textDocument);
@@ -314,286 +314,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Private Language Methods
 
         #region Private Cleanup Methods
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on classes where they are not specified.
-        /// </summary>
-        /// <param name="classes">The classes.</param>
-        private void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeItemClass> classes)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return;
-
-            foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
-            {
-                var classDeclaration = CodeModelHelper.GetClassDeclaration(codeClass);
-
-                // Skip partial classes - access modifier may be specified elsewhere.
-                if (IsKeywordSpecified(classDeclaration, PartialKeyword))
-                {
-                    continue;
-                }
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(classDeclaration, codeClass.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeClass.Access = codeClass.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on delegates where they are not specified.
-        /// </summary>
-        /// <param name="delegates">The delegates.</param>
-        private void InsertExplicitAccessModifiersOnDelegates(IEnumerable<CodeItemDelegate> delegates)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates) return;
-
-            foreach (var codeDelegate in delegates.Select(x => x.CodeDelegate).Where(y => y != null))
-            {
-                var delegateDeclaration = CodeModelHelper.GetDelegateDeclaration(codeDelegate);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(delegateDeclaration, codeDelegate.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeDelegate.Access = codeDelegate.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on enumerations where they are not specified.
-        /// </summary>
-        /// <param name="enumerations">The enumerations.</param>
-        private void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeItemEnum> enumerations)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations) return;
-
-            foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
-            {
-                var enumDeclaration = CodeModelHelper.GetEnumerationDeclaration(codeEnum);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(enumDeclaration, codeEnum.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeEnum.Access = codeEnum.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on events where they are not specified.
-        /// </summary>
-        /// <param name="events">The events.</param>
-        private void InsertExplicitAccessModifiersOnEvents(IEnumerable<CodeItemEvent> events)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents) return;
-
-            foreach (var codeEvent in events.Select(x => x.CodeEvent).Where(y => y != null))
-            {
-                try
-                {
-                    // Skip events defined inside an interface.
-                    if (codeEvent.Parent is CodeInterface)
-                    {
-                        continue;
-                    }
-
-                    // Skip explicit interface implementations.
-                    // Name is reported different for CodeEvent - so combine with parent to determine if interface is being explicitly specified.
-                    if (codeEvent.Parent is CodeElement &&
-                        codeEvent.FullName != (((CodeElement)codeEvent.Parent).FullName + "." + codeEvent.Name))
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception)
-                {
-                    // Skip this event if unable to analyze.
-                    continue;
-                }
-
-                var eventDeclaration = CodeModelHelper.GetEventDeclaration(codeEvent);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(eventDeclaration, codeEvent.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeEvent.Access = codeEvent.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on fields where they are not specified.
-        /// </summary>
-        /// <param name="fields">The fields.</param>
-        private void InsertExplicitAccessModifiersOnFields(IEnumerable<CodeItemField> fields)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields) return;
-
-            foreach (var codeField in fields.Select(x => x.CodeVariable).Where(y => y != null))
-            {
-                try
-                {
-                    // Skip "fields" defined inside an enumeration.
-                    if (codeField.Parent is CodeEnum)
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception)
-                {
-                    // Skip this field if unable to analyze.
-                    continue;
-                }
-
-                var fieldDeclaration = CodeModelHelper.GetFieldDeclaration(codeField);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(fieldDeclaration, codeField.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeField.Access = codeField.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on interfaces where they are not specified.
-        /// </summary>
-        /// <param name="interfaces">The interfaces.</param>
-        private void InsertExplicitAccessModifiersOnInterfaces(IEnumerable<CodeItemInterface> interfaces)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces) return;
-
-            foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
-            {
-                var interfaceDeclaration = CodeModelHelper.GetInterfaceDeclaration(codeInterface);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(interfaceDeclaration, codeInterface.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeInterface.Access = codeInterface.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on methods where they are not specified.
-        /// </summary>
-        /// <param name="methods">The methods.</param>
-        private void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeItemMethod> methods)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return;
-
-            foreach (var codeFunction in methods.Select(x => x.CodeFunction).Where(y => y != null))
-            {
-                try
-                {
-                    // Skip static constructors - they should not have an access modifier.
-                    if (codeFunction.IsShared && codeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor)
-                    {
-                        continue;
-                    }
-
-                    // Skip destructors - they should not have an access modifier.
-                    if (codeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor)
-                    {
-                        continue;
-                    }
-
-                    // Skip explicit interface implementations.
-                    if (codeFunction.Name.Contains("."))
-                    {
-                        continue;
-                    }
-
-                    // Skip methods defined inside an interface.
-                    if (codeFunction.Parent is CodeInterface)
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception)
-                {
-                    // Skip this method if unable to analyze.
-                    continue;
-                }
-
-                var methodDeclaration = CodeModelHelper.GetMethodDeclaration(codeFunction);
-
-                // Skip partial methods - access modifier may be specified elsewhere.
-                if (IsKeywordSpecified(methodDeclaration, PartialKeyword))
-                {
-                    continue;
-                }
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(methodDeclaration, codeFunction.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeFunction.Access = codeFunction.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on properties where they are not specified.
-        /// </summary>
-        /// <param name="properties">The properties.</param>
-        private void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeItemProperty> properties)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return;
-
-            foreach (var codeProperty in properties.Select(x => x.CodeProperty).Where(y => y != null))
-            {
-                try
-                {
-                    // Skip explicit interface implementations.
-                    if (codeProperty.Name.Contains("."))
-                    {
-                        continue;
-                    }
-
-                    // Skip properties defined inside an interface.
-                    if (codeProperty.Parent is CodeInterface)
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception)
-                {
-                    // Skip this property if unable to analyze.
-                    continue;
-                }
-
-                var propertyDeclaration = CodeModelHelper.GetPropertyDeclaration(codeProperty);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(propertyDeclaration, codeProperty.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeProperty.Access = codeProperty.Access;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Inserts the explicit access modifiers on structs where they are not specified.
-        /// </summary>
-        /// <param name="structs">The structs.</param>
-        private void InsertExplicitAccessModifiersOnStructs(IEnumerable<CodeItemStruct> structs)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs) return;
-
-            foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))
-            {
-                var structDeclaration = CodeModelHelper.GetStructDeclaration(codeStruct);
-
-                if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(structDeclaration, codeStruct.Access))
-                {
-                    // Set the access value to itself to cause the code to be added.
-                    codeStruct.Access = codeStruct.Access;
-                }
-            }
-        }
 
         /// <summary>
         /// Run the visual studio built-in remove unused using statements command.
@@ -858,42 +578,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return codeItemBlocks;
         }
 
-        /// <summary>
-        /// Determines if the access modifier is explicitly defined on the specified code element declaration.
-        /// </summary>
-        /// <param name="codeElementDeclaration">The code element declaration.</param>
-        /// <param name="accessModifier">The access modifier.</param>
-        /// <returns>True if access modifier is explicitly specified, otherwise false.</returns>
-        private static bool IsAccessModifierExplicitlySpecifiedOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier)
-        {
-            string keyword = CodeModelHelper.GetAccessModifierKeyword(accessModifier);
-
-            return IsKeywordSpecified(codeElementDeclaration, keyword);
-        }
-
-        /// <summary>
-        /// Determines if the specified keyword is present in the specified code element declaration.
-        /// </summary>
-        /// <param name="codeElementDeclaration">The code element declaration.</param>
-        /// <param name="keyword">The keyword.</param>
-        /// <returns>True if the keyword is present, otherwise false.</returns>
-        private static bool IsKeywordSpecified(string codeElementDeclaration, string keyword)
-        {
-            string matchString = @"(^|\s)" + keyword + @"\s";
-
-            return Regex.IsMatch(codeElementDeclaration, matchString);
-        }
-
         #endregion Private Helper Methods
-
-        #region Private Constants
-
-        /// <summary>
-        /// The string representation of the partial keyword.
-        /// </summary>
-        private const string PartialKeyword = "partial";
-
-        #endregion Private Constants
 
         #region Private Properties
 
@@ -906,6 +591,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets or sets the code cleanup availability helper.
         /// </summary>
         private CodeCleanupAvailabilityHelper CodeCleanupAvailabilityHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the explicit access modifier helper.
+        /// </summary>
+        private ExplicitAccessModifierHelper ExplicitAccessModifierHelper { get; set; }
 
         /// <summary>
         /// Gets or sets the hosting package.
