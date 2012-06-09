@@ -228,6 +228,7 @@
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
     <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
+    <Compile Include="Helpers\UsingStatementCleanupHelper.cs" />
     <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
     <Compile Include="Options\Cleaning\CleaningInsertViewModel.cs" />

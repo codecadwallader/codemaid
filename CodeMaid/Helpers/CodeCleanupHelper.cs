@@ -33,17 +33,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private UndoTransactionHelper _undoTransactionHelper;
 
-        /// <summary>
-        /// A cached setting set container for accessing the using statements to reinsert when removed.
-        /// </summary>
-        private readonly CachedSettingSet<string> _usingStatementsToReinsertWhenRemoved =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
-                                         expression =>
-                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                   .Select(x => x.Trim())
-                                                   .Where(y => !string.IsNullOrEmpty(y))
-                                                   .ToList());
-
         #endregion Fields
 
         #region Constructors
@@ -74,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BlankLinePaddingHelper = BlankLinePaddingHelper.GetInstance(Package);
             CodeCleanupAvailabilityHelper = CodeCleanupAvailabilityHelper.GetInstance(Package);
             ExplicitAccessModifierHelper = ExplicitAccessModifierHelper.GetInstance(Package);
+            UsingStatementCleanupHelper = UsingStatementCleanupHelper.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -197,8 +187,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Perform any actions that can modify the file code model first.
             RunVSFormatting(textDocument);
-            RemoveUnusedUsingStatements(isAutoSave);
-            SortUsingStatements();
+            UsingStatementCleanupHelper.RemoveUnusedUsingStatements(isAutoSave);
+            UsingStatementCleanupHelper.SortUsingStatements();
 
             // Interpret the document into a collection of elements.
             var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
@@ -325,18 +315,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Private Language Methods
 
         #region Private Cleanup Methods
-
-        /// <summary>
-        /// Run the visual studio built-in remove unused using statements command.
-        /// </summary>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RemoveUnusedUsingStatements(bool isAutoSave)
-        {
-            if (!Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements) return;
-            if (isAutoSave && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
-
-            Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
-        }
 
         /// <summary>
         /// Run the visual studio built-in format document command.
@@ -470,16 +448,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             string replacement = Environment.NewLine + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Run the visual studio built-in sort using statements command.
-        /// </summary>
-        private void SortUsingStatements()
-        {
-            if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
-
-            Package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
         }
 
         /// <summary>
@@ -620,6 +588,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             get { return _undoTransactionHelper ?? (_undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Cleanup")); }
         }
+
+        /// <summary>
+        /// Gets or sets the using statement cleanup helper.
+        /// </summary>
+        private UsingStatementCleanupHelper UsingStatementCleanupHelper { get; set; }
 
         #endregion Private Properties
     }
