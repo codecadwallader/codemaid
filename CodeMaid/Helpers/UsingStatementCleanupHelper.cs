@@ -13,6 +13,7 @@
 
 using System;
 using System.Linq;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -70,13 +71,36 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Run the visual studio built-in remove unused using statements command.
         /// </summary>
+        /// <param name="textDocument">The text document to update.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        public void RemoveUnusedUsingStatements(bool isAutoSave)
+        public void RemoveUnusedUsingStatements(TextDocument textDocument, bool isAutoSave)
         {
             if (!Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements) return;
             if (isAutoSave && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
 
+            // Capture all existing using statements that should be re-inserted if removed.
+            string patternFormat = Package.UsePOSIXRegEx
+                                       ? @"^{:b*}{0}{:b*}\n}"
+                                       : @"^([ \t]*){0}([ \t]*)\r?\n";
+
+            var usingStatementPoints = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
+                                        from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
+                                        select new { usingStatement, editPoint }).ToList();
+
             Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
+
+            // Check each using statement point and re-insert it if removed.
+            foreach (var item in usingStatementPoints)
+            {
+                var eolCursor = item.editPoint.CreateEditPoint();
+                eolCursor.EndOfLine();
+
+                string text = item.editPoint.GetText(eolCursor);
+                if (text != item.usingStatement)
+                {
+                    item.editPoint.Insert(item.usingStatement);
+                }
+            }
         }
 
         /// <summary>

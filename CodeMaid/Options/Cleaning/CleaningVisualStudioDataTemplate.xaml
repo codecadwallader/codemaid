@@ -15,7 +15,7 @@
             <StackPanel IsEnabled="{Binding RunVisualStudioRemoveUnusedUsingStatements}" Margin="30,5,5,10">
                 <TextBlock Text="Using statements to re-insert when removed  (ex: using System; )" Margin="5,5,5,0" />
                 <TextBox Style="{DynamicResource TextBoxMultiLine}"
-                         Text="{Binding UsingStatementsToReinsertWhenRemovedExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}}" />
+                         Text="{Binding UsingStatementsToReinsertWhenRemovedExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock FontStyle="Italic" Text="Place each using statement on a separate line" />
             </StackPanel>
 

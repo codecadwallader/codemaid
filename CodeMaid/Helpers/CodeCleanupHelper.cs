@@ -187,7 +187,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Perform any actions that can modify the file code model first.
             RunVSFormatting(textDocument);
-            UsingStatementCleanupHelper.RemoveUnusedUsingStatements(isAutoSave);
+            UsingStatementCleanupHelper.RemoveUnusedUsingStatements(textDocument, isAutoSave);
             UsingStatementCleanupHelper.SortUsingStatements();
 
             // Interpret the document into a collection of elements.

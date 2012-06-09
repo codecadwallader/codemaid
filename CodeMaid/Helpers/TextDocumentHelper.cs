@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
@@ -38,6 +39,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Internal Constants
 
         #region Internal Methods
+
+        /// <summary>
+        /// Finds all matches of the specified pattern within the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        /// <param name="patternString">The pattern string.</param>
+        /// <returns>The set of matches.</returns>
+        internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
+        {
+            var matches = new List<EditPoint>();
+            var cursor = textDocument.StartPoint.CreateEditPoint();
+            EditPoint end = null;
+            TextRanges dummy = null;
+
+            while (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            {
+                matches.Add(cursor.CreateEditPoint());
+                cursor = end.CreateEditPoint();
+            }
+
+            return matches;
+        }
 
         /// <summary>
         /// Gets the text between the specified start point and the first match.
