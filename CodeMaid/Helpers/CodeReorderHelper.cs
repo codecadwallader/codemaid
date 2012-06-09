@@ -148,7 +148,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 },
                 delegate(Exception ex)
                 {
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex);
+                    OutputWindowHelper.WriteLine(String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex));
+                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
                 });
         }
 
