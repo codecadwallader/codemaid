@@ -186,9 +186,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
-            RunVSFormatting(textDocument);
             UsingStatementCleanupHelper.RemoveUnusedUsingStatements(textDocument, isAutoSave);
             UsingStatementCleanupHelper.SortUsingStatements();
+            RunVSFormatting(textDocument);
 
             // Interpret the document into a collection of elements.
             var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
