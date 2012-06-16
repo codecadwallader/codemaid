@@ -23,6 +23,15 @@ namespace SteveCadwallader.CodeMaid.Commands
     /// </summary>
     internal class CollapseAllSolutionExplorerCommand : BaseCommand
     {
+        #region Fields
+
+        /// <summary>
+        /// A flag indicating if waiting to execute.
+        /// </summary>
+        private bool _isWaitingToExecute;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -57,6 +66,11 @@ namespace SteveCadwallader.CodeMaid.Commands
         protected override void OnBeforeQueryStatus()
         {
             Enabled = Package.IDE.Solution.IsOpen;
+
+            if (Enabled && _isWaitingToExecute)
+            {
+                OnExecute();
+            }
         }
 
         /// <summary>
@@ -64,6 +78,8 @@ namespace SteveCadwallader.CodeMaid.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            _isWaitingToExecute = false;
+
             var topItem = TopUIHierarchyItem;
 
             if (topItem != null && UIHierarchyHelper.HasExpandedChildren(topItem))
@@ -83,7 +99,15 @@ namespace SteveCadwallader.CodeMaid.Commands
         {
             if (!Settings.Default.Collapsing_CollapseSolutionWhenOpened) return;
 
-            OnExecute();
+            var topItem = TopUIHierarchyItem;
+            if (topItem == null || topItem.UIHierarchyItems.Count == 0)
+            {
+                _isWaitingToExecute = true;
+            }
+            else
+            {
+                OnExecute();
+            }
         }
 
         #endregion Methods
