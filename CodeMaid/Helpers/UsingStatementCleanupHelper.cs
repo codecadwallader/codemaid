@@ -80,8 +80,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Capture all existing using statements that should be re-inserted if removed.
             string patternFormat = Package.UsePOSIXRegEx
-                                       ? @"^{:b*}{0}{:b*}\n}"
-                                       : @"^([ \t]*){0}([ \t]*)\r?\n";
+                                       ? @"^:b*{0}:b*\n"
+                                       : @"^[ \t]*{0}[ \t]*\r?\n";
 
             var points = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
                           from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
