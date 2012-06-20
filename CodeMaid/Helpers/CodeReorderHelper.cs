@@ -207,6 +207,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Determines if the specified item's children should be reorganized.
+        /// </summary>
+        /// <param name="parent">The parent item.</param>
+        /// <returns>True if the parent's children should be reorganized, otherwise false.</returns>
+        private bool ShouldReorganizeChildren(BaseCodeItemElement parent)
+        {
+            if (parent is CodeItemEnum)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Repositions the specified item above the specified base.
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
@@ -286,7 +301,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Iterate across the items in the desired order.
             foreach (var itemToMove in orderedItems)
             {
-                if (!(itemToMove is CodeItemEnum))
+                if (ShouldReorganizeChildren(itemToMove))
                 {
                     RecursivelyReorganize(itemToMove.Children);
                 }
