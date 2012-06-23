@@ -44,6 +44,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets the attributes.
+        /// </summary>
+        public override CodeElements Attributes
+        {
+            get { return CodeVariable != null ? CodeVariable.Attributes : null; }
+        }
+
+        /// <summary>
         /// Gets the doc comment.
         /// </summary>
         public override string DocComment

@@ -48,12 +48,26 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the access level.
         /// </summary>
-        public abstract vsCMAccess Access { get; }
+        public virtual vsCMAccess Access
+        {
+            get { return vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
+        /// Gets the attributes.
+        /// </summary>
+        public virtual CodeElements Attributes
+        {
+            get { return null; }
+        }
 
         /// <summary>
         /// Gets the doc comment.
         /// </summary>
-        public abstract string DocComment { get; }
+        public virtual string DocComment
+        {
+            get { return null; }
+        }
 
         /// <summary>
         /// Gets a flag indicating if this instance is static.

@@ -35,14 +35,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         #region BaseCodeItemElement Overrides
 
         /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return vsCMAccess.vsCMAccessDefault; }
-        }
-
-        /// <summary>
         /// Gets the doc comment.
         /// </summary>
         public override string DocComment
