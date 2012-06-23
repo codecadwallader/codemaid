@@ -218,6 +218,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return false;
             }
 
+            var parentAttributes = parent.Attributes;
+            if (parentAttributes != null &&
+                parentAttributes.OfType<CodeAttribute>().Any(x => x.FullName == "System.Runtime.InteropServices.StructLayoutAttribute"))
+            {
+                return false;
+            }
+
             return true;
         }
 
