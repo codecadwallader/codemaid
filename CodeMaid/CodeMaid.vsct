@@ -564,14 +564,17 @@
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
 
-    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
-
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
 
+    <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" />
+
     <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
 
     <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" />
