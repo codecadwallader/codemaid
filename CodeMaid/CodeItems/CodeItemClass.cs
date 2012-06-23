@@ -21,10 +21,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemClass : BaseCodeItemElementParent
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeClass.
-        /// </summary>
-        public CodeClass2 CodeClass { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -34,20 +31,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return KindCodeItem.Class; }
         }
 
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
+
         /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access
         {
             get { return CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessDefault; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this class is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return CodeClass != null && CodeClass.IsShared; }
         }
 
         /// <summary>
@@ -59,12 +52,24 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this class is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeClass != null && CodeClass.IsShared; }
+        }
+
+        /// <summary>
         /// Gets the type string.
         /// </summary>
         public override string TypeString
         {
             get { return "class"; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region BaseCodeItemElementParent Overrides
 
         /// <summary>
         /// Gets the namespace.
@@ -73,5 +78,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeClass != null ? CodeClass.Namespace.Name : null; }
         }
+
+        #endregion BaseCodeItemElementParent Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeClass.
+        /// </summary>
+        public CodeClass2 CodeClass { get; set; }
+
+        #endregion Properties
     }
 }

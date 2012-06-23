@@ -21,12 +21,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemProperty : BaseCodeItemElement
     {
+        #region Fields
+
         private int? _complexity;
 
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeProperty.
-        /// </summary>
-        public CodeProperty CodeProperty { get; set; }
+        #endregion Fields
+
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -36,12 +37,24 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return KindCodeItem.Property; }
         }
 
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
+
         /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access
         {
             get { return CodeProperty != null ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault; }
+        }
+
+        /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public override string DocComment
+        {
+            get { return CodeProperty != null ? CodeProperty.DocComment : null; }
         }
 
         /// <summary>
@@ -58,20 +71,21 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return CodeProperty != null ? CodeProperty.DocComment : null; }
-        }
-
-        /// <summary>
         /// Gets the type string.
         /// </summary>
         public override string TypeString
         {
             get { return CodeProperty != null ? CodeProperty.Type.AsString : null; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeProperty.
+        /// </summary>
+        public CodeProperty CodeProperty { get; set; }
 
         /// <summary>
         /// Gets the complexity.
@@ -88,5 +102,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                 return _complexity.Value;
             }
         }
+
+        #endregion Properties
     }
 }

@@ -20,10 +20,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemEnum : BaseCodeItemElementParent
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeEnum.
-        /// </summary>
-        public CodeEnum CodeEnum { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -32,6 +29,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Enum; }
         }
+
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
 
         /// <summary>
         /// Gets the access level.
@@ -57,6 +58,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return "enum"; }
         }
 
+        #endregion BaseCodeItemElement Overrides
+
+        #region BaseCodeItemElementParent Overrides
+
         /// <summary>
         /// Gets the namespace.
         /// </summary>
@@ -64,5 +69,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeEnum != null ? CodeEnum.Namespace.Name : null; }
         }
+
+        #endregion BaseCodeItemElementParent Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeEnum.
+        /// </summary>
+        public CodeEnum CodeEnum { get; set; }
+
+        #endregion Properties
     }
 }

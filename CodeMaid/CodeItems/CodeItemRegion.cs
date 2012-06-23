@@ -18,6 +18,8 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemRegion : BaseCodeItem
     {
+        #region BaseCodeItem Overrides
+
         /// <summary>
         /// Gets the kind.
         /// </summary>
@@ -25,5 +27,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Region; }
         }
+
+        #endregion BaseCodeItem Overrides
     }
 }

@@ -43,6 +43,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public abstract KindCodeItem Kind { get; }
 
         /// <summary>
+        /// Gets or sets the name, may be empty.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets the children of this code item, may be empty.
+        /// </summary>
+        public SetCodeItems Children { get; private set; }
+
+        /// <summary>
         /// Gets or sets the start line.
         /// </summary>
         public int StartLine { get; set; }
@@ -61,16 +71,6 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the end offset.
         /// </summary>
         public int EndOffset { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name, may be empty.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets the children of this code item, may be empty.
-        /// </summary>
-        public SetCodeItems Children { get; private set; }
 
         #endregion Properties
 

@@ -24,12 +24,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemMethod : BaseCodeItemElement
     {
+        #region Fields
+
         private int? _complexity;
 
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeFunction.
-        /// </summary>
-        public CodeFunction2 CodeFunction { get; set; }
+        #endregion Fields
+
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -52,20 +53,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             }
         }
 
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
+
         /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access
         {
             get { return CodeFunction != null ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this method is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return CodeFunction != null && CodeFunction.IsShared; }
         }
 
         /// <summary>
@@ -77,12 +74,29 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this method is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeFunction != null && CodeFunction.IsShared; }
+        }
+
+        /// <summary>
         /// Gets the return type.
         /// </summary>
         public override string TypeString
         {
             get { return CodeFunction != null ? CodeFunction.Type.AsString : null; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeFunction.
+        /// </summary>
+        public CodeFunction2 CodeFunction { get; set; }
 
         /// <summary>
         /// Gets the complexity.
@@ -139,5 +153,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeFunction != null ? CodeFunction.Parameters.Cast<CodeParameter>() : new CodeParameter[0]; }
         }
+
+        #endregion Properties
     }
 }

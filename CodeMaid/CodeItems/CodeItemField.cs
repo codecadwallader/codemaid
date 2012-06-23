@@ -21,10 +21,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemField : BaseCodeItemElement
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeVariable.
-        /// </summary>
-        public CodeVariable2 CodeVariable { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -34,20 +31,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return IsConstant ? KindCodeItem.Constant : KindCodeItem.Field; }
         }
 
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
+
         /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access
         {
             get { return CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessDefault; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this field is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return CodeVariable != null && CodeVariable.IsShared; }
         }
 
         /// <summary>
@@ -59,12 +52,29 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this field is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeVariable != null && CodeVariable.IsShared; }
+        }
+
+        /// <summary>
         /// Gets the type string.
         /// </summary>
         public override string TypeString
         {
             get { return CodeVariable != null ? CodeVariable.Type.AsString : null; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeVariable.
+        /// </summary>
+        public CodeVariable2 CodeVariable { get; set; }
 
         /// <summary>
         /// Gets a flag indicating if this field is a constant.
@@ -73,5 +83,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeVariable != null && CodeVariable.IsConstant; }
         }
+
+        #endregion Properties
     }
 }

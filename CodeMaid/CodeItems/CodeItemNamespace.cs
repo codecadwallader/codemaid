@@ -20,10 +20,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemNamespace : BaseCodeItemElement
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeNamespace.
-        /// </summary>
-        public CodeNamespace CodeNamespace { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -32,6 +29,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Namespace; }
         }
+
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
 
         /// <summary>
         /// Gets the access level.
@@ -56,5 +57,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return "namespace"; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeNamespace.
+        /// </summary>
+        public CodeNamespace CodeNamespace { get; set; }
+
+        #endregion Properties
     }
 }

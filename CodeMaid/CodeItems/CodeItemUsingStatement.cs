@@ -20,6 +20,8 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemUsingStatement : BaseCodeItemElement
     {
+        #region BaseCodeItem Overrides
+
         /// <summary>
         /// Gets the kind.
         /// </summary>
@@ -27,6 +29,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Using; }
         }
+
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
 
         /// <summary>
         /// Gets the access level.
@@ -51,5 +57,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return "using"; }
         }
+
+        #endregion BaseCodeItemElement Overrides
     }
 }

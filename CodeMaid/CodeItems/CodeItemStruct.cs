@@ -21,10 +21,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemStruct : BaseCodeItemElementParent
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeStruct.
-        /// </summary>
-        public CodeStruct2 CodeStruct { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -33,6 +30,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Struct; }
         }
+
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
 
         /// <summary>
         /// Gets the access level.
@@ -58,6 +59,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return "struct"; }
         }
 
+        #endregion BaseCodeItemElement Overrides
+
+        #region BaseCodeItemElementParent Overrides
+
         /// <summary>
         /// Gets the namespace.
         /// </summary>
@@ -65,5 +70,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeStruct != null ? CodeStruct.Namespace.Name : null; }
         }
+
+        #endregion BaseCodeItemElementParent Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeStruct.
+        /// </summary>
+        public CodeStruct2 CodeStruct { get; set; }
+
+        #endregion Properties
     }
 }

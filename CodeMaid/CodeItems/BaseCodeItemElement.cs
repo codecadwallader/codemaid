@@ -22,6 +22,8 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public abstract class BaseCodeItemElement : BaseCodeItem
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the code element, may be null.
         /// </summary>
@@ -49,6 +51,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public abstract vsCMAccess Access { get; }
 
         /// <summary>
+        /// Gets the doc comment.
+        /// </summary>
+        public abstract string DocComment { get; }
+
+        /// <summary>
         /// Gets a flag indicating if this instance is static.
         /// </summary>
         public virtual bool IsStatic
@@ -57,14 +64,13 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public abstract string DocComment { get; }
-
-        /// <summary>
         /// Gets the type string.
         /// </summary>
         public abstract string TypeString { get; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Tries to execute the specified function, returning the default of the type on error.
@@ -110,5 +116,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
 
             return point;
         }
+
+        #endregion Methods
     }
 }

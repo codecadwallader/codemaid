@@ -21,10 +21,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemInterface : BaseCodeItemElementParent
     {
-        /// <summary>
-        /// Gets or sets the underlying VSX CodeInterface.
-        /// </summary>
-        public CodeInterface2 CodeInterface { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -33,6 +30,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return KindCodeItem.Interface; }
         }
+
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
 
         /// <summary>
         /// Gets the access level.
@@ -58,6 +59,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return "interface"; }
         }
 
+        #endregion BaseCodeItemElement Overrides
+
+        #region BaseCodeItemElementParent Overrides
+
         /// <summary>
         /// Gets the namespace.
         /// </summary>
@@ -65,5 +70,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         {
             get { return CodeInterface != null ? CodeInterface.Namespace.Name : null; }
         }
+
+        #endregion BaseCodeItemElementParent Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the underlying VSX CodeInterface.
+        /// </summary>
+        public CodeInterface2 CodeInterface { get; set; }
+
+        #endregion Properties
     }
 }

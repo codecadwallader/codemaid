@@ -21,10 +21,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemEvent : BaseCodeItemElement
     {
-        /// <summary>
-        /// Gets or sets the VSX CodeEvent.
-        /// </summary>
-        public CodeEvent CodeEvent { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the kind.
@@ -34,20 +31,16 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return KindCodeItem.Event; }
         }
 
+        #endregion BaseCodeItem Overrides
+
+        #region BaseCodeItemElement Overrides
+
         /// <summary>
         /// Gets the access level.
         /// </summary>
         public override vsCMAccess Access
         {
             get { return CodeEvent != null ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault; }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this event is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return CodeEvent != null && CodeEvent.IsShared; }
         }
 
         /// <summary>
@@ -59,11 +52,30 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this event is static.
+        /// </summary>
+        public override bool IsStatic
+        {
+            get { return CodeEvent != null && CodeEvent.IsShared; }
+        }
+
+        /// <summary>
         /// Gets the type string.
         /// </summary>
         public override string TypeString
         {
             get { return CodeEvent != null ? CodeEvent.Type.AsString : null; }
         }
+
+        #endregion BaseCodeItemElement Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the VSX CodeEvent.
+        /// </summary>
+        public CodeEvent CodeEvent { get; set; }
+
+        #endregion Properties
     }
 }
