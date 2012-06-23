@@ -296,34 +296,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return;
             }
 
-            var codeItemElements = GetReorganizableCodeItemElements(codeItems);
-            BaseCodeItemElement baseItem = null;
+            // Get the items in their current order and their desired order.
+            var currentOrder = GetReorganizableCodeItemElements(codeItems);
+            var desiredOrder = currentOrder.OrderBy(CodeItemTypeComparer.CalculateNumericRepresentation)
+                                           .ThenBy(x => Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup ? (object)x.Name : (object)x.StartOffset)
+                                           .ToList();
 
-            // Organize the items in the desired order.
-            var orderedItems = codeItemElements.OrderBy(CodeItemTypeComparer.CalculateNumericRepresentation);
-            orderedItems = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup
-                               ? orderedItems.ThenBy(y => y.Name)
-                               : orderedItems.ThenBy(y => y.StartOffset);
-
-            // Iterate across the items in the desired order.
-            foreach (var itemToMove in orderedItems)
+            // Iterate across the items in the desired order, moving them when necessary.
+            for (int desiredIndex = 0; desiredIndex < desiredOrder.Count; desiredIndex++)
             {
-                if (ShouldReorganizeChildren(itemToMove))
+                var item = desiredOrder[desiredIndex];
+
+                if (ShouldReorganizeChildren(item))
                 {
-                    RecursivelyReorganize(itemToMove.Children);
+                    RecursivelyReorganize(item.Children);
                 }
 
-                if (baseItem == null)
+                int currentIndex = currentOrder.IndexOf(item);
+                if (desiredIndex != currentIndex)
                 {
-                    // The first desired item should be placed above the first actual item.
-                    RepositionItemAboveBase(itemToMove, codeItemElements.First());
-                    baseItem = itemToMove;
-                }
-                else
-                {
-                    // All other items should be placed after the last placed item in the desired order.
-                    RepositionItemBelowBase(itemToMove, baseItem);
-                    baseItem = itemToMove;
+                    // Move the item above what is in its desired position.
+                    RepositionItemAboveBase(item, currentOrder[desiredIndex]);
+
+                    // Update the current order to match the move.
+                    currentOrder.RemoveAt(currentIndex);
+                    currentOrder.Insert(desiredIndex > currentIndex ? desiredIndex - 1 : desiredIndex, item);
                 }
             }
 
