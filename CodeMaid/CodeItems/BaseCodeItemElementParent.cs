@@ -16,11 +16,36 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// A base class representation of all code items that have an underlying VSX CodeElement and contain children.
     /// </summary>
-    public abstract class BaseCodeItemElementParent : BaseCodeItemElement
+    public abstract class BaseCodeItemElementParent : BaseCodeItemElement, ICodeItemParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseCodeItemElementParent"/> class.
+        /// </summary>
+        protected BaseCodeItemElementParent()
+        {
+            Children = new SetCodeItems();
+        }
+
+        #endregion Constructors
+
+        #region Implementation of ICodeItemParent
+
+        /// <summary>
+        /// Gets the children of this code item, may be empty.
+        /// </summary>
+        public SetCodeItems Children { get; private set; }
+
+        #endregion Implementation of ICodeItemParent
+
+        #region Properties
+
         /// <summary>
         /// Gets the namespace.
         /// </summary>
         public abstract string Namespace { get; }
+
+        #endregion Properties
     }
 }

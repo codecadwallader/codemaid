@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -11,59 +11,56 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
-using System.Diagnostics;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
-    /// A base class representation of all code items.
-    /// Includes VSX supported CodeElements as well as code regions.
+    /// An interface for code items.
     /// </summary>
-    [DebuggerDisplay("{GetType().Name,nq}: {Name}")]
-    public abstract class BaseCodeItem : ICodeItem
+    public interface ICodeItem
     {
         #region Properties
 
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public abstract KindCodeItem Kind { get; }
+        KindCodeItem Kind { get; }
 
         /// <summary>
         /// Gets or sets the name, may be empty.
         /// </summary>
-        public string Name { get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the start line.
         /// </summary>
-        public int StartLine { get; set; }
+        int StartLine { get; set; }
 
         /// <summary>
         /// Gets or sets the start offset.
         /// </summary>
-        public int StartOffset { get; set; }
+        int StartOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the start point, may be null.
         /// </summary>
-        public virtual EditPoint StartPoint { get; set; }
+        EditPoint StartPoint { get; set; }
 
         /// <summary>
         /// Gets or sets the end line.
         /// </summary>
-        public int EndLine { get; set; }
+        int EndLine { get; set; }
 
         /// <summary>
         /// Gets or sets the end offset.
         /// </summary>
-        public int EndOffset { get; set; }
+        int EndOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the end point, may be null.
         /// </summary>
-        public virtual EditPoint EndPoint { get; set; }
+        EditPoint EndPoint { get; set; }
 
         #endregion Properties
 
@@ -72,13 +69,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Refreshes the cached fields on this item.
         /// </summary>
-        public virtual void Refresh()
-        {
-            StartLine = StartPoint.Line;
-            StartOffset = StartPoint.AbsoluteCharOffset;
-            EndLine = EndPoint.Line;
-            EndOffset = EndPoint.AbsoluteCharOffset;
-        }
+        void Refresh();
 
         #endregion Methods
     }

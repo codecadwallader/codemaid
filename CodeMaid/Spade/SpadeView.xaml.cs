@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -278,7 +279,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItem;
                 var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
 
-                if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !codeItemToMove.IsAncestorOf(baseCodeItem))
+                if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !IsItemAncestorOfBase(codeItemToMove, baseCodeItem))
                 {
                     bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
 
@@ -383,6 +384,24 @@ namespace SteveCadwallader.CodeMaid.Spade
             {
                 scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + offset);
             }
+        }
+
+        /// <summary>
+        /// Determines if the specified item is an ancestor of the specified base.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="baseItem">The base item.</param>
+        /// <returns>True if item is an ancestor of the specified base, otherwise false.</returns>
+        private static bool IsItemAncestorOfBase(BaseCodeItem item, BaseCodeItem baseItem)
+        {
+            var itemAsParent = item as ICodeItemParent;
+            if (itemAsParent == null)
+            {
+                return false;
+            }
+
+            return itemAsParent.Children.Contains(baseItem) ||
+                   itemAsParent.Children.Any(x => IsItemAncestorOfBase(x, baseItem));
         }
 
         /// <summary>

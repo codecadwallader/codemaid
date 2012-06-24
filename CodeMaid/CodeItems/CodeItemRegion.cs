@@ -16,8 +16,20 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// <summary>
     /// The representation of a code region.
     /// </summary>
-    public class CodeItemRegion : BaseCodeItem
+    public class CodeItemRegion : BaseCodeItem, ICodeItemParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemRegion"/> class.
+        /// </summary>
+        public CodeItemRegion()
+        {
+            Children = new SetCodeItems();
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -29,5 +41,14 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         }
 
         #endregion BaseCodeItem Overrides
+
+        #region Implementation of ICodeItemParent
+
+        /// <summary>
+        /// Gets the children of this code item, may be empty.
+        /// </summary>
+        public SetCodeItems Children { get; private set; }
+
+        #endregion Implementation of ICodeItemParent
     }
 }

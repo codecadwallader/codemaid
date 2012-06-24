@@ -167,6 +167,8 @@
     <Compile Include="CodeItems\CodeItemStruct.cs" />
     <Compile Include="CodeItems\CodeItemUsingStatement.cs" />
     <Compile Include="CodeItems\FactoryCodeItems.cs" />
+    <Compile Include="CodeItems\ICodeItem.cs" />
+    <Compile Include="CodeItems\ICodeItemParent.cs" />
     <Compile Include="CodeItems\SetCodeItems.cs" />
     <Compile Include="CodeItems\KindCodeItem.cs" />
     <Compile Include="CodeTree\CodeTreeBuilder.cs" />

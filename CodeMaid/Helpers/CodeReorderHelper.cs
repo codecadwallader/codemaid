@@ -307,9 +307,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 var item = desiredOrder[desiredIndex];
 
-                if (ShouldReorganizeChildren(item))
+                var itemAsParent = item as ICodeItemParent;
+                if (itemAsParent != null && ShouldReorganizeChildren(item))
                 {
-                    RecursivelyReorganize(item.Children);
+                    RecursivelyReorganize(itemAsParent.Children);
                 }
 
                 int currentIndex = currentOrder.IndexOf(item);

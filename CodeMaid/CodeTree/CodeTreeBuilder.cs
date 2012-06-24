@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
         /// <param name="codeItems">The code items.</param>
         private static void ClearHierarchyInformation(SetCodeItems codeItems)
         {
-            foreach (var codeItem in codeItems)
+            foreach (var codeItem in codeItems.OfType<ICodeItemParent>())
             {
                 codeItem.Children.Clear();
             }
@@ -119,8 +119,8 @@ namespace SteveCadwallader.CodeMaid.CodeTree
                             break;
                         }
 
-                        var top = codeItemStack.Peek();
-                        if (codeItem.EndOffset < top.EndOffset)
+                        var top = codeItemStack.Peek() as ICodeItemParent;
+                        if (top != null && codeItem.EndOffset < top.EndOffset)
                         {
                             top.Children.Add(codeItem);
                             codeItemStack.Push(codeItem);
@@ -155,7 +155,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
                 RecursivelySort(organizedCodeItems, new CodeItemTypeComparer());
 
                 // Group the list of code items by type recursively.
-                foreach (var codeItem in organizedCodeItems)
+                foreach (var codeItem in organizedCodeItems.OfType<ICodeItemParent>())
                 {
                     RecursivelyGroupByType(codeItem);
                 }
@@ -168,7 +168,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
         /// Recursively groups the children within the specified item based on their type.
         /// </summary>
         /// <param name="codeItem">The code item.</param>
-        private static void RecursivelyGroupByType(BaseCodeItem codeItem)
+        private static void RecursivelyGroupByType(ICodeItemParent codeItem)
         {
             // Skip any code item that is already a region or does not have children.
             if (codeItem.Kind == KindCodeItem.Region || !codeItem.Children.Any())
@@ -196,7 +196,12 @@ namespace SteveCadwallader.CodeMaid.CodeTree
 
                 // Add the child to the group and recurse.
                 group.Children.Add(child);
-                RecursivelyGroupByType(child);
+
+                var childAsParent = child as ICodeItemParent;
+                if (childAsParent != null)
+                {
+                    RecursivelyGroupByType(childAsParent);
+                }
             }
         }
 
@@ -209,7 +214,7 @@ namespace SteveCadwallader.CodeMaid.CodeTree
         {
             codeItems.Sort(sortComparer);
 
-            foreach (var codeItem in codeItems)
+            foreach (var codeItem in codeItems.OfType<ICodeItemParent>())
             {
                 RecursivelySort(codeItem.Children, sortComparer);
             }
