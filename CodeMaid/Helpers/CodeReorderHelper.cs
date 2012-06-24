@@ -107,6 +107,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Moves the specified item into the specified base.
+        /// </summary>
+        /// <param name="itemToMove">The item to move.</param>
+        /// <param name="baseItem">The base item.</param>
+        internal void MoveItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
+        {
+            UndoTransactionHelper.Run(() => RepositionItemIntoBase(itemToMove, baseItem));
+        }
+
+        /// <summary>
         /// Determines whether the specified document can be reorganized.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -264,7 +274,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (itemToMove == baseItem) return;
 
-            bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
+            bool separateWithNewLine = ShouldBeSeparatedByNewLine(baseItem, itemToMove);
             var text = GetTextAndRemoveItem(itemToMove);
 
             baseItem.Refresh();
@@ -283,6 +293,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             formatPoint.EndOfLine();
             baseEndPoint.SmartFormat(formatPoint);
+        }
+
+        /// <summary>
+        /// Repositions the specified item into the specified base.
+        /// </summary>
+        /// <param name="itemToMove">The item to move.</param>
+        /// <param name="baseItem">The base item.</param>
+        private void RepositionItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
+        {
+            if (itemToMove == baseItem) return;
+
+            bool padWithNewLine = BlankLinePaddingHelper.ShouldInstanceBeFollowedByBlankLine(itemToMove);
+            var text = GetTextAndRemoveItem(itemToMove);
+
+            baseItem.Refresh();
+            var baseInsertPoint = baseItem.InsertPoint;
+            var pastePoint = baseInsertPoint.CreateEditPoint();
+
+            pastePoint.Insert(text);
+            pastePoint.Insert(Environment.NewLine);
+            if (padWithNewLine)
+            {
+                pastePoint.Insert(Environment.NewLine);
+            }
+
+            pastePoint.EndOfLine();
+            baseInsertPoint.SmartFormat(pastePoint);
         }
 
         /// <summary>

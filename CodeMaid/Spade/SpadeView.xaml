@@ -35,8 +35,7 @@
                 </ToolTip.Template>
             </ToolTip>
 
-            <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}"
-                    BasedOn="{StaticResource treeViewItemContainerStyle}">
+            <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemContainerStyle}">
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
                 <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />
@@ -58,7 +57,7 @@
 
                                     <Border x:Name="headerBorder" Grid.ColumnSpan="2" AllowDrop="True"
                                             Background="{TemplateBinding Background}" BorderBrush="White"
-                                            BorderThickness="0,0,0,2" Cursor="Hand" Padding="{TemplateBinding Padding}"
+                                            BorderThickness="0,0,0,2" Cursor="Hand"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
                                             DragOver="OnTreeViewItemHeaderDragEvent"
                                             DragLeave="OnTreeViewItemHeaderDragLeave" Drop="OnTreeViewItemHeaderDrop"
@@ -66,21 +65,21 @@
                                             Mouse.MouseMove="OnTreeViewItemHeaderMouseMove"
                                             Mouse.MouseUp="OnTreeViewItemHeaderMouseUp">
                                         <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
+                                            <Grid Margin="{TemplateBinding Padding}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
 
-                                            <ToggleButton x:Name="expander" ClickMode="Press"
-                                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    Style="{StaticResource treeViewItemToggleButton}" />
+                                                <ToggleButton x:Name="expander" ClickMode="Press"
+                                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                              Style="{StaticResource treeViewItemToggleButton}" />
 
-                                            <ContentPresenter x:Name="PART_Header" Grid.Column="1"
-                                                    ContentSource="Header" />
+                                                <ContentPresenter x:Name="PART_Header" Grid.Column="1" ContentSource="Header" />
+                                            </Grid>
 
-                                            <Rectangle x:Name="dropTargetCue" Grid.ColumnSpan="2"
-                                                    SnapsToDevicePixels="True" Fill="{StaticResource FCodeMaidGreen}"
-                                                    Height="1" Visibility="Collapsed" />
+                                            <Border x:Name="dropTargetCue" BorderBrush="{StaticResource FCodeMaidGreen}"
+                                                    SnapsToDevicePixels="True" Visibility="Collapsed" />
                                         </Grid>
                                     </Border>
 
@@ -111,12 +110,19 @@
                                 <Trigger Property="local:DragDropAttachedProperties.IsDropAboveTarget" Value="True">
                                     <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
                                     <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Top" />
-                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-3,0,0" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="0,1,0,0" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-1,0,0" />
                                 </Trigger>
                                 <Trigger Property="local:DragDropAttachedProperties.IsDropBelowTarget" Value="True">
                                     <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
                                     <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Bottom" />
-                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,0,0,-4" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="0,0,0,1" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,0,0,-2" />
+                                </Trigger>
+                                <Trigger Property="local:DragDropAttachedProperties.IsDropOnTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="1" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-1,0,-2" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

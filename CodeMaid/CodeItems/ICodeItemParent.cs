@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using EnvDTE;
+
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
     /// <summary>
@@ -22,5 +24,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets the children of this code item, may be empty.
         /// </summary>
         SetCodeItems Children { get; }
+
+        /// <summary>
+        /// Gets the insert point, may be null.
+        /// </summary>
+        EditPoint InsertPoint { get; }
     }
 }

@@ -109,5 +109,35 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         #endregion IsDropBelowTarget (Attached Property)
+
+        #region IsDropOnTarget (Attached Property)
+
+        /// <summary>
+        /// The dependency property definition for the IsDropOnTarget attached property.
+        /// </summary>
+        public static DependencyProperty IsDropOnTargetProperty = DependencyProperty.RegisterAttached(
+            "IsDropOnTarget", typeof(bool), typeof(DragDropAttachedProperties));
+
+        /// <summary>
+        /// Gets the IsDropOnTarget value from the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The value.</returns>
+        public static bool GetIsDropOnTarget(UIElement target)
+        {
+            return (bool)target.GetValue(IsDropOnTargetProperty);
+        }
+
+        /// <summary>
+        /// Sets the IsDropOnTarget value on the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="value">The value.</param>
+        public static void SetIsDropOnTarget(UIElement target, bool value)
+        {
+            target.SetValue(IsDropOnTargetProperty, value);
+        }
+
+        #endregion IsDropOnTarget (Attached Property)
     }
 }

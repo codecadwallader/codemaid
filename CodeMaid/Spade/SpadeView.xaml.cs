@@ -50,6 +50,20 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         #endregion Constructors
 
+        #region Enumerations
+
+        /// <summary>
+        /// An enumeration of drop positions.
+        /// </summary>
+        private enum DropPosition
+        {
+            Above,
+            Below,
+            On
+        }
+
+        #endregion Enumerations
+
         #region Properties
 
         /// <summary>
@@ -281,10 +295,26 @@ namespace SteveCadwallader.CodeMaid.Spade
 
                 if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !IsItemAncestorOfBase(codeItemToMove, baseCodeItem))
                 {
-                    bool isDropOnTopHalfOfTarget = IsDropOnTopHalfOfTarget(e, targetTreeViewItem);
+                    switch (GetDropPosition(e, baseCodeItem, targetTreeViewItem))
+                    {
+                        case DropPosition.Above:
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, true);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
+                            break;
 
-                    targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, isDropOnTopHalfOfTarget);
-                    targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, !isDropOnTopHalfOfTarget);
+                        case DropPosition.Below:
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, true);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
+                            break;
+
+                        case DropPosition.On:
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                            targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, true);
+                            break;
+                    }
 
                     e.Effects = DragDropEffects.Move;
                     e.Handled = true;
@@ -310,6 +340,7 @@ namespace SteveCadwallader.CodeMaid.Spade
             {
                 targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
                 targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                targetTreeViewItem.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
             }
         }
 
@@ -331,13 +362,19 @@ namespace SteveCadwallader.CodeMaid.Spade
             var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
             if (codeItemToMove == null) return;
 
-            if (IsDropOnTopHalfOfTarget(e, treeViewItem))
+            switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
-                CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
-            }
-            else
-            {
-                CodeReorderHelper.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                case DropPosition.Above:
+                    CodeReorderHelper.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    break;
+
+                case DropPosition.Below:
+                    CodeReorderHelper.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    break;
+
+                case DropPosition.On:
+                    CodeReorderHelper.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    break;
             }
 
             Refresh();
@@ -361,6 +398,31 @@ namespace SteveCadwallader.CodeMaid.Spade
             var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
 
             return treeViewItem;
+        }
+
+        /// <summary>
+        /// Determines the drop position for the specified drag event and the drop target.
+        /// </summary>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="targetItem">The target item.</param>
+        /// <param name="targetElement">The target element.</param>
+        /// <returns>The drop position.</returns>
+        private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, FrameworkElement targetElement)
+        {
+            var dropPoint = e.GetPosition(targetElement);
+            bool canDropOn = targetItem is ICodeItemParent;
+
+            if (canDropOn)
+            {
+                bool isTopThird = dropPoint.Y <= targetElement.ActualHeight / 3;
+                bool isBottomThird = dropPoint.Y > targetElement.ActualHeight * 2 / 3;
+
+                return isTopThird ? DropPosition.Above : (isBottomThird ? DropPosition.Below : DropPosition.On);
+            }
+
+            bool isTopHalf = dropPoint.Y <= targetElement.ActualHeight / 2;
+
+            return isTopHalf ? DropPosition.Above : DropPosition.Below;
         }
 
         /// <summary>
@@ -402,19 +464,6 @@ namespace SteveCadwallader.CodeMaid.Spade
 
             return itemAsParent.Children.Contains(baseItem) ||
                    itemAsParent.Children.Any(x => IsItemAncestorOfBase(x, baseItem));
-        }
-
-        /// <summary>
-        /// Determines whether the drag event occurs in the top half of the specified target.
-        /// </summary>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
-        /// <param name="target">The target.</param>
-        /// <returns>True if drag event occurs in the top half of the specified target, otherwise false.</returns>
-        private static bool IsDropOnTopHalfOfTarget(DragEventArgs e, FrameworkElement target)
-        {
-            var dropPoint = e.GetPosition(target);
-
-            return dropPoint.Y <= target.ActualHeight / 2;
         }
 
         /// <summary>
