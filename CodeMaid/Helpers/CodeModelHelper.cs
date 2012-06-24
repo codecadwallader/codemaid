@@ -314,6 +314,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 eolCursor.EndOfLine();
                 string regionText = cursor.GetText(eolCursor);
 
+                // Move the cursor back to the start of the line.
+                cursor.StartOfLine();
+
                 if (regionText.StartsWith("#region ")) // Space required by compiler.
                 {
                     // Get the region name.
@@ -333,7 +336,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     if (regionStack.Count > 0)
                     {
                         CodeItemRegion region = regionStack.Pop();
-                        region.EndLine = cursor.Line;
+                        region.EndLine = eolCursor.Line;
                         region.EndOffset = eolCursor.AbsoluteCharOffset;
                         region.EndPoint = eolCursor.CreateEditPoint();
 
@@ -346,7 +349,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     }
                 }
 
-                // Move the cursor to the end of the line to continue forwards.
+                // Move the cursor to the end of the line to continue searching.
                 cursor.EndOfLine();
             }
         }
