@@ -331,6 +331,12 @@ namespace SteveCadwallader.CodeMaid
                 SolutionEventListener = new SolutionEventListener(this);
                 SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
 
+                // Check if a solution has already been opened before CodeMaid was initialized.
+                if (IDE.Solution != null && IDE.Solution.IsOpen)
+                {
+                    collapseAllSolutionExplorerCommand.OnSolutionOpened();
+                }
+
                 WindowEventListener = new WindowEventListener(this);
                 WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
             }
