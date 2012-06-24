@@ -910,5 +910,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Digging_SecondarySortTypeByName {
+            get {
+                return ((bool)(this["Digging_SecondarySortTypeByName"]));
+            }
+            set {
+                this["Digging_SecondarySortTypeByName"] = value;
+            }
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
             CenterOnWhole = Settings.Default.Digging_CenterOnWhole;
             ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
             ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
+            SecondarySortTypeByName = Settings.Default.Digging_SecondarySortTypeByName;
             ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
             ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
             ShowMethodParameters = Settings.Default.Digging_ShowMethodParameters;
@@ -51,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
             Settings.Default.Digging_CenterOnWhole = CenterOnWhole;
             Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
             Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
+            Settings.Default.Digging_SecondarySortTypeByName = SecondarySortTypeByName;
             Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
             Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
             Settings.Default.Digging_ShowMethodParameters = ShowMethodParameters;
@@ -110,6 +112,24 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
                 {
                     _complexityWarningThreshold = value;
                     NotifyPropertyChanged("ComplexityWarningThreshold");
+                }
+            }
+        }
+
+        private bool _secondarySortTypeByName;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if secondary sorting during type layout should be on name.
+        /// </summary>
+        public bool SecondarySortTypeByName
+        {
+            get { return _secondarySortTypeByName; }
+            set
+            {
+                if (_secondarySortTypeByName != value)
+                {
+                    _secondarySortTypeByName = value;
+                    NotifyPropertyChanged("SecondarySortTypeByName");
                 }
             }
         }

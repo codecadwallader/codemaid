@@ -4,14 +4,6 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.Converters">
     <DataTemplate DataType="{x:Type local:DiggingViewModel}">
         <StackPanel>
-            <GroupBox Header="Navigation">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="When navigating center on" VerticalAlignment="Center" />
-                    <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" />
-                    <RadioButton Content="name only" IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
-                </StackPanel>
-            </GroupBox>
-
             <GroupBox Header="Display">
                 <StackPanel>
                     <CheckBox Content="Show method parameters" IsChecked="{Binding ShowMethodParameters}" />
@@ -33,6 +25,22 @@
                         <TextBlock Grid.Row="1" Text="Alert threshold" VerticalAlignment="Center" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Layout">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="When sorting by type, secondary sort should be" VerticalAlignment="Center" />
+                    <RadioButton Content="by file order" IsChecked="{Binding SecondarySortTypeByName, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
+                    <RadioButton Content="alphabetically" IsChecked="{Binding SecondarySortTypeByName}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Navigation">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="When navigating center on" VerticalAlignment="Center" />
+                    <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" />
+                    <RadioButton Content="name only" IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

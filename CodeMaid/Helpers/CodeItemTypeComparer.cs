@@ -14,6 +14,7 @@
 using System.Collections.Generic;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -39,6 +40,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (first == second)
             {
+                // Check if secondary sort by name should occur.
+                if (Settings.Default.Digging_SecondarySortTypeByName)
+                {
+                    int nameComparison = x.Name.CompareTo(y.Name);
+                    if (nameComparison != 0)
+                    {
+                        return nameComparison;
+                    }
+                }
+
                 // Fall back to position comparison for matching elements.
                 return x.StartOffset.CompareTo(y.StartOffset);
             }
