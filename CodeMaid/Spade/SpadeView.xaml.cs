@@ -118,7 +118,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <returns>The coerced value.</returns>
         private static object OnCoerceScaleFactor(DependencyObject obj, object basevalue)
         {
-            double value = (double)basevalue;
+            var value = (double)basevalue;
 
             value = Math.Max(0.2, value);
             value = Math.Min(5.0, value);
@@ -407,20 +407,22 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="targetItem">The target item.</param>
         /// <param name="targetElement">The target element.</param>
         /// <returns>The drop position.</returns>
-        private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, FrameworkElement targetElement)
+        private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, TreeViewItem targetElement)
         {
+            var header = targetElement.Template.FindName("PART_HeaderBorder", targetElement) as FrameworkElement;
+            var targetHeight = header != null ? header.ActualHeight : targetElement.ActualHeight;
             var dropPoint = e.GetPosition(targetElement);
             bool canDropOn = targetItem is ICodeItemParent;
 
             if (canDropOn)
             {
-                bool isTopThird = dropPoint.Y <= targetElement.ActualHeight / 3;
-                bool isBottomThird = dropPoint.Y > targetElement.ActualHeight * 2 / 3;
+                bool isTopThird = dropPoint.Y <= targetHeight / 3;
+                bool isBottomThird = dropPoint.Y > targetHeight * 2 / 3;
 
                 return isTopThird ? DropPosition.Above : (isBottomThird ? DropPosition.Below : DropPosition.On);
             }
 
-            bool isTopHalf = dropPoint.Y <= targetElement.ActualHeight / 2;
+            bool isTopHalf = dropPoint.Y <= targetHeight / 2;
 
             return isTopHalf ? DropPosition.Above : DropPosition.Below;
         }

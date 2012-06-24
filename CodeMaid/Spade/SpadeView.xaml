@@ -55,7 +55,7 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <Border x:Name="headerBorder" Grid.ColumnSpan="2" AllowDrop="True"
+                                    <Border x:Name="PART_HeaderBorder" Grid.ColumnSpan="2" AllowDrop="True"
                                             Background="{TemplateBinding Background}" BorderBrush="White"
                                             BorderThickness="0,0,0,2" Cursor="Hand"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
@@ -100,7 +100,7 @@
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
                                 </Trigger>
-                                <Trigger SourceName="headerBorder" Property="IsMouseOver" Value="True">
+                                <Trigger SourceName="PART_HeaderBorder" Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
                                     <Setter Property="Cursor" Value="Hand" />
                                 </Trigger>
