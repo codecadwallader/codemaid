@@ -295,9 +295,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="document">The document to walk.</param>
         private static void RetrieveCodeRegions(SetCodeItems codeItems, Document document)
         {
-            TextDocument textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = (TextDocument)document.Object("TextDocument");
 
-            Stack<CodeItemRegion> regionStack = new Stack<CodeItemRegion>(); // Nested working hierarchy.
+            var regionStack = new Stack<CodeItemRegion>();                   // Nested working hierarchy.
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
             TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
             string pattern = UsePOSIXRegEx(document) ? @"^:b*\#" : @"^[ \t]*#";
@@ -306,26 +306,36 @@ namespace SteveCadwallader.CodeMaid.Helpers
             while (cursor != null &&
                    cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
             {
+                // Move the cursor back one character to pick up the '#' symbol.
+                cursor.CharLeft(1);
+
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
                 eolCursor.EndOfLine();
                 string regionText = cursor.GetText(eolCursor);
 
-                if (regionText.StartsWith("region ")) // Space required by compiler.
+                if (regionText.StartsWith("#region ")) // Space required by compiler.
                 {
                     // Get the region name.
-                    string regionName = regionText.Substring(7).Trim();
+                    string regionName = regionText.Substring(8).Trim();
 
                     // Push the parsed region info onto the top of the stack.
-                    regionStack.Push(new CodeItemRegion { Name = regionName, StartLine = cursor.Line, StartOffset = cursor.AbsoluteCharOffset - 1 });
+                    regionStack.Push(new CodeItemRegion
+                                         {
+                                             Name = regionName,
+                                             StartLine = cursor.Line,
+                                             StartOffset = cursor.AbsoluteCharOffset,
+                                             StartPoint = cursor.CreateEditPoint()
+                                         });
                 }
-                else if (regionText.StartsWith("endregion"))
+                else if (regionText.StartsWith("#endregion"))
                 {
                     if (regionStack.Count > 0)
                     {
                         CodeItemRegion region = regionStack.Pop();
                         region.EndLine = cursor.Line;
                         region.EndOffset = eolCursor.AbsoluteCharOffset;
+                        region.EndPoint = eolCursor.CreateEditPoint();
 
                         codeItems.Add(region);
                     }
@@ -336,6 +346,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     }
                 }
 
+                // Move the cursor to the end of the line to continue forwards.
                 cursor.EndOfLine();
             }
         }

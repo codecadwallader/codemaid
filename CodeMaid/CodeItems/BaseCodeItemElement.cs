@@ -22,17 +22,12 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public abstract class BaseCodeItemElement : BaseCodeItem
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the code element, may be null.
-        /// </summary>
-        public CodeElement CodeElement { get; set; }
+        #region BaseCodeItem Overrides
 
         /// <summary>
         /// Gets the start point adjusted for leading comments, may be null.
         /// </summary>
-        public EditPoint StartPoint
+        public override EditPoint StartPoint
         {
             get { return CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.StartPoint) : null; }
         }
@@ -40,10 +35,31 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// <summary>
         /// Gets the end point, may be null.
         /// </summary>
-        public EditPoint EndPoint
+        public override EditPoint EndPoint
         {
             get { return CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null; }
         }
+
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public override void Refresh()
+        {
+            StartLine = CodeElement.StartPoint.Line;
+            StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
+            EndLine = CodeElement.EndPoint.Line;
+            EndOffset = CodeElement.EndPoint.AbsoluteCharOffset;
+            Name = CodeElement.Name;
+        }
+
+        #endregion BaseCodeItem Overrides
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the code element, may be null.
+        /// </summary>
+        public CodeElement CodeElement { get; set; }
 
         /// <summary>
         /// Gets the access level.

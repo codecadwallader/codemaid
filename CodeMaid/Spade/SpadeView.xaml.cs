@@ -15,7 +15,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
@@ -193,7 +192,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                         _isDoubleClick = true;
                         e.Handled = true;
                     }
-                    else if (treeViewItem.DataContext is BaseCodeItemElement)
+                    else if (treeViewItem.DataContext is BaseCodeItem)
                     {
                         _dragCandidate = treeViewItem;
                         _startPoint = e.GetPosition(null);
@@ -220,12 +219,12 @@ namespace SteveCadwallader.CodeMaid.Spade
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
 
-            var codeItem = _dragCandidate.DataContext as BaseCodeItemElement;
+            var codeItem = _dragCandidate.DataContext as BaseCodeItem;
             if (codeItem == null) return;
 
             _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
 
-            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(BaseCodeItemElement), codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(BaseCodeItem), codeItem), DragDropEffects.Move);
 
             _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
 
@@ -274,10 +273,10 @@ namespace SteveCadwallader.CodeMaid.Spade
             var targetTreeViewItem = FindParentTreeViewItem(sender);
 
             if (targetTreeViewItem != null &&
-                e.Data.GetDataPresent(typeof(BaseCodeItemElement)))
+                e.Data.GetDataPresent(typeof(BaseCodeItem)))
             {
-                var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItemElement;
-                var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
+                var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItem;
+                var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
 
                 if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !codeItemToMove.IsAncestorOf(baseCodeItem))
                 {
@@ -320,15 +319,15 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof(BaseCodeItemElement))) return;
+            if (!e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
             if (treeViewItem == null || e.Source == treeViewItem) return;
 
-            var baseCodeItem = treeViewItem.DataContext as BaseCodeItemElement;
+            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
             if (baseCodeItem == null) return;
 
-            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItemElement)) as BaseCodeItemElement;
+            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
             if (codeItemToMove == null) return;
 
             if (IsDropOnTopHalfOfTarget(e, treeViewItem))

@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal void MoveItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        internal void MoveItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             UndoTransactionHelper.Run(() => RepositionItemAboveBase(itemToMove, baseItem));
         }
@@ -101,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        internal void MoveItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        internal void MoveItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             UndoTransactionHelper.Run(() => RepositionItemBelowBase(itemToMove, baseItem));
         }
@@ -168,7 +168,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
 
             // Refresh them to make sure all positions are updated.
-            codeItemElements.ForEach(FactoryCodeItems.RefreshCodeItemElement);
+            codeItemElements.ForEach(x => x.Refresh());
 
             // Pull out the first item in a set if there are items sharing a definition (ex: fields).
             codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).ToList();
@@ -180,9 +180,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets the text and removes the specified item.
         /// </summary>
         /// <param name="itemToRemove">The item to remove.</param>
-        private static string GetTextAndRemoveItem(BaseCodeItemElement itemToRemove)
+        private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove)
         {
-            FactoryCodeItems.RefreshCodeItemElement(itemToRemove);
+            itemToRemove.Refresh();
             var removeStartPoint = itemToRemove.StartPoint;
             var removeEndPoint = itemToRemove.EndPoint;
 
@@ -200,7 +200,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="firstItem">The first item.</param>
         /// <param name="secondItem">The second item.</param>
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
-        private bool ShouldBeSeparatedByNewLine(BaseCodeItemElement firstItem, BaseCodeItemElement secondItem)
+        private bool ShouldBeSeparatedByNewLine(BaseCodeItem firstItem, BaseCodeItem secondItem)
         {
             return BlankLinePaddingHelper.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
                    BlankLinePaddingHelper.ShouldInstanceBePrecededByBlankLine(secondItem);
@@ -233,14 +233,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        private void RepositionItemAboveBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        private void RepositionItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
             var text = GetTextAndRemoveItem(itemToMove);
 
-            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            baseItem.Refresh();
             var baseStartPoint = baseItem.StartPoint;
             var pastePoint = baseStartPoint.CreateEditPoint();
 
@@ -260,14 +260,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="itemToMove">The item to move.</param>
         /// <param name="baseItem">The base item.</param>
-        private void RepositionItemBelowBase(BaseCodeItemElement itemToMove, BaseCodeItemElement baseItem)
+        private void RepositionItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
             var text = GetTextAndRemoveItem(itemToMove);
 
-            FactoryCodeItems.RefreshCodeItemElement(baseItem);
+            baseItem.Refresh();
             var baseEndPoint = baseItem.EndPoint;
             var pastePoint = baseEndPoint.CreateEditPoint();
 

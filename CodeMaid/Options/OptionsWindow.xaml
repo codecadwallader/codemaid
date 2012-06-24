@@ -87,7 +87,7 @@
                             <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Margin" Value="5" />
                             </Style>
-                            
+
                             <Style x:Key="TextBoxMultiLine" TargetType="{x:Type TextBox}">
                                 <Setter Property="AcceptsReturn" Value="True" />
                                 <Setter Property="Height" Value="125" />

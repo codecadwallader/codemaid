@@ -13,6 +13,7 @@
 
 using System.Diagnostics;
 using System.Linq;
+using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -63,6 +64,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public int StartOffset { get; set; }
 
         /// <summary>
+        /// Gets or sets the start point, may be null.
+        /// </summary>
+        public virtual EditPoint StartPoint { get; set; }
+
+        /// <summary>
         /// Gets or sets the end line.
         /// </summary>
         public int EndLine { get; set; }
@@ -71,6 +77,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets or sets the end offset.
         /// </summary>
         public int EndOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the end point, may be null.
+        /// </summary>
+        public virtual EditPoint EndPoint { get; set; }
 
         #endregion Properties
 
@@ -84,6 +95,17 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public bool IsAncestorOf(BaseCodeItem item)
         {
             return Children.Contains(item) || Children.Any(x => x.IsAncestorOf(item));
+        }
+
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public virtual void Refresh()
+        {
+            StartLine = StartPoint.Line;
+            StartOffset = StartPoint.AbsoluteCharOffset;
+            EndLine = EndPoint.Line;
+            EndOffset = EndPoint.AbsoluteCharOffset;
         }
 
         #endregion Methods

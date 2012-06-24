@@ -28,6 +28,20 @@ namespace SteveCadwallader.CodeMaid.CodeItems
             get { return KindCodeItem.Using; }
         }
 
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        /// <remarks>
+        /// Similar to BaseCodeItemElement's implementation, except ignores the Name property which is not available for using statements.
+        /// </remarks>
+        public override void Refresh()
+        {
+            StartLine = CodeElement.StartPoint.Line;
+            StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
+            EndLine = CodeElement.EndPoint.Line;
+            EndOffset = CodeElement.EndPoint.AbsoluteCharOffset;
+        }
+
         #endregion BaseCodeItem Overrides
 
         #region BaseCodeItemElement Overrides

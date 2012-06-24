@@ -84,36 +84,9 @@ namespace SteveCadwallader.CodeMaid.CodeItems
 
             // Populate the common fields.
             codeItem.CodeElement = codeElement;
-            RefreshCodeItemElement(codeItem);
+            codeItem.Refresh();
 
             return codeItem;
-        }
-
-        /// <summary>
-        /// Refreshes the common fields on the specified code item from its internal code element.
-        /// </summary>
-        /// <param name="codeItem">The code item to populate.</param>
-        public static void RefreshCodeItemElement(BaseCodeItemElement codeItem)
-        {
-            codeItem.StartLine = codeItem.CodeElement.StartPoint.Line;
-            codeItem.StartOffset = codeItem.CodeElement.StartPoint.AbsoluteCharOffset;
-            codeItem.EndLine = codeItem.CodeElement.EndPoint.Line;
-            codeItem.EndOffset = codeItem.CodeElement.EndPoint.AbsoluteCharOffset;
-
-            if (!IsNameless(codeItem))
-            {
-                codeItem.Name = codeItem.CodeElement.Name;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified code item is nameless.
-        /// </summary>
-        /// <param name="codeItem">The code item.</param>
-        /// <returns>True if the specified code item has no name, otherwise false.</returns>
-        private static bool IsNameless(BaseCodeItemElement codeItem)
-        {
-            return codeItem is CodeItemUsingStatement;
         }
     }
 }

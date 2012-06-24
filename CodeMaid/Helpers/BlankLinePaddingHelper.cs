@@ -61,9 +61,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>True if code item should be preceded by a blank line, otherwise false.</returns>
-        internal bool ShouldInstanceBePrecededByBlankLine(BaseCodeItemElement codeItem)
+        internal bool ShouldInstanceBePrecededByBlankLine(BaseCodeItem codeItem)
         {
-            if (codeItem == null || codeItem.CodeElement == null)
+            if (codeItem == null)
             {
                 return false;
             }
@@ -89,9 +89,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>True if code item should be followed by a blank line, otherwise false.</returns>
-        internal bool ShouldInstanceBeFollowedByBlankLine(BaseCodeItemElement codeItem)
+        internal bool ShouldInstanceBeFollowedByBlankLine(BaseCodeItem codeItem)
         {
-            if (codeItem == null || codeItem.CodeElement == null)
+            if (codeItem == null)
             {
                 return false;
             }
@@ -151,6 +151,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case KindCodeItem.Property:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
 
+                case KindCodeItem.Region:
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
+
                 case KindCodeItem.Struct:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
 
@@ -201,6 +204,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 case KindCodeItem.Property:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties;
+
+                case KindCodeItem.Region:
+                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags;
 
                 case KindCodeItem.Struct:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;

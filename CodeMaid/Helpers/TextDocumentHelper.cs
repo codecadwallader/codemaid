@@ -136,28 +136,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 object viewRangeEnd = null;
                 TextPoint navigatePoint = null;
 
+                codeItem.Refresh();
+                textDocument.Selection.MoveToPoint(codeItem.StartPoint, false);
+
+                if (centerOnWhole)
+                {
+                    viewRangeEnd = codeItem.EndPoint;
+                }
+
                 var codeItemElement = codeItem as BaseCodeItemElement;
                 if (codeItemElement != null)
                 {
-                    FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
-
-                    textDocument.Selection.MoveToPoint(codeItemElement.StartPoint, false);
-
-                    if (centerOnWhole)
-                    {
-                        viewRangeEnd = codeItemElement.EndPoint;
-                    }
-
                     navigatePoint = codeItemElement.CodeElement.GetStartPoint(vsCMPart.vsCMPartNavigate);
-                }
-                else
-                {
-                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.StartOffset, false);
-
-                    if (centerOnWhole)
-                    {
-                        viewRangeEnd = codeItem.EndOffset - codeItem.StartOffset;
-                    }
                 }
 
                 textDocument.Selection.AnchorPoint.TryToShow(vsPaneShowHow.vsPaneShowCentered, viewRangeEnd);
@@ -195,19 +185,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             try
             {
-                var codeItemElement = codeItem as BaseCodeItemElement;
-                if (codeItemElement != null)
-                {
-                    FactoryCodeItems.RefreshCodeItemElement(codeItemElement);
-
-                    textDocument.Selection.MoveToPoint(codeItemElement.StartPoint, false);
-                    textDocument.Selection.MoveToPoint(codeItemElement.EndPoint, true);
-                }
-                else
-                {
-                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.StartOffset, false);
-                    textDocument.Selection.MoveToAbsoluteOffset(codeItem.EndOffset, true);
-                }
+                codeItem.Refresh();
+                textDocument.Selection.MoveToPoint(codeItem.StartPoint, false);
+                textDocument.Selection.MoveToPoint(codeItem.EndPoint, true);
 
                 textDocument.Selection.SwapAnchor();
             }
