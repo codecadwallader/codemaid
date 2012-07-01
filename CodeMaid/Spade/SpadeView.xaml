@@ -36,6 +36,7 @@
             </ToolTip>
 
             <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemContainerStyle}">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
                 <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />

@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.BuildProgress;
@@ -79,6 +80,14 @@ namespace SteveCadwallader.CodeMaid
                 return _buildProgress ??
                     (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
             }
+        }
+
+        /// <summary>
+        /// Gets the IComponentModel service.
+        /// </summary>
+        public IComponentModel IComponentModel
+        {
+            get { return _iComponentModel ?? (_iComponentModel = GetGlobalService(typeof(SComponentModel)) as IComponentModel); }
         }
 
         /// <summary>
@@ -394,6 +403,11 @@ namespace SteveCadwallader.CodeMaid
         /// An internal collection of the commands registered by this package.
         /// </summary>
         private readonly ICollection<BaseCommand> _commands = new List<BaseCommand>();
+
+        /// <summary>
+        /// The IComponentModel service.
+        /// </summary>
+        private IComponentModel _iComponentModel;
 
         /// <summary>
         /// The top level application instance of the VS IDE that is executing this package.

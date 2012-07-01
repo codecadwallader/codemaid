@@ -29,5 +29,10 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         /// Gets the insert point, may be null.
         /// </summary>
         EditPoint InsertPoint { get; }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if this parent item is expanded.
+        /// </summary>
+        bool IsExpanded { get; set; }
     }
 }

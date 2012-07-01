@@ -20,6 +20,12 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public class CodeItemRegion : BaseCodeItem, ICodeItemParent
     {
+        #region Fields
+
+        private bool _isExpanded = true;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -67,6 +73,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
                 }
 
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if this parent item is expanded.
+        /// </summary>
+        public bool IsExpanded
+        {
+            get { return _isExpanded; }
+            set
+            {
+                if (_isExpanded != value)
+                {
+                    _isExpanded = value;
+                    NotifyPropertyChanged("IsExpanded");
+                }
             }
         }
 

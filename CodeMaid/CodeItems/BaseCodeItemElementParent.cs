@@ -20,6 +20,12 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public abstract class BaseCodeItemElementParent : BaseCodeItemElement, ICodeItemParent
     {
+        #region Fields
+
+        private bool _isExpanded = true;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -45,6 +51,22 @@ namespace SteveCadwallader.CodeMaid.CodeItems
         public EditPoint InsertPoint
         {
             get { return CodeElement != null ? CodeElement.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() : null; }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if this parent item is expanded.
+        /// </summary>
+        public bool IsExpanded
+        {
+            get { return _isExpanded; }
+            set
+            {
+                if (_isExpanded != value)
+                {
+                    _isExpanded = value;
+                    NotifyPropertyChanged("IsExpanded");
+                }
+            }
         }
 
         #endregion Implementation of ICodeItemParent

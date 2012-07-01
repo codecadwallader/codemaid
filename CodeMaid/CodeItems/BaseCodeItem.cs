@@ -13,6 +13,7 @@
 
 using System.Diagnostics;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
 {
@@ -21,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
     [DebuggerDisplay("{GetType().Name,nq}: {Name}")]
-    public abstract class BaseCodeItem : ICodeItem
+    public abstract class BaseCodeItem : ViewModelBase, ICodeItem
     {
         #region Properties
 
