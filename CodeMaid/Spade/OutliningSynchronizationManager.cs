@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Editor;
@@ -38,6 +39,10 @@ namespace SteveCadwallader.CodeMaid.Spade
         private ServiceProvider _serviceProvider;
 
         private Document _document;
+        private IOutliningManager _outliningManager;
+        private IWpfTextView _wpfTextView;
+
+        private IEnumerable<ICodeItemParent> _codeItemParents;
 
         #endregion Fields
 
@@ -53,25 +58,25 @@ namespace SteveCadwallader.CodeMaid.Spade
             {
                 if (_document != value)
                 {
-                    if (_document != null)
+                    if (_document != null && _outliningManager != null)
                     {
-                        UnregisterForDocumentOutliningEvents(_document);
+                        // Unregister from outlining events on the previous document.
+                        _outliningManager.RegionsCollapsed -= OnCodeRegionsCollapsed;
+                        _outliningManager.RegionsExpanded -= OnCodeRegionsExpanded;
                     }
 
                     _document = value;
+                    _outliningManager = GetOutliningManager(_document);
 
-                    if (_document != null)
+                    if (_document != null && _outliningManager != null)
                     {
-                        RegisterForDocumentOutliningEvents(_document);
+                        // Register for outlining events on the new document.
+                        _outliningManager.RegionsCollapsed += OnCodeRegionsCollapsed;
+                        _outliningManager.RegionsExpanded += OnCodeRegionsExpanded;
                     }
                 }
             }
         }
-
-        /// <summary>
-        /// Gets or sets the organized code items.
-        /// </summary>
-        public SetCodeItems OrganizedCodeItems { get; set; }
 
         /// <summary>
         /// Gets or sets the hosting package.
@@ -87,6 +92,7 @@ namespace SteveCadwallader.CodeMaid.Spade
 
                     if (_package != null)
                     {
+                        // Retrieve services needed for outlining from the package.
                         _editorAdaptersFactoryService = _package.IComponentModel.GetService<IVsEditorAdaptersFactoryService>();
                         _outliningManagerService = _package.IComponentModel.GetService<IOutliningManagerService>();
                         _serviceProvider = new ServiceProvider((IServiceProvider)_package.IDE);
@@ -97,34 +103,151 @@ namespace SteveCadwallader.CodeMaid.Spade
 
         #endregion Properties
 
-        #region Methods
+        #region Public Methods
 
         /// <summary>
-        /// Registers for document outlining events on the specified document.
+        /// Updates the code items whose outlining is being synchronized by this manager.
         /// </summary>
-        /// <param name="document">The document.</param>
-        private void RegisterForDocumentOutliningEvents(Document document)
+        /// <param name="codeItems">The code items.</param>
+        public void UpdateCodeItems(SetCodeItems codeItems)
         {
-            var outliningManager = GetOutliningManager(document);
-            if (outliningManager != null)
+            // Unregister from events for any old code item parents.
+            foreach (var oldCodeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
             {
-                outliningManager.RegionsCollapsed += OnRegionsCollapsed;
-                outliningManager.RegionsExpanded += OnRegionsExpanded;
+                oldCodeItemParent.IsExpandedChanged -= OnCodeItemParentIsExpandedChanged;
+            }
+
+            // Retrieve and cache an updated list of code item parents.
+            _codeItemParents = RecursivelyGetAllCodeItemParents(codeItems);
+
+            // Synchronize the code item parents states from the code state and register for events.
+            foreach (var codeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
+            {
+                var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
+                if (iCollapsible != null)
+                {
+                    codeItemParent.IsExpanded = !iCollapsible.IsCollapsed;
+                }
+
+                // Register for expansion changes on the code item parent.
+                codeItemParent.IsExpandedChanged += OnCodeItemParentIsExpandedChanged;
+            }
+        }
+
+        #endregion Public Methods
+
+        #region Event Handlers
+
+        /// <summary>
+        /// An event handler raised when a code item parent's expanded state has changed.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="eventArgs">The event arguments.</param>
+        private void OnCodeItemParentIsExpandedChanged(object sender, EventArgs eventArgs)
+        {
+            var codeItemParent = sender as ICodeItemParent;
+            if (codeItemParent != null)
+            {
+                var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
+                if (iCollapsible != null)
+                {
+                    if (codeItemParent.IsExpanded && iCollapsible.IsCollapsed)
+                    {
+                        _outliningManager.Expand(iCollapsible as ICollapsed);
+                    }
+                    else if (!codeItemParent.IsExpanded && !iCollapsible.IsCollapsed)
+                    {
+                        _outliningManager.TryCollapse(iCollapsible);
+                    }
+                }
             }
         }
 
         /// <summary>
-        /// Unregisters for document outlining events on the specified document.
+        /// An event handler raised when code region(s) have been collapsed.
         /// </summary>
-        /// <param name="document">The document.</param>
-        private void UnregisterForDocumentOutliningEvents(Document document)
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnCodeRegionsCollapsed(object sender, RegionsCollapsedEventArgs e)
         {
-            var outliningManager = GetOutliningManager(document);
-            if (outliningManager != null)
+            foreach (var collapsedRegion in e.CollapsedRegions)
             {
-                outliningManager.RegionsCollapsed -= OnRegionsCollapsed;
-                outliningManager.RegionsExpanded -= OnRegionsExpanded;
+                var codeItemParent = FindCodeItemParentFromCollapsible(collapsedRegion);
+                if (codeItemParent != null)
+                {
+                    codeItemParent.IsExpanded = false;
+                }
             }
+        }
+
+        /// <summary>
+        /// An event handler raised when code region(s) have been expanded.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnCodeRegionsExpanded(object sender, RegionsExpandedEventArgs e)
+        {
+            foreach (var expandedRegion in e.ExpandedRegions)
+            {
+                var codeItemParent = FindCodeItemParentFromCollapsible(expandedRegion);
+                if (codeItemParent != null)
+                {
+                    codeItemParent.IsExpanded = true;
+                }
+            }
+        }
+
+        #endregion Event Handlers
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Attempts to find a <see cref="ICodeItemParent"/> associated with the specified <see cref="ICollapsible"/>.
+        /// </summary>
+        /// <param name="collapsible">The collapsible region.</param>
+        /// <returns>The <see cref="ICodeItemParent"/> on the same starting line, otherwise null.</returns>
+        private ICodeItemParent FindCodeItemParentFromCollapsible(ICollapsible collapsible)
+        {
+            var startLine = GetStartLineForCollapsible(collapsible);
+
+            return _codeItemParents.FirstOrDefault(x => x.StartLine == startLine);
+        }
+
+        /// <summary>
+        /// Attempts to find a <see cref="ICollapsible"/> associated with the specified <see cref="ICodeItemParent"/>.
+        /// </summary>
+        /// <param name="parent">The code item parent.</param>
+        /// <returns>The <see cref="ICollapsible"/> on the same starting line, otherwise null.</returns>
+        private ICollapsible FindCollapsibleFromCodeItemParent(ICodeItemParent parent)
+        {
+            if (_outliningManager == null || _wpfTextView == null)
+            {
+                return null;
+            }
+
+            var snapshotLine = _wpfTextView.TextBuffer.CurrentSnapshot.GetLineFromLineNumber(parent.StartLine);
+            var collapsibles = _outliningManager.GetAllRegions(snapshotLine.Extent);
+
+            return (from collapsible in collapsibles
+                    let startLine = GetStartLineForCollapsible(collapsible)
+                    where startLine == parent.StartLine
+                    select collapsible).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the start line for the specified collapsible.
+        /// </summary>
+        /// <remarks>
+        /// The +1 offset is to accomdate for the 0-based code indexing vs. 1-based code item indexing.
+        /// </remarks>
+        /// <param name="collapsible">The collapsible region.</param>
+        /// <returns>The starting line.</returns>
+        private static int GetStartLineForCollapsible(ICollapsible collapsible)
+        {
+            var startPoint = collapsible.Extent.GetStartPoint(collapsible.Extent.TextBuffer.CurrentSnapshot);
+            var line = startPoint.Snapshot.GetLineNumberFromPosition(startPoint.Position) + 1;
+
+            return line;
         }
 
         /// <summary>
@@ -134,10 +257,10 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <returns>The associated outlining manager, otherwise null.</returns>
         private IOutliningManager GetOutliningManager(Document document)
         {
-            var wpfTextView = GetWpfTextView(document);
-            if (wpfTextView != null && _outliningManagerService != null)
+            _wpfTextView = GetWpfTextView(document);
+            if (_wpfTextView != null && _outliningManagerService != null)
             {
-                return _outliningManagerService.GetOutliningManager(wpfTextView);
+                return _outliningManagerService.GetOutliningManager(_wpfTextView);
             }
 
             return null;
@@ -184,82 +307,17 @@ namespace SteveCadwallader.CodeMaid.Spade
         }
 
         /// <summary>
-        /// An event handler raised when region(s) have been collapsed.
-        /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event arguments.</param>
-        private void OnRegionsCollapsed(object sender, RegionsCollapsedEventArgs e)
-        {
-            foreach (var collapsedRegion in e.CollapsedRegions)
-            {
-                var codeItemParent = FindCodeItemParent(collapsedRegion);
-                if (codeItemParent != null)
-                {
-                    codeItemParent.IsExpanded = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// An event handler raised when region(s) have been expanded.
-        /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event arguments.</param>
-        private void OnRegionsExpanded(object sender, RegionsExpandedEventArgs e)
-        {
-            foreach (var expandedRegion in e.ExpandedRegions)
-            {
-                var codeItemParent = FindCodeItemParent(expandedRegion);
-                if (codeItemParent != null)
-                {
-                    codeItemParent.IsExpanded = true;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Attempts to find a <see cref="ICodeItemParent"/> associated with the specified <see cref="ICollapsible"/>.
-        /// </summary>
-        /// <param name="collapsible">The collapsible region.</param>
-        /// <returns>The <see cref="ICodeItemParent"/> on the same starting line, otherwise null.</returns>
-        private ICodeItemParent FindCodeItemParent(ICollapsible collapsible)
-        {
-            var startPoint = collapsible.Extent.GetStartPoint(collapsible.Extent.TextBuffer.CurrentSnapshot);
-            var line = startPoint.Snapshot.GetLineNumberFromPosition(startPoint.Position) + 1; // +1 Offset for 0-based vs. 1-based line counts.
-
-            return RecursivelyFindCodeItemParentAtLine(OrganizedCodeItems, line);
-        }
-
-        /// <summary>
-        /// Recurively searches the specified code items for a <see cref="ICodeItemParent"/> at the specified line.
+        /// Recursively retrives all code item parents within the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        /// <param name="line">The line.</param>
-        /// <returns>The found <see cref="ICodeItemParent"/>, otherwise null.</returns>
-        private static ICodeItemParent RecursivelyFindCodeItemParentAtLine(SetCodeItems codeItems, int line)
+        /// <returns>The code item parents.</returns>
+        private static IEnumerable<ICodeItemParent> RecursivelyGetAllCodeItemParents(SetCodeItems codeItems)
         {
-            if (codeItems == null)
-            {
-                return null;
-            }
+            var parents = codeItems.OfType<ICodeItemParent>().ToList();
 
-            foreach (var codeItem in codeItems.OfType<ICodeItemParent>())
-            {
-                if (codeItem.StartLine == line)
-                {
-                    return codeItem;
-                }
-
-                var match = RecursivelyFindCodeItemParentAtLine(codeItem.Children, line);
-                if (match != null)
-                {
-                    return match;
-                }
-            }
-
-            return null;
+            return parents.Union(parents.SelectMany(x => RecursivelyGetAllCodeItemParents(x.Children)));
         }
 
-        #endregion Methods
+        #endregion Helper Methods
     }
 }

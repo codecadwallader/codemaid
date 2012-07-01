@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.CodeItems
@@ -20,6 +21,11 @@ namespace SteveCadwallader.CodeMaid.CodeItems
     /// </summary>
     public interface ICodeItemParent : ICodeItem
     {
+        /// <summary>
+        /// An event raised when the IsExpanded state has changed.
+        /// </summary>
+        event EventHandler IsExpandedChanged;
+
         /// <summary>
         /// Gets the children of this code item, may be empty.
         /// </summary>

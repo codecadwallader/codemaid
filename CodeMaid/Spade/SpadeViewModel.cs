@@ -144,7 +144,8 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_organizedCodeItems != value)
                 {
                     _organizedCodeItems = value;
-                    _outliningSynchronizationManager.OrganizedCodeItems = _organizedCodeItems;
+
+                    _outliningSynchronizationManager.UpdateCodeItems(_organizedCodeItems);
 
                     NotifyPropertyChanged("OrganizedCodeItems");
                 }
