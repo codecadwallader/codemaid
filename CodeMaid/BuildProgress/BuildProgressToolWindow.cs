@@ -13,7 +13,6 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using EnvDTE;
@@ -262,7 +261,25 @@ namespace SteveCadwallader.CodeMaid.BuildProgress
         /// </summary>
         private int GetNumberOfProjectsToBeBuilt()
         {
-            return Package.IDE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>().Count(context => context.ShouldBuild);
+            var solutionContexts = Package.IDE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts;
+            int count = 0;
+
+            for (int i = 0; i < solutionContexts.Count; i++)
+            {
+                try
+                {
+                    if (solutionContexts.Item(i + 1).ShouldBuild)
+                    {
+                        count++;
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    // This is a work-around for a known issue with the SolutionContexts.GetEnumerator with unloaded projects in VS2010.
+                }
+            }
+
+            return count;
         }
 
         #endregion Methods
