@@ -29,14 +29,14 @@ namespace SteveCadwallader.CodeMaid.Spade
     /// <summary>
     /// A manager class for controlling the synchronization of outlining states between the code document and Spade.
     /// </summary>
-    internal class OutliningSynchronizationManager
+    internal class OutliningSynchronizationManager : IDisposable
     {
         #region Fields
 
-        private CodeMaidPackage _package;
-        private IVsEditorAdaptersFactoryService _editorAdaptersFactoryService;
-        private IOutliningManagerService _outliningManagerService;
-        private ServiceProvider _serviceProvider;
+        private readonly CodeMaidPackage _package;
+        private readonly IVsEditorAdaptersFactoryService _editorAdaptersFactoryService;
+        private readonly IOutliningManagerService _outliningManagerService;
+        private readonly ServiceProvider _serviceProvider;
 
         private Document _document;
         private IOutliningManager _outliningManager;
@@ -45,6 +45,24 @@ namespace SteveCadwallader.CodeMaid.Spade
         private IEnumerable<ICodeItemParent> _codeItemParents;
 
         #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OutliningSynchronizationManager"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        public OutliningSynchronizationManager(CodeMaidPackage package)
+        {
+            _package = package;
+
+            // Retrieve services needed for outlining from the package.
+            _editorAdaptersFactoryService = _package.IComponentModel.GetService<IVsEditorAdaptersFactoryService>();
+            _outliningManagerService = _package.IComponentModel.GetService<IOutliningManagerService>();
+            _serviceProvider = new ServiceProvider((IServiceProvider)_package.IDE);
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -78,29 +96,6 @@ namespace SteveCadwallader.CodeMaid.Spade
             }
         }
 
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        public CodeMaidPackage Package
-        {
-            get { return _package; }
-            set
-            {
-                if (_package != value)
-                {
-                    _package = value;
-
-                    if (_package != null)
-                    {
-                        // Retrieve services needed for outlining from the package.
-                        _editorAdaptersFactoryService = _package.IComponentModel.GetService<IVsEditorAdaptersFactoryService>();
-                        _outliningManagerService = _package.IComponentModel.GetService<IOutliningManagerService>();
-                        _serviceProvider = new ServiceProvider((IServiceProvider)_package.IDE);
-                    }
-                }
-            }
-        }
-
         #endregion Properties
 
         #region Public Methods
@@ -111,27 +106,12 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <param name="codeItems">The code items.</param>
         public void UpdateCodeItems(SetCodeItems codeItems)
         {
-            // Unregister from events for any old code item parents.
-            foreach (var oldCodeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
-            {
-                oldCodeItemParent.IsExpandedChanged -= OnCodeItemParentIsExpandedChanged;
-            }
+            TearDownCodeItemParents();
 
             // Retrieve and cache an updated list of code item parents.
             _codeItemParents = RecursivelyGetAllCodeItemParents(codeItems);
 
-            // Synchronize the code item parents states from the code state and register for events.
-            foreach (var codeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
-            {
-                var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
-                if (iCollapsible != null)
-                {
-                    codeItemParent.IsExpanded = !iCollapsible.IsCollapsed;
-                }
-
-                // Register for expansion changes on the code item parent.
-                codeItemParent.IsExpandedChanged += OnCodeItemParentIsExpandedChanged;
-            }
+            InitializeCodeItemParents();
         }
 
         #endregion Public Methods
@@ -318,6 +298,51 @@ namespace SteveCadwallader.CodeMaid.Spade
             return parents.Union(parents.SelectMany(x => RecursivelyGetAllCodeItemParents(x.Children)));
         }
 
+        /// <summary>
+        /// Initializes the code item parents by synchronizing their current state and registering for events.
+        /// </summary>
+        private void InitializeCodeItemParents()
+        {
+            foreach (var codeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
+            {
+                var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
+                if (iCollapsible != null)
+                {
+                    codeItemParent.IsExpanded = !iCollapsible.IsCollapsed;
+                }
+
+                // Register for expansion changes on the code item parent.
+                codeItemParent.IsExpandedChanged += OnCodeItemParentIsExpandedChanged;
+            }
+        }
+
+        /// <summary>
+        /// Tears down the code item parents by unregistering from events.
+        /// </summary>
+        private void TearDownCodeItemParents()
+        {
+            foreach (var codeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
+            {
+                codeItemParent.IsExpandedChanged -= OnCodeItemParentIsExpandedChanged;
+            }
+
+            _codeItemParents = null;
+        }
+
         #endregion Helper Methods
+
+        #region Implementation of IDisposable
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            TearDownCodeItemParents();
+
+            Document = null;
+        }
+
+        #endregion Implementation of IDisposable
     }
 }

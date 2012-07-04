@@ -227,5 +227,8 @@
     <Setting Name="Digging_SecondarySortTypeByName" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Digging_SynchronizeOutlining" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

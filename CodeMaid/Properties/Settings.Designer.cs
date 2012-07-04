@@ -922,5 +922,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_SecondarySortTypeByName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_SynchronizeOutlining {
+            get {
+                return ((bool)(this["Digging_SynchronizeOutlining"]));
+            }
+            set {
+                this["Digging_SynchronizeOutlining"] = value;
+            }
+        }
     }
 }

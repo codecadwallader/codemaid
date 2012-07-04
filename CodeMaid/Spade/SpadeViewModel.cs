@@ -15,6 +15,7 @@ using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.CodeItems;
 using SteveCadwallader.CodeMaid.CodeTree;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Spade
@@ -27,9 +28,8 @@ namespace SteveCadwallader.CodeMaid.Spade
         #region Fields
 
         private readonly CodeTreeBuilderAsync _codeTreeBuilderAsync;
-        private readonly OutliningSynchronizationManager _outliningSynchronizationManager;
+        private OutliningSynchronizationManager _outliningSynchronizationManager;
 
-        private CodeMaidPackage _package;
         private Document _document;
         private bool _isLoading;
         private bool _isRefreshing;
@@ -47,7 +47,6 @@ namespace SteveCadwallader.CodeMaid.Spade
         public SpadeViewModel()
         {
             _codeTreeBuilderAsync = new CodeTreeBuilderAsync(UpdateOrganizedCodeItems);
-            _outliningSynchronizationManager = new OutliningSynchronizationManager();
         }
 
         #endregion Constructors
@@ -74,7 +73,6 @@ namespace SteveCadwallader.CodeMaid.Spade
                 if (_document != value)
                 {
                     _document = value;
-                    _outliningSynchronizationManager.Document = _document;
 
                     NotifyPropertyChanged("Document");
                 }
@@ -145,8 +143,7 @@ namespace SteveCadwallader.CodeMaid.Spade
                 {
                     _organizedCodeItems = value;
 
-                    _outliningSynchronizationManager.UpdateCodeItems(_organizedCodeItems);
-
+                    UpdateOutliningSynchronization();
                     NotifyPropertyChanged("OrganizedCodeItems");
                 }
             }
@@ -155,18 +152,7 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <summary>
         /// Gets or sets the hosting package.
         /// </summary>
-        public CodeMaidPackage Package
-        {
-            get { return _package; }
-            set
-            {
-                if (_package != value)
-                {
-                    _package = value;
-                    _outliningSynchronizationManager.Package = _package;
-                }
-            }
-        }
+        public CodeMaidPackage Package { get; set; }
 
         /// <summary>
         /// Gets or sets the raw code items.
@@ -215,6 +201,28 @@ namespace SteveCadwallader.CodeMaid.Spade
         private void UpdateOrganizedCodeItems(SetCodeItems setCodeItems)
         {
             OrganizedCodeItems = setCodeItems;
+        }
+
+        /// <summary>
+        /// Updates the outlining synchronization.
+        /// </summary>
+        private void UpdateOutliningSynchronization()
+        {
+            if (Settings.Default.Digging_SynchronizeOutlining)
+            {
+                if (_outliningSynchronizationManager == null)
+                {
+                    _outliningSynchronizationManager = new OutliningSynchronizationManager(Package);
+                }
+
+                _outliningSynchronizationManager.Document = Document;
+                _outliningSynchronizationManager.UpdateCodeItems(_organizedCodeItems);
+            }
+            else if (_outliningSynchronizationManager != null)
+            {
+                _outliningSynchronizationManager.Dispose();
+                _outliningSynchronizationManager = null;
+            }
         }
 
         #endregion Methods

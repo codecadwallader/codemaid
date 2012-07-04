@@ -32,7 +32,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="When sorting by type, secondary sort should be" VerticalAlignment="Center" />
                     <RadioButton Content="by file order" IsChecked="{Binding SecondarySortTypeByName, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
-                    <RadioButton Content="alphabetically" IsChecked="{Binding SecondarySortTypeByName}" />
+                    <RadioButton Content="alphabetical" IsChecked="{Binding SecondarySortTypeByName}" />
                 </StackPanel>
             </GroupBox>
 
@@ -42,6 +42,10 @@
                     <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" />
                     <RadioButton Content="name only" IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                 </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Outlining">
+                <CheckBox Content="Synchronize outlining with the code file" IsChecked="{Binding SynchronizeOutlining}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

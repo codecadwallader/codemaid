@@ -42,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
             ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
             ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
             ShowMethodParameters = Settings.Default.Digging_ShowMethodParameters;
+            SynchronizeOutlining = Settings.Default.Digging_SynchronizeOutlining;
         }
 
         /// <summary>
@@ -56,6 +57,7 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
             Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
             Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
             Settings.Default.Digging_ShowMethodParameters = ShowMethodParameters;
+            Settings.Default.Digging_SynchronizeOutlining = SynchronizeOutlining;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -184,6 +186,24 @@ namespace SteveCadwallader.CodeMaid.Options.Digging
                 {
                     _showMethodParameters = value;
                     NotifyPropertyChanged("ShowMethodParameters");
+                }
+            }
+        }
+
+        private bool _synchronizeOutlining;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if outlining should be synchronized with the code file.
+        /// </summary>
+        public bool SynchronizeOutlining
+        {
+            get { return _synchronizeOutlining; }
+            set
+            {
+                if (_synchronizeOutlining != value)
+                {
+                    _synchronizeOutlining = value;
+                    NotifyPropertyChanged("SynchronizeOutlining");
                 }
             }
         }
