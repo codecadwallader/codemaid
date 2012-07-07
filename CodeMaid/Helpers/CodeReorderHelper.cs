@@ -190,14 +190,29 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets the text and removes the specified item.
         /// </summary>
         /// <param name="itemToRemove">The item to remove.</param>
-        private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove)
+        /// <param name="cursorOffset">The cursor's offset within the item being removed, otherwise -1.</param>
+        private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove, out int cursorOffset)
         {
+            // Refresh the code item and capture its end points.
             itemToRemove.Refresh();
             var removeStartPoint = itemToRemove.StartPoint;
             var removeEndPoint = itemToRemove.EndPoint;
 
+            // Determine the cursor's offset if within the item being removed.
+            var cursorAbsoluteOffset = removeStartPoint.Parent.Selection.ActivePoint.AbsoluteCharOffset;
+            if (cursorAbsoluteOffset >= removeStartPoint.AbsoluteCharOffset && cursorAbsoluteOffset <= removeEndPoint.AbsoluteCharOffset)
+            {
+                cursorOffset = cursorAbsoluteOffset - removeStartPoint.AbsoluteCharOffset;
+            }
+            else
+            {
+                cursorOffset = -1;
+            }
+
+            // Capture the text.
             var text = removeStartPoint.GetText(removeEndPoint);
 
+            // Remove the text and cleanup whitespace.
             removeStartPoint.Delete(removeEndPoint);
             removeStartPoint.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
 
@@ -248,7 +263,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
-            var text = GetTextAndRemoveItem(itemToMove);
+            int cursorOffset;
+            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
             baseItem.Refresh();
             var baseStartPoint = baseItem.StartPoint;
@@ -263,6 +279,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             pastePoint.EndOfLine();
             baseStartPoint.SmartFormat(pastePoint);
+
+            if (cursorOffset >= 0)
+            {
+                baseStartPoint.Parent.Selection.MoveToAbsoluteOffset(baseStartPoint.AbsoluteCharOffset + cursorOffset);
+            }
         }
 
         /// <summary>
@@ -275,7 +296,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(baseItem, itemToMove);
-            var text = GetTextAndRemoveItem(itemToMove);
+            int cursorOffset;
+            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
             baseItem.Refresh();
             var baseEndPoint = baseItem.EndPoint;
@@ -288,11 +310,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             var formatPoint = pastePoint.CreateEditPoint();
+            var insertPoint = pastePoint.CreateEditPoint();
 
             pastePoint.Insert(text);
 
             formatPoint.EndOfLine();
             baseEndPoint.SmartFormat(formatPoint);
+
+            if (cursorOffset >= 0)
+            {
+                insertPoint.Parent.Selection.MoveToAbsoluteOffset(insertPoint.AbsoluteCharOffset + cursorOffset);
+            }
         }
 
         /// <summary>
@@ -305,7 +333,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (itemToMove == baseItem) return;
 
             bool padWithNewLine = BlankLinePaddingHelper.ShouldInstanceBeFollowedByBlankLine(itemToMove);
-            var text = GetTextAndRemoveItem(itemToMove);
+            int cursorOffset;
+            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
             baseItem.Refresh();
             var baseInsertPoint = baseItem.InsertPoint;
@@ -320,6 +349,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             pastePoint.EndOfLine();
             baseInsertPoint.SmartFormat(pastePoint);
+
+            if (cursorOffset >= 0)
+            {
+                baseInsertPoint.Parent.Selection.MoveToAbsoluteOffset(baseInsertPoint.AbsoluteCharOffset + cursorOffset);
+            }
         }
 
         /// <summary>
