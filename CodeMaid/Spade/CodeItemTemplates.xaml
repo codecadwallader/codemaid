@@ -97,19 +97,23 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}"
-            ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
         <DockPanel Margin="0,2">
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
-            <TextBlock Text="{Binding Name}" Style="{StaticResource parentNameStyle}" />
+            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource parentNameStyle}" />
 
-            <TextBlock Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}"
-                    Style="{StaticResource namespaceStyle}" />
+            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}" Style="{StaticResource namespaceStyle}" />
         </DockPanel>
+        <HierarchicalDataTemplate.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
+                <Setter TargetName="name" Property="Style" Value="{StaticResource defaultNameStyle}" />
+                <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>
     </HierarchicalDataTemplate>
 
     <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
@@ -126,8 +130,7 @@
         </DockPanel>
     </DataTemplate>
 
-    <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}"
-            ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}" ItemsSource="{Binding Children}">
         <DockPanel>
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 

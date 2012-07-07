@@ -208,6 +208,7 @@
     <Compile Include="Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="Converters\DocCommentToStringConverter.cs" />
     <Compile Include="Converters\MethodToNameTextBlockConverter.cs" />
+    <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\StringReplaceConverter.cs" />
     <Compile Include="Converters\TypeStringConverter.cs" />
     <Compile Include="About\AboutWindow.xaml.cs">
