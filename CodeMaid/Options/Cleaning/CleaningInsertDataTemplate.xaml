@@ -10,6 +10,7 @@
                 <ToggleButton Content="#region tags" IsChecked="{Binding InsertBlankLinePaddingBeforeRegionTags}" />
                 <ToggleButton Content="#endregion tags" IsChecked="{Binding InsertBlankLinePaddingBeforeEndRegionTags}" />
 
+                <ToggleButton Content="case statements" IsChecked="{Binding InsertBlankLinePaddingBeforeCaseStatements}" />
                 <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingBeforeClasses}" />
                 <ToggleButton Content="delegates" IsChecked="{Binding InsertBlankLinePaddingBeforeDelegates}" />
                 <ToggleButton Content="enumerations" IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />

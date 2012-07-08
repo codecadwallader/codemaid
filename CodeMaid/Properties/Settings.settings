@@ -230,5 +230,8 @@
     <Setting Name="Digging_SynchronizeOutlining" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_InsertBlankLinePaddingBeforeCaseStatements" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

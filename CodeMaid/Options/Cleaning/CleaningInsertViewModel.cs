@@ -48,6 +48,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             InsertBlankLinePaddingAfterRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags;
             InsertBlankLinePaddingAfterStructs = Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;
             InsertBlankLinePaddingAfterUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks;
+            InsertBlankLinePaddingBeforeCaseStatements = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements;
             InsertBlankLinePaddingBeforeClasses = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
             InsertBlankLinePaddingBeforeDelegates = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates;
             InsertBlankLinePaddingBeforeEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags;
@@ -91,6 +92,7 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags = InsertBlankLinePaddingAfterRegionTags;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs = InsertBlankLinePaddingAfterStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks = InsertBlankLinePaddingAfterUsingStatementBlocks;
+            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements = InsertBlankLinePaddingBeforeCaseStatements;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses = InsertBlankLinePaddingBeforeClasses;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates = InsertBlankLinePaddingBeforeDelegates;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags = InsertBlankLinePaddingBeforeEndRegionTags;
@@ -350,6 +352,24 @@ namespace SteveCadwallader.CodeMaid.Options.Cleaning
                 {
                     _insertBlankLinePaddingAfterUsingStatementBlocks = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingAfterUsingStatementBlocks");
+                }
+            }
+        }
+
+        private bool _insertBlankLinePaddingBeforeCaseStatements;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added before case statements.
+        /// </summary>
+        public bool InsertBlankLinePaddingBeforeCaseStatements
+        {
+            get { return _insertBlankLinePaddingBeforeCaseStatements; }
+            set
+            {
+                if (_insertBlankLinePaddingBeforeCaseStatements != value)
+                {
+                    _insertBlankLinePaddingBeforeCaseStatements = value;
+                    NotifyPropertyChanged("InsertBlankLinePaddingBeforeCaseStatements");
                 }
             }
         }

@@ -934,5 +934,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_SynchronizeOutlining"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeCaseStatements {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"] = value;
+            }
+        }
     }
 }

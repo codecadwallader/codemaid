@@ -261,6 +261,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             BlankLinePaddingHelper.InsertPaddingBeforeCodeElements(structs);
             BlankLinePaddingHelper.InsertPaddingAfterCodeElements(structs);
 
+            BlankLinePaddingHelper.InsertPaddingBeforeCaseStatements(textDocument);
+
             // Perform insertion of explicit access modifier cleanup.
             ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnClasses(classes);
             ExplicitAccessModifierHelper.InsertExplicitAccessModifiersOnDelegates(delegates);

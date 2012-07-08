@@ -330,6 +330,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Inserts a blank line before case statements except for single-line case statements.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        internal void InsertPaddingBeforeCaseStatements(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements) return;
+
+            string pattern = Package.UsePOSIXRegEx
+                                 ? @"{^:b*}{break;|return;}\n{:b*}case"
+                                 : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)case";
+
+            string replacement = Package.UsePOSIXRegEx
+                                     ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3case"
+                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3case";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
         /// Inserts a blank line between multi-line property accessors.
         /// </summary>
         /// <param name="properties">The properties.</param>
