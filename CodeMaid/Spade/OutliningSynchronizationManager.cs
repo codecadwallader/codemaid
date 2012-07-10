@@ -293,6 +293,11 @@ namespace SteveCadwallader.CodeMaid.Spade
         /// <returns>The code item parents.</returns>
         private static IEnumerable<ICodeItemParent> RecursivelyGetAllCodeItemParents(SetCodeItems codeItems)
         {
+            if (codeItems == null)
+            {
+                return Enumerable.Empty<ICodeItemParent>();
+            }
+
             var parents = codeItems.OfType<ICodeItemParent>().ToList();
 
             return parents.Union(parents.SelectMany(x => RecursivelyGetAllCodeItemParents(x.Children)));
