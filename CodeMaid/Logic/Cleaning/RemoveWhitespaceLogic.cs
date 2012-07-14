@@ -164,6 +164,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Removes blank spaces before a closing angle bracket.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void RemoveBlankSpacesBeforeClosingAngleBracket(TextDocument textDocument)
+        {
+            //TODO: Add configuration option.
+
+            string pattern = _package.UsePOSIXRegEx
+                                 ? @":b+>"
+                                 : @"[ \t]+>";
+            const string replacement = @">";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
         /// Removes all end of line whitespace from the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
