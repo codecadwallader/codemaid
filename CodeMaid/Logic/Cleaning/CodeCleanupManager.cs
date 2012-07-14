@@ -40,6 +40,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
+        private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
 
@@ -75,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
+            _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
         }
@@ -302,6 +304,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunVSFormatting(textDocument);
 
+            // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
@@ -321,12 +324,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunVSFormatting(textDocument);
 
+            // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingTag(textDocument);
             _removeWhitespaceLogic.RemoveBlankSpacesBeforeClosingAngleBracket(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+
+            // Perform insertion cleanup.
+            _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
         }
 
         #endregion Private Language Methods

@@ -195,6 +195,7 @@
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
     <Compile Include="Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
+    <Compile Include="Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveWhitespaceLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
