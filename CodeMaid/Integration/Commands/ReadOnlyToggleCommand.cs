@@ -15,6 +15,7 @@ using System;
 using System.ComponentModel.Design;
 using System.IO;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -64,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Trace.WriteLine(String.Format(
+                    OutputWindowHelper.WriteLine(String.Format(
                         "CodeMaid exception: Unable to toggle read only state on {0}: {1}",
                         document.FullName, ex));
                 }

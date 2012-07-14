@@ -180,10 +180,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "HTML":
                 case "XAML":
                 case "XML":
-                    return RunCodeCleanupGeneric;
+                    return RunCodeCleanupMarkup;
 
                 default:
-                    System.Diagnostics.Trace.WriteLine(String.Format(
+                    OutputWindowHelper.WriteLine(String.Format(
                         "CodeMaid does not support document language '{0}'.", document.Language));
                     return null;
             }
@@ -311,11 +311,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Attempts to run code cleanup on the specified generic document.
+        /// Attempts to run code cleanup on the specified markup document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
+        private void RunCodeCleanupMarkup(Document document, bool isAutoSave)
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
@@ -324,6 +324,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingTag(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }
 

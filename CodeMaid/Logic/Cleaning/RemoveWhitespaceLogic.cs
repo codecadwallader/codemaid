@@ -105,6 +105,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\]\1" + Environment.NewLine
                                      : @"]$1" + Environment.NewLine;
+
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
@@ -122,6 +123,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\{\1" + Environment.NewLine
                                      : @"{$1" + Environment.NewLine;
+
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
@@ -139,6 +141,24 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             string replacement = _package.UsePOSIXRegEx
                                      ? Environment.NewLine + @"\1\}"
                                      : Environment.NewLine + @"$2}";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
+        /// Removes blank lines before a closing tag.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void RemoveBlankLinesBeforeClosingTag(TextDocument textDocument)
+        {
+            //TODO: Add configuration option.
+
+            string pattern = _package.UsePOSIXRegEx
+                                 ? @"\n\n{:b*}</"
+                                 : @"(\r?\n){2,}([ \t]*)</";
+            string replacement = _package.UsePOSIXRegEx
+                                     ? Environment.NewLine + @"\1</"
+                                     : Environment.NewLine + @"$2</";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
