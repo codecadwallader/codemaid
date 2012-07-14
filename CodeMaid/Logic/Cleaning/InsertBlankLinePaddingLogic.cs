@@ -26,6 +26,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     /// </summary>
     internal class InsertBlankLinePaddingLogic
     {
+        #region Fields
+
+        private readonly CodeMaidPackage _package;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -49,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="package">The hosting package.</param>
         private InsertBlankLinePaddingLogic(CodeMaidPackage package)
         {
-            Package = package;
+            _package = package;
         }
 
         #endregion Constructors
@@ -233,11 +239,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
-            string pattern = Package.UsePOSIXRegEx
+            string pattern = _package.UsePOSIXRegEx
                                  ? @"{[^\n\{]}\n{:b*}\#region"
                                  : @"([^\r\n\{])\r?\n([ \t]*)#region";
 
-            string replacement = Package.UsePOSIXRegEx
+            string replacement = _package.UsePOSIXRegEx
                                      ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#region"
                                      : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#region";
 
@@ -252,11 +258,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
-            string pattern = Package.UsePOSIXRegEx
+            string pattern = _package.UsePOSIXRegEx
                                  ? @"^{:b*}\#region{.*}\n{.}"
                                  : @"^([ \t]*)#region([^\r\n]*)\r?\n([^\r\n])";
 
-            string replacement = Package.UsePOSIXRegEx
+            string replacement = _package.UsePOSIXRegEx
                                      ? @"\1\#region\2" + Environment.NewLine + Environment.NewLine + @"\3"
                                      : @"$1#region$2" + Environment.NewLine + Environment.NewLine + @"$3";
 
@@ -271,11 +277,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
-            string pattern = Package.UsePOSIXRegEx
+            string pattern = _package.UsePOSIXRegEx
                                  ? @"{.}\n{:b*}\#endregion"
                                  : @"([^\r\n])\r?\n([ \t]*)#endregion";
 
-            string replacement = Package.UsePOSIXRegEx
+            string replacement = _package.UsePOSIXRegEx
                                      ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#endregion"
                                      : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#endregion";
 
@@ -291,11 +297,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
-            string pattern = Package.UsePOSIXRegEx
+            string pattern = _package.UsePOSIXRegEx
                                  ? @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}"
                                  : @"^([ \t]*)#endregion([^\r\n]*)\r?\n([ \t]*[^ \t\r\n\}])";
 
-            string replacement = Package.UsePOSIXRegEx
+            string replacement = _package.UsePOSIXRegEx
                                      ? @"\1\#endregion\2" + Environment.NewLine + Environment.NewLine + @"\3"
                                      : @"$1#endregion$2" + Environment.NewLine + Environment.NewLine + @"$3";
 
@@ -338,11 +344,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements) return;
 
-            string pattern = Package.UsePOSIXRegEx
+            string pattern = _package.UsePOSIXRegEx
                                  ? @"{^:b*}{break;|return;}\n{:b*}case"
                                  : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)case";
 
-            string replacement = Package.UsePOSIXRegEx
+            string replacement = _package.UsePOSIXRegEx
                                      ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3case"
                                      : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3case";
 
@@ -373,14 +379,5 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         #endregion Insertion Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        #endregion Private Properties
     }
 }

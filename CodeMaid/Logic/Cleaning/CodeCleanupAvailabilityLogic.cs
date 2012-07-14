@@ -28,6 +28,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     /// </summary>
     internal class CodeCleanupAvailabilityLogic
     {
+        #region Fields
+
+        private readonly CodeMaidPackage _package;
+
+        private readonly CachedSettingSet<string> _cleanupExclusions =
+            new CachedSettingSet<string>(() => Settings.Default.Cleaning_ExclusionExpression,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim().ToLower())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
+        private EditorFactory _editorFactory;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -51,10 +67,30 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="package">The hosting package.</param>
         private CodeCleanupAvailabilityLogic(CodeMaidPackage package)
         {
-            Package = package;
+            _package = package;
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a set of cleanup exclusion filters.
+        /// </summary>
+        private IEnumerable<string> CleanupExclusions
+        {
+            get { return _cleanupExclusions.Value; }
+        }
+
+        /// <summary>
+        /// A default editor factory, used for its knowledge of language service-extension mappings.
+        /// </summary>
+        private EditorFactory EditorFactory
+        {
+            get { return _editorFactory ?? (_editorFactory = new EditorFactory()); }
+        }
+
+        #endregion Properties
 
         #region Internal Methods
 
@@ -64,7 +100,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if cleanup can occur, false otherwise.</returns>
         internal bool IsCleanupEnvironmentAvailable()
         {
-            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
+            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
         }
 
         /// <summary>
@@ -146,7 +182,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsProjectItemLanguageIncludedByOptions(ProjectItem projectItem)
         {
-            var extension = Path.GetExtension(projectItem.Name);
+            var extension = Path.GetExtension(projectItem.Name) ?? string.Empty;
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
                 // Make an exception for JavaScript files - they incorrectly return the HTML language service.
@@ -168,50 +204,5 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         #endregion Private Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets a set of cleanup exclusion filters.
-        /// </summary>
-        public IEnumerable<string> CleanupExclusions
-        {
-            get { return _cleanupExclusions.Value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        /// <summary>
-        /// A default editor factory, used for its knowledge of language service-extension mappings.
-        /// </summary>
-        public EditorFactory EditorFactory
-        {
-            get { return _editorFactory ?? (_editorFactory = new EditorFactory()); }
-        }
-
-        #endregion Private Properties
-
-        #region Private Fields
-
-        /// <summary>
-        /// A cached setting set container for accessing the cleanup exclusions.
-        /// </summary>
-        private readonly CachedSettingSet<string> _cleanupExclusions =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_ExclusionExpression,
-                                         expression =>
-                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                   .Select(x => x.Trim().ToLower())
-                                                   .Where(y => !string.IsNullOrEmpty(y))
-                                                   .ToList());
-
-        /// <summary>
-        /// A default editor factory, used for its knowledge of language service-extension mappings.
-        /// </summary>
-        private EditorFactory _editorFactory;
-
-        #endregion Private Fields
     }
 }

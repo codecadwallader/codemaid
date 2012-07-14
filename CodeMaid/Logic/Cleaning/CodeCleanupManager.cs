@@ -33,7 +33,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     {
         #region Fields
 
-        private UndoTransactionHelper _undoTransactionHelper;
+        private readonly CodeMaidPackage _package;
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+
+        private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
+        private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
+        private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
+        private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
+        private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
 
         #endregion Fields
 
@@ -60,12 +68,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="package">The hosting package.</param>
         private CodeCleanupManager(CodeMaidPackage package)
         {
-            Package = package;
+            _package = package;
 
-            CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
-            InsertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(Package);
-            InsertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance(Package);
-            UsingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(Package);
+            _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
+
+            _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
+            _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
+            _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
+            _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
+            _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
         }
 
         #endregion Constructors
@@ -78,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
-            if (!CodeCleanupAvailabilityLogic.ShouldCleanup(projectItem)) return;
+            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(projectItem)) return;
 
             // Attempt to open the document if not already opened.
             bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView];
@@ -113,7 +124,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         internal void Cleanup(Document document, bool isAutoSave)
         {
-            if (!CodeCleanupAvailabilityLogic.ShouldCleanup(document)) return;
+            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
@@ -121,27 +132,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                CodeReorderManager.GetInstance(Package).Reorganize(document);
+                CodeReorderManager.GetInstance(_package).Reorganize(document);
             }
 
-            UndoTransactionHelper.Run(
+            _undoTransactionHelper.Run(
                 () => !isAutoSave,
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
-                        Package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
+                        _package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document, isAutoSave);
 
-                        Package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
+                        _package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
                     }
                 },
                 delegate(Exception ex)
                 {
                     OutputWindowHelper.WriteLine(String.Format("CodeMaid stopped cleaning '{0}': {1}", document.Name, ex));
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped cleaning '{0}'.  See output window for more details.", document.Name);
+                    _package.IDE.StatusBar.Text = String.Format("CodeMaid stopped cleaning '{0}'.  See output window for more details.", document.Name);
                 });
         }
 
@@ -188,8 +199,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
-            UsingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
-            UsingStatementCleanupLogic.SortUsingStatements();
+            _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
+            _usingStatementCleanupLogic.SortUsingStatements();
             RunVSFormatting(textDocument);
 
             // Interpret the document into a collection of elements.
@@ -214,67 +225,67 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var fieldsWithComments = fields.Where(x => x.StartPoint.Line < x.EndPoint.Line).ToList();
 
             // Perform removal cleanup.
-            RemoveEOLWhitespace(textDocument);
-            RemoveBlankLinesAtTop(textDocument);
-            RemoveBlankLinesAtBottom(textDocument);
-            RemoveBlankLinesAfterAttributes(textDocument);
-            RemoveBlankLinesAfterOpeningBrace(textDocument);
-            RemoveBlankLinesBeforeClosingBrace(textDocument);
-            RemoveMultipleConsecutiveBlankLines(textDocument);
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAfterAttributes(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(textDocument);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(textDocument);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(textDocument);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(textDocument);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(namespaces);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(namespaces);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(classes);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(classes);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(classes);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(classes);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(delegates);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(delegates);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(delegates);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(delegates);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(enumerations);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(enumerations);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(enumerations);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(enumerations);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fieldsWithComments);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fieldsWithComments);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fieldsWithComments);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fieldsWithComments);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(methods);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(methods);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(methods);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(methods);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(properties);
-            InsertBlankLinePaddingLogic.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(properties);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(properties);
+            _insertBlankLinePaddingLogic.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(properties);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(structs);
-            InsertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(structs);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
 
-            InsertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
 
             // Perform insertion of explicit access modifier cleanup.
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEnumerations(enumerations);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEvents(events);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
-            InsertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEnumerations(enumerations);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEvents(events);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
+            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform update cleanup.
             UpdateEndRegionDirectives(textDocument);
@@ -291,12 +302,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunVSFormatting(textDocument);
 
-            RemoveEOLWhitespace(textDocument);
-            RemoveBlankLinesAtTop(textDocument);
-            RemoveBlankLinesAtBottom(textDocument);
-            RemoveBlankLinesAfterOpeningBrace(textDocument);
-            RemoveBlankLinesBeforeClosingBrace(textDocument);
-            RemoveMultipleConsecutiveBlankLines(textDocument);
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }
 
         /// <summary>
@@ -310,10 +321,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunVSFormatting(textDocument);
 
-            RemoveEOLWhitespace(textDocument);
-            RemoveBlankLinesAtTop(textDocument);
-            RemoveBlankLinesAtBottom(textDocument);
-            RemoveMultipleConsecutiveBlankLines(textDocument);
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }
 
         #endregion Private Language Methods
@@ -333,125 +344,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 using (new CursorPositionRestorer(textDocument))
                 {
                     // Run the command.
-                    Package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
+                    _package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
                 }
             }
             catch
             {
                 // OK if fails, not available for some file types.
             }
-        }
-
-        /// <summary>
-        /// Removes blank lines from the bottom of the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveBlankLinesAtBottom(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveBlankLinesAtBottom) return;
-
-            EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
-            cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
-
-            // The last blank line may not have been removed, perform the delete more explicitly.
-            if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
-            {
-                var backCursor = cursor.CreateEditPoint();
-                backCursor.CharLeft();
-                backCursor.Delete(cursor);
-            }
-        }
-
-        /// <summary>
-        /// Removes blank lines from the top of the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveBlankLinesAtTop(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveBlankLinesAtTop) return;
-
-            EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
-            cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
-        }
-
-        /// <summary>
-        /// Removes blank lines after attributes.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveBlankLinesAfterAttributes(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"\]{:b*(//.*)*}\n\n"
-                                 : @"\]([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\]\1" + Environment.NewLine
-                                     : @"]$1" + Environment.NewLine;
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Removes blank lines after an opening brace.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveBlankLinesAfterOpeningBrace(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"\{{:b*(//.*)*}\n\n"
-                                 : @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
-            string replacement = Package.UsePOSIXRegEx
-                                     ? @"\{\1" + Environment.NewLine
-                                     : @"{$1" + Environment.NewLine;
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Removes blank lines before a closing brace.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveBlankLinesBeforeClosingBrace(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace) return;
-
-            string pattern = Package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}\}"
-                                 : @"(\r?\n){2,}([ \t]*)\}";
-            string replacement = Package.UsePOSIXRegEx
-                                     ? Environment.NewLine + @"\1\}"
-                                     : Environment.NewLine + @"$2}";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Removes all end of line whitespace from the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveEOLWhitespace(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveEndOfLineWhitespace) return;
-
-            string pattern = Package.UsePOSIXRegEx ? @":b+\n" : @"[ \t]+\r?\n";
-            string replacement = Environment.NewLine;
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
-        }
-
-        /// <summary>
-        /// Removes multiple consecutive blank lines from the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void RemoveMultipleConsecutiveBlankLines(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines) return;
-
-            string pattern = Package.UsePOSIXRegEx ? @"\n\n\n+" : @"(\r?\n){3,}";
-            string replacement = Environment.NewLine + Environment.NewLine;
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
 
         /// <summary>
@@ -471,7 +370,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
-            string pattern = Package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
+            string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
                    cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
@@ -562,42 +461,5 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         #endregion Private Helper Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the code cleanup availability logic.
-        /// </summary>
-        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the insert blank line padding logic.
-        /// </summary>
-        private InsertBlankLinePaddingLogic InsertBlankLinePaddingLogic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the insert explicit access modifier logic.
-        /// </summary>
-        private InsertExplicitAccessModifierLogic InsertExplicitAccessModifierLogic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        /// <summary>
-        /// Gets the lazy-initialized undo transaction helper.
-        /// </summary>
-        private UndoTransactionHelper UndoTransactionHelper
-        {
-            get { return _undoTransactionHelper ?? (_undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Cleanup")); }
-        }
-
-        /// <summary>
-        /// Gets or sets the using statement cleanup logic.
-        /// </summary>
-        private UsingStatementCleanupLogic UsingStatementCleanupLogic { get; set; }
-
-        #endregion Private Properties
     }
 }

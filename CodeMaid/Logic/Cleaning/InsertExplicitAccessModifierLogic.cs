@@ -29,9 +29,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     {
         #region Constants
 
-        /// <summary>
-        /// The string representation of the partial keyword.
-        /// </summary>
         private const string PartialKeyword = "partial";
 
         #endregion Constants
@@ -46,25 +43,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Gets an instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.
         /// </summary>
-        /// <param name="package">The hosting package.</param>
         /// <returns>An instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.</returns>
-        internal static InsertExplicitAccessModifierLogic GetInstance(CodeMaidPackage package)
+        internal static InsertExplicitAccessModifierLogic GetInstance()
         {
-            return _instance ?? (_instance = new InsertExplicitAccessModifierLogic(package));
+            return _instance ?? (_instance = new InsertExplicitAccessModifierLogic());
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.
         /// </summary>
-        /// <param name="package">The hosting package.</param>
-        private InsertExplicitAccessModifierLogic(CodeMaidPackage package)
+        private InsertExplicitAccessModifierLogic()
         {
-            Package = package;
         }
 
         #endregion Constructors
 
-        #region Methods
+        #region Insertion Methods
 
         /// <summary>
         /// Inserts the explicit access modifiers on classes where they are not specified.
@@ -346,6 +340,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
         }
 
+        #endregion Insertion Methods
+
+        #region Helper Methods
+
         /// <summary>
         /// Determines if the access modifier is explicitly defined on the specified code element declaration.
         /// </summary>
@@ -372,15 +370,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             return Regex.IsMatch(codeElementDeclaration, matchString);
         }
 
-        #endregion Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        #endregion Private Properties
+        #endregion Helper Methods
     }
 }

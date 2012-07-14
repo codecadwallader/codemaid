@@ -30,7 +30,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
     {
         #region Fields
 
-        private UndoTransactionHelper _undoTransactionHelper;
+        private readonly CodeMaidPackage _package;
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+
+        private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
 
         #endregion Fields
 
@@ -57,34 +61,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="package">The hosting package.</param>
         private CodeReorderManager(CodeMaidPackage package)
         {
-            Package = package;
+            _package = package;
 
-            InsertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(Package);
+            _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Reorganize");
+
+            _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
         }
 
         #endregion Constructors
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the insert blank line padding logic.
-        /// </summary>
-        private InsertBlankLinePaddingLogic InsertBlankLinePaddingLogic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        /// <summary>
-        /// Gets the lazy-initialized undo transaction helper.
-        /// </summary>
-        private UndoTransactionHelper UndoTransactionHelper
-        {
-            get { return _undoTransactionHelper ?? (_undoTransactionHelper = new UndoTransactionHelper(Package, "CodeMaid Reorganize")); }
-        }
-
-        #endregion Private Properties
 
         #region Internal Methods
 
@@ -95,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            UndoTransactionHelper.Run(() => RepositionItemAboveBase(itemToMove, baseItem));
+            _undoTransactionHelper.Run(() => RepositionItemAboveBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -105,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            UndoTransactionHelper.Run(() => RepositionItemBelowBase(itemToMove, baseItem));
+            _undoTransactionHelper.Run(() => RepositionItemBelowBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -115,7 +99,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
-            UndoTransactionHelper.Run(() => RepositionItemIntoBase(itemToMove, baseItem));
+            _undoTransactionHelper.Run(() => RepositionItemIntoBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -125,7 +109,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if document can be reorganized, otherwise false.</returns>
         internal bool CanReorganize(Document document)
         {
-            return Package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
+            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
                    document != null &&
                    document.Language == "CSharp";
         }
@@ -138,10 +122,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (!CanReorganize(document)) return;
 
-            UndoTransactionHelper.Run(
+            _undoTransactionHelper.Run(
                 delegate
                 {
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
+                    _package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
                     // Retrieve all relevant code items.
                     var codeItems = Settings.Default.Reorganizing_KeepMembersWithinRegions
@@ -156,12 +140,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
 
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
+                    _package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
                 },
                 delegate(Exception ex)
                 {
                     OutputWindowHelper.WriteLine(String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex));
-                    Package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
+                    _package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
                 });
         }
 
@@ -229,8 +213,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
         private bool ShouldBeSeparatedByNewLine(BaseCodeItem firstItem, BaseCodeItem secondItem)
         {
-            return InsertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
-                   InsertBlankLinePaddingLogic.ShouldInstanceBePrecededByBlankLine(secondItem);
+            return _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
+                   _insertBlankLinePaddingLogic.ShouldInstanceBePrecededByBlankLine(secondItem);
         }
 
         /// <summary>
@@ -334,7 +318,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (itemToMove == baseItem) return;
 
-            bool padWithNewLine = InsertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(itemToMove);
+            bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(itemToMove);
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 

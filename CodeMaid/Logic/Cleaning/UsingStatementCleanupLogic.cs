@@ -26,9 +26,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     {
         #region Fields
 
-        /// <summary>
-        /// A cached setting set container for accessing the using statements to reinsert when removed.
-        /// </summary>
+        private readonly CodeMaidPackage _package;
+
         private readonly CachedSettingSet<string> _usingStatementsToReinsertWhenRemoved =
             new CachedSettingSet<string>(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
                                          expression =>
@@ -62,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="package">The hosting package.</param>
         private UsingStatementCleanupLogic(CodeMaidPackage package)
         {
-            Package = package;
+            _package = package;
         }
 
         #endregion Constructors
@@ -80,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (isAutoSave && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
 
             // Capture all existing using statements that should be re-inserted if removed.
-            string patternFormat = Package.UsePOSIXRegEx
+            string patternFormat = _package.UsePOSIXRegEx
                                        ? @"^:b*{0}:b*\n"
                                        : @"^[ \t]*{0}[ \t]*\r?\n";
 
@@ -88,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                           from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
                           select new { editPoint, text = editPoint.GetLine() }).ToList();
 
-            Package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
+            _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
 
             // Check each using statement point and re-insert it if removed.
             foreach (var point in points)
@@ -109,18 +108,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
 
-            Package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
+            _package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
         }
 
         #endregion Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
-
-        #endregion Private Properties
     }
 }
