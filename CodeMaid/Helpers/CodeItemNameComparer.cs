@@ -12,7 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System.Collections.Generic;
-using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

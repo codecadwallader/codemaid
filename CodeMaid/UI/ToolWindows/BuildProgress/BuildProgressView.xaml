@@ -1,0 +1,31 @@
+<UserControl x:Class="SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress.BuildProgressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+    <Grid VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ProgressBar IsIndeterminate="{Binding IsProgressIndeterminate}" Maximum="1"
+                Value="{Binding ProgressPercentage}">
+            <ProgressBar.Style>
+                <Style TargetType="{x:Type ProgressBar}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasBuildFailed}" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+
+        <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat=P0}" Margin="5,0"
+                VerticalAlignment="Center"
+                Visibility="{Binding ShowProgressPercentage, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+        <Button Grid.Column="2" Content="Cancel" Command="{Binding CancelBuildCommand}" Margin="10,0,0,0" />
+    </Grid>
+</UserControl>

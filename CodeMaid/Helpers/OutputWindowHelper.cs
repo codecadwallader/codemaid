@@ -14,6 +14,7 @@
 using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Integration;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

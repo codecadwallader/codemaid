@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing">
+    <DataTemplate DataType="{x:Type local:ProgressingViewModel}">
+        <StackPanel>
+            <GroupBox Header="Build progress window">
+                <StackPanel>
+                    <CheckBox Content="Show build progress window when a build starts" IsChecked="{Binding ShowBuildProgressOnBuildStart}" />
+                    <CheckBox Content="Hide build progress window when a build stops" IsChecked="{Binding HideBuildProgressOnBuildStop}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Windows taskbar">
+                <CheckBox Content="Show build progress on Visual Studio icon in Windows taskbar" IsChecked="{Binding ShowProgressOnWindowsTaskbar}" />
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

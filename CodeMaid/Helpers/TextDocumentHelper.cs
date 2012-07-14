@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

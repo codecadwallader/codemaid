@@ -148,138 +148,138 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildProgress\BuildProgressToolWindow.cs" />
-    <Compile Include="BuildProgress\BuildProgressView.xaml.cs">
-      <DependentUpon>BuildProgressView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BuildProgress\BuildProgressViewModel.cs" />
-    <Compile Include="CleanupProgress\CleanupProgressViewModel.cs" />
-    <Compile Include="CleanupProgress\CleanupProgressWindow.xaml.cs">
-      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CodeItems\BaseCodeItem.cs" />
-    <Compile Include="CodeItems\BaseCodeItemElement.cs" />
-    <Compile Include="CodeItems\BaseCodeItemElementParent.cs" />
-    <Compile Include="CodeItems\CodeItemClass.cs" />
-    <Compile Include="CodeItems\CodeItemDelegate.cs" />
-    <Compile Include="CodeItems\CodeItemEnum.cs" />
-    <Compile Include="CodeItems\CodeItemEvent.cs" />
-    <Compile Include="CodeItems\CodeItemField.cs" />
-    <Compile Include="CodeItems\CodeItemInterface.cs" />
-    <Compile Include="CodeItems\CodeItemMethod.cs" />
-    <Compile Include="CodeItems\CodeItemNamespace.cs" />
-    <Compile Include="CodeItems\CodeItemProperty.cs" />
-    <Compile Include="CodeItems\CodeItemRegion.cs" />
-    <Compile Include="CodeItems\CodeItemStruct.cs" />
-    <Compile Include="CodeItems\CodeItemUsingStatement.cs" />
-    <Compile Include="CodeItems\FactoryCodeItems.cs" />
-    <Compile Include="CodeItems\ICodeItem.cs" />
-    <Compile Include="CodeItems\ICodeItemParent.cs" />
-    <Compile Include="CodeItems\SetCodeItems.cs" />
-    <Compile Include="CodeItems\KindCodeItem.cs" />
-    <Compile Include="CodeTree\CodeTreeBuilder.cs" />
-    <Compile Include="CodeTree\CodeTreeBuilderAsync.cs" />
-    <Compile Include="CodeTree\CodeTreeRequest.cs" />
-    <Compile Include="CodeTree\TreeLayoutMode.cs" />
-    <Compile Include="Commands\AboutCommand.cs" />
-    <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\BuildProgressToolWindowCommand.cs" />
-    <Compile Include="Commands\CleanupActiveCodeCommand.cs" />
-    <Compile Include="Commands\CleanupAllCodeCommand.cs" />
-    <Compile Include="Commands\CleanupSelectedCodeCommand.cs" />
-    <Compile Include="Commands\CloseAllReadOnlyCommand.cs" />
-    <Compile Include="Commands\ReorganizeActiveCodeCommand.cs" />
-    <Compile Include="Commands\CollapseAllSolutionExplorerCommand.cs" />
-    <Compile Include="Commands\CollapseSelectedSolutionExplorerCommand.cs" />
-    <Compile Include="Commands\ConfigurationCommand.cs" />
-    <Compile Include="Commands\FindInSolutionExplorerCommand.cs" />
-    <Compile Include="Commands\JoinLinesCommand.cs" />
-    <Compile Include="Commands\SpadeConfigurationCommand.cs" />
-    <Compile Include="Commands\SpadeLayoutAlphaCommand.cs" />
-    <Compile Include="Commands\SpadeLayoutFileCommand.cs" />
-    <Compile Include="Commands\SpadeLayoutTypeCommand.cs" />
-    <Compile Include="Commands\SpadeRefreshCommand.cs" />
-    <Compile Include="Commands\ReadOnlyToggleCommand.cs" />
-    <Compile Include="Commands\SwitchFileCommand.cs" />
-    <Compile Include="Commands\SpadeToolWindowCommand.cs" />
-    <Compile Include="Converters\BooleanInverseConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\CodeItemToImageConverter.cs" />
-    <Compile Include="Converters\CodeItemToMetadataStringConverter.cs" />
-    <Compile Include="Converters\DocCommentToStringConverter.cs" />
-    <Compile Include="Converters\MethodToNameTextBlockConverter.cs" />
-    <Compile Include="Converters\NullToBooleanConverter.cs" />
-    <Compile Include="Converters\StringReplaceConverter.cs" />
-    <Compile Include="Converters\TypeStringConverter.cs" />
-    <Compile Include="About\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Events\BaseEventListener.cs" />
-    <Compile Include="Events\BuildProgressEventListener.cs" />
-    <Compile Include="Events\RunningDocumentTableEventListener.cs" />
-    <Compile Include="Events\ShellEventListener.cs" />
-    <Compile Include="Events\SolutionEventListener.cs" />
-    <Compile Include="Events\WindowEventListener.cs" />
-    <Compile Include="GuidList.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
-    <Compile Include="Helpers\CodeCleanupHelper.cs" />
-    <Compile Include="Helpers\BlankLinePaddingHelper.cs" />
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
-    <Compile Include="Helpers\CodeReorderHelper.cs" />
     <Compile Include="Helpers\EditPointExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\ExplicitAccessModifierHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
     <Compile Include="Helpers\CursorPositionRestorer.cs" />
     <Compile Include="Helpers\TypeFormatHelper.cs" />
     <Compile Include="Helpers\UIHierarchyHelper.cs" />
-    <Compile Include="Helpers\CodeCleanupAvailabilityHelper.cs" />
     <Compile Include="Helpers\UndoTransactionHelper.cs" />
-    <Compile Include="Helpers\UsingStatementCleanupHelper.cs" />
-    <Compile Include="Options\Cleaning\CleaningFileTypesViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningGeneralViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningInsertViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningParentViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningRemoveViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningUpdateViewModel.cs" />
-    <Compile Include="Options\Cleaning\CleaningVisualStudioViewModel.cs" />
-    <Compile Include="Options\Collapsing\CollapsingViewModel.cs" />
-    <Compile Include="Options\Digging\DiggingViewModel.cs" />
-    <Compile Include="Options\OptionsPageViewModel.cs" />
-    <Compile Include="Options\OptionsPageViewModelEnumerableExtensions.cs" />
-    <Compile Include="Options\OptionsViewModel.cs" />
-    <Compile Include="Options\OptionsWindow.xaml.cs">
-      <DependentUpon>OptionsWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Integration\Commands\AboutCommand.cs" />
+    <Compile Include="Integration\Commands\BaseCommand.cs" />
+    <Compile Include="Integration\Commands\BuildProgressToolWindowCommand.cs" />
+    <Compile Include="Integration\Commands\CleanupActiveCodeCommand.cs" />
+    <Compile Include="Integration\Commands\CleanupAllCodeCommand.cs" />
+    <Compile Include="Integration\Commands\CleanupSelectedCodeCommand.cs" />
+    <Compile Include="Integration\Commands\CloseAllReadOnlyCommand.cs" />
+    <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
+    <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
+    <Compile Include="Integration\Commands\ConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
+    <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
+    <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
+    <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeLayoutAlphaCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeLayoutFileCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeLayoutTypeCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeRefreshCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeToolWindowCommand.cs" />
+    <Compile Include="Integration\Commands\SwitchFileCommand.cs" />
+    <Compile Include="Integration\Events\BaseEventListener.cs" />
+    <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
+    <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
+    <Compile Include="Integration\Events\ShellEventListener.cs" />
+    <Compile Include="Integration\Events\SolutionEventListener.cs" />
+    <Compile Include="Integration\Events\WindowEventListener.cs" />
+    <Compile Include="Integration\GuidList.cs" />
+    <Compile Include="Integration\PkgCmdIDList.cs" />
+    <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
+    <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
+    <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
+    <Compile Include="Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
+    <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
+    <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
+    <Compile Include="Logic\Digging\SpadeCodeModelRetriever.cs" />
+    <Compile Include="Logic\Reorganizing\CodeReorderManager.cs" />
+    <Compile Include="Model\CodeItems\BaseCodeItem.cs" />
+    <Compile Include="Model\CodeItems\BaseCodeItemElement.cs" />
+    <Compile Include="Model\CodeItems\BaseCodeItemElementParent.cs" />
+    <Compile Include="Model\CodeItems\CodeItemClass.cs" />
+    <Compile Include="Model\CodeItems\CodeItemDelegate.cs" />
+    <Compile Include="Model\CodeItems\CodeItemEnum.cs" />
+    <Compile Include="Model\CodeItems\CodeItemEvent.cs" />
+    <Compile Include="Model\CodeItems\CodeItemField.cs" />
+    <Compile Include="Model\CodeItems\CodeItemInterface.cs" />
+    <Compile Include="Model\CodeItems\CodeItemMethod.cs" />
+    <Compile Include="Model\CodeItems\CodeItemNamespace.cs" />
+    <Compile Include="Model\CodeItems\CodeItemProperty.cs" />
+    <Compile Include="Model\CodeItems\CodeItemRegion.cs" />
+    <Compile Include="Model\CodeItems\CodeItemStruct.cs" />
+    <Compile Include="Model\CodeItems\CodeItemUsingStatement.cs" />
+    <Compile Include="Model\CodeItems\FactoryCodeItems.cs" />
+    <Compile Include="Model\CodeItems\ICodeItem.cs" />
+    <Compile Include="Model\CodeItems\ICodeItemParent.cs" />
+    <Compile Include="Model\CodeItems\KindCodeItem.cs" />
+    <Compile Include="Model\CodeItems\SetCodeItems.cs" />
+    <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />
+    <Compile Include="Model\CodeTree\CodeTreeBuilderAsync.cs" />
+    <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
+    <Compile Include="Model\CodeTree\TreeLayoutMode.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Options\Progressing\ProgressingViewModel.cs" />
-    <Compile Include="Options\Reorganizing\ReorganizingViewModel.cs" />
-    <Compile Include="Options\Switching\SwitchingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Spade\CodeItemTemplateSelector.cs" />
-    <Compile Include="Spade\CodeItemToolTipTemplateSelector.cs" />
-    <Compile Include="Spade\Converters\ComplexityToColorConverter.cs" />
-    <Compile Include="Spade\DragDropAttachedProperties.cs" />
-    <Compile Include="Spade\OutliningSynchronizationManager.cs" />
-    <Compile Include="Spade\SpadeCodeModelRetriever.cs" />
-    <Compile Include="Spade\SpadeToolWindow.cs" />
-    <Compile Include="Spade\SpadeView.xaml.cs">
-      <DependentUpon>SpadeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Spade\SpadeViewModel.cs" />
+    <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
+    <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\CodeItemToImageConverter.cs" />
+    <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
+    <Compile Include="UI\Converters\ComplexityToColorConverter.cs" />
+    <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="UI\Converters\MethodToNameTextBlockConverter.cs" />
+    <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="UI\Converters\StringReplaceConverter.cs" />
+    <Compile Include="UI\Converters\TypeStringConverter.cs" />
     <Compile Include="UI\DelegateCommand.cs" />
     <Compile Include="UI\DependencyObjectExtensions.cs" />
+    <Compile Include="UI\Dialogs\About\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\CleanupProgress\CleanupProgressViewModel.cs" />
+    <Compile Include="UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml.cs">
+      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningFileTypesViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningGeneralViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningInsertViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningParentViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\OptionsPageViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\OptionsPageViewModelEnumerableExtensions.cs" />
+    <Compile Include="UI\Dialogs\Options\OptionsViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
+    <Compile Include="UI\DragDropAttachedProperties.cs" />
+    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
+    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">
+      <DependentUpon>BuildProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressViewModel.cs" />
+    <Compile Include="UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
+    <Compile Include="UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
+    <Compile Include="UI\ToolWindows\Spade\SpadeToolWindow.cs" />
+    <Compile Include="UI\ToolWindows\Spade\SpadeView.xaml.cs">
+      <DependentUpon>SpadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\ViewModelBase.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
@@ -307,75 +307,74 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Spade\Images\Class.png" />
-    <Resource Include="Spade\Images\Class_Friend.png" />
-    <Resource Include="Spade\Images\Class_Private.png" />
-    <Resource Include="Spade\Images\Class_Protected.png" />
-    <Resource Include="Spade\Images\Class_Sealed.png" />
-    <Resource Include="Spade\Images\Constant.png" />
-    <Resource Include="Spade\Images\Constant_Friend.png" />
-    <Resource Include="Spade\Images\Constant_Private.png" />
-    <Resource Include="Spade\Images\Constant_Protected.png" />
-    <Resource Include="Spade\Images\Constant_Sealed.png" />
-    <Resource Include="Spade\Images\Delegate.png" />
-    <Resource Include="Spade\Images\Delegate_Friend.png" />
-    <Resource Include="Spade\Images\Delegate_Private.png" />
-    <Resource Include="Spade\Images\Delegate_Protected.png" />
-    <Resource Include="Spade\Images\Delegate_Sealed.png" />
-    <Resource Include="Spade\Images\Enum.png" />
-    <Resource Include="Spade\Images\Enum_Friend.png" />
-    <Resource Include="Spade\Images\Enum_Private.png" />
-    <Resource Include="Spade\Images\Enum_Protected.png" />
-    <Resource Include="Spade\Images\Enum_Sealed.png" />
-    <Resource Include="Spade\Images\Event.png" />
-    <Resource Include="Spade\Images\Event_Friend.png" />
-    <Resource Include="Spade\Images\Event_Private.png" />
-    <Resource Include="Spade\Images\Event_Protected.png" />
-    <Resource Include="Spade\Images\Event_Sealed.png" />
-    <Resource Include="Spade\Images\Field.png" />
-    <Resource Include="Spade\Images\Field_Friend.png" />
-    <Resource Include="Spade\Images\Field_Private.png" />
-    <Resource Include="Spade\Images\Field_Protected.png" />
-    <Resource Include="Spade\Images\Field_Sealed.png" />
-    <Resource Include="Spade\Images\Interface.png" />
-    <Resource Include="Spade\Images\Interface_Friend.png" />
-    <Resource Include="Spade\Images\Interface_Private.png" />
-    <Resource Include="Spade\Images\Interface_Protected.png" />
-    <Resource Include="Spade\Images\Interface_Sealed.png" />
-    <Resource Include="Spade\Images\Method.png" />
-    <Resource Include="Spade\Images\MethodOverload.png" />
-    <Resource Include="Spade\Images\MethodOverload_Friend.png" />
-    <Resource Include="Spade\Images\MethodOverload_Private.png" />
-    <Resource Include="Spade\Images\MethodOverload_Protected.png" />
-    <Resource Include="Spade\Images\MethodOverload_Sealed.png" />
-    <Resource Include="Spade\Images\Method_Friend.png" />
-    <Resource Include="Spade\Images\Method_Private.png" />
-    <Resource Include="Spade\Images\Method_Protected.png" />
-    <Resource Include="Spade\Images\Method_Sealed.png" />
-    <Resource Include="Spade\Images\Properties.png" />
-    <Resource Include="Spade\Images\Properties_Friend.png" />
-    <Resource Include="Spade\Images\Properties_Private.png" />
-    <Resource Include="Spade\Images\Properties_Protected.png" />
-    <Resource Include="Spade\Images\Properties_Sealed.png" />
-    <Resource Include="Spade\Images\Structure.png" />
-    <Resource Include="Spade\Images\Structure_Friend.png" />
-    <Resource Include="Spade\Images\Structure_Private.png" />
-    <Resource Include="Spade\Images\Structure_Protected.png" />
-    <Resource Include="Spade\Images\Structure_Sealed.png" />
-    <Resource Include="Spade\Images\MethodConstructor.png" />
-    <Resource Include="Spade\Images\MethodDestructor.png" />
-    <Resource Include="Spade\Images\MethodConstructor_Friend.png" />
-    <Resource Include="Spade\Images\MethodConstructor_Private.png" />
-    <Resource Include="Spade\Images\MethodConstructor_Protected.png" />
-    <Resource Include="Spade\Images\MethodConstructor_Sealed.png" />
-    <Resource Include="Spade\Images\MethodDestructor_Friend.png" />
-    <Resource Include="Spade\Images\MethodDestructor_Private.png" />
-    <Resource Include="Spade\Images\MethodDestructor_Protected.png" />
-    <Resource Include="Spade\Images\MethodDestructor_Sealed.png" />
-    <Resource Include="Themes\Images\Collapsed.png" />
-    <Resource Include="Themes\Images\Expanded.png" />
-    <Resource Include="Spade\Images\Region.png" />
-    <Resource Include="Images\about.png" />
+    <Resource Include="UI\Themes\Images\Expanded.png" />
+    <Resource Include="UI\Themes\Images\Collapsed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Structure_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Structure_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Structure_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Structure_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Structure.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Region.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Properties_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Properties_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Properties_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Properties_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Properties.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodOverload_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodOverload_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodOverload_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodOverload_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodOverload.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodDestructor_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodDestructor_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodDestructor_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodDestructor_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodDestructor.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodConstructor_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodConstructor_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodConstructor_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodConstructor_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\MethodConstructor.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Method_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Method_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Method_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Method_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Method.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Interface_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Interface_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Interface_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Interface_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Interface.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Field_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Field_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Field_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Field_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Field.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Event_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Event_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Event_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Event_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Event.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Enum_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Enum_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Enum_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Enum_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Enum.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Delegate_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Delegate_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Delegate_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Delegate_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Delegate.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Constant_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Constant_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Constant_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Constant_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Constant.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Class_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Class_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Class_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Class_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\Class.png" />
     <Content Include="CodeMaid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -384,6 +383,28 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Integration\Images\about.png" />
+    <Resource Include="Integration\Images\CodeMaid.ico" />
+    <Resource Include="Integration\Images\IDE\cleanup.bmp" />
+    <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
+    <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
+    <Resource Include="Integration\Images\IDE\collapse.bmp" />
+    <Resource Include="Integration\Images\IDE\config.bmp" />
+    <Resource Include="Integration\Images\IDE\find.bmp" />
+    <Resource Include="Integration\Images\IDE\info.bmp" />
+    <Resource Include="Integration\Images\IDE\join.bmp" />
+    <Resource Include="Integration\Images\IDE\lock.bmp" />
+    <Resource Include="Integration\Images\IDE\progress.bmp" />
+    <Resource Include="Integration\Images\IDE\progressToolWindow.bmp" />
+    <Resource Include="Integration\Images\IDE\refresh.bmp" />
+    <Resource Include="Integration\Images\IDE\reorganize.bmp" />
+    <Resource Include="Integration\Images\IDE\sortAlpha.bmp" />
+    <Resource Include="Integration\Images\IDE\sortNumeric.bmp" />
+    <Resource Include="Integration\Images\IDE\sortType.bmp" />
+    <Resource Include="Integration\Images\IDE\spade.bmp" />
+    <Resource Include="Integration\Images\IDE\spadeToolWindow.bmp" />
+    <Resource Include="Integration\Images\IDE\switch.bmp" />
+    <Resource Include="Integration\Images\IDE\unlock.bmp" />
     <Content Include="lgpl-3.0.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -393,120 +414,99 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="source.extension.vsixmanifest" />
-    <Content Include="Images\IDE\cleanupAll.bmp" />
-    <Content Include="Images\IDE\cleanup.bmp" />
-    <Content Include="Images\IDE\closeLocked.bmp" />
-    <Resource Include="Images\CodeMaid.ico" />
-    <Content Include="Images\IDE\collapse.bmp" />
-    <Content Include="Images\IDE\config.bmp" />
-    <Content Include="Images\IDE\find.bmp" />
-    <Content Include="Images\IDE\info.bmp" />
-    <Content Include="Images\IDE\join.bmp" />
-    <Content Include="Images\IDE\lock.bmp" />
-    <Content Include="Images\IDE\progress.bmp" />
-    <None Include="Images\IDE\progressToolWindow.bmp" />
-    <Content Include="Images\IDE\refresh.bmp" />
-    <Content Include="Images\IDE\reorganize.bmp" />
-    <Content Include="Images\IDE\sortAlpha.bmp" />
-    <Content Include="Images\IDE\sortNumeric.bmp" />
-    <Content Include="Images\IDE\sortType.bmp" />
-    <Content Include="Images\IDE\spade.bmp" />
-    <None Include="Images\IDE\spadeToolWindow.bmp" />
-    <Content Include="Images\IDE\switch.bmp" />
-    <Content Include="Images\IDE\unlock.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BuildProgress\BuildProgressView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CleanupProgress\CleanupProgressWindow.xaml">
+    <Page Include="UI\Dialogs\About\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="About\AboutWindow.xaml">
+    <Page Include="UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Cleaning\CleaningGeneralDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Cleaning\CleaningInsertDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Cleaning\CleaningParentDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Options\Cleaning\CleaningRemoveDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Cleaning\CleaningUpdateDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Collapsing\CollapsingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Digging\DiggingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\OptionsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Progressing\ProgressingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Reorganizing\ReorganizingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Options\Switching\SwitchingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Buttons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\CodeMaidTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Spade\CodeItemTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Spade\CodeItemToolTipTemplates.xaml">
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningGeneralDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Spade\SpadeView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningInsertDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Colors.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningParentDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TreeViews.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningRemoveDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningUpdateDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Digging\DiggingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\OptionsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Progressing\ProgressingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Switching\SwitchingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\CodeMaidTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\TreeViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\Spade\CodeItemTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\Spade\CodeItemToolTipTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\Spade\SpadeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup>

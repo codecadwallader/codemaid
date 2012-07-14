@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
+    <DataTemplate DataType="{x:Type local:CleaningInsertViewModel}">
+        <StackPanel>
+            <TextBlock Text="Insert blank line padding before" Margin="5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="using statement blocks" IsChecked="{Binding InsertBlankLinePaddingBeforeUsingStatementBlocks}" />
+                <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingBeforeNamespaces}" />
+                <ToggleButton Content="#region tags" IsChecked="{Binding InsertBlankLinePaddingBeforeRegionTags}" />
+                <ToggleButton Content="#endregion tags" IsChecked="{Binding InsertBlankLinePaddingBeforeEndRegionTags}" />
+
+                <ToggleButton Content="case statements" IsChecked="{Binding InsertBlankLinePaddingBeforeCaseStatements}" />
+                <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingBeforeClasses}" />
+                <ToggleButton Content="delegates" IsChecked="{Binding InsertBlankLinePaddingBeforeDelegates}" />
+                <ToggleButton Content="enumerations" IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />
+                <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingBeforeEvents}" />
+                <ToggleButton Content="multi-line fields" IsChecked="{Binding InsertBlankLinePaddingBeforeFieldsMultiLine}" />
+                <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingBeforeInterfaces}" />
+                <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
+                <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingBeforeProperties}" />
+                <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
+            </WrapPanel>
+
+            <TextBlock Text="Insert blank line padding between" Margin="5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="multi-line property accessors" IsChecked="{Binding InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors}" />
+            </WrapPanel>
+
+            <TextBlock Text="Insert blank line padding after" Margin="5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="using statement blocks" IsChecked="{Binding InsertBlankLinePaddingAfterUsingStatementBlocks}" />
+                <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingAfterNamespaces}" />
+                <ToggleButton Content="#region tags" IsChecked="{Binding InsertBlankLinePaddingAfterRegionTags}" />
+                <ToggleButton Content="#endregion tags" IsChecked="{Binding InsertBlankLinePaddingAfterEndRegionTags}" />
+
+                <ToggleButton Content="classes" IsChecked="{Binding InsertBlankLinePaddingAfterClasses}" />
+                <ToggleButton Content="delegates" IsChecked="{Binding InsertBlankLinePaddingAfterDelegates}" />
+                <ToggleButton Content="enumerations" IsChecked="{Binding InsertBlankLinePaddingAfterEnumerations}" />
+                <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingAfterEvents}" />
+                <ToggleButton Content="multi-line fields" IsChecked="{Binding InsertBlankLinePaddingAfterFieldsMultiLine}" />
+                <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingAfterInterfaces}" />
+                <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingAfterMethods}" />
+                <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingAfterProperties}" />
+                <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
+            </WrapPanel>
+
+            <TextBlock Text="Insert explicit access modifiers on" Margin="5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
+                <ToggleButton Content="delegates" IsChecked="{Binding InsertExplicitAccessModifiersOnDelegates}" />
+                <ToggleButton Content="enumerations" IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
+                <ToggleButton Content="events" IsChecked="{Binding InsertExplicitAccessModifiersOnEvents}" />
+                <ToggleButton Content="fields" IsChecked="{Binding InsertExplicitAccessModifiersOnFields}" />
+                <ToggleButton Content="interfaces" IsChecked="{Binding InsertExplicitAccessModifiersOnInterfaces}" />
+                <ToggleButton Content="methods" IsChecked="{Binding InsertExplicitAccessModifiersOnMethods}" />
+                <ToggleButton Content="properties" IsChecked="{Binding InsertExplicitAccessModifiersOnProperties}" />
+                <ToggleButton Content="structs" IsChecked="{Binding InsertExplicitAccessModifiersOnStructs}" />
+            </WrapPanel>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

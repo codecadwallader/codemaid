@@ -1,0 +1,150 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+
+    <!-- Styles -->
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Tahoma" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="defaultNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}" />
+
+    <Style x:Key="parentNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="namespaceStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="#666666" />
+    </Style>
+
+    <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+
+    <Style x:Key="metadataStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+
+    <!-- Common component templates -->
+    <DataTemplate x:Key="complexityDataTemplate">
+        <TextBlock x:Name="complexityTextBlock"
+                Foreground="{Binding Complexity, Converter={x:Static cnv:ComplexityToColorConverter.Default}}"
+                Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="imageDataTemplate">
+        <Image Height="16" Width="16" Margin="0,0,4,0" RenderOptions.BitmapScalingMode="NearestNeighbor"
+                Source="{Binding Converter={x:Static cnv:CodeItemToImageConverter.Default}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="metadataDataTemplate">
+        <TextBlock x:Name="metadataTextBlock"
+                Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Default}}"
+                Style="{StaticResource metadataStyle}" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}"
+                    Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!-- CodeItem templates -->
+    <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+        <DockPanel>
+            <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource complexityDataTemplate}" Focusable="False" />
+
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
+
+            <ContentControl x:Name="name"
+                    Content="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.Default}}"
+                    Focusable="False" />
+        </DockPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}"
+                    Value="True">
+                <Setter TargetName="name" Property="Content"
+                        Value="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.WithParameters}}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
+        <DockPanel Margin="0,2">
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
+
+            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource parentNameStyle}" />
+
+            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}" Style="{StaticResource namespaceStyle}" />
+        </DockPanel>
+        <HierarchicalDataTemplate.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
+                <Setter TargetName="name" Property="Style" Value="{StaticResource defaultNameStyle}" />
+                <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>
+    </HierarchicalDataTemplate>
+
+    <DataTemplate x:Key="propertyDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
+        <DockPanel>
+            <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource complexityDataTemplate}" Focusable="False" />
+
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <HierarchicalDataTemplate x:Key="regionDataTemplate" DataType="{x:Type ci:CodeItemRegion}" ItemsSource="{Binding Children}">
+        <DockPanel>
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+        </DockPanel>
+    </HierarchicalDataTemplate>
+
+    <DataTemplate x:Key="standardDataTemplate" DataType="{x:Type ci:BaseCodeItem}">
+        <DockPanel>
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource metadataDataTemplate}" Focusable="False" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
+
+            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>

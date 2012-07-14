@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.CodeItems;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers

@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing">
+    <DataTemplate DataType="{x:Type local:CollapsingViewModel}">
+        <StackPanel>
+            <CheckBox Content="Collapse solutions when they are opened" IsChecked="{Binding CollapseSolutionWhenOpened}" />
+            <CheckBox Content="If there is only one project in a solution, keep it expanded but still collapse its children" IsChecked="{Binding KeepSoloProjectExpanded}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

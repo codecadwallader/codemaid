@@ -24,10 +24,11 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SteveCadwallader.CodeMaid.BuildProgress;
-using SteveCadwallader.CodeMaid.Commands;
-using SteveCadwallader.CodeMaid.Events;
-using SteveCadwallader.CodeMaid.Spade;
+using SteveCadwallader.CodeMaid.Integration;
+using SteveCadwallader.CodeMaid.Integration.Commands;
+using SteveCadwallader.CodeMaid.Integration.Events;
+using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
+using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 
 namespace SteveCadwallader.CodeMaid
 {
