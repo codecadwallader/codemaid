@@ -13,6 +13,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -63,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void InsertBlankSpaceBeforeSelfClosingAngleBracket(TextDocument textDocument)
         {
-            //TODO: Add configuration option.
+            if (!Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets) return;
 
             string pattern = _package.UsePOSIXRegEx
                                  ? @"{[^:b]}/>"

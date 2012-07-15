@@ -946,5 +946,41 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"]));
+            }
+            set {
+                this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBeforeClosingTags {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBeforeClosingTags"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBeforeClosingTags"] = value;
+            }
+        }
     }
 }

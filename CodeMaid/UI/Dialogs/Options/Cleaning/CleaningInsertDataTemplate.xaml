@@ -45,6 +45,11 @@
                 <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
             </WrapPanel>
 
+            <TextBlock Text="Insert blank space before" Margin= "5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="self-closing angle brackets" IsChecked="{Binding InsertBlankSpaceBeforeSelfClosingAngleBrackets}" />
+            </WrapPanel>
+
             <TextBlock Text="Insert explicit access modifiers on" Margin="5,5,5,0" />
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />

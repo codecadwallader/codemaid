@@ -63,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             InsertBlankLinePaddingBeforeStructs = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
             InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
+            InsertBlankSpaceBeforeSelfClosingAngleBrackets = Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets;
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
             InsertExplicitAccessModifiersOnDelegates = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
@@ -107,6 +108,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs = InsertBlankLinePaddingBeforeStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
             Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
+            Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = InsertBlankSpaceBeforeSelfClosingAngleBrackets;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = InsertExplicitAccessModifiersOnDelegates;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
@@ -622,6 +624,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _insertBlankLinePaddingBetweenPropertiesMultiLineAccessors = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors");
+                }
+            }
+        }
+
+        private bool _insertBlankSpaceBeforeSelfClosingAngleBrackets;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if a blank space should be added before self closing angle brackets.
+        /// </summary>
+        public bool InsertBlankSpaceBeforeSelfClosingAngleBrackets
+        {
+            get { return _insertBlankSpaceBeforeSelfClosingAngleBrackets; }
+            set
+            {
+                if (_insertBlankSpaceBeforeSelfClosingAngleBrackets != value)
+                {
+                    _insertBlankSpaceBeforeSelfClosingAngleBrackets = value;
+                    NotifyPropertyChanged("InsertBlankSpaceBeforeSelfClosingAngleBrackets");
                 }
             }
         }

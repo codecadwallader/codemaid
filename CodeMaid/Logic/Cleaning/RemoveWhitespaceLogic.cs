@@ -151,7 +151,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesBeforeClosingTag(TextDocument textDocument)
         {
-            //TODO: Add configuration option.
+            if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags) return;
 
             string pattern = _package.UsePOSIXRegEx
                                  ? @"\n\n{:b*}</"
@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankSpacesBeforeClosingAngleBracket(TextDocument textDocument)
         {
-            //TODO: Add configuration option.
+            if (!Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets) return;
 
             string pattern = _package.UsePOSIXRegEx
                                  ? @":b+>"

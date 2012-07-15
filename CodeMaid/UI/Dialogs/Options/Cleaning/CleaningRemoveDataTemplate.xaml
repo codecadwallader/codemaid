@@ -7,9 +7,15 @@
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
                 <ToggleButton Content="after attributes" IsChecked="{Binding RemoveBlankLinesAfterAttributes}" />
-                <ToggleButton Content="after opening brace" IsChecked="{Binding RemoveBlankLinesAfterOpeningBrace}" />
-                <ToggleButton Content="before closing brace" IsChecked="{Binding RemoveBlankLinesBeforeClosingBrace}" />
+                <ToggleButton Content="after opening braces" IsChecked="{Binding RemoveBlankLinesAfterOpeningBraces}" />
+                <ToggleButton Content="before closing braces" IsChecked="{Binding RemoveBlankLinesBeforeClosingBraces}" />
+                <ToggleButton Content="before closing tags" IsChecked="{Binding RemoveBlankLinesBeforeClosingTags}" />
                 <ToggleButton Content="at bottom of file" IsChecked="{Binding RemoveBlankLinesAtBottom}" />
+            </WrapPanel>
+
+            <TextBlock Text="Remove blank spaces" Margin="5,5,5,0" />
+            <WrapPanel Margin="35,0,5,10">
+                <ToggleButton Content="before closing angle brackets" IsChecked="{Binding RemoveBlankSpacesBeforeClosingAngleBrackets}" />
             </WrapPanel>
 
             <CheckBox Content="Remove end of line whitespace" IsChecked="{Binding RemoveEndOfLineWhitespace}" />

@@ -36,10 +36,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override void LoadSettings()
         {
             RemoveBlankLinesAfterAttributes = Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes;
-            RemoveBlankLinesAfterOpeningBrace = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
+            RemoveBlankLinesAfterOpeningBraces = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
             RemoveBlankLinesAtBottom = Settings.Default.Cleaning_RemoveBlankLinesAtBottom;
             RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
-            RemoveBlankLinesBeforeClosingBrace = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
+            RemoveBlankLinesBeforeClosingBraces = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
+            RemoveBlankLinesBeforeClosingTags = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags;
+            RemoveBlankSpacesBeforeClosingAngleBrackets = Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets;
             RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
             RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
         }
@@ -50,10 +52,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override void SaveSettings()
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = RemoveBlankLinesAfterAttributes;
-            Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBrace;
+            Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBraces;
             Settings.Default.Cleaning_RemoveBlankLinesAtBottom = RemoveBlankLinesAtBottom;
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
-            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBrace;
+            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBraces;
+            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags = RemoveBlankLinesBeforeClosingTags;
+            Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = RemoveBlankSpacesBeforeClosingAngleBrackets;
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
         }
@@ -80,20 +84,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
-        private bool _removeBlankLinesAfterOpeningBrace;
+        private bool _removeBlankLinesAfterOpeningBraces;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed after an opening brace.
         /// </summary>
-        public bool RemoveBlankLinesAfterOpeningBrace
+        public bool RemoveBlankLinesAfterOpeningBraces
         {
-            get { return _removeBlankLinesAfterOpeningBrace; }
+            get { return _removeBlankLinesAfterOpeningBraces; }
             set
             {
-                if (_removeBlankLinesAfterOpeningBrace != value)
+                if (_removeBlankLinesAfterOpeningBraces != value)
                 {
-                    _removeBlankLinesAfterOpeningBrace = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAfterOpeningBrace");
+                    _removeBlankLinesAfterOpeningBraces = value;
+                    NotifyPropertyChanged("RemoveBlankLinesAfterOpeningBraces");
                 }
             }
         }
@@ -134,20 +138,56 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
-        private bool _removeBlankLinesBeforeClosingBrace;
+        private bool _removeBlankLinesBeforeClosingBraces;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed before a closing brace.
         /// </summary>
-        public bool RemoveBlankLinesBeforeClosingBrace
+        public bool RemoveBlankLinesBeforeClosingBraces
         {
-            get { return _removeBlankLinesBeforeClosingBrace; }
+            get { return _removeBlankLinesBeforeClosingBraces; }
             set
             {
-                if (_removeBlankLinesBeforeClosingBrace != value)
+                if (_removeBlankLinesBeforeClosingBraces != value)
                 {
-                    _removeBlankLinesBeforeClosingBrace = value;
-                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingBrace");
+                    _removeBlankLinesBeforeClosingBraces = value;
+                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingBraces");
+                }
+            }
+        }
+
+        private bool _removeBlankLinesBeforeClosingTags;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank lines should be removed before a closing tag.
+        /// </summary>
+        public bool RemoveBlankLinesBeforeClosingTags
+        {
+            get { return _removeBlankLinesBeforeClosingTags; }
+            set
+            {
+                if (_removeBlankLinesBeforeClosingTags != value)
+                {
+                    _removeBlankLinesBeforeClosingTags = value;
+                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingTags");
+                }
+            }
+        }
+
+        private bool _removeBlankSpacesBeforeClosingAngleBrackets;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank spaces should be removed before a closing angle bracket.
+        /// </summary>
+        public bool RemoveBlankSpacesBeforeClosingAngleBrackets
+        {
+            get { return _removeBlankSpacesBeforeClosingAngleBrackets; }
+            set
+            {
+                if (_removeBlankSpacesBeforeClosingAngleBrackets != value)
+                {
+                    _removeBlankSpacesBeforeClosingAngleBrackets = value;
+                    NotifyPropertyChanged("RemoveBlankSpacesBeforeClosingAngleBrackets");
                 }
             }
         }
