@@ -147,6 +147,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "C/C++": return Settings.Default.Cleaning_IncludeCPlusPlus;
                 case "CSS": return Settings.Default.Cleaning_IncludeCSS;
                 case "HTML": return Settings.Default.Cleaning_IncludeHTML;
+                case "JavaScript":
                 case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "XAML": return Settings.Default.Cleaning_IncludeXAML;
                 case "XML": return Settings.Default.Cleaning_IncludeXML;
@@ -185,7 +186,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var extension = Path.GetExtension(projectItem.Name) ?? string.Empty;
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
-                // Make an exception for JavaScript files - they incorrectly return the HTML language service.
+                // Make an exception for JavaScript files - they may incorrectly return the HTML language service.
                 return Settings.Default.Cleaning_IncludeJavaScript;
             }
 
@@ -197,6 +198,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{A764E898-518D-11d2-9A89-00C04F79EFC3}": return Settings.Default.Cleaning_IncludeCSS;
                 case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Settings.Default.Cleaning_IncludeHTML;
                 case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "{71d61d27-9011-4b17-9469-d20f798fb5c0}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default: return false;
