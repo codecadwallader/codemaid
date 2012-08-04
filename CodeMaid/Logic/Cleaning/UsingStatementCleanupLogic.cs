@@ -85,7 +85,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             var points = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
                           from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
-                          select new { editPoint, text = editPoint.GetLine() }).ToList();
+                          select new { editPoint, text = editPoint.GetLine() }).Reverse().ToList();
 
             _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
 
