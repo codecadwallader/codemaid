@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private readonly CodeMaidPackage _package;
 
+        private readonly CodeReorderManager _codeReorderManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
 
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
@@ -71,6 +72,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             _package = package;
 
+            _codeReorderManager = CodeReorderManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
 
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
@@ -134,7 +136,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                CodeReorderManager.GetInstance(_package).Reorganize(document);
+                _codeReorderManager.Reorganize(document, isAutoSave);
             }
 
             _undoTransactionHelper.Run(

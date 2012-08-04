@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            CodeReorderManager.Reorganize(ActiveDocument);
+            CodeReorderManager.Reorganize(ActiveDocument, false);
         }
 
         #endregion BaseCommand Methods
