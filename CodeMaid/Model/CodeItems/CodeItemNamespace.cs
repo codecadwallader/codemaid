@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// <summary>
     /// The representation of a code namespace.
     /// </summary>
-    public class CodeItemNamespace : BaseCodeItemElement
+    public class CodeItemNamespace : BaseCodeItemElementParent
     {
         #region BaseCodeItem Overrides
 
@@ -51,6 +51,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion BaseCodeItemElement Overrides
+
+        #region BaseCodeItemElementParent Overrides
+
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        public override string Namespace
+        {
+            get { return null; }
+        }
+
+        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 

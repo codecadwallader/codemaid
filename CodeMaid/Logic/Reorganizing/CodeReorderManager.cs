@@ -134,7 +134,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                                         ? CodeModelHelper.RetrieveCodeItemsIncludingRegions(document)
                                         : CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
 
-                    codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
+                    codeItems.RemoveAll(x => x is CodeItemUsingStatement);
 
                     // Build the code tree based on the current file layout.
                     var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
