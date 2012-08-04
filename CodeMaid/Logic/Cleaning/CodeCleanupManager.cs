@@ -203,9 +203,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = (TextDocument)document.Object("TextDocument");
 
             // Perform any actions that can modify the file code model first.
+            RunVSFormatting(textDocument);
             _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
             _usingStatementCleanupLogic.SortUsingStatements();
-            RunVSFormatting(textDocument);
 
             // Interpret the document into a collection of elements.
             var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
