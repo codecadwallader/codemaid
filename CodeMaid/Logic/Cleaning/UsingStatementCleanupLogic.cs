@@ -95,6 +95,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 string text = point.editPoint.GetLine();
                 if (text != point.text)
                 {
+                    point.editPoint.StartOfLine();
                     point.editPoint.Insert(point.text);
                     point.editPoint.Insert(Environment.NewLine);
                 }
