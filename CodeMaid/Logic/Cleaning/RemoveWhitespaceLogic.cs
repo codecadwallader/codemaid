@@ -160,7 +160,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags) return;
 
             string pattern = _package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}</"
+                                 ? @"\n\n{:b*}\</"
                                  : @"(\r?\n){2,}([ \t]*)</";
             string replacement = _package.UsePOSIXRegEx
                                      ? Environment.NewLine + @"\1</"
@@ -178,7 +178,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets) return;
 
             // Remove blank spaces before regular closing angle brackets.
-            string pattern = _package.UsePOSIXRegEx ? @":b+>" : @"[ \t]+>";
+            string pattern = _package.UsePOSIXRegEx ? @":b+\>" : @"[ \t]+>";
             const string replacement = @">";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
@@ -186,14 +186,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Handle blank spaces before self closing angle brackets based on insert blank space setting.
             if (Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets)
             {
-                string oneSpacePattern = _package.UsePOSIXRegEx ? @":b:b+/>" : @"[ \t]{2,}/>";
+                string oneSpacePattern = _package.UsePOSIXRegEx ? @":b:b+/\>" : @"[ \t]{2,}/>";
                 const string oneSpaceReplacement = @" />";
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, oneSpacePattern, oneSpaceReplacement);
             }
             else
             {
-                string noSpacePattern = _package.UsePOSIXRegEx ? @":b+/>" : @"[ \t]+/>";
+                string noSpacePattern = _package.UsePOSIXRegEx ? @":b+/\>" : @"[ \t]+/>";
                 const string noSpaceReplacement = @"/>";
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, noSpacePattern, noSpaceReplacement);
