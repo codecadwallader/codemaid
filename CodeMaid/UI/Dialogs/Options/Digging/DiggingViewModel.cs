@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// </summary>
         public override void LoadSettings()
         {
+            CacheFiles = Settings.Default.Digging_CacheFiles;
             CenterOnWhole = Settings.Default.Digging_CenterOnWhole;
             ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
             ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
@@ -50,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Digging_CacheFiles = CacheFiles;
             Settings.Default.Digging_CenterOnWhole = CenterOnWhole;
             Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
             Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
@@ -63,6 +65,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _cacheFiles;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if files should be cached.
+        /// </summary>
+        public bool CacheFiles
+        {
+            get { return _cacheFiles; }
+            set
+            {
+                if (_cacheFiles != value)
+                {
+                    _cacheFiles = value;
+                    NotifyPropertyChanged("CacheFiles");
+                }
+            }
+        }
 
         private bool _centerOnWhole;
 

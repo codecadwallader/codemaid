@@ -4,6 +4,13 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:DiggingViewModel}">
         <StackPanel>
+            <GroupBox Header="General">
+                <StackPanel>
+                    <CheckBox Content="Cache files for improved performance" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="Synchronize outlining with the code file" IsChecked="{Binding SynchronizeOutlining}" />
+                </StackPanel>
+            </GroupBox>
+
             <GroupBox Header="Display">
                 <StackPanel>
                     <CheckBox Content="Show method parameters" IsChecked="{Binding ShowMethodParameters}" />
@@ -42,10 +49,6 @@
                     <RadioButton Content="whole item" IsChecked="{Binding CenterOnWhole}" />
                     <RadioButton Content="name only" IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                 </StackPanel>
-            </GroupBox>
-
-            <GroupBox Header="Outlining">
-                <CheckBox Content="Synchronize outlining with the code file" IsChecked="{Binding SynchronizeOutlining}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

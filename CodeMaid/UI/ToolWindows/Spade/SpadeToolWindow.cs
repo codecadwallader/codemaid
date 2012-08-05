@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using EnvDTE;
@@ -21,6 +22,7 @@ using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Logic.Digging;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -34,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private readonly SpadeCodeModelRetriever _codeModelRetriever;
         private readonly SpadeViewModel _viewModel;
+        private readonly Dictionary<Document, SetCodeItems> _codeItemsCache;
 
         private Document _document;
         private bool _isVisible;
@@ -61,6 +64,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // Setup the associated classes.
             _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new SpadeViewModel();
+            _codeItemsCache = new Dictionary<Document, SetCodeItems>();
 
             // Register for view model requests to be refreshed.
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
@@ -205,10 +209,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 if (isRefresh)
                 {
                     _viewModel.IsRefreshing = true;
+                    _codeItemsCache.Remove(Document);
                 }
                 else
                 {
                     _viewModel.IsLoading = true;
+
+                    SetCodeItems cachedCodeItems;
+                    if (Settings.Default.Digging_CacheFiles && _codeItemsCache.TryGetValue(Document, out cachedCodeItems))
+                    {
+                        UpdateViewModelRawCodeItems(cachedCodeItems);
+                        return;
+                    }
                 }
 
                 _codeModelRetriever.RetrieveCodeModelAsync(Document);
@@ -221,6 +233,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="codeItems">The code items.</param>
         private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
         {
+            if (Document != null && Settings.Default.Digging_CacheFiles)
+            {
+                _codeItemsCache[Document] = codeItems;
+            }
+
             _viewModel.RawCodeItems = codeItems;
             _viewModel.IsLoading = false;
             _viewModel.IsRefreshing = false;

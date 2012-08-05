@@ -242,5 +242,8 @@
     <Setting Name="Cleaning_RemoveBlankLinesBeforeClosingTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Digging_CacheFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

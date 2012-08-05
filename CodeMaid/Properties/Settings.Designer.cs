@@ -982,5 +982,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_RemoveBlankLinesBeforeClosingTags"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_CacheFiles {
+            get {
+                return ((bool)(this["Digging_CacheFiles"]));
+            }
+            set {
+                this["Digging_CacheFiles"] = value;
+            }
+        }
     }
 }
