@@ -192,6 +192,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             if (!IsVisible) return;
 
             _viewModel.Document = Document;
+            _viewModel.IsLoading = false;
+            _viewModel.IsRefreshing = false;
 
             if (Document == null || !isRefresh)
             {
