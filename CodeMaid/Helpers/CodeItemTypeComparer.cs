@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int accessOffset = CalculateAccessOffset(codeItem);
             int staticOffset = CalculateStaticOffset(codeItem);
 
-            return (typeOffset * 10) + (accessOffset * 2) + staticOffset;
+            return (typeOffset * 100) + (accessOffset * 10) + staticOffset;
         }
 
         private static int CalculateTypeOffset(BaseCodeItem codeItem)
@@ -113,8 +113,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 case vsCMAccess.vsCMAccessAssemblyOrFamily: return 1;
                 case vsCMAccess.vsCMAccessProject: return 2;
-                case vsCMAccess.vsCMAccessProtected: return 3;
-                case vsCMAccess.vsCMAccessPrivate: return 4;
+                case vsCMAccess.vsCMAccessProjectOrProtected: return 3;
+                case vsCMAccess.vsCMAccessProtected: return 4;
+                case vsCMAccess.vsCMAccessPrivate: return 5;
                 default: return 0;
             }
         }
