@@ -89,7 +89,15 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public bool IsConstant
         {
-            get { return CodeVariable != null && CodeVariable.IsConstant; }
+            get { return CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst; }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this field is read-only.
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly; }
         }
 
         #endregion Properties

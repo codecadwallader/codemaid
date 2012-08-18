@@ -182,6 +182,22 @@
         </StackPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="fieldToolTipDataTemplate" DataType="{x:Type ci:CodeItemField}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
+                        Style="{StaticResource defaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
     <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">

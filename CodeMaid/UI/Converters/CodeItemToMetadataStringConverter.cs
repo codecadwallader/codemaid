@@ -72,6 +72,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                     // Avoid showing static metadata for constants since it is redundant.
                     return string.Empty;
 
+                case KindCodeItem.Field:
+                    metadataStrings = GenerateMetadataStrings((CodeItemField)codeItem);
+                    break;
+
                 case KindCodeItem.Constructor:
                 case KindCodeItem.Destructor:
                 case KindCodeItem.Method:
@@ -116,6 +120,25 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             if (element.IsStatic)
             {
                 strings.Add(UseExtendedStrings ? "static" : "s");
+            }
+
+            return strings;
+        }
+
+        /// <summary>
+        /// Generates metadata strings for the specified field.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns>The metadata strings.</returns>
+        private IEnumerable<string> GenerateMetadataStrings(CodeItemField field)
+        {
+            var strings = new List<string>();
+
+            strings.AddRange(GenerateMetadataStrings((BaseCodeItemElement)field));
+
+            if (field.IsReadOnly)
+            {
+                strings.Add(UseExtendedStrings ? "read-only" : "ro");
             }
 
             return strings;

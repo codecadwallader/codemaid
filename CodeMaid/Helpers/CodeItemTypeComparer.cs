@@ -67,8 +67,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
             int staticOffset = CalculateStaticOffset(codeItem);
+            int readOnlyOffset = CalculateReadOnlyOffset(codeItem);
 
-            return (typeOffset * 100) + (accessOffset * 10) + staticOffset;
+            return (typeOffset * 1000) + (accessOffset * 100) + (staticOffset * 10) + readOnlyOffset;
         }
 
         private static int CalculateTypeOffset(BaseCodeItem codeItem)
@@ -129,6 +130,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (codeItemElement == null) return 0;
 
             return codeItemElement.IsStatic ? 0 : 1;
+        }
+
+        private static int CalculateReadOnlyOffset(BaseCodeItem codeItem)
+        {
+            var codeItemField = codeItem as CodeItemField;
+            if (codeItemField == null) return 0;
+
+            return codeItemField.IsReadOnly ? 0 : 1;
         }
     }
 }

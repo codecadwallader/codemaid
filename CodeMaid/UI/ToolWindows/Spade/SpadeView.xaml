@@ -27,6 +27,7 @@
                                             ConstructorDataTemplate="{StaticResource constructorToolTipDataTemplate}"
                                             DefaultDataTemplate="{StaticResource defaultToolTipDataTemplate}"
                                             DestructorDataTemplate="{StaticResource destructorToolTipDataTemplate}"
+                                            FieldDataTemplate="{StaticResource fieldToolTipDataTemplate}"
                                             MethodDataTemplate="{StaticResource methodToolTipDataTemplate}"
                                             PropertyDataTemplate="{StaticResource propertyToolTipDataTemplate}" />
                                 </ContentPresenter.ContentTemplateSelector>

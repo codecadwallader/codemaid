@@ -40,6 +40,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public DataTemplate DestructorDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the field data template.
+        /// </summary>
+        public DataTemplate FieldDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the method data template.
         /// </summary>
         public DataTemplate MethodDataTemplate { get; set; }
@@ -74,7 +79,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Delegate:
                     case KindCodeItem.Enum:
                     case KindCodeItem.Event:
-                    case KindCodeItem.Field:
                     case KindCodeItem.Interface:
                     case KindCodeItem.Region:
                     case KindCodeItem.Struct:
@@ -82,6 +86,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
                     case KindCodeItem.Destructor:
                         return DestructorDataTemplate;
+
+                    case KindCodeItem.Field:
+                        return FieldDataTemplate;
 
                     case KindCodeItem.Method:
                         return MethodDataTemplate;
