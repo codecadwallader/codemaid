@@ -34,7 +34,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override KindCodeItem Kind
         {
-            get { return KindCodeItem.Property; }
+            get { return IsIndexer ? KindCodeItem.Indexer : KindCodeItem.Property; }
         }
 
         #endregion BaseCodeItem Overrides
@@ -109,6 +109,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
                 return _complexity.Value;
             }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this property is an indexer.
+        /// </summary>
+        public bool IsIndexer
+        {
+            get { return Name == "this"; }
         }
 
         #endregion Properties

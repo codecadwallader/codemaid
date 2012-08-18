@@ -155,6 +155,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case KindCodeItem.Method:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeMethods;
 
+                case KindCodeItem.Indexer:
                 case KindCodeItem.Property:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
 
@@ -209,6 +210,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case KindCodeItem.Method:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterMethods;
 
+                case KindCodeItem.Indexer:
                 case KindCodeItem.Property:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties;
 

@@ -77,6 +77,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Struct:
                         return ParentDataTemplate;
 
+                    case KindCodeItem.Indexer:
                     case KindCodeItem.Property:
                         return PropertyDataTemplate;
 

@@ -78,6 +78,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                     metadataStrings = GenerateMetadataStrings((CodeItemMethod)codeItem);
                     break;
 
+                case KindCodeItem.Indexer:
                 case KindCodeItem.Property:
                     metadataStrings = GenerateMetadataStrings((CodeItemProperty)codeItem);
                     break;

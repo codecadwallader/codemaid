@@ -62,7 +62,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return CodeFunction != null ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
+            // Make an exception for static constructors, which report private access but really do not have an access level.
+            get { return CodeFunction != null && !(IsStatic && IsConstructor) ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
         }
 
         /// <summary>

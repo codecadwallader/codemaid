@@ -98,6 +98,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 case KindCodeItem.Field: return "Field";
                 case KindCodeItem.Interface: return "Interface";
                 case KindCodeItem.Method: return ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
+                case KindCodeItem.Indexer:
                 case KindCodeItem.Property: return "Properties";
                 case KindCodeItem.Region: return "Region";
                 case KindCodeItem.Struct: return "Structure";
@@ -119,6 +120,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 case vsCMAccess.vsCMAccessAssemblyOrFamily: return "_Friend";
                 case vsCMAccess.vsCMAccessPrivate: return "_Private";
                 case vsCMAccess.vsCMAccessProject: return "_Sealed";
+                case vsCMAccess.vsCMAccessProjectOrProtected:
                 case vsCMAccess.vsCMAccessProtected: return "_Protected";
                 case vsCMAccess.vsCMAccessPublic: return string.Empty;
                 default: return string.Empty;

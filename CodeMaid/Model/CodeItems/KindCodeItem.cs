@@ -42,6 +42,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         [Description("Enums")]
         Enum,
 
+        [Description("Indexers")]
+        Indexer,
+
         [Description("Interfaces")]
         Interface,
 

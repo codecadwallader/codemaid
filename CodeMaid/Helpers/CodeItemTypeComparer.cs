@@ -82,9 +82,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             const int enumOffset = 7;
             const int interfaceOffset = 8;
             const int propertyOffset = 9;
-            const int methodOffset = 10;
-            const int structOffset = 11;
-            const int classOffset = 12;
+            const int indexerOffset = 10;
+            const int methodOffset = 11;
+            const int structOffset = 12;
+            const int classOffset = 13;
 
             switch (codeItem.Kind)
             {
@@ -96,6 +97,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case KindCodeItem.Enum: return enumOffset;
                 case KindCodeItem.Event: return eventOffset;
                 case KindCodeItem.Field: return fieldOffset;
+                case KindCodeItem.Indexer: return indexerOffset;
                 case KindCodeItem.Interface: return interfaceOffset;
                 case KindCodeItem.Method: return methodOffset;
                 case KindCodeItem.Property: return propertyOffset;
@@ -108,12 +110,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
-
-            // Make an exception for static constructors, which report private access but really do not have an access level.
-            if (codeItemElement.IsStatic && codeItemElement.Kind == KindCodeItem.Constructor)
-            {
-                return 0;
-            }
 
             switch (codeItemElement.Access)
             {
