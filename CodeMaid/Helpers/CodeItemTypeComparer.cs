@@ -109,13 +109,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
 
+            // Make an exception for static constructors, which report private access but really do not have an access level.
+            if (codeItemElement.IsStatic && codeItemElement.Kind == KindCodeItem.Constructor)
+            {
+                return 0;
+            }
+
             switch (codeItemElement.Access)
             {
-                case vsCMAccess.vsCMAccessAssemblyOrFamily: return 1;
-                case vsCMAccess.vsCMAccessProject: return 2;
-                case vsCMAccess.vsCMAccessProjectOrProtected: return 3;
-                case vsCMAccess.vsCMAccessProtected: return 4;
-                case vsCMAccess.vsCMAccessPrivate: return 5;
+                case vsCMAccess.vsCMAccessPublic: return 1;
+                case vsCMAccess.vsCMAccessAssemblyOrFamily: return 2;
+                case vsCMAccess.vsCMAccessProject: return 3;
+                case vsCMAccess.vsCMAccessProjectOrProtected: return 4;
+                case vsCMAccess.vsCMAccessProtected: return 5;
+                case vsCMAccess.vsCMAccessPrivate: return 6;
                 default: return 0;
             }
         }
