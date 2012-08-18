@@ -46,7 +46,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return CodeProperty != null ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault; }
+            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
+            get { return CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault; }
         }
 
         /// <summary>
@@ -109,6 +110,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
                 return _complexity.Value;
             }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this property is an explicit interface implementation.
+        /// </summary>
+        public bool IsExplicitInterfaceImplementation
+        {
+            get { return TryDefault(() => CodeProperty != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeProperty)); }
         }
 
         /// <summary>

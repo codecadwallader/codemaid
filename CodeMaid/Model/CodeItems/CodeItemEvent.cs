@@ -13,6 +13,7 @@
 
 using EnvDTE;
 using EnvDTE80;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -40,7 +41,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return CodeEvent != null ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault; }
+            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
+            get { return CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault; }
         }
 
         /// <summary>
@@ -83,6 +85,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// Gets or sets the VSX CodeEvent.
         /// </summary>
         public CodeEvent CodeEvent { get; set; }
+
+        /// <summary>
+        /// Gets a flag indicating if this property is an explicit interface implementation.
+        /// </summary>
+        public bool IsExplicitInterfaceImplementation
+        {
+            get { return TryDefault(() => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent)); }
+        }
 
         #endregion Properties
     }

@@ -62,8 +62,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            // Make an exception for static constructors, which report private access but really do not have an access level.
-            get { return CodeFunction != null && !(IsStatic && IsConstructor) ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
+            // Make exceptions for static constructors and explicit interface implementations - which report private access but really do not have a meaningful access level.
+            get { return CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessDefault; }
         }
 
         /// <summary>
@@ -137,6 +137,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public bool IsDestructor
         {
             get { return TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor); }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if this method is an explicit interface implementation.
+        /// </summary>
+        public bool IsExplicitInterfaceImplementation
+        {
+            get { return TryDefault(() => CodeFunction != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeFunction)); }
         }
 
         /// <summary>

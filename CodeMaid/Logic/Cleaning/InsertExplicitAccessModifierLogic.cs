@@ -145,9 +145,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     }
 
                     // Skip explicit interface implementations.
-                    // Name is reported different for CodeEvent - so combine with parent to determine if interface is being explicitly specified.
-                    if (codeEvent.Parent is CodeElement &&
-                        codeEvent.FullName != (((CodeElement)codeEvent.Parent).FullName + "." + codeEvent.Name))
+                    if (ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(codeEvent))
                     {
                         continue;
                     }
@@ -247,7 +245,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     }
 
                     // Skip explicit interface implementations.
-                    if (codeFunction.Name.Contains("."))
+                    if (ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(codeFunction))
                     {
                         continue;
                     }
@@ -293,7 +291,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 try
                 {
                     // Skip explicit interface implementations.
-                    if (codeProperty.Name.Contains("."))
+                    if (ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(codeProperty))
                     {
                         continue;
                     }
