@@ -106,8 +106,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes) return;
 
             string pattern = _package.UsePOSIXRegEx
-                                 ? @"\]{:b*(//.*)*}\n\n"
-                                 : @"\]([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
+                                 ? @"\]{:b*(//.*)*}\n\n(?!:b*//)"
+                                 : @"\]([ \t]*(//[^\r\n]*)*)(\r?\n){2}(?![ \t]*//)";
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\]\1" + Environment.NewLine
                                      : @"]$1" + Environment.NewLine;
