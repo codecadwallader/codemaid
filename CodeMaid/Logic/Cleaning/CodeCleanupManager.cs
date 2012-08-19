@@ -147,6 +147,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     if (cleanupMethod != null)
                     {
                         _package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
+
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document, isAutoSave);
 
@@ -383,6 +384,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
             string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
+
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
                    cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))

@@ -69,6 +69,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             switch (codeItem.Kind)
             {
                 case KindCodeItem.Constant:
+
                     // Avoid showing static metadata for constants since it is redundant.
                     return string.Empty;
 
