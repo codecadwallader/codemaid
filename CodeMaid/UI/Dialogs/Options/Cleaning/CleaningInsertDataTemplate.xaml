@@ -19,6 +19,7 @@
                 <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingBeforeInterfaces}" />
                 <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
                 <ToggleButton Content="properties" IsChecked="{Binding InsertBlankLinePaddingBeforeProperties}" />
+                <ToggleButton Content="single-line comments" IsChecked="{Binding InsertBlankLinePaddingBeforeSingleLineComments}" />
                 <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
             </WrapPanel>
 

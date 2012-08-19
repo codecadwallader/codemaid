@@ -84,7 +84,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         /// <summary>
         /// Inserts a blank line before the specified point except where adjacent to a brace.
-        /// Also handles moving past any preceeding comment lines.
         /// </summary>
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineBeforePoint(EditPoint point)

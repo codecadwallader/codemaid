@@ -994,5 +994,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_CacheFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeSingleLineComments {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"] = value;
+            }
+        }
     }
 }

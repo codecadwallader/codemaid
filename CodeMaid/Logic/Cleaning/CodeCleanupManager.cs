@@ -279,6 +279,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
 
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
 
             // Perform insertion of explicit access modifier cleanup.
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);

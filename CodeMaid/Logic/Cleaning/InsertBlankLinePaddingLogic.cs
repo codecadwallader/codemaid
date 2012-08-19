@@ -358,6 +358,25 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Inserts a blank line before single line comments except where adjacent to a brace,
+        /// another single line comment line or a quadruple slash comment.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        internal void InsertPaddingBeforeSingleLineComments(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments) return;
+
+            string pattern = _package.UsePOSIXRegEx
+                                 ? @"{^:b*(?!//)[^:b\r\n\{].*\n}{:b*//}(?!//)"
+                                 : @"(^[ \t]*(?!//)[^ \t\r\n\{].*\r?\n)([ \t]*//)(?!//)";
+            string replacement = _package.UsePOSIXRegEx
+                                     ? @"\1" + Environment.NewLine + @"\2"
+                                     : @"$1" + Environment.NewLine + @"$2";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
         /// Inserts a blank line between multi-line property accessors.
         /// </summary>
         /// <param name="properties">The properties.</param>

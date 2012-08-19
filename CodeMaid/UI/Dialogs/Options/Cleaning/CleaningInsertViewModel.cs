@@ -60,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             InsertBlankLinePaddingBeforeNamespaces = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeNamespaces;
             InsertBlankLinePaddingBeforeProperties = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
             InsertBlankLinePaddingBeforeRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
+            InsertBlankLinePaddingBeforeSingleLineComments = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments;
             InsertBlankLinePaddingBeforeStructs = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
             InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
@@ -105,6 +106,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeNamespaces = InsertBlankLinePaddingBeforeNamespaces;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties = InsertBlankLinePaddingBeforeProperties;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags = InsertBlankLinePaddingBeforeRegionTags;
+            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments = InsertBlankLinePaddingBeforeSingleLineComments;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs = InsertBlankLinePaddingBeforeStructs;
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
             Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
@@ -570,6 +572,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _insertBlankLinePaddingBeforeRegionTags = value;
                     NotifyPropertyChanged("InsertBlankLinePaddingBeforeRegionTags");
+                }
+            }
+        }
+
+        private bool _insertBlankLinePaddingBeforeSingleLineComments;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added before single line comments.
+        /// </summary>
+        public bool InsertBlankLinePaddingBeforeSingleLineComments
+        {
+            get { return _insertBlankLinePaddingBeforeSingleLineComments; }
+            set
+            {
+                if (_insertBlankLinePaddingBeforeSingleLineComments != value)
+                {
+                    _insertBlankLinePaddingBeforeSingleLineComments = value;
+                    NotifyPropertyChanged("InsertBlankLinePaddingBeforeSingleLineComments");
                 }
             }
         }
