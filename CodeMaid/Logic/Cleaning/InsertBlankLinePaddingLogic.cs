@@ -367,7 +367,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments) return;
 
             string pattern = _package.UsePOSIXRegEx
-                                 ? @"{^:b*(?!//)[^:b\r\n\{].*\n}{:b*//}(?!//)"
+                                 ? @"{^:b*~(//)[^:b\r\n\{].*\n}{:b*//}~(//)"
                                  : @"(^[ \t]*(?!//)[^ \t\r\n\{].*\r?\n)([ \t]*//)(?!//)";
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\1" + Environment.NewLine + @"\2"
