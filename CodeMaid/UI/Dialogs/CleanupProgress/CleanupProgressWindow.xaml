@@ -40,7 +40,7 @@
         </StackPanel>
 
         <Border Grid.Row="1" Background="{StaticResource FCodeMaidGray}">
-            <Button x:Name="cancelButton" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Right">
+            <Button x:Name="cancelButton" Command="{Binding CancelCommand}" HorizontalAlignment="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDialog}">
                         <Setter Property="Content" Value="Cancel" />
