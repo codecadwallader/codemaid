@@ -8,8 +8,9 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration" MinHeight="480"
-        MinWidth="640" Height="768" Width="1024" TextElement.FontFamily="Tahoma" TextElement.FontSize="14"
+        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
+        MinHeight="480" MinWidth="640" Height="768" Width="1024"
+        Background="#FFF0F0F0" TextElement.FontFamily="Tahoma" TextElement.FontSize="14"
         ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
     <platformUI:DialogWindow.Resources>
