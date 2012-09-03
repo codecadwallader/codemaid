@@ -1,7 +1,10 @@
 <UserControl x:Class="SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress.BuildProgressView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
+        Background="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}"
+        Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}">
     <Grid VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
