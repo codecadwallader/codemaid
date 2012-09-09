@@ -1006,5 +1006,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int General_Theme {
+            get {
+                return ((int)(this["General_Theme"]));
+            }
+            set {
+                this["General_Theme"] = value;
+            }
+        }
     }
 }

@@ -239,6 +239,7 @@
     <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="UI\Converters\ComplexityToColorConverter.cs" />
     <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
     <Compile Include="UI\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
     <Compile Include="UI\Converters\StringReplaceConverter.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\OptionsPageViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\OptionsPageViewModelEnumerableExtensions.cs" />
     <Compile Include="UI\Dialogs\Options\OptionsViewModel.cs" />
@@ -462,6 +464,10 @@
     <Page Include="UI\Dialogs\Options\Digging\DiggingDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\General\GeneralDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\Options\OptionsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

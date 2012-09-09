@@ -20,6 +20,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching;
@@ -41,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             Pages = new OptionsPageViewModel[]
                         {
+                            new GeneralViewModel(),
                             new CleaningParentViewModel
                                 {
                                     Children = new OptionsPageViewModel[]
@@ -60,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                             new SwitchingViewModel()
                         };
 
-            SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(CleaningGeneralViewModel)));
+            SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
         }
 
         #endregion Constructors
