@@ -16,7 +16,7 @@
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidLightTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>
@@ -43,7 +43,7 @@
         </TreeView>
 
         <DockPanel Grid.Column="1" Margin="0,10,10,10">
-            <Border DockPanel.Dock="Top" Background="{StaticResource FTreeViewItemHighlight}"
+            <Border DockPanel.Dock="Top" Background="{DynamicResource FItemHighlight}"
                     BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
                 <TextBlock Text="{Binding SelectedPage.Header}" />
             </Border>

@@ -8,7 +8,7 @@
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}"
         PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel"
-        Background="{DynamicResource FToolWindow}" Foreground="{DynamicResource FGToolWindow}">
+        Background="{DynamicResource FWindow}" Foreground="{DynamicResource FGWindow}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -39,7 +39,7 @@
             </ToolTip>
 
             <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemContainerStyle}">
-                <Setter Property="Foreground" Value="{DynamicResource FGToolWindow}" />
+                <Setter Property="Foreground" Value="{DynamicResource FGWindow}" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
@@ -61,7 +61,7 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="PART_HeaderBorder" Grid.ColumnSpan="2" AllowDrop="True"
-                                            Background="{TemplateBinding Background}" BorderBrush="{DynamicResource FToolWindow}"
+                                            Background="{TemplateBinding Background}" BorderBrush="{DynamicResource FWindow}"
                                             BorderThickness="0,0,0,2" Cursor="Hand"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
                                             DragOver="OnTreeViewItemHeaderDragEvent"
@@ -103,10 +103,10 @@
                                     <Setter Property="BorderThickness" Value="0" />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
+                                    <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />
                                 </Trigger>
                                 <Trigger SourceName="PART_HeaderBorder" Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource FTreeViewItemHighlight}" />
+                                    <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />
                                     <Setter Property="Cursor" Value="Hand" />
                                 </Trigger>
                                 <Trigger Property="ui:DragDropAttachedProperties.IsBeingDragged" Value="True">
@@ -138,7 +138,7 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
-        <TreeView x:Name="treeView" Background="Transparent" ItemsSource="{Binding OrganizedCodeItems}"
+        <TreeView x:Name="treeView" ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource spadeTreeViewItemContainerStyle}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemsPanel>
@@ -161,13 +161,13 @@
             </TreeView.ItemTemplateSelector>
         </TreeView>
 
-        <Border Background="{DynamicResource FToolWindowOverlay}"
+        <Border Background="{DynamicResource FOverlay}"
                 Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
         <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <Border x:Name="outerBorder" Background="{DynamicResource FToolWindow}" BorderBrush="{StaticResource FCodeMaidGreen}"
+                    <Border x:Name="outerBorder" Background="{DynamicResource FWindow}" BorderBrush="{StaticResource FCodeMaidGreen}"
                             BorderThickness="0,1" Margin="1,0" Padding="0,5" Visibility="Collapsed">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic"

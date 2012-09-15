@@ -4,8 +4,11 @@
         <ResourceDictionary Source="CodeMaidCoreTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <SolidColorBrush x:Key="FToolWindow" Color="#FFF6F6F6" />
-    <SolidColorBrush x:Key="FGToolWindow" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="FWindow" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="FGWindow" Color="#FF1E1E1E" />
 
-    <SolidColorBrush x:Key="FToolWindowOverlay" Color="#80F6F6F6" />
+    <SolidColorBrush x:Key="FOverlay" Color="#80F6F6F6" />
+
+    <SolidColorBrush x:Key="FItemParent" Color="#FFE0EDF6" />
+    <SolidColorBrush x:Key="FItemHighlight" Color="#FFE0F6F3" />
 </ResourceDictionary>
