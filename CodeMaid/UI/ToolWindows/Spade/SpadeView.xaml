@@ -7,7 +7,8 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}"
-        PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel">
+        PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel"
+        Background="{DynamicResource FToolWindow}" Foreground="{DynamicResource FGToolWindow}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -38,6 +39,7 @@
             </ToolTip>
 
             <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemContainerStyle}">
+                <Setter Property="Foreground" Value="{DynamicResource FGToolWindow}" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
                 <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
@@ -59,7 +61,7 @@
                                     </Grid.RowDefinitions>
 
                                     <Border x:Name="PART_HeaderBorder" Grid.ColumnSpan="2" AllowDrop="True"
-                                            Background="{TemplateBinding Background}" BorderBrush="White"
+                                            Background="{TemplateBinding Background}" BorderBrush="{DynamicResource FToolWindow}"
                                             BorderThickness="0,0,0,2" Cursor="Hand"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
                                             DragOver="OnTreeViewItemHeaderDragEvent"
@@ -136,7 +138,7 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
-        <TreeView x:Name="treeView" ItemsSource="{Binding OrganizedCodeItems}"
+        <TreeView x:Name="treeView" Background="Transparent" ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource spadeTreeViewItemContainerStyle}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemsPanel>
@@ -159,13 +161,13 @@
             </TreeView.ItemTemplateSelector>
         </TreeView>
 
-        <Border Background="#80FFFFFF"
+        <Border Background="{DynamicResource FToolWindowOverlay}"
                 Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
         <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <Border x:Name="outerBorder" Background="White" BorderBrush="{StaticResource FCodeMaidGreen}"
+                    <Border x:Name="outerBorder" Background="{DynamicResource FToolWindow}" BorderBrush="{StaticResource FCodeMaidGreen}"
                             BorderThickness="0,1" Margin="1,0" Padding="0,5" Visibility="Collapsed">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic"

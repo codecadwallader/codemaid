@@ -1,9 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Colors.xaml" />
-
-        <ResourceDictionary Source="Buttons.xaml" />
-        <ResourceDictionary Source="TreeViews.xaml" />
+        <ResourceDictionary Source="CodeMaidCoreTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="FToolWindow" Color="#FF252526" />
+    <SolidColorBrush x:Key="FGToolWindow" Color="#FFF1F1F1" />
+
+    <SolidColorBrush x:Key="FToolWindowOverlay" Color="#80252526" />
 </ResourceDictionary>

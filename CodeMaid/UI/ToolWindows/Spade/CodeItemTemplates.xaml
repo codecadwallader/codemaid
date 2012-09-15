@@ -8,7 +8,6 @@
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Tahoma" />
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="Foreground" Value="Black" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
