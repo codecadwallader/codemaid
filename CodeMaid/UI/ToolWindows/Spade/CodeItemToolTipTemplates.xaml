@@ -12,26 +12,22 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="nameToolTipTextStyle" TargetType="{x:Type TextBlock}"
-            BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="nameToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}"
-            BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Foreground" Value="#FF008000" />
         <Setter Property="Margin" Value="0,2" />
     </Style>
 
-    <Style x:Key="parameterToolTipStyle" TargetType="{x:Type TextBlock}"
-            BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="parameterToolTipStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Foreground" Value="#666666" />
     </Style>
 
-    <Style x:Key="parameterToolTipTypeStyle" TargetType="{x:Type TextBlock}"
-            BasedOn="{StaticResource parameterToolTipStyle}">
+    <Style x:Key="parameterToolTipTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterToolTipStyle}">
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
@@ -85,13 +81,28 @@
     <DataTemplate x:Key="complexityToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Complexity: " Foreground="#666666" />
-            <TextBlock x:Name="complexityTextBlock"
-                    Foreground="{Binding Converter={x:Static cnv:ComplexityToColorConverter.Default}}"
-                    Text="{Binding}" />
+            <TextBlock x:Name="complexityTextBlock" Text="{Binding}" />
         </StackPanel>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}"
-                    Value="False">
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding />
+                        <Binding Path="Digging_ComplexityWarningThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityWarning}" />
+            </DataTrigger>
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding />
+                        <Binding Path="Digging_ComplexityAlertThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityAlert}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
@@ -107,8 +118,7 @@
                     Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
         </StackPanel>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}"
-                    Value="False">
+            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger SourceName="metadataTextBlock" Property="Text" Value="">

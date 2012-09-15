@@ -237,11 +237,11 @@
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\CodeItemToImageConverter.cs" />
     <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
-    <Compile Include="UI\Converters\ComplexityToColorConverter.cs" />
     <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
     <Compile Include="UI\Converters\MethodToNameTextBlockConverter.cs" />
     <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
     <Compile Include="UI\Converters\StringReplaceConverter.cs" />
     <Compile Include="UI\Converters\TypeStringConverter.cs" />
     <Compile Include="UI\DelegateCommand.cs" />

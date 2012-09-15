@@ -22,7 +22,7 @@
     <Style x:Key="namespaceStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="Foreground" Value="#FF666666" />
     </Style>
 
     <Style x:Key="complexityStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -31,18 +31,33 @@
     </Style>
 
     <Style x:Key="metadataStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="Foreground" Value="#FF666666" />
         <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
     <!-- Common component templates -->
     <DataTemplate x:Key="complexityDataTemplate">
-        <TextBlock x:Name="complexityTextBlock"
-                Foreground="{Binding Complexity, Converter={x:Static cnv:ComplexityToColorConverter.Default}}"
-                Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
+        <TextBlock x:Name="complexityTextBlock" Text="{Binding Complexity}" Style="{StaticResource complexityStyle}" />
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}"
-                    Value="False">
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding Path="Complexity" />
+                        <Binding Path="Digging_ComplexityWarningThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityWarning}" />
+            </DataTrigger>
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding Path="Complexity" />
+                        <Binding Path="Digging_ComplexityAlertThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityAlert}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
@@ -61,8 +76,7 @@
                 Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Default}}"
                 Style="{StaticResource metadataStyle}" />
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}"
-                    Value="False">
+            <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
@@ -87,8 +101,7 @@
                     Focusable="False" />
         </DockPanel>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}"
-                    Value="True">
+            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
                 <Setter TargetName="name" Property="Content"
                         Value="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.WithParameters}}" />
             </DataTrigger>
