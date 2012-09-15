@@ -14,7 +14,7 @@
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>

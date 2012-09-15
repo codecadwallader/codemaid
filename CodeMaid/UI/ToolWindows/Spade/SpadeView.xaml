@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
                 <ResourceDictionary Source="CodeItemTemplates.xaml" />
                 <ResourceDictionary Source="CodeItemToolTipTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>

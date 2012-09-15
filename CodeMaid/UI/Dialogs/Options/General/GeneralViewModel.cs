@@ -16,16 +16,6 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 {
     /// <summary>
-    /// The enumeration of theme options.
-    /// </summary>
-    public enum ThemeMode
-    {
-        AutoDetect = 0,
-        Dark = 1,
-        Light = 2
-    }
-
-    /// <summary>
     /// The view model for general options.
     /// </summary>
     public class GeneralViewModel : OptionsPageViewModel

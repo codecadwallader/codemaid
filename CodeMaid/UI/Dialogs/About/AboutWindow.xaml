@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidTheme.xaml" />
+                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">

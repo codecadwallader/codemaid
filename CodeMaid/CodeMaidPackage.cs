@@ -27,6 +27,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
+using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 
@@ -53,6 +54,40 @@ namespace SteveCadwallader.CodeMaid
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
     {
+        #region Fields
+
+        /// <summary>
+        /// The build progress tool window.
+        /// </summary>
+        private BuildProgressToolWindow _buildProgress;
+
+        /// <summary>
+        /// An internal collection of the commands registered by this package.
+        /// </summary>
+        private readonly ICollection<BaseCommand> _commands = new List<BaseCommand>();
+
+        /// <summary>
+        /// The IComponentModel service.
+        /// </summary>
+        private IComponentModel _iComponentModel;
+
+        /// <summary>
+        /// The top level application instance of the VS IDE that is executing this package.
+        /// </summary>
+        private DTE2 _ide;
+
+        /// <summary>
+        /// The Spade tool window.
+        /// </summary>
+        private SpadeToolWindow _spade;
+
+        /// <summary>
+        /// The theme manager.
+        /// </summary>
+        private ThemeManager _themeManager;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -129,6 +164,14 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
+        /// Gets the theme manager.
+        /// </summary>
+        public ThemeManager ThemeManager
+        {
+            get { return _themeManager ?? (_themeManager = ThemeManager.GetInstance(this)); }
+        }
+
+        /// <summary>
         /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument Find/Replace actions.
         /// Applies to pre-Visual Studio 11 versions.
         /// </summary>
@@ -192,7 +235,7 @@ namespace SteveCadwallader.CodeMaid
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initilaization code that rely on services provided by VisualStudio.
+        /// where you can put all the initialization code that rely on services provided by VisualStudio.
         /// </summary>
         protected override void Initialize()
         {
@@ -392,34 +435,5 @@ namespace SteveCadwallader.CodeMaid
         }
 
         #endregion IDisposable Members
-
-        #region Private Fields
-
-        /// <summary>
-        /// The build progress tool window.
-        /// </summary>
-        private BuildProgressToolWindow _buildProgress;
-
-        /// <summary>
-        /// An internal collection of the commands registered by this package.
-        /// </summary>
-        private readonly ICollection<BaseCommand> _commands = new List<BaseCommand>();
-
-        /// <summary>
-        /// The IComponentModel service.
-        /// </summary>
-        private IComponentModel _iComponentModel;
-
-        /// <summary>
-        /// The top level application instance of the VS IDE that is executing this package.
-        /// </summary>
-        private DTE2 _ide;
-
-        /// <summary>
-        /// The Spade tool window.
-        /// </summary>
-        private SpadeToolWindow _spade;
-
-        #endregion Private Fields
     }
 }

@@ -139,6 +139,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void Refresh()
         {
+            if (Package != null)
+            {
+                Package.ThemeManager.ApplyTheme();
+            }
+
             ConditionallyUpdateCodeModel(true);
         }
 
