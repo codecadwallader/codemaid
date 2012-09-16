@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         #region Fields
 
         private readonly BackgroundWorker _bw;
-        private readonly Action<SetCodeItems> _callback;
+        private readonly Action<SnapshotCodeItems> _callback;
         private CodeTreeRequest _pendingRequest;
 
         #endregion Fields
@@ -36,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// Initializes a new instance of the <see cref="CodeTreeBuilderAsync"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal CodeTreeBuilderAsync(Action<SetCodeItems> callback)
+        internal CodeTreeBuilderAsync(Action<SnapshotCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -85,7 +85,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
 
             if (!e.Cancel)
             {
-                e.Result = codeItems;
+                e.Result = new SnapshotCodeItems(request.Document, codeItems);
             }
         }
 
@@ -102,8 +102,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             }
             else if (e.Error == null)
             {
-                var codeItems = e.Result as SetCodeItems;
-                _callback(codeItems);
+                var snapshot = e.Result as SnapshotCodeItems;
+                if (snapshot != null)
+                {
+                    _callback(snapshot);
+                }
             }
         }
 

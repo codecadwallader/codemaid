@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         #region Fields
 
         private readonly BackgroundWorker _bw;
-        private readonly Action<DocumentCodeItemsSnapshot> _callback;
+        private readonly Action<SnapshotCodeItems> _callback;
         private Document _pendingDocument;
 
         #endregion Fields
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// Initializes a new instance of the <see cref="SpadeCodeModelRetriever"/> class.
         /// </summary>
         /// <param name="callback">The callback for results.</param>
-        internal SpadeCodeModelRetriever(Action<DocumentCodeItemsSnapshot> callback)
+        internal SpadeCodeModelRetriever(Action<SnapshotCodeItems> callback)
         {
             _bw = new BackgroundWorker { WorkerSupportsCancellation = true };
             _bw.DoWork += OnDoWork;
@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
 
             if (!e.Cancel)
             {
-                e.Result = new DocumentCodeItemsSnapshot(document, codeItems);
+                e.Result = new SnapshotCodeItems(document, codeItems);
             }
         }
 
@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             }
             else if (e.Error == null)
             {
-                var snapshot = e.Result as DocumentCodeItemsSnapshot;
+                var snapshot = e.Result as SnapshotCodeItems;
                 if (snapshot != null)
                 {
                     _callback(snapshot);

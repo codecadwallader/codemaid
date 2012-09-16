@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -12,23 +12,22 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Logic.Digging
+namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
     /// <summary>
     /// A snapshot of a document and its associated code items at a point in time.
     /// </summary>
-    internal class DocumentCodeItemsSnapshot
+    internal class SnapshotCodeItems
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentCodeItemsSnapshot" /> class.
+        /// Initializes a new instance of the <see cref="SnapshotCodeItems" /> class.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="codeItems">The code items.</param>
-        internal DocumentCodeItemsSnapshot(Document document, SetCodeItems codeItems)
+        internal SnapshotCodeItems(Document document, SetCodeItems codeItems)
         {
             Document = document;
             CodeItems = codeItems;

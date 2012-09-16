@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeTree
@@ -21,15 +22,22 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
     internal class CodeTreeRequest
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeTreeRequest"/> class.
+        /// Initializes a new instance of the <see cref="CodeTreeRequest" /> class.
         /// </summary>
+        /// <param name="document">The document.</param>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="layoutMode">The layout mode.</param>
-        internal CodeTreeRequest(SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
+        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
         {
+            Document = document;
             RawCodeItems = rawCodeItems;
             LayoutMode = layoutMode;
         }
+
+        /// <summary>
+        /// Gets the document.
+        /// </summary>
+        internal Document Document { get; private set; }
 
         /// <summary>
         /// Gets the raw code items.

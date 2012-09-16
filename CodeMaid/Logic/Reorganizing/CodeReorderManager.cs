@@ -137,7 +137,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     codeItems.RemoveAll(x => x is CodeItemUsingStatement);
 
                     // Build the code tree based on the current file layout.
-                    var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(codeItems, TreeLayoutMode.FileLayout));
+                    var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));
 
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);

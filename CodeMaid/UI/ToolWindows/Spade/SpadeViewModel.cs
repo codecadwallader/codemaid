@@ -166,7 +166,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _rawCodeItems = value;
 
-                    RequestUpdatedOrganizedCodeItems();
+                    if (_rawCodeItems != null)
+                    {
+                        RequestUpdatedOrganizedCodeItems();
+                    }
+                    else
+                    {
+                        OrganizedCodeItems = null;
+                    }
+
                     NotifyPropertyChanged("RawCodeItems");
                 }
             }
@@ -192,15 +200,19 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(RawCodeItems, LayoutMode));
+            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, LayoutMode));
         }
 
         /// <summary>
-        /// Updates the organized code items collection with the specified code items.
+        /// Attempts to update the organized code items collection based on the specified snapshot.
         /// </summary>
-        private void UpdateOrganizedCodeItems(SetCodeItems setCodeItems)
+        /// <param name="snapshot">The code items snapshot.</param>
+        private void UpdateOrganizedCodeItems(SnapshotCodeItems snapshot)
         {
-            OrganizedCodeItems = setCodeItems;
+            if (Document == snapshot.Document)
+            {
+                OrganizedCodeItems = snapshot.CodeItems;
+            }
         }
 
         /// <summary>

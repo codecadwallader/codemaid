@@ -199,7 +199,6 @@
     <Compile Include="Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveWhitespaceLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
-    <Compile Include="Logic\Digging\DocumentCodeItemsSnapshot.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
     <Compile Include="Logic\Digging\SpadeCodeModelRetriever.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorderManager.cs" />
@@ -218,6 +217,7 @@
     <Compile Include="Model\CodeItems\CodeItemRegion.cs" />
     <Compile Include="Model\CodeItems\CodeItemStruct.cs" />
     <Compile Include="Model\CodeItems\CodeItemUsingStatement.cs" />
+    <Compile Include="Model\CodeItems\SnapshotCodeItems.cs" />
     <Compile Include="Model\CodeItems\FactoryCodeItems.cs" />
     <Compile Include="Model\CodeItems\ICodeItem.cs" />
     <Compile Include="Model\CodeItems\ICodeItemParent.cs" />
