@@ -11,9 +11,12 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Threading;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -71,6 +74,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             // Create and set the view.
             base.Content = new SpadeView { DataContext = _viewModel };
+
+            // Register for changes to settings.
+            Settings.Default.SettingsSaving += (sender, args) => Refresh();
         }
 
         #endregion Constructors
@@ -121,16 +127,24 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             base.OnToolWindowCreated();
 
             // Register for events to this window.
-            ((IVsWindowFrame)Frame).SetProperty(
-                (int)__VSFPROPID.VSFPROPID_ViewHelper, this);
+            ((IVsWindowFrame)Frame).SetProperty((int)__VSFPROPID.VSFPROPID_ViewHelper, this);
 
-            // Pass the package over to the view model, not available during constructor.
-            _viewModel.Package = Package;
-
-            // Attempt to initialize the Document, may have been set before Spade was created.
-            if (Document == null && Package != null)
+            if (Package != null)
             {
-                Document = Package.IDE.ActiveDocument;
+                // Pass the package over to the view model, not available during constructor.
+                _viewModel.Package = Package;
+
+                // Attempt to initialize the Document, may have been set before Spade was created.
+                if (Document == null)
+                {
+                    Document = Package.IDE.ActiveDocument;
+                }
+
+                var spadeContent = Content as FrameworkElement;
+                if (spadeContent != null)
+                {
+                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => Package.ThemeManager.ApplyTheme()));
+                }
             }
         }
 

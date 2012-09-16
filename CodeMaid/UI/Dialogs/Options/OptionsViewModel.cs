@@ -181,6 +181,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 Settings.Default.Reset();
 
+                // Save is redundant, but used to trigger external events.
+                Settings.Default.Save();
+
                 foreach (var optionsPageViewModel in Pages.Flatten())
                 {
                     optionsPageViewModel.LoadSettings();
