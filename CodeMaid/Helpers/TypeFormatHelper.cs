@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Text.RegularExpressions;
+
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
@@ -27,14 +29,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (string.IsNullOrEmpty(input)) return input;
 
-            int lastPeriod = input.LastIndexOf('.');
+            var result = Regex.Replace(input, @"[^ \t,<>\[\]]*\.", string.Empty);
 
-            if (lastPeriod < 0)
-            {
-                return input;
-            }
-
-            return input.Substring(lastPeriod + 1, input.Length - (lastPeriod + 1));
+            return result;
         }
     }
 }
