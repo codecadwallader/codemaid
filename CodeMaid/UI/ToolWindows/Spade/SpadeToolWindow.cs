@@ -23,7 +23,6 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Logic.Digging;
-using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 
@@ -39,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private readonly SpadeCodeModelRetriever _codeModelRetriever;
         private readonly SpadeViewModel _viewModel;
-        private readonly Dictionary<Document, SetCodeItems> _codeItemsCache;
+        private readonly Dictionary<Document, DocumentCodeItemsSnapshot> _codeItemsCache;
 
         private Document _document;
         private bool _isVisible;
@@ -67,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // Setup the associated classes.
             _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new SpadeViewModel();
-            _codeItemsCache = new Dictionary<Document, SetCodeItems>();
+            _codeItemsCache = new Dictionary<Document, DocumentCodeItemsSnapshot>();
 
             // Register for view model requests to be refreshed.
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
@@ -234,10 +233,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _viewModel.IsLoading = true;
 
-                    SetCodeItems cachedCodeItems;
-                    if (Settings.Default.Digging_CacheFiles && _codeItemsCache.TryGetValue(Document, out cachedCodeItems))
+                    DocumentCodeItemsSnapshot snapshot;
+                    if (Settings.Default.Digging_CacheFiles && _codeItemsCache.TryGetValue(Document, out snapshot))
                     {
-                        UpdateViewModelRawCodeItems(cachedCodeItems);
+                        UpdateViewModelRawCodeItems(snapshot);
                         return;
                     }
                 }
@@ -247,19 +246,22 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Updates the view model's raw set of code items.
+        /// Attempts to update the view model's raw set of code items based on the specified snapshot.
         /// </summary>
-        /// <param name="codeItems">The code items.</param>
-        private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
+        /// <param name="snapshot">The code items snapshot.</param>
+        private void UpdateViewModelRawCodeItems(DocumentCodeItemsSnapshot snapshot)
         {
-            if (Document != null && Settings.Default.Digging_CacheFiles)
+            if (Settings.Default.Digging_CacheFiles)
             {
-                _codeItemsCache[Document] = codeItems;
+                _codeItemsCache[snapshot.Document] = snapshot;
             }
 
-            _viewModel.RawCodeItems = codeItems;
-            _viewModel.IsLoading = false;
-            _viewModel.IsRefreshing = false;
+            if (Document == snapshot.Document)
+            {
+                _viewModel.RawCodeItems = snapshot.CodeItems;
+                _viewModel.IsLoading = false;
+                _viewModel.IsRefreshing = false;
+            }
         }
 
         #endregion Private Methods
