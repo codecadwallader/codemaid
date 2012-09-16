@@ -350,6 +350,7 @@ namespace SteveCadwallader.CodeMaid
         private void RegisterShellEventListener()
         {
             ShellEventListener = new ShellEventListener(this, ShellService);
+            ShellEventListener.EnvironmentColorChanged += () => ThemeManager.ApplyTheme();
             ShellEventListener.ShellAvailable += RegisterNonShellEventListeners;
         }
 
