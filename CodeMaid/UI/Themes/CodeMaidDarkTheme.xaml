@@ -11,4 +11,7 @@
 
     <SolidColorBrush x:Key="FItemParent" Color="#FF252E3C" />
     <SolidColorBrush x:Key="FItemHighlight" Color="#FF253B3C" />
+
+    <ImageSource x:Key="ImageCollapsed">/SteveCadwallader.CodeMaid;component/UI/Themes/Images/CollapsedDark.png</ImageSource>
+    <ImageSource x:Key="ImageExpanded">/SteveCadwallader.CodeMaid;component/UI/Themes/Images/ExpandedDark.png</ImageSource>
 </ResourceDictionary>

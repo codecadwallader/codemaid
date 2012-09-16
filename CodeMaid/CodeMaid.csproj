@@ -314,8 +314,10 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UI\Themes\Images\Expanded.png" />
-    <Resource Include="UI\Themes\Images\Collapsed.png" />
+    <Resource Include="UI\Themes\Images\CollapsedDark.png" />
+    <Resource Include="UI\Themes\Images\ExpandedDark.png" />
+    <Resource Include="UI\Themes\Images\ExpandedLight.png" />
+    <Resource Include="UI\Themes\Images\CollapsedLight.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\Structure_Sealed.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\Structure_Protected.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\Structure_Private.png" />
