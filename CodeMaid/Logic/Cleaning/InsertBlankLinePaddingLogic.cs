@@ -347,12 +347,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements) return;
 
             string pattern = _package.UsePOSIXRegEx
-                                 ? @"{^:b*}{break;|return;}\n{:b*}case"
-                                 : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)case";
+                                 ? @"{^:b*}{break;|return;}\n{:b*}{case|default}"
+                                 : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)(case|default)";
 
             string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3case"
-                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3case";
+                                     ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3\4"
+                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3$4";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
