@@ -20,8 +20,7 @@
             <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
                 <ToolTip.Template>
                     <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2"
-                                Padding="7,5">
+                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2" Padding="7,5" TextElement.Foreground="Black">
                             <ContentPresenter Content="{Binding}">
                                 <ContentPresenter.ContentTemplateSelector>
                                     <local:CodeItemToolTipTemplateSelector
@@ -138,7 +137,7 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
-        <TreeView x:Name="treeView" ItemsSource="{Binding OrganizedCodeItems}"
+        <TreeView x:Name="treeView" BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
                 ItemContainerStyle="{StaticResource spadeTreeViewItemContainerStyle}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemsPanel>
