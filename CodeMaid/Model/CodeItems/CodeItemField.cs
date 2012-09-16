@@ -40,7 +40,16 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessDefault; }
+            get
+            {
+                // Work-around for static C++ fields - in VS2012 checking the Access results in hanging Visual Studio.
+                if (CodeVariable != null && !(IsStatic && CodeVariable.Language == CodeModelLanguageConstants.vsCMLanguageVC))
+                {
+                    return CodeVariable.Access;
+                }
+
+                return vsCMAccess.vsCMAccessDefault;
+            }
         }
 
         /// <summary>
