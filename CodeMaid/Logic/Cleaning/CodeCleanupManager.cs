@@ -297,6 +297,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform update cleanup.
             _updateLogic.UpdateEndRegionDirectives(textDocument);
+            _updateLogic.UpdateEventAccessorsToBothBeSingleLineOrMultiLine(events);
+            _updateLogic.UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(properties);
             _updateLogic.UpdateSingleLineMethods(methods);
         }
 

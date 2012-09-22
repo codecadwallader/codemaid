@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void LoadSettings()
         {
+            UpdateAccessorsToBothBeSingleLineOrMultiLine = Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine;
             UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
             UpdateSingleLineMethods = Settings.Default.Cleaning_UpdateSingleLineMethods;
         }
@@ -44,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = UpdateAccessorsToBothBeSingleLineOrMultiLine;
             Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
             Settings.Default.Cleaning_UpdateSingleLineMethods = UpdateSingleLineMethods;
         }
@@ -51,6 +53,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _updateAccessorsToBothBeSingleLineOrMultiLine;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if accessors should be updated to both be single line or multi line.
+        /// </summary>
+        public bool UpdateAccessorsToBothBeSingleLineOrMultiLine
+        {
+            get { return _updateAccessorsToBothBeSingleLineOrMultiLine; }
+            set
+            {
+                if (_updateAccessorsToBothBeSingleLineOrMultiLine != value)
+                {
+                    _updateAccessorsToBothBeSingleLineOrMultiLine = value;
+                    NotifyPropertyChanged("UpdateAccessorsToBothBeSingleLineOrMultiLine");
+                }
+            }
+        }
 
         private bool _updateEndRegionDirectives;
 

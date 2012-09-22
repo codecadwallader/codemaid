@@ -257,5 +257,8 @@
     <Setting Name="Cleaning_UpdateSingleLineMethods" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

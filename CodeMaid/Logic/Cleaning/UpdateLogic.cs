@@ -136,6 +136,34 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Updates the event accessors to either both be single-line or multi-line.
+        /// </summary>
+        /// <param name="events">The events to update.</param>
+        internal void UpdateEventAccessorsToBothBeSingleLineOrMultiLine(IEnumerable<CodeItemEvent> events)
+        {
+            if (!Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine) return;
+
+            foreach (var item in events)
+            {
+                UpdateAccessorsToBothBeSingleLineOrMultiLine(item.CodeEvent.Adder, item.CodeEvent.Remover);
+            }
+        }
+
+        /// <summary>
+        /// Updates the property accessors to either both be single-line or multi-line.
+        /// </summary>
+        /// <param name="properties">The properties to update.</param>
+        internal void UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(IEnumerable<CodeItemProperty> properties)
+        {
+            if (!Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine) return;
+
+            foreach (var item in properties)
+            {
+                UpdateAccessorsToBothBeSingleLineOrMultiLine(item.CodeProperty.Getter, item.CodeProperty.Setter);
+            }
+        }
+
+        /// <summary>
         /// Updates single line methods by placing braces on separate lines.
         /// </summary>
         /// <param name="methods">The methods to update.</param>
@@ -164,6 +192,48 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
                 // Update the formatting of the method.
                 singleLineMethod.StartPoint.SmartFormat(singleLineMethod.EndPoint);
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified accessors to both be single line or multi line.
+        /// </summary>
+        /// <param name="first">The first accessor.</param>
+        /// <param name="second">The second accessor.</param>
+        private static void UpdateAccessorsToBothBeSingleLineOrMultiLine(CodeFunction first, CodeFunction second)
+        {
+            if (first == null || second == null) return;
+
+            bool isFirstSingleLine = first.StartPoint.Line == first.EndPoint.Line;
+            bool isSecondSingleLine = second.StartPoint.Line == second.EndPoint.Line;
+
+            if (isFirstSingleLine == isSecondSingleLine) return;
+
+            var multiLineFunction = isFirstSingleLine ? second : first;
+            var singleLineFunction = isFirstSingleLine ? first : second;
+
+            try
+            {
+                var multiLineBodyStart = multiLineFunction.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                var multiLineBodyEnd = multiLineFunction.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+
+                // Move the body end back one character to account for new-lines.
+                multiLineBodyEnd.CharLeft();
+
+                bool multiLineFunctionHasSingleLineBody = multiLineBodyStart.Line == multiLineBodyEnd.Line;
+
+                if (multiLineFunctionHasSingleLineBody)
+                {
+                    //TODO: Update multi-line function onto a single line.
+                }
+                else
+                {
+                    //TODO: Spread single-line function onto multiple lines.
+                }
+            }
+            catch (Exception)
+            {
+                // Accessor without a body can be ignored.
             }
         }
 

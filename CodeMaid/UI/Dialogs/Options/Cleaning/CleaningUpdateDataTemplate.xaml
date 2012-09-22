@@ -3,9 +3,10 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
+            <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
             <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
             <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
-            <CheckBox Content="Update single line methods by placing braces on separate lines" IsChecked="{Binding UpdateSingleLineMethods}" />
+            <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

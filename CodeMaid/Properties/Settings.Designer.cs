@@ -1042,5 +1042,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_UpdateSingleLineMethods"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine {
+            get {
+                return ((bool)(this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"]));
+            }
+            set {
+                this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"] = value;
+            }
+        }
     }
 }
