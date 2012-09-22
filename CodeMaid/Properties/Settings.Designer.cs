@@ -1030,5 +1030,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_ExcludeT4GeneratedCode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_UpdateSingleLineMethods {
+            get {
+                return ((bool)(this["Cleaning_UpdateSingleLineMethods"]));
+            }
+            set {
+                this["Cleaning_UpdateSingleLineMethods"] = value;
+            }
+        }
     }
 }

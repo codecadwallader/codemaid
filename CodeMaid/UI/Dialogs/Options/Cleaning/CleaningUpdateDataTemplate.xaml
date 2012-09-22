@@ -4,7 +4,8 @@
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
             <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
-            <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,0" />
+            <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
+            <CheckBox Content="Update single line methods by placing braces on separate lines" IsChecked="{Binding UpdateSingleLineMethods}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

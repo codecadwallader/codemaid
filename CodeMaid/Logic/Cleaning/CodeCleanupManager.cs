@@ -43,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
         private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
+        private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
 
         #endregion Fields
@@ -80,6 +81,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
             _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
+            _updateLogic = UpdateLogic.GetInstance(_package);
             _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
         }
 
@@ -294,7 +296,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform update cleanup.
-            UpdateEndRegionDirectives(textDocument);
+            _updateLogic.UpdateEndRegionDirectives(textDocument);
+            _updateLogic.UpdateSingleLineMethods(methods);
         }
 
         /// <summary>
@@ -363,78 +366,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             catch
             {
                 // OK if fails, not available for some file types.
-            }
-        }
-
-        /// <summary>
-        /// Updates the #endregion directives to match the names of the matching
-        /// #region directive and cleans up any unnecessary white space.
-        /// </summary>
-        /// <remarks>
-        /// This code is very similar to the Common region retrieval function, but
-        /// since it manipulates the cursors during processing the logic is different
-        /// enough to warrant a separate copy of the code.
-        /// </remarks>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        private void UpdateEndRegionDirectives(TextDocument textDocument)
-        {
-            if (!Settings.Default.Cleaning_UpdateEndRegionDirectives) return;
-
-            var regionStack = new Stack<string>();
-            EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
-            TextRanges subGroupMatches = null; // Not used - required for FindPattern.
-            string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
-
-            // Keep pushing cursor forwards (note ref cursor parameter) until finished.
-            while (cursor != null &&
-                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
-            {
-                // Create a pointer to capture the text for this line.
-                EditPoint eolCursor = cursor.CreateEditPoint();
-                eolCursor.EndOfLine();
-                string regionText = cursor.GetText(eolCursor);
-
-                if (regionText.StartsWith("region ")) // Space required by compiler.
-                {
-                    // Cleanup any whitespace in the region name.
-                    string regionName = regionText.Substring(7);
-                    string regionNameTrimmed = regionName.Trim();
-                    if (regionName != regionNameTrimmed)
-                    {
-                        cursor.CharRight(7);
-                        cursor.Delete(eolCursor);
-                        cursor.Insert(regionNameTrimmed);
-                    }
-
-                    // Push the parsed region name onto the top of the stack.
-                    regionStack.Push(regionNameTrimmed);
-                }
-                else if (regionText.StartsWith("endregion")) // Space may or may not be present.
-                {
-                    if (regionStack.Count > 0)
-                    {
-                        // Do not trim the endRegionName in order to catch whitespace differences.
-                        string endRegionName = regionText.Length > 9 ?
-                            regionText.Substring(10) : String.Empty;
-                        string matchingRegion = regionStack.Pop();
-
-                        // Update if the strings do not match.
-                        if (matchingRegion != endRegionName)
-                        {
-                            cursor.CharRight(9);
-                            cursor.Delete(eolCursor);
-                            cursor.Insert(" " + matchingRegion);
-                        }
-                    }
-                    else
-                    {
-                        // This document is improperly formatted, abort.
-                        return;
-                    }
-                }
-
-                // Note: eolCursor may be outdated now if changes have been made.
-                cursor.EndOfLine();
             }
         }
 

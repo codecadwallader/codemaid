@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override void LoadSettings()
         {
             UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
+            UpdateSingleLineMethods = Settings.Default.Cleaning_UpdateSingleLineMethods;
         }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override void SaveSettings()
         {
             Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
+            Settings.Default.Cleaning_UpdateSingleLineMethods = UpdateSingleLineMethods;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -64,6 +66,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _updateEndRegionDirectives = value;
                     NotifyPropertyChanged("UpdateEndRegionDirectives");
+                }
+            }
+        }
+
+        private bool _updateSingleLineMethods;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if single line methods should be updated.
+        /// </summary>
+        public bool UpdateSingleLineMethods
+        {
+            get { return _updateSingleLineMethods; }
+            set
+            {
+                if (_updateSingleLineMethods != value)
+                {
+                    _updateSingleLineMethods = value;
+                    NotifyPropertyChanged("UpdateSingleLineMethods");
                 }
             }
         }

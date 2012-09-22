@@ -198,6 +198,7 @@
     <Compile Include="Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
     <Compile Include="Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveWhitespaceLogic.cs" />
+    <Compile Include="Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
     <Compile Include="Logic\Digging\SpadeCodeModelRetriever.cs" />

@@ -254,5 +254,8 @@
     <Setting Name="Cleaning_ExcludeT4GeneratedCode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_UpdateSingleLineMethods" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
