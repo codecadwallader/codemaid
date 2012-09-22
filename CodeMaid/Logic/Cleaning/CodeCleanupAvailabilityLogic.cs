@@ -113,7 +113,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             return IsCleanupEnvironmentAvailable() &&
                    document != null &&
                    IsDocumentLanguageIncludedByOptions(document) &&
-                   !IsFileNameExcludedByOptions(document.Name);
+                   !IsFileNameExcludedByOptions(document.Name) &&
+                   !IsParentCodeGeneratorExcludedByOptions(document);
         }
 
         /// <summary>
@@ -127,12 +128,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                    projectItem != null &&
                    projectItem.Kind == Constants.vsProjectItemKindPhysicalFile &&
                    IsProjectItemLanguageIncludedByOptions(projectItem) &&
-                   !IsFileNameExcludedByOptions(projectItem.Name);
+                   !IsFileNameExcludedByOptions(projectItem.Name) &&
+                   !IsParentCodeGeneratorExcludedByOptions(projectItem);
         }
 
         #endregion Internal Methods
 
         #region Private Methods
+
+        /// <summary>
+        /// Attempts to get the file extension for the specified project item, otherwise an empty string.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>The file extension, otherwise an empty string.</returns>
+        private static string GetProjectItemExtension(ProjectItem projectItem)
+        {
+            return Path.GetExtension(projectItem.Name) ?? string.Empty;
+        }
 
         /// <summary>
         /// Determines whether the language for the specified document is included by configuration.
@@ -177,13 +189,46 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Determines whether the specified document has a parent item that is a code generator which is excluded by options.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if the parent is excluded by options, otherwise false.</returns>
+        private static bool IsParentCodeGeneratorExcludedByOptions(Document document)
+        {
+            if (document == null) return false;
+
+            return IsParentCodeGeneratorExcludedByOptions(document.ProjectItem);
+        }
+
+        /// <summary>
+        /// Determines whether the specified project item has a parent item that is a code generator which is excluded by options.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>True if the parent is excluded by options, otherwise false.</returns>
+        private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
+        {
+            if (projectItem == null || projectItem.Collection == null) return false;
+
+            var parentProjectItem = projectItem.Collection.Parent as ProjectItem;
+            if (parentProjectItem == null) return false;
+
+            var extension = GetProjectItemExtension(parentProjectItem);
+            if (extension.Equals(".tt", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return Settings.Default.Cleaning_ExcludeT4GeneratedCode;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Determines whether the language for the specified project item is included by configuration.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsProjectItemLanguageIncludedByOptions(ProjectItem projectItem)
         {
-            var extension = Path.GetExtension(projectItem.Name) ?? string.Empty;
+            var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
                 // Make an exception for JavaScript files - they may incorrectly return the HTML language service.

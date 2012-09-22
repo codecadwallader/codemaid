@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void LoadSettings()
         {
+            ExcludeT4GeneratedCode = Settings.Default.Cleaning_ExcludeT4GeneratedCode;
             ExclusionExpression = Settings.Default.Cleaning_ExclusionExpression;
             IncludeCPlusPlus = Settings.Default.Cleaning_IncludeCPlusPlus;
             IncludeCSharp = Settings.Default.Cleaning_IncludeCSharp;
@@ -50,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Cleaning_ExcludeT4GeneratedCode = ExcludeT4GeneratedCode;
             Settings.Default.Cleaning_ExclusionExpression = ExclusionExpression;
             Settings.Default.Cleaning_IncludeCPlusPlus = IncludeCPlusPlus;
             Settings.Default.Cleaning_IncludeCSharp = IncludeCSharp;
@@ -63,6 +65,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _excludeT4GeneratedCode;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if T4 generated code files should be excluded.
+        /// </summary>
+        public bool ExcludeT4GeneratedCode
+        {
+            get { return _excludeT4GeneratedCode; }
+            set
+            {
+                if (_excludeT4GeneratedCode != value)
+                {
+                    _excludeT4GeneratedCode = value;
+                    NotifyPropertyChanged("ExcludeT4GeneratedCode");
+                }
+            }
+        }
 
         private string _exclusionExpression;
 

@@ -251,5 +251,8 @@
     <Setting Name="General_Theme" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="Cleaning_ExcludeT4GeneratedCode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1018,5 +1018,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_Theme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_ExcludeT4GeneratedCode {
+            get {
+                return ((bool)(this["Cleaning_ExcludeT4GeneratedCode"]));
+            }
+            set {
+                this["Cleaning_ExcludeT4GeneratedCode"] = value;
+            }
+        }
     }
 }
