@@ -24,7 +24,7 @@
 
     <Style x:Key="parameterToolTipStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
-        <Setter Property="Foreground" Value="#666666" />
+        <Setter Property="Foreground" Value="#FF777777" />
     </Style>
 
     <Style x:Key="parameterToolTipTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterToolTipStyle}">
@@ -80,7 +80,7 @@
 
     <DataTemplate x:Key="complexityToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
-            <TextBlock Text="Complexity: " Foreground="#666666" />
+            <TextBlock Text="Complexity: " Foreground="#FF777777" />
             <TextBlock x:Name="complexityTextBlock" Text="{Binding}" />
         </StackPanel>
         <DataTemplate.Triggers>
@@ -113,7 +113,7 @@
 
     <DataTemplate x:Key="metadataToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
-            <TextBlock Text="Metadata: " Foreground="#666666" />
+            <TextBlock Text="Metadata: " Foreground="#FF777777" />
             <TextBlock x:Name="metadataTextBlock"
                     Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
         </StackPanel>

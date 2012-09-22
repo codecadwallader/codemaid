@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         public static MethodToNameTextBlockConverter WithParameters = new MethodToNameTextBlockConverter { IncludeParameters = true };
 
         private static readonly SolidColorBrush BrushRun = new SolidColorBrush(Color.FromRgb(0xAA, 0xAA, 0xAA));
-        private static readonly SolidColorBrush BrushTypeRun = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66));
+        private static readonly SolidColorBrush BrushTypeRun = new SolidColorBrush(Color.FromRgb(0x77, 0x77, 0x77));
 
         #endregion Fields
 
@@ -134,7 +134,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                            FontSize = 11,
                            FontStyle = FontStyles.Italic,
                            Foreground = BrushRun,
-                           BaselineAlignment = BaselineAlignment.Top
+                           BaselineAlignment = BaselineAlignment.Baseline
                        };
         }
 
