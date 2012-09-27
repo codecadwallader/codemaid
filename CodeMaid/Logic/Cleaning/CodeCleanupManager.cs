@@ -181,6 +181,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
                 case "C/C++":
                 case "CSS":
+                case "JavaScript":
                 case "JScript":
                     return RunCodeCleanupC;
 
