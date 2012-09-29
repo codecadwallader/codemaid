@@ -279,6 +279,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     break;
 
                 case MouseButton.Right:
+                    treeViewItem.IsSelected = true;
                     ShowContextMenu(baseCodeItem, PointToScreen(e.GetPosition(this)));
                     break;
             }
