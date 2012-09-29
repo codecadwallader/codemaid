@@ -231,6 +231,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        /// <summary>
+        /// Substitutes all occurrences between the specified start and end points of
+        /// the specified pattern string with the specified replacement string.
+        /// </summary>
+        /// <param name="startPoint">The start point.</param>
+        /// <param name="endPoint">The end point.</param>
+        /// <param name="patternString">The pattern string.</param>
+        /// <param name="replacementString">The replacement string.</param>
+        internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
+        {
+            TextRanges dummy = null;
+            while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))
+            {
+            }
+        }
+
         #endregion Internal Methods
     }
 }

@@ -182,17 +182,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Joins the specified multi-line method onto a single line.
         /// </summary>
         /// <param name="method">The method to update.</param>
-        private static void JoinMultiLineMethodOntoSingleLine(CodeFunction method)
+        private void JoinMultiLineMethodOntoSingleLine(CodeFunction method)
         {
-            var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-            var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+            var start = method.StartPoint.CreateEditPoint();
+            var end = method.EndPoint.CreateEditPoint();
+
+            string pattern = _package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
+            const string replacement = @" ";
+
+            // Substitute all new lines (and optional surrounding whitespace) with a single space.
+            TextDocumentHelper.SubstituteAllStringMatches(start, end, pattern, replacement);
         }
 
         /// <summary>
         /// Spreads the specified single line method onto multiple lines.
         /// </summary>
         /// <param name="method">The method to update.</param>
-        private static void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
+        private void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
         {
             var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
             var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
@@ -219,7 +225,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="first">The first accessor.</param>
         /// <param name="second">The second accessor.</param>
-        private static void UpdateAccessorsToBothBeSingleLineOrMultiLine(CodeFunction first, CodeFunction second)
+        private void UpdateAccessorsToBothBeSingleLineOrMultiLine(CodeFunction first, CodeFunction second)
         {
             if (first == null || second == null) return;
 
