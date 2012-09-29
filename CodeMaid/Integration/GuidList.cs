@@ -40,6 +40,10 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidToolbarSpadeLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
         public static readonly Guid GuidCodeMaidToolbarSpadeMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
+        // Context menu group guids.
+
+        public static readonly Guid GuidCodeMaidContextSpade = new Guid("a8c6d617-bb41-4357-b0a1-175e7a04cc5a");
+
         // Miscellaneous context menu group guids.
 
         public static readonly Guid GuidCodeMaidContextASPXWindowGroup = new Guid("d4cee201-6b18-4265-8693-a0cb38cf070b");

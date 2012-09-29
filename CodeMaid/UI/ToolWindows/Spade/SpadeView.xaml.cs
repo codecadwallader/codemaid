@@ -12,11 +12,13 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
@@ -258,20 +260,27 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _dragCandidate = null;
             _startPoint = null;
 
-            if (e.ChangedButton != MouseButton.Left) return;
-
             var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;
 
             var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
 
-            if (_isDoubleClick)
+            switch (e.ChangedButton)
             {
-                SelectCodeItem(baseCodeItem);
-            }
-            else
-            {
-                JumpToCodeItem(baseCodeItem);
+                case MouseButton.Left:
+                    if (_isDoubleClick)
+                    {
+                        SelectCodeItem(baseCodeItem);
+                    }
+                    else
+                    {
+                        JumpToCodeItem(baseCodeItem);
+                    }
+                    break;
+
+                case MouseButton.Right:
+                    ShowContextMenu(baseCodeItem, PointToScreen(e.GetPosition(this)));
+                    break;
             }
         }
 
@@ -500,6 +509,25 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             Dispatcher.BeginInvoke(
                 new Action(() => TextDocumentHelper.SelectCodeItem(viewModel.Document, codeItem)));
+        }
+
+        /// <summary>
+        /// Shows a context menu for the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <param name="point">The point where the context menu should be shown.</param>
+        private void ShowContextMenu(BaseCodeItem codeItem, Point point)
+        {
+            var viewModel = ViewModel;
+            if (codeItem == null || viewModel == null) return;
+
+            var menuCommandService = viewModel.Package.MenuCommandService;
+            if (menuCommandService != null)
+            {
+                var contextMenuCommandID = new CommandID(GuidList.GuidCodeMaidContextSpade, PkgCmdIDList.MenuIDCodeMaidContextSpade);
+
+                menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+            }
         }
 
         #endregion Methods

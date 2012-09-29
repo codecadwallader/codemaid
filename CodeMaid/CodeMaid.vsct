@@ -50,6 +50,12 @@
           <CommandName>CodeMaid Spade Toolbar</CommandName>
         </Strings>
       </Menu>
+      <Menu guid="GuidCodeMaidContextSpade" id="MenuIDCodeMaidContextSpade" type="Context">
+        <Strings>
+          <ButtonText>CodeMaid Spade Context Menu</ButtonText>
+          <CommandName>CodeMaid Spade Context Menu</CommandName>
+        </Strings>
+      </Menu>
     </Menus>
 
     <!-- In this section you can define new menu groups. A menu group is a container for
@@ -91,6 +97,10 @@
       </Group>
       <Group guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" priority="0x0600">
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextSpade" id="MenuIDCodeMaidContextSpade" />
       </Group>
 
       <Group guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" priority="0x0100">
@@ -514,6 +524,9 @@
     <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
       <Parent guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
@@ -645,6 +658,12 @@
 
     <GuidSymbol name="GuidCodeMaidToolbarSpadeMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
       <IDSymbol name="GroupIDCodeMaidToolbarSpadeMetaGroup" value="0x1045" />
+    </GuidSymbol>
+
+    <!-- This is the guid used to group the Spade context menu commands together -->
+    <GuidSymbol name="GuidCodeMaidContextSpade" value="{a8c6d617-bb41-4357-b0a1-175e7a04cc5a}">
+      <IDSymbol name="GroupIDCodeMaidContextSpade" value="0x1060" />
+      <IDSymbol name="MenuIDCodeMaidContextSpade" value="0x1061" />
     </GuidSymbol>
 
     <!-- These are the command sets for extending toolbars -->

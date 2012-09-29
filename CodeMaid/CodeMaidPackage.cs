@@ -146,6 +146,14 @@ namespace SteveCadwallader.CodeMaid
         public double IDEVersion { get { return Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture); } }
 
         /// <summary>
+        /// Gets the menu command service.
+        /// </summary>
+        public OleMenuCommandService MenuCommandService
+        {
+            get { return GetService(typeof(IMenuCommandService)) as OleMenuCommandService; }
+        }
+
+        /// <summary>
         /// Gets the Spade tool window, iff it already exists.
         /// </summary>
         public SpadeToolWindow Spade
@@ -218,14 +226,6 @@ namespace SteveCadwallader.CodeMaid
         #endregion Private Event Listener Properties
 
         #region Private Service Properties
-
-        /// <summary>
-        /// Gets the menu command service.
-        /// </summary>
-        private OleMenuCommandService MenuCommandService
-        {
-            get { return GetService(typeof(IMenuCommandService)) as OleMenuCommandService; }
-        }
 
         /// <summary>
         /// Gets the shell service.
