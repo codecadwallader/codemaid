@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessDefault; }
+            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessDefault); }
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public string Namespace
         {
-            get { return CodeDelegate != null ? CodeDelegate.Namespace.Name : null; }
+            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Namespace.Name : null); }
         }
 
         #endregion BaseCodeItemElementParent Overrides

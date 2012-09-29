@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override vsCMAccess Access
         {
             // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-            get { return CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault; }
+            get { return TryDefault(() => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault); }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override bool IsStatic
         {
-            get { return CodeEvent != null && CodeEvent.IsShared; }
+            get { return TryDefault(() => CodeEvent != null && CodeEvent.IsShared); }
         }
 
         /// <summary>

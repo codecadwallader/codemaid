@@ -42,13 +42,16 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
-                // Work-around for static C++ fields - in VS2012 checking the Access results in hanging Visual Studio.
-                if (CodeVariable != null && !(IsStatic && CodeVariable.Language == CodeModelLanguageConstants.vsCMLanguageVC))
-                {
-                    return CodeVariable.Access;
-                }
+                return TryDefault(() =>
+                       {
+                           // Work-around for static C++ fields - in VS2012 checking the Access results in hanging Visual Studio.
+                           if (CodeVariable != null && !(IsStatic && CodeVariable.Language == CodeModelLanguageConstants.vsCMLanguageVC))
+                           {
+                               return CodeVariable.Access;
+                           }
 
-                return vsCMAccess.vsCMAccessDefault;
+                           return vsCMAccess.vsCMAccessDefault;
+                       });
             }
         }
 
@@ -73,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override bool IsStatic
         {
-            get { return CodeVariable != null && CodeVariable.IsShared; }
+            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsShared); }
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override vsCMAccess Access
         {
             // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-            get { return CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault; }
+            get { return TryDefault(() => CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessDefault); }
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
-                return CodeProperty != null &&
-                       ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
-                        (CodeProperty.Setter != null && CodeProperty.Setter.IsShared));
+                return TryDefault(() => CodeProperty != null &&
+                                        ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
+                                         (CodeProperty.Setter != null && CodeProperty.Setter.IsShared)));
             }
         }
 

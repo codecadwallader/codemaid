@@ -77,26 +77,33 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
                 bool isFirst = true;
 
-                foreach (var methodParameter in method.Parameters)
+                try
                 {
-                    if (isFirst)
+                    foreach (var methodParameter in method.Parameters)
                     {
-                        isFirst = false;
-                    }
-                    else
-                    {
-                        textBlock.Inlines.Add(CreateRun(", "));
-                    }
+                        if (isFirst)
+                        {
+                            isFirst = false;
+                        }
+                        else
+                        {
+                            textBlock.Inlines.Add(CreateRun(", "));
+                        }
 
-                    try
-                    {
-                        textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
-                        textBlock.Inlines.Add(CreateRun(methodParameter.Name));
+                        try
+                        {
+                            textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
+                            textBlock.Inlines.Add(CreateRun(methodParameter.Name));
+                        }
+                        catch (Exception)
+                        {
+                            textBlock.Inlines.Add(CreateRun("?"));
+                        }
                     }
-                    catch (Exception)
-                    {
-                        textBlock.Inlines.Add(CreateRun("?"));
-                    }
+                }
+                catch (Exception)
+                {
+                    textBlock.Inlines.Add(CreateRun("?"));
                 }
 
                 textBlock.Inlines.Add(CreateRun(")"));

@@ -43,10 +43,17 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var codeItem = value as BaseCodeItem;
             if (codeItem == null) return null;
 
-            string uriString = BuildImageURIString(codeItem);
-            if (uriString == null) return null;
+            try
+            {
+                string uriString = BuildImageURIString(codeItem);
+                if (uriString == null) return null;
 
-            return new BitmapImage(new Uri(uriString, UriKind.Relative));
+                return new BitmapImage(new Uri(uriString, UriKind.Relative));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
