@@ -174,29 +174,48 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var singleLineMethods = methods.Where(x => x.StartLine == x.EndLine && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract);
             foreach (var singleLineMethod in singleLineMethods)
             {
-                var start = singleLineMethod.CodeFunction.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-                var end = singleLineMethod.CodeFunction.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-
-                // Insert a new-line before and after the opening brace.
-                start.CharLeft();
-                start.Insert(Environment.NewLine);
-                start.CharRight();
-                start.Insert(Environment.NewLine);
-
-                // Insert a new-line before the closing brace, unless the method is empty.
-                end.DeleteWhitespace();
-                if (end.DisplayColumn > 1)
-                {
-                    end.Insert(Environment.NewLine);
-                }
-
-                // Update the formatting of the method.
-                singleLineMethod.StartPoint.SmartFormat(singleLineMethod.EndPoint);
+                SpreadSingleLineMethodOntoMultipleLines(singleLineMethod.CodeFunction);
             }
         }
 
         /// <summary>
-        /// Updates the specified accessors to both be single line or multi line.
+        /// Joins the specified multi-line method onto a single line.
+        /// </summary>
+        /// <param name="method">The method to update.</param>
+        private static void JoinMultiLineMethodOntoSingleLine(CodeFunction method)
+        {
+            var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+            var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+        }
+
+        /// <summary>
+        /// Spreads the specified single line method onto multiple lines.
+        /// </summary>
+        /// <param name="method">The method to update.</param>
+        private static void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
+        {
+            var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+            var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+
+            // Insert a new-line before and after the opening brace.
+            start.CharLeft();
+            start.Insert(Environment.NewLine);
+            start.CharRight();
+            start.Insert(Environment.NewLine);
+
+            // Insert a new-line before the closing brace, unless the method is empty.
+            end.DeleteWhitespace();
+            if (end.DisplayColumn > 1)
+            {
+                end.Insert(Environment.NewLine);
+            }
+
+            // Update the formatting of the method.
+            method.StartPoint.CreateEditPoint().SmartFormat(method.EndPoint);
+        }
+
+        /// <summary>
+        /// Updates the specified accessors to both be single-line or multi-line.
         /// </summary>
         /// <param name="first">The first accessor.</param>
         /// <param name="second">The second accessor.</param>
@@ -209,26 +228,26 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (isFirstSingleLine == isSecondSingleLine) return;
 
-            var multiLineFunction = isFirstSingleLine ? second : first;
-            var singleLineFunction = isFirstSingleLine ? first : second;
+            var multiLineMethod = isFirstSingleLine ? second : first;
+            var singleLineMethod = isFirstSingleLine ? first : second;
 
             try
             {
-                var multiLineBodyStart = multiLineFunction.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-                var multiLineBodyEnd = multiLineFunction.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                var multiLineBodyStart = multiLineMethod.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                var multiLineBodyEnd = multiLineMethod.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
 
                 // Move the body end back one character to account for new-lines.
                 multiLineBodyEnd.CharLeft();
 
-                bool multiLineFunctionHasSingleLineBody = multiLineBodyStart.Line == multiLineBodyEnd.Line;
+                bool multiLineHasSingleLineBody = multiLineBodyStart.Line == multiLineBodyEnd.Line;
 
-                if (multiLineFunctionHasSingleLineBody)
+                if (multiLineHasSingleLineBody)
                 {
-                    //TODO: Update multi-line function onto a single line.
+                    JoinMultiLineMethodOntoSingleLine(multiLineMethod);
                 }
                 else
                 {
-                    //TODO: Spread single-line function onto multiple lines.
+                    SpreadSingleLineMethodOntoMultipleLines(singleLineMethod);
                 }
             }
             catch (Exception)
