@@ -65,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string DocComment
         {
-            get { return CodeVariable != null ? CodeVariable.DocComment : null; }
+            get { return TryDefault(() => CodeVariable != null ? CodeVariable.DocComment : null); }
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return CodeVariable != null ? CodeVariable.Type.AsString : null; }
+            get { return TryDefault(() => CodeVariable != null ? CodeVariable.Type.AsString : null); }
         }
 
         #endregion BaseCodeItemElement Overrides
@@ -98,7 +98,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public bool IsConstant
         {
-            get { return CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst; }
+            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst); }
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public bool IsReadOnly
         {
-            get { return CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly; }
+            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly); }
         }
 
         #endregion Properties

@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string DocComment
         {
-            get { return CodeNamespace != null ? CodeNamespace.DocComment : null; }
+            get { return TryDefault(() => CodeNamespace != null ? CodeNamespace.DocComment : null); }
         }
 
         /// <summary>

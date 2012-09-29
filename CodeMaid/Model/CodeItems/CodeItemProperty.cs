@@ -63,7 +63,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string DocComment
         {
-            get { return CodeProperty != null ? CodeProperty.DocComment : null; }
+            get { return TryDefault(() => CodeProperty != null ? CodeProperty.DocComment : null); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return CodeProperty != null ? CodeProperty.Type.AsString : null; }
+            get { return TryDefault(() => CodeProperty != null ? CodeProperty.Type.AsString : null); }
         }
 
         #endregion BaseCodeItemElement Overrides

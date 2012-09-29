@@ -64,36 +64,41 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var codeItem = value as BaseCodeItemElement;
             if (codeItem == null) return string.Empty;
 
-            IEnumerable<string> metadataStrings;
-
-            switch (codeItem.Kind)
+            try
             {
-                case KindCodeItem.Constant:
+                IEnumerable<string> metadataStrings;
 
-                    // Avoid showing static metadata for constants since it is redundant.
-                    return string.Empty;
+                switch (codeItem.Kind)
+                {
+                    case KindCodeItem.Constant:
+                        return string.Empty; // Avoid showing static metadata for constants since it is redundant.
 
-                case KindCodeItem.Field:
-                    metadataStrings = GenerateMetadataStrings((CodeItemField)codeItem);
-                    break;
+                    case KindCodeItem.Field:
+                        metadataStrings = GenerateMetadataStrings((CodeItemField)codeItem);
+                        break;
 
-                case KindCodeItem.Constructor:
-                case KindCodeItem.Destructor:
-                case KindCodeItem.Method:
-                    metadataStrings = GenerateMetadataStrings((CodeItemMethod)codeItem);
-                    break;
+                    case KindCodeItem.Constructor:
+                    case KindCodeItem.Destructor:
+                    case KindCodeItem.Method:
+                        metadataStrings = GenerateMetadataStrings((CodeItemMethod)codeItem);
+                        break;
 
-                case KindCodeItem.Indexer:
-                case KindCodeItem.Property:
-                    metadataStrings = GenerateMetadataStrings((CodeItemProperty)codeItem);
-                    break;
+                    case KindCodeItem.Indexer:
+                    case KindCodeItem.Property:
+                        metadataStrings = GenerateMetadataStrings((CodeItemProperty)codeItem);
+                        break;
 
-                default:
-                    metadataStrings = GenerateMetadataStrings(codeItem);
-                    break;
+                    default:
+                        metadataStrings = GenerateMetadataStrings(codeItem);
+                        break;
+                }
+
+                return string.Join(", ", metadataStrings.Distinct().ToArray());
             }
-
-            return string.Join(", ", metadataStrings.Distinct().ToArray());
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>

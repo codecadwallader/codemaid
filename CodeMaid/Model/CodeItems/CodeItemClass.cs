@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string DocComment
         {
-            get { return CodeClass != null ? CodeClass.DocComment : null; }
+            get { return TryDefault(() => CodeClass != null ? CodeClass.DocComment : null); }
         }
 
         /// <summary>

@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string DocComment
         {
-            get { return CodeEnum != null ? CodeEnum.DocComment : null; }
+            get { return TryDefault(() => CodeEnum != null ? CodeEnum.DocComment : null); }
         }
 
         /// <summary>
