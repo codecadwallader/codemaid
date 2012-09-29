@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void LoadSettings()
         {
+            DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
         }
 
@@ -43,12 +44,28 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Theme = (int)ThemeMode;
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _diagnosticsMode;
+
+        public bool DiagnosticsMode
+        {
+            get { return _diagnosticsMode; }
+            set
+            {
+                if (_diagnosticsMode != value)
+                {
+                    _diagnosticsMode = value;
+                    NotifyPropertyChanged("DiagnosticsMode");
+                }
+            }
+        }
 
         private ThemeMode _themeMode;
 

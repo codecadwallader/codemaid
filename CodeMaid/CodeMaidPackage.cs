@@ -18,15 +18,19 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Threading;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
@@ -100,6 +104,8 @@ namespace SteveCadwallader.CodeMaid
         public CodeMaidPackage()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
+
+            Application.Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
         }
 
         #endregion Constructors
@@ -301,6 +307,19 @@ namespace SteveCadwallader.CodeMaid
         #endregion IVsInstalledProduct Members
 
         #region Private Methods
+
+        /// <summary>
+        /// Called when a <see cref="DispatcherUnhandledException"/> is raised by Visual Studio.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DispatcherUnhandledExceptionEventArgs" /> instance containing the event data.</param>
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            if (!Settings.Default.General_DiagnosticsMode) return;
+
+            OutputWindowHelper.WriteLine("CodeMaid's diagnostics mode caught the following unhandled exception in Visual Studio--" + Environment.NewLine + e.Exception);
+            e.Handled = true;
+        }
 
         /// <summary>
         /// Register the package commands (which must exist in the .vsct file).

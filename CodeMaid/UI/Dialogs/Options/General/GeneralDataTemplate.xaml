@@ -11,6 +11,7 @@
                 <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Dark}}" />
                 <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Light}}" />
             </StackPanel>
+            <CheckBox Content="Diagnostics mode" IsChecked="{Binding DiagnosticsMode}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

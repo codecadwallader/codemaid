@@ -260,5 +260,8 @@
     <Setting Name="Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="General_DiagnosticsMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
