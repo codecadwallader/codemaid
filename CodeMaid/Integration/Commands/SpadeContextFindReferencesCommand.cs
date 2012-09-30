@@ -11,9 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
-using System;
 using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell.Interop;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -55,24 +54,33 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnExecute()
         {
             var spade = Package.Spade;
-            if (spade != null)
-            {
-                var item = spade.SelectedItem as BaseCodeItemElement;
-                if (item != null)
-                {
-                    var vsSymbolScopeAll = new Guid(SymbolScopeGuids80.Solution);
-                    var searchCriteria = new[]
-                                             {
-                                                 new VSOBSEARCHCRITERIA2
-                                                     {
-                                                         eSrchType = VSOBSEARCHTYPE.SO_ENTIREWORD,
-                                                         grfOptions = (uint)_VSOBSEARCHOPTIONS.VSOBSO_CASESENSITIVE,
-                                                         szName = item.CodeElement.FullName
-                                                     }
-                                             };
+            if (spade == null) return;
 
-                    Package.FindSymbolService.DoSearch(vsSymbolScopeAll, searchCriteria);
-                }
+            var item = spade.SelectedItem as BaseCodeItemElement;
+            if (item == null) return;
+
+            var document = Package.IDE.ActiveDocument;
+            if (document == null) return;
+
+            var selection = ((TextSelection)document.Selection);
+
+            // Activate the document and set the cursor position to set the command context.
+            document.Activate();
+            selection.MoveToPoint(item.StartPoint);
+
+            // Determine if ReSharper FindUsages command is available, otherwise use native VS command.
+            var reSharperFindReferences = Package.IDE.Commands.Item("ReSharper.ReSharper_FindUsages");
+            if (reSharperFindReferences == null)
+            {
+                Package.IDE.ExecuteCommand("Edit.FindAllReferences");
+            }
+            else
+            {
+                // Move the cursor further into the item for ReSharper to pick it up correctly.
+                selection.FindText(item.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
+                selection.MoveToPoint(selection.AnchorPoint);
+
+                Package.IDE.ExecuteCommand("ReSharper.ReSharper_FindUsages");
             }
         }
 
