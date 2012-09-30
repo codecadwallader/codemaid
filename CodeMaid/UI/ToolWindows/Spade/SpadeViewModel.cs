@@ -180,6 +180,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected item.
+        /// </summary>
+        public BaseCodeItem SelectedItem { get; set; }
+
         #endregion Properties
 
         #region Methods

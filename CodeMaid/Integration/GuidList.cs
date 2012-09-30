@@ -79,6 +79,9 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
         public static readonly Guid GuidCodeMaidCommandReorganizeActiveCode = new Guid("60bd7c93-ff19-4351-8d2f-8761bdfc6a2a");
         public static readonly Guid GuidCodeMaidCommandSpadeConfiguration = new Guid("d068f0d3-267c-45b5-a02f-14f3422b8540");
+        public static readonly Guid GuidCodeMaidCommandSpadeContextDelete = new Guid("d8312056-c902-4d26-9f12-b4bb60db0365");
+        public static readonly Guid GuidCodeMaidCommandSpadeContextFindReferences = new Guid("9ed89f6a-ab37-487a-8beb-d3c586d76a47");
+        public static readonly Guid GuidCodeMaidCommandSpadeContextRemoveRegion = new Guid("502c000f-9afa-4c6a-af01-4d64d756733e");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
         public static readonly Guid GuidCodeMaidCommandSpadeLayoutType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");

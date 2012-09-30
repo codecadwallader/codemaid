@@ -92,6 +92,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             set { _viewModel.LayoutMode = value; }
         }
 
+        /// <summary>
+        /// Gets the selected item.
+        /// </summary>
+        public BaseCodeItem SelectedItem
+        {
+            get { return _viewModel.SelectedItem; }
+        }
+
         #endregion Public Properties
 
         #region Public Methods

@@ -344,6 +344,9 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SpadeConfigurationCommand(this));
+                _commands.Add(new SpadeContextDeleteCommand(this));
+                _commands.Add(new SpadeContextFindReferencesCommand(this));
+                _commands.Add(new SpadeContextRemoveRegionCommand(this));
                 _commands.Add(new SpadeLayoutAlphaCommand(this));
                 _commands.Add(new SpadeLayoutFileCommand(this));
                 _commands.Add(new SpadeLayoutTypeCommand(this));

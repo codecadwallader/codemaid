@@ -178,6 +178,9 @@
     <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
     <Compile Include="Integration\Commands\SpadeConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeLayoutAlphaCommand.cs" />
     <Compile Include="Integration\Commands\SpadeLayoutFileCommand.cs" />
     <Compile Include="Integration\Commands\SpadeLayoutTypeCommand.cs" />

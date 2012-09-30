@@ -527,7 +527,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 var contextMenuCommandID = new CommandID(GuidList.GuidCodeMaidContextSpade, PkgCmdIDList.MenuIDCodeMaidContextSpade);
 
+                viewModel.SelectedItem = codeItem;
                 menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+                viewModel.SelectedItem = null;
             }
         }
 

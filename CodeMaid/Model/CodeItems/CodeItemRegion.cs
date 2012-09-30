@@ -104,5 +104,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion Implementation of ICodeItemParent
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets a flag indicating if this is a pseudo group.
+        /// </summary>
+        public bool IsPseudoGroup { get; set; }
+
+        #endregion Properties
     }
 }

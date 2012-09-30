@@ -188,7 +188,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                 // Create a new group unless the right kind has already been defined.
                 if (group == null || kind != child.Kind)
                 {
-                    group = new CodeItemRegion { Name = child.Kind.GetDescription() };
+                    group = new CodeItemRegion { Name = child.Kind.GetDescription(), IsPseudoGroup = true };
                     kind = child.Kind;
 
                     codeItem.Children.Add(group);

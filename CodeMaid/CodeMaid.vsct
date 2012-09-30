@@ -276,6 +276,27 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Delete</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Find References</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Remove Region</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <Strings>
@@ -509,6 +530,18 @@
       <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0600">
       <Parent guid="GuidCodeMaidToolbarSpadeLayoutGroup" id="GroupIDCodeMaidToolbarSpadeLayoutGroup" />
     </CommandPlacement>
@@ -523,9 +556,6 @@
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
       <Parent guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0400">
@@ -771,28 +801,40 @@
       <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2300" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextDelete" value="{d8312056-c902-4d26-9f12-b4bb60db0365}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextFindReferences" value="{9ed89f6a-ab37-487a-8beb-d3c586d76a47}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2500" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextRemoveRegion" value="{502c000f-9afa-4c6a-af01-4d64d756733e}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x2600" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2400" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x2900" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x2700" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3000" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x2800" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3100" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x2900" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3200" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
