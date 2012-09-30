@@ -42,7 +42,9 @@ namespace SteveCadwallader.CodeMaid.Integration
 
         // Context menu group guids.
 
-        public static readonly Guid GuidCodeMaidContextSpade = new Guid("a8c6d617-bb41-4357-b0a1-175e7a04cc5a");
+        public static readonly Guid GuidCodeMaidContextSpadeBaseGroup = new Guid("a8c6d617-bb41-4357-b0a1-175e7a04cc5a");
+        public static readonly Guid GuidCodeMaidContextSpadeFindGroup = new Guid("4e3fd2e6-4cde-497c-a899-eee7e53c8852");
+        public static readonly Guid GuidCodeMaidContextSpadeDeleteGroup = new Guid("e4abf3d9-e332-4c5d-97a9-4ac09395c28f");
 
         // Miscellaneous context menu group guids.
 

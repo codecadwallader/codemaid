@@ -11,7 +11,10 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System;
 using System.ComponentModel.Design;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -62,6 +65,24 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            var spade = Package.Spade;
+            if (spade != null)
+            {
+                var item = spade.SelectedItem;
+                if (item != null && item.StartPoint != null && item.EndPoint != null)
+                {
+                    new UndoTransactionHelper(Package, "Delete " + item.Name).Run(() =>
+                    {
+                        var start = item.StartPoint.CreateEditPoint();
+
+                        start.Delete(item.EndPoint);
+                        start.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
+                        start.Insert(Environment.NewLine);
+                    });
+
+                    spade.Refresh();
+                }
+            }
         }
 
         #endregion BaseCommand Methods

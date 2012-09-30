@@ -41,7 +41,6 @@ namespace SteveCadwallader.CodeMaid.Integration
 
         public const int ToolbarIDCodeMaidToolbarSpade = 0x1040;
 
-        public const int GroupIDCodeMaidContextSpade = 0x1060;
-        public const int MenuIDCodeMaidContextSpade = 0x1061;
+        public const int MenuIDCodeMaidContextSpade = 0x1060;
     };
 }

@@ -50,7 +50,7 @@
           <CommandName>CodeMaid Spade Toolbar</CommandName>
         </Strings>
       </Menu>
-      <Menu guid="GuidCodeMaidContextSpade" id="MenuIDCodeMaidContextSpade" type="Context">
+      <Menu guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" type="Context">
         <Strings>
           <ButtonText>CodeMaid Spade Context Menu</ButtonText>
           <CommandName>CodeMaid Spade Context Menu</CommandName>
@@ -99,8 +99,14 @@
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
       </Group>
 
-      <Group guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" priority="0x0100">
-        <Parent guid="GuidCodeMaidContextSpade" id="MenuIDCodeMaidContextSpade" />
+      <Group guid="GuidCodeMaidContextSpadeBaseGroup" id="GroupIDCodeMaidContextSpadeBaseGroup" priority="0x0000">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSpadeFindGroup" id="GroupIDCodeMaidContextSpadeFindGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" priority="0x0400">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
       </Group>
 
       <Group guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" priority="0x0100">
@@ -531,15 +537,15 @@
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0200">
-      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+      <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0400">
-      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSpadeFindGroup" id="GroupIDCodeMaidContextSpadeFindGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0600">
-      <Parent guid="GuidCodeMaidContextSpade" id="GroupIDCodeMaidContextSpade" />
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0600">
@@ -691,9 +697,18 @@
     </GuidSymbol>
 
     <!-- This is the guid used to group the Spade context menu commands together -->
-    <GuidSymbol name="GuidCodeMaidContextSpade" value="{a8c6d617-bb41-4357-b0a1-175e7a04cc5a}">
-      <IDSymbol name="GroupIDCodeMaidContextSpade" value="0x1060" />
-      <IDSymbol name="MenuIDCodeMaidContextSpade" value="0x1061" />
+    <GuidSymbol name="GuidCodeMaidContextSpadeBaseGroup" value="{a8c6d617-bb41-4357-b0a1-175e7a04cc5a}">
+      <IDSymbol name="MenuIDCodeMaidContextSpade" value="0x1060" />
+      <IDSymbol name="GroupIDCodeMaidContextSpadeBaseGroup" value="0x1061" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the Spade context menu -->
+    <GuidSymbol name="GuidCodeMaidContextSpadeFindGroup" value="{4e3fd2e6-4cde-497c-a899-eee7e53c8852}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeFindGroup" value="0x1062" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidContextSpadeDeleteGroup" value="{e4abf3d9-e332-4c5d-97a9-4ac09395c28f}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeDeleteGroup" value="0x1063" />
     </GuidSymbol>
 
     <!-- These are the command sets for extending toolbars -->
