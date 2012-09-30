@@ -125,6 +125,14 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
+        /// Gets the find symbol service.
+        /// </summary>
+        public IVsFindSymbol FindSymbolService
+        {
+            get { return GetService(typeof(SVsObjectSearch)) as IVsFindSymbol; }
+        }
+
+        /// <summary>
         /// Gets the IComponentModel service.
         /// </summary>
         public IComponentModel IComponentModel

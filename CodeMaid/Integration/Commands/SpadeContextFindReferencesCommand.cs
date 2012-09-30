@@ -13,6 +13,7 @@
 
 using System;
 using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -43,19 +44,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            bool visible = false;
-
             var spade = Package.Spade;
-            if (spade != null)
-            {
-                var item = spade.SelectedItem;
-                if (item != null)
-                {
-                    visible = !(item is CodeItemRegion) || !((CodeItemRegion)item).IsPseudoGroup;
-                }
-            }
 
-            Visible = visible;
+            Visible = spade != null && spade.SelectedItem is BaseCodeItemElement;
         }
 
         /// <summary>
@@ -63,7 +54,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            //Package.IDE.ExecuteCommand("Edit.FindAllReferences", String.Empty);
+            var spade = Package.Spade;
+            if (spade != null)
+            {
+                var item = spade.SelectedItem as BaseCodeItemElement;
+                if (item != null)
+                {
+                    var vsSymbolScopeAll = new Guid(SymbolScopeGuids80.Solution);
+                    var searchCriteria = new[]
+                                             {
+                                                 new VSOBSEARCHCRITERIA2
+                                                     {
+                                                         eSrchType = VSOBSEARCHTYPE.SO_ENTIREWORD,
+                                                         grfOptions = (uint)_VSOBSEARCHOPTIONS.VSOBSO_CASESENSITIVE,
+                                                         szName = item.CodeElement.FullName
+                                                     }
+                                             };
+
+                    Package.FindSymbolService.DoSearch(vsSymbolScopeAll, searchCriteria);
+                }
+            }
         }
 
         #endregion BaseCommand Methods
