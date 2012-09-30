@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System.ComponentModel.Design;
+using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
@@ -66,21 +67,18 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             // Activate the document and set the cursor position to set the command context.
             document.Activate();
-            selection.MoveToPoint(item.StartPoint);
+            selection.MoveToPoint(item.CodeElement.StartPoint);
+            selection.FindText(item.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
+            selection.MoveToPoint(selection.AnchorPoint);
 
             // Determine if ReSharper FindUsages command is available, otherwise use native VS command.
-            var reSharperFindReferences = Package.IDE.Commands.Item("ReSharper.ReSharper_FindUsages");
-            if (reSharperFindReferences == null)
+            if (Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "ReSharper.ReSharper_FindUsages"))
             {
-                Package.IDE.ExecuteCommand("Edit.FindAllReferences");
+                Package.IDE.ExecuteCommand("ReSharper.ReSharper_FindUsages");
             }
             else
             {
-                // Move the cursor further into the item for ReSharper to pick it up correctly.
-                selection.FindText(item.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
-                selection.MoveToPoint(selection.AnchorPoint);
-
-                Package.IDE.ExecuteCommand("ReSharper.ReSharper_FindUsages");
+                Package.IDE.ExecuteCommand("Edit.FindAllReferences");
             }
         }
 
