@@ -75,7 +75,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                         return ConstructorDataTemplate;
 
                     case KindCodeItem.Class:
-                    case KindCodeItem.Constant:
                     case KindCodeItem.Delegate:
                     case KindCodeItem.Enum:
                     case KindCodeItem.Event:

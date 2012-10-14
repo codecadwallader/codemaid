@@ -79,9 +79,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (shouldKindBePrecededByBlankLine)
             {
-                if ((codeItem.Kind == KindCodeItem.Constant ||
-                     codeItem.Kind == KindCodeItem.Field) &&
-                    codeItem.StartPoint.Line == codeItem.EndPoint.Line)
+                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
                 {
                     return false;
                 }
@@ -107,9 +105,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (shouldKindBeFollowedByBlankLine)
             {
-                if ((codeItem.Kind == KindCodeItem.Constant ||
-                     codeItem.Kind == KindCodeItem.Field) &&
-                    codeItem.StartPoint.Line == codeItem.EndPoint.Line)
+                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
                 {
                     return false;
                 }
@@ -140,7 +136,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case KindCodeItem.Event:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
 
-                case KindCodeItem.Constant:
                 case KindCodeItem.Field:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
 
@@ -195,7 +190,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case KindCodeItem.Event:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
 
-                case KindCodeItem.Constant:
                 case KindCodeItem.Field:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
 

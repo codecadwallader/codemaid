@@ -21,9 +21,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public enum KindCodeItem
     {
-        [Description("Constants")]
-        Constant,
-
         [Description("Fields")]
         Field,
 

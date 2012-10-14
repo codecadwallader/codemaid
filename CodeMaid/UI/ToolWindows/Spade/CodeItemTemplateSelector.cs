@@ -84,7 +84,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Region:
                         return RegionDataTemplate;
 
-                    case KindCodeItem.Constant:
                     case KindCodeItem.Delegate:
                     case KindCodeItem.Event:
                     case KindCodeItem.Field:

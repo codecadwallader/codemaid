@@ -70,11 +70,15 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
                 switch (codeItem.Kind)
                 {
-                    case KindCodeItem.Constant:
-                        return string.Empty; // Avoid showing static metadata for constants since it is redundant.
-
                     case KindCodeItem.Field:
-                        metadataStrings = GenerateMetadataStrings((CodeItemField)codeItem);
+                        var codeItemField = (CodeItemField)codeItem;
+                        if (codeItemField.IsConstant)
+                        {
+                            // Avoid showing static metadata for constants since it is redundant.
+                            return string.Empty;
+                        }
+
+                        metadataStrings = GenerateMetadataStrings(codeItemField);
                         break;
 
                     case KindCodeItem.Constructor:

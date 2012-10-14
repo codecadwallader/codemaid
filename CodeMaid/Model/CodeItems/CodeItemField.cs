@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override KindCodeItem Kind
         {
-            get { return IsConstant ? KindCodeItem.Constant : KindCodeItem.Field; }
+            get { return KindCodeItem.Field; }
         }
 
         #endregion BaseCodeItem Overrides

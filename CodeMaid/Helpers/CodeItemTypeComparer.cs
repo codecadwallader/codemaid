@@ -66,32 +66,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
+            int constantOffset = CalculateConstantOffset(codeItem);
             int staticOffset = CalculateStaticOffset(codeItem);
             int readOnlyOffset = CalculateReadOnlyOffset(codeItem);
 
-            return (typeOffset * 1000) + (accessOffset * 100) + (staticOffset * 10) + readOnlyOffset;
+            return (typeOffset * 10000) + (accessOffset * 1000) + (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
         }
 
         private static int CalculateTypeOffset(BaseCodeItem codeItem)
         {
-            const int constantOffset = 1;
-            const int fieldOffset = 2;
-            const int constructorOffset = 3;
-            const int destructorOffset = 4;
-            const int delegateOffset = 5;
-            const int eventOffset = 6;
-            const int enumOffset = 7;
-            const int interfaceOffset = 8;
-            const int propertyOffset = 9;
-            const int indexerOffset = 10;
-            const int methodOffset = 11;
-            const int structOffset = 12;
-            const int classOffset = 13;
+            const int fieldOffset = 1;
+            const int constructorOffset = 2;
+            const int destructorOffset = 3;
+            const int delegateOffset = 4;
+            const int eventOffset = 5;
+            const int enumOffset = 6;
+            const int interfaceOffset = 7;
+            const int propertyOffset = 8;
+            const int indexerOffset = 9;
+            const int methodOffset = 10;
+            const int structOffset = 11;
+            const int classOffset = 12;
 
             switch (codeItem.Kind)
             {
                 case KindCodeItem.Class: return classOffset;
-                case KindCodeItem.Constant: return constantOffset;
                 case KindCodeItem.Constructor: return constructorOffset;
                 case KindCodeItem.Delegate: return delegateOffset;
                 case KindCodeItem.Destructor: return destructorOffset;
@@ -122,6 +121,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case vsCMAccess.vsCMAccessPrivate: return 6;
                 default: return 0;
             }
+        }
+
+        private static int CalculateConstantOffset(BaseCodeItem codeItem)
+        {
+            var codeItemField = codeItem as CodeItemField;
+            if (codeItemField == null) return 0;
+
+            return codeItemField.IsConstant ? 0 : 1;
         }
 
         private static int CalculateStaticOffset(BaseCodeItem codeItem)

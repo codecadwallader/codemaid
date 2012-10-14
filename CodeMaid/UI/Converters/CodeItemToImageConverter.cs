@@ -96,13 +96,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             switch (codeItem.Kind)
             {
                 case KindCodeItem.Class: return "Class";
-                case KindCodeItem.Constant: return "Constant";
                 case KindCodeItem.Constructor: return "MethodConstructor";
                 case KindCodeItem.Delegate: return "Delegate";
                 case KindCodeItem.Destructor: return "MethodDestructor";
                 case KindCodeItem.Enum: return "Enum";
                 case KindCodeItem.Event: return "Event";
-                case KindCodeItem.Field: return "Field";
+                case KindCodeItem.Field: return ((CodeItemField)codeItem).IsConstant ? "Constant" : "Field";
                 case KindCodeItem.Interface: return "Interface";
                 case KindCodeItem.Method: return ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
                 case KindCodeItem.Indexer:
