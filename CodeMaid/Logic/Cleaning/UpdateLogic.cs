@@ -171,7 +171,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_UpdateSingleLineMethods) return;
 
-            var singleLineMethods = methods.Where(x => x.StartLine == x.EndLine && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract);
+            var singleLineMethods = methods.Where(x => x.StartLine == x.EndLine && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract && !(x.CodeFunction.Parent is CodeInterface));
             foreach (var singleLineMethod in singleLineMethods)
             {
                 SpreadSingleLineMethodOntoMultipleLines(singleLineMethod.CodeFunction);
