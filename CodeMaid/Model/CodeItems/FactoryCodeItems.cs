@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     break;
 
                 case vsCMElement.vsCMElementProperty:
-                    codeItem = new CodeItemProperty { CodeProperty = codeElement as CodeProperty };
+                    codeItem = new CodeItemProperty { CodeProperty = codeElement as CodeProperty2 };
                     break;
 
                 case vsCMElement.vsCMElementStruct:
