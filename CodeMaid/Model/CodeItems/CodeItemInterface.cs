@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return TryDefault(() => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessDefault); }
+            get { return TryDefault(() => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic); }
         }
 
         /// <summary>

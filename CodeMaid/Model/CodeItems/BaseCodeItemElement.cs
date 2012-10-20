@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public virtual vsCMAccess Access
         {
-            get { return vsCMAccess.vsCMAccessDefault; }
+            get { return vsCMAccess.vsCMAccessPublic; }
         }
 
         /// <summary>

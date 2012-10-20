@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override vsCMAccess Access
         {
             // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-            get { return TryDefault(() => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessDefault); }
+            get { return TryDefault(() => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic); }
         }
 
         /// <summary>

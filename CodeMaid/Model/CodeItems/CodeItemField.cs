@@ -50,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                                return CodeVariable.Access;
                            }
 
-                           return vsCMAccess.vsCMAccessDefault;
+                           return vsCMAccess.vsCMAccessPublic;
                        });
             }
         }

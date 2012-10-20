@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override vsCMAccess Access
         {
-            get { return TryDefault(() => CodeEnum != null ? CodeEnum.Access : vsCMAccess.vsCMAccessDefault); }
+            get { return TryDefault(() => CodeEnum != null ? CodeEnum.Access : vsCMAccess.vsCMAccessPublic); }
         }
 
         /// <summary>
