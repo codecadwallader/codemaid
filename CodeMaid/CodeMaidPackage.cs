@@ -125,14 +125,6 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the find symbol service.
-        /// </summary>
-        public IVsFindSymbol FindSymbolService
-        {
-            get { return GetService(typeof(SVsObjectSearch)) as IVsFindSymbol; }
-        }
-
-        /// <summary>
         /// Gets the IComponentModel service.
         /// </summary>
         public IComponentModel IComponentModel
@@ -317,7 +309,7 @@ namespace SteveCadwallader.CodeMaid
         #region Private Methods
 
         /// <summary>
-        /// Called when a <see cref="DispatcherUnhandledException"/> is raised by Visual Studio.
+        /// Called when a DispatcherUnhandledException is raised by Visual Studio.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="DispatcherUnhandledExceptionEventArgs" /> instance containing the event data.</param>
