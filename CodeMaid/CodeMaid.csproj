@@ -221,6 +221,7 @@
     <Compile Include="Model\CodeItems\CodeItemRegion.cs" />
     <Compile Include="Model\CodeItems\CodeItemStruct.cs" />
     <Compile Include="Model\CodeItems\CodeItemUsingStatement.cs" />
+    <Compile Include="Model\CodeItems\ICodeItemParameters.cs" />
     <Compile Include="Model\CodeItems\SnapshotCodeItems.cs" />
     <Compile Include="Model\CodeItems\FactoryCodeItems.cs" />
     <Compile Include="Model\CodeItems\ICodeItem.cs" />
@@ -244,7 +245,7 @@
     <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="UI\Converters\MethodToNameTextBlockConverter.cs" />
+    <Compile Include="UI\Converters\NameParametersToTextBlockConverter.cs" />
     <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
     <Compile Include="UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
     <Compile Include="UI\Converters\StringReplaceConverter.cs" />

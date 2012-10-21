@@ -45,9 +45,9 @@
 
     <DataTemplate x:Key="parametersToolTipDataTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="(" Style="{StaticResource parameterToolTipStyle}" />
+            <TextBlock x:Name="open" Text="(" Style="{StaticResource parameterToolTipStyle}" />
 
-            <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl ItemsSource="{Binding Parameters}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -74,8 +74,17 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text=")" Style="{StaticResource parameterToolTipStyle}" />
+            <TextBlock x:Name="close" Text=")" Style="{StaticResource parameterToolTipStyle}" />
         </StackPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Kind}" Value="{x:Static ci:KindCodeItem.Property}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Kind}" Value="{x:Static ci:KindCodeItem.Indexer}">
+                <Setter TargetName="open" Property="Text" Value="[" />
+                <Setter TargetName="close" Property="Text" Value="]" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="complexityToolTipDataTemplate">
@@ -168,8 +177,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}"
-                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
@@ -217,8 +225,7 @@
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding Parameters}"
-                        ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
@@ -235,6 +242,8 @@
                         Style="{StaticResource defaultToolTipTextStyle}" />
 
                 <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
             </StackPanel>
 
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />

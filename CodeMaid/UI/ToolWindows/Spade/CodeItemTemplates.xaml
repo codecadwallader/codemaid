@@ -85,6 +85,18 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="nameParametersDataTemplate">
+        <ContentControl x:Name="name"
+                Content="{Binding Converter={x:Static cnv:NameParametersToTextBlockConverter.Default}}"
+                Focusable="False" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
+                <Setter TargetName="name" Property="Content"
+                        Value="{Binding Converter={x:Static cnv:NameParametersToTextBlockConverter.WithParameters}}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <!-- CodeItem templates -->
     <DataTemplate x:Key="methodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
@@ -96,16 +108,8 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
-            <ContentControl x:Name="name"
-                    Content="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.Default}}"
-                    Focusable="False" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource nameParametersDataTemplate}" Focusable="False" />
         </DockPanel>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
-                <Setter TargetName="name" Property="Content"
-                        Value="{Binding Converter={x:Static cnv:MethodToNameTextBlockConverter.WithParameters}}" />
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <HierarchicalDataTemplate x:Key="parentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
@@ -137,7 +141,7 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource imageDataTemplate}" Focusable="False" />
 
-            <TextBlock Text="{Binding Name}" Style="{StaticResource defaultNameStyle}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource nameParametersDataTemplate}" Focusable="False" />
         </DockPanel>
     </DataTemplate>
 

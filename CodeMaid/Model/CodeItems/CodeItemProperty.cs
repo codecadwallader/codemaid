@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Collections.Generic;
+using System.Linq;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -20,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// <summary>
     /// The representation of a code property.
     /// </summary>
-    public class CodeItemProperty : BaseCodeItemElement
+    public class CodeItemProperty : BaseCodeItemElement, ICodeItemParameters
     {
         #region Fields
 
@@ -127,6 +129,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public bool IsIndexer
         {
             get { return TryDefault(() => CodeProperty != null && CodeProperty.Parameters.Count > 0); }
+        }
+
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        public IEnumerable<CodeParameter> Parameters
+        {
+            get { return TryDefault(() => CodeProperty != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
         }
 
         #endregion Properties

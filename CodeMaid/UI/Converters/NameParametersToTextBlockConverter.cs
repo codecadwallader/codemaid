@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -23,21 +23,21 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 namespace SteveCadwallader.CodeMaid.UI.Converters
 {
     /// <summary>
-    /// Converts a method into a single TextBlock object containing its name and optionally its parameters.
+    /// Converts a code item into a single TextBlock object containing its name and optionally its parameters.
     /// </summary>
-    public class MethodToNameTextBlockConverter : IValueConverter
+    public class NameParametersToTextBlockConverter : IValueConverter
     {
         #region Fields
 
         /// <summary>
-        /// A default instance of the <see cref="MethodToNameTextBlockConverter"/>.
+        /// A default instance of the <see cref="NameParametersToTextBlockConverter"/>.
         /// </summary>
-        public static MethodToNameTextBlockConverter Default = new MethodToNameTextBlockConverter();
+        public static NameParametersToTextBlockConverter Default = new NameParametersToTextBlockConverter();
 
         /// <summary>
-        /// An instance of the <see cref="MethodToNameTextBlockConverter"/> that includes parameters.
+        /// An instance of the <see cref="NameParametersToTextBlockConverter"/> that includes parameters.
         /// </summary>
-        public static MethodToNameTextBlockConverter WithParameters = new MethodToNameTextBlockConverter { IncludeParameters = true };
+        public static NameParametersToTextBlockConverter WithParameters = new NameParametersToTextBlockConverter { IncludeParameters = true };
 
         private static readonly SolidColorBrush BrushRun = new SolidColorBrush(Color.FromRgb(0xAA, 0xAA, 0xAA));
         private static readonly SolidColorBrush BrushTypeRun = new SolidColorBrush(Color.FromRgb(0x77, 0x77, 0x77));
@@ -65,21 +65,25 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var method = value as CodeItemMethod;
-            if (method == null) return null;
+            var codeItem = value as ICodeItemParameters;
+            if (codeItem == null) return null;
 
             var textBlock = new TextBlock();
-            textBlock.Inlines.Add(method.Name);
+            textBlock.Inlines.Add(codeItem.Name);
 
             if (IncludeParameters)
             {
-                textBlock.Inlines.Add(CreateRun("("));
+                var opener = GetOpeningString(codeItem);
+                if (opener != null)
+                {
+                    textBlock.Inlines.Add(CreateRun(opener));
+                }
 
                 bool isFirst = true;
 
                 try
                 {
-                    foreach (var methodParameter in method.Parameters)
+                    foreach (var param in codeItem.Parameters)
                     {
                         if (isFirst)
                         {
@@ -92,8 +96,8 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
                         try
                         {
-                            textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(methodParameter.Type.AsString) + " "));
-                            textBlock.Inlines.Add(CreateRun(methodParameter.Name));
+                            textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(param.Type.AsString) + " "));
+                            textBlock.Inlines.Add(CreateRun(param.Name));
                         }
                         catch (Exception)
                         {
@@ -106,7 +110,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                     textBlock.Inlines.Add(CreateRun("?"));
                 }
 
-                textBlock.Inlines.Add(CreateRun(")"));
+                var closer = GetClosingString(codeItem);
+                if (closer != null)
+                {
+                    textBlock.Inlines.Add(CreateRun(closer));
+                }
             }
 
             return textBlock;
@@ -137,12 +145,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         private static Run CreateRun(string text)
         {
             return new Run(text)
-                       {
-                           FontSize = 11,
-                           FontStyle = FontStyles.Italic,
-                           Foreground = BrushRun,
-                           BaselineAlignment = BaselineAlignment.Baseline
-                       };
+            {
+                FontSize = 11,
+                FontStyle = FontStyles.Italic,
+                Foreground = BrushRun,
+                BaselineAlignment = BaselineAlignment.Baseline
+            };
         }
 
         /// <summary>
@@ -157,6 +165,38 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             run.Foreground = BrushTypeRun;
 
             return run;
+        }
+
+        /// <summary>
+        /// Gets the opening string for the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>The opening string, otherwise null.</returns>
+        private static string GetOpeningString(ICodeItemParameters codeItem)
+        {
+            var property = codeItem as CodeItemProperty;
+            if (property != null)
+            {
+                return property.IsIndexer ? "[" : null;
+            }
+
+            return "(";
+        }
+
+        /// <summary>
+        /// Gets the closing string for the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>The closing string, otherwise null.</returns>
+        private static string GetClosingString(ICodeItemParameters codeItem)
+        {
+            var property = codeItem as CodeItemProperty;
+            if (property != null)
+            {
+                return property.IsIndexer ? "]" : null;
+            }
+
+            return ")";
         }
 
         #endregion Methods
