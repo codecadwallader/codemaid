@@ -50,6 +50,13 @@
                     <RadioButton Content="name only" IsChecked="{Binding CenterOnWhole, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                 </StackPanel>
             </GroupBox>
+
+            <GroupBox Header="Visuals">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Indentation margin" VerticalAlignment="Center" />
+                    <TextBox Text="{Binding IndentationMargin, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

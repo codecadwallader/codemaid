@@ -39,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             CenterOnWhole = Settings.Default.Digging_CenterOnWhole;
             ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
             ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
+            IndentationMargin = Settings.Default.Digging_IndentationMargin;
             SecondarySortTypeByName = Settings.Default.Digging_SecondarySortTypeByName;
             ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
             ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
@@ -55,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             Settings.Default.Digging_CenterOnWhole = CenterOnWhole;
             Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
             Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
+            Settings.Default.Digging_IndentationMargin = IndentationMargin;
             Settings.Default.Digging_SecondarySortTypeByName = SecondarySortTypeByName;
             Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
             Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
@@ -134,6 +136,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
                 {
                     _complexityWarningThreshold = value;
                     NotifyPropertyChanged("ComplexityWarningThreshold");
+                }
+            }
+        }
+
+        private int _indentationMargin;
+
+        /// <summary>
+        /// Gets or sets the indentation margin.
+        /// </summary>
+        public int IndentationMargin
+        {
+            get { return _indentationMargin; }
+            set
+            {
+                if (_indentationMargin != value)
+                {
+                    _indentationMargin = value;
+                    NotifyPropertyChanged("IndentationMargin");
                 }
             }
         }

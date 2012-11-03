@@ -263,5 +263,8 @@
     <Setting Name="General_DiagnosticsMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Digging_IndentationMargin" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">17</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

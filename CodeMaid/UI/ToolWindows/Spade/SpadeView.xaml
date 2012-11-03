@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.ToolWindows.Spade"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}"
         PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel"
         Background="{DynamicResource FWindow}" Foreground="{DynamicResource FGWindow}">
@@ -49,17 +50,8 @@
                         <ControlTemplate TargetType="{x:Type TreeViewItem}">
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}">
-                                <Grid IsSharedSizeScope="True">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-
-                                    <Border x:Name="PART_HeaderBorder" Grid.ColumnSpan="2" AllowDrop="True"
+                                <DockPanel>
+                                    <Border x:Name="PART_HeaderBorder" DockPanel.Dock="Top" AllowDrop="True"
                                             Background="{TemplateBinding Background}" BorderBrush="{DynamicResource FWindow}"
                                             BorderThickness="0,0,0,2" Cursor="Hand"
                                             DragEnter="OnTreeViewItemHeaderDragEvent"
@@ -69,26 +61,21 @@
                                             Mouse.MouseMove="OnTreeViewItemHeaderMouseMove"
                                             Mouse.MouseUp="OnTreeViewItemHeaderMouseUp">
                                         <Grid>
-                                            <Grid Margin="{TemplateBinding Padding}">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ExpanderColumn" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-
+                                            <DockPanel Margin="{TemplateBinding Padding}">
                                                 <ToggleButton x:Name="expander" ClickMode="Press"
                                                               IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                                                               Style="{StaticResource treeViewItemToggleButton}" />
 
-                                                <ContentPresenter x:Name="PART_Header" Grid.Column="1" ContentSource="Header" />
-                                            </Grid>
+                                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" />
+                                            </DockPanel>
 
                                             <Border x:Name="dropTargetCue" BorderBrush="{StaticResource FCodeMaidGreen}"
                                                     SnapsToDevicePixels="True" Visibility="Collapsed" />
                                         </Grid>
                                     </Border>
 
-                                    <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0" />
-                                </Grid>
+                                    <ItemsPresenter x:Name="ItemsHost" Margin="{Binding Digging_IndentationMargin, Source={x:Static p:Settings.Default}, Converter={x:Static cnv:IntToThicknessConverter.LeftOnly}, ConverterParameter='0,2,0,0'}" />
+                                </DockPanel>
                             </Border>
 
                             <ControlTemplate.Triggers>
@@ -96,7 +83,7 @@
                                     <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                                 </Trigger>
                                 <Trigger Property="HasItems" Value="False">
-                                    <Setter TargetName="expander" Property="Visibility" Value="Hidden" />
+                                    <Setter TargetName="expander" Property="Visibility" Value="Collapsed" />
                                     <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                                     <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="BorderThickness" Value="0" />

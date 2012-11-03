@@ -245,6 +245,7 @@
     <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
     <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="UI\Converters\IntToThicknessConverter.cs" />
     <Compile Include="UI\Converters\NameParametersToTextBlockConverter.cs" />
     <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
     <Compile Include="UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
