@@ -127,9 +127,21 @@
 
         <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Save" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
-        </StackPanel>
+        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="save" Content="Save" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}" />
+                        <Button x:Name="cancel" Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="save" Property="IsEnabled" Value="False">
+                            <Setter TargetName="save" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="cancel" Property="Content" Value="Close" />
+                        </Trigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </Grid>
 </platformUI:DialogWindow>
