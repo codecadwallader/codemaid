@@ -2,7 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CodeItemBaseTemplates.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <!-- Styles -->
     <Style x:Key="DefaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
@@ -32,10 +36,37 @@
         <Setter Property="Foreground" Value="Black" />
     </Style>
 
+    <Style x:Key="HeaderedToolTipValue" TargetType="{x:Type HeaderedContentControl}">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding StringFormat='{}{0}: '}" Foreground="#FF777777" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                    <StackPanel Orientation="Horizontal" Margin="0,1">
+                        <ContentPresenter ContentSource="Header" />
+                        <ContentPresenter ContentSource="Content" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Content" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Common component templates -->
     <DataTemplate x:Key="CommentToolTipDataTemplate">
-        <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}"
-                Style="{StaticResource CommentToolTipTextStyle}" />
+        <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}" Style="{StaticResource CommentToolTipTextStyle}" />
         <DataTemplate.Triggers>
             <Trigger SourceName="comment" Property="Text" Value="">
                 <Setter Property="Visibility" Value="Collapsed" />
@@ -88,51 +119,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ComplexityToolTipDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
-            <TextBlock Text="Complexity: " Foreground="#FF777777" />
-            <TextBlock x:Name="complexityTextBlock" Text="{Binding}" />
-        </StackPanel>
+        <HeaderedContentControl Header="Complexity" Content="{Binding}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" Style="{StaticResource HeaderedToolTipValue}" />
         <DataTemplate.Triggers>
-            <DataTrigger Value="True">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
-                        <Binding />
-                        <Binding Path="Digging_ComplexityWarningThreshold" Source="{x:Static p:Settings.Default}" />
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityWarning}" />
-            </DataTrigger>
-            <DataTrigger Value="True">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
-                        <Binding />
-                        <Binding Path="Digging_ComplexityAlertThreshold" Source="{x:Static p:Settings.Default}" />
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityAlert}" />
-            </DataTrigger>
             <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Trigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="MetadataToolTipDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
-            <TextBlock Text="Metadata: " Foreground="#FF777777" />
-            <TextBlock x:Name="metadataTextBlock"
-                    Text="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" />
-        </StackPanel>
+        <HeaderedContentControl Header="Metadata" Content="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" Style="{StaticResource HeaderedToolTipValue}" />
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <Trigger SourceName="metadataTextBlock" Property="Text" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Trigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -154,6 +154,81 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NamespaceToolTipDataTemplate">
+        <HeaderedContentControl Header="Namespace" Content="{Binding}" Style="{StaticResource HeaderedToolTipValue}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="HighestComplexityToolTipDataTemplate">
+        <HeaderedContentControl Header="Most Complex" Style="{StaticResource HeaderedToolTipValue}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="0,0,5,0" />
+                <ContentControl Content="{Binding Complexity}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" />
+            </StackPanel>
+        </HeaderedContentControl>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ParentSummaryDisplayToolTipDataTemplate">
+        <StackPanel TextElement.FontStyle="Italic">
+            <Separator x:Name="separator" Margin="0,4" />
+
+            <ContentControl x:Name="namespace" Content="{Binding Namespace}"
+                    ContentTemplate="{StaticResource NamespaceToolTipDataTemplate}" />
+
+            <ContentControl x:Name="highestComplexity" Content="{Binding Converter={x:Static cnv:CodeItemParentHighestComplexityConverter.Default}}"
+                    ContentTemplate="{StaticResource HighestComplexityToolTipDataTemplate}" />
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition SourceName="namespace" Property="ActualHeight" Value="0" />
+                    <Condition SourceName="highestComplexity" Property="ActualHeight" Value="0" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MemberCountsToolTipDataTemplate">
+        <DataTemplate.Resources>
+            <ObjectDataProvider x:Key="KindCodeItemProvider" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="ci:KindCodeItem" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </DataTemplate.Resources>
+        <StackPanel TextElement.FontStyle="Italic">
+            <Separator x:Name="separator" Margin="0,4" />
+
+            <ItemsControl x:Name="counts" ItemsSource="{Binding Source={StaticResource KindCodeItemProvider}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="{Binding Converter={x:Static cnv:EnumDescriptionConverter.Default}}" Style="{StaticResource HeaderedToolTipValue}">
+                            <HeaderedContentControl.Content>
+                                <MultiBinding Converter="{x:Static cnv:CodeItemParentMemberCountConverter.Default}">
+                                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=ItemsControl}" />
+                                    <Binding />
+                                </MultiBinding>
+                            </HeaderedContentControl.Content>
+                        </HeaderedContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <Trigger SourceName="counts" Property="ActualHeight" Value="0">
+                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -234,6 +309,26 @@
         </StackPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="ParentToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParentSummaryDisplayToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource MemberCountsToolTipDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
     <DataTemplate x:Key="PropertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -249,6 +344,16 @@
             <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RegionToolTipDataTemplate" DataType="{x:Type ci:CodeItemRegion}">
+        <StackPanel>
+            <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParentSummaryDisplayToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource MemberCountsToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

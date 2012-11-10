@@ -30,7 +30,9 @@
                                             DestructorDataTemplate="{StaticResource DestructorToolTipDataTemplate}"
                                             FieldDataTemplate="{StaticResource FieldToolTipDataTemplate}"
                                             MethodDataTemplate="{StaticResource MethodToolTipDataTemplate}"
-                                            PropertyDataTemplate="{StaticResource PropertyToolTipDataTemplate}" />
+                                            ParentDataTemplate="{StaticResource ParentToolTipDataTemplate}"
+                                            PropertyDataTemplate="{StaticResource PropertyToolTipDataTemplate}"
+                                            RegionDataTemplate="{StaticResource RegionToolTipDataTemplate}" />
                                 </ContentPresenter.ContentTemplateSelector>
                             </ContentPresenter>
                         </Border>

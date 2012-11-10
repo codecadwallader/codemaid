@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+                    xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+
+    <DataTemplate x:Key="ComplexityScoreDataTemplate">
+        <TextBlock x:Name="complexityTextBlock" Text="{Binding}" />
+        <DataTemplate.Triggers>
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding />
+                        <Binding Path="Digging_ComplexityWarningThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityWarning}" />
+            </DataTrigger>
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
+                        <Binding />
+                        <Binding Path="Digging_ComplexityAlertThreshold" Source="{x:Static p:Settings.Default}" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityAlert}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+</ResourceDictionary>

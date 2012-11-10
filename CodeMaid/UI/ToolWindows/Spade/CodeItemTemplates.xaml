@@ -3,6 +3,9 @@
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CodeItemBaseTemplates.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <!-- Styles -->
     <Style TargetType="{x:Type TextBlock}">
@@ -37,33 +40,11 @@
 
     <!-- Common component templates -->
     <DataTemplate x:Key="ComplexityDataTemplate">
-        <TextBlock x:Name="complexityTextBlock" Text="{Binding Complexity}" Style="{StaticResource ComplexityStyle}" />
-        <DataTemplate.Triggers>
-            <DataTrigger Value="True">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
-                        <Binding Path="Complexity" />
-                        <Binding Path="Digging_ComplexityWarningThreshold" Source="{x:Static p:Settings.Default}" />
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityWarning}" />
-            </DataTrigger>
-            <DataTrigger Value="True">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{x:Static cnv:IsGreaterThanOrEqualToConverter.Default}">
-                        <Binding Path="Complexity" />
-                        <Binding Path="Digging_ComplexityAlertThreshold" Source="{x:Static p:Settings.Default}" />
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource FGComplexityAlert}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            <Trigger SourceName="complexityTextBlock" Property="Text" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Trigger>
-        </DataTemplate.Triggers>
+        <ContentPresenter Content="{Binding Complexity}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}">
+            <ContentPresenter.Resources>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ComplexityStyle}" />
+            </ContentPresenter.Resources>
+        </ContentPresenter>
     </DataTemplate>
 
     <DataTemplate x:Key="ImageDataTemplate">

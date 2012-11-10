@@ -154,6 +154,7 @@
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
+    <Compile Include="Helpers\CodeItemParentExtensions.cs" />
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
     <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\EditPointExtensions.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Model\CodeItems\CodeItemRegion.cs" />
     <Compile Include="Model\CodeItems\CodeItemStruct.cs" />
     <Compile Include="Model\CodeItems\CodeItemUsingStatement.cs" />
+    <Compile Include="Model\CodeItems\ICodeItemComplexity.cs" />
     <Compile Include="Model\CodeItems\ICodeItemParameters.cs" />
     <Compile Include="Model\CodeItems\SnapshotCodeItems.cs" />
     <Compile Include="Model\CodeItems\FactoryCodeItems.cs" />
@@ -244,9 +246,12 @@
     </Compile>
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
+    <Compile Include="UI\Converters\CodeItemParentMemberCountConverter.cs" />
     <Compile Include="UI\Converters\CodeItemToImageConverter.cs" />
     <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
     <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="UI\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
     <Compile Include="UI\Converters\IntToThicknessConverter.cs" />
     <Compile Include="UI\Converters\NameParametersToTextBlockConverter.cs" />
@@ -526,6 +531,10 @@
     <Page Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\Spade\CodeItemBaseTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ToolWindows\Spade\CodeItemTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>

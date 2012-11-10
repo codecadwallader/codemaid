@@ -50,9 +50,19 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public DataTemplate MethodDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the parent data template.
+        /// </summary>
+        public DataTemplate ParentDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the property data template.
         /// </summary>
         public DataTemplate PropertyDataTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the region data template.
+        /// </summary>
+        public DataTemplate RegionDataTemplate { get; set; }
 
         #endregion Properties
 
@@ -74,13 +84,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Constructor:
                         return ConstructorDataTemplate;
 
-                    case KindCodeItem.Class:
                     case KindCodeItem.Delegate:
-                    case KindCodeItem.Enum:
                     case KindCodeItem.Event:
-                    case KindCodeItem.Interface:
-                    case KindCodeItem.Region:
-                    case KindCodeItem.Struct:
                         return DefaultDataTemplate;
 
                     case KindCodeItem.Destructor:
@@ -92,9 +97,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Method:
                         return MethodDataTemplate;
 
+                    case KindCodeItem.Class:
+                    case KindCodeItem.Enum:
+                    case KindCodeItem.Interface:
+                    case KindCodeItem.Struct:
+                        return ParentDataTemplate;
+
                     case KindCodeItem.Indexer:
                     case KindCodeItem.Property:
                         return PropertyDataTemplate;
+
+                    case KindCodeItem.Region:
+                        return RegionDataTemplate;
                 }
             }
 

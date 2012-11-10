@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// <summary>
     /// The representation of a code method.
     /// </summary>
-    public class CodeItemMethod : BaseCodeItemElement, ICodeItemParameters
+    public class CodeItemMethod : BaseCodeItemElement, ICodeItemComplexity, ICodeItemParameters
     {
         #region Fields
 
