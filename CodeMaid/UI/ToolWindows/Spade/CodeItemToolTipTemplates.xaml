@@ -5,37 +5,37 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
 
     <!-- Styles -->
-    <Style x:Key="defaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
+    <Style x:Key="DefaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="nameToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="NameToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultToolTipTextStyle}">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <Style x:Key="commentToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="CommentToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Foreground" Value="#FF008000" />
         <Setter Property="Margin" Value="0,2" />
     </Style>
 
-    <Style x:Key="parameterToolTipStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource defaultToolTipTextStyle}">
+    <Style x:Key="ParameterToolTipStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultToolTipTextStyle}">
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="Foreground" Value="#FF777777" />
     </Style>
 
-    <Style x:Key="parameterToolTipTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource parameterToolTipStyle}">
+    <Style x:Key="ParameterToolTipTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ParameterToolTipStyle}">
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
 
     <!-- Common component templates -->
-    <DataTemplate x:Key="commentToolTipDataTemplate">
+    <DataTemplate x:Key="CommentToolTipDataTemplate">
         <TextBlock x:Name="comment" Text="{Binding Converter={x:Static cnv:DocCommentToStringConverter.Default}}"
-                Style="{StaticResource commentToolTipTextStyle}" />
+                Style="{StaticResource CommentToolTipTextStyle}" />
         <DataTemplate.Triggers>
             <Trigger SourceName="comment" Property="Text" Value="">
                 <Setter Property="Visibility" Value="Collapsed" />
@@ -43,9 +43,9 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="parametersToolTipDataTemplate">
+    <DataTemplate x:Key="ParametersToolTipDataTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock x:Name="open" Text="(" Style="{StaticResource parameterToolTipStyle}" />
+            <TextBlock x:Name="open" Text="(" Style="{StaticResource ParameterToolTipStyle}" />
 
             <ItemsControl ItemsSource="{Binding Parameters}">
                 <ItemsControl.ItemsPanel>
@@ -56,13 +56,13 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="separator" Text=", " Style="{StaticResource parameterToolTipStyle}" />
+                            <TextBlock x:Name="separator" Text=", " Style="{StaticResource ParameterToolTipStyle}" />
 
                             <TextBlock
                                     Text="{Binding Type.AsString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
-                                    Style="{StaticResource parameterToolTipTypeStyle}" />
+                                    Style="{StaticResource ParameterToolTipTypeStyle}" />
 
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource parameterToolTipStyle}" />
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ParameterToolTipStyle}" />
                         </StackPanel>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
@@ -74,7 +74,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock x:Name="close" Text=")" Style="{StaticResource parameterToolTipStyle}" />
+            <TextBlock x:Name="close" Text=")" Style="{StaticResource ParameterToolTipStyle}" />
         </StackPanel>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Kind}" Value="{x:Static ci:KindCodeItem.Property}">
@@ -87,7 +87,7 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="complexityToolTipDataTemplate">
+    <DataTemplate x:Key="ComplexityToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Complexity: " Foreground="#FF777777" />
             <TextBlock x:Name="complexityTextBlock" Text="{Binding}" />
@@ -120,7 +120,7 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="metadataToolTipDataTemplate">
+    <DataTemplate x:Key="MetadataToolTipDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1">
             <TextBlock Text="Metadata: " Foreground="#FF777777" />
             <TextBlock x:Name="metadataTextBlock"
@@ -136,15 +136,15 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="extendedDisplayToolTipDataTemplate">
+    <DataTemplate x:Key="ExtendedDisplayToolTipDataTemplate">
         <StackPanel TextElement.FontStyle="Italic">
             <Separator x:Name="separator" Margin="0,4" />
 
             <ContentControl x:Name="complexity" Content="{Binding Complexity}"
-                    ContentTemplate="{StaticResource complexityToolTipDataTemplate}" />
+                    ContentTemplate="{StaticResource ComplexityToolTipDataTemplate}" />
 
             <ContentControl x:Name="metadata" Content="{Binding}"
-                    ContentTemplate="{StaticResource metadataToolTipDataTemplate}" />
+                    ContentTemplate="{StaticResource MetadataToolTipDataTemplate}" />
         </StackPanel>
         <DataTemplate.Triggers>
             <MultiTrigger>
@@ -158,97 +158,97 @@
     </DataTemplate>
 
     <!-- CodeItem tool tip templates -->
-    <DataTemplate x:Key="defaultToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItemElement}">
+    <DataTemplate x:Key="DefaultToolTipDataTemplate" DataType="{x:Type ci:BaseCodeItemElement}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock
                         Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
-                        Style="{StaticResource defaultToolTipTextStyle}" />
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
 
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="constructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+    <DataTemplate x:Key="ConstructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParametersToolTipDataTemplate}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="destructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+    <DataTemplate x:Key="DestructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
 
-                <TextBlock Text="()" Style="{StaticResource parameterToolTipStyle}" />
+                <TextBlock Text="()" Style="{StaticResource ParameterToolTipStyle}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="fieldToolTipDataTemplate" DataType="{x:Type ci:CodeItemField}">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
-                        Style="{StaticResource defaultToolTipTextStyle}" />
-
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
-            </StackPanel>
-
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
-
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
-        </StackPanel>
-    </DataTemplate>
-
-    <DataTemplate x:Key="methodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
+    <DataTemplate x:Key="FieldToolTipDataTemplate" DataType="{x:Type ci:CodeItemField}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock
                         Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
-                        Style="{StaticResource defaultToolTipTextStyle}" />
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
 
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
-
-                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="propertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
+    <DataTemplate x:Key="MethodToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock
                         Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
-                        Style="{StaticResource defaultToolTipTextStyle}" />
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
 
-                <TextBlock Text="{Binding Name}" Style="{StaticResource nameToolTipTextStyle}" />
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
 
-                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource parametersToolTipDataTemplate}" />
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParametersToolTipDataTemplate}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource commentToolTipDataTemplate}" />
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
 
-            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource extendedDisplayToolTipDataTemplate}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PropertyToolTipDataTemplate" DataType="{x:Type ci:CodeItemProperty}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
+
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParametersToolTipDataTemplate}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExtendedDisplayToolTipDataTemplate}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

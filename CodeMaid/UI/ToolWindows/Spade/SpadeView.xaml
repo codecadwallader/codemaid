@@ -18,19 +18,19 @@
                 <ResourceDictionary Source="CodeItemToolTipTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <ToolTip x:Key="treeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
+            <ToolTip x:Key="TreeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
                 <ToolTip.Template>
                     <ControlTemplate TargetType="{x:Type ToolTip}">
                         <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2" Padding="7,5" TextElement.Foreground="Black">
                             <ContentPresenter Content="{Binding}">
                                 <ContentPresenter.ContentTemplateSelector>
                                     <local:CodeItemToolTipTemplateSelector
-                                            ConstructorDataTemplate="{StaticResource constructorToolTipDataTemplate}"
-                                            DefaultDataTemplate="{StaticResource defaultToolTipDataTemplate}"
-                                            DestructorDataTemplate="{StaticResource destructorToolTipDataTemplate}"
-                                            FieldDataTemplate="{StaticResource fieldToolTipDataTemplate}"
-                                            MethodDataTemplate="{StaticResource methodToolTipDataTemplate}"
-                                            PropertyDataTemplate="{StaticResource propertyToolTipDataTemplate}" />
+                                            ConstructorDataTemplate="{StaticResource ConstructorToolTipDataTemplate}"
+                                            DefaultDataTemplate="{StaticResource DefaultToolTipDataTemplate}"
+                                            DestructorDataTemplate="{StaticResource DestructorToolTipDataTemplate}"
+                                            FieldDataTemplate="{StaticResource FieldToolTipDataTemplate}"
+                                            MethodDataTemplate="{StaticResource MethodToolTipDataTemplate}"
+                                            PropertyDataTemplate="{StaticResource PropertyToolTipDataTemplate}" />
                                 </ContentPresenter.ContentTemplateSelector>
                             </ContentPresenter>
                         </Border>
@@ -38,10 +38,10 @@
                 </ToolTip.Template>
             </ToolTip>
 
-            <Style x:Key="spadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemContainerStyle}">
+            <Style x:Key="SpadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource TreeViewItemContainerStyle}">
                 <Setter Property="Foreground" Value="{DynamicResource FGWindow}" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
-                <Setter Property="ToolTip" Value="{StaticResource treeViewItemToolTip}" />
+                <Setter Property="ToolTip" Value="{StaticResource TreeViewItemToolTip}" />
                 <Setter Property="ToolTipService.ShowDuration" Value="600000" />
                 <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />
 
@@ -64,7 +64,7 @@
                                             <DockPanel Margin="{TemplateBinding Padding}">
                                                 <ToggleButton x:Name="expander" ClickMode="Press"
                                                               IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                                              Style="{StaticResource treeViewItemToggleButton}" />
+                                                              Style="{StaticResource TreeViewItemToggleButton}" />
 
                                                 <ContentPresenter x:Name="PART_Header" ContentSource="Header" />
                                             </DockPanel>
@@ -124,8 +124,8 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="Tahoma">
-        <TreeView x:Name="treeView" BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
-                ItemContainerStyle="{StaticResource spadeTreeViewItemContainerStyle}"
+        <TreeView BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
+                ItemContainerStyle="{StaticResource SpadeTreeViewItemContainerStyle}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FocusManager.IsFocusScope="True">
             <TreeView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -139,11 +139,11 @@
                 </ItemsPanelTemplate>
             </TreeView.ItemsPanel>
             <TreeView.ItemTemplateSelector>
-                <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource methodDataTemplate}"
-                        ParentDataTemplate="{StaticResource parentDataTemplate}"
-                        PropertyDataTemplate="{StaticResource propertyDataTemplate}"
-                        RegionDataTemplate="{StaticResource regionDataTemplate}"
-                        StandardDataTemplate="{StaticResource standardDataTemplate}" />
+                <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource MethodDataTemplate}"
+                        ParentDataTemplate="{StaticResource ParentDataTemplate}"
+                        PropertyDataTemplate="{StaticResource PropertyDataTemplate}"
+                        RegionDataTemplate="{StaticResource RegionDataTemplate}"
+                        StandardDataTemplate="{StaticResource StandardDataTemplate}" />
             </TreeView.ItemTemplateSelector>
         </TreeView>
 

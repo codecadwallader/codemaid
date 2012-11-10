@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="treeViewItemToggleButton" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="TreeViewItemToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Template">
@@ -21,7 +21,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="treeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}">
+    <Style x:Key="TreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="{DynamicResource FItemParent}" />
         <Setter Property="BorderBrush" Value="{DynamicResource FItemParent}" />
         <Setter Property="BorderThickness" Value="0,1" />
@@ -54,7 +54,7 @@
 
                                     <ToggleButton x:Name="expander" ClickMode="Press"
                                             IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                            Style="{StaticResource treeViewItemToggleButton}" />
+                                            Style="{StaticResource TreeViewItemToggleButton}" />
 
                                     <ContentPresenter x:Name="PART_Header" Grid.Column="1" ContentSource="Header" />
                                 </Grid>
@@ -89,7 +89,7 @@
 
     <Style TargetType="{x:Type TreeView}">
         <Setter Property="Background" Value="{DynamicResource FWindow}" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource treeViewItemContainerStyle}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource TreeViewItemContainerStyle}" />
         <Setter Property="Padding" Value="0" />
     </Style>
 </ResourceDictionary>
