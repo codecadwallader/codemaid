@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 var viewModel = new CleanupProgressViewModel(Package, SelectedProjectItems);
                 var window = new CleanupProgressWindow { DataContext = viewModel };
 
-                window.ShowDialog();
+                window.ShowModal();
             }
         }
 

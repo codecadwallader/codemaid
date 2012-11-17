@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            new OptionsWindow { DataContext = new OptionsViewModel() }.ShowDialog();
+            new OptionsWindow { DataContext = new OptionsViewModel() }.ShowModal();
         }
 
         #endregion BaseCommand Methods
