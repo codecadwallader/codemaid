@@ -1079,5 +1079,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_IndentationMargin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Cleaning_PerformPartialCleanupOnExternal {
+            get {
+                return ((int)(this["Cleaning_PerformPartialCleanupOnExternal"]));
+            }
+            set {
+                this["Cleaning_PerformPartialCleanupOnExternal"] = value;
+            }
+        }
     }
 }

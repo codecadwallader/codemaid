@@ -266,5 +266,8 @@
     <Setting Name="Digging_IndentationMargin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">17</Value>
     </Setting>
+    <Setting Name="Cleaning_PerformPartialCleanupOnExternal" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,10 +1,24 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:CleaningGeneralViewModel}">
         <StackPanel>
-            <CheckBox Content="Automatically run cleanup on file save" IsChecked="{Binding AutoCleanupOnFileSave}" />
-            <CheckBox Content="Automatically save and close documents opened by cleanup" IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
+            <GroupBox Header="Automatic">
+                <StackPanel>
+                    <CheckBox Content="Automatically run cleanup on file save" IsChecked="{Binding AutoCleanupOnFileSave}" />
+                    <CheckBox Content="Automatically save and close documents opened by cleanup" IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="External">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Perform partial cleanup if file is not in the solution" VerticalAlignment="Center" />
+                    <RadioButton Content="ask" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:AskYesNo.Ask}}" />
+                    <RadioButton Content="yes" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:AskYesNo.Yes}}" />
+                    <RadioButton Content="no" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:AskYesNo.No}}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

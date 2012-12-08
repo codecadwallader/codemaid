@@ -37,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         {
             AutoCleanupOnFileSave = Settings.Default.Cleaning_AutoCleanupOnFileSave;
             AutoSaveAndCloseIfOpenedByCleanup = Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup;
+            PerformPartialCleanupOnExternal = (AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal;
         }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         {
             Settings.Default.Cleaning_AutoCleanupOnFileSave = AutoCleanupOnFileSave;
             Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup = AutoSaveAndCloseIfOpenedByCleanup;
+            Settings.Default.Cleaning_PerformPartialCleanupOnExternal = (int)PerformPartialCleanupOnExternal;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -84,6 +86,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _autoSaveAndCloseIfOpenedByCleanup = value;
                     NotifyPropertyChanged("AutoSaveAndCloseIfOpenedByCleanup");
+                }
+            }
+        }
+
+        private AskYesNo _performPartialCleanupOnExternal;
+
+        /// <summary>
+        /// Gets or sets the options for performing partial cleanup on external files.
+        /// </summary>
+        public AskYesNo PerformPartialCleanupOnExternal
+        {
+            get { return _performPartialCleanupOnExternal; }
+            set
+            {
+                if (_performPartialCleanupOnExternal != value)
+                {
+                    _performPartialCleanupOnExternal = value;
+                    NotifyPropertyChanged("PerformPartialCleanupOnExternal");
                 }
             }
         }

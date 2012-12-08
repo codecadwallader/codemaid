@@ -16,10 +16,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.Package;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -107,12 +109,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Determines if the specified document should be cleaned up.
         /// </summary>
         /// <param name="document">The document.</param>
+        /// <param name="allowUserPrompts">A flag indicating if user prompts should be allowed.</param>
         /// <returns>True if item should be cleaned up, otherwise false.</returns>
-        internal bool ShouldCleanup(Document document)
+        internal bool ShouldCleanup(Document document, bool allowUserPrompts = false)
         {
             return IsCleanupEnvironmentAvailable() &&
                    document != null &&
                    IsDocumentLanguageIncludedByOptions(document) &&
+                   !IsDocumentExcludedBecauseExternal(document, allowUserPrompts) &&
                    !IsFileNameExcludedByOptions(document.Name) &&
                    !IsParentCodeGeneratorExcludedByOptions(document);
         }
@@ -144,6 +148,47 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private static string GetProjectItemExtension(ProjectItem projectItem)
         {
             return Path.GetExtension(projectItem.Name) ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Determines whether the specified document should be excluded because it is external to the solution.
+        /// Conditionally includes prompting the user.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="allowUserPrompts">A flag indicating if user prompts should be allowed.</param>
+        /// <returns>True if document should be excluded because it is external to the solution, otherwise false.</returns>
+        private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
+        {
+            bool isExternal = document.ProjectItem == null || document.ProjectItem.Kind != Constants.vsProjectItemKindPhysicalFile;
+            if (!isExternal) return false;
+
+            switch ((AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal)
+            {
+                case AskYesNo.Ask:
+                    if (allowUserPrompts)
+                    {
+                        var response = MessageBox.Show(document.Name + " is not in the solution so some cleanup actions may not be available." + Environment.NewLine +
+                                                       "Do you want to perform a partial cleanup?",
+                                                       @"CodeMaid: Cleanup External File",
+                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                        switch (response)
+                        {
+                            case DialogResult.Yes: return false;
+                            case DialogResult.No: return true;
+                        }
+                    }
+                    break;
+
+                case AskYesNo.Yes:
+                    return false;
+
+                case AskYesNo.No:
+                    return true;
+            }
+
+            // If unresolved, defer exclusion for now.
+            return false;
         }
 
         /// <summary>

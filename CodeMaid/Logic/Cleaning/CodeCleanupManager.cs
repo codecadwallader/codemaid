@@ -130,7 +130,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         internal void Cleanup(Document document, bool isAutoSave)
         {
-            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document)) return;
+            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
