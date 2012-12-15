@@ -205,11 +205,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
+            bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
             RunVSFormatting(textDocument);
-            _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
-            _usingStatementCleanupLogic.SortUsingStatements();
+            if (!isExternal)
+            {
+                _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
+                _usingStatementCleanupLogic.SortUsingStatements();
+            }
 
             // Interpret the document into a collection of elements.
             var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);

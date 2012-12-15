@@ -106,6 +106,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Determines if the specified document is external to the solution.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if the document is external, otherwise false.</returns>
+        internal bool IsDocumentExternal(Document document)
+        {
+            return document.ProjectItem == null || document.ProjectItem.Kind != Constants.vsProjectItemKindPhysicalFile;
+        }
+
+        /// <summary>
         /// Determines if the specified document should be cleaned up.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -159,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if document should be excluded because it is external to the solution, otherwise false.</returns>
         private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
         {
-            bool isExternal = document.ProjectItem == null || document.ProjectItem.Kind != Constants.vsProjectItemKindPhysicalFile;
+            bool isExternal = IsDocumentExternal(document);
             if (!isExternal) return false;
 
             switch ((AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal)
