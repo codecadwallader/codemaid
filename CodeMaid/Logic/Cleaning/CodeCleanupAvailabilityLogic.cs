@@ -16,12 +16,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.Package;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Prompts;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -177,16 +177,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case AskYesNo.Ask:
                     if (allowUserPrompts)
                     {
-                        var response = MessageBox.Show(document.Name + " is not in the solution so some cleanup actions may not be available." + Environment.NewLine +
-                                                       "Do you want to perform a partial cleanup?",
-                                                       @"CodeMaid: Cleanup External File",
-                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                        switch (response)
-                        {
-                            case DialogResult.Yes: return false;
-                            case DialogResult.No: return true;
-                        }
+                        return !PromptUserAboutCleaningExternalFiles(document);
                     }
                     break;
 
@@ -303,6 +294,42 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default: return false;
             }
+        }
+
+        /// <summary>
+        /// Prompts the user about cleaning up external files.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if external files should be cleaned, otherwise false.</returns>
+        private static bool PromptUserAboutCleaningExternalFiles(Document document)
+        {
+            var viewModel = new YesNoPromptViewModel
+                                {
+                                    Title = @"CodeMaid: Cleanup External File",
+                                    Message =
+                                        document.Name + " is not in the solution so some cleanup actions may be unavailable." +
+                                        Environment.NewLine + Environment.NewLine +
+                                        "Do you want to perform a partial cleanup?",
+                                    CanRemember = true
+                                };
+
+            var window = new YesNoPromptWindow { DataContext = viewModel };
+            var response = window.ShowModal();
+
+            if (!response.HasValue)
+            {
+                return false;
+            }
+
+            if (viewModel.Remember)
+            {
+                var preference = (int)(response.Value ? AskYesNo.Yes : AskYesNo.No);
+
+                Settings.Default.Cleaning_PerformPartialCleanupOnExternal = preference;
+                Settings.Default.Save();
+            }
+
+            return response.Value;
         }
 
         #endregion Private Methods

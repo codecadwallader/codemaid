@@ -288,6 +288,10 @@
     <Compile Include="UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Prompts\YesNoPromptViewModel.cs" />
+    <Compile Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml.cs">
+      <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\DragDropAttachedProperties.cs" />
     <Compile Include="UI\ThemeManager.cs" />
     <Compile Include="UI\ThemeMode.cs" />
@@ -504,6 +508,10 @@
     <Page Include="UI\Dialogs\Options\Switching\SwitchingDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Themes\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
