@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override CodeElements Attributes
         {
-            get { return CodeClass != null ? CodeClass.Attributes : null; }
+            get { return TryDefault(() => CodeClass != null ? CodeClass.Attributes : null); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string Namespace
         {
-            get { return TryDefault(() => CodeClass != null ? CodeClass.Namespace.Name : null); }
+            get { return TryDefault(() => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null); }
         }
 
         #endregion BaseCodeItemElementParent Overrides

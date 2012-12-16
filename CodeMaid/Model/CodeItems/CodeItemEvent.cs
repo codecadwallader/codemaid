@@ -50,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override CodeElements Attributes
         {
-            get { return CodeEvent != null ? CodeEvent.Attributes : null; }
+            get { return TryDefault(() => CodeEvent != null ? CodeEvent.Attributes : null); }
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return TryDefault(() => CodeEvent != null ? CodeEvent.Type.AsString : null); }
+            get { return TryDefault(() => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null); }
         }
 
         #endregion BaseCodeItemElement Overrides

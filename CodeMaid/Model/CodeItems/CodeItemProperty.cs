@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override CodeElements Attributes
         {
-            get { return CodeProperty != null ? CodeProperty.Attributes : null; }
+            get { return TryDefault(() => CodeProperty != null ? CodeProperty.Attributes : null); }
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return TryDefault(() => CodeProperty != null ? CodeProperty.Type.AsString : null); }
+            get { return TryDefault(() => CodeProperty != null && CodeProperty.Type != null ? CodeProperty.Type.AsString : null); }
         }
 
         #endregion BaseCodeItemElement Overrides
@@ -128,7 +128,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public bool IsIndexer
         {
-            get { return TryDefault(() => CodeProperty != null && CodeProperty.Parameters.Count > 0); }
+            get { return TryDefault(() => CodeProperty != null && CodeProperty.Parameters != null && CodeProperty.Parameters.Count > 0); }
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public IEnumerable<CodeParameter> Parameters
         {
-            get { return TryDefault(() => CodeProperty != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
+            get { return TryDefault(() => CodeProperty != null && CodeProperty.Parameters != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
         }
 
         #endregion Properties

@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override CodeElements Attributes
         {
-            get { return CodeFunction != null ? CodeFunction.Attributes : null; }
+            get { return TryDefault(() => CodeFunction != null ? CodeFunction.Attributes : null); }
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override string TypeString
         {
-            get { return TryDefault(() => CodeFunction != null ? CodeFunction.Type.AsString : null); }
+            get { return TryDefault(() => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null); }
         }
 
         #endregion BaseCodeItemElement Overrides
@@ -168,7 +168,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public IEnumerable<CodeParameter> Parameters
         {
-            get { return TryDefault(() => CodeFunction != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
+            get { return TryDefault(() => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
         }
 
         #endregion Properties
