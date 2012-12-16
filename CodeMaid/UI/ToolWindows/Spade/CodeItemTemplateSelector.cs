@@ -25,6 +25,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Properties
 
         /// <summary>
+        /// Gets or sets the delegate data template.
+        /// </summary>
+        public DataTemplate DelegateDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the method data template.
         /// </summary>
         public DataTemplate MethodDataTemplate { get; set; }
@@ -66,6 +71,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 switch (codeItem.Kind)
                 {
+                    case KindCodeItem.Delegate:
+                        return DelegateDataTemplate;
+
                     case KindCodeItem.Constructor:
                     case KindCodeItem.Destructor:
                     case KindCodeItem.Method:
@@ -84,7 +92,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Region:
                         return RegionDataTemplate;
 
-                    case KindCodeItem.Delegate:
                     case KindCodeItem.Event:
                     case KindCodeItem.Field:
                         return StandardDataTemplate;

@@ -35,6 +35,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public DataTemplate DefaultDataTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the delegate data template.
+        /// </summary>
+        public DataTemplate DelegateDataTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the destructor data template.
         /// </summary>
         public DataTemplate DestructorDataTemplate { get; set; }
@@ -84,9 +89,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     case KindCodeItem.Constructor:
                         return ConstructorDataTemplate;
 
-                    case KindCodeItem.Delegate:
                     case KindCodeItem.Event:
                         return DefaultDataTemplate;
+
+                    case KindCodeItem.Delegate:
+                        return DelegateDataTemplate;
 
                     case KindCodeItem.Destructor:
                         return DestructorDataTemplate;

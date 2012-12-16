@@ -79,6 +79,29 @@
     </DataTemplate>
 
     <!-- CodeItem templates -->
+    <DataTemplate x:Key="DelegateDataTemplate" DataType="{x:Type ci:CodeItemDelegate}">
+        <DockPanel x:Name="dockPanel" Margin="0,2">
+            <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
+                    ContentTemplate="{StaticResource MetadataDataTemplate}" Focusable="False" />
+
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
+
+            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource ParentNameStyle}" />
+
+            <ContentControl x:Name="nameParameters" Content="{Binding}" ContentTemplate="{StaticResource NameParametersDataTemplate}" Focusable="False" Visibility="Collapsed" />
+
+            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
+        </DockPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
+                <Setter TargetName="dockPanel" Property="Margin" Value="0" />
+                <Setter TargetName="name" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="nameParameters" Property="Visibility" Value="Visible" />
+                <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="MethodDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <DockPanel>
             <ContentControl x:Name="complexity" DockPanel.Dock="Right" Content="{Binding}"
@@ -94,7 +117,7 @@
     </DataTemplate>
 
     <HierarchicalDataTemplate x:Key="ParentDataTemplate" DataType="{x:Type ci:BaseCodeItemElementParent}" ItemsSource="{Binding Children}">
-        <DockPanel Margin="0,2">
+        <DockPanel x:Name="dockPanel" Margin="0,2">
             <ContentControl x:Name="metadata" DockPanel.Dock="Right" Content="{Binding}"
                     ContentTemplate="{StaticResource MetadataDataTemplate}" Focusable="False" />
 
@@ -102,10 +125,11 @@
 
             <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource ParentNameStyle}" />
 
-            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue=''}" Style="{StaticResource NamespaceStyle}" />
+            <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
         </DockPanel>
         <HierarchicalDataTemplate.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
+                <Setter TargetName="dockPanel" Property="Margin" Value="0" />
                 <Setter TargetName="name" Property="Style" Value="{StaticResource DefaultNameStyle}" />
                 <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
             </DataTrigger>

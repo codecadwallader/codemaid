@@ -261,6 +261,34 @@
         </StackPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="DelegateToolTipDataTemplate" DataType="{x:Type ci:CodeItemDelegate}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                        Text="{Binding TypeString, StringFormat='{}{0} ', Converter={x:Static cnv:TypeStringConverter.Default}}"
+                        Style="{StaticResource DefaultToolTipTextStyle}" />
+
+                <TextBlock Text="{Binding Name}" Style="{StaticResource NameToolTipTextStyle}" />
+
+                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ParametersToolTipDataTemplate}" />
+            </StackPanel>
+
+            <ContentControl Content="{Binding DocComment}" ContentTemplate="{StaticResource CommentToolTipDataTemplate}" />
+
+            <StackPanel TextElement.FontStyle="Italic">
+                <Separator x:Name="separator" Margin="0,4" />
+
+                <ContentControl x:Name="namespace" Content="{Binding Namespace}"
+                    ContentTemplate="{StaticResource NamespaceToolTipDataTemplate}" />
+            </StackPanel>
+        </StackPanel>
+        <DataTemplate.Triggers>
+            <Trigger SourceName="namespace" Property="ActualHeight" Value="0">
+                <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="DestructorToolTipDataTemplate" DataType="{x:Type ci:CodeItemMethod}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">

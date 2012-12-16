@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Collections.Generic;
+using System.Linq;
 using EnvDTE;
 using EnvDTE80;
 
@@ -19,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// <summary>
     /// The representation of a code delegate.
     /// </summary>
-    public class CodeItemDelegate : BaseCodeItemElement
+    public class CodeItemDelegate : BaseCodeItemElement, ICodeItemParameters
     {
         #region BaseCodeItem Overrides
 
@@ -87,6 +89,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// Gets or sets the underlying VSX CodeDelegate.
         /// </summary>
         public CodeDelegate2 CodeDelegate { get; set; }
+
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        public IEnumerable<CodeParameter> Parameters
+        {
+            get { return TryDefault(() => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
+        }
 
         #endregion Properties
     }

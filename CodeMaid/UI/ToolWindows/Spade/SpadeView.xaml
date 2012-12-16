@@ -27,6 +27,7 @@
                                     <local:CodeItemToolTipTemplateSelector
                                             ConstructorDataTemplate="{StaticResource ConstructorToolTipDataTemplate}"
                                             DefaultDataTemplate="{StaticResource DefaultToolTipDataTemplate}"
+                                            DelegateDataTemplate="{StaticResource DelegateToolTipDataTemplate}"
                                             DestructorDataTemplate="{StaticResource DestructorToolTipDataTemplate}"
                                             FieldDataTemplate="{StaticResource FieldToolTipDataTemplate}"
                                             MethodDataTemplate="{StaticResource MethodToolTipDataTemplate}"
@@ -141,7 +142,9 @@
                 </ItemsPanelTemplate>
             </TreeView.ItemsPanel>
             <TreeView.ItemTemplateSelector>
-                <local:CodeItemTemplateSelector MethodDataTemplate="{StaticResource MethodDataTemplate}"
+                <local:CodeItemTemplateSelector
+                        DelegateDataTemplate="{StaticResource DelegateDataTemplate}"
+                        MethodDataTemplate="{StaticResource MethodDataTemplate}"
                         ParentDataTemplate="{StaticResource ParentDataTemplate}"
                         PropertyDataTemplate="{StaticResource PropertyDataTemplate}"
                         RegionDataTemplate="{StaticResource RegionDataTemplate}"
