@@ -1,6 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+
+// CodeMaid is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License version 3
+// as published by the Free Software Foundation.
+//
+// CodeMaid is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+
+#endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -67,7 +80,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public CodeCommentPhrase AppendString(string s)
         {
-            // s.Split(new[] { ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
             if (s != null)
                 AppendWords(SplitRegex.Split(s));
             return this;
@@ -80,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             foreach (var w in words.Where(w => !String.IsNullOrEmpty(w)))
             {
-                // Trickery to keep multiple-word XML tags (eg. with attributes) together.
+                // Trickery to keep multiple-word XML tags (eg. with attributes) together in a single word.
                 int open = w.Count(c => c == '<');
                 int close = w.Count(c => c == '>');
 

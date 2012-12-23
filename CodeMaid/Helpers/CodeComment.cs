@@ -1,4 +1,17 @@
-﻿using EnvDTE;
+﻿#region CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+
+// CodeMaid is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License version 3
+// as published by the Free Software Foundation.
+//
+// CodeMaid is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+
+#endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
+
+using EnvDTE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +53,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         protected LinkedList<CodeCommentPhrase> Phrases { get; private set; }
 
-        internal virtual void Add(string value)
+        /// <summary>
+        /// Add add a string of words to this comment.
+        /// </summary>
+        /// <param name="value">The string to add.</param>
+        public void Add(string value)
         {
             var current = new CodeCommentPhrase(value);
             if (Phrases.Last == null || current.IsList || (Phrases.Last.Value.IsList && Phrases.Last.Value.Indent != current.Indent))
@@ -49,7 +66,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 Phrases.Last.Value.Append(current);
         }
 
-        internal virtual void Output(int maxWidth)
+        /// <summary>
+        /// Write the new comment text to the document.
+        /// </summary>
+        /// <param name="maxWidth"> The right margin to adhere to. </param>
+        public void Output(int maxWidth)
         {
             if (maxWidth < LineCharOffset + 20)
                 maxWidth = LineCharOffset + 20;
@@ -61,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             // Loop through each phrase.
             var phrase = Phrases.First;
-            //bool isNewLine = true;
+
             while (phrase != null)
             {
                 StartPoint.Insert(CommentPrefix);
@@ -77,27 +98,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var word = phrase.Value.Words.First;
                 while (word != null)
                 {
-                    // Special handling of important tags in XML comments
-                    //var match = XmlTagRegex.Match(word.Value);
-
-                    // If this is not the first word of the phrase (and thus a newline), be aware
-                    // of XML tags.
-                    //if (!isNewLine && match.Success)
-                    //{
-                    //    // Add a newline for major tags and minor opening tags.
-                    //    if (MajorXmlTags.Contains(match.Groups["tag"].Value) || (MinorXmlTags.Contains(match.Groups["tag"].Value) && !match.Groups["closetag"].Success))
-                    //    {
-                    //        StartPoint.Insert(GetNewCommentLine(true));
-                    //        isNewLine = true;
-                    //    }
-                    //}
-
                     // Create newline if next word no longer fits on this line, but keep in
                     // mind some words can by themself already be too long to fit on a line.
                     if (StartPoint.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
                     {
                         StartPoint.Insert(GetNewCommentLine(true));
-                        //isNewLine = true;
 
                         // If the current phrase is a list, add extra spacing to create pretty
                         // alignment of list items.
@@ -108,17 +113,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     // This is were we write the actual word.
                     StartPoint.Insert(" ");
                     StartPoint.Insert(word.Value);
-                    //isNewLine = false;
 
                     word = word.Next;
-
-                    // Major XML tags are followed by newlines, so put a newline unless this is
-                    // the last word (which will be followed by a linebreak anyway).
-                    //if (word != null && match.Success && MajorXmlTags.Contains(match.Groups["tag"].Value))
-                    //{
-                    //    StartPoint.Insert(GetNewCommentLine(true));
-                    //    isNewLine = true;
-                    //}
                 }
 
                 phrase = phrase.Next;
@@ -129,7 +125,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
-        internal void SetEndPoint(EditPoint end)
+        public void SetEndPoint(EditPoint end)
         {
             EndPoint = end.CreateEditPoint();
         }
@@ -138,7 +134,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Write a newline at the <c>StartPoint</c> and add indenting.
         /// </summary>
         /// <param name="resumeComment"> If set to <c>true</c> it will also write <c>CommentPrefix</c>. </param>
-        protected string GetNewCommentLine(bool resumeComment = false)
+        private string GetNewCommentLine(bool resumeComment = false)
         {
             return String.Format("{0}{1}{2}",
                 Environment.NewLine,
@@ -146,6 +142,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 resumeComment ? CommentPrefix : "");
         }
 
+        /// <summary>
+        /// Get all words including and after current word.
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        private IEnumerable<string> GetWordsAfter(LinkedListNode<string> word)
+        {
+            while ((word = word.Next) != null)
+                yield return word.Value;
+        }
+
+        /// <summary>
+        /// Check for XML tags in phrases and make sure they follow the rules for newlines.
+        /// </summary>
         private void ReformatXmlPhrases()
         {
             var phrase = Phrases.First;
@@ -201,18 +211,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 phrase = phrase.Next;
             }
-        }
-
-        private IEnumerable<string> GetWordsAfter(LinkedListNode<string> word)
-        {
-            while ((word = word.Next) != null)
-                yield return word.Value;
-
-            //while (word != null)
-            //{
-            //    yield return word.Value;
-            //    word = word.Next;
-            //}
         }
     }
 }
