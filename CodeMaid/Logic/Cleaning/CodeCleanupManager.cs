@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
-
+        private readonly CommentFormatLogic _commentFormatLogic;
         #endregion Fields
 
         #region Constructors
@@ -83,6 +83,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _updateLogic = UpdateLogic.GetInstance(_package);
             _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
+            _commentFormatLogic = CommentFormatLogic.GetInstance(_package);
         }
 
         #endregion Constructors
@@ -305,6 +306,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _updateLogic.UpdateEventAccessorsToBothBeSingleLineOrMultiLine(events);
             _updateLogic.UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(properties);
             _updateLogic.UpdateSingleLineMethods(methods);
+
+            // Perform comment cleaning.
+            _commentFormatLogic.FormatComments(textDocument);
         }
 
         /// <summary>
