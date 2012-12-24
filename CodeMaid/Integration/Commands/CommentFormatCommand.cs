@@ -11,10 +11,10 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
-using System.ComponentModel.Design;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -45,17 +45,36 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnBeforeQueryStatus()
         {
             var activeTextDocument = ActiveTextDocument;
+            var enable = false;
+
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                EditPoint start = activeTextDocument.Selection.ActivePoint.CreateEditPoint();
-                var line = start.Line;
-                start.StartOfLine();
-                Enabled = start.FindPattern("// ") && start.Line == line;
-            } 
-            else
-            {
-                Enabled = activeTextDocument != null;
+                var selection = activeTextDocument.Selection;
+
+                if (selection.IsEmpty)
+                {
+                    EditPoint start = selection.ActivePoint.CreateEditPoint();
+                    var line = start.Line;
+                    start.StartOfLine();
+
+                    enable = start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line == line;
+
+                    Text = "Format &Comment";
+                }
+                else
+                {
+                    EditPoint start = selection.TopPoint.CreateEditPoint();
+                    EditPoint end = selection.BottomPoint.CreateEditPoint();
+                    start.StartOfLine();
+                    end.EndOfLine();
+
+                    enable = start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= end.Line;
+
+                    Text = "Format all &Comments in selection";
+                }
             }
+
+            Enabled = enable;
         }
 
         /// <summary>
@@ -66,26 +85,49 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
+                var selection = activeTextDocument.Selection;
                 bool found = false;
-                EditPoint 
-                    start = activeTextDocument.Selection.ActivePoint.CreateEditPoint(), 
-                    end = null,
-                    from = start.CreateEditPoint(),
-                    to = start.CreateEditPoint();
-                
-                // Find the start of this comment.
-                while (start.FindPattern(@"\/\/+ ", (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && (end.Line == from.Line || end.Line == from.Line - 1)) 
-                {
-                    from = start.CreateEditPoint();
-                    found = true;
-                }
+                EditPoint start, end, from, to;
 
-                // Look forward to end of comment
-                start = to.CreateEditPoint();
-                while (start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression, ref end) && (start.Line == to.Line || start.Line == to.Line + 1))
+                if (selection.IsEmpty)
                 {
-                    to = end.CreateEditPoint();
-                    start = end;
+                    // No selection, look backwards to find the start of the current comment.
+                    start = selection.ActivePoint.CreateEditPoint();
+                    end = null;
+                    from = selection.ActivePoint.CreateEditPoint();
+                    to = selection.ActivePoint.CreateEditPoint();
+
+                    while (start.FindPattern(@"\/\/+ ", (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && (end.Line == from.Line || end.Line == from.Line - 1))
+                    {
+                        from = start.CreateEditPoint();
+                        found = true;
+                    }
+
+                    if (!found)
+                    {
+                        // No comment found backwards, look forward.
+                        start = selection.ActivePoint.CreateEditPoint();
+                        if (start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression, ref end) && (start.Line == to.Line || start.Line == to.Line + 1))
+                        {
+                            to = end.CreateEditPoint();
+                            start = end;
+                            found = true;
+                        }
+                    }
+                }
+                else
+                {
+                    // Search in selection.
+                    start = selection.TopPoint.CreateEditPoint();
+                    end = null;
+                    from = selection.TopPoint.CreateEditPoint();
+                    to = selection.BottomPoint.CreateEditPoint();
+
+                    // Look backwards to find the start of the current comment.
+                    while (start.FindPattern(@"\/\/+ ", (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && (end.Line == from.Line || end.Line == from.Line - 1))
+                        from = start.CreateEditPoint();
+
+                    // Always found
                     found = true;
                 }
 
@@ -95,13 +137,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     to.EndOfLine();
 
                     var logic = CommentFormatLogic.GetInstance(Package);
-                    new UndoTransactionHelper(Package, "Format Comment").Run(() => 
+                    new UndoTransactionHelper(Package, "Format Comment").Run(() =>
                     {
                         logic.FormatComments(from, to);
                     });
-
                 }
-
             }
         }
 

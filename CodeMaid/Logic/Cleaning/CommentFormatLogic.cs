@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
 
-            while (cursor != null && cursor.LessThan(endPoint) && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end))
+            while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end) && cursor.LessThan(endPoint))
             {
                 var comment = new CodeComment(ref cursor, ref end);
                 cursor = comment.Output(maxWidth);
