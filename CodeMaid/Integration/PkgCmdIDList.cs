@@ -38,6 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public const uint CmdIDCodeMaidSpadeRefresh = 0x3000;
         public const uint CmdIDCodeMaidSpadeToolWindow = 0x3100;
         public const uint CmdIDCodeMaidSwitchFile = 0x3200;
+        public const uint CmdIDCodeMaidCommentFormat = 0x3300;
 
         public const int ToolbarIDCodeMaidToolbarSpade = 0x1040;
 

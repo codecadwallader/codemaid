@@ -179,6 +179,7 @@
     <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\ConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\CommentFormatCommand.cs" />
     <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
     <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />

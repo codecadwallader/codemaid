@@ -231,6 +231,14 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0100" type="Button">
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Format &amp;Comment</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100" type="Button">
         <Icon guid="GuidImageConfig" id="IconConfig" />
         <Strings>
@@ -592,6 +600,14 @@
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+
   </CommandPlacements>
 
   <KeyBindings>
@@ -603,6 +619,9 @@
 
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
+
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="C" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="C" />
 
     <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
@@ -851,6 +870,12 @@
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
       <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3200" />
     </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCommentFormat" value="{2A7FCCC9-311C-4725-B1C1-F2D1A2FFFE7D}">
+      <IDSymbol name="CmdIDCodeMaidCommentFormat" value="0x3300" />
+    </GuidSymbol>
+
+
 
     <!-- These are the guids for images -->
     <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">

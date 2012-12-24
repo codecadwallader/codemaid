@@ -338,6 +338,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CloseAllReadOnlyCommand(this));
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
+                _commands.Add(new CommentFormatCommand(this));
                 _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
