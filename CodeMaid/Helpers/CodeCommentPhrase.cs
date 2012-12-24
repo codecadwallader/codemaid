@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -24,48 +23,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeCommentPhrase
     {
-        private static Regex ListRegex = new Regex(@"^(?<indent>\s*(?<prefix>-|\w+\))?\s+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex SplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        public CodeCommentPhrase()
-        {
-            this.Words = new LinkedList<string>();
-            this.Indent = 0;
-        }
-
-        public CodeCommentPhrase(string value)
-            : this()
-        {
-            var match = ListRegex.Match(value);
-            if (match.Success)
-            {
-                if (match.Groups["prefix"].Success)
-                {
-                    ListPrefix = String.Format("{0}", match.Groups["prefix"].Value);
-                    IsList = true;
-                }
-                if (match.Groups["indent"].Success)
-                {
-                    Indent = match.Groups["indent"].Value.Length;
-                    value = value.Substring(Indent);
-                }
-            }
-
-            AppendString(value);
-        }
-
-        public CodeCommentPhrase(int indent, bool isList, string listPrefix, IEnumerable<string> words)
-            : this()
+        public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
         {
             this.Indent = indent;
-            this.IsList = IsList;
             this.ListPrefix = listPrefix;
+            this.Words = new LinkedList<string>();
+
             AppendWords(words);
         }
 
         public int Indent { get; private set; }
 
-        public bool IsList { get; private set; }
+        public bool IsList { get { return ListPrefix != null; } }
 
         public string ListPrefix { get; private set; }
 
@@ -75,13 +44,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (other != null)
                 AppendWords(other.Words);
-            return this;
-        }
-
-        public CodeCommentPhrase AppendString(string s)
-        {
-            if (s != null)
-                AppendWords(SplitRegex.Split(s));
             return this;
         }
 

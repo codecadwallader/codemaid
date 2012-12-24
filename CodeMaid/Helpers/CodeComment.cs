@@ -25,20 +25,37 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
+        private static Regex CommentLineRegex = new Regex(@"(?<commentprefix>\/\/+) (?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static string[] MajorXmlTags = { "summary", "remarks", "example" };
         private static string[] MinorXmlTags = { "param", "exception", "returns", "value" };
+        private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex XmlTagRegex = new Regex(@"^<(?<closetag>\/)?(?<tag>(" + String.Join("|", MajorXmlTags.Union(MinorXmlTags)) + ")).*>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private EditPoint _cursor;
 
-        public CodeComment(EditPoint startpoint, EditPoint endpoint, string commentPrefix)
+        public CodeComment(ref EditPoint from, ref EditPoint to)
         {
-            Phrases = new LinkedList<CodeCommentPhrase>();
+            this.StartPoint = from.CreateEditPoint();
+            this.EndPoint = to.CreateEditPoint();
+            this.LineCharOffset = from.LineCharOffset;
 
-            this.StartPoint = startpoint.CreateEditPoint();
-            this.EndPoint = endpoint.CreateEditPoint();
-            this.CommentPrefix = commentPrefix;
+            this.Phrases = new LinkedList<CodeCommentPhrase>();
 
-            this.LineCharOffset = StartPoint.LineCharOffset - 1;
-            this.IsXmlComment = CommentPrefix.Length == 3;
+            string text = from.GetText(to);
+
+            foreach (Match match in CommentLineRegex.Matches(text))
+            {
+                var indent = match.Groups["indent"].Success ? match.Groups["indent"].Length : 0;
+                var listPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
+                var words = WordSplitRegex.Split(match.Groups["words"].Value);
+
+                if (Phrases.First == null)
+                {
+                    this.CommentPrefix = match.Groups["commentprefix"].Value;
+                    this.IsXmlComment = this.CommentPrefix.Length == 3 && words[0].StartsWith("<");
+                }
+
+                AddPhrase(new CodeCommentPhrase(indent, listPrefix, words));
+            }
         }
 
         public string CommentPrefix { get; private set; }
@@ -49,33 +66,35 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public int LineCharOffset { get; private set; }
 
+        public LinkedList<CodeCommentPhrase> Phrases { get; private set; }
+
         public EditPoint StartPoint { get; private set; }
 
-        protected LinkedList<CodeCommentPhrase> Phrases { get; private set; }
-
         /// <summary>
-        /// Add add a string of words to this comment.
+        /// Add add a phrase to this comment.
         /// </summary>
-        /// <param name="value">The string to add.</param>
-        public void Add(string value)
+        /// <param name="value">The phrase to add.</param>
+        public void AddPhrase(CodeCommentPhrase value)
         {
-            var current = new CodeCommentPhrase(value);
-            if (Phrases.Last == null || current.IsList || (Phrases.Last.Value.IsList && Phrases.Last.Value.Indent != current.Indent))
-                Phrases.AddLast(current);
+            if (Phrases.Last == null || value.IsList || (Phrases.Last.Value.IsList && Phrases.Last.Value.Indent != value.Indent))
+                Phrases.AddLast(value);
             else
-                Phrases.Last.Value.Append(current);
+                Phrases.Last.Value.Append(value);
         }
 
         /// <summary>
         /// Write the new comment text to the document.
         /// </summary>
         /// <param name="maxWidth"> The right margin to adhere to. </param>
-        public void Output(int maxWidth)
+        /// <returns>The endpoint of the comment.</returns>
+        public EditPoint Output(int maxWidth)
         {
             if (maxWidth < LineCharOffset + 20)
                 maxWidth = LineCharOffset + 20;
 
-            StartPoint.Delete(EndPoint);
+            _cursor = StartPoint.CreateEditPoint();
+
+            _cursor.Delete(EndPoint);
 
             if (IsXmlComment)
                 ReformatXmlPhrases();
@@ -85,13 +104,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             while (phrase != null)
             {
-                StartPoint.Insert(CommentPrefix);
+                _cursor.Insert(CommentPrefix);
 
                 // Phrase is a list, so output the list prefix before the first word.
                 if (phrase.Value.IsList)
                 {
-                    StartPoint.Insert(" ");
-                    StartPoint.Insert(phrase.Value.ListPrefix);
+                    _cursor.Insert(" ");
+                    _cursor.Insert(phrase.Value.ListPrefix);
                 }
 
                 // Loop through each word.
@@ -100,19 +119,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Create newline if next word no longer fits on this line, but keep in
                     // mind some words can by themself already be too long to fit on a line.
-                    if (StartPoint.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
+                    if (_cursor.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
                     {
-                        StartPoint.Insert(GetNewCommentLine(true));
+                        WriteNewCommentLine(true);
 
                         // If the current phrase is a list, add extra spacing to create pretty
                         // alignment of list items.
                         if (phrase.Value.IsList)
-                            StartPoint.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
+                            _cursor.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
                     }
 
                     // This is were we write the actual word.
-                    StartPoint.Insert(" ");
-                    StartPoint.Insert(word.Value);
+                    _cursor.Insert(" ");
+                    _cursor.Insert(word.Value);
 
                     word = word.Next;
                 }
@@ -121,32 +140,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 // If on a comment phrase, and there will be another phrase, add a newline.
                 if (phrase != null)
-                    StartPoint.Insert(GetNewCommentLine(false));
+                    WriteNewCommentLine(false);
             }
-        }
 
-        public void SetEndPoint(EditPoint end)
-        {
-            EndPoint = end.CreateEditPoint();
-        }
+            EndPoint = _cursor.CreateEditPoint();
 
-        /// <summary>
-        /// Write a newline at the <c>StartPoint</c> and add indenting.
-        /// </summary>
-        /// <param name="resumeComment"> If set to <c>true</c> it will also write <c>CommentPrefix</c>. </param>
-        private string GetNewCommentLine(bool resumeComment = false)
-        {
-            return String.Format("{0}{1}{2}",
-                Environment.NewLine,
-                "".PadLeft(LineCharOffset, ' '),
-                resumeComment ? CommentPrefix : "");
+            return _cursor;
         }
 
         /// <summary>
         /// Get all words including and after current word.
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
         private IEnumerable<string> GetWordsAfter(LinkedListNode<string> word)
         {
             while ((word = word.Next) != null)
@@ -182,7 +186,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                 // Create a new phrase with the rest of the words.
                                 Phrases.AddAfter(phrase, new CodeCommentPhrase(
                                     phrase.Value.Indent,
-                                    phrase.Value.IsList,
                                     phrase.Value.ListPrefix,
                                     GetWordsAfter(word)));
 
@@ -196,7 +199,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                             {
                                 Phrases.AddAfter(phrase, new CodeCommentPhrase(
                                     phrase.Value.Indent,
-                                    phrase.Value.IsList,
                                     phrase.Value.ListPrefix,
                                     GetWordsAfter(word)));
 
@@ -211,6 +213,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 phrase = phrase.Next;
             }
+        }
+
+        /// <summary>
+        /// Write a newline at the <c>StartPoint</c> and add indenting.
+        /// </summary>
+        /// <param name="resumeComment"> If set to <c>true</c> it will also write <c>CommentPrefix</c>. </param>
+        private void WriteNewCommentLine(bool resumeComment = false)
+        {
+            _cursor.Insert(Environment.NewLine);
+            _cursor.PadToColumn(LineCharOffset);
+            if (resumeComment)
+                _cursor.Insert(CommentPrefix);
         }
     }
 }

@@ -15,9 +15,6 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -67,44 +64,28 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_CommentReformat) return;
 
+            FormatComments(textDocument.StartPoint, textDocument.EndPoint);
+        }
+
+        /// <summary>
+        /// Reformat all comments between given start and endpoint. Comments that start before but 
+        /// exceed the EndPoint are included.
+        /// </summary>
+        /// <param name="startPoint">StartPoint.</param>
+        /// <param name="endPoint">EndPoint.</param>
+        public void FormatComments(TextPoint startPoint, TextPoint endPoint)
+        {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            string pattern = @"^(.*?)(\/\/+) (.*)";
-
-            var cursor = textDocument.StartPoint.CreateEditPoint();
+            string pattern = @"((?<prefix>\/\/+) .*(\r?\n\s*\k<prefix> .*)*)$";
+            var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
-            TextRanges subGroupMatches = null;
-            CodeComment comment = null;
 
-            while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end, ref subGroupMatches))
+            while (cursor != null && cursor.LessThan(endPoint) && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end))
             {
-                var matches = subGroupMatches.OfType<TextRange>().Skip(1).ToArray();
-
-                var codeText = matches[0].StartPoint.GetText(matches[0].EndPoint);
-                var commentPrefix = matches[1].StartPoint.GetText(matches[1].EndPoint);
-                var commentText = matches[2].StartPoint.GetText(matches[2].EndPoint);
-
-                if (comment != null && comment.EndPoint.Line + 1 == cursor.Line && comment.StartPoint.LineCharOffset == matches[1].StartPoint.LineCharOffset && string.Equals(comment.CommentPrefix, commentPrefix))
-                {
-                    comment.SetEndPoint(end);
-                }
-                else
-                {
-                    // This is a new comment, output the previous.
-                    if (comment != null)
-                        comment.Output(maxWidth);
-
-                    comment = new CodeComment(matches[1].StartPoint, end, commentPrefix);
-                }
-
-                comment.Add(commentText);
-
-                cursor = end;
+                var comment = new CodeComment(ref cursor, ref end);
+                cursor = comment.Output(maxWidth);
             }
-
-            // Output last comment.
-            if (comment != null)
-                comment.Output(maxWidth);
         }
 
         #endregion Methods
