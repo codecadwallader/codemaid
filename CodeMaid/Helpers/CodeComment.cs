@@ -25,15 +25,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
-        private static Regex CommentLineRegex = new Regex(@"(?<commentprefix>\/\/+) (?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static string[] MajorXmlTags = { "summary", "remarks", "example" };
         private static string[] MinorXmlTags = { "param", "exception", "returns", "value" };
         private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex XmlTagRegex = new Regex(@"^<(?<closetag>\/)?(?<tag>(" + String.Join("|", MajorXmlTags.Union(MinorXmlTags)) + ")).*>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private EditPoint _cursor;
 
-        public CodeComment(ref EditPoint from, ref EditPoint to)
+        private EditPoint _cursor;
+        private Regex CommentLineRegex;
+
+        public CodeComment(string commentPrefix, ref EditPoint from, ref EditPoint to)
         {
+            this.CommentLineRegex = new Regex(String.Format(@"(?<commentprefix>{0}) (?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", commentPrefix), RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this.StartPoint = from.CreateEditPoint();
             this.EndPoint = to.CreateEditPoint();
             this.LineCharOffset = from.LineCharOffset;

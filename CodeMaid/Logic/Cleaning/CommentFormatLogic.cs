@@ -64,30 +64,70 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_CommentReformat) return;
 
-            FormatComments(textDocument.StartPoint, textDocument.EndPoint);
+            FormatComments(textDocument, textDocument.StartPoint, textDocument.EndPoint);
         }
 
         /// <summary>
-        /// Reformat all comments between given start and endpoint. Comments that start before but 
+        /// Reformat all comments between given start and endpoint. Comments that start before but
         /// exceed the EndPoint are included.
         /// </summary>
-        /// <param name="startPoint">StartPoint.</param>
-        /// <param name="endPoint">EndPoint.</param>
-        public void FormatComments(TextPoint startPoint, TextPoint endPoint)
+        /// <param name="textDocument">The Document.</param>
+        /// <param name="startPoint">The StartPoint.</param>
+        /// <param name="endPoint">The EndPoint.</param>
+        public void FormatComments(TextDocument textDocument, TextPoint startPoint, TextPoint endPoint)
         {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            string pattern = @"((?<prefix>\/\/+) .*(\r?\n\s*\k<prefix> .*)*)$";
+            string pattern = GetCommentPatternForDocument(textDocument);
+            string prefix = GetCommentPrefixForDocument(textDocument);
+            if (pattern == null || prefix == null)
+                return;
+
             var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
 
             while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end) && cursor.LessThan(endPoint))
             {
-                var comment = new CodeComment(ref cursor, ref end);
+                var comment = new CodeComment(prefix, ref cursor, ref end);
                 cursor = comment.Output(maxWidth);
             }
         }
 
         #endregion Methods
+
+        #region Private Methods
+
+        public static string GetCommentPatternForDocument(TextDocument document)
+        {
+            switch (document.Parent.Language)
+            {
+                case "CSharp":
+                case "C/C++":
+                case "JavaScript":
+                case "JScript":
+                case "Basic":
+                    return String.Format(@"((?<prefix>{0}) .*(\r?\n\s*\k<prefix> .*)*)$", GetCommentPrefixForDocument(document));
+
+                default: return null;
+            }
+        }
+
+        public static string GetCommentPrefixForDocument(TextDocument document)
+        {
+            switch (document.Parent.Language)
+            {
+                case "CSharp":
+                case "C/C++":
+                case "JavaScript":
+                case "JScript":
+                    return @"\/\/+";
+                case "Basic":
+                    return @"'+";
+
+                default: return null;
+            }
+        }
+
+        #endregion Private Methods
     }
 }

@@ -49,31 +49,36 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var selection = activeTextDocument.Selection;
+                var pattern = CommentFormatLogic.GetCommentPatternForDocument(activeTextDocument);
 
-                if (selection.IsEmpty)
+                if (pattern != null)
                 {
-                    EditPoint start = selection.ActivePoint.CreateEditPoint();
-                    var line = start.Line;
-                    start.StartOfLine();
+                    var selection = activeTextDocument.Selection;
 
-                    enable = start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line == line;
+                    if (selection.IsEmpty)
+                    {
+                        EditPoint start = selection.ActivePoint.CreateEditPoint();
+                        var line = start.Line;
+                        start.StartOfLine();
 
-                    Text = "Format &Comment";
-                }
-                else
-                {
-                    EditPoint start = selection.TopPoint.CreateEditPoint();
-                    EditPoint end = selection.BottomPoint.CreateEditPoint();
-                    start.StartOfLine();
-                    end.EndOfLine();
+                        enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line == line;
 
-                    enable = start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= end.Line;
+                        Text = "Format &Comment";
+                    }
+                    else
+                    {
+                        EditPoint start = selection.TopPoint.CreateEditPoint();
+                        EditPoint end = selection.BottomPoint.CreateEditPoint();
+                        start.StartOfLine();
+                        end.EndOfLine();
 
-                    Text = "Format all &Comments in selection";
+                        enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= end.Line;
+
+                        Text = "Format all &Comments in selection";
+                    }
                 }
             }
-
+            Visible = enable;
             Enabled = enable;
         }
 
@@ -86,61 +91,66 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
                 var selection = activeTextDocument.Selection;
-                bool found = false;
-                EditPoint start, end, from, to;
+                var pattern = CommentFormatLogic.GetCommentPatternForDocument(activeTextDocument);
 
-                if (selection.IsEmpty)
+                if (pattern != null)
                 {
-                    // No selection, look backwards to find the start of the current comment.
-                    start = selection.ActivePoint.CreateEditPoint();
-                    end = null;
-                    from = selection.ActivePoint.CreateEditPoint();
-                    to = selection.ActivePoint.CreateEditPoint();
+                    bool found = false;
+                    EditPoint start, end, from, to;
 
-                    while (start.FindPattern(@"\/\/+ ", (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && (end.Line == from.Line || end.Line == from.Line - 1))
+                    if (selection.IsEmpty)
                     {
-                        from = start.CreateEditPoint();
+                        // No selection, look backwards to find the start of the current comment.
+                        start = selection.ActivePoint.CreateEditPoint();
+                        end = null;
+                        from = selection.ActivePoint.CreateEditPoint();
+                        to = selection.ActivePoint.CreateEditPoint();
+
+                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && end.Line >= from.Line - 1)
+                        {
+                            from = start.CreateEditPoint();
+                            found = true;
+                        }
+
+                        if (!found)
+                        {
+                            // No comment found backwards, look forward.
+                            start = selection.ActivePoint.CreateEditPoint();
+                            if (start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression, ref end) && start.Line <= to.Line +1)
+                            {
+                                to = end.CreateEditPoint();
+                                start = end;
+                                found = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Search in selection.
+                        start = selection.TopPoint.CreateEditPoint();
+                        end = null;
+                        from = selection.TopPoint.CreateEditPoint();
+                        to = selection.BottomPoint.CreateEditPoint();
+
+                        // Look backwards to find the start of the current comment.
+                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && end.Line >= from.Line - 1)
+                            from = start.CreateEditPoint();
+
+                        // Always found
                         found = true;
                     }
 
-                    if (!found)
+                    if (found)
                     {
-                        // No comment found backwards, look forward.
-                        start = selection.ActivePoint.CreateEditPoint();
-                        if (start.FindPattern(@"\/\/+ ", (int)vsFindOptions.vsFindOptionsRegularExpression, ref end) && (start.Line == to.Line || start.Line == to.Line + 1))
+                        from.StartOfLine();
+                        to.EndOfLine();
+
+                        var logic = CommentFormatLogic.GetInstance(Package);
+                        new UndoTransactionHelper(Package, "Format Comment").Run(() =>
                         {
-                            to = end.CreateEditPoint();
-                            start = end;
-                            found = true;
-                        }
+                            logic.FormatComments(activeTextDocument, from, to);
+                        });
                     }
-                }
-                else
-                {
-                    // Search in selection.
-                    start = selection.TopPoint.CreateEditPoint();
-                    end = null;
-                    from = selection.TopPoint.CreateEditPoint();
-                    to = selection.BottomPoint.CreateEditPoint();
-
-                    // Look backwards to find the start of the current comment.
-                    while (start.FindPattern(@"\/\/+ ", (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && (end.Line == from.Line || end.Line == from.Line - 1))
-                        from = start.CreateEditPoint();
-
-                    // Always found
-                    found = true;
-                }
-
-                if (found)
-                {
-                    from.StartOfLine();
-                    to.EndOfLine();
-
-                    var logic = CommentFormatLogic.GetInstance(Package);
-                    new UndoTransactionHelper(Package, "Format Comment").Run(() =>
-                    {
-                        logic.FormatComments(from, to);
-                    });
                 }
             }
         }

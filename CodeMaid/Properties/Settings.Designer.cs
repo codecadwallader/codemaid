@@ -1094,7 +1094,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Cleaning_CommentReformat {
             get {
                 return ((bool)(this["Cleaning_CommentReformat"]));
@@ -1113,6 +1113,30 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_CommentMaxWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("summary||remarks||example")]
+        public string Cleaning_CommentMajorTags {
+            get {
+                return ((string)(this["Cleaning_CommentMajorTags"]));
+            }
+            set {
+                this["Cleaning_CommentMajorTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("param||exception||returns||value")]
+        public string Cleaning_CommentMinorTags {
+            get {
+                return ((string)(this["Cleaning_CommentMinorTags"]));
+            }
+            set {
+                this["Cleaning_CommentMinorTags"] = value;
             }
         }
     }

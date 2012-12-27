@@ -270,10 +270,16 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Cleaning_CommentReformat" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Cleaning_CommentMaxWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="Cleaning_CommentMajorTags" Type="System.String" Scope="User">
+      <Value Profile="(Default)">summary||remarks||example</Value>
+    </Setting>
+    <Setting Name="Cleaning_CommentMinorTags" Type="System.String" Scope="User">
+      <Value Profile="(Default)">param||exception||returns||value</Value>
     </Setting>
   </Settings>
 </SettingsFile>
