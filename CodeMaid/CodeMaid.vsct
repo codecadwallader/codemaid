@@ -232,6 +232,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCommentFormat" id="IconCommentFormat" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -368,6 +369,7 @@
       <Bitmap guid="GuidImageCleanupAll" href="Integration\Images\IDE\cleanupAll.bmp" usedList="IconCleanupAll" />
       <Bitmap guid="GuidImageCloseLocked" href="Integration\Images\IDE\closeLocked.bmp" usedList="IconCloseLocked" />
       <Bitmap guid="GuidImageCollapse" href="Integration\Images\IDE\collapse.bmp" usedList="IconCollapse" />
+      <Bitmap guid="GuidImageCommentFormat" href="Integration\Images\IDE\commentformat.bmp" usedList="IconCommentFormat" />
       <Bitmap guid="GuidImageConfig" href="Integration\Images\IDE\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageFind" href="Integration\Images\IDE\find.bmp" usedList="IconFind" />
       <Bitmap guid="GuidImageInfo" href="Integration\Images\IDE\info.bmp" usedList="IconInfo" />
@@ -889,6 +891,9 @@
     </GuidSymbol>
     <GuidSymbol name="GuidImageCollapse" value="{c853fa86-98f3-4f30-89f4-913d84c34a29}">
       <IDSymbol name="IconCollapse" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCommentFormat" value="{512526cf-2bb2-47fc-88af-dbd3678fe428}">
+      <IDSymbol name="IconCommentFormat" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageConfig" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
       <IDSymbol name="IconConfig" value="1" />

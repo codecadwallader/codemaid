@@ -15,6 +15,7 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -23,6 +24,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Fields
 
         private readonly CodeMaidPackage _package;
+
+        private readonly CachedSettingSet<string> _majorTags =
+            new CachedSettingSet<string>(() => Settings.Default.Cleaning_CommentMajorTags,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim().ToLower())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
+        private readonly CachedSettingSet<string> _minorTags =
+            new CachedSettingSet<string>(() => Settings.Default.Cleaning_CommentMinorTags,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim().ToLower())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
 
         #endregion Fields
 
@@ -80,6 +98,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             string pattern = GetCommentPatternForDocument(textDocument);
             string prefix = GetCommentPrefixForDocument(textDocument);
+
             if (pattern == null || prefix == null)
                 return;
 
@@ -88,7 +107,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end) && cursor.LessThan(endPoint))
             {
-                var comment = new CodeComment(prefix, ref cursor, ref end);
+                var comment = new CodeComment(prefix, ref cursor, ref end, _majorTags, _minorTags);
                 cursor = comment.Output(maxWidth);
             }
         }

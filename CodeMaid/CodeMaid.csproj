@@ -439,6 +439,7 @@
     <Resource Include="Integration\Images\IDE\spadeToolWindow.bmp" />
     <Resource Include="Integration\Images\IDE\switch.bmp" />
     <Resource Include="Integration\Images\IDE\unlock.bmp" />
+    <Resource Include="Integration\Images\IDE\commentformat.bmp" />
     <Content Include="lgpl-3.0.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

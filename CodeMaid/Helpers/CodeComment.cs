@@ -25,20 +25,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
-        private static string[] MajorXmlTags = { "summary", "remarks", "example" };
-        private static string[] MinorXmlTags = { "param", "exception", "returns", "value" };
         private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex XmlTagRegex = new Regex(@"^<(?<closetag>\/)?(?<tag>(" + String.Join("|", MajorXmlTags.Union(MinorXmlTags)) + ")).*>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private EditPoint _cursor;
         private Regex CommentLineRegex;
+        private Regex XmlTagRegex;
+        private string prefix;
+        private CachedSettingSet<string> _majorTags;
+        private CachedSettingSet<string> _minorTags;
 
-        public CodeComment(string commentPrefix, ref EditPoint from, ref EditPoint to)
+        public CodeComment(string commentPrefix, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
         {
             this.CommentLineRegex = new Regex(String.Format(@"(?<commentprefix>{0}) (?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", commentPrefix), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        
             this.StartPoint = from.CreateEditPoint();
             this.EndPoint = to.CreateEditPoint();
             this.LineCharOffset = from.LineCharOffset;
+
+            this._majorTags = majorTags;
+            this._minorTags = minorTags;
 
             this.Phrases = new LinkedList<CodeCommentPhrase>();
 
@@ -164,6 +169,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void ReformatXmlPhrases()
         {
+            this.XmlTagRegex = new Regex(@"^<(?<closetag>\/)?(?<tag>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + ")).*>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
             var phrase = Phrases.First;
             while (phrase != null)
             {
@@ -177,10 +184,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         {
                             var tagName = match.Groups["tag"].Value;
                             bool isCloseTag = match.Groups["closetag"].Success;
-                            bool isMajorTag = MajorXmlTags.Contains(tagName);
+                            bool isMajorTag = _majorTags.Value.Contains(tagName);
 
                             // Major tags and minor opening tags should be the first word.
-                            if (word.Previous != null && (isMajorTag || (!isCloseTag && MinorXmlTags.Contains(tagName))))
+                            if (word.Previous != null && (isMajorTag || (!isCloseTag && _majorTags.Value.Contains(tagName))))
                             {
                                 // Previous word will be the last word of this phrase.
                                 word = word.Previous;
