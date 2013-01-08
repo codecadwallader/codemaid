@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Cleaning_ExcludeT4GeneratedCode = FormatComments;
+            Settings.Default.Cleaning_CommentReformat = FormatComments;
             Settings.Default.Cleaning_CommentMaxWidth = CommentMaxWidth;
             Settings.Default.Cleaning_CommentMajorTags = MajorTags;
             Settings.Default.Cleaning_CommentMinorTags = MinorTags;
