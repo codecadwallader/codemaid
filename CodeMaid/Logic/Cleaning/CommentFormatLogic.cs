@@ -97,19 +97,20 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
             string pattern = GetCommentPatternForDocument(textDocument);
-            string prefix = GetCommentPrefixForDocument(textDocument);
 
-            if (pattern == null || prefix == null)
+            if (pattern == null)// || prefix == null)
                 return;
 
             var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
+            TextRanges tags = null;
 
-            while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end) && cursor.LessThan(endPoint))
+            while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
             {
-                var comment = new CodeComment(prefix, ref cursor, ref end, _majorTags, _minorTags);
+                var comment = new CodeComment(pattern, ref cursor, ref end, _majorTags, _minorTags);
                 cursor = comment.Output(maxWidth);
             }
+
         }
 
         #endregion Methods
@@ -124,26 +125,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "C/C++":
                 case "JavaScript":
                 case "JScript":
+                    return @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/|(?<prefix>//+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";
+                //return @"((?<prefix>//+) (?<firstline>.*)(?<otherlines>\r?\n\s*\k<prefix> (?<line>.*))*)";
+
                 case "Basic":
-                    return String.Format(@"((?<prefix>{0}) .*(\r?\n\s*\k<prefix> .*)*)$", GetCommentPrefixForDocument(document));
+                    return @"(?<prefix>'+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";
 
-                default: return null;
-            }
-        }
-
-        public static string GetCommentPrefixForDocument(TextDocument document)
-        {
-            switch (document.Parent.Language)
-            {
-                case "CSharp":
-                case "C/C++":
-                case "JavaScript":
-                case "JScript":
-                    return @"\/\/+";
-                case "Basic":
-                    return @"'+";
-
-                default: return null;
+                default: 
+                    return null;
             }
         }
 

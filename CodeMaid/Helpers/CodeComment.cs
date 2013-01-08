@@ -25,19 +25,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
+        private static Regex CommentLineRegex = new Regex(@"(?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private EditPoint _cursor;
-        private Regex CommentLineRegex;
-        private Regex XmlTagRegex;
-        private string prefix;
         private CachedSettingSet<string> _majorTags;
         private CachedSettingSet<string> _minorTags;
+        private string prefix;
+        private Regex XmlTagRegex;
 
-        public CodeComment(string commentPrefix, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
+        public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
         {
-            this.CommentLineRegex = new Regex(String.Format(@"(?<commentprefix>{0}) (?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", commentPrefix), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        
             this.StartPoint = from.CreateEditPoint();
             this.EndPoint = to.CreateEditPoint();
             this.LineCharOffset = from.LineCharOffset;
@@ -48,18 +46,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
             this.Phrases = new LinkedList<CodeCommentPhrase>();
 
             string text = from.GetText(to);
+            var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
 
-            foreach (Match match in CommentLineRegex.Matches(text))
+            this.CommentPrefix = commentMatch.Groups["prefix"].Value;
+            if (CommentPrefix == "/*")
             {
-                var indent = match.Groups["indent"].Success ? match.Groups["indent"].Length : 0;
-                var listPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
-                var words = WordSplitRegex.Split(match.Groups["words"].Value);
+                this.IsBlockComment = true;
+                this.CommentPrefix = " *";
+            }
+
+            foreach (Capture c in commentMatch.Groups["line"].Captures)
+            {
+                var lineMatch = CommentLineRegex.Match(c.Value);
+
+                var indent = lineMatch.Groups["indent"].Success ? lineMatch.Groups["indent"].Length : 0;
+                var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
+                var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
 
                 if (Phrases.First == null)
-                {
-                    this.CommentPrefix = match.Groups["commentprefix"].Value;
                     this.IsXmlComment = this.CommentPrefix.Length == 3 && words[0].StartsWith("<");
-                }
 
                 AddPhrase(new CodeCommentPhrase(indent, listPrefix, words));
             }
@@ -68,6 +73,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public string CommentPrefix { get; private set; }
 
         public EditPoint EndPoint { get; private set; }
+
+        public bool IsBlockComment { get; private set; }
 
         public bool IsXmlComment { get; private set; }
 
@@ -111,7 +118,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             while (phrase != null)
             {
-                _cursor.Insert(CommentPrefix);
+                // Start of Block comment
+                if (IsBlockComment && phrase.Previous == null)
+                    _cursor.Insert("/*");
+                else
+                    _cursor.Insert(CommentPrefix);
 
                 // Phrase is a list, so output the list prefix before the first word.
                 if (phrase.Value.IsList)
@@ -144,10 +155,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
 
                 phrase = phrase.Next;
-
-                // If on a comment phrase, and there will be another phrase, add a newline.
+                
                 if (phrase != null)
+                {
+                    // On a comment phrase, and there will be another phrase.
                     WriteNewCommentLine(false);
+                }
+                else if (IsBlockComment)
+                {
+                    // End the block comment
+                    _cursor.Insert(" */");
+                }
             }
 
             EndPoint = _cursor.CreateEditPoint();
