@@ -75,33 +75,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static int CalculateTypeOffset(BaseCodeItem codeItem)
         {
-            const int fieldOffset = 1;
-            const int constructorOffset = 2;
-            const int destructorOffset = 3;
-            const int delegateOffset = 4;
-            const int eventOffset = 5;
-            const int enumOffset = 6;
-            const int interfaceOffset = 7;
-            const int propertyOffset = 8;
-            const int indexerOffset = 9;
-            const int methodOffset = 10;
-            const int structOffset = 11;
-            const int classOffset = 12;
-
             switch (codeItem.Kind)
             {
-                case KindCodeItem.Class: return classOffset;
-                case KindCodeItem.Constructor: return constructorOffset;
-                case KindCodeItem.Delegate: return delegateOffset;
-                case KindCodeItem.Destructor: return destructorOffset;
-                case KindCodeItem.Enum: return enumOffset;
-                case KindCodeItem.Event: return eventOffset;
-                case KindCodeItem.Field: return fieldOffset;
-                case KindCodeItem.Indexer: return indexerOffset;
-                case KindCodeItem.Interface: return interfaceOffset;
-                case KindCodeItem.Method: return methodOffset;
-                case KindCodeItem.Property: return propertyOffset;
-                case KindCodeItem.Struct: return structOffset;
+                case KindCodeItem.Class: return Settings.Default.Reorganizing_SortOrderTypeClasses;
+                case KindCodeItem.Constructor: return Settings.Default.Reorganizing_SortOrderTypeConstructors;
+                case KindCodeItem.Delegate: return Settings.Default.Reorganizing_SortOrderTypeDelegates;
+                case KindCodeItem.Destructor: return Settings.Default.Reorganizing_SortOrderTypeDestructors;
+                case KindCodeItem.Enum: return Settings.Default.Reorganizing_SortOrderTypeEnums;
+                case KindCodeItem.Event: return Settings.Default.Reorganizing_SortOrderTypeEvents;
+                case KindCodeItem.Field: return Settings.Default.Reorganizing_SortOrderTypeFields;
+                case KindCodeItem.Indexer: return Settings.Default.Reorganizing_SortOrderTypeIndexers;
+                case KindCodeItem.Interface: return Settings.Default.Reorganizing_SortOrderTypeInterfaces;
+                case KindCodeItem.Method: return Settings.Default.Reorganizing_SortOrderTypeMethods;
+                case KindCodeItem.Property: return Settings.Default.Reorganizing_SortOrderTypeProperties;
+                case KindCodeItem.Struct: return Settings.Default.Reorganizing_SortOrderTypeStructs;
                 default: return 0;
             }
         }

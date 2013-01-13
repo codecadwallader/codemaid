@@ -38,6 +38,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
             KeepMembersWithinRegions = Settings.Default.Reorganizing_KeepMembersWithinRegions;
             RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
+            SortOrderTypeFields = Settings.Default.Reorganizing_SortOrderTypeFields;
+            SortOrderTypeConstructors = Settings.Default.Reorganizing_SortOrderTypeConstructors;
+            SortOrderTypeDestructors = Settings.Default.Reorganizing_SortOrderTypeDestructors;
+            SortOrderTypeDelegates = Settings.Default.Reorganizing_SortOrderTypeDelegates;
+            SortOrderTypeEvents = Settings.Default.Reorganizing_SortOrderTypeEvents;
+            SortOrderTypeEnums = Settings.Default.Reorganizing_SortOrderTypeEnums;
+            SortOrderTypeInterfaces = Settings.Default.Reorganizing_SortOrderTypeInterfaces;
+            SortOrderTypeProperties = Settings.Default.Reorganizing_SortOrderTypeProperties;
+            SortOrderTypeIndexers = Settings.Default.Reorganizing_SortOrderTypeIndexers;
+            SortOrderTypeMethods = Settings.Default.Reorganizing_SortOrderTypeMethods;
+            SortOrderTypeStructs = Settings.Default.Reorganizing_SortOrderTypeStructs;
+            SortOrderTypeClasses = Settings.Default.Reorganizing_SortOrderTypeClasses;
         }
 
         /// <summary>
@@ -48,6 +60,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
             Settings.Default.Reorganizing_KeepMembersWithinRegions = KeepMembersWithinRegions;
             Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
+            Settings.Default.Reorganizing_SortOrderTypeFields = SortOrderTypeFields;
+            Settings.Default.Reorganizing_SortOrderTypeConstructors = SortOrderTypeConstructors;
+            Settings.Default.Reorganizing_SortOrderTypeDestructors = SortOrderTypeDestructors;
+            Settings.Default.Reorganizing_SortOrderTypeDelegates = SortOrderTypeDelegates;
+            Settings.Default.Reorganizing_SortOrderTypeEvents = SortOrderTypeEvents;
+            Settings.Default.Reorganizing_SortOrderTypeEnums = SortOrderTypeEnums;
+            Settings.Default.Reorganizing_SortOrderTypeInterfaces = SortOrderTypeInterfaces;
+            Settings.Default.Reorganizing_SortOrderTypeProperties = SortOrderTypeProperties;
+            Settings.Default.Reorganizing_SortOrderTypeIndexers = SortOrderTypeIndexers;
+            Settings.Default.Reorganizing_SortOrderTypeMethods = SortOrderTypeMethods;
+            Settings.Default.Reorganizing_SortOrderTypeStructs = SortOrderTypeStructs;
+            Settings.Default.Reorganizing_SortOrderTypeClasses = SortOrderTypeClasses;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -104,6 +128,222 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 {
                     _runAtStartOfCleanup = value;
                     NotifyPropertyChanged("RunAtStartOfCleanup");
+                }
+            }
+        }
+
+        private int _sortOrderTypeFields;
+
+        /// <summary>
+        /// Gets or sets the sort order for field types.
+        /// </summary>
+        public int SortOrderTypeFields
+        {
+            get { return _sortOrderTypeFields; }
+            set
+            {
+                if (_sortOrderTypeFields != value)
+                {
+                    _sortOrderTypeFields = value;
+                    NotifyPropertyChanged("SortOrderTypeFields");
+                }
+            }
+        }
+
+        private int _sortOrderTypeConstructors;
+
+        /// <summary>
+        /// Gets or sets the sort order for constructor types.
+        /// </summary>
+        public int SortOrderTypeConstructors
+        {
+            get { return _sortOrderTypeConstructors; }
+            set
+            {
+                if (_sortOrderTypeConstructors != value)
+                {
+                    _sortOrderTypeConstructors = value;
+                    NotifyPropertyChanged("SortOrderTypeConstructors");
+                }
+            }
+        }
+
+        private int _sortOrderTypeDestructors;
+
+        /// <summary>
+        /// Gets or sets the sort order for destructor types.
+        /// </summary>
+        public int SortOrderTypeDestructors
+        {
+            get { return _sortOrderTypeDestructors; }
+            set
+            {
+                if (_sortOrderTypeDestructors != value)
+                {
+                    _sortOrderTypeDestructors = value;
+                    NotifyPropertyChanged("SortOrderTypeDestructors");
+                }
+            }
+        }
+
+        private int _sortOrderTypeDelegates;
+
+        /// <summary>
+        /// Gets or sets the sort order for delegate types.
+        /// </summary>
+        public int SortOrderTypeDelegates
+        {
+            get { return _sortOrderTypeDelegates; }
+            set
+            {
+                if (_sortOrderTypeDelegates != value)
+                {
+                    _sortOrderTypeDelegates = value;
+                    NotifyPropertyChanged("SortOrderTypeDelegates");
+                }
+            }
+        }
+
+        private int _sortOrderTypeEvents;
+
+        /// <summary>
+        /// Gets or sets the sort order for event types.
+        /// </summary>
+        public int SortOrderTypeEvents
+        {
+            get { return _sortOrderTypeEvents; }
+            set
+            {
+                if (_sortOrderTypeEvents != value)
+                {
+                    _sortOrderTypeEvents = value;
+                    NotifyPropertyChanged("SortOrderTypeEvents");
+                }
+            }
+        }
+
+        private int _sortOrderTypeEnums;
+
+        /// <summary>
+        /// Gets or sets the sort order for enum types.
+        /// </summary>
+        public int SortOrderTypeEnums
+        {
+            get { return _sortOrderTypeEnums; }
+            set
+            {
+                if (_sortOrderTypeEnums != value)
+                {
+                    _sortOrderTypeEnums = value;
+                    NotifyPropertyChanged("SortOrderTypeEnums");
+                }
+            }
+        }
+
+        private int _sortOrderTypeInterfaces;
+
+        /// <summary>
+        /// Gets or sets the sort order for interface types.
+        /// </summary>
+        public int SortOrderTypeInterfaces
+        {
+            get { return _sortOrderTypeInterfaces; }
+            set
+            {
+                if (_sortOrderTypeInterfaces != value)
+                {
+                    _sortOrderTypeInterfaces = value;
+                    NotifyPropertyChanged("SortOrderTypeInterfaces");
+                }
+            }
+        }
+
+        private int _sortOrderTypeProperties;
+
+        /// <summary>
+        /// Gets or sets the sort order for property types.
+        /// </summary>
+        public int SortOrderTypeProperties
+        {
+            get { return _sortOrderTypeProperties; }
+            set
+            {
+                if (_sortOrderTypeProperties != value)
+                {
+                    _sortOrderTypeProperties = value;
+                    NotifyPropertyChanged("SortOrderTypeProperties");
+                }
+            }
+        }
+
+        private int _sortOrderTypeIndexers;
+
+        /// <summary>
+        /// Gets or sets the sort order for indexer types.
+        /// </summary>
+        public int SortOrderTypeIndexers
+        {
+            get { return _sortOrderTypeIndexers; }
+            set
+            {
+                if (_sortOrderTypeIndexers != value)
+                {
+                    _sortOrderTypeIndexers = value;
+                    NotifyPropertyChanged("SortOrderTypeIndexers");
+                }
+            }
+        }
+
+        private int _sortOrderTypeMethods;
+
+        /// <summary>
+        /// Gets or sets the sort order for method types.
+        /// </summary>
+        public int SortOrderTypeMethods
+        {
+            get { return _sortOrderTypeMethods; }
+            set
+            {
+                if (_sortOrderTypeMethods != value)
+                {
+                    _sortOrderTypeMethods = value;
+                    NotifyPropertyChanged("SortOrderTypeMethods");
+                }
+            }
+        }
+
+        private int _sortOrderTypeStructs;
+
+        /// <summary>
+        /// Gets or sets the sort order for struct types.
+        /// </summary>
+        public int SortOrderTypeStructs
+        {
+            get { return _sortOrderTypeStructs; }
+            set
+            {
+                if (_sortOrderTypeStructs != value)
+                {
+                    _sortOrderTypeStructs = value;
+                    NotifyPropertyChanged("SortOrderTypeStructs");
+                }
+            }
+        }
+
+        private int _sortOrderTypeClasses;
+
+        /// <summary>
+        /// Gets or sets the sort order for class types.
+        /// </summary>
+        public int SortOrderTypeClasses
+        {
+            get { return _sortOrderTypeClasses; }
+            set
+            {
+                if (_sortOrderTypeClasses != value)
+                {
+                    _sortOrderTypeClasses = value;
+                    NotifyPropertyChanged("SortOrderTypeClasses");
                 }
             }
         }
