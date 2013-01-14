@@ -3,9 +3,13 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing">
     <DataTemplate DataType="{x:Type local:ReorganizingViewModel}">
         <StackPanel>
-            <CheckBox Content="Run reorganize at start of cleanup" IsChecked="{Binding RunAtStartOfCleanup}" />
-            <CheckBox Content="Alphabetize members of the same group" IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
-            <CheckBox Content="Keep members within regions" IsChecked="{Binding KeepMembersWithinRegions}" />
+            <GroupBox Header="General">
+                <StackPanel>
+                    <CheckBox Content="Run reorganize at start of cleanup" IsChecked="{Binding RunAtStartOfCleanup}" />
+                    <CheckBox Content="Alphabetize members of the same group" IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
+                    <CheckBox Content="Keep members within regions" IsChecked="{Binding KeepMembersWithinRegions}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

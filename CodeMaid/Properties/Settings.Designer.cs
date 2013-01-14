@@ -1139,5 +1139,149 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_CommentMinorTags"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Reorganizing_SortOrderTypeFields {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeFields"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeFields"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int Reorganizing_SortOrderTypeConstructors {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeConstructors"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeConstructors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int Reorganizing_SortOrderTypeDestructors {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeDestructors"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeDestructors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int Reorganizing_SortOrderTypeDelegates {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeDelegates"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeDelegates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int Reorganizing_SortOrderTypeEvents {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeEvents"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeEvents"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int Reorganizing_SortOrderTypeEnums {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeEnums"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeEnums"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int Reorganizing_SortOrderTypeInterfaces {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeInterfaces"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeInterfaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int Reorganizing_SortOrderTypeProperties {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeProperties"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int Reorganizing_SortOrderTypeIndexers {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeIndexers"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeIndexers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int Reorganizing_SortOrderTypeMethods {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeMethods"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("11")]
+        public int Reorganizing_SortOrderTypeStructs {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeStructs"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeStructs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int Reorganizing_SortOrderTypeClasses {
+            get {
+                return ((int)(this["Reorganizing_SortOrderTypeClasses"]));
+            }
+            set {
+                this["Reorganizing_SortOrderTypeClasses"] = value;
+            }
+        }
     }
 }

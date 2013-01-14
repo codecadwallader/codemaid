@@ -55,29 +55,41 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 {
                     var selection = activeTextDocument.Selection;
 
+                    EditPoint 
+                        start = null, 
+                        end = null;
+
                     if (selection.IsEmpty)
                     {
-                        EditPoint start = selection.ActivePoint.CreateEditPoint();
-                        var line = start.Line;
-                        start.StartOfLine();
-
-                        enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line == line;
-
                         Text = "Format &Comment";
+                        
+                        start = selection.ActivePoint.CreateEditPoint();
+
+                        // Look backwards from end of start line
+                        start.EndOfLine();
+                        enable = start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.ActivePoint.Line;
                     }
                     else
                     {
-                        EditPoint start = selection.TopPoint.CreateEditPoint();
-                        EditPoint end = selection.BottomPoint.CreateEditPoint();
-                        start.StartOfLine();
-                        end.EndOfLine();
-
-                        enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= end.Line;
-
                         Text = "Format all &Comments in selection";
+
+                        start = selection.TopPoint.CreateEditPoint();
+
+                        // Need to fiddle around because start of selection can be inside a 
+                        // comment. First look back to see if we're inside a comment...
+                        enable = start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.TopPoint.Line;
+
+                        // If no comment found backwards, look forward to find a comment that 
+                        // starts before the selection ends.
+                        if (!enable)
+                        {
+                            start = selection.TopPoint.CreateEditPoint();
+                            enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= selection.BottomPoint.Line;
+                        }
                     }
                 }
             }
+
             Visible = enable;
             Enabled = enable;
         }
@@ -96,48 +108,41 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 if (pattern != null)
                 {
                     bool found = false;
-                    EditPoint start, end, from, to;
+                    EditPoint 
+                        start = null, 
+                        end = null, 
+                        from = null, 
+                        to = null;
 
                     if (selection.IsEmpty)
                     {
-                        // No selection, look backwards to find the start of the current comment.
                         start = selection.ActivePoint.CreateEditPoint();
-                        end = null;
-                        from = selection.ActivePoint.CreateEditPoint();
                         to = selection.ActivePoint.CreateEditPoint();
+                        to.EndOfLine();
 
-                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && end.Line >= from.Line - 1)
+                        start.EndOfLine();
+
+                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= to.Line)
                         {
-                            from = start.CreateEditPoint();
                             found = true;
-                        }
-
-                        if (!found)
-                        {
-                            // No comment found backwards, look forward.
-                            start = selection.ActivePoint.CreateEditPoint();
-                            if (start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression, ref end) && start.Line <= to.Line +1)
-                            {
-                                to = end.CreateEditPoint();
-                                start = end;
-                                found = true;
-                            }
+                            from = start.CreateEditPoint();
+                            start = end;
                         }
                     }
                     else
                     {
-                        // Search in selection.
                         start = selection.TopPoint.CreateEditPoint();
-                        end = null;
-                        from = selection.TopPoint.CreateEditPoint();
                         to = selection.BottomPoint.CreateEditPoint();
 
-                        // Look backwards to find the start of the current comment.
-                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsBackwards | vsFindOptions.vsFindOptionsRegularExpression), ref end) && end.Line >= from.Line - 1)
+                        if (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.TopPoint.Line)
+                        {
+                            found = true;
                             from = start.CreateEditPoint();
-
-                        // Always found
-                        found = true;
+                        }
+                        else
+                        {
+                            start = selection.TopPoint.CreateEditPoint();
+                        }
                     }
 
                     if (found)

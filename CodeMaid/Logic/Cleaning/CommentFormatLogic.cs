@@ -126,7 +126,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "JavaScript":
                 case "JScript":
                     return @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/|(?<prefix>//+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";
-                //return @"((?<prefix>//+) (?<firstline>.*)(?<otherlines>\r?\n\s*\k<prefix> (?<line>.*))*)";
 
                 case "Basic":
                     return @"(?<prefix>'+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";

@@ -22,6 +22,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class JoinLinesCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -32,6 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandJoinLines, (int)PkgCmdIDList.CmdIDCodeMaidJoinLines))
         {
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Join");
         }
 
         #endregion Constructors
@@ -57,28 +64,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 var textSelection = activeTextDocument.Selection;
                 if (textSelection != null)
                 {
-                    // If the selection has no length, try to pick up the next line.
-                    if (textSelection.IsEmpty)
-                    {
-                        textSelection.LineDown(true, 1);
-                        textSelection.EndOfLine(true);
-                    }
-
-                    string pattern = Package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
-                    const string replacement = @" ";
-
-                    // Substitute all new lines (and optional surrounding whitespace) with a single space.
-                    TextDocumentHelper.SubstituteAllStringMatches(textSelection, pattern, replacement);
-
-                    // Move the cursor forward and clear the selection.
-                    textSelection.CharRight(false, 1);
+                    _undoTransactionHelper.Run(() => JoinText(textSelection));
                 }
             }
         }
 
         #endregion BaseCommand Methods
 
-        #region Private Properties
+        #region Properties
 
         /// <summary>
         /// Gets the active text document, otherwise null.
@@ -93,6 +86,33 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        #endregion Private Properties
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Joins the text within the specified text selection.
+        /// </summary>
+        /// <param name="textSelection">The text selection.</param>
+        private void JoinText(TextSelection textSelection)
+        {
+            // If the selection has no length, try to pick up the next line.
+            if (textSelection.IsEmpty)
+            {
+                textSelection.LineDown(true);
+                textSelection.EndOfLine(true);
+            }
+
+            string pattern = Package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
+            const string replacement = @" ";
+
+            // Substitute all new lines (and optional surrounding whitespace) with a single space.
+            TextDocumentHelper.SubstituteAllStringMatches(textSelection, pattern, replacement);
+
+            // Move the cursor forward, clearing the selection.
+            textSelection.CharRight();
+        }
+
+        #endregion Methods
     }
 }
