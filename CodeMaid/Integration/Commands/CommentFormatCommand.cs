@@ -14,6 +14,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using System;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -49,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var pattern = CommentFormatLogic.GetCommentPatternForDocument(activeTextDocument);
+                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument));
 
                 if (pattern != null)
                 {
@@ -102,11 +103,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var selection = activeTextDocument.Selection;
-                var pattern = CommentFormatLogic.GetCommentPatternForDocument(activeTextDocument);
+                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument));
 
                 if (pattern != null)
                 {
+                    var selection = activeTextDocument.Selection;
+
                     bool found = false;
                     EditPoint 
                         start = null, 
@@ -118,30 +120,29 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     {
                         start = selection.ActivePoint.CreateEditPoint();
                         to = selection.ActivePoint.CreateEditPoint();
-                        to.EndOfLine();
-
-                        start.EndOfLine();
-
-                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= to.Line)
-                        {
-                            found = true;
-                            from = start.CreateEditPoint();
-                            start = end;
-                        }
                     }
                     else
                     {
                         start = selection.TopPoint.CreateEditPoint();
                         to = selection.BottomPoint.CreateEditPoint();
+                    }
 
-                        if (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.TopPoint.Line)
+
+                    // Look back from start line
+                    start.EndOfLine();
+                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= to.Line)
+                    {
+                        found = true;
+                        from = start.CreateEditPoint();
+                    }
+
+                    // In case of selection, look forward too.
+                    if (!found && !selection.IsEmpty)
+                    {
+                        if (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref end) && start.Line <= to.Line)
                         {
                             found = true;
                             from = start.CreateEditPoint();
-                        }
-                        else
-                        {
-                            start = selection.TopPoint.CreateEditPoint();
                         }
                     }
 
@@ -178,5 +179,33 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         #endregion Private Properties
+
+        #region Private Methods
+
+        public static string[] GetCommentPrefixPatternsForDocument(TextDocument document)
+        {
+            switch (document.Parent.Language)
+            {
+                case "CSharp":
+                case "C/C++":
+                case "JavaScript":
+                case "JScript":
+                    return new[] {
+                        @"/\* .*(\r?\n\s*\* .*)*",
+                        @"(?<prefix>//+) .*(\r?\n\s*\k<prefix> .*)*"
+                    };
+
+                case "Basic":
+                    return new[] {
+                        @"(?<prefix>'+) .*(\r?\n\s*\k<prefix> .*)*"
+                    };
+
+                default:
+                    return null;
+            }
+        }
+
+        #endregion Private Methods
+
     }
 }

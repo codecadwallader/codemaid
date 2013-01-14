@@ -96,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            string pattern = GetCommentPatternForDocument(textDocument);
+            string pattern = String.Join("|", GetCommentPatternsForDocument(textDocument));
 
             if (pattern == null)// || prefix == null)
                 return;
@@ -117,7 +117,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         #region Private Methods
 
-        public static string GetCommentPatternForDocument(TextDocument document)
+        public static string[] GetCommentPatternsForDocument(TextDocument document)
         {
             switch (document.Parent.Language)
             {
@@ -125,10 +125,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "C/C++":
                 case "JavaScript":
                 case "JScript":
-                    return @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/|(?<prefix>//+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";
+                    return new[] {
+                        @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/",
+                        @"(?<prefix>//+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*"
+                    };
 
                 case "Basic":
-                    return @"(?<prefix>'+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*";
+                    return new [] {
+                        @"(?<prefix>'+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*"
+                    };
 
                 default: 
                     return null;
