@@ -79,6 +79,10 @@
                                 <Setter Property="Padding" Value="10,5,10,0" />
                             </Style>
 
+                            <Style TargetType="{x:Type ListBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
                             <Style TargetType="{x:Type RadioButton}">
                                 <Setter Property="Margin" Value="5" />
                             </Style>

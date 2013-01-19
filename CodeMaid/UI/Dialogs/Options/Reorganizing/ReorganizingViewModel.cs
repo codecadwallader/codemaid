@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
+using System.Collections.ObjectModel;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
@@ -349,5 +350,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         }
 
         #endregion Options
+
+        #region Properties
+
+        private readonly ObservableCollection<object> _sortOrderTypes = new ObservableCollection<object>(
+            new[]
+                {
+                    "Fields", "Constructors", "Destructors", "Delegates", "Events", "Enums", "Interfaces", "Properties", "Indexers", "Methods", "Structs", "Classes"
+                });
+
+        public ObservableCollection<object> SortOrderTypes
+        {
+            get { return _sortOrderTypes; }
+        }
+
+        #endregion Properties
+
+        #region Methods
+
+        #endregion Methods
     }
 }
