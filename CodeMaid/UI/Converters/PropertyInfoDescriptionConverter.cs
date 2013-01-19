@@ -14,6 +14,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Data;
 
@@ -42,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var propertyInfo = value as PropertyInfo;
             if (propertyInfo == null) return null;
 
-            var descriptionAttribute = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
+            var descriptionAttribute = propertyInfo.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
             if (descriptionAttribute == null) return null;
 
             return descriptionAttribute.Description;

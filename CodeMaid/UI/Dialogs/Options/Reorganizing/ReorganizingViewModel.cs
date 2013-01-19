@@ -412,7 +412,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         private void SynchronizeSortOrderTypesFromSettings()
         {
             SortOrderTypes = new ObservableCollection<object>(from t in AllSortOrderTypes
-                                                              orderby (int)t.GetValue(this)
+                                                              orderby (int)t.GetValue(this, null)
                                                               select t);
             SortOrderTypes.CollectionChanged += (sender, args) => SynchronizeSortOrderTypesToSettings();
         }
@@ -426,7 +426,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
             foreach (var type in SortOrderTypes.OfType<PropertyInfo>())
             {
-                type.SetValue(this, i++);
+                type.SetValue(this, i++, null);
             }
         }
 
