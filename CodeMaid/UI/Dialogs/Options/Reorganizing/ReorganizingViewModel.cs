@@ -12,6 +12,10 @@
 #endregion CodeMaid is Copyright 2007-2012 Steve Cadwallader.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
@@ -51,6 +55,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             SortOrderTypeMethods = Settings.Default.Reorganizing_SortOrderTypeMethods;
             SortOrderTypeStructs = Settings.Default.Reorganizing_SortOrderTypeStructs;
             SortOrderTypeClasses = Settings.Default.Reorganizing_SortOrderTypeClasses;
+
+            SynchronizeSortOrderTypesFromSettings();
         }
 
         /// <summary>
@@ -138,6 +144,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for field types.
         /// </summary>
+        [Description("Fields")]
         public int SortOrderTypeFields
         {
             get { return _sortOrderTypeFields; }
@@ -156,6 +163,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for constructor types.
         /// </summary>
+        [Description("Constructors")]
         public int SortOrderTypeConstructors
         {
             get { return _sortOrderTypeConstructors; }
@@ -174,6 +182,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for destructor types.
         /// </summary>
+        [Description("Destructors")]
         public int SortOrderTypeDestructors
         {
             get { return _sortOrderTypeDestructors; }
@@ -192,6 +201,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for delegate types.
         /// </summary>
+        [Description("Delegates")]
         public int SortOrderTypeDelegates
         {
             get { return _sortOrderTypeDelegates; }
@@ -210,6 +220,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for event types.
         /// </summary>
+        [Description("Events")]
         public int SortOrderTypeEvents
         {
             get { return _sortOrderTypeEvents; }
@@ -228,6 +239,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for enum types.
         /// </summary>
+        [Description("Enums")]
         public int SortOrderTypeEnums
         {
             get { return _sortOrderTypeEnums; }
@@ -246,6 +258,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for interface types.
         /// </summary>
+        [Description("Interfaces")]
         public int SortOrderTypeInterfaces
         {
             get { return _sortOrderTypeInterfaces; }
@@ -264,6 +277,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for property types.
         /// </summary>
+        [Description("Properties")]
         public int SortOrderTypeProperties
         {
             get { return _sortOrderTypeProperties; }
@@ -282,6 +296,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for indexer types.
         /// </summary>
+        [Description("Indexers")]
         public int SortOrderTypeIndexers
         {
             get { return _sortOrderTypeIndexers; }
@@ -300,6 +315,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for method types.
         /// </summary>
+        [Description("Methods")]
         public int SortOrderTypeMethods
         {
             get { return _sortOrderTypeMethods; }
@@ -318,6 +334,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for struct types.
         /// </summary>
+        [Description("Structs")]
         public int SortOrderTypeStructs
         {
             get { return _sortOrderTypeStructs; }
@@ -336,6 +353,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets or sets the sort order for class types.
         /// </summary>
+        [Description("Classes")]
         public int SortOrderTypeClasses
         {
             get { return _sortOrderTypeClasses; }
@@ -351,23 +369,67 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         #endregion Options
 
-        #region Properties
+        #region Sort Order Types Logic
 
-        private readonly ObservableCollection<object> _sortOrderTypes = new ObservableCollection<object>(
+        private static readonly PropertyInfo[] AllSortOrderTypes =
             new[]
                 {
-                    "Fields", "Constructors", "Destructors", "Delegates", "Events", "Enums", "Interfaces", "Properties", "Indexers", "Methods", "Structs", "Classes"
-                });
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeFields),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeConstructors),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeDestructors),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeDelegates),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeEvents),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeEnums),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeInterfaces),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeProperties),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeIndexers),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeMethods),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeStructs),
+                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeClasses)
+                };
 
+        private ObservableCollection<object> _sortOrderTypes;
+
+        /// <summary>
+        /// Gets an observable collection of the types in a sort order friendly fashion.
+        /// </summary>
         public ObservableCollection<object> SortOrderTypes
         {
             get { return _sortOrderTypes; }
+            private set
+            {
+                if (_sortOrderTypes != value)
+                {
+                    _sortOrderTypes = value;
+                    NotifyPropertyChanged("SortOrderTypes");
+                }
+            }
         }
 
-        #endregion Properties
+        /// <summary>
+        /// Synchronizes the sort order types collection from settings.
+        /// </summary>
+        private void SynchronizeSortOrderTypesFromSettings()
+        {
+            SortOrderTypes = new ObservableCollection<object>(from t in AllSortOrderTypes
+                                                              orderby (int)t.GetValue(this)
+                                                              select t);
+            SortOrderTypes.CollectionChanged += (sender, args) => SynchronizeSortOrderTypesToSettings();
+        }
 
-        #region Methods
+        /// <summary>
+        /// Synchronizes the sort order types collection to settings.
+        /// </summary>
+        private void SynchronizeSortOrderTypesToSettings()
+        {
+            int i = 1;
 
-        #endregion Methods
+            foreach (var type in SortOrderTypes.OfType<PropertyInfo>())
+            {
+                type.SetValue(this, i++);
+            }
+        }
+
+        #endregion Sort Order Types Logic
     }
 }
