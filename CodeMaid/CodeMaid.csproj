@@ -164,6 +164,7 @@
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ExplicitInterfaceImplementationHelper.cs" />
     <Compile Include="Helpers\OutputWindowHelper.cs" />
+    <Compile Include="Helpers\PropertyInfoHelper.cs" />
     <Compile Include="Helpers\SolutionHelper.cs" />
     <Compile Include="Helpers\TextDocumentHelper.cs" />
     <Compile Include="Helpers\CursorPositionRestorer.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="UI\Converters\NameParametersToTextBlockConverter.cs" />
     <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
     <Compile Include="UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
+    <Compile Include="UI\Converters\PropertyInfoDescriptionConverter.cs" />
     <Compile Include="UI\Converters\StringReplaceConverter.cs" />
     <Compile Include="UI\Converters\TypeStringConverter.cs" />
     <Compile Include="UI\DelegateCommand.cs" />

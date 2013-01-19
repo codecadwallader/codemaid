@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:ReorganizingViewModel}">
         <StackPanel>
@@ -26,7 +27,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                             <Grid Background="{TemplateBinding Background}">
-                                                <ContentPresenter Margin="2" />
+                                                <ContentPresenter Content="{Binding Converter={x:Static cnv:PropertyInfoDescriptionConverter.Default}}" Margin="2" />
 
                                                 <Border x:Name="dropTargetCue" BorderBrush="{DynamicResource FCodeMaidGreen}" SnapsToDevicePixels="True" Visibility="Collapsed" />
                                             </Grid>
