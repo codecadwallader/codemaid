@@ -128,9 +128,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     }
 
 
-                    // Look back from start line
+                    // Look back from start line.
                     start.EndOfLine();
-                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= to.Line)
+                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && (end.Line >= to.Line || found))
                     {
                         found = true;
                         from = start.CreateEditPoint();

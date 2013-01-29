@@ -98,7 +98,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             string pattern = String.Join("|", GetCommentPatternsForDocument(textDocument));
 
-            if (pattern == null)// || prefix == null)
+            if (pattern == null)
                 return;
 
             var cursor = startPoint.CreateEditPoint();
