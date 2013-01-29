@@ -127,10 +127,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                         to = selection.BottomPoint.CreateEditPoint();
                     }
 
+                    from = start.CreateEditPoint();
 
                     // Look back from start line.
                     start.EndOfLine();
-                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && (end.Line >= to.Line || found))
+                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && (end.Line + 1 >= from.Line))
                     {
                         found = true;
                         from = start.CreateEditPoint();

@@ -1130,7 +1130,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("param||exception||returns||value")]
+        [global::System.Configuration.DefaultSettingValueAttribute("param||exception||returns||value||permissions")]
         public string Cleaning_CommentMinorTags {
             get {
                 return ((string)(this["Cleaning_CommentMinorTags"]));

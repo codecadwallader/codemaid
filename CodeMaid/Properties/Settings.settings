@@ -279,7 +279,7 @@
       <Value Profile="(Default)">summary||remarks||example</Value>
     </Setting>
     <Setting Name="Cleaning_CommentMinorTags" Type="System.String" Scope="User">
-      <Value Profile="(Default)">param||exception||returns||value</Value>
+      <Value Profile="(Default)">param||exception||returns||value||permissions</Value>
     </Setting>
     <Setting Name="Reorganizing_SortOrderTypeFields" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>

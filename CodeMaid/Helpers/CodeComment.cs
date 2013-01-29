@@ -187,7 +187,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void ReformatXmlPhrases()
         {
-            this.XmlTagRegex = new Regex(@"^<(?<closetag>\/)?(?<tag>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + ")).*>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            this.XmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var phrase = Phrases.First;
             while (phrase != null)
@@ -198,14 +198,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     while (word != null)
                     {
                         var match = XmlTagRegex.Match(word.Value);
+
                         if (match.Success)
                         {
-                            var tagName = match.Groups["tag"].Value;
-                            bool isCloseTag = match.Groups["closetag"].Success;
+                            // Text directly before this tag goes in current phrase.
+                            if (match.Groups["before"].Success)
+                                word.List.AddBefore(word, match.Groups["before"].Value);
+                            if (match.Groups["after"].Success)
+                                word.List.AddAfter(word, match.Groups["after"].Value);
+                            if (match.Groups["fulltag"].Success)
+                                word.Value = match.Groups["fulltag"].Value;
+
+                            var tagName = match.Groups["tagname"].Value;
+                            bool isCloseTag = word.Value.StartsWith("</");
                             bool isMajorTag = _majorTags.Value.Contains(tagName);
 
                             // Major tags and minor opening tags should be the first word.
-                            if (word.Previous != null && (isMajorTag || (!isCloseTag && _majorTags.Value.Contains(tagName))))
+                            if (word.Previous != null && (isMajorTag || (!isCloseTag)))
                             {
                                 // Previous word will be the last word of this phrase.
                                 word = word.Previous;
