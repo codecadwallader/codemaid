@@ -13,6 +13,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Xml.Linq;
 
@@ -48,12 +49,17 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 var summaryTag = xElement.Descendants("summary").FirstOrDefault();
                 if (summaryTag == null) return string.Empty;
 
-                var result = summaryTag.ToString()
-                    .Replace("<summary>", "")
-                    .Replace("</summary>", "")
-                    .Replace(Environment.NewLine, "  ")
-                    .Replace("\n", "  ")
-                    .Trim();
+                // Get the Inner XML for the summary tag.
+                var result = GetInnerXML(summaryTag);
+
+                // Replace para tags with two new lines.
+                result = Regex.Replace(result, @"</?para ?/?> ?", Environment.NewLine + Environment.NewLine);
+
+                // Reduce three of more new lines down to two.
+                result = Regex.Replace(result, @"(\r?\n){3,}", Environment.NewLine + Environment.NewLine);
+
+                // Trim off any leading/trailing whitespace including newlines.
+                result = result.Trim();
 
                 return result;
             }
@@ -74,6 +80,18 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the inner XML for the specified XElement.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>The inner XML for the specified XElement.</returns>
+        private static string GetInnerXML(XElement element)
+        {
+            var reader = element.CreateReader();
+            reader.MoveToContent();
+            return reader.ReadInnerXml();
         }
     }
 }
