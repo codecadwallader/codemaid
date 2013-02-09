@@ -210,9 +210,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
+            int maxIterations = textDocument.EndPoint.AbsoluteCharOffset;
+
             TextRanges dummy = null;
             while (textDocument.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
+                if (maxIterations-- <= 0)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
+                    break;
+                }
             }
         }
 
@@ -225,9 +232,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
+            int maxIterations = textSelection.BottomPoint.AbsoluteCharOffset - textSelection.TopPoint.AbsoluteCharOffset;
+
             TextRanges dummy = null;
             while (textSelection.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
+                if (maxIterations-- <= 0)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
+                    break;
+                }
             }
         }
 
@@ -241,9 +255,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
+            int maxIterations = endPoint.AbsoluteCharOffset - startPoint.AbsoluteCharOffset;
+
             TextRanges dummy = null;
             while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))
             {
+                if (maxIterations-- <= 0)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");
+                    break;
+                }
             }
         }
 
