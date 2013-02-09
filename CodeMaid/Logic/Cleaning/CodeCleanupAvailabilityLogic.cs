@@ -112,7 +112,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document is external, otherwise false.</returns>
         internal bool IsDocumentExternal(Document document)
         {
-            return document.ProjectItem == null || document.ProjectItem.Kind != Constants.vsProjectItemKindPhysicalFile;
+            var projectItem = document.ProjectItem;
+            if (projectItem == null || projectItem.Collection == null || projectItem.Kind != Constants.vsProjectItemKindPhysicalFile) return true;
+
+            return projectItem.Collection.OfType<ProjectItem>().All(x => x != projectItem);
         }
 
         /// <summary>
