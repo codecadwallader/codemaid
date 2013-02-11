@@ -50,7 +50,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument));
+                var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
+                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument, prefix));
 
                 if (pattern != null)
                 {
@@ -103,7 +104,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument));
+                var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
+                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument, prefix));
 
                 if (pattern != null)
                 {
@@ -137,15 +139,25 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                         from = start.CreateEditPoint();
                     }
 
+                    // Found comment, but make sure this isn't commented out code.
+                    if (CodeCommentHelper.IsCommentedCodeBefore(from, prefix))
+                        found = false;
+
                     // In case of selection, look forward too.
                     if (!found && !selection.IsEmpty)
                     {
-                        if (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref end) && start.Line <= to.Line)
+                        from = selection.TopPoint.CreateEditPoint();
+                        start = from.CreateEditPoint();
+                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref end) && start.Line <= to.Line)
                         {
                             found = true;
-                            from = start.CreateEditPoint();
+                            to = end.CreateEditPoint();
+                            start = end;
                         }
                     }
+
+                    if (CodeCommentHelper.IsCommentedCodeAfter(to, prefix))
+                        found = false;
 
                     if (found)
                     {
@@ -183,8 +195,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
         #region Private Methods
 
-        public static string[] GetCommentPrefixPatternsForDocument(TextDocument document)
+        private static string[] GetCommentPrefixPatternsForDocument(TextDocument document, string prefix)
         {
+            string defaultPattern = String.Format(@"(?<prefix>{0}) .*(\r?\n\s*\k<prefix> .*)*", prefix);
+
             switch (document.Parent.Language)
             {
                 case "CSharp":
@@ -193,13 +207,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 case "JScript":
                     return new[] {
                         @"/\* .*(\r?\n\s*\* .*)*",
-                        @"(?<prefix>//+) .*(\r?\n\s*\k<prefix> .*)*"
+                        defaultPattern
                     };
 
                 case "Basic":
-                    return new[] {
-                        @"(?<prefix>'+) .*(\r?\n\s*\k<prefix> .*)*"
-                    };
+                    return new[] { defaultPattern };
 
                 default:
                     return null;

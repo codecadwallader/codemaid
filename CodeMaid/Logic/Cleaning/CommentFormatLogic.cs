@@ -96,48 +96,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            string pattern = String.Join("|", GetCommentPatternsForDocument(textDocument));
+            string commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
+            string commentPattern = String.Join("|", CodeCommentHelper.GetCommentPatternsForDocument(textDocument, commentPrefix));
 
-            if (pattern == null)
+            if (commentPattern == null)
                 return;
 
             var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
             TextRanges tags = null;
 
-            while (cursor != null && cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
+            while (cursor != null && cursor.FindPattern(commentPattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
             {
-                var comment = new CodeComment(pattern, ref cursor, ref end, _majorTags, _minorTags);
-                cursor = comment.Output(maxWidth);
+                if (CodeCommentHelper.IsCommentedCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedCodeAfter(cursor, commentPrefix))
+                {
+                    cursor = end;
+                }
+                else
+                {
+                    var comment = new CodeComment(commentPattern, ref cursor, ref end, _majorTags, _minorTags);
+                    cursor = comment.Output(maxWidth);
+                }
             }
 
-        }
-
-        #endregion Methods
-
-        #region Private Methods
-
-        public static string[] GetCommentPatternsForDocument(TextDocument document)
-        {
-            switch (document.Parent.Language)
-            {
-                case "CSharp":
-                case "C/C++":
-                case "JavaScript":
-                case "JScript":
-                    return new[] {
-                        @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/",
-                        @"(?<prefix>//+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*"
-                    };
-
-                case "Basic":
-                    return new [] {
-                        @"(?<prefix>'+) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*"
-                    };
-
-                default: 
-                    return null;
-            }
         }
 
         #endregion Private Methods
