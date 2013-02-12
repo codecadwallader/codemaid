@@ -35,7 +35,7 @@
                 <StackPanel>
                     <CheckBox Content="T4 generated code" IsChecked="{Binding ExcludeT4GeneratedCode}" />
 
-                    <TextBlock Text="Regular expressions that match file names to exclude  (ex: .*.resx )" Margin="5,5,5,0" />
+                    <TextBlock Text="Regular expressions that match file names to exclude  (ex: .*\.resx )" Margin="5,5,5,0" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock FontStyle="Italic" Text="Place each regular expression on a separate line" />
