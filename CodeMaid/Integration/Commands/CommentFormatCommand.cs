@@ -51,9 +51,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
                 var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
-                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument, prefix));
-
-                if (pattern != null)
+                if (prefix != null)
                 {
                     var selection = activeTextDocument.Selection;
 
@@ -66,32 +64,19 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                         Text = "Format &Comment";
                         
                         start = selection.ActivePoint.CreateEditPoint();
-
-                        // Look backwards from end of start line
-                        start.EndOfLine();
-                        enable = start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.ActivePoint.Line;
+                        end = selection.ActivePoint.CreateEditPoint();
                     }
                     else
                     {
                         Text = "Format all &Comments in selection";
 
                         start = selection.TopPoint.CreateEditPoint();
-
-                        // Need to fiddle around because start of selection can be inside a 
-                        // comment. First look back to see if we're inside a comment...
-                        enable = start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && end.Line >= selection.TopPoint.Line;
-
-                        // If no comment found backwards, look forward to find a comment that 
-                        // starts before the selection ends.
-                        if (!enable)
-                        {
-                            start = selection.TopPoint.CreateEditPoint();
-                            enable = start.FindPattern(pattern, (int)vsFindOptions.vsFindOptionsRegularExpression) && start.Line <= selection.BottomPoint.Line;
-                        }
+                        end = selection.BottomPoint.CreateEditPoint();
                     }
+
+                    enable = ExpandToFullComment(ref start, ref end, prefix);
                 }
             }
-
             Visible = enable;
             Enabled = enable;
         }
@@ -102,76 +87,81 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnExecute()
         {
             var activeTextDocument = ActiveTextDocument;
+
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
                 var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
-                var pattern = String.Join("|", GetCommentPrefixPatternsForDocument(activeTextDocument, prefix));
-
-                if (pattern != null)
+                if (prefix != null)
                 {
                     var selection = activeTextDocument.Selection;
 
-                    bool found = false;
-                    EditPoint 
-                        start = null, 
-                        end = null, 
-                        from = null, 
-                        to = null;
+                    EditPoint
+                        start = null,
+                        end = null;
 
                     if (selection.IsEmpty)
                     {
                         start = selection.ActivePoint.CreateEditPoint();
-                        to = selection.ActivePoint.CreateEditPoint();
+                        end = selection.ActivePoint.CreateEditPoint();
                     }
                     else
                     {
                         start = selection.TopPoint.CreateEditPoint();
-                        to = selection.BottomPoint.CreateEditPoint();
+                        end = selection.BottomPoint.CreateEditPoint();
                     }
 
-                    from = start.CreateEditPoint();
-
-                    // Look back from start line.
-                    start.EndOfLine();
-                    while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref end) && (end.Line + 1 >= from.Line))
+                    if (ExpandToFullComment(ref start, ref end, prefix))
                     {
-                        found = true;
-                        from = start.CreateEditPoint();
-                    }
-
-                    // Found comment, but make sure this isn't commented out code.
-                    if (CodeCommentHelper.IsCommentedCodeBefore(from, prefix))
-                        found = false;
-
-                    // In case of selection, look forward too.
-                    if (!found && !selection.IsEmpty)
-                    {
-                        from = selection.TopPoint.CreateEditPoint();
-                        start = from.CreateEditPoint();
-                        while (start.FindPattern(pattern, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref end) && start.Line <= to.Line)
-                        {
-                            found = true;
-                            to = end.CreateEditPoint();
-                            start = end;
-                        }
-                    }
-
-                    if (CodeCommentHelper.IsCommentedCodeAfter(to, prefix))
-                        found = false;
-
-                    if (found)
-                    {
-                        from.StartOfLine();
-                        to.EndOfLine();
-
                         var logic = CommentFormatLogic.GetInstance(Package);
                         new UndoTransactionHelper(Package, "Format Comment").Run(() =>
                         {
-                            logic.FormatComments(activeTextDocument, from, to);
+                            logic.FormatComments(activeTextDocument, start, end);
                         });
                     }
                 }
             }
+        }
+
+        private bool ExpandToFullComment(ref EditPoint start, ref EditPoint end, string prefix)
+        {
+            bool found = false;
+
+            EditPoint 
+                from = start.CreateEditPoint(),
+                to = null;
+
+            from.EndOfLine();
+
+            string prefix2 = prefix + " ";
+
+            while (from.FindPattern(prefix2, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref to) && to.Line + 1 >= start.Line)
+            {
+                start = from.CreateEditPoint();
+                found = true;
+            }
+
+            from = end.CreateEditPoint();
+            from.StartOfLine();
+
+            while (from.FindPattern(prefix2, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref to) && from.Line - 1 <= end.Line)
+            {
+                end = to.CreateEditPoint();
+                from = to;
+                found = true;
+            }
+
+            if (found)
+            {
+                if (CodeCommentHelper.IsCommentedCodeBefore(start, prefix))
+                    return false;
+                if (CodeCommentHelper.IsCommentedCodeAfter(end, prefix))
+                    return false;
+
+                start.StartOfLine();
+                end.EndOfLine();
+            }
+
+            return found;
         }
 
         #endregion BaseCommand Methods
