@@ -19,32 +19,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class CodeCommentHelper
     {
         /// <summary>
-        /// Get a collection of available comment regex patters for the given document.
+        /// Create multi-line Regex pattern based on the comment prefix.
         /// </summary>
-        /// <param name="document"></param>
         /// <param name="prefix"></param>
         /// <returns></returns>
-        internal static string[] GetCommentPatternsForDocument(TextDocument document, string prefix)
+        internal static string PrefixToPattern(string prefix)
         {
-            string defaultPattern = String.Format(@"(?<prefix>{0}) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*", prefix);
-
-            switch (document.Parent.Language)
-            {
-                case "CSharp":
-                case "C/C++":
-                case "JavaScript":
-                case "JScript":
-                    return new[] {
-                        @"(?<prefix>/\*) (?<line>.*)(\r?\n\s*\* (?<line>.*))*(\r?\n\s*)?\*/",
-                        defaultPattern
-                    };
-
-                case "Basic":
-                    return new[] { defaultPattern };
-
-                default:
-                    return null;
-            }
+            return String.Format(@"(?<prefix>{0}) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*", prefix);
         }
 
         /// <summary>

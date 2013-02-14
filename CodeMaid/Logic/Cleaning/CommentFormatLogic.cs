@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
             string commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
-            string commentPattern = String.Join("|", CodeCommentHelper.GetCommentPatternsForDocument(textDocument, commentPrefix));
+            string commentPattern = CodeCommentHelper.PrefixToPattern(commentPrefix);
 
             if (commentPattern == null)
                 return;
@@ -108,7 +108,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             while (cursor != null && cursor.FindPattern(commentPattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
             {
-                if (CodeCommentHelper.IsCommentedCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedCodeAfter(cursor, commentPrefix))
+                if (CodeCommentHelper.IsCommentedCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedCodeAfter(end, commentPrefix))
                 {
                     cursor = end;
                 }
