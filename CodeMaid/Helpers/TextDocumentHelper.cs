@@ -210,16 +210,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
-            int maxIterations = textDocument.EndPoint.AbsoluteCharOffset;
-
             TextRanges dummy = null;
+            int lastCount = -1;
             while (textDocument.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                if (maxIterations-- <= 0)
+                // it is possible that the replacements aren't actually being done.  In such a case, we can
+                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
                     break;
                 }
+                lastCount = dummy.Count;
             }
         }
 
@@ -232,16 +234,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
-            int maxIterations = textSelection.BottomPoint.AbsoluteCharOffset - textSelection.TopPoint.AbsoluteCharOffset;
-
             TextRanges dummy = null;
+            int lastCount = -1;
             while (textSelection.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                if (maxIterations-- <= 0)
+                // it is possible that the replacements aren't actually being done.  In such a case, we can
+                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
                     break;
                 }
+                lastCount = dummy.Count;
             }
         }
 
@@ -255,16 +259,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
-            int maxIterations = endPoint.AbsoluteCharOffset - startPoint.AbsoluteCharOffset;
-
             TextRanges dummy = null;
+            int lastCount = -1;
             while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                if (maxIterations-- <= 0)
+                // it is possible that the replacements aren't actually being done.  In such a case, we can
+                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");
                     break;
                 }
+                lastCount = dummy.Count;
             }
         }
 
