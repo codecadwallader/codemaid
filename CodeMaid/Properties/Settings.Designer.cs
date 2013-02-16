@@ -1235,5 +1235,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Reorganizing_SortOrderTypeClasses"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Compatibility_UseReSharperSilentCleanup {
+            get {
+                return ((bool)(this["Compatibility_UseReSharperSilentCleanup"]));
+            }
+            set {
+                this["Compatibility_UseReSharperSilentCleanup"] = value;
+            }
+        }
     }
 }

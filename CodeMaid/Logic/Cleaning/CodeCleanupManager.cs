@@ -208,7 +208,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
-            RunVSFormatting(textDocument);
+            Run3rdPartyCleanup(textDocument);
             if (!isExternal)
             {
                 _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
@@ -316,7 +316,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting(textDocument);
+            Run3rdPartyCleanup(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -336,7 +336,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting(textDocument);
+            Run3rdPartyCleanup(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -354,11 +354,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         #region Private Cleanup Methods
 
+
+        /// <summary>
+        /// Run the 3rd party clean up (Visual studio and ReSharper)
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void Run3rdPartyCleanup(TextDocument textDocument)
+        {
+            RunVisualStudioFormatDocument(textDocument);
+            RunResharperCleanup(textDocument);
+        }
+
         /// <summary>
         /// Run the visual studio built-in format document command.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void RunVSFormatting(TextDocument textDocument)
+        private void RunVisualStudioFormatDocument(TextDocument textDocument)
         {
             if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
@@ -368,6 +379,28 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 {
                     // Run the command.
                     _package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
+                }
+            }
+            catch
+            {
+                // OK if fails, not available for some file types.
+            }
+        }
+
+        /// <summary>
+        /// Run the ReSharper silent cleanup command.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunResharperCleanup(TextDocument textDocument)
+        {
+            if (!Settings.Default.Compatibility_UseReSharperSilentCleanup) return;
+
+            try
+            {
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    // Run the command.
+                    _package.IDE.ExecuteCommand("ReSharper_SilentCleanupCode", String.Empty);
                 }
             }
             catch

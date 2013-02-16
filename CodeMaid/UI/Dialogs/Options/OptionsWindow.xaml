@@ -67,6 +67,7 @@
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                             </ResourceDictionary.MergedDictionaries>
 
                             <Style TargetType="{x:Type CheckBox}">

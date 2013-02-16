@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
@@ -59,7 +60,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                             new DiggingViewModel(),
                             new ProgressingViewModel(),
                             new ReorganizingViewModel(),
-                            new SwitchingViewModel()
+                            new SwitchingViewModel(),
+                            new CompatibilityViewModel(), 
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
