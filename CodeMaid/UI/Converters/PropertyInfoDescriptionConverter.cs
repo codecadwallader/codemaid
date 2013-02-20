@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var propertyInfo = value as PropertyInfo;
             if (propertyInfo == null) return null;
 
-            var descriptionAttribute = propertyInfo.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
+            var descriptionAttribute = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
             if (descriptionAttribute == null) return null;
 
             return descriptionAttribute.Description;

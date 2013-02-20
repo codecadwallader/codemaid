@@ -46,6 +46,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
         private readonly CommentFormatLogic _commentFormatLogic;
+
         #endregion Fields
 
         #region Constructors
