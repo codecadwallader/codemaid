@@ -236,7 +236,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Format &amp;Comment</ButtonText>
+          <ButtonText>Format Comme&amp;nt</ButtonText>
         </Strings>
       </Button>
 
@@ -503,10 +503,10 @@
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0200">
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0500">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
@@ -535,7 +535,7 @@
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0600">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0600">
@@ -578,7 +578,7 @@
       <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
@@ -602,8 +602,8 @@
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
     </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0400">
+    
+    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0400">
@@ -622,8 +622,8 @@
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
 
-    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="C" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="C" />
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" />
 
     <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
