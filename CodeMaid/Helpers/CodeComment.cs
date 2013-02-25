@@ -31,7 +31,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private EditPoint _cursor;
         private CachedSettingSet<string> _majorTags;
         private CachedSettingSet<string> _minorTags;
-        private string prefix;
         private Regex XmlTagRegex;
 
         public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
@@ -155,7 +154,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
 
                 phrase = phrase.Next;
-                
+
                 if (phrase != null)
                 {
                     // On a comment phrase, and there will be another phrase.
