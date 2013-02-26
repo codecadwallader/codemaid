@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns></returns>
         internal static string PrefixToPattern(string prefix)
         {
-            return String.Format(@"(?<prefix>{0}) (?<line>.*)(\r?\n\s*\k<prefix> (?<line>.*))*", prefix);
+            return String.Format(@"(?<prefix>{0})(?<line>( .*)?)(\r?\n\s*\k<prefix>(?<line>( .*)?))*", prefix);
         }
 
         /// <summary>
@@ -55,30 +55,50 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Check if the line after the cursor is commented-out code.
         /// </summary>
         /// <param name="cursor"></param>
-        /// <param name="prefix"></param>
-        /// <returns></returns>
+        /// <param name="prefix">The comment prefix.</param>
+        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
         internal static bool IsCommentedCodeAfter(EditPoint cursor, string prefix)
         {
+            if (cursor.AtEndOfDocument)
+                return false;
+
             var to = cursor.CreateEditPoint();
             to.LineDown();
             to.EndOfLine();
-            var text = cursor.GetText(to);
-            return System.Text.RegularExpressions.Regex.IsMatch(text, String.Format(@"{0}(?! )", prefix));
+            var from = to.CreateEditPoint();
+            to.StartOfLine();
+            return IsCommentedCode(cursor.GetText(to), prefix);
         }
 
         /// <summary>
         /// Check if the line before the cursor is commented-out code.
         /// </summary>
         /// <param name="cursor"></param>
-        /// <param name="prefix"></param>
-        /// <returns></returns>
+        /// <param name="prefix">The comment prefix.</param>
+        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
         internal static bool IsCommentedCodeBefore(EditPoint cursor, string prefix)
         {
+            if (cursor.AtStartOfDocument)
+                return false;
+
             var from = cursor.CreateEditPoint();
             from.LineUp();
             from.StartOfLine();
-            var text = from.GetText(cursor);
-            return System.Text.RegularExpressions.Regex.IsMatch(text, String.Format(@"{0}(?! )", prefix));
+            var to = from.CreateEditPoint();
+            to.EndOfLine();
+            return IsCommentedCode(from.GetText(to), prefix);
+        }
+
+        /// <summary>
+        /// Check if the text is commented-out code.
+        /// </summary>
+        /// <param name="text">The text to check.</param>
+        /// <param name="prefix">The comment prefix.</param>
+        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
+        internal static bool IsCommentedCode(string text, string prefix)
+        {
+            // Use regex with alternation rather than character class, because otherwise "$" fails.
+            return System.Text.RegularExpressions.Regex.IsMatch(text, String.Format(@"^\s*{0}(?!(\s|\r|\n|$))", prefix));
         }
     }
 }

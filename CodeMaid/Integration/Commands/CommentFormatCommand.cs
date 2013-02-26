@@ -132,7 +132,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             from.EndOfLine();
 
-            string prefix2 = prefix + " ";
+            string prefix2 = prefix + @"(\s|\r|\n|$)";
 
             while (from.FindPattern(prefix2, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref to) && to.Line + 1 >= start.Line)
             {

@@ -47,8 +47,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return this;
         }
 
-        private void AppendWords(IEnumerable<string> words)
+        public void AppendWords(IEnumerable<string> words)
         {
+            if (words == null)
+                return;
+
             int depth = 0;
             LinkedListNode<string> node = null;
 

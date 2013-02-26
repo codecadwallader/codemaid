@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
-        private static Regex CommentLineRegex = new Regex(@"(?<indent>\s*)(?<listprefix>-|\w+\))?\s*(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\)\.:])?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private EditPoint _cursor;
@@ -48,6 +48,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
 
             this.CommentPrefix = commentMatch.Groups["prefix"].Value;
+            
+            // Scary workaround for blockcomments.
             if (CommentPrefix == "/*")
             {
                 this.IsBlockComment = true;
@@ -61,11 +63,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var indent = lineMatch.Groups["indent"].Success ? lineMatch.Groups["indent"].Length : 0;
                 var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
                 var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
+                
+                // Empty lines return a single empty string from split, null makes this easier to 
+                // deal with.
+                if (words[0].Length == 0)
+                    words = null;
 
-                if (Phrases.First == null)
-                    this.IsXmlComment = this.CommentPrefix.Length == 3 && words[0].StartsWith("<");
+                if (Phrases.First == null && words != null)
+                    this.IsXmlComment = this.CommentPrefix.Length == 3 && words.First().StartsWith("<");
 
-                AddPhrase(new CodeCommentPhrase(indent, listPrefix, words));
+                if (
+                    Phrases.Last == null // No phrases yet
+                    || !String.IsNullOrEmpty(listPrefix) // Lists always starts on own line
+                    || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this line is not indented
+                    || (words == null && Phrases.Last.Value.Words.First != null) // This is an empty line and previous one is not
+                    || (words != null && Phrases.Last.Value.Words.First == null) // This is a normal line and previous one is empty
+                    )
+                    Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix, words));
+                else
+                    Phrases.Last.Value.AppendWords(words);
             }
         }
 
@@ -82,18 +98,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public LinkedList<CodeCommentPhrase> Phrases { get; private set; }
 
         public EditPoint StartPoint { get; private set; }
-
-        /// <summary>
-        /// Add add a phrase to this comment.
-        /// </summary>
-        /// <param name="value">The phrase to add.</param>
-        public void AddPhrase(CodeCommentPhrase value)
-        {
-            if (Phrases.Last == null || value.IsList || (Phrases.Last.Value.IsList && Phrases.Last.Value.Indent != value.Indent))
-                Phrases.AddLast(value);
-            else
-                Phrases.Last.Value.Append(value);
-        }
 
         /// <summary>
         /// Write the new comment text to the document.
@@ -213,7 +217,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                             bool isMajorTag = _majorTags.Value.Contains(tagName);
 
                             // Major tags and minor opening tags should be the first word.
-                            if (word.Previous != null && (isMajorTag || (!isCloseTag)))
+                            if (word.Previous != null && (isMajorTag || !isCloseTag))
                             {
                                 // Previous word will be the last word of this phrase.
                                 word = word.Previous;
