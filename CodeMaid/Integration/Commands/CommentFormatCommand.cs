@@ -77,7 +77,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     enable = ExpandToFullComment(ref start, ref end, prefix);
                 }
             }
-            Visible = enable;
             Enabled = enable;
         }
 
