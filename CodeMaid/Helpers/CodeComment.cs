@@ -244,6 +244,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                 while (word.Next != null)
                                     word.List.Remove(word.Next);
                             }
+
+                            // Remove spacing between word and minor tags.
+                            if (!isMajorTag)
+                            {
+                                if (isCloseTag && word.Previous != null)
+                                {
+                                    word.Value = word.Previous.Value + word.Value;
+                                    word.List.Remove(word.Previous);
+                                }
+                                else if (!isCloseTag && word.Next != null)
+                                {
+                                    word.Value += word.Next.Value;
+                                    word.List.Remove(word.Next);
+                                }
+                            }
                         }
 
                         word = word.Next;
