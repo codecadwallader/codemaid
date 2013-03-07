@@ -48,35 +48,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             var enable = false;
 
-            if (activeTextDocument != null && activeTextDocument.Selection != null)
+            if (activeTextDocument != null)
             {
-                var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
-                if (prefix != null)
-                {
-                    var selection = activeTextDocument.Selection;
-
-                    EditPoint 
-                        start = null, 
-                        end = null;
-
-                    if (selection.IsEmpty)
-                    {
-                        Text = "Format &Comment";
-                        
-                        start = selection.ActivePoint.CreateEditPoint();
-                        end = selection.ActivePoint.CreateEditPoint();
-                    }
-                    else
-                    {
-                        Text = "Format all &Comments in selection";
-
-                        start = selection.TopPoint.CreateEditPoint();
-                        end = selection.BottomPoint.CreateEditPoint();
-                    }
-
-                    enable = ExpandToFullComment(ref start, ref end, prefix);
-                }
+                // Enable formatting if there is a comment pattern defined for this document.
+                enable = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument) != null;
             }
+
             Enabled = enable;
         }
 
@@ -112,10 +89,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     if (ExpandToFullComment(ref start, ref end, prefix))
                     {
                         var logic = CommentFormatLogic.GetInstance(Package);
+
                         new UndoTransactionHelper(Package, "Format Comment").Run(() =>
                         {
                             logic.FormatComments(activeTextDocument, start, end);
                         });
+
+                        Package.IDE.StatusBar.Text = "CodeMaid finished formatting the comment.";
+                    }
+                    else
+                    {
+                        Package.IDE.StatusBar.Text = String.Format(
+                            "CodeMaid did not find a comment {0} to reformat.",
+                            selection.IsEmpty ? "under the cursor" : "in the selection"
+                        );
                     }
                 }
             }
@@ -125,7 +112,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             bool found = false;
 
-            EditPoint 
+            EditPoint
                 from = start.CreateEditPoint(),
                 to = null;
 
@@ -208,6 +195,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         #endregion Private Methods
-
     }
 }
