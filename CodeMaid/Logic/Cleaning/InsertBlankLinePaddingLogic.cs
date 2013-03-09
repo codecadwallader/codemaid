@@ -342,11 +342,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             string pattern = _package.UsePOSIXRegEx
                                  ? @"{^:b*}{break;|return;}\n{:b*}{case|default}"
-                                 : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)(case|default)";
+                                 : @"(^[ \t]*)(break;|return([ \t][^;]*)?;)\r?\n([ \t]*)(case|default)";
 
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3\4"
-                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3$4";
+                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$4$5";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
