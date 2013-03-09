@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public override void LoadSettings()
         {
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
+            Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
         }
@@ -46,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public override void SaveSettings()
         {
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
+            Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
             Settings.Default.General_Theme = (int)ThemeMode;
         }
@@ -65,6 +67,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 {
                     _diagnosticsMode = value;
                     NotifyPropertyChanged("DiagnosticsMode");
+                }
+            }
+        }
+
+        private string _font;
+
+        public string Font
+        {
+            get { return _font; }
+            set
+            {
+                if (_font != value)
+                {
+                    _font = value;
+                    NotifyPropertyChanged("Font");
                 }
             }
         }

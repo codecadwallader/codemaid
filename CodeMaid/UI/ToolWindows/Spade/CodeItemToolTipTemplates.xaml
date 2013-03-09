@@ -10,14 +10,14 @@
 
     <!-- Styles -->
     <Style x:Key="DefaultToolTipTextStyle" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontFamily" Value="{Binding General_Font, Source={x:Static p:Settings.Default}}" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
     <Style x:Key="NameToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultToolTipTextStyle}">
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="CommentToolTipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultToolTipTextStyle}">
@@ -32,7 +32,7 @@
     </Style>
 
     <Style x:Key="ParameterToolTipTypeStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ParameterToolTipStyle}">
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
 

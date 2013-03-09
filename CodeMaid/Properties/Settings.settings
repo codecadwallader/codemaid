@@ -308,5 +308,8 @@
     <Setting Name="General_IconSet" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="General_Font" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Segoe UI</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

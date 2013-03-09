@@ -1247,5 +1247,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_IconSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        public string General_Font {
+            get {
+                return ((string)(this["General_Font"]));
+            }
+            set {
+                this["General_Font"] = value;
+            }
+        }
     }
 }

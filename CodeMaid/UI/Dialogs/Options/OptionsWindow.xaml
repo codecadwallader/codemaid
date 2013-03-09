@@ -7,10 +7,11 @@
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
-        Background="#FFF0F0F0" TextElement.FontFamily="Tahoma" TextElement.FontSize="14"
+        Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
         ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
     <platformUI:DialogWindow.Resources>
@@ -70,6 +71,10 @@
                             </ResourceDictionary.MergedDictionaries>
 
                             <Style TargetType="{x:Type CheckBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="5" />
                             </Style>
 

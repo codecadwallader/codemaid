@@ -2,12 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     <DataTemplate DataType="{x:Type local:GeneralViewModel}">
         <StackPanel>
             <GroupBox Header="Display">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
@@ -24,6 +26,12 @@
                             <Setter Property="Margin" Value="4,0" />
                             <Setter Property="UseLayoutRounding" Value="True" />
                         </Style>
+
+                        <CollectionViewSource x:Key="fontFamilies" Source="{x:Static Fonts.SystemFontFamilies}">
+                            <CollectionViewSource.SortDescriptions>
+                                <scm:SortDescription PropertyName="Source" Direction="Ascending" />
+                            </CollectionViewSource.SortDescriptions>
+                        </CollectionViewSource>
                     </Grid.Resources>
 
                     <TextBlock Text="Theme" VerticalAlignment="Center" />
@@ -78,6 +86,16 @@
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Structure.png" />
                         </StackPanel>
                     </RadioButton>
+
+                    <TextBlock Grid.Row="4" Text="Font" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="{Binding}" Text="{Binding Source}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </GroupBox>
 
