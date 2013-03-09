@@ -20,12 +20,63 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
     /// <summary>
     /// A converter for performing is greater than or equal to comparisons between two specified values.
     /// </summary>
-    public class IsGreaterThanOrEqualToConverter : IMultiValueConverter
+    public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConverter
     {
+        #region Fields
+
         /// <summary>
         /// A default instance of the <see cref="IsGreaterThanOrEqualToConverter"/>.
         /// </summary>
         public static IsGreaterThanOrEqualToConverter Default = new IsGreaterThanOrEqualToConverter();
+
+        #endregion Fields
+
+        #region IValueConverter Implementation
+
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null && parameter != null)
+            {
+                var first = value as IComparable;
+                var second = parameter as IComparable;
+
+                if (first != null && second != null)
+                {
+                    return first.CompareTo(second) >= 0;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion IValueConverter Implementation
+
+        #region IMultiValueConverter Implementation
 
         /// <summary>
         /// Converts source values to a value for the binding target. The data binding engine calls this method when it propagates the values from source bindings to the binding target.
@@ -67,5 +118,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             throw new NotImplementedException();
         }
+
+        #endregion IMultiValueConverter Implementation
     }
 }

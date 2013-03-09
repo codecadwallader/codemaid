@@ -1235,5 +1235,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Reorganizing_SortOrderTypeClasses"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int General_IconSet {
+            get {
+                return ((int)(this["General_IconSet"]));
+            }
+            set {
+                this["General_IconSet"] = value;
+            }
+        }
     }
 }

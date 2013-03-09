@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:spade="clr-namespace:SteveCadwallader.CodeMaid.UI.ToolWindows.Spade">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CodeItemBaseTemplates.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -48,8 +49,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ImageDataTemplate">
-        <Image Height="16" Width="16" Margin="0,0,4,0" RenderOptions.BitmapScalingMode="NearestNeighbor"
-                Source="{Binding Converter={x:Static cnv:CodeItemToImageConverter.Default}}" />
+        <Image x:Name="image" Height="16" Width="16" Margin="0,0,4,0" UseLayoutRounding="True"
+               Source="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2012}}" />
+        <DataTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding General_IconSet, Source={x:Static p:Settings.Default}}" Value="0" />
+                    <Condition Binding="{Binding DataContext.Package.IDEVersion, RelativeSource={RelativeSource FindAncestor, AncestorType=spade:SpadeView}, Converter={x:Static cnv:IsGreaterThanOrEqualToConverter.Default}, ConverterParameter=11}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2010}}" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding General_IconSet, Source={x:Static p:Settings.Default}}" Value="1">
+                <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2010}}" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="MetadataDataTemplate">

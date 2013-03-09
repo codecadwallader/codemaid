@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public override void LoadSettings()
         {
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
+            IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
         }
 
@@ -45,6 +46,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public override void SaveSettings()
         {
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
+            Settings.Default.General_IconSet = (int)IconSetMode;
             Settings.Default.General_Theme = (int)ThemeMode;
         }
 
@@ -63,6 +65,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 {
                     _diagnosticsMode = value;
                     NotifyPropertyChanged("DiagnosticsMode");
+                }
+            }
+        }
+
+        private IconSetMode _iconSetMode;
+
+        public IconSetMode IconSetMode
+        {
+            get { return _iconSetMode; }
+            set
+            {
+                if (_iconSetMode != value)
+                {
+                    _iconSetMode = value;
+                    NotifyPropertyChanged("IconSetMode");
                 }
             }
         }

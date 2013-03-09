@@ -148,14 +148,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Gets a flag indicating if this method is overloaded.
-        /// </summary>
-        public bool IsOverloaded
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.IsOverloaded); }
-        }
-
-        /// <summary>
         /// Gets the override kind (abstract, virtual, override, new), defaulting to none.
         /// </summary>
         public vsCMOverrideKind OverrideKind
