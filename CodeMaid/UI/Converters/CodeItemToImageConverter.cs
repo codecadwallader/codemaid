@@ -111,7 +111,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 case KindCodeItem.Destructor: return "MethodDestructor";
                 case KindCodeItem.Enum: return "Enum";
                 case KindCodeItem.Event: return "Event";
-                case KindCodeItem.Field: return ((CodeItemField)codeItem).IsConstant ? "Constant" : "Field";
+                case KindCodeItem.Field:
+                    var codeItemField = (CodeItemField)codeItem;
+                    if (codeItemField.IsEnumItem) return "EnumItem";
+                    if (codeItemField.IsConstant) return "Constant";
+                    return "Field";
                 case KindCodeItem.Interface: return "Interface";
                 case KindCodeItem.Method: return "Method";
                 case KindCodeItem.Indexer:

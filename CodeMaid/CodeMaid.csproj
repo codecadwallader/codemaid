@@ -338,6 +338,16 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2010\EnumItem.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2010\EnumItem_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2010\EnumItem_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2010\EnumItem_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2010\EnumItem_Sealed.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2012\EnumItem.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2012\EnumItem_Friend.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2012\EnumItem_Private.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2012\EnumItem_Protected.png" />
+    <Resource Include="UI\ToolWindows\Spade\Images\VS2012\EnumItem_Sealed.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2010\Class.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2010\Class_Friend.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2010\Class_Private.png" />

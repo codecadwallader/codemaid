@@ -46,6 +46,7 @@
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Constant.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Delegate.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Enum.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/EnumItem.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Event.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Field.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Interface.png" />
@@ -65,6 +66,7 @@
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Constant.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Delegate.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Enum.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/EnumItem.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Event.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Field.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Interface.png" />

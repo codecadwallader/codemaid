@@ -47,13 +47,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             if (value != null && parameter != null)
             {
-                var first = value as IComparable;
-                var second = parameter as IComparable;
+                var first = System.Convert.ToDouble(value);
+                var second = System.Convert.ToDouble(parameter);
 
-                if (first != null && second != null)
-                {
-                    return first.CompareTo(second) >= 0;
-                }
+                return first >= second;
             }
 
             return false;
@@ -92,13 +89,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             if (values != null && values.Length >= 2)
             {
-                var first = values[0] as IComparable;
-                var second = values[1] as IComparable;
+                var first = System.Convert.ToDouble(values[0]);
+                var second = System.Convert.ToDouble(values[1]);
 
-                if (first != null && second != null)
-                {
-                    return first.CompareTo(second) >= 0;
-                }
+                return first >= second;
             }
 
             return false;
