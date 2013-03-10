@@ -134,7 +134,11 @@
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
+        </StackPanel>
 
         <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}">
             <ContentControl.ContentTemplate>

@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
-                                     @"CodeMaid: Confirmation for Cleanup All Code",
+                                     @"CodeMaid: Confirmation For Cleanup All Code",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                          == DialogResult.Yes)
             {

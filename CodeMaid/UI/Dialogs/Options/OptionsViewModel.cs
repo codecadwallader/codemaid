@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 using SteveCadwallader.CodeMaid.Properties;
@@ -154,6 +155,93 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
         #endregion Properties
 
+        #region Export Command
+
+        private DelegateCommand _exportCommand;
+
+        /// <summary>
+        /// Gets the export command.
+        /// </summary>
+        public DelegateCommand ExportCommand
+        {
+            get { return _exportCommand ?? (_exportCommand = new DelegateCommand(OnExportCommandExecuted)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="ExportCommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnExportCommandExecuted(object parameter)
+        {
+            // Check if there are unsaved changes and give the user a chance to save them first.
+            if (HasChanges)
+            {
+                var result = MessageBox.Show(@"There are unsaved changes.  Do you want to save before exporting?",
+                                             @"CodeMaid: Confirmation To Save Before Export",
+                                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                switch (result)
+                {
+                    case System.Windows.Forms.DialogResult.Yes:
+                        Save();
+                        break;
+
+                    case System.Windows.Forms.DialogResult.Cancel:
+                        return;
+                }
+            }
+
+            // Prompt the user for the settings file name and location.
+            var dialog = new Microsoft.Win32.SaveFileDialog
+                             {
+                                 Title = "CodeMaid: Export Settings",
+                                 FileName = "CodeMaid",
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
+                             };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                config.SaveAs(dialog.FileName);
+            }
+        }
+
+        #endregion Export Command
+
+        #region Import Command
+
+        private DelegateCommand _importCommand;
+
+        /// <summary>
+        /// Gets the import command.
+        /// </summary>
+        public DelegateCommand ImportCommand
+        {
+            get { return _importCommand ?? (_importCommand = new DelegateCommand(OnImportCommandExecuted)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="ImportCommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnImportCommandExecuted(object parameter)
+        {
+            // Prompt the user for the settings file to import.
+            var dialog = new Microsoft.Win32.OpenFileDialog
+                             {
+                                 Title = "CodeMaid: Import Settings",
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
+                                 CheckFileExists = true,
+                             };
+
+            if (dialog.ShowDialog() == true)
+            {
+            }
+        }
+
+        #endregion Import Command
+
         #region ResetToDefaults Command
 
         private DelegateCommand _resetToDefaultsCommand;
@@ -174,7 +262,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
                                          @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation for reset all settings",
+                                         @"CodeMaid: Confirmation For Reset All Settings",
                                          MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (result == System.Windows.Forms.DialogResult.Yes)
@@ -223,14 +311,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
+            Save();
+            DialogResult = true;
+        }
+
+        /// <summary>
+        /// Saves the current settings.
+        /// </summary>
+        private void Save()
+        {
             foreach (var optionsPageViewModel in Pages.Flatten())
             {
                 optionsPageViewModel.SaveSettings();
             }
 
             Settings.Default.Save();
-
-            DialogResult = true;
+            HasChanges = false;
         }
 
         #endregion Save Command
