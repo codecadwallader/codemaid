@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
-using System.Windows.Forms;
+using System.Windows;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -181,14 +181,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 var result = MessageBox.Show(@"There are unsaved changes.  Do you want to save before exporting?",
                                              @"CodeMaid: Confirmation To Save Before Export",
-                                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                                             MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
                 switch (result)
                 {
-                    case System.Windows.Forms.DialogResult.Yes:
+                    case MessageBoxResult.Yes:
                         Save();
                         break;
 
-                    case System.Windows.Forms.DialogResult.Cancel:
+                    case MessageBoxResult.Cancel:
                         return;
                 }
             }
@@ -210,13 +210,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     config.SaveAs(dialog.FileName);
 
                     MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
-                                    "CodeMaid: Export Settings Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid was unable to export settings: " + ex);
                     MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
-                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -270,13 +270,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     ReloadPagesFromSettings();
 
                     MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
-                                    "CodeMaid: Import Settings Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    "CodeMaid: Import Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid was unable to import settings: " + ex);
                     MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
-                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -304,9 +304,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
                                          @"This action cannot be undone.",
                                          @"CodeMaid: Confirmation For Reset All Settings",
-                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                                         MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 Settings.Default.Reset();
 
