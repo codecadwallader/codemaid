@@ -17,6 +17,9 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
@@ -201,8 +204,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
             if (dialog.ShowDialog() == true)
             {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                config.SaveAs(dialog.FileName);
+                try
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                    config.SaveAs(dialog.FileName);
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
+                                    "CodeMaid: Export Settings Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid was unable to export settings: " + ex);
+                    MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
+                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -232,11 +247,37 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                  Title = "CodeMaid: Import Settings",
                                  DefaultExt = ".settings",
                                  Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
-                                 CheckFileExists = true,
+                                 CheckFileExists = true
                              };
 
             if (dialog.ShowDialog() == true)
             {
+                try
+                {
+                    var sectionName = Settings.Default.Context["GroupName"].ToString();
+                    var xDocument = XDocument.Load(dialog.FileName);
+                    var settings = xDocument.XPathSelectElements("//" + sectionName);
+
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                    config.GetSectionGroup("userSettings")
+                          .Sections[sectionName]
+                          .SectionInformation
+                          .SetRawXml(settings.Single().ToString());
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("userSettings");
+
+                    Settings.Default.Reload();
+                    ReloadPagesFromSettings();
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
+                                    "CodeMaid: Import Settings Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid was unable to import settings: " + ex);
+                    MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
+                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -272,12 +313,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 // Save is redundant, but used to trigger external events.
                 Settings.Default.Save();
 
-                foreach (var optionsPageViewModel in Pages.Flatten())
-                {
-                    optionsPageViewModel.LoadSettings();
-                }
-
-                HasChanges = false;
+                ReloadPagesFromSettings();
             }
         }
 
@@ -364,6 +400,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             HasChanges = true;
+        }
+
+        /// <summary>
+        /// Reloads the option pages from settings.
+        /// </summary>
+        private void ReloadPagesFromSettings()
+        {
+            foreach (var optionsPageViewModel in Pages.Flatten())
+            {
+                optionsPageViewModel.LoadSettings();
+            }
+
+            HasChanges = false;
         }
 
         #endregion Methods
