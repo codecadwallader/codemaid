@@ -119,7 +119,16 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
-            Refresh();
+            if (Document == document)
+            {
+                // Refresh the document if active.
+                Refresh();
+            }
+            else
+            {
+                // Invalidate the cache if inactive.
+                _codeItemsCache.Remove(document);
+            }
         }
 
         /// <summary>
