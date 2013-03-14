@@ -212,7 +212,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!isExternal)
             {
                 _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
-                _usingStatementCleanupLogic.SortUsingStatements();
+                _usingStatementCleanupLogic.SortUsingStatements(isAutoSave);
             }
 
             // Interpret the document into a collection of elements.

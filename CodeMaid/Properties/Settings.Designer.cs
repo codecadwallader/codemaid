@@ -1259,5 +1259,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_Font"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave {
+            get {
+                return ((bool)(this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"]));
+            }
+            set {
+                this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
+            }
+        }
     }
 }

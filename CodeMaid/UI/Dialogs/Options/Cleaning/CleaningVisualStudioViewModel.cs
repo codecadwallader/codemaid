@@ -39,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             RunVisualStudioRemoveUnusedUsingStatements = Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements;
             RunVisualStudioSortUsingStatements = Settings.Default.Cleaning_RunVisualStudioSortUsingStatements;
             SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
+            SkipSortUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave;
             UsingStatementsToReinsertWhenRemovedExpression = Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression;
         }
 
@@ -51,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements = RunVisualStudioRemoveUnusedUsingStatements;
             Settings.Default.Cleaning_RunVisualStudioSortUsingStatements = RunVisualStudioSortUsingStatements;
             Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
+            Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave = SkipSortUsingStatementsDuringAutoCleanupOnSave;
             Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = UsingStatementsToReinsertWhenRemovedExpression;
         }
 
@@ -115,7 +117,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
 
         /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed except during auto cleanup on save.
+        /// Gets or sets the flag indicating if unused using statements should not be removed during auto cleanup on save.
         /// </summary>
         public bool SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave
         {
@@ -126,6 +128,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = value;
                     NotifyPropertyChanged("SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave");
+                }
+            }
+        }
+
+        private bool _skipSortUsingStatementsDuringAutoCleanupOnSave;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if using statements should not be sorted during auto cleanup on save.
+        /// </summary>
+        public bool SkipSortUsingStatementsDuringAutoCleanupOnSave
+        {
+            get { return _skipSortUsingStatementsDuringAutoCleanupOnSave; }
+            set
+            {
+                if (_skipSortUsingStatementsDuringAutoCleanupOnSave != value)
+                {
+                    _skipSortUsingStatementsDuringAutoCleanupOnSave = value;
+                    NotifyPropertyChanged("SkipSortUsingStatementsDuringAutoCleanupOnSave");
                 }
             }
         }

@@ -311,5 +311,8 @@
     <Setting Name="General_Font" Type="System.String" Scope="User">
       <Value Profile="(Default)">Segoe UI</Value>
     </Setting>
+    <Setting Name="Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
