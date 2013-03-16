@@ -77,7 +77,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the cursor position was reset, otherwise false.</returns>
         private bool IsCursorPositionReset()
         {
-            return TextDocument.Selection.ActivePoint.AtStartOfDocument;
+            return TextDocument.Selection.ActivePoint.AtStartOfDocument ||
+                   TextDocument.Selection.ActivePoint.AtEndOfDocument;
         }
 
         #endregion Private Methods
