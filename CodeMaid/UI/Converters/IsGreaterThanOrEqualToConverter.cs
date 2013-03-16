@@ -13,6 +13,8 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace SteveCadwallader.CodeMaid.UI.Converters
@@ -87,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// </returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length >= 2)
+            if (values != null && values.Length >= 2 && values.All(x => x != DependencyProperty.UnsetValue))
             {
                 var first = System.Convert.ToDouble(values[0]);
                 var second = System.Convert.ToDouble(values[1]);
