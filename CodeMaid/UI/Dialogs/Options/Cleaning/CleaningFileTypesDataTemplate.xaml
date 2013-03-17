@@ -17,11 +17,14 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <CheckBox Content="C#" IsChecked="{Binding IncludeCSharp}" />
                     <CheckBox Grid.Column="2" Content="C++" IsChecked="{Binding IncludeCPlusPlus}" />
-                    <CheckBox Grid.Column="4" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
+                    <CheckBox Grid.Column="4" Content="F#" IsChecked="{Binding IncludeFSharp}" />
+                    <CheckBox Grid.Column="6" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
 
                     <CheckBox Grid.Row="1" Content="XAML" IsChecked="{Binding IncludeXAML}" />
                     <CheckBox Grid.Row="1" Grid.Column="2" Content="XML" IsChecked="{Binding IncludeXML}" />

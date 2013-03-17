@@ -176,9 +176,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             switch (document.Language)
             {
-                case "Basic":
-                    return RunCodeCleanupVisualBasic;
-
                 case "CSharp":
                     return RunCodeCleanupCSharp;
 
@@ -192,6 +189,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "XAML":
                 case "XML":
                     return RunCodeCleanupMarkup;
+
+                case "Basic":
+                case "F#":
+                    return RunCodeCleanupGeneric;
 
                 default:
                     OutputWindowHelper.WriteLine(String.Format(
@@ -355,11 +356,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Attempts to run code cleanup on the specified visual basic document.
+        /// Attempts to run code cleanup on the specified generic document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupVisualBasic(Document document, bool isAutoSave)
+        private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 

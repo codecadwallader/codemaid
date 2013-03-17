@@ -40,6 +40,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeCPlusPlus = Settings.Default.Cleaning_IncludeCPlusPlus;
             IncludeCSharp = Settings.Default.Cleaning_IncludeCSharp;
             IncludeCSS = Settings.Default.Cleaning_IncludeCSS;
+            IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
@@ -57,6 +58,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeCPlusPlus = IncludeCPlusPlus;
             Settings.Default.Cleaning_IncludeCSharp = IncludeCSharp;
             Settings.Default.Cleaning_IncludeCSS = IncludeCSS;
+            Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
@@ -154,6 +156,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeCSS = value;
                     NotifyPropertyChanged("IncludeCSS");
+                }
+            }
+        }
+
+        private bool _includeFSharp;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if F# files should be included.
+        /// </summary>
+        public bool IncludeFSharp
+        {
+            get { return _includeFSharp; }
+            set
+            {
+                if (_includeFSharp != value)
+                {
+                    _includeFSharp = value;
+                    NotifyPropertyChanged("IncludeFSharp");
                 }
             }
         }
