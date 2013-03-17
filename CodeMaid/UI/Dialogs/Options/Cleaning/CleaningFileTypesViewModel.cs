@@ -42,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeCSS = Settings.Default.Cleaning_IncludeCSS;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
+            IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
             IncludeXML = Settings.Default.Cleaning_IncludeXML;
         }
@@ -58,6 +59,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeCSS = IncludeCSS;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
+            Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
         }
@@ -188,6 +190,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeJavaScript = value;
                     NotifyPropertyChanged("IncludeJavaScript");
+                }
+            }
+        }
+
+        private bool _includeVisualBasic;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if Visual Basic files should be included.
+        /// </summary>
+        public bool IncludeVisualBasic
+        {
+            get { return _includeVisualBasic; }
+            set
+            {
+                if (_includeVisualBasic != value)
+                {
+                    _includeVisualBasic = value;
+                    NotifyPropertyChanged("IncludeVisualBasic");
                 }
             }
         }

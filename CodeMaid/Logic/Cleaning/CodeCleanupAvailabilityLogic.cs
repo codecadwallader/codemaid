@@ -204,6 +204,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             switch (document.Language)
             {
+                case "Basic": return Settings.Default.Cleaning_IncludeVB;
                 case "CSharp": return Settings.Default.Cleaning_IncludeCSharp;
                 case "C/C++": return Settings.Default.Cleaning_IncludeCPlusPlus;
                 case "CSS": return Settings.Default.Cleaning_IncludeCSS;
@@ -293,6 +294,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Settings.Default.Cleaning_IncludeHTML;
                 case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{71d61d27-9011-4b17-9469-d20f798fb5c0}": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "{E34ACDC0-BAAE-11D0-88BF-00A0C9110049}": return Settings.Default.Cleaning_IncludeVB;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default: return false;

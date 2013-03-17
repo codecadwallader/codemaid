@@ -176,6 +176,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             switch (document.Language)
             {
+                case "Basic":
+                    return RunCodeCleanupVisualBasic;
+
                 case "CSharp":
                     return RunCodeCleanupCSharp;
 
@@ -349,6 +352,24 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
+        }
+
+        /// <summary>
+        /// Attempts to run code cleanup on the specified visual basic document.
+        /// </summary>
+        /// <param name="document">The document for cleanup.</param>
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RunCodeCleanupVisualBasic(Document document, bool isAutoSave)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+
+            RunVSFormatting(textDocument);
+
+            // Perform removal cleanup.
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }
 
         #endregion Private Language Methods

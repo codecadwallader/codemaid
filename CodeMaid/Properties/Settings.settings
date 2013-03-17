@@ -314,5 +314,8 @@
     <Setting Name="Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Cleaning_IncludeVB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

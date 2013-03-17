@@ -1271,5 +1271,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeVB {
+            get {
+                return ((bool)(this["Cleaning_IncludeVB"]));
+            }
+            set {
+                this["Cleaning_IncludeVB"] = value;
+            }
+        }
     }
 }
