@@ -33,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             // Store access to the solutions events, otherwise events will not register properly via DTE.
             SolutionEvents = Package.IDE.Events.SolutionEvents;
             SolutionEvents.Opened += SolutionEvents_Opened;
+            SolutionEvents.AfterClosing += SolutionEvents_AfterClosing;
         }
 
         #endregion Constructors
@@ -43,6 +44,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// An event raised when a solution has opened.
         /// </summary>
         internal event Action OnSolutionOpened;
+
+        /// <summary>
+        /// An event raised when a solution has closed.
+        /// </summary>
+        internal event Action OnSolutionClosed;
 
         #endregion Internal Events
 
@@ -68,6 +74,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             }
         }
 
+        /// <summary>
+        /// An event handler for a solution being closed.
+        /// </summary>
+        private void SolutionEvents_AfterClosing()
+        {
+            if (OnSolutionClosed != null)
+            {
+                OnSolutionClosed();
+            }
+        }
+
         #endregion Private Methods
 
         #region IDisposable Members
@@ -85,6 +102,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
                 if (disposing && SolutionEvents != null)
                 {
                     SolutionEvents.Opened -= SolutionEvents_Opened;
+                    SolutionEvents.AfterClosing -= SolutionEvents_AfterClosing;
                 }
             }
         }

@@ -38,6 +38,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
+            ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
         }
 
@@ -49,6 +50,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
+            Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
             Settings.Default.General_Theme = (int)ThemeMode;
         }
 
@@ -97,6 +99,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 {
                     _iconSetMode = value;
                     NotifyPropertyChanged("IconSetMode");
+                }
+            }
+        }
+
+        private bool _showStartPageOnSolutionClose;
+
+        public bool ShowStartPageOnSolutionClose
+        {
+            get { return _showStartPageOnSolutionClose; }
+            set
+            {
+                if (_showStartPageOnSolutionClose != value)
+                {
+                    _showStartPageOnSolutionClose = value;
+                    NotifyPropertyChanged("ShowStartPageOnSolutionClose");
                 }
             }
         }

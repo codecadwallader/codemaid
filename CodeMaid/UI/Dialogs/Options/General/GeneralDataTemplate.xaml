@@ -99,6 +99,10 @@
                 </Grid>
             </GroupBox>
 
+            <GroupBox Header="Miscellaneous">
+                <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+            </GroupBox>
+
             <GroupBox Header="Diagnostics">
                 <CheckBox Content="Diagnostics mode" IsChecked="{Binding DiagnosticsMode}" />
             </GroupBox>
