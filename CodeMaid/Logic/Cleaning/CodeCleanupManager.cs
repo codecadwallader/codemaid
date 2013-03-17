@@ -216,8 +216,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             // Interpret the document into a collection of elements.
-            var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
 
+            var regions = codeItems.OfType<CodeItemRegion>().ToList();
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
             var classes = codeItems.OfType<CodeItemClass>().ToList();
@@ -246,11 +247,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(textDocument);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regions);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(textDocument);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);
 
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);

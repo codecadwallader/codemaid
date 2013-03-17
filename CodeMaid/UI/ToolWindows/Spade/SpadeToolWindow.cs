@@ -124,7 +124,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 // Refresh the document if active.
                 Refresh();
             }
-            else
+            else if (document != null)
             {
                 // Invalidate the cache if inactive.
                 _codeItemsCache.Remove(document);

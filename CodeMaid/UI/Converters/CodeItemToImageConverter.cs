@@ -116,6 +116,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                     if (codeItemField.IsEnumItem) return "EnumItem";
                     if (codeItemField.IsConstant) return "Constant";
                     return "Field";
+
                 case KindCodeItem.Interface: return "Interface";
                 case KindCodeItem.Method: return "Method";
                 case KindCodeItem.Indexer:
