@@ -20,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
     /// </summary>
     public class DiggingViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiggingViewModel"/> class.
+        /// </summary>
+        /// <param name="package"> The hosting package. </param>
+        public DiggingViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>

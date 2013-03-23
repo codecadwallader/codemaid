@@ -62,12 +62,12 @@
                                 <ResourceDictionary Source="Cleaning/CleaningUpdateDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningVisualStudioDataTemplate.xaml" />
                                 <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                                 <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
-                                <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                             </ResourceDictionary.MergedDictionaries>
 
                             <Style TargetType="{x:Type CheckBox}">

@@ -20,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
     /// </summary>
     public class SwitchingViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SwitchingViewModel"/> class.
+        /// </summary>
+        /// <param name="package"> The hosting package. </param>
+        public SwitchingViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>

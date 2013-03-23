@@ -208,7 +208,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
-            Run3rdPartyCleanup(textDocument);
+            RunExternalFormatting(textDocument);
             if (!isExternal)
             {
                 _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
@@ -316,7 +316,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            Run3rdPartyCleanup(textDocument);
+            RunExternalFormatting(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -336,7 +336,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            Run3rdPartyCleanup(textDocument);
+            RunExternalFormatting(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -354,12 +354,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         #region Private Cleanup Methods
 
-
         /// <summary>
         /// Run the 3rd party clean up (Visual studio and ReSharper)
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void Run3rdPartyCleanup(TextDocument textDocument)
+        private void RunExternalFormatting(TextDocument textDocument)
         {
             RunVisualStudioFormatDocument(textDocument);
             RunResharperCleanup(textDocument);

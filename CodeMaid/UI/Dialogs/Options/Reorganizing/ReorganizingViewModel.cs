@@ -25,6 +25,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
     /// </summary>
     public class ReorganizingViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReorganizingViewModel"/> class.
+        /// </summary>
+        /// <param name="package"> The hosting package. </param>
+        public ReorganizingViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>

@@ -11,64 +11,90 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Linq;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
 {
-	/// <summary>
-	/// The view model for digging options.
-	/// </summary>
-	public class CompatibilityViewModel : OptionsPageViewModel
-	{
+    /// <summary>
+    /// The view model for digging options.
+    /// </summary>
+    public class CompatibilityViewModel : OptionsPageViewModel
+    {
+        #region Constructors
 
-		#region Overrides of OptionsPageViewModel
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompatibilityViewModel"/> class.
+        /// </summary>
+        /// <param name="package"> The hosting package. </param>
+        public CompatibilityViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
 
-		/// <summary>
-		/// Gets the header.
-		/// </summary>
-		public override string Header
-		{
-			get { return "Compatibility"; }
-		}
+        #endregion Constructors
 
-		/// <summary>
-		/// Loads the settings.
-		/// </summary>
-		public override void LoadSettings()
-		{
-			UseResharperSilentCleanup = Settings.Default.Compatibility_UseReSharperSilentCleanup;
-		}
+        #region Overrides of OptionsPageViewModel
 
-		/// <summary>
-		/// Saves the settings.
-		/// </summary>
-		public override void SaveSettings()
-		{
-		    Settings.Default.Compatibility_UseReSharperSilentCleanup = UseResharperSilentCleanup;
-		}
+        /// <summary>
+        /// Gets the header.
+        /// </summary>
+        public override string Header
+        {
+            get { return "Compatibility"; }
+        }
 
-		#endregion Overrides of OptionsPageViewModel
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public override void LoadSettings()
+        {
+            UseReSharperSilentCleanup = Settings.Default.Compatibility_UseReSharperSilentCleanup;
+        }
 
-		#region Options
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public override void SaveSettings()
+        {
+            Settings.Default.Compatibility_UseReSharperSilentCleanup = UseReSharperSilentCleanup;
+        }
 
-		/// <summary> 
-		/// Gets or sets if resharper silent cleanup should be used instead of visual studio formatting.
-		/// </summary>
-		public bool UseResharperSilentCleanup
-		{
-			get { return _useResharperSilentCleanup; }
-			set
-			{
-				if (_useResharperSilentCleanup != value)
-				{
-					_useResharperSilentCleanup = value;
-					NotifyPropertyChanged("UseResharperSilentCleanup");
-				}
-			}
-		}
+        #endregion Overrides of OptionsPageViewModel
 
-		private bool _useResharperSilentCleanup;
+        #region Options
 
-		#endregion Options
-	}
+        /// <summary>
+        /// Gets or sets if ReSharper silent cleanup should be used instead of visual studio formatting.
+        /// </summary>
+        public bool UseReSharperSilentCleanup
+        {
+            get { return _useReSharperSilentCleanup; }
+            set
+            {
+                if (_useReSharperSilentCleanup != value)
+                {
+                    _useReSharperSilentCleanup = value;
+                    NotifyPropertyChanged("UseReSharperSilentCleanup");
+                }
+            }
+        }
+
+        private bool _useReSharperSilentCleanup;
+
+        #endregion Options
+
+        #region Enables
+
+        /// <summary>
+        ///  Gets a value indicating whether the the UseReSharperSilentCleanup option should be enabled.
+        /// </summary>
+        public bool UseReSharperSilentCleanupEnabled
+        {
+            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "ReSharper_SilentCleanupCode"); }
+        }
+
+        #endregion Enables
+    }
 }

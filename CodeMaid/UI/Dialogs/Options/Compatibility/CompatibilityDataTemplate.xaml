@@ -6,11 +6,7 @@
         <StackPanel>
             <GroupBox Header="ReSharper">
                 <StackPanel>
-                    <TextBlock TextWrapping="Wrap">
-                        If ReSharper is installed, you can run ReSharpers silent cleanup whenever CodeMaid cleans a file.
-                        For this to take effect, ReSharper must already have silent cleanup configured.
-                    </TextBlock>
-                    <CheckBox Content="Use ReSharper silent cleanup when cleaning files" IsChecked="{Binding UseResharperSilentCleanup}" />
+                    <CheckBox Content="Run ReSharper silent cleanup when cleaning files" IsChecked="{Binding UseReSharperSilentCleanup}"  IsEnabled="{Binding UseReSharperSilentCleanupEnabled}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>
