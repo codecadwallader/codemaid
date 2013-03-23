@@ -18,6 +18,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
     /// </summary>
     public class CleaningParentViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleaningParentViewModel"/> class.
+        /// </summary>
+        /// <param name="package"> The hosting package. </param>
+        public CleaningParentViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>

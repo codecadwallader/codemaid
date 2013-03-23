@@ -23,6 +23,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
@@ -41,29 +42,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
         /// </summary>
+        /// <param name="package"> The hosting package. </param>
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
-        public OptionsViewModel(Type initiallySelectedPageType = null)
+        public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
+            Package = package;
             Pages = new OptionsPageViewModel[]
                         {
-                            new GeneralViewModel(),
-                            new CleaningParentViewModel
+                            new GeneralViewModel(package),
+                            new CleaningParentViewModel(package)
                                 {
                                     Children = new OptionsPageViewModel[]
                                                    {
-                                                       new CleaningGeneralViewModel(),
-                                                       new CleaningFileTypesViewModel(),
-                                                       new CleaningVisualStudioViewModel(),
-                                                       new CleaningInsertViewModel(),
-                                                       new CleaningRemoveViewModel(),
-                                                       new CleaningUpdateViewModel()
+                                                       new CleaningGeneralViewModel(package),
+                                                       new CleaningFileTypesViewModel(package),
+                                                       new CleaningVisualStudioViewModel(package),
+                                                       new CleaningInsertViewModel(package),
+                                                       new CleaningRemoveViewModel(package),
+                                                       new CleaningUpdateViewModel(package)
                                                    }
                                 },
-                            new CollapsingViewModel(),
-                            new DiggingViewModel(),
-                            new ProgressingViewModel(),
-                            new ReorganizingViewModel(),
-                            new SwitchingViewModel()
+                            new CollapsingViewModel(package),
+                            new DiggingViewModel(package),
+                            new ProgressingViewModel(package),
+                            new ReorganizingViewModel(package),
+                            new SwitchingViewModel(package),
+                            new CompatibilityViewModel(package),
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
@@ -155,6 +159,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        public CodeMaidPackage Package { get; private set; }
 
         #endregion Properties
 

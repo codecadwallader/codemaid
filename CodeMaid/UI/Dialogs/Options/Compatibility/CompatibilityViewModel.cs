@@ -11,22 +11,24 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Linq;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
 
-namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
+namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
 {
     /// <summary>
-    /// The view model for collapsing options.
+    /// The view model for digging options.
     /// </summary>
-    public class CollapsingViewModel : OptionsPageViewModel
+    public class CompatibilityViewModel : OptionsPageViewModel
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CollapsingViewModel"/> class.
+        /// Initializes a new instance of the <see cref="CompatibilityViewModel"/> class.
         /// </summary>
         /// <param name="package"> The hosting package. </param>
-        public CollapsingViewModel(CodeMaidPackage package)
+        public CompatibilityViewModel(CodeMaidPackage package)
             : base(package)
         {
         }
@@ -40,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// </summary>
         public override string Header
         {
-            get { return "Collapsing"; }
+            get { return "Compatibility"; }
         }
 
         /// <summary>
@@ -48,8 +50,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// </summary>
         public override void LoadSettings()
         {
-            CollapseSolutionWhenOpened = Settings.Default.Collapsing_CollapseSolutionWhenOpened;
-            KeepSoloProjectExpanded = Settings.Default.Collapsing_KeepSoloProjectExpanded;
+            UseReSharperSilentCleanup = Settings.Default.Compatibility_UseReSharperSilentCleanup;
         }
 
         /// <summary>
@@ -57,50 +58,43 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Collapsing_CollapseSolutionWhenOpened = CollapseSolutionWhenOpened;
-            Settings.Default.Collapsing_KeepSoloProjectExpanded = KeepSoloProjectExpanded;
+            Settings.Default.Compatibility_UseReSharperSilentCleanup = UseReSharperSilentCleanup;
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
 
-        private bool _collapseSolutionWhenOpened;
-
         /// <summary>
-        /// Gets or sets a flag indicating if the solution should be collapsed when it is opened.
+        /// Gets or sets if ReSharper silent cleanup should be used instead of visual studio formatting.
         /// </summary>
-        public bool CollapseSolutionWhenOpened
+        public bool UseReSharperSilentCleanup
         {
-            get { return _collapseSolutionWhenOpened; }
+            get { return _useReSharperSilentCleanup; }
             set
             {
-                if (_collapseSolutionWhenOpened != value)
+                if (_useReSharperSilentCleanup != value)
                 {
-                    _collapseSolutionWhenOpened = value;
-                    NotifyPropertyChanged("CollapseSolutionWhenOpened");
+                    _useReSharperSilentCleanup = value;
+                    NotifyPropertyChanged("UseReSharperSilentCleanup");
                 }
             }
         }
 
-        private bool _keepSoloProjectExpanded;
-
-        /// <summary>
-        /// Gets or sets a flag indicating if a solo project should be kept expanded.
-        /// </summary>
-        public bool KeepSoloProjectExpanded
-        {
-            get { return _keepSoloProjectExpanded; }
-            set
-            {
-                if (_keepSoloProjectExpanded != value)
-                {
-                    _keepSoloProjectExpanded = value;
-                    NotifyPropertyChanged("KeepSoloProjectExpanded");
-                }
-            }
-        }
+        private bool _useReSharperSilentCleanup;
 
         #endregion Options
+
+        #region Enables
+
+        /// <summary>
+        ///  Gets a value indicating whether the the UseReSharperSilentCleanup option should be enabled.
+        /// </summary>
+        public bool UseReSharperSilentCleanupEnabled
+        {
+            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "ReSharper_SilentCleanupCode"); }
+        }
+
+        #endregion Enables
     }
 }
