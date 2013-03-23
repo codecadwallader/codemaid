@@ -1236,7 +1236,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
         }
         
-       
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1249,7 +1248,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
         }
         
-
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1261,7 +1259,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Compatibility_UseReSharperSilentCleanup"] = value;
             }
         }
-
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

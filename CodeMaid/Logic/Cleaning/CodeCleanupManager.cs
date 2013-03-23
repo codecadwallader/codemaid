@@ -364,7 +364,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting(textDocument);
+            RunVisualStudioFormatDocument(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
