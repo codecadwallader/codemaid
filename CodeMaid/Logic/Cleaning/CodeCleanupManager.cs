@@ -364,7 +364,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVisualStudioFormatDocument(textDocument);
+            RunExternalFormatting(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -378,17 +378,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Private Cleanup Methods
 
         /// <summary>
-        /// Run the 3rd party clean up (Visual studio and ReSharper)
+        /// Runs external formatting tools (e.g. Visual Studio, ReSharper).
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunExternalFormatting(TextDocument textDocument)
         {
             RunVisualStudioFormatDocument(textDocument);
-            RunResharperCleanup(textDocument);
+            RunReSharperSilentCleanup(textDocument);
         }
 
         /// <summary>
-        /// Run the visual studio built-in format document command.
+        /// Runs the Visual Studio built-in format document command.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunVisualStudioFormatDocument(TextDocument textDocument)
@@ -399,7 +399,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 using (new CursorPositionRestorer(textDocument))
                 {
-                    // Run the command.
                     _package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
                 }
             }
@@ -410,10 +409,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Run the ReSharper silent cleanup command.
+        /// Runs the ReSharper silent cleanup command.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void RunResharperCleanup(TextDocument textDocument)
+        private void RunReSharperSilentCleanup(TextDocument textDocument)
         {
             if (!Settings.Default.Compatibility_UseReSharperSilentCleanup) return;
 
@@ -421,7 +420,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 using (new CursorPositionRestorer(textDocument))
                 {
-                    // Run the command.
                     _package.IDE.ExecuteCommand("ReSharper_SilentCleanupCode", String.Empty);
                 }
             }

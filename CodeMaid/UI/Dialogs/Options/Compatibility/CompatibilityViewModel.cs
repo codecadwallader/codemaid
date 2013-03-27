@@ -18,7 +18,7 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
 {
     /// <summary>
-    /// The view model for digging options.
+    /// The view model for compatibility options.
     /// </summary>
     public class CompatibilityViewModel : OptionsPageViewModel
     {
@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
         /// <summary>
         /// Initializes a new instance of the <see cref="CompatibilityViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public CompatibilityViewModel(CodeMaidPackage package)
             : base(package)
         {
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
         #region Options
 
         /// <summary>
-        /// Gets or sets if ReSharper silent cleanup should be used instead of visual studio formatting.
+        /// Gets or sets the flag indicating if ReSharper silent cleanup should be utilized during cleanup.
         /// </summary>
         public bool UseReSharperSilentCleanup
         {
@@ -88,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
         #region Enables
 
         /// <summary>
-        ///  Gets a value indicating whether the the UseReSharperSilentCleanup option should be enabled.
+        /// Gets a flag indicating if the UseReSharperSilentCleanup option should be enabled.
         /// </summary>
         public bool UseReSharperSilentCleanupEnabled
         {

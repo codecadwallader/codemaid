@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Initializes a new instance of the <see cref="CleaningGeneralViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public CleaningGeneralViewModel(CodeMaidPackage package)
             : base(package)
         {

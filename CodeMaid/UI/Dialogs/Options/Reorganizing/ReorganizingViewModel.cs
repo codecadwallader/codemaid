@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Initializes a new instance of the <see cref="ReorganizingViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public ReorganizingViewModel(CodeMaidPackage package)
             : base(package)
         {

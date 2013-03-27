@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// <summary>
         /// Initializes a new instance of the <see cref="DiggingViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public DiggingViewModel(CodeMaidPackage package)
             : base(package)
         {

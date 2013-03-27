@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public GeneralViewModel(CodeMaidPackage package)
             : base(package)
         {

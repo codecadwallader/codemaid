@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPageViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         protected OptionsPageViewModel(CodeMaidPackage package)
         {
             Package = package;

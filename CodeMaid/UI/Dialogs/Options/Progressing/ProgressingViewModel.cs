@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressingViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public ProgressingViewModel(CodeMaidPackage package)
             : base(package)
         {

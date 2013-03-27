@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
         public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {

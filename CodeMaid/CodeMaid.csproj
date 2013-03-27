@@ -280,6 +280,7 @@
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Compatibility\CompatibilityViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\OptionsPageViewModel.cs" />
@@ -553,6 +554,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Compatibility\CompatibilityDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

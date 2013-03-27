@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// <summary>
         /// Initializes a new instance of the <see cref="CollapsingViewModel"/> class.
         /// </summary>
-        /// <param name="package"> The hosting package. </param>
+        /// <param name="package">The hosting package.</param>
         public CollapsingViewModel(CodeMaidPackage package)
             : base(package)
         {
