@@ -185,22 +185,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnExportCommandExecuted(object parameter)
         {
-            // Check if there are unsaved changes and give the user a chance to save them first.
-            if (HasChanges)
-            {
-                var result = MessageBox.Show(@"There are unsaved changes.  Do you want to save before exporting?",
-                                             @"CodeMaid: Confirmation To Save Before Export",
-                                             MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
-                        Save();
-                        break;
-
-                    case MessageBoxResult.Cancel:
-                        return;
-                }
-            }
+            // Always save first, forcing the configuration file to be created if it does not exist yet.
+            Save();
 
             // Prompt the user for the settings file name and location.
             var dialog = new Microsoft.Win32.SaveFileDialog
@@ -216,7 +202,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 try
                 {
                     var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                    config.SaveAs(dialog.FileName);
+                    config.SaveAs(dialog.FileName, ConfigurationSaveMode.Full, true);
 
                     MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
                                     "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -263,6 +249,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
+                    // Always save first, forcing the configuration file to be created if it does not exist yet.
+                    Save();
+
                     var sectionName = Settings.Default.Context["GroupName"].ToString();
                     var xDocument = XDocument.Load(dialog.FileName);
                     var settings = xDocument.XPathSelectElements("//" + sectionName);
