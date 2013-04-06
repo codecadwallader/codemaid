@@ -71,6 +71,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidCommandBuildProgressToolWindow = new Guid("857ff04f-140c-47b1-b10b-dca6154ec26a");
         public static readonly Guid GuidCodeMaidCommandCleanupActiveCode = new Guid("36de540f-25cb-4151-957f-d63a5a3a10a7");
         public static readonly Guid GuidCodeMaidCommandCleanupAllCode = new Guid("eb2efdb6-2efe-405c-94af-383d36ad58dd");
+        public static readonly Guid GuidCodeMaidCommandCleanupOpenCode = new Guid("4e6a8a94-e888-4fa8-aae8-d6375f395e29");
         public static readonly Guid GuidCodeMaidCommandCleanupSelectedCode = new Guid("b2979ac6-2853-442c-8df6-21637af5130e");
         public static readonly Guid GuidCodeMaidCommandCloseAllReadOnly = new Guid("170a0d22-19ea-452c-839a-fb33535abbb7");
         public static readonly Guid GuidCodeMaidCommandCollapseAllSolutionExplorer = new Guid("f0b58f42-6f6e-49db-8787-411979a4a4e3");

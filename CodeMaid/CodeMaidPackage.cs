@@ -344,6 +344,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new BuildProgressToolWindowCommand(this));
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
+                _commands.Add(new CleanupOpenCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));
                 _commands.Add(new CloseAllReadOnlyCommand(this));
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));

@@ -1,0 +1,92 @@
+﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+
+// CodeMaid is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License version 3
+// as published by the Free Software Foundation.
+//
+// CodeMaid is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+
+#endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
+
+namespace SteveCadwallader.CodeMaid.Integration.Commands
+{
+    /// <summary>
+    /// A command that provides for cleaning up code in the open documents.
+    /// </summary>
+    internal class CleanupOpenCodeCommand : BaseCommand
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleanupOpenCodeCommand"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        internal CleanupOpenCodeCommand(CodeMaidPackage package)
+            : base(package,
+                   new CommandID(GuidList.GuidCodeMaidCommandCleanupOpenCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupOpenCode))
+        {
+            CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
+            CodeCleanupManager = CodeCleanupManager.GetInstance(Package);
+        }
+
+        #endregion Constructors
+
+        #region BaseCommand Members
+
+        /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            Enabled = OpenCleanableDocuments.Any();
+        }
+
+        /// <summary>
+        /// Called to execute the command.
+        /// </summary>
+        protected override void OnExecute()
+        {
+            using (new ActiveDocumentRestorer(Package))
+            {
+                foreach (var document in OpenCleanableDocuments)
+                {
+                    CodeCleanupManager.Cleanup(document, false);
+                }
+            }
+        }
+
+        #endregion BaseCommand Members
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the code cleanup availability logic.
+        /// </summary>
+        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the code cleanup manager.
+        /// </summary>
+        private CodeCleanupManager CodeCleanupManager { get; set; }
+
+        /// <summary>
+        /// Gets the list of open documents that are cleanup candidates.
+        /// </summary>
+        private IEnumerable<Document> OpenCleanableDocuments
+        {
+            get { return Package.IDE.Documents.OfType<Document>().Where(x => CodeCleanupAvailabilityLogic.ShouldCleanup(x)); }
+        }
+
+        #endregion Private Properties
+    }
+}
