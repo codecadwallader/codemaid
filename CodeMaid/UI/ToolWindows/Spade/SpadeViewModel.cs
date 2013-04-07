@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     /// <summary>
     /// The view model representing the state and commands available to Spade.
     /// </summary>
-    public class SpadeViewModel : ViewModelBase
+    public class SpadeViewModel : Bindable
     {
         #region Fields
 

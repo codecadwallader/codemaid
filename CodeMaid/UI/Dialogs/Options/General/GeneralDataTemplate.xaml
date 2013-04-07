@@ -14,6 +14,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -49,7 +50,7 @@
                     <RadioButton Grid.Row="2" Grid.Column="1" Padding="0,-2,0,0"
                                  IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2010}}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="VS2010" />
+                            <TextBlock Text="VS2010" MinWidth="100" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Class.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Constant.png" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Delegate.png" />
@@ -67,28 +68,50 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Grid.Row="3" Grid.Column="1" Padding="0,-2,0,0"
-                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012}}">
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Light}}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="VS2012" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Class.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Constant.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Delegate.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Enum.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/EnumItem.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Event.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Field.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Interface.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Method.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/MethodConstructor.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/MethodDestructor.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Property.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Region.png" />
-                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012/Structure.png" />
+                            <TextBlock Text="VS2012 Light" MinWidth="100" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Class.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Constant.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Delegate.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Enum.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/EnumItem.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Event.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Field.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Interface.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Method.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/MethodConstructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/MethodDestructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Property.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Region.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Structure.png" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Grid.Row="4" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Dark}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2012 Dark" MinWidth="100" />
+                            <StackPanel Orientation="Horizontal" Background="#FF252526">
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Class.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Constant.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Delegate.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Enum.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/EnumItem.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Event.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Field.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Interface.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Method.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodConstructor.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodDestructor.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Property.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Region.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Structure.png" />
+                            </StackPanel>
                         </StackPanel>
                     </RadioButton>
 
-                    <TextBlock Grid.Row="4" Text="Font" VerticalAlignment="Center" />
-                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
+                    <TextBlock Grid.Row="5" Text="Font" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
                               HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>

@@ -31,9 +31,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         public static CodeItemToImageConverter VS2010 = new CodeItemToImageConverter { ImagePath = "VS2010" };
 
         /// <summary>
-        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2012 based images.
+        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2012 light based images.
         /// </summary>
-        public static CodeItemToImageConverter VS2012 = new CodeItemToImageConverter { ImagePath = "VS2012" };
+        public static CodeItemToImageConverter VS2012Light = new CodeItemToImageConverter { ImagePath = "VS2012_Light" };
+
+        /// <summary>
+        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2012 dark based images.
+        /// </summary>
+        public static CodeItemToImageConverter VS2012Dark = new CodeItemToImageConverter { ImagePath = "VS2012_Dark" };
 
         /// <summary>
         /// Gets or sets the image path.
@@ -138,9 +143,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             switch (codeItem.Access)
             {
+                case vsCMAccess.vsCMAccessProject:
                 case vsCMAccess.vsCMAccessAssemblyOrFamily: return "_Friend";
                 case vsCMAccess.vsCMAccessPrivate: return "_Private";
-                case vsCMAccess.vsCMAccessProject: return "_Sealed";
                 case vsCMAccess.vsCMAccessProjectOrProtected:
                 case vsCMAccess.vsCMAccessProtected: return "_Protected";
                 case vsCMAccess.vsCMAccessPublic: return string.Empty;

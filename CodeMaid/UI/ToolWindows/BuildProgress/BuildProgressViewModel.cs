@@ -21,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     /// <summary>
     /// The view model representing the state and commands for showing build progress.
     /// </summary>
-    public class BuildProgressViewModel : ViewModelBase
+    public class BuildProgressViewModel : Bindable
     {
         #region Fields
 

@@ -50,7 +50,7 @@
 
     <DataTemplate x:Key="ImageDataTemplate">
         <Image x:Name="image" Height="16" Width="16" Margin="0,0,4,0" UseLayoutRounding="True"
-               Source="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2012}}" />
+               Source="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2012Light}}" />
         <DataTemplate.Triggers>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -59,8 +59,19 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2010}}" />
             </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding General_IconSet, Source={x:Static p:Settings.Default}}" Value="0" />
+                    <Condition Binding="{Binding DataContext.Package.IDEVersion, RelativeSource={RelativeSource FindAncestor, AncestorType=spade:SpadeView}, Converter={x:Static cnv:IsGreaterThanOrEqualToConverter.Default}, ConverterParameter=11}" Value="True" />
+                    <Condition Binding="{Binding DataContext.Package.ThemeManager.ActiveTheme, RelativeSource={RelativeSource FindAncestor, AncestorType=spade:SpadeView}}" Value="1" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2012Dark}}" />
+            </MultiDataTrigger>
             <DataTrigger Binding="{Binding General_IconSet, Source={x:Static p:Settings.Default}}" Value="1">
                 <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2010}}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding General_IconSet, Source={x:Static p:Settings.Default}}" Value="3">
+                <Setter TargetName="image" Property="Source" Value="{Binding Converter={x:Static cnv:CodeItemToImageConverter.VS2012Dark}}" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

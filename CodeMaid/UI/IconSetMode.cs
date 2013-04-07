@@ -20,6 +20,7 @@ namespace SteveCadwallader.CodeMaid.UI
     {
         AutoDetect = 0,
         VS2010 = 1,
-        VS2012 = 2
+        VS2012Light = 2,
+        VS2012Dark = 3,
     }
 }

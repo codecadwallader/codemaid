@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// <summary>
     /// The view model representing the state and commands available for configuring options.
     /// </summary>
-    public class OptionsViewModel : ViewModelBase
+    public class OptionsViewModel : Bindable
     {
         #region Constructors
 

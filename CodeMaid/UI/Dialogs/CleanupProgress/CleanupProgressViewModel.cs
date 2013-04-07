@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
     /// <summary>
     /// The view model representing the state and commands available for cleanup progress.
     /// </summary>
-    public class CleanupProgressViewModel : ViewModelBase
+    public class CleanupProgressViewModel : Bindable
     {
         #region Fields
 

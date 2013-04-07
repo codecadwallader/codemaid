@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// <summary>
     /// The abstract base class for option pages.
     /// </summary>
-    public abstract class OptionsPageViewModel : ViewModelBase
+    public abstract class OptionsPageViewModel : Bindable
     {
         #region Constructors
 
