@@ -117,10 +117,12 @@
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
                                                     <Setter Property="Foreground" Value="Green" />
+                                                    <Setter Property="ToolTip" Value="Enabled, click to disable" />
                                                 </Trigger>
                                                 <Trigger Property="IsChecked" Value="False">
                                                     <Setter Property="Foreground" Value="Red" />
                                                     <Setter TargetName="textBlock" Property="TextDecorations" Value="Strikethrough" />
+                                                    <Setter Property="ToolTip" Value="Disabled, click to enable" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -142,7 +144,7 @@
             <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
         </StackPanel>
 
-        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}">
+        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
