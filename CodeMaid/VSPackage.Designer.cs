@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, XAML, XML, ASP, HTML, CSS and JavaScript coding.
+        ///   Looks up a localized string similar to CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, XAML, XML, ASP, HTML, CSS and JavaScript coding.
         ///
         ///Written by Steve Cadwallader, for more information visit http://www.codemaid.net/.
         /// </summary>
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.5.7.4.
+        ///   Looks up a localized string similar to 0.6.0.
         /// </summary>
         internal static string _114 {
             get {
