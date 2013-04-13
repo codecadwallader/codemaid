@@ -17,6 +17,7 @@ using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -58,10 +59,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             using (new ActiveDocumentRestorer(Package))
             {
-                foreach (var document in OpenCleanableDocuments)
-                {
-                    CodeCleanupManager.Cleanup(document, false);
-                }
+                var viewModel = new CleanupProgressViewModel(Package, OpenCleanableDocuments);
+                var window = new CleanupProgressWindow { DataContext = viewModel };
+
+                window.ShowModal();
             }
         }
 

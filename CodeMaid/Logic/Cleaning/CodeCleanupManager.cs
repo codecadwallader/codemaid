@@ -128,12 +128,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        internal void Cleanup(Document document, bool isAutoSave)
+        internal void Cleanup(Document document, bool isAutoSave = false)
         {
             if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
+
+            if (_package.IDE.ActiveDocument != document)
+            {
+                OutputWindowHelper.WriteLine(document.Name + " did not complete activation before cleaning started.");
+            }
 
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
