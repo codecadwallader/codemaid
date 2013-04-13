@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 var item = spade.SelectedItem;
                 if (item != null && item.StartLine > 0 && item.EndLine > 0)
                 {
-                    new UndoTransactionHelper(Package, "Remove Region " + item.Name).Run(() =>
+                    new UndoTransactionHelper(Package, "CodeMaid Remove Region " + item.Name).Run(() =>
                     {
                         var end = item.EndPoint.CreateEditPoint();
                         end.StartOfLine();

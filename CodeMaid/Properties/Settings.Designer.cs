@@ -1319,5 +1319,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_ShowStartPageOnSolutionClose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_UseUndoTransactions {
+            get {
+                return ((bool)(this["General_UseUndoTransactions"]));
+            }
+            set {
+                this["General_UseUndoTransactions"] = value;
+            }
+        }
     }
 }

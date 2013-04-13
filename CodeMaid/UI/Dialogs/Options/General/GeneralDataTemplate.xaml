@@ -123,7 +123,10 @@
             </GroupBox>
 
             <GroupBox Header="Miscellaneous">
-                <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                <StackPanel>
+                    <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                    <CheckBox Content="Use undo transactions" IsChecked="{Binding UseUndoTransactions}" />
+                </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Diagnostics">

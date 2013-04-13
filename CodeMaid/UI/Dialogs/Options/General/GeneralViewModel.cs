@@ -53,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
             ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
+            UseUndoTransactions = Settings.Default.General_UseUndoTransactions;
         }
 
         /// <summary>
@@ -65,6 +66,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Settings.Default.General_IconSet = (int)IconSetMode;
             Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
             Settings.Default.General_Theme = (int)ThemeMode;
+            Settings.Default.General_UseUndoTransactions = UseUndoTransactions;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -142,6 +144,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 {
                     _themeMode = value;
                     NotifyPropertyChanged("ThemeMode");
+                }
+            }
+        }
+
+        private bool _useUndoTransactions;
+
+        public bool UseUndoTransactions
+        {
+            get { return _useUndoTransactions; }
+            set
+            {
+                if (_useUndoTransactions != value)
+                {
+                    _useUndoTransactions = value;
+                    NotifyPropertyChanged("UseUndoTransactions");
                 }
             }
         }
