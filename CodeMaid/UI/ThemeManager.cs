@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI
     /// <summary>
     /// A helper class for managing the active theme.
     /// </summary>
-    public class ThemeManager
+    public class ThemeManager : Bindable
     {
         #region Fields
 
@@ -64,6 +64,24 @@ namespace SteveCadwallader.CodeMaid.UI
         #endregion Constructors
 
         #region Properties
+
+        private ThemeMode _activeTheme;
+
+        /// <summary>
+        /// Gets the active theme.
+        /// </summary>
+        public ThemeMode ActiveTheme
+        {
+            get { return _activeTheme; }
+            private set
+            {
+                if (_activeTheme != value)
+                {
+                    _activeTheme = value;
+                    NotifyPropertyChanged("ActiveTheme");
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the dictionary of Uris corresponding to <see cref="ThemeMode"/> values.
@@ -111,9 +129,9 @@ namespace SteveCadwallader.CodeMaid.UI
         /// </summary>
         public void ApplyTheme()
         {
-            var theme = ResolveActiveTheme();
+            ActiveTheme = ResolveActiveTheme();
 
-            ApplyThemeToElement(SpadeContent, theme);
+            ApplyThemeToElement(SpadeContent, ActiveTheme);
         }
 
         /// <summary>

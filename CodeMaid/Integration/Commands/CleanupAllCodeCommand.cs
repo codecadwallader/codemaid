@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
-using System.Windows.Forms;
+using System.Windows;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
@@ -61,12 +61,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             {
                 MessageBox.Show(@"Cleanup cannot run while debugging.",
                                 @"CodeMaid: Cleanup All Code",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
-                                     @"CodeMaid: Confirmation for Cleanup All Code",
-                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-                         == DialogResult.Yes)
+                                     @"CodeMaid: Confirmation For Cleanup All Code",
+                                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No)
+                         == MessageBoxResult.Yes)
             {
                 using (new ActiveDocumentRestorer(Package))
                 {

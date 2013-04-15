@@ -12,7 +12,6 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System.ComponentModel.Design;
-using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
@@ -71,15 +70,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             selection.FindText(item.Name, (int)vsFindOptions.vsFindOptionsMatchInHiddenText);
             selection.MoveToPoint(selection.AnchorPoint);
 
-            // Determine if ReSharper FindUsages command is available, otherwise use native VS command.
-            if (Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "ReSharper.ReSharper_FindUsages"))
-            {
-                Package.IDE.ExecuteCommand("ReSharper.ReSharper_FindUsages");
-            }
-            else
-            {
-                Package.IDE.ExecuteCommand("Edit.FindAllReferences");
-            }
+            // Invoke the command.
+            Package.IDE.ExecuteCommand("Edit.FindAllReferences");
         }
 
         #endregion BaseCommand Methods

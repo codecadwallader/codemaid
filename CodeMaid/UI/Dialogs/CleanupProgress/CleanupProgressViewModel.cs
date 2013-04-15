@@ -14,7 +14,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using EnvDTE;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
@@ -22,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
     /// <summary>
     /// The view model representing the state and commands available for cleanup progress.
     /// </summary>
-    public class CleanupProgressViewModel : ViewModelBase
+    public class CleanupProgressViewModel : Bindable
     {
         #region Fields
 
@@ -36,13 +35,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
         /// Initializes a new instance of the <see cref="CleanupProgressViewModel"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <param name="projectItems">The project items.</param>
-        public CleanupProgressViewModel(CodeMaidPackage package, IEnumerable<ProjectItem> projectItems)
+        /// <param name="items">The items to cleanup.</param>
+        public CleanupProgressViewModel(CodeMaidPackage package, IEnumerable<object> items)
         {
             CodeCleanupManager = CodeCleanupManager.GetInstance(package);
 
             // Initialize UI elements.
-            CountTotal = projectItems.Count();
+            CountTotal = items.Count();
 
             // Initialize background worker.
             _backgroundWorker = new BackgroundWorker
@@ -55,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
             _backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
             _backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
 
-            _backgroundWorker.RunWorkerAsync(projectItems);
+            _backgroundWorker.RunWorkerAsync(items);
         }
 
         #endregion Constructors
@@ -205,10 +204,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var bw = (BackgroundWorker)sender;
-            var projectItems = (IEnumerable<ProjectItem>)e.Argument;
+            var items = (IEnumerable<object>)e.Argument;
             int i = 0;
 
-            foreach (ProjectItem projectItem in projectItems)
+            foreach (dynamic item in items)
             {
                 if (bw.CancellationPending)
                 {
@@ -216,9 +215,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
                     break;
                 }
 
-                bw.ReportProgress(++i, projectItem);
+                bw.ReportProgress(++i, item);
 
-                CodeCleanupManager.Cleanup(projectItem);
+                CodeCleanupManager.Cleanup(item);
             }
         }
 
@@ -230,7 +229,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int currentCount = e.ProgressPercentage;
-            var currentItem = (ProjectItem)e.UserState;
+            dynamic currentItem = e.UserState;
 
             CountProgress = currentCount;
             CurrentFileName = currentItem.Name;

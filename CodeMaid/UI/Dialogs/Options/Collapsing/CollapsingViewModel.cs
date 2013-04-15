@@ -20,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
     /// </summary>
     public class CollapsingViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollapsingViewModel"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        public CollapsingViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>

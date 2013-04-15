@@ -105,6 +105,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
+        /// Gets a flag indicating if this field is an enumeration item.
+        /// </summary>
+        public bool IsEnumItem
+        {
+            get { return TryDefault(() => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum); }
+        }
+
+        /// <summary>
         /// Gets a flag indicating if this field is read-only.
         /// </summary>
         public bool IsReadOnly

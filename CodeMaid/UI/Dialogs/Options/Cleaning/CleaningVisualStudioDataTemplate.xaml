@@ -20,6 +20,9 @@
             </StackPanel>
 
             <CheckBox Content="Run sort using statements" IsChecked="{Binding RunVisualStudioSortUsingStatements}" />
+            <CheckBox Content="Skip during automatic cleanup on save"
+                      IsChecked="{Binding SkipSortUsingStatementsDuringAutoCleanupOnSave}"
+                      IsEnabled="{Binding RunVisualStudioSortUsingStatements}" Margin="35,5,5,5" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

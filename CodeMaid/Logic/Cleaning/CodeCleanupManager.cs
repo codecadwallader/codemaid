@@ -130,21 +130,25 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        internal void Cleanup(Document document, bool isAutoSave)
+        internal void Cleanup(Document document, bool isAutoSave = false)
         {
             if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
 
+            if (_package.IDE.ActiveDocument != document)
+            {
+                OutputWindowHelper.WriteLine(document.Name + " did not complete activation before cleaning started.");
+            }
+
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                _codeReorderManager.Reorganize(document, isAutoSave);
+                _codeReorderManager.Reorganize(document);
             }
 
             _undoTransactionHelper.Run(
-                () => !isAutoSave,
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);
@@ -192,6 +196,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "XML":
                     return RunCodeCleanupMarkup;
 
+                case "Basic":
+                case "F#":
+                    return RunCodeCleanupGeneric;
+
                 default:
                     OutputWindowHelper.WriteLine(String.Format(
                         "CodeMaid does not support document language '{0}'.", document.Language));
@@ -210,16 +218,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
-            RunVSFormatting(textDocument);
+            RunExternalFormatting(textDocument);
             if (!isExternal)
             {
                 _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
-                _usingStatementCleanupLogic.SortUsingStatements();
+                _usingStatementCleanupLogic.SortUsingStatements(isAutoSave);
             }
 
             // Interpret the document into a collection of elements.
-            var codeItems = CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
+            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
 
+            var regions = codeItems.OfType<CodeItemRegion>().ToList();
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
             var classes = codeItems.OfType<CodeItemClass>().ToList();
@@ -248,11 +257,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(textDocument);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regions);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(textDocument);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);
 
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
@@ -321,7 +330,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting(textDocument);
+            RunExternalFormatting(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -341,7 +350,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
 
-            RunVSFormatting(textDocument);
+            RunExternalFormatting(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -355,15 +364,43 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
         }
 
+        /// <summary>
+        /// Attempts to run code cleanup on the specified generic document.
+        /// </summary>
+        /// <param name="document">The document for cleanup.</param>
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+
+            RunExternalFormatting(textDocument);
+
+            // Perform removal cleanup.
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+        }
+
         #endregion Private Language Methods
 
         #region Private Cleanup Methods
 
         /// <summary>
-        /// Run the visual studio built-in format document command.
+        /// Runs external formatting tools (e.g. Visual Studio, ReSharper).
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void RunVSFormatting(TextDocument textDocument)
+        private void RunExternalFormatting(TextDocument textDocument)
+        {
+            RunVisualStudioFormatDocument(textDocument);
+            RunReSharperSilentCleanup(textDocument);
+        }
+
+        /// <summary>
+        /// Runs the Visual Studio built-in format document command.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunVisualStudioFormatDocument(TextDocument textDocument)
         {
             if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
@@ -371,8 +408,28 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 using (new CursorPositionRestorer(textDocument))
                 {
-                    // Run the command.
                     _package.IDE.ExecuteCommand("Edit.FormatDocument", String.Empty);
+                }
+            }
+            catch
+            {
+                // OK if fails, not available for some file types.
+            }
+        }
+
+        /// <summary>
+        /// Runs the ReSharper silent cleanup command.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunReSharperSilentCleanup(TextDocument textDocument)
+        {
+            if (!Settings.Default.Compatibility_UseReSharperSilentCleanup) return;
+
+            try
+            {
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    _package.IDE.ExecuteCommand("ReSharper_SilentCleanupCode", String.Empty);
                 }
             }
             catch

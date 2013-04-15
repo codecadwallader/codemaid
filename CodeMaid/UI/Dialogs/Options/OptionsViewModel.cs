@@ -14,11 +14,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
-using System.Windows.Forms;
+using System.Windows;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
@@ -30,37 +35,40 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// <summary>
     /// The view model representing the state and commands available for configuring options.
     /// </summary>
-    public class OptionsViewModel : ViewModelBase
+    public class OptionsViewModel : Bindable
     {
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
         /// </summary>
+        /// <param name="package">The hosting package.</param>
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
-        public OptionsViewModel(Type initiallySelectedPageType = null)
+        public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
+            Package = package;
             Pages = new OptionsPageViewModel[]
                         {
-                            new GeneralViewModel(),
-                            new CleaningParentViewModel
+                            new GeneralViewModel(package),
+                            new CleaningParentViewModel(package)
                                 {
                                     Children = new OptionsPageViewModel[]
                                                    {
-                                                       new CleaningGeneralViewModel(),
-                                                       new CleaningFileTypesViewModel(),
-                                                       new CleaningVisualStudioViewModel(),
-                                                       new CleaningInsertViewModel(),
-                                                       new CleaningRemoveViewModel(),
-                                                       new CleaningUpdateViewModel(),
+                                                       new CleaningGeneralViewModel(package),
+                                                       new CleaningFileTypesViewModel(package),
+                                                       new CleaningVisualStudioViewModel(package),
+                                                       new CleaningInsertViewModel(package),
+                                                       new CleaningRemoveViewModel(package),
+                                                       new CleaningUpdateViewModel(package),
                                                        new CleaningFormatCommentsViewModel()
                                                    }
                                 },
-                            new CollapsingViewModel(),
-                            new DiggingViewModel(),
-                            new ProgressingViewModel(),
-                            new ReorganizingViewModel(),
-                            new SwitchingViewModel()
+                            new CollapsingViewModel(package),
+                            new DiggingViewModel(package),
+                            new ProgressingViewModel(package),
+                            new ReorganizingViewModel(package),
+                            new SwitchingViewModel(package),
+                            new CompatibilityViewModel(package),
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
@@ -153,7 +161,126 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
         }
 
+        /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        public CodeMaidPackage Package { get; private set; }
+
         #endregion Properties
+
+        #region Export Command
+
+        private DelegateCommand _exportCommand;
+
+        /// <summary>
+        /// Gets the export command.
+        /// </summary>
+        public DelegateCommand ExportCommand
+        {
+            get { return _exportCommand ?? (_exportCommand = new DelegateCommand(OnExportCommandExecuted)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="ExportCommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnExportCommandExecuted(object parameter)
+        {
+            // Always save first, forcing the configuration file to be created if it does not exist yet.
+            Save();
+
+            // Prompt the user for the settings file name and location.
+            var dialog = new Microsoft.Win32.SaveFileDialog
+                             {
+                                 Title = "CodeMaid: Export Settings",
+                                 FileName = "CodeMaid",
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
+                             };
+
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                    config.SaveAs(dialog.FileName, ConfigurationSaveMode.Full, true);
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
+                                    "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid was unable to export settings: " + ex);
+                    MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
+                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        #endregion Export Command
+
+        #region Import Command
+
+        private DelegateCommand _importCommand;
+
+        /// <summary>
+        /// Gets the import command.
+        /// </summary>
+        public DelegateCommand ImportCommand
+        {
+            get { return _importCommand ?? (_importCommand = new DelegateCommand(OnImportCommandExecuted)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="ImportCommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnImportCommandExecuted(object parameter)
+        {
+            // Prompt the user for the settings file to import.
+            var dialog = new Microsoft.Win32.OpenFileDialog
+                             {
+                                 Title = "CodeMaid: Import Settings",
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
+                                 CheckFileExists = true
+                             };
+
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    // Always save first, forcing the configuration file to be created if it does not exist yet.
+                    Save();
+
+                    var sectionName = Settings.Default.Context["GroupName"].ToString();
+                    var xDocument = XDocument.Load(dialog.FileName);
+                    var settings = xDocument.XPathSelectElements("//" + sectionName);
+
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                    config.GetSectionGroup("userSettings")
+                          .Sections[sectionName]
+                          .SectionInformation
+                          .SetRawXml(settings.Single().ToString());
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("userSettings");
+
+                    Settings.Default.Reload();
+                    ReloadPagesFromSettings();
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
+                                    "CodeMaid: Import Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.WriteLine("CodeMaid was unable to import settings: " + ex);
+                    MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
+                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        #endregion Import Command
 
         #region ResetToDefaults Command
 
@@ -175,22 +302,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
                                          @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation for reset all settings",
-                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                                         @"CodeMaid: Confirmation For Reset All Settings",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 Settings.Default.Reset();
 
                 // Save is redundant, but used to trigger external events.
                 Settings.Default.Save();
 
-                foreach (var optionsPageViewModel in Pages.Flatten())
-                {
-                    optionsPageViewModel.LoadSettings();
-                }
-
-                HasChanges = false;
+                ReloadPagesFromSettings();
             }
         }
 
@@ -224,14 +346,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
+            Save();
+            DialogResult = true;
+        }
+
+        /// <summary>
+        /// Saves the current settings.
+        /// </summary>
+        private void Save()
+        {
             foreach (var optionsPageViewModel in Pages.Flatten())
             {
                 optionsPageViewModel.SaveSettings();
             }
 
             Settings.Default.Save();
-
-            DialogResult = true;
+            HasChanges = false;
         }
 
         #endregion Save Command
@@ -269,6 +399,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             HasChanges = true;
+        }
+
+        /// <summary>
+        /// Reloads the option pages from settings.
+        /// </summary>
+        private void ReloadPagesFromSettings()
+        {
+            foreach (var optionsPageViewModel in Pages.Flatten())
+            {
+                optionsPageViewModel.LoadSettings();
+            }
+
+            HasChanges = false;
         }
 
         #endregion Methods

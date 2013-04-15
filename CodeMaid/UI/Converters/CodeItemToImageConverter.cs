@@ -26,9 +26,24 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
     public class CodeItemToImageConverter : IValueConverter
     {
         /// <summary>
-        /// The default <see cref="CodeItemToImageConverter"/>.
+        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2010 based images.
         /// </summary>
-        public static CodeItemToImageConverter Default = new CodeItemToImageConverter();
+        public static CodeItemToImageConverter VS2010 = new CodeItemToImageConverter { ImagePath = "VS2010" };
+
+        /// <summary>
+        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2012 light based images.
+        /// </summary>
+        public static CodeItemToImageConverter VS2012Light = new CodeItemToImageConverter { ImagePath = "VS2012_Light" };
+
+        /// <summary>
+        /// A <see cref="CodeItemToImageConverter"/> that retrieves VS2012 dark based images.
+        /// </summary>
+        public static CodeItemToImageConverter VS2012Dark = new CodeItemToImageConverter { ImagePath = "VS2012_Dark" };
+
+        /// <summary>
+        /// Gets or sets the image path.
+        /// </summary>
+        private string ImagePath { get; set; }
 
         /// <summary>
         /// Converts a value.
@@ -74,14 +89,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>The built URI, otherwise null.</returns>
-        private static string BuildImageURIString(BaseCodeItem codeItem)
+        private string BuildImageURIString(BaseCodeItem codeItem)
         {
             string typeComponent = GetTypeComponentString(codeItem);
             string accessComponent = GetAccessString(codeItem as BaseCodeItemElement);
 
             if (typeComponent == null) return null;
 
-            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/{0}{1}.png", typeComponent, accessComponent);
+            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/{0}/{1}{2}.png", ImagePath, typeComponent, accessComponent);
 
             return uriString;
         }
@@ -101,11 +116,16 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 case KindCodeItem.Destructor: return "MethodDestructor";
                 case KindCodeItem.Enum: return "Enum";
                 case KindCodeItem.Event: return "Event";
-                case KindCodeItem.Field: return ((CodeItemField)codeItem).IsConstant ? "Constant" : "Field";
+                case KindCodeItem.Field:
+                    var codeItemField = (CodeItemField)codeItem;
+                    if (codeItemField.IsEnumItem) return "EnumItem";
+                    if (codeItemField.IsConstant) return "Constant";
+                    return "Field";
+
                 case KindCodeItem.Interface: return "Interface";
-                case KindCodeItem.Method: return ((CodeItemMethod)codeItem).IsOverloaded ? "MethodOverload" : "Method";
+                case KindCodeItem.Method: return "Method";
                 case KindCodeItem.Indexer:
-                case KindCodeItem.Property: return "Properties";
+                case KindCodeItem.Property: return "Property";
                 case KindCodeItem.Region: return "Region";
                 case KindCodeItem.Struct: return "Structure";
                 default: return null;
@@ -123,9 +143,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             switch (codeItem.Access)
             {
+                case vsCMAccess.vsCMAccessProject:
                 case vsCMAccess.vsCMAccessAssemblyOrFamily: return "_Friend";
                 case vsCMAccess.vsCMAccessPrivate: return "_Private";
-                case vsCMAccess.vsCMAccessProject: return "_Sealed";
                 case vsCMAccess.vsCMAccessProjectOrProtected:
                 case vsCMAccess.vsCMAccessProtected: return "_Protected";
                 case vsCMAccess.vsCMAccessPublic: return string.Empty;

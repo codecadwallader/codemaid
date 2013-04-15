@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 var item = spade.SelectedItem;
                 if (item != null && item.StartPoint != null && item.EndPoint != null)
                 {
-                    new UndoTransactionHelper(Package, "Delete " + item.Name).Run(() =>
+                    new UndoTransactionHelper(Package, "CodeMaid Delete " + item.Name).Run(() =>
                     {
                         var start = item.StartPoint.CreateEditPoint();
 

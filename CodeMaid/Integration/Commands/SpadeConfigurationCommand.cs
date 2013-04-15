@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            new OptionsWindow { DataContext = new OptionsViewModel(typeof(DiggingViewModel)) }.ShowModal();
+            new OptionsWindow { DataContext = new OptionsViewModel(Package, typeof(DiggingViewModel)) }.ShowModal();
         }
 
         #endregion BaseCommand Methods

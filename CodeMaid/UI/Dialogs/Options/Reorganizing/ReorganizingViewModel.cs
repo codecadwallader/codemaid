@@ -25,6 +25,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
     /// </summary>
     public class ReorganizingViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReorganizingViewModel"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        public ReorganizingViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>
@@ -412,7 +425,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         private void SynchronizeSortOrderTypesFromSettings()
         {
             SortOrderTypes = new ObservableCollection<object>(from t in AllSortOrderTypes
-                                                              orderby (int)t.GetValue(this, null)
+                                                              orderby (int)t.GetValue(this)
                                                               select t);
             SortOrderTypes.CollectionChanged += (sender, args) => SynchronizeSortOrderTypesToSettings();
         }
@@ -426,7 +439,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
             foreach (var type in SortOrderTypes.OfType<PropertyInfo>())
             {
-                type.SetValue(this, i++, null);
+                type.SetValue(this, i++);
             }
         }
 

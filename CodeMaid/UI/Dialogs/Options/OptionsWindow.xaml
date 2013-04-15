@@ -7,10 +7,11 @@
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
-        Background="#FFF0F0F0" TextElement.FontFamily="Tahoma" TextElement.FontSize="14"
+        Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
         ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
     <platformUI:DialogWindow.Resources>
@@ -63,6 +64,7 @@
                                 <ResourceDictionary Source="Cleaning/CleaningVisualStudioDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningFormatCommentsDataTemplate.xaml" />
                                 <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                                 <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
@@ -71,6 +73,10 @@
                             </ResourceDictionary.MergedDictionaries>
 
                             <Style TargetType="{x:Type CheckBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="5" />
                             </Style>
 
@@ -112,10 +118,12 @@
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
                                                     <Setter Property="Foreground" Value="Green" />
+                                                    <Setter Property="ToolTip" Value="Enabled, click to disable" />
                                                 </Trigger>
                                                 <Trigger Property="IsChecked" Value="False">
                                                     <Setter Property="Foreground" Value="Red" />
                                                     <Setter TargetName="textBlock" Property="TextDecorations" Value="Strikethrough" />
+                                                    <Setter Property="ToolTip" Value="Disabled, click to enable" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -132,7 +140,12 @@
 
         <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
-        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
+        </StackPanel>
+
+        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

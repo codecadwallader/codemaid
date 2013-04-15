@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -74,9 +75,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             // Start an undo transaction (unless inside one already or other undo conditions are not met).
             bool shouldCloseUndoContext = false;
-            if (!_package.IDE.UndoContext.IsOpen && undoConditions())
+            if (!_package.IDE.UndoContext.IsOpen && undoConditions() && Settings.Default.General_UseUndoTransactions)
             {
-                _package.IDE.UndoContext.Open(_transactionName, false);
+                _package.IDE.UndoContext.Open(_transactionName);
                 shouldCloseUndoContext = true;
             }
 

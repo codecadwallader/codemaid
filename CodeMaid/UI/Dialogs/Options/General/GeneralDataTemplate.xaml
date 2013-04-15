@@ -2,16 +2,136 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     <DataTemplate DataType="{x:Type local:GeneralViewModel}">
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Theme" VerticalAlignment="Center" />
-                <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.AutoDetect}}" />
-                <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Dark}}" />
-                <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Light}}" />
-            </StackPanel>
-            <CheckBox Content="Diagnostics mode" IsChecked="{Binding DiagnosticsMode}" />
+            <GroupBox Header="Display">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Height" Value="16" />
+                            <Setter Property="Width" Value="16" />
+                            <Setter Property="Margin" Value="4,0" />
+                            <Setter Property="UseLayoutRounding" Value="True" />
+                        </Style>
+
+                        <CollectionViewSource x:Key="fontFamilies" Source="{x:Static Fonts.SystemFontFamilies}">
+                            <CollectionViewSource.SortDescriptions>
+                                <scm:SortDescription PropertyName="Source" Direction="Ascending" />
+                            </CollectionViewSource.SortDescriptions>
+                        </CollectionViewSource>
+                    </Grid.Resources>
+
+                    <TextBlock Text="Theme" VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.AutoDetect}}" />
+                        <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Dark}}" />
+                        <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Light}}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="1" Text="Icons" VerticalAlignment="Center" />
+
+                    <RadioButton Grid.Row="1" Grid.Column="1" Content="auto-detect"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.AutoDetect}}" />
+                    <RadioButton Grid.Row="2" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2010}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2010" MinWidth="100" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Class.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Constant.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Delegate.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Enum.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/EnumItem.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Event.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Field.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Interface.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Method.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/MethodConstructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/MethodDestructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Property.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Region.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Structure.png" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Grid.Row="3" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Light}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2012 Light" MinWidth="100" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Class.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Constant.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Delegate.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Enum.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/EnumItem.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Event.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Field.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Interface.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Method.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/MethodConstructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/MethodDestructor.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Property.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Region.png" />
+                            <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Structure.png" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Grid.Row="4" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Dark}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2012 Dark" MinWidth="100" />
+                            <StackPanel Orientation="Horizontal" Background="#FF252526">
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Class.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Constant.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Delegate.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Enum.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/EnumItem.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Event.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Field.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Interface.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Method.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodConstructor.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodDestructor.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Property.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Region.png" />
+                                <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Dark/Structure.png" />
+                            </StackPanel>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <TextBlock Grid.Row="5" Text="Font" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="{Binding}" Text="{Binding Source}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Miscellaneous">
+                <StackPanel>
+                    <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                    <CheckBox Content="Use undo transactions" IsChecked="{Binding UseUndoTransactions}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Diagnostics">
+                <CheckBox Content="Diagnostics mode" IsChecked="{Binding DiagnosticsMode}" />
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

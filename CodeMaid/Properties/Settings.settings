@@ -246,7 +246,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_InsertBlankLinePaddingBeforeSingleLineComments" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="General_Theme" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -316,6 +316,30 @@
     </Setting>
     <Setting Name="Reorganizing_SortOrderTypeClasses" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="General_IconSet" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Compatibility_UseReSharperSilentCleanup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="General_Font" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Segoe UI</Value>
+    </Setting>
+    <Setting Name="Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Cleaning_IncludeVB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Cleaning_IncludeFSharp" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="General_ShowStartPageOnSolutionClose" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="General_UseUndoTransactions" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

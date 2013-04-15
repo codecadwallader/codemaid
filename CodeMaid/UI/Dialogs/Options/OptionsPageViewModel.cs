@@ -18,15 +18,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// <summary>
     /// The abstract base class for option pages.
     /// </summary>
-    public abstract class OptionsPageViewModel : ViewModelBase
+    public abstract class OptionsPageViewModel : Bindable
     {
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPageViewModel"/> class.
         /// </summary>
-        protected OptionsPageViewModel()
+        /// <param name="package">The hosting package.</param>
+        protected OptionsPageViewModel(CodeMaidPackage package)
         {
+            Package = package;
             LoadSettings();
         }
 
@@ -38,6 +40,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Gets the header.
         /// </summary>
         public abstract string Header { get; }
+
+        /// <summary>
+        /// Gets the hosting package.
+        /// </summary>
+        public CodeMaidPackage Package { get; private set; }
 
         private IEnumerable<OptionsPageViewModel> _children;
 

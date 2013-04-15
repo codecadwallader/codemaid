@@ -105,9 +105,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Run the visual studio built-in sort using statements command.
         /// </summary>
-        public void SortUsingStatements()
+        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
+        public void SortUsingStatements(bool isAutoSave)
         {
             if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
+            if (isAutoSave && Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave) return;
 
             _package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
         }

@@ -200,24 +200,31 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="method">The method to update.</param>
         private void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
         {
-            var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-            var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-
-            // Insert a new-line before and after the opening brace.
-            start.CharLeft();
-            start.Insert(Environment.NewLine);
-            start.CharRight();
-            start.Insert(Environment.NewLine);
-
-            // Insert a new-line before the closing brace, unless the method is empty.
-            end.DeleteWhitespace();
-            if (end.DisplayColumn > 1)
+            try
             {
-                end.Insert(Environment.NewLine);
-            }
+                var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                var end = method.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
 
-            // Update the formatting of the method.
-            method.StartPoint.CreateEditPoint().SmartFormat(method.EndPoint);
+                // Insert a new-line before and after the opening brace.
+                start.CharLeft();
+                start.Insert(Environment.NewLine);
+                start.CharRight();
+                start.Insert(Environment.NewLine);
+
+                // Insert a new-line before the closing brace, unless the method is empty.
+                end.DeleteWhitespace();
+                if (end.DisplayColumn > 1)
+                {
+                    end.Insert(Environment.NewLine);
+                }
+
+                // Update the formatting of the method.
+                method.StartPoint.CreateEditPoint().SmartFormat(method.EndPoint);
+            }
+            catch (Exception)
+            {
+                // Methods may not have a body (ex: partial).
+            }
         }
 
         /// <summary>

@@ -20,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
     /// </summary>
     public class CleaningFileTypesViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleaningFileTypesViewModel"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        public CleaningFileTypesViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>
@@ -40,8 +53,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeCPlusPlus = Settings.Default.Cleaning_IncludeCPlusPlus;
             IncludeCSharp = Settings.Default.Cleaning_IncludeCSharp;
             IncludeCSS = Settings.Default.Cleaning_IncludeCSS;
+            IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
+            IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
             IncludeXML = Settings.Default.Cleaning_IncludeXML;
         }
@@ -56,8 +71,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeCPlusPlus = IncludeCPlusPlus;
             Settings.Default.Cleaning_IncludeCSharp = IncludeCSharp;
             Settings.Default.Cleaning_IncludeCSS = IncludeCSS;
+            Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
+            Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
         }
@@ -156,6 +173,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
+        private bool _includeFSharp;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if F# files should be included.
+        /// </summary>
+        public bool IncludeFSharp
+        {
+            get { return _includeFSharp; }
+            set
+            {
+                if (_includeFSharp != value)
+                {
+                    _includeFSharp = value;
+                    NotifyPropertyChanged("IncludeFSharp");
+                }
+            }
+        }
+
         private bool _includeHTML;
 
         /// <summary>
@@ -188,6 +223,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeJavaScript = value;
                     NotifyPropertyChanged("IncludeJavaScript");
+                }
+            }
+        }
+
+        private bool _includeVisualBasic;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if Visual Basic files should be included.
+        /// </summary>
+        public bool IncludeVisualBasic
+        {
+            get { return _includeVisualBasic; }
+            set
+            {
+                if (_includeVisualBasic != value)
+                {
+                    _includeVisualBasic = value;
+                    NotifyPropertyChanged("IncludeVisualBasic");
                 }
             }
         }

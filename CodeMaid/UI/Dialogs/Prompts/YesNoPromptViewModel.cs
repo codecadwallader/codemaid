@@ -21,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
     /// <summary>
     /// A view model for providing a yes no prompt.
     /// </summary>
-    public class YesNoPromptViewModel : ViewModelBase
+    public class YesNoPromptViewModel : Bindable
     {
         #region Properties
 

@@ -322,6 +322,16 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
+        /// Called when a solution is closed.
+        /// </summary>
+        private void OnSolutionClosed()
+        {
+            if (!Settings.Default.General_ShowStartPageOnSolutionClose) return;
+
+            IDE.ExecuteCommand("View.StartPage");
+        }
+
+        /// <summary>
         /// Register the package commands (which must exist in the .vsct file).
         /// </summary>
         private void RegisterCommands()
@@ -334,6 +344,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new BuildProgressToolWindowCommand(this));
                 _commands.Add(new CleanupActiveCodeCommand(this));
                 _commands.Add(new CleanupAllCodeCommand(this));
+                _commands.Add(new CleanupOpenCodeCommand(this));
                 _commands.Add(new CleanupSelectedCodeCommand(this));
                 _commands.Add(new CloseAllReadOnlyCommand(this));
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
@@ -407,6 +418,7 @@ namespace SteveCadwallader.CodeMaid
 
                 SolutionEventListener = new SolutionEventListener(this);
                 SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
+                SolutionEventListener.OnSolutionClosed += OnSolutionClosed;
 
                 // Check if a solution has already been opened before CodeMaid was initialized.
                 if (IDE.Solution != null && IDE.Solution.IsOpen)

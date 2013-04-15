@@ -998,7 +998,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Cleaning_InsertBlankLinePaddingBeforeSingleLineComments {
             get {
                 return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"]));
@@ -1281,6 +1281,102 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_SortOrderTypeClasses"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int General_IconSet {
+            get {
+                return ((int)(this["General_IconSet"]));
+            }
+            set {
+                this["General_IconSet"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Compatibility_UseReSharperSilentCleanup {
+            get {
+                return ((bool)(this["Compatibility_UseReSharperSilentCleanup"]));
+            }
+            set {
+                this["Compatibility_UseReSharperSilentCleanup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        public string General_Font {
+            get {
+                return ((string)(this["General_Font"]));
+            }
+            set {
+                this["General_Font"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave {
+            get {
+                return ((bool)(this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"]));
+            }
+            set {
+                this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeVB {
+            get {
+                return ((bool)(this["Cleaning_IncludeVB"]));
+            }
+            set {
+                this["Cleaning_IncludeVB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeFSharp {
+            get {
+                return ((bool)(this["Cleaning_IncludeFSharp"]));
+            }
+            set {
+                this["Cleaning_IncludeFSharp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_ShowStartPageOnSolutionClose {
+            get {
+                return ((bool)(this["General_ShowStartPageOnSolutionClose"]));
+            }
+            set {
+                this["General_ShowStartPageOnSolutionClose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_UseUndoTransactions {
+            get {
+                return ((bool)(this["General_UseUndoTransactions"]));
+            }
+            set {
+                this["General_UseUndoTransactions"] = value;
             }
         }
     }

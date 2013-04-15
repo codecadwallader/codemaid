@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// Includes VSX supported CodeElements as well as code regions.
     /// </summary>
     [DebuggerDisplay("{GetType().Name,nq}: {Name}")]
-    public abstract class BaseCodeItem : ViewModelBase, ICodeItem
+    public abstract class BaseCodeItem : Bindable, ICodeItem
     {
         #region Properties
 

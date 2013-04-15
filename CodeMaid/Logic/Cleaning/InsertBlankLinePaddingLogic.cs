@@ -227,81 +227,67 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Insertion Methods
 
         /// <summary>
-        /// Inserts a blank line before #region tags except where adjacent to a brace
-        /// for the specified text document.
+        /// Inserts a blank line before #region tags except where adjacent to a brace.
         /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        internal void InsertPaddingBeforeRegionTags(TextDocument textDocument)
+        /// <param name="regions">The regions to pad.</param>
+        internal void InsertPaddingBeforeRegionTags(IEnumerable<CodeItemRegion> regions)
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"{[^\n\{]}\n{:b*}\#region"
-                                 : @"([^\r\n\{])\r?\n([ \t]*)#region";
+            foreach (var region in regions)
+            {
+                var startPoint = region.StartPoint.CreateEditPoint();
 
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#region"
-                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#region";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+                TextDocumentHelper.InsertBlankLineBeforePoint(startPoint);
+            }
         }
 
         /// <summary>
-        /// Inserts a blank line after #region tags for the specified text document.
+        /// Inserts a blank line after #region tags except where adjacent to a brace.
         /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        internal void InsertPaddingAfterRegionTags(TextDocument textDocument)
+        /// <param name="regions">The regions to pad.</param>
+        internal void InsertPaddingAfterRegionTags(IEnumerable<CodeItemRegion> regions)
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"^{:b*}\#region{.*}\n{.}"
-                                 : @"^([ \t]*)#region([^\r\n]*)\r?\n([^\r\n])";
+            foreach (var region in regions)
+            {
+                var startPoint = region.StartPoint.CreateEditPoint();
 
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1\#region\2" + Environment.NewLine + Environment.NewLine + @"\3"
-                                     : @"$1#region$2" + Environment.NewLine + Environment.NewLine + @"$3";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+                TextDocumentHelper.InsertBlankLineAfterPoint(startPoint);
+            }
         }
 
         /// <summary>
-        /// Inserts a blank line before #endregion tags for the specified text document.
+        /// Inserts a blank line before #endregion tags except where adjacent to a brace.
         /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        internal void InsertPaddingBeforeEndRegionTags(TextDocument textDocument)
+        /// <param name="regions">The regions to pad.</param>
+        internal void InsertPaddingBeforeEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"{.}\n{:b*}\#endregion"
-                                 : @"([^\r\n])\r?\n([ \t]*)#endregion";
+            foreach (var region in regions)
+            {
+                var endPoint = region.EndPoint.CreateEditPoint();
 
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1" + Environment.NewLine + Environment.NewLine + @"\2\#endregion"
-                                     : @"$1" + Environment.NewLine + Environment.NewLine + @"$2#endregion";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+                TextDocumentHelper.InsertBlankLineBeforePoint(endPoint);
+            }
         }
 
         /// <summary>
-        /// Inserts a blank line after #endregion tags except where adjacent to a brace
-        /// for the specified text document.
+        /// Inserts a blank line after #endregion tags except where adjacent to a brace.
         /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        internal void InsertPaddingAfterEndRegionTags(TextDocument textDocument)
+        /// <param name="regions">The regions to pad.</param>
+        internal void InsertPaddingAfterEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"^{:b*}\#endregion{.*}\n{:b*[^:b\}]}"
-                                 : @"^([ \t]*)#endregion([^\r\n]*)\r?\n([ \t]*[^ \t\r\n\}])";
+            foreach (var region in regions)
+            {
+                var endPoint = region.EndPoint.CreateEditPoint();
 
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1\#endregion\2" + Environment.NewLine + Environment.NewLine + @"\3"
-                                     : @"$1#endregion$2" + Environment.NewLine + Environment.NewLine + @"$3";
-
-            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+                TextDocumentHelper.InsertBlankLineAfterPoint(endPoint);
+            }
         }
 
         /// <summary>
@@ -342,11 +328,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             string pattern = _package.UsePOSIXRegEx
                                  ? @"{^:b*}{break;|return;}\n{:b*}{case|default}"
-                                 : @"(^[ \t]*)(break;|return;)\r?\n([ \t]*)(case|default)";
+                                 : @"(^[ \t]*)(break;|return([ \t][^;]*)?;)\r?\n([ \t]*)(case|default)";
 
             string replacement = _package.UsePOSIXRegEx
                                      ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3\4"
-                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$3$4";
+                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$4$5";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
