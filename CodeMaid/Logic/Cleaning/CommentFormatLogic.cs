@@ -96,8 +96,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            string commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
-            string commentPattern = CodeCommentHelper.PrefixToPattern(commentPrefix);
+            var indentSettings = CodeCommentHelper.GetIndentSettings(this._package, textDocument);
+            var commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
+            var commentPattern = CodeCommentHelper.PrefixToPattern(commentPrefix);
 
             if (commentPattern == null)
                 return;
@@ -115,6 +116,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 else
                 {
                     var comment = new CodeComment(commentPattern, ref cursor, ref end, _majorTags, _minorTags);
+                    comment.IndentSettings = indentSettings;
                     cursor = comment.Output(maxWidth);
                 }
             }

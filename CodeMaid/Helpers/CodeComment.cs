@@ -15,6 +15,7 @@ using EnvDTE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -28,7 +29,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private static Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\)\.:])?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private EditPoint _cursor;
         private CachedSettingSet<string> _majorTags;
         private CachedSettingSet<string> _minorTags;
         private Regex XmlTagRegex;
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
 
             this.CommentPrefix = commentMatch.Groups["prefix"].Value;
-            
+
             // Scary workaround for blockcomments.
             if (CommentPrefix == "/*")
             {
@@ -63,8 +63,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var indent = lineMatch.Groups["indent"].Success ? lineMatch.Groups["indent"].Length : 0;
                 var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
                 var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
-                
-                // Empty lines return a single empty string from split, null makes this easier to 
+
+                // Empty lines return a single empty string from split, null makes this easier to
                 // deal with.
                 if (words[0].Length == 0)
                     words = null;
@@ -89,6 +89,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public EditPoint EndPoint { get; private set; }
 
+        public CodeCommentHelper.CodeCommentIndentSettings IndentSettings { get; set; }
+
         public bool IsBlockComment { get; private set; }
 
         public bool IsXmlComment { get; private set; }
@@ -106,15 +108,30 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The endpoint of the comment.</returns>
         public EditPoint Output(int maxWidth)
         {
+            var commentBuilder = BuildComment(maxWidth);
+
+            if (!commentBuilder.Equals(StartPoint.GetText(EndPoint)))
+            {
+                var cursor = StartPoint.CreateEditPoint();
+                cursor.Delete(EndPoint);
+                cursor.Insert(commentBuilder.ToString());
+                EndPoint = cursor.CreateEditPoint();
+            }
+
+            return EndPoint;
+        }
+
+        private CommentBuilder BuildComment(int maxWidth)
+        {
             if (maxWidth < LineCharOffset + 20)
                 maxWidth = LineCharOffset + 20;
 
-            _cursor = StartPoint.CreateEditPoint();
-
-            _cursor.Delete(EndPoint);
-
             if (IsXmlComment)
                 ReformatXmlPhrases();
+
+            // Output buffer. The magic minus 1 accounts for the difference between cursor position
+            // and actual character count.
+            var builder = new CommentBuilder(LineCharOffset - 1, CommentPrefix, IndentSettings);
 
             // Loop through each phrase.
             var phrase = Phrases.First;
@@ -123,15 +140,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 // Start of Block comment
                 if (IsBlockComment && phrase.Previous == null)
-                    _cursor.Insert("/*");
+                    builder.Insert("/*");
                 else
-                    _cursor.Insert(CommentPrefix);
+                    builder.Insert(CommentPrefix);
 
                 // Phrase is a list, so output the list prefix before the first word.
                 if (phrase.Value.IsList)
                 {
-                    _cursor.Insert(" ");
-                    _cursor.Insert(phrase.Value.ListPrefix);
+                    builder.Insert(" ");
+                    builder.Insert(phrase.Value.ListPrefix);
                 }
 
                 // Loop through each word.
@@ -140,19 +157,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // Create newline if next word no longer fits on this line, but keep in
                     // mind some words can by themself already be too long to fit on a line.
-                    if (_cursor.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
+                    if (builder.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
                     {
-                        WriteNewCommentLine(true);
+                        builder.WriteNewCommentLine(true);
 
                         // If the current phrase is a list, add extra spacing to create pretty
                         // alignment of list items.
                         if (phrase.Value.IsList)
-                            _cursor.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
+                            builder.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
                     }
 
                     // This is were we write the actual word.
-                    _cursor.Insert(" ");
-                    _cursor.Insert(word.Value);
+                    builder.Insert(" ");
+                    builder.Insert(word.Value);
 
                     word = word.Next;
                 }
@@ -161,19 +178,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 if (phrase != null)
                 {
-                    // On a comment phrase, and there will be another phrase.
-                    WriteNewCommentLine(false);
+                    // On a comment phrase, and there will not be another phrase, write a newline
+                    // but do not resume comment.
+                    builder.WriteNewCommentLine(false);
                 }
                 else if (IsBlockComment)
                 {
                     // End the block comment
-                    _cursor.Insert(" */");
+                    builder.Insert(" */");
                 }
             }
 
-            EndPoint = _cursor.CreateEditPoint();
-
-            return _cursor;
+            return builder;
         }
 
         /// <summary>
@@ -270,15 +286,70 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Write a newline at the <c>StartPoint</c> and add indenting.
+        /// Commentbuilder mimics the functions of <c>EditPoint</c> used to create a comment, but
+        /// it works interally rather than editting the document directly.
         /// </summary>
-        /// <param name="resumeComment"> If set to <c>true</c> it will also write <c>CommentPrefix</c>. </param>
-        private void WriteNewCommentLine(bool resumeComment = false)
+        private class CommentBuilder : IEquatable<string>
         {
-            _cursor.Insert(Environment.NewLine);
-            _cursor.PadToColumn(LineCharOffset);
-            if (resumeComment)
-                _cursor.Insert(CommentPrefix);
+            private StringBuilder _builder;
+            private int _commentOffset;
+            private string _commentPrefix;
+            private CodeCommentHelper.CodeCommentIndentSettings _indentSettings;
+
+            public CommentBuilder(int commentOffset, string commentPrefix, CodeCommentHelper.CodeCommentIndentSettings indentSettings)
+            {
+                _commentOffset = commentOffset;
+                _commentPrefix = commentPrefix;
+                _indentSettings = indentSettings ?? new CodeCommentHelper.CodeCommentIndentSettings();
+
+                _builder = new StringBuilder();
+
+                LineCharOffset = _commentOffset;
+            }
+
+            public int LineCharOffset { get; private set; }
+
+            public bool Equals(string other)
+            {
+                return String.Equals(_builder.ToString(), other);
+            }
+
+            public void Insert(string text)
+            {
+                _builder.Append(text);
+                LineCharOffset += text.Length;
+            }
+
+            public void PadToColumn(int Column)
+            {
+                // If using tabs, insert as many tabs as possible without exceeding padding width.
+                if (_indentSettings.InsertTabs)
+                {
+                    int tabCount = (Column - LineCharOffset) / _indentSettings.TabSize;
+                    Insert("".PadLeft(tabCount, '\t'));
+                    // Fixup character offset because tab is one character but takes up more room.
+                    LineCharOffset += tabCount * (_indentSettings.TabSize - 1);
+                }
+
+                // Fill remaining space with spaces.
+                Insert("".PadLeft(Column - LineCharOffset, ' '));
+            }
+
+            public override string ToString()
+            {
+                return _builder.ToString();
+            }
+
+            public void WriteNewCommentLine(bool resumeComment = false)
+            {
+                this.Insert(Environment.NewLine);
+                LineCharOffset = 0;
+
+                this.PadToColumn(_commentOffset);
+
+                if (resumeComment)
+                    this.Insert(_commentPrefix);
+            }
         }
     }
 }
