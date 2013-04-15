@@ -20,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
     /// </summary>
     public class CleaningFormatCommentsViewModel : OptionsPageViewModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CleaningFileTypesViewModel"/> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        public CleaningFormatCommentsViewModel(CodeMaidPackage package)
+            : base(package)
+        {
+        }
+
+        #endregion Constructors
+
         #region Overrides of OptionsPageViewModel
 
         /// <summary>
