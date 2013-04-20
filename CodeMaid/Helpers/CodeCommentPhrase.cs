@@ -25,9 +25,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
         {
-            this.Indent = indent;
-            this.ListPrefix = listPrefix;
-            this.Words = new LinkedList<string>();
+            Indent = indent;
+            ListPrefix = listPrefix;
+            Words = new LinkedList<string>();
 
             AppendWords(words);
         }

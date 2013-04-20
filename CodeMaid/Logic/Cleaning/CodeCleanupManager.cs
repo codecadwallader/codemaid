@@ -39,13 +39,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly UndoTransactionHelper _undoTransactionHelper;
 
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
+        private readonly CommentFormatLogic _commentFormatLogic;
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
         private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
-        private readonly CommentFormatLogic _commentFormatLogic;
 
         #endregion Fields
 
@@ -78,13 +78,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
 
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
+            _commentFormatLogic = CommentFormatLogic.GetInstance(_package);
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
             _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _updateLogic = UpdateLogic.GetInstance(_package);
             _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
-            _commentFormatLogic = CommentFormatLogic.GetInstance(_package);
         }
 
         #endregion Constructors

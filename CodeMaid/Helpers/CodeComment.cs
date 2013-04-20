@@ -11,49 +11,63 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using EnvDTE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">Phrases</see>
+    /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see>
     /// which represent all the content of a comment.
     /// </summary>
     internal class CodeComment
     {
-        private static Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\)\.:])?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        #region Fields
 
-        private CachedSettingSet<string> _majorTags;
-        private CachedSettingSet<string> _minorTags;
-        private Regex XmlTagRegex;
+        private static readonly Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\)\.:])?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private readonly CachedSettingSet<string> _majorTags;
+        private readonly CachedSettingSet<string> _minorTags;
+        private Regex _xmlTagRegex;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeComment"/> class.
+        /// </summary>
+        /// <param name="commentRegex">The comment regular expression.</param>
+        /// <param name="from">The start point.</param>
+        /// <param name="to">The end point.</param>
+        /// <param name="majorTags">The major tags.</param>
+        /// <param name="minorTags">The minor tags.</param>
         public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
         {
-            this.StartPoint = from.CreateEditPoint();
-            this.EndPoint = to.CreateEditPoint();
-            this.LineCharOffset = from.LineCharOffset;
+            StartPoint = from.CreateEditPoint();
+            EndPoint = to.CreateEditPoint();
+            LineCharOffset = from.LineCharOffset;
 
-            this._majorTags = majorTags;
-            this._minorTags = minorTags;
+            _majorTags = majorTags;
+            _minorTags = minorTags;
 
-            this.Phrases = new LinkedList<CodeCommentPhrase>();
+            Phrases = new LinkedList<CodeCommentPhrase>();
 
             string text = from.GetText(to);
             var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
 
-            this.CommentPrefix = commentMatch.Groups["prefix"].Value;
+            CommentPrefix = commentMatch.Groups["prefix"].Value;
 
-            // Scary workaround for blockcomments.
+            // Workaround for blockcomments.
             if (CommentPrefix == "/*")
             {
-                this.IsBlockComment = true;
-                this.CommentPrefix = " *";
+                IsBlockComment = true;
+                CommentPrefix = " *";
             }
 
             foreach (Capture c in commentMatch.Groups["line"].Captures)
@@ -64,13 +78,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
                 var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
 
-                // Empty lines return a single empty string from split, null makes this easier to
-                // deal with.
+                // Empty lines return a single empty string from split, null makes this easier to deal with.
                 if (words[0].Length == 0)
+                {
                     words = null;
+                }
 
                 if (Phrases.First == null && words != null)
-                    this.IsXmlComment = this.CommentPrefix.Length == 3 && words.First().StartsWith("<");
+                {
+                    IsXmlComment = CommentPrefix.Length == 3 && words.First().StartsWith("<");
+                }
 
                 if (
                     Phrases.Last == null // No phrases yet
@@ -79,17 +96,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     || (words == null && Phrases.Last.Value.Words.First != null) // This is an empty line and previous one is not
                     || (words != null && Phrases.Last.Value.Words.First == null) // This is a normal line and previous one is empty
                     )
+                {
                     Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix, words));
+                }
                 else
+                {
                     Phrases.Last.Value.AppendWords(words);
+                }
             }
         }
+
+        #endregion Constructors
+
+        #region Properties
 
         public string CommentPrefix { get; private set; }
 
         public EditPoint EndPoint { get; private set; }
 
-        public CodeCommentHelper.CodeCommentIndentSettings IndentSettings { get; set; }
+        public IndentSettings IndentSettings { get; set; }
 
         public bool IsBlockComment { get; private set; }
 
@@ -101,10 +126,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public EditPoint StartPoint { get; private set; }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
-        /// Write the new comment text to the document.
+        /// Conditionally writes the new comment text to the document.
         /// </summary>
-        /// <param name="maxWidth"> The right margin to adhere to. </param>
+        /// <param name="maxWidth">The maximum width.</param>
         /// <returns>The endpoint of the comment.</returns>
         public EditPoint Output(int maxWidth)
         {
@@ -180,7 +209,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     // On a comment phrase, and there will not be another phrase, write a newline
                     // but do not resume comment.
-                    builder.WriteNewCommentLine(false);
+                    builder.WriteNewCommentLine();
                 }
                 else if (IsBlockComment)
                 {
@@ -206,7 +235,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void ReformatXmlPhrases()
         {
-            this.XmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            _xmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var phrase = Phrases.First;
             while (phrase != null)
@@ -216,7 +245,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     var word = phrase.Value.Words.First;
                     while (word != null)
                     {
-                        var match = XmlTagRegex.Match(word.Value);
+                        var match = _xmlTagRegex.Match(word.Value);
 
                         if (match.Success)
                         {
@@ -285,22 +314,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        #endregion Methods
+
         /// <summary>
         /// Commentbuilder mimics the functions of <c>EditPoint</c> used to create a comment, but
         /// it works interally rather than editting the document directly.
         /// </summary>
         private class CommentBuilder : IEquatable<string>
         {
-            private StringBuilder _builder;
-            private int _commentOffset;
-            private string _commentPrefix;
-            private CodeCommentHelper.CodeCommentIndentSettings _indentSettings;
+            private readonly StringBuilder _builder;
+            private readonly int _commentOffset;
+            private readonly string _commentPrefix;
+            private readonly IndentSettings _indentSettings;
 
-            public CommentBuilder(int commentOffset, string commentPrefix, CodeCommentHelper.CodeCommentIndentSettings indentSettings)
+            public CommentBuilder(int commentOffset, string commentPrefix, IndentSettings indentSettings)
             {
                 _commentOffset = commentOffset;
                 _commentPrefix = commentPrefix;
-                _indentSettings = indentSettings ?? new CodeCommentHelper.CodeCommentIndentSettings();
+                _indentSettings = indentSettings ?? new IndentSettings();
 
                 _builder = new StringBuilder();
 
@@ -320,19 +351,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 LineCharOffset += text.Length;
             }
 
-            public void PadToColumn(int Column)
+            private void PadToColumn(int column)
             {
                 // If using tabs, insert as many tabs as possible without exceeding padding width.
                 if (_indentSettings.InsertTabs)
                 {
-                    int tabCount = (Column - LineCharOffset) / _indentSettings.TabSize;
+                    int tabCount = (column - LineCharOffset) / _indentSettings.TabSize;
                     Insert("".PadLeft(tabCount, '\t'));
                     // Fixup character offset because tab is one character but takes up more room.
                     LineCharOffset += tabCount * (_indentSettings.TabSize - 1);
                 }
 
                 // Fill remaining space with spaces.
-                Insert("".PadLeft(Column - LineCharOffset, ' '));
+                Insert("".PadLeft(column - LineCharOffset, ' '));
             }
 
             public override string ToString()
@@ -342,13 +373,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             public void WriteNewCommentLine(bool resumeComment = false)
             {
-                this.Insert(Environment.NewLine);
+                Insert(Environment.NewLine);
                 LineCharOffset = 0;
 
-                this.PadToColumn(_commentOffset);
+                PadToColumn(_commentOffset);
 
                 if (resumeComment)
-                    this.Insert(_commentPrefix);
+                {
+                    Insert(_commentPrefix);
+                }
             }
         }
     }

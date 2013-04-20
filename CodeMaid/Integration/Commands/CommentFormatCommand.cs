@@ -11,11 +11,11 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
+using System.ComponentModel.Design;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
-using System;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -138,9 +138,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (found)
             {
-                if (CodeCommentHelper.IsCommentedCodeBefore(start, prefix))
+                if (CodeCommentHelper.IsCommentedOutCodeBefore(start, prefix))
                     return false;
-                if (CodeCommentHelper.IsCommentedCodeAfter(end, prefix))
+                if (CodeCommentHelper.IsCommentedOutCodeAfter(end, prefix))
                     return false;
 
                 start.StartOfLine();
@@ -168,32 +168,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         #endregion Private Properties
-
-        #region Private Methods
-
-        private static string[] GetCommentPrefixPatternsForDocument(TextDocument document, string prefix)
-        {
-            string defaultPattern = String.Format(@"(?<prefix>{0}) .*(\r?\n\s*\k<prefix> .*)*", prefix);
-
-            switch (document.Parent.Language)
-            {
-                case "CSharp":
-                case "C/C++":
-                case "JavaScript":
-                case "JScript":
-                    return new[] {
-                        @"/\* .*(\r?\n\s*\* .*)*",
-                        defaultPattern
-                    };
-
-                case "Basic":
-                    return new[] { defaultPattern };
-
-                default:
-                    return null;
-            }
-        }
-
-        #endregion Private Methods
     }
 }

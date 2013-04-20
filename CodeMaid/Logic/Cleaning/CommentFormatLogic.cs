@@ -11,14 +11,17 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
+using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
-using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
+    /// <summary>
+    /// A class for encapsulating comment formatting logic.
+    /// </summary>
     internal class CommentFormatLogic
     {
         #region Fields
@@ -40,7 +43,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                                                    .Select(x => x.Trim().ToLower())
                                                    .Where(y => !string.IsNullOrEmpty(y))
                                                    .ToList());
-
 
         #endregion Fields
 
@@ -75,9 +77,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Methods
 
         /// <summary>
-        /// Reformat all code comments in document.
+        /// Reformat all comments in the specified document.
         /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
+        /// <param name="textDocument">The text document.</param>
         public void FormatComments(TextDocument textDocument)
         {
             if (!Settings.Default.Cleaning_CommentReformat) return;
@@ -86,22 +88,21 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Reformat all comments between given start and endpoint. Comments that start before but
-        /// exceed the EndPoint are included.
+        /// Reformat all comments between the specified start and end point.
+        /// Comments that start within the range, even if they overlap the end are included.
         /// </summary>
-        /// <param name="textDocument">The Document.</param>
-        /// <param name="startPoint">The StartPoint.</param>
-        /// <param name="endPoint">The EndPoint.</param>
+        /// <param name="textDocument">The text document.</param>
+        /// <param name="startPoint">The start point.</param>
+        /// <param name="endPoint">The end point.</param>
         public void FormatComments(TextDocument textDocument, TextPoint startPoint, TextPoint endPoint)
         {
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
 
-            var indentSettings = CodeCommentHelper.GetIndentSettings(this._package, textDocument);
+            var indentSettings = CodeCommentHelper.GetIndentSettings(_package, textDocument.Language);
             var commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
-            var commentPattern = CodeCommentHelper.PrefixToPattern(commentPrefix);
+            var commentPattern = CodeCommentHelper.CreateCommentPatternFromPrefix(commentPrefix);
 
-            if (commentPattern == null)
-                return;
+            if (commentPattern == null) return;
 
             var cursor = startPoint.CreateEditPoint();
             EditPoint end = null;
@@ -109,7 +110,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             while (cursor != null && cursor.FindPattern(commentPattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
             {
-                if (CodeCommentHelper.IsCommentedCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedCodeAfter(end, commentPrefix))
+                if (CodeCommentHelper.IsCommentedOutCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedOutCodeAfter(end, commentPrefix))
                 {
                     cursor = end;
                 }
@@ -120,9 +121,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     cursor = comment.Output(maxWidth);
                 }
             }
-
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }

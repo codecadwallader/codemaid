@@ -11,21 +11,35 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using EnvDTE;
 using System;
+using System.Text.RegularExpressions;
+using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
+    /// <summary>
+    /// A set of helper methods focused around code comments.
+    /// </summary>
     internal static class CodeCommentHelper
     {
         /// <summary>
+        /// Creates a multi-line regular expression pattern based on the comment prefix.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <returns>The regular expression pattern for matching comments.</returns>
+        internal static string CreateCommentPatternFromPrefix(string prefix)
+        {
+            return String.Format(@"(?<prefix>{0})(?<line>( .*)?)(\r?\n\s*\k<prefix>(?<line>( .*)?))*", prefix);
+        }
+
+        /// <summary>
         /// Get the comment prefix (regex) for the given document's language.
         /// </summary>
-        /// <param name="document"></param>
+        /// <param name="document">The document.</param>
         /// <returns>The comment prefix regex, without trailing spaces.</returns>
         internal static string GetCommentPrefixForDocument(TextDocument document)
         {
-            switch (document.Parent.Language)
+            switch (document.Language)
             {
                 case "CSharp":
                 case "C/C++":
@@ -42,101 +56,56 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Check if the text is commented-out code.
+        /// Get the user's indentation settings for the specified language.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <param name="language">The language.</param>
+        /// <returns>An instance of indentation settings based on the specified language.</returns>
+        internal static IndentSettings GetIndentSettings(CodeMaidPackage package, string language)
+        {
+            return new IndentSettings(package.IDE.Properties["TextEditor", language]);
+        }
+
+        /// <summary>
+        /// Determines if the specified text appears to be commented-out code.
         /// </summary>
         /// <param name="text">The text to check.</param>
         /// <param name="prefix">The comment prefix.</param>
-        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
-        internal static bool IsCommentedCode(string text, string prefix)
+        /// <returns><c>true</c> if commented-out code, otherwise <c>false</c>.</returns>
+        internal static bool IsCommentedOutCode(string text, string prefix)
         {
             // Use regex with alternation rather than character class, because otherwise "$" fails.
-            return System.Text.RegularExpressions.Regex.IsMatch(text, String.Format(@"^\s*{0}(?!(\s|\r|\n|$))", prefix));
+            return Regex.IsMatch(text, String.Format(@"^\s*{0}(?!(\s|\r|\n|$))", prefix));
         }
 
         /// <summary>
-        /// Check if the line after the cursor is commented-out code.
+        /// Determines if the line after the cursor appears to be commented-out code.
         /// </summary>
-        /// <param name="cursor"></param>
+        /// <param name="cursor">The cursor.</param>
         /// <param name="prefix">The comment prefix.</param>
-        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
-        internal static bool IsCommentedCodeAfter(EditPoint cursor, string prefix)
+        /// <returns><c>true</c> if commented-out code, otherwise <c>false</c>.</returns>
+        internal static bool IsCommentedOutCodeAfter(EditPoint cursor, string prefix)
         {
-            if (cursor.AtEndOfDocument)
-                return false;
+            if (cursor.Line == cursor.Parent.EndPoint.Line) return false;
 
-            var to = cursor.CreateEditPoint();
-            to.LineDown();
-            to.EndOfLine();
-            var from = to.CreateEditPoint();
-            to.StartOfLine();
-            return IsCommentedCode(cursor.GetText(to), prefix);
+            var text = cursor.GetLines(cursor.Line + 1, cursor.Line + 2);
+
+            return IsCommentedOutCode(text, prefix);
         }
 
         /// <summary>
-        /// Check if the line before the cursor is commented-out code.
+        /// Determines if the line before the cursor appears to be commented-out code.
         /// </summary>
-        /// <param name="cursor"></param>
+        /// <param name="cursor">The cursor.</param>
         /// <param name="prefix">The comment prefix.</param>
-        /// <returns><c>true</c> if commented-out code, else <c>false</c>.</returns>
-        internal static bool IsCommentedCodeBefore(EditPoint cursor, string prefix)
+        /// <returns><c>true</c> if commented-out code, otherwise <c>false</c>.</returns>
+        internal static bool IsCommentedOutCodeBefore(EditPoint cursor, string prefix)
         {
-            if (cursor.AtStartOfDocument)
-                return false;
+            if (cursor.Line == cursor.Parent.StartPoint.Line) return false;
 
-            var from = cursor.CreateEditPoint();
-            from.LineUp();
-            from.StartOfLine();
-            var to = from.CreateEditPoint();
-            to.EndOfLine();
-            return IsCommentedCode(from.GetText(to), prefix);
-        }
+            var text = cursor.GetLines(cursor.Line - 1, cursor.Line);
 
-        /// <summary>
-        /// Create multi-line Regex pattern based on the comment prefix.
-        /// </summary>
-        /// <param name="prefix"></param>
-        /// <returns></returns>
-        internal static string PrefixToPattern(string prefix)
-        {
-            return String.Format(@"(?<prefix>{0})(?<line>( .*)?)(\r?\n\s*\k<prefix>(?<line>( .*)?))*", prefix);
-        }
-
-        /// <summary>
-        /// Get the user's indenting settings.
-        /// </summary>
-        /// <param name="package">Package used to reference DTE.</param>
-        /// <param name="document">Docoument used to get language.</param>
-        /// <returns>An instance of indenting settings for this document.</returns>
-        internal static CodeCommentIndentSettings GetIndentSettings(CodeMaidPackage package, TextDocument document)
-        {
-            return new CodeCommentIndentSettings(package.IDE.Properties["TextEditor", document.Parent.Language]);
-        }
-
-        internal class CodeCommentIndentSettings
-        {
-            public CodeCommentIndentSettings()
-            {
-                IndentStyle = vsIndentStyle.vsIndentStyleSmart;
-                IndentSize = 4;
-                TabSize = 4;
-                InsertTabs = false;
-            }
-
-            public CodeCommentIndentSettings(EnvDTE.Properties settings)
-            {
-                IndentStyle = (vsIndentStyle)settings.Item("IndentStyle").Value;
-                IndentSize = (short)settings.Item("IndentSize").Value;
-                TabSize = (short)settings.Item("TabSize").Value;
-                InsertTabs = (bool)settings.Item("InsertTabs").Value;
-            }
-
-            public short IndentSize { get; private set; }
-
-            public vsIndentStyle IndentStyle { get; private set; }
-
-            public bool InsertTabs { get; private set; }
-
-            public short TabSize { get; private set; }
+            return IsCommentedOutCode(text, prefix);
         }
     }
 }
