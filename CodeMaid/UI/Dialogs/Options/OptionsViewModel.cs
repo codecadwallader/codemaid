@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                                        new CleaningInsertViewModel(package),
                                                        new CleaningRemoveViewModel(package),
                                                        new CleaningUpdateViewModel(package),
-                                                       new CleaningFormatCommentsViewModel(package)
+                                                       new CleaningCommentsViewModel(package)
                                                    }
                                 },
                             new CollapsingViewModel(package),

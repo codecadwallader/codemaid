@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private readonly CachedSettingSet<string> _majorTags;
         private readonly CachedSettingSet<string> _minorTags;
-        private Regex _xmlTagRegex;
+        private readonly IndentSettings _indentSettings;
 
         #endregion Fields
 
@@ -47,7 +47,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="to">The end point.</param>
         /// <param name="majorTags">The major tags.</param>
         /// <param name="minorTags">The minor tags.</param>
-        public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags)
+        /// <param name="indentSettings">The indent settings.</param>
+        public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags, IndentSettings indentSettings)
         {
             StartPoint = from.CreateEditPoint();
             EndPoint = to.CreateEditPoint();
@@ -55,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             _majorTags = majorTags;
             _minorTags = minorTags;
+            _indentSettings = indentSettings;
 
             Phrases = new LinkedList<CodeCommentPhrase>();
 
@@ -114,8 +116,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public EditPoint EndPoint { get; private set; }
 
-        public IndentSettings IndentSettings { get; set; }
-
         public bool IsBlockComment { get; private set; }
 
         public bool IsXmlComment { get; private set; }
@@ -153,14 +153,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private CommentBuilder BuildComment(int maxWidth)
         {
             if (maxWidth < LineCharOffset + 20)
+            {
                 maxWidth = LineCharOffset + 20;
+            }
 
             if (IsXmlComment)
+            {
                 ReformatXmlPhrases();
+            }
 
             // Output buffer. The magic minus 1 accounts for the difference between cursor position
             // and actual character count.
-            var builder = new CommentBuilder(LineCharOffset - 1, CommentPrefix, IndentSettings);
+            var builder = new CommentBuilder(LineCharOffset - 1, CommentPrefix, _indentSettings);
 
             // Loop through each phrase.
             var phrase = Phrases.First;
@@ -169,9 +173,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 // Start of Block comment
                 if (IsBlockComment && phrase.Previous == null)
+                {
                     builder.Insert("/*");
+                }
                 else
+                {
                     builder.Insert(CommentPrefix);
+                }
 
                 // Phrase is a list, so output the list prefix before the first word.
                 if (phrase.Value.IsList)
@@ -193,7 +201,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         // If the current phrase is a list, add extra spacing to create pretty
                         // alignment of list items.
                         if (phrase.Value.IsList)
+                        {
                             builder.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
+                        }
                     }
 
                     // This is were we write the actual word.
@@ -227,7 +237,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private IEnumerable<string> GetWordsAfter(LinkedListNode<string> word)
         {
             while ((word = word.Next) != null)
+            {
                 yield return word.Value;
+            }
         }
 
         /// <summary>
@@ -235,7 +247,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void ReformatXmlPhrases()
         {
-            _xmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var xmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var phrase = Phrases.First;
             while (phrase != null)
@@ -245,17 +257,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     var word = phrase.Value.Words.First;
                     while (word != null)
                     {
-                        var match = _xmlTagRegex.Match(word.Value);
+                        var match = xmlTagRegex.Match(word.Value);
 
                         if (match.Success)
                         {
                             // Text directly before this tag goes in current phrase.
                             if (match.Groups["before"].Success)
+                            {
                                 word.List.AddBefore(word, match.Groups["before"].Value);
+                            }
                             if (match.Groups["after"].Success)
+                            {
                                 word.List.AddAfter(word, match.Groups["after"].Value);
+                            }
                             if (match.Groups["fulltag"].Success)
+                            {
                                 word.Value = match.Groups["fulltag"].Value;
+                            }
 
                             var tagName = match.Groups["tagname"].Value;
                             bool isCloseTag = word.Value.StartsWith("</");
@@ -275,7 +293,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                                 // Remove the rest.
                                 while (word.Next != null)
+                                {
                                     word.List.Remove(word.Next);
+                                }
                             }
 
                             // Major tags should be the last word.
@@ -287,7 +307,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                     GetWordsAfter(word)));
 
                                 while (word.Next != null)
+                                {
                                     word.List.Remove(word.Next);
+                                }
                             }
 
                             // Remove spacing between word and minor tags.
@@ -317,7 +339,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Methods
 
         /// <summary>
-        /// Commentbuilder mimics the functions of <c>EditPoint</c> used to create a comment, but
+        /// CommentBuilder mimics the functions of <c>EditPoint</c> used to create a comment, but
         /// it works interally rather than editting the document directly.
         /// </summary>
         private class CommentBuilder : IEquatable<string>

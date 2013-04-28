@@ -24,6 +24,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class CommentFormatCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+        private readonly CommentFormatLogic _commentFormatLogic;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -34,6 +41,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandCommentFormat, (int)PkgCmdIDList.CmdIDCodeMaidCommentFormat))
         {
+            _undoTransactionHelper = new UndoTransactionHelper(package, "Format Comment");
+            _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
         #endregion Constructors
@@ -71,9 +80,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 {
                     var selection = activeTextDocument.Selection;
 
-                    EditPoint
-                        start = null,
-                        end = null;
+                    EditPoint start;
+                    EditPoint end;
 
                     if (selection.IsEmpty)
                     {
@@ -88,19 +96,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                     if (ExpandToFullComment(ref start, ref end, prefix))
                     {
-                        var logic = CommentFormatLogic.GetInstance(Package);
-
-                        new UndoTransactionHelper(Package, "Format Comment").Run(() =>
-                        {
-                            logic.FormatComments(activeTextDocument, start, end);
-                        });
+                        _undoTransactionHelper.Run(() => _commentFormatLogic.FormatComments(activeTextDocument, start, end));
 
                         Package.IDE.StatusBar.Text = "CodeMaid finished formatting the comment.";
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = String.Format(
-                            "CodeMaid did not find a comment {0} to reformat.",
+                            "CodeMaid did not find a non-code comment {0} to reformat.",
                             selection.IsEmpty ? "under the cursor" : "in the selection"
                         );
                     }
@@ -112,9 +115,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             bool found = false;
 
-            EditPoint
-                from = start.CreateEditPoint(),
-                to = null;
+            EditPoint from = start.CreateEditPoint();
+            EditPoint to = null;
 
             from.EndOfLine();
 
@@ -138,10 +140,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (found)
             {
-                if (CodeCommentHelper.IsCommentedOutCodeBefore(start, prefix))
+                if (CodeCommentHelper.IsCommentedOutCodeBefore(start, prefix) || CodeCommentHelper.IsCommentedOutCodeAfter(end, prefix))
+                {
                     return false;
-                if (CodeCommentHelper.IsCommentedOutCodeAfter(end, prefix))
-                    return false;
+                }
 
                 start.StartOfLine();
                 end.EndOfLine();

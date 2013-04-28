@@ -31,9 +31,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
-
         private readonly UndoTransactionHelper _undoTransactionHelper;
-
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
 
         #endregion Fields

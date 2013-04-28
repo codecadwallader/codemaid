@@ -23,6 +23,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeCommentPhrase
     {
+        #region Constructors
+
         public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
         {
             Indent = indent;
@@ -32,6 +34,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             AppendWords(words);
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         public int Indent { get; private set; }
 
         public bool IsList { get { return ListPrefix != null; } }
@@ -40,17 +46,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public LinkedList<string> Words { get; private set; }
 
+        #endregion Properties
+
+        #region Methods
+
         public CodeCommentPhrase Append(CodeCommentPhrase other)
         {
             if (other != null)
+            {
                 AppendWords(other.Words);
+            }
+
             return this;
         }
 
         public void AppendWords(IEnumerable<string> words)
         {
-            if (words == null)
-                return;
+            if (words == null) return;
 
             int depth = 0;
             LinkedListNode<string> node = null;
@@ -62,9 +74,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 int close = w.Count(c => c == '>');
 
                 if (node != null)
+                {
                     node.Value = String.Format("{0} {1}", node.Value, w);
+                }
                 else
+                {
                     node = Words.AddLast(w);
+                }
 
                 depth += (open - close);
 
@@ -75,5 +91,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
             }
         }
+
+        #endregion Methods
     }
 }

@@ -55,6 +55,7 @@
                     <ContentPresenter.Resources>
                         <ResourceDictionary>
                             <ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="Cleaning/CleaningCommentsDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningGeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningInsertDataTemplate.xaml" />
@@ -62,7 +63,6 @@
                                 <ResourceDictionary Source="Cleaning/CleaningRemoveDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningUpdateDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningVisualStudioDataTemplate.xaml" />
-                                <ResourceDictionary Source="Cleaning/CleaningFormatCommentsDataTemplate.xaml" />
                                 <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />

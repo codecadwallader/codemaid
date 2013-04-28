@@ -286,7 +286,7 @@
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningFormatCommentsViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningCommentsViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Compatibility\CompatibilityViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
@@ -589,7 +589,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningFormatCommentsDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\Cleaning\CleaningCommentsDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

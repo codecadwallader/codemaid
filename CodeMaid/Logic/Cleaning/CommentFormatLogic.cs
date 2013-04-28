@@ -82,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document.</param>
         public void FormatComments(TextDocument textDocument)
         {
-            if (!Settings.Default.Cleaning_CommentReformat) return;
+            if (!Settings.Default.Cleaning_CommentRunDuringCleanup) return;
 
             FormatComments(textDocument, textDocument.StartPoint, textDocument.EndPoint);
         }
@@ -96,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="endPoint">The end point.</param>
         public void FormatComments(TextDocument textDocument, TextPoint startPoint, TextPoint endPoint)
         {
-            int maxWidth = Math.Max(Settings.Default.Cleaning_CommentMaxWidth, 20);
+            int maxWidth = Math.Max(Settings.Default.Cleaning_CommentWrapColumn, 20);
 
             var indentSettings = CodeCommentHelper.GetIndentSettings(_package, textDocument.Language);
             var commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
@@ -116,8 +116,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 }
                 else
                 {
-                    var comment = new CodeComment(commentPattern, ref cursor, ref end, _majorTags, _minorTags);
-                    comment.IndentSettings = indentSettings;
+                    var comment = new CodeComment(commentPattern, ref cursor, ref end, _majorTags, _minorTags, indentSettings);
                     cursor = comment.Output(maxWidth);
                 }
             }

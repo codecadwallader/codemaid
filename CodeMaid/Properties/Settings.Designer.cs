@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1095,24 +1095,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_CommentReformat {
+        public bool Cleaning_CommentRunDuringCleanup {
             get {
-                return ((bool)(this["Cleaning_CommentReformat"]));
+                return ((bool)(this["Cleaning_CommentRunDuringCleanup"]));
             }
             set {
-                this["Cleaning_CommentReformat"] = value;
+                this["Cleaning_CommentRunDuringCleanup"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int Cleaning_CommentMaxWidth {
+        public int Cleaning_CommentWrapColumn {
             get {
-                return ((int)(this["Cleaning_CommentMaxWidth"]));
+                return ((int)(this["Cleaning_CommentWrapColumn"]));
             }
             set {
-                this["Cleaning_CommentMaxWidth"] = value;
+                this["Cleaning_CommentWrapColumn"] = value;
             }
         }
         
