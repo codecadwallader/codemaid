@@ -42,7 +42,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_ExclusionExpression" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.*\.Designer\.cs||.*\.resx</Value>
+      <Value Profile="(Default)">.*\.Designer\.cs||.*\.Designer\.vb||.*\.resx</Value>
     </Setting>
     <Setting Name="Cleaning_IncludeCPlusPlus" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
