@@ -1379,5 +1379,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_UseUndoTransactions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveEndOfFileTrailingNewLine {
+            get {
+                return ((bool)(this["Cleaning_RemoveEndOfFileTrailingNewLine"]));
+            }
+            set {
+                this["Cleaning_RemoveEndOfFileTrailingNewLine"] = value;
+            }
+        }
     }
 }

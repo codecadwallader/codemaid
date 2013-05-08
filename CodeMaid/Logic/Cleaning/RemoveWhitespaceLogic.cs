@@ -69,20 +69,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
             cursor.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
-
-            // The last blank line may not have been removed, perform the delete more explicitly.
-            if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
-            {
-                // Make an exception for C++ resource files to work-around known EOF issue: http://connect.microsoft.com/VisualStudio/feedback/details/173903/resource-compiler-returns-a-rc1004-unexpected-eof-found-error#details
-                if (textDocument.Language == "C/C++" && textDocument.Parent.FullName.EndsWith(".h"))
-                {
-                    return;
-                }
-
-                var backCursor = cursor.CreateEditPoint();
-                backCursor.CharLeft();
-                backCursor.Delete(cursor);
-            }
         }
 
         /// <summary>
@@ -197,6 +183,30 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 string noSpaceReplacement = @"/>" + Environment.NewLine;
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, noSpacePattern, noSpaceReplacement);
+            }
+        }
+
+        /// <summary>
+        /// Removes the trailing newline from the end of the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void RemoveEOFTrailingNewLine(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine) return;
+
+            EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
+
+            if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
+            {
+                // Make an exception for C++ resource files to work-around known EOF issue: http://connect.microsoft.com/VisualStudio/feedback/details/173903/resource-compiler-returns-a-rc1004-unexpected-eof-found-error#details
+                if (textDocument.Language == "C/C++" && textDocument.Parent.FullName.EndsWith(".h"))
+                {
+                    return;
+                }
+
+                var backCursor = cursor.CreateEditPoint();
+                backCursor.CharLeft();
+                backCursor.Delete(cursor);
             }
         }
 

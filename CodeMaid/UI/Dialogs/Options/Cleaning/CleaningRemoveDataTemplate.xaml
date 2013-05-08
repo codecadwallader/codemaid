@@ -18,6 +18,7 @@
                 <ToggleButton Content="before closing angle brackets" IsChecked="{Binding RemoveBlankSpacesBeforeClosingAngleBrackets}" />
             </WrapPanel>
 
+            <CheckBox Content="Remove end of file trailing new line" IsChecked="{Binding RemoveEndOfFileTrailingNewLine}" />
             <CheckBox Content="Remove end of line whitespace" IsChecked="{Binding RemoveEndOfLineWhitespace}" />
             <CheckBox Content="Remove multiple consecutive blank lines" IsChecked="{Binding RemoveMultipleConsecutiveBlankLines}" />
         </StackPanel>

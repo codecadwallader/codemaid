@@ -251,6 +251,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAfterAttributes(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
@@ -336,6 +337,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
@@ -356,6 +358,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingTag(textDocument);
             _removeWhitespaceLogic.RemoveBlankSpacesBeforeClosingAngleBracket(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
@@ -379,6 +382,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }
 

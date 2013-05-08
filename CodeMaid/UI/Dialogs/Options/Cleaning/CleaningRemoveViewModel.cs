@@ -55,6 +55,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             RemoveBlankLinesBeforeClosingBraces = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
             RemoveBlankLinesBeforeClosingTags = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags;
             RemoveBlankSpacesBeforeClosingAngleBrackets = Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets;
+            RemoveEndOfFileTrailingNewLine = Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine;
             RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
             RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
         }
@@ -71,6 +72,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBraces;
             Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags = RemoveBlankLinesBeforeClosingTags;
             Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = RemoveBlankSpacesBeforeClosingAngleBrackets;
+            Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = RemoveEndOfFileTrailingNewLine;
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
         }
@@ -201,6 +203,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _removeBlankSpacesBeforeClosingAngleBrackets = value;
                     NotifyPropertyChanged("RemoveBlankSpacesBeforeClosingAngleBrackets");
+                }
+            }
+        }
+
+        private bool _removeEndOfFileTrailingNewLine;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if the end of file trailing newline should be removed.
+        /// </summary>
+        public bool RemoveEndOfFileTrailingNewLine
+        {
+            get { return _removeEndOfFileTrailingNewLine; }
+            set
+            {
+                if (_removeEndOfFileTrailingNewLine != value)
+                {
+                    _removeEndOfFileTrailingNewLine = value;
+                    NotifyPropertyChanged("RemoveEndOfFileTrailingNewLine");
                 }
             }
         }
