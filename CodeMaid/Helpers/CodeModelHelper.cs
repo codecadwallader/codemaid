@@ -86,8 +86,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 case vsCMAccess.vsCMAccessPublic: return "public";
                 case vsCMAccess.vsCMAccessProtected: return "protected";
-                case vsCMAccess.vsCMAccessPrivate: return "private";
                 case vsCMAccess.vsCMAccessProject: return "internal";
+                case vsCMAccess.vsCMAccessProjectOrProtected: return "protected internal";
+                case vsCMAccess.vsCMAccessPrivate: return "private";
                 default: return null;
             }
         }
