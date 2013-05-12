@@ -105,7 +105,10 @@ namespace SteveCadwallader.CodeMaid
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
 
-            Application.Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            if (Application.Current != null)
+            {
+                Application.Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            }
         }
 
         #endregion Constructors

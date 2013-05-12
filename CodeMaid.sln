@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests", "CodeMaid.IntegrationTests\CodeMaid.IntegrationTests.csproj", "{756CCDA3-D5E9-44B8-8049-1317B1826776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,26 @@ Global
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|x86.ActiveCfg = Release|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ using System;
 
 namespace SteveCadwallader.CodeMaid.Integration
 {
-    internal static class GuidList
+    public static class GuidList
     {
         // Package level guids.
 

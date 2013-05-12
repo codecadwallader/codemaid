@@ -13,7 +13,7 @@
 
 namespace SteveCadwallader.CodeMaid.Integration
 {
-    internal static class PkgCmdIDList
+    public static class PkgCmdIDList
     {
         public const uint CmdIDCodeMaidAbout = 0x1000;
         public const uint CmdIDCodeMaidBuildProgressToolWindow = 0x1100;
