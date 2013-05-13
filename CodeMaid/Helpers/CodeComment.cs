@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Fields
 
-        private static readonly Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\)\.:])?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex CommentLineRegex = new Regex(@"(?<indent>\s*(?<listprefix>-|\w+[\):]|\d+\.)?\s*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex WordSplitRegex = new Regex(@"\s+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private readonly CachedSettingSet<string> _majorTags;
