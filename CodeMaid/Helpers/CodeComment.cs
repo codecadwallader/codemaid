@@ -248,7 +248,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private void ReformatXmlPhrases()
         {
-            var xmlTagRegex = new Regex(@"(?<before>.+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var xmlTagRegex = new Regex(@"(?<before>[^\<]+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*?>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var phrase = Phrases.First;
             while (phrase != null)
