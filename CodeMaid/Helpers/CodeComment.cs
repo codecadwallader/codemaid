@@ -192,9 +192,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var word = phrase.Value.Words.First;
                 while (word != null)
                 {
-                    // Create newline if next word no longer fits on this line, but keep in
-                    // mind some words can by themself already be too long to fit on a line.
-                    if (builder.LineCharOffset + word.Value.Length > maxWidth && word.Value.Length < maxWidth)
+                    // Create a newline if the next space and word no longer fit on this line, but
+                    // keep in mind some words can by themself already be too long to fit on a
+                    // line.
+                    if (builder.LineCharOffset + word.Value.Length + 1 > maxWidth && word.Value.Length < maxWidth)
                     {
                         builder.WriteNewCommentLine(true);
 
@@ -395,7 +396,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             public void WriteNewCommentLine(bool resumeComment = false)
             {
-                Insert(Environment.NewLine);
+                _builder.AppendLine();
                 LineCharOffset = 0;
 
                 PadToColumn(_commentOffset);
