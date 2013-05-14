@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static bool IsCommentedOutCode(string text, string prefix)
         {
             // Use regex with alternation rather than character class, because otherwise "$" fails.
-            return Regex.IsMatch(text, String.Format(@"^\s*{0}(?!(\s|\r|\n|$))", prefix));
+            return Regex.IsMatch(text, String.Format(@"^[ \t]*{0}(?!( |\t|\r|\n|$))", prefix));
         }
 
         /// <summary>
