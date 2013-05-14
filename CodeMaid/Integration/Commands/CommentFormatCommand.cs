@@ -111,6 +111,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
+        /// <summary>
+        /// Expand a selection to the complete comment.
+        /// </summary>
+        /// <param name="start">Reference to the startpoint of the selection.</param>
+        /// <param name="end">Reference to the endpoint of the selection.</param>
+        /// <param name="prefix">The comment prefix.</param>
+        /// <returns><c>true</c> if a valid comment was found within the selection, otherwise <c>false</c>.</returns>
         private bool ExpandToFullComment(ref EditPoint start, ref EditPoint end, string prefix)
         {
             bool found = false;
