@@ -3,7 +3,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe</StartProgram>
-    <StartArguments>/rootsuffix exp</StartArguments>
+    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory />
@@ -15,5 +15,10 @@
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
     <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
 </Project>

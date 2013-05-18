@@ -15,6 +15,9 @@ using Microsoft.VsSDK.UnitTestLibrary;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
+    /// <remarks>
+    /// Part of VSIX unit testing starter kit.
+    /// </remarks>
     internal static class UIShellServiceMock
     {
         private static GenericMockFactory _uiShellFactory;

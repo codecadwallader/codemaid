@@ -22,6 +22,13 @@ namespace SteveCadwallader.CodeMaid.Integration
         public const string GuidCodeMaidPackageString = "4c82e17d-927e-42d2-8460-b473ac7df316";
         public static readonly Guid GuidCodeMaidPackage = new Guid(GuidCodeMaidPackageString);
 
+        // Tool window guids.
+
+        public const string GuidCodeMaidToolWindowBuildProgressString = "260978c3-582c-487d-ab12-c1fdde07c578";
+        public static readonly Guid GuidCodeMaidToolWindowBuildProgress = new Guid(GuidCodeMaidToolWindowBuildProgressString);
+        public const string GuidCodeMaidToolWindowSpadeString = "75d09b86-471e-4b30-8720-362d13ad0a45";
+        public static readonly Guid GuidCodeMaidToolWindowSpade = new Guid(GuidCodeMaidToolWindowSpadeString);
+
         // Menu group guids.
 
         public static readonly Guid GuidCodeMaidMenuBaseGroup = new Guid("186512ff-6c4e-42c9-b9a1-032f35109993");

@@ -14,6 +14,9 @@ using Microsoft.VsSDK.UnitTestLibrary;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
+    /// <remarks>
+    /// Part of VSIX unit testing starter kit.
+    /// </remarks>
     internal class WindowFrameMock
     {
         private static GenericMockFactory _frameFactory;

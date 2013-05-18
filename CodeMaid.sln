@@ -7,7 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69127706-88D9-4314-B801-4FB2E615B700}"
+	ProjectSection(SolutionItems) = preProject
+		CodeMaid.vsmdi = CodeMaid.vsmdi
+		IntegrationTests.testsettings = IntegrationTests.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = CodeMaid.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
