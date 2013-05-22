@@ -34,12 +34,11 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                //TODO: DialogBoxPurger will need customized for WPF windows.
-                //var dialogBoxPurger = new DialogBoxPurger(NativeMethods.IDOK);
+                var dialogBoxPurger = new DialogBoxPurger(NativeMethods.IDOK);
 
                 try
                 {
-                    //dialogBoxPurger.Start();
+                    dialogBoxPurger.Start();
 
                     var testUtils = new TestUtils();
 
@@ -48,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 }
                 finally
                 {
-                    //Assert.IsTrue(dialogBoxPurger.WaitForDialogThreadToTerminate());
+                    dialogBoxPurger.WaitForDialogThreadToTerminate();
                 }
             }));
         }
@@ -59,12 +58,11 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                //TODO: DialogBoxPurger will need customized for WPF windows.
-                //var dialogBoxPurger = new DialogBoxPurger(NativeMethods.IDOK);
+                var dialogBoxPurger = new DialogBoxPurger(NativeMethods.IDOK);
 
                 try
                 {
-                    //dialogBoxPurger.Start();
+                    dialogBoxPurger.Start();
 
                     var testUtils = new TestUtils();
 
@@ -73,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 }
                 finally
                 {
-                    //Assert.IsTrue(dialogBoxPurger.WaitForDialogThreadToTerminate());
+                    dialogBoxPurger.WaitForDialogThreadToTerminate();
                 }
             }));
         }

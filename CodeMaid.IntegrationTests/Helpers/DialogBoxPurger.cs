@@ -229,42 +229,42 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                         StringBuilder windowClassName = new StringBuilder(256);
                         NativeMethods.GetClassName(hwnds[hwndIndex], windowClassName, windowClassName.Capacity);
 
-                        // The #32770 is the class name of a messagebox dialog.
-                        if (windowClassName.ToString().Contains("#32770"))
+                        //NOTE: Removed the window class name guard for #32770 in order to pick up DialogWindowBase used for VS2010+.
+                        IntPtr unmanagedMemoryLocation = IntPtr.Zero;
+                        string dialogBoxText;
+                        try
                         {
-                            IntPtr unmanagedMemoryLocation = IntPtr.Zero;
-                            string dialogBoxText;
-                            try
+                            unmanagedMemoryLocation = Marshal.AllocHGlobal(10 * 1024);
+                            NativeMethods.EnumChildWindows(hwnds[hwndIndex], FindMessageBoxString, unmanagedMemoryLocation);
+                            dialogBoxText = Marshal.PtrToStringUni(unmanagedMemoryLocation);
+                        }
+                        finally
+                        {
+                            if (unmanagedMemoryLocation != IntPtr.Zero)
                             {
-                                unmanagedMemoryLocation = Marshal.AllocHGlobal(10 * 1024);
-                                NativeMethods.EnumChildWindows(hwnds[hwndIndex], FindMessageBoxString, unmanagedMemoryLocation);
-                                dialogBoxText = Marshal.PtrToStringUni(unmanagedMemoryLocation);
+                                Marshal.FreeHGlobal(unmanagedMemoryLocation);
                             }
-                            finally
+                        }
+
+                        lock (Mutex)
+                        {
+                            // Since this is running on the main thread be sure that we close the dialog.
+                            bool dialogCloseResult = false;
+                            if (_buttonAction != 0)
                             {
-                                if (unmanagedMemoryLocation != IntPtr.Zero)
-                                {
-                                    Marshal.FreeHGlobal(unmanagedMemoryLocation);
-                                }
+                                dialogCloseResult = NativeMethods.EndDialog(hwnds[hwndIndex], _buttonAction);
                             }
 
-                            lock (Mutex)
+                            // Check if we have found the right dialog box.
+                            if (String.IsNullOrEmpty(_expectedDialogBoxText) ||
+                                (!String.IsNullOrEmpty(dialogBoxText) &&
+                                    String.Compare(_expectedDialogBoxText, dialogBoxText.Trim(),
+                                        StringComparison.OrdinalIgnoreCase) == 0))
                             {
-                                // Since this is running on the main thread be sure that we close the dialog.
-                                bool dialogCloseResult = false;
-                                if (_buttonAction != 0)
+                                dialogBoxCloseResults[hwndIndex] = dialogCloseResult;
+                                if (dialogBoxesToWaitFor++ >= _numberOfDialogsToWaitFor)
                                 {
-                                    dialogCloseResult = NativeMethods.EndDialog(hwnds[hwndIndex], _buttonAction);
-                                }
-
-                                // Check if we have found the right dialog box.
-                                if (String.IsNullOrEmpty(_expectedDialogBoxText) || (!String.IsNullOrEmpty(dialogBoxText) && String.Compare(_expectedDialogBoxText, dialogBoxText.Trim(), StringComparison.OrdinalIgnoreCase) == 0))
-                                {
-                                    dialogBoxCloseResults[hwndIndex] = dialogCloseResult;
-                                    if (dialogBoxesToWaitFor++ >= _numberOfDialogsToWaitFor)
-                                    {
-                                        stayInLoop = false;
-                                    }
+                                    stayInLoop = false;
                                 }
                             }
                         }
