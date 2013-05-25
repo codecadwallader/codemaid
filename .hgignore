@@ -5,6 +5,7 @@ syntax: glob
 [Bb]in/
 [Oo]bj/
 _ReSharper*/
+TestResults/
 
 # Files
 *.user

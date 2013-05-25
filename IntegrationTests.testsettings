@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestSettings name="Integration Tests" id="be253cdd-63ce-48f6-b0e2-95247f86f79d" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>These are test settings for using the VS IDE host type.</Description>
-  <Deployment enabled="false" />
   <Execution>
     <Hosts>
       <VSSDKTestHostRunConfig name="VS IDE" HiveKind="DevEnv" HiveName="11.0Exp" xmlns="http://microsoft.com/schemas/VisualStudio/SDK/Tools/IdeHostAdapter/2006/06" />

@@ -251,9 +251,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <param name="projectName">Name of new project.</param>
         /// <param name="templateName">Name of project template to use</param>
         /// <param name="language">language</param>
-        /// <param name="exclusive"></param>
         /// <returns>New project.</returns>
-        public void CreateProjectFromTemplate(string projectName, string templateName, string language, bool exclusive)
+        public void CreateProjectFromTemplate(string projectName, string templateName, string language)
         {
             DTE dte = (DTE)VsIdeTestHostContext.ServiceProvider.GetService(typeof(DTE));
 
