@@ -112,7 +112,10 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Content Include="Data\CleaningRemoveEndOfLineWhitespace.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\CleaningRemoveEndOfLineWhitespace_After.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="DialogTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />

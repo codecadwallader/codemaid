@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
+using System.IO;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
@@ -23,6 +24,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
 {
     [TestClass]
     [DeploymentItem(@"Data\CleaningRemoveEndOfLineWhitespace.cs", "Data")]
+    [DeploymentItem(@"Data\CleaningRemoveEndOfLineWhitespace_After.cs", "Data")]
     public class CleaningRemoveTests
     {
         #region Setup
@@ -119,7 +121,13 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
                 Assert.IsFalse(document.Saved);
 
-                //TODO: Confirm state of TextDocument is as expected, probably go with a before/after deployment file approach and do a checksum or binary comparison?
+                document.Save();
+                Assert.IsTrue(document.Saved);
+
+                var cleanedContent = File.ReadAllText(document.Path);
+                var baselineContent = File.ReadAllText(@"Data\CleaningRemoveEndOfLineWhitespace_After.cs");
+
+                Assert.AreEqual(cleanedContent, baselineContent);
             }));
         }
 

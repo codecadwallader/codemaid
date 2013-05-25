@@ -1,6 +1,6 @@
-﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Data
-{
-    public class CleaningRemoveEndOfLineWhitespace
+﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Data   
+{  
+    public class CleaningRemoveEndOfLineWhitespace 
     {
-    }
-}
+    }     
+}   
