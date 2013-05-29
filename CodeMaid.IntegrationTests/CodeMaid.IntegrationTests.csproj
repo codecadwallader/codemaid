@@ -117,6 +117,13 @@
     <Content Include="Data\CleaningRemoveEndOfLineWhitespace_After.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="CleaningRemoveMultipleConsecutiveBlankLinesTests.cs" />
+    <Content Include="Data\CleaningRemoveMultipleConsecutiveBlankLines.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\CleaningRemoveMultipleConsecutiveBlankLines_After.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="DialogTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
     <Compile Include="Helpers\DialogBoxPurger.cs" />
