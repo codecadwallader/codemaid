@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
     [TestClass]
     [DeploymentItem(@"Data\CleaningRemoveEndOfLineWhitespace.cs", "Data")]
     [DeploymentItem(@"Data\CleaningRemoveEndOfLineWhitespace_After.cs", "Data")]
-    public class CleaningRemoveTests
+    public class CleaningRemoveEndOfLineWhitespaceTests
     {
         #region Setup
 
@@ -53,7 +53,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 _testUtils = new TestUtils();
 
                 // Generate an empty solution.
-                const string projectName = "CleaningRemoveTests";
+                const string projectName = "CleaningTests";
                 _testUtils.CreateEmptySolution(testContext.TestDir, projectName);
                 Assert.AreEqual(0, _testUtils.ProjectCount());
 
@@ -107,25 +107,20 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
             {
                 Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
-                _projectItem.Open(Constants.vsViewKindTextView);
+                var document = GetActivatedDocument(_projectItem);
 
-                var document = _projectItem.Document;
-                Assert.IsNotNull(_projectItem.Document);
-
-                document.Activate();
-
-                var textDocument = (TextDocument)document.Object("TextDocument");
-                Assert.IsNotNull(textDocument);
-
+                // Run command and assert it is not saved afterwards.
                 Assert.IsTrue(document.Saved);
-                _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+                RunRemoveEndOfLineWhitespace(document);
                 Assert.IsFalse(document.Saved);
 
+                // Save the document.
                 document.Save();
                 Assert.IsTrue(document.Saved);
 
-                var cleanedContent = File.ReadAllText(document.FullName);
+                // Compare the contents of the baseline with the generated content.
                 var baselineContent = File.ReadAllText(@"Data\CleaningRemoveEndOfLineWhitespace_After.cs");
+                var cleanedContent = File.ReadAllText(document.FullName);
 
                 Assert.AreEqual(baselineContent, cleanedContent);
             }));
@@ -139,9 +134,20 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
             {
                 Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
-                //TODO: Refactor logic above, run it twice and confirm document saved states.
+                var document = GetActivatedDocument(_projectItem);
 
-                _removeWhitespaceLogic.RemoveEOLWhitespace(null);
+                // Run command a first time and assert it is not saved afterwards.
+                Assert.IsTrue(document.Saved);
+                RunRemoveEndOfLineWhitespace(document);
+                Assert.IsFalse(document.Saved);
+
+                // Save the document.
+                document.Save();
+                Assert.IsTrue(document.Saved);
+
+                // Run command a second time and assert it is still in a saved state (i.e. no changes).
+                RunRemoveEndOfLineWhitespace(document);
+                Assert.IsTrue(document.Saved);
             }));
         }
 
@@ -153,12 +159,46 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
             {
                 Settings.Default.Cleaning_RemoveEndOfLineWhitespace = false;
 
-                //TODO: Utilize same logic as above after refactored.
+                var document = GetActivatedDocument(_projectItem);
 
-                _removeWhitespaceLogic.RemoveEOLWhitespace(null);
+                // Run command and assert it is still in a saved state (i.e. no changes).
+                Assert.IsTrue(document.Saved);
+                RunRemoveEndOfLineWhitespace(document);
+                Assert.IsTrue(document.Saved);
             }));
         }
 
         #endregion Tests
+
+        #region Helpers
+
+        private static Document GetActivatedDocument(ProjectItem projectItem)
+        {
+            projectItem.Open(Constants.vsViewKindTextView);
+
+            var document = projectItem.Document;
+            Assert.IsNotNull(projectItem.Document);
+
+            document.Activate();
+
+            return document;
+        }
+
+        private static TextDocument GetTextDocument(Document document)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+            Assert.IsNotNull(textDocument);
+
+            return textDocument;
+        }
+
+        private void RunRemoveEndOfLineWhitespace(Document document)
+        {
+            var textDocument = GetTextDocument(document);
+
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+        }
+
+        #endregion Helpers
     }
 }
