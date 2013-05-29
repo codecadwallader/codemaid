@@ -124,10 +124,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 document.Save();
                 Assert.IsTrue(document.Saved);
 
-                var cleanedContent = File.ReadAllText(document.Path);
+                var cleanedContent = File.ReadAllText(document.FullName);
                 var baselineContent = File.ReadAllText(@"Data\CleaningRemoveEndOfLineWhitespace_After.cs");
 
-                Assert.AreEqual(cleanedContent, baselineContent);
+                Assert.AreEqual(baselineContent, cleanedContent);
             }));
         }
 
