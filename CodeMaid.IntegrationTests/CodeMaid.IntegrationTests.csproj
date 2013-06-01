@@ -140,7 +140,7 @@
     <Content Include="Cleaning\Remove\Data\BlankLinesAfterOpeningBrace_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Cleaning\Remove\BlankLinesBeforeClosingBrace.cs" />
+    <Compile Include="Cleaning\Remove\BlankLinesBeforeClosingBraceTests.cs" />
     <Content Include="Cleaning\Remove\Data\BlankLinesBeforeClosingBrace.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
