@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
@@ -20,39 +21,56 @@ using SteveCadwallader.CodeMaid.Integration;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 {
     /// <summary>
-    /// The static TestEnvironment providing common context properties.
+    /// The TestEnvironment performs an AssemblyInitialize unit test method to setup the test
+    /// environment and capture some environment state for easy access by unit tests.
     /// </summary>
+    [TestClass]
     public static class TestEnvironment
     {
-        private static CodeMaidPackage _package;
+        /// <summary>
+        /// Gets the <see cref="CodeMaidPackage"/>.
+        /// </summary>
+        public static CodeMaidPackage Package { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="CodeMaidPackage"/>, loading it into the shell if not already present.
+        /// Gets the test project.
         /// </summary>
-        /// <value>The <see cref="CodeMaidPackage"/> instance.</value>
-        public static CodeMaidPackage Package
+        public static Project Project { get; private set; }
+
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext testContext)
         {
-            get
+            UIThreadInvoker.Invoke(new Action(() =>
             {
-                if (_package == null)
+                // Load the package into the shell.
+                IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
+                Guid packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
+                IVsPackage package;
+
+                shellService.IsPackageLoaded(ref packageGuid, out package);
+
+                if (package == null)
                 {
-                    IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
-                    Guid packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
-                    IVsPackage package;
-
-                    shellService.IsPackageLoaded(ref packageGuid, out package);
-
-                    if (package == null)
-                    {
-                        shellService.LoadPackage(ref packageGuid, out package);
-                    }
-
-                    _package = (CodeMaidPackage)package;
-                    Assert.IsNotNull(_package);
+                    shellService.LoadPackage(ref packageGuid, out package);
                 }
 
-                return _package;
-            }
+                Assert.IsTrue(package is CodeMaidPackage);
+                Package = (CodeMaidPackage)package;
+
+                // Generate an empty solution.
+                const string projectName = "IntegrationTests";
+                TestUtils.CreateEmptySolution(testContext.TestDir, projectName);
+                Assert.AreEqual(0, TestUtils.ProjectCount());
+
+                // Generate an empty project.
+                TestUtils.CreateProjectFromTemplate(projectName, "ConsoleApplication.zip", "CSharp");
+                Assert.AreEqual(1, TestUtils.ProjectCount());
+
+                // Capture the project for later use.
+                Project = Package.IDE.Solution.Projects.Item(1);
+                Assert.IsNotNull(Project);
+                Assert.AreEqual(Project.Name, projectName);
+            }));
         }
     }
 }

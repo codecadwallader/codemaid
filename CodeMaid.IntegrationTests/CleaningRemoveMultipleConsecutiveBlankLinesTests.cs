@@ -29,9 +29,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
     {
         #region Setup
 
-        private static CodeMaidPackage _package;
         private static RemoveWhitespaceLogic _removeWhitespaceLogic;
-        private static Project _project;
         private ProjectItem _projectItem;
 
         public TestContext TestContext { get; set; }
@@ -39,30 +37,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                // Generate a package.
-                _package = TestEnvironment.Package;
-                Assert.IsNotNull(_package);
-
-                // Generate a logic manager.
-                _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
-                Assert.IsNotNull(_removeWhitespaceLogic);
-
-                // Generate an empty solution.
-                const string projectName = "CleaningTests";
-                TestUtils.CreateEmptySolution(testContext.TestDir, projectName);
-                Assert.AreEqual(0, TestUtils.ProjectCount());
-
-                // Generate an empty project.
-                TestUtils.CreateProjectFromTemplate(projectName, "ConsoleApplication.zip", "CSharp");
-                Assert.AreEqual(1, TestUtils.ProjectCount());
-
-                // Capture the project for later use.
-                _project = _package.IDE.Solution.Projects.Item(1);
-                Assert.IsNotNull(_project);
-                Assert.AreEqual(_project.Name, projectName);
-            }));
+            // Generate a logic manager.
+            _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(TestEnvironment.Package);
+            Assert.IsNotNull(_removeWhitespaceLogic);
         }
 
         [TestInitialize]
@@ -70,12 +47,12 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                int initialCount = _project.ProjectItems.Count;
+                int initialCount = TestEnvironment.Project.ProjectItems.Count;
 
-                _projectItem = _project.ProjectItems.AddFromFileCopy(@"Data\CleaningRemoveMultipleConsecutiveBlankLines.cs");
+                _projectItem = TestEnvironment.Project.ProjectItems.AddFromFileCopy(@"Data\CleaningRemoveMultipleConsecutiveBlankLines.cs");
 
                 Assert.IsNotNull(_projectItem);
-                Assert.AreEqual(initialCount + 1, _project.ProjectItems.Count);
+                Assert.AreEqual(initialCount + 1, TestEnvironment.Project.ProjectItems.Count);
             }));
         }
 
@@ -84,11 +61,11 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                int initialCount = _project.ProjectItems.Count;
+                int initialCount = TestEnvironment.Project.ProjectItems.Count;
 
                 _projectItem.Delete();
 
-                Assert.AreEqual(initialCount - 1, _project.ProjectItems.Count);
+                Assert.AreEqual(initialCount - 1, TestEnvironment.Project.ProjectItems.Count);
             }));
         }
 
