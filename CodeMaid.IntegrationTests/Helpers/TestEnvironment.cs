@@ -19,30 +19,40 @@ using SteveCadwallader.CodeMaid.Integration;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 {
+    /// <summary>
+    /// The static TestEnvironment providing common context properties.
+    /// </summary>
     public static class TestEnvironment
     {
+        private static CodeMaidPackage _package;
+
         /// <summary>
         /// Gets the <see cref="CodeMaidPackage"/>, loading it into the shell if not already present.
         /// </summary>
-        /// <returns>The <see cref="CodeMaidPackage"/> instance.</returns>
-        public static CodeMaidPackage GetCodeMaidPackage()
+        /// <value>The <see cref="CodeMaidPackage"/> instance.</value>
+        public static CodeMaidPackage Package
         {
-            IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
-            Guid packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
-            IVsPackage package;
-
-            shellService.IsPackageLoaded(ref packageGuid, out package);
-
-            if (package == null)
+            get
             {
-                shellService.LoadPackage(ref packageGuid, out package);
+                if (_package == null)
+                {
+                    IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
+                    Guid packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
+                    IVsPackage package;
+
+                    shellService.IsPackageLoaded(ref packageGuid, out package);
+
+                    if (package == null)
+                    {
+                        shellService.LoadPackage(ref packageGuid, out package);
+                    }
+
+                    _package = (CodeMaidPackage)package;
+                    Assert.IsNotNull(_package);
+                }
+
+                return _package;
             }
-
-            var codeMaidPackage = (CodeMaidPackage)package;
-
-            Assert.IsNotNull(codeMaidPackage);
-
-            return codeMaidPackage;
         }
     }
 }
