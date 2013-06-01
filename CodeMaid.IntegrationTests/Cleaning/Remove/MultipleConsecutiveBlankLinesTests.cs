@@ -32,7 +32,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            // Generate a logic manager.
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(TestEnvironment.Package);
             Assert.IsNotNull(_removeWhitespaceLogic);
         }

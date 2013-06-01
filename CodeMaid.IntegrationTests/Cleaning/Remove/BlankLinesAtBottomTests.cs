@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -20,9 +20,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Remove\Data\EndOfLineWhitespace.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Remove\Data\EndOfLineWhitespace_Cleaned.cs", "Data")]
-    public class EndOfLineWhitespaceTests
+    [DeploymentItem(@"Cleaning\Remove\Data\BlankLinesAtBottom.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\BlankLinesAtBottom_Cleaned.cs", "Data")]
+    public class BlankLinesAtBottomTests
     {
         #region Setup
 
@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         [TestInitialize]
         public void TestInitialize()
         {
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\EndOfLineWhitespace.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\BlankLinesAtBottom.cs");
         }
 
         [TestCleanup]
@@ -54,40 +54,40 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveEndOfLineWhitespace_CleansAsExpected()
+        public void CleaningRemoveBlankLinesAtBottom_CleansAsExpected()
         {
-            Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
+            Settings.Default.Cleaning_RemoveBlankLinesAtBottom = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveEndOfLineWhitespace, _projectItem, @"Data\EndOfLineWhitespace_Cleaned.cs");
+            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAtBottom, _projectItem, @"Data\BlankLinesAtBottom_Cleaned.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveEndOfLineWhitespace_DoesNothingOnSecondPass()
+        public void CleaningRemoveBlankLinesAtBottom_DoesNothingOnSecondPass()
         {
-            Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
+            Settings.Default.Cleaning_RemoveBlankLinesAtBottom = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveEndOfLineWhitespace, _projectItem);
+            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAtBottom, _projectItem);
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveEndOfLineWhitespace_DoesNothingWhenSettingIsDisabled()
+        public void CleaningRemoveBlankLinesAtBottom_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_RemoveEndOfLineWhitespace = false;
+            Settings.Default.Cleaning_RemoveBlankLinesAtBottom = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveEndOfLineWhitespace, _projectItem);
+            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAtBottom, _projectItem);
         }
 
         #endregion Tests
 
         #region Helpers
 
-        private static void RunRemoveEndOfLineWhitespace(Document document)
+        private static void RunRemoveBlankLinesAtBottom(Document document)
         {
             var textDocument = TestUtils.GetTextDocument(document);
 
-            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
         }
 
         #endregion Helpers
