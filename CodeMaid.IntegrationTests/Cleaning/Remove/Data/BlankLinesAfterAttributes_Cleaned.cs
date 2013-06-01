@@ -2,7 +2,7 @@
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
 {
-    [Description("Some description")]
+    [Description("Some description")] // Trailing comments should be kept in place
     public class BlankLinesAfterAttributes
     {
         public void NoAttributeMethod()
@@ -14,7 +14,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
         {
         }
 
-        [Description("Some description")]
+        [Description("Some description")] // Trailing comments should be kept in place
         [Category("Some category")]
         public void MultipleAttributeMethod()
         {
