@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
             UIThreadInvoker.Invoke(new Action(() =>
             {
                 // Generate a package.
-                _package = CodeMaidPackageHelper.GetCodeMaidPackage();
+                _package = TestEnvironment.GetCodeMaidPackage();
                 Assert.IsNotNull(_package);
 
                 // Generate a logic manager.

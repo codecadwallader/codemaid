@@ -125,7 +125,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="DialogTests.cs" />
-    <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
+    <Compile Include="Helpers\TestEnvironment.cs" />
     <Compile Include="Helpers\DialogBoxPurger.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\TestUtils.cs" />

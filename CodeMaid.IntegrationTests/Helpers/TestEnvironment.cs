@@ -19,7 +19,7 @@ using SteveCadwallader.CodeMaid.Integration;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 {
-    internal static class CodeMaidPackageHelper
+    public static class TestEnvironment
     {
         /// <summary>
         /// Gets the <see cref="CodeMaidPackage"/>, loading it into the shell if not already present.
