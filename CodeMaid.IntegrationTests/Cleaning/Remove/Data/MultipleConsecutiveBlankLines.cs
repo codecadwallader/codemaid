@@ -1,5 +1,7 @@
-﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Data
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
 {
+
+
 
     public class CleaningRemoveMultipleConsecutiveBlankLines
     {
@@ -7,8 +9,15 @@
         private void Method()
         {
 
+
         }
 
+
     }
+
+
+
+
+
 
 }

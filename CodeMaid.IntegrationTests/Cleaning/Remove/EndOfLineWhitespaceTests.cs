@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License version 3
@@ -20,12 +20,12 @@ using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 {
     [TestClass]
-    [DeploymentItem(@"Data\CleaningRemoveMultipleConsecutiveBlankLines.cs", "Data")]
-    [DeploymentItem(@"Data\CleaningRemoveMultipleConsecutiveBlankLines_After.cs", "Data")]
-    public class CleaningRemoveMultipleConsecutiveBlankLinesTests
+    [DeploymentItem(@"Cleaning\Remove\Data\EndOfLineWhitespace.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\EndOfLineWhitespace_Cleaned.cs", "Data")]
+    public class EndOfLineWhitespaceTests
     {
         #region Setup
 
@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\CleaningRemoveMultipleConsecutiveBlankLines.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\EndOfLineWhitespace.cs");
         }
 
         [TestCleanup]
@@ -60,17 +60,17 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveMultipleConsecutiveBlankLines_AsExpected()
+        public void CleaningRemoveEndOfLineWhitespace_AsExpected()
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
+                Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
                 var document = GetActivatedDocument(_projectItem);
 
                 // Run command and assert it is not saved afterwards.
                 Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
+                RunRemoveEndOfLineWhitespace(document);
                 Assert.IsFalse(document.Saved);
 
                 // Save the document.
@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 Assert.IsTrue(document.Saved);
 
                 // Compare the contents of the baseline with the generated content.
-                var baselineContent = File.ReadAllText(@"Data\CleaningRemoveMultipleConsecutiveBlankLines_After.cs");
+                var baselineContent = File.ReadAllText(@"Data\EndOfLineWhitespace_Cleaned.cs");
                 var cleanedContent = File.ReadAllText(document.FullName);
 
                 Assert.AreEqual(baselineContent, cleanedContent);
@@ -87,17 +87,17 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveMultipleConsecutiveBlankLines_DoesNothingOnSecondPass()
+        public void CleaningRemoveEndOfLineWhitespace_DoesNothingOnSecondPass()
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
+                Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
                 var document = GetActivatedDocument(_projectItem);
 
                 // Run command a first time and assert it is not saved afterwards.
                 Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
+                RunRemoveEndOfLineWhitespace(document);
                 Assert.IsFalse(document.Saved);
 
                 // Save the document.
@@ -105,24 +105,24 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 Assert.IsTrue(document.Saved);
 
                 // Run command a second time and assert it is still in a saved state (i.e. no changes).
-                RunRemoveMultipleConsecutiveBlankLines(document);
+                RunRemoveEndOfLineWhitespace(document);
                 Assert.IsTrue(document.Saved);
             }));
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveMultipleConsecutiveBlankLines_DoesNothingWhenSettingIsDisabled()
+        public void CleaningRemoveEndOfLineWhitespace_DoesNothingWhenSettingIsDisabled()
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = false;
+                Settings.Default.Cleaning_RemoveEndOfLineWhitespace = false;
 
                 var document = GetActivatedDocument(_projectItem);
 
                 // Run command and assert it is still in a saved state (i.e. no changes).
                 Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
+                RunRemoveEndOfLineWhitespace(document);
                 Assert.IsTrue(document.Saved);
             }));
         }
@@ -151,11 +151,11 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
             return textDocument;
         }
 
-        private void RunRemoveMultipleConsecutiveBlankLines(Document document)
+        private void RunRemoveEndOfLineWhitespace(Document document)
         {
             var textDocument = GetTextDocument(document);
 
-            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
         }
 
         #endregion Helpers
