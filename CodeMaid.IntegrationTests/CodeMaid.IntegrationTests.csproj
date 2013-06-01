@@ -188,6 +188,13 @@
     <Content Include="Cleaning\Update\Data\EndRegionDirectives.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\AccessorsToBothBeSingleLineOrMultiLineTests.cs" />
+    <Content Include="Cleaning\Update\Data\AccessorsToBothBeSingleLineOrMultiLine.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\AccessorsToBothBeSingleLineOrMultiLine_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Update\EndRegionDirectivesTests.cs" />
     <Compile Include="DialogTests.cs" />
     <Compile Include="Helpers\TestEnvironment.cs" />
