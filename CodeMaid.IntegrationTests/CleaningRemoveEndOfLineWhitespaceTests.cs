@@ -45,28 +45,13 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         [TestInitialize]
         public void TestInitialize()
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                int initialCount = TestEnvironment.Project.ProjectItems.Count;
-
-                _projectItem = TestEnvironment.Project.ProjectItems.AddFromFileCopy(@"Data\CleaningRemoveEndOfLineWhitespace.cs");
-
-                Assert.IsNotNull(_projectItem);
-                Assert.AreEqual(initialCount + 1, TestEnvironment.Project.ProjectItems.Count);
-            }));
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\CleaningRemoveEndOfLineWhitespace.cs");
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                int initialCount = TestEnvironment.Project.ProjectItems.Count;
-
-                _projectItem.Delete();
-
-                Assert.AreEqual(initialCount - 1, TestEnvironment.Project.ProjectItems.Count);
-            }));
+            TestEnvironment.RemoveFromProject(_projectItem);
         }
 
         #endregion Setup
