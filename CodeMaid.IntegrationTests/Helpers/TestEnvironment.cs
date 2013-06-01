@@ -17,6 +17,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
 using SteveCadwallader.CodeMaid.Integration;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 {
@@ -74,6 +75,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                 Project = Package.IDE.Solution.Projects.Item(1);
                 Assert.IsNotNull(Project);
                 Assert.AreEqual(Project.Name, projectName);
+
+                // Reset all settings to default.
+                Settings.Default.Reset();
             }));
         }
 
