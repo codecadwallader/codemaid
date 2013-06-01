@@ -21,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 {
     [TestClass]
     [DeploymentItem(@"Cleaning\Remove\Data\MultipleConsecutiveBlankLines.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Remove\Data\MultipleConsecutiveBlankLines_After.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\MultipleConsecutiveBlankLines_Cleaned.cs", "Data")]
     public class MultipleConsecutiveBlankLinesTests
     {
         #region Setup
