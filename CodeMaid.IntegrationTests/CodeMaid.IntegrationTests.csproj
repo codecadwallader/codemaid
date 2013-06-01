@@ -182,6 +182,13 @@
     <Content Include="Cleaning\Remove\Data\MultipleConsecutiveBlankLines_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\EndRegionDirectives_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\EndRegionDirectives.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Update\EndRegionDirectivesTests.cs" />
     <Compile Include="DialogTests.cs" />
     <Compile Include="Helpers\TestEnvironment.cs" />
     <Compile Include="Helpers\DialogBoxPurger.cs" />
