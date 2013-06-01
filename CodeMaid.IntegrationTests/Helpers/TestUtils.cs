@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
     /// <remarks>
     /// Part of VSIX unit testing starter kit.
     /// </remarks>
-    public class TestUtils
+    public static class TestUtils
     {
         #region Methods: Handling embedded resources
 
@@ -196,7 +196,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="solutionName">Name of new solution.</param>
-        public void CreateEmptySolution(string directory, string solutionName)
+        public static void CreateEmptySolution(string directory, string solutionName)
         {
             CloseCurrentSolution(__VSSLNSAVEOPTIONS.SLNSAVEOPT_NoSave);
 
@@ -210,7 +210,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             Assert.AreEqual(solutionName + ".sln", Path.GetFileName(dte.Solution.FileName), "Newly created solution has wrong Filename");
         }
 
-        public void CloseCurrentSolution(__VSSLNSAVEOPTIONS saveoptions)
+        public static void CloseCurrentSolution(__VSSLNSAVEOPTIONS saveoptions)
         {
             // Get solution service
             IVsSolution solutionService = (IVsSolution)VsIdeTestHostContext.ServiceProvider.GetService(typeof(IVsSolution));
@@ -219,7 +219,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             solutionService.CloseSolutionElement((uint)saveoptions, null, 0);
         }
 
-        public void ForceSaveSolution()
+        public static void ForceSaveSolution()
         {
             // Get solution service
             IVsSolution solutionService = (IVsSolution)VsIdeTestHostContext.ServiceProvider.GetService(typeof(IVsSolution));
@@ -232,7 +232,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Get current number of open project in solution
         /// </summary>
         /// <returns></returns>
-        public int ProjectCount()
+        public static int ProjectCount()
         {
             // Get solution service
             IVsSolution solutionService = (IVsSolution)VsIdeTestHostContext.ServiceProvider.GetService(typeof(IVsSolution));
@@ -252,7 +252,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <param name="templateName">Name of project template to use</param>
         /// <param name="language">language</param>
         /// <returns>New project.</returns>
-        public void CreateProjectFromTemplate(string projectName, string templateName, string language)
+        public static void CreateProjectFromTemplate(string projectName, string templateName, string language)
         {
             DTE dte = (DTE)VsIdeTestHostContext.ServiceProvider.GetService(typeof(DTE));
 
@@ -278,7 +278,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <param name="language"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public ProjectItem AddNewItemFromVsTemplate(ProjectItems parent, string templateName, string language, string name)
+        public static ProjectItem AddNewItemFromVsTemplate(ProjectItems parent, string templateName, string language, string name)
         {
             if (parent == null)
                 throw new ArgumentException("project");
@@ -300,7 +300,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Save an open document.
         /// </summary>
         /// <param name="documentMoniker">for filebased documents this is the full path to the document</param>
-        public void SaveDocument(string documentMoniker)
+        public static void SaveDocument(string documentMoniker)
         {
             // Get document cookie and hierarchy for the file
             IVsRunningDocumentTable runningDocumentTableService = (IVsRunningDocumentTable)VsIdeTestHostContext.ServiceProvider.GetService(typeof(IVsRunningDocumentTable));
@@ -321,7 +321,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             solutionService.SaveSolutionElement((uint)__VSSLNSAVEOPTIONS.SLNSAVEOPT_ForceSave, hierarchy, docCookie);
         }
 
-        public void CloseInEditorWithoutSaving(string fullFileName)
+        public static void CloseInEditorWithoutSaving(string fullFileName)
         {
             // Get the RDT service
             IVsRunningDocumentTable runningDocumentTableService = (IVsRunningDocumentTable)VsIdeTestHostContext.ServiceProvider.GetService(typeof(IVsRunningDocumentTable));
@@ -355,7 +355,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 
         #region Methods: Handling Toolwindows
 
-        public bool CanFindToolwindow(Guid persistenceGuid)
+        public static bool CanFindToolwindow(Guid persistenceGuid)
         {
             IVsUIShell uiShellService = VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsUIShell)) as IVsUIShell;
             Assert.IsNotNull(uiShellService);
@@ -370,7 +370,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 
         #region Methods: Loading packages
 
-        public IVsPackage LoadPackage(Guid packageGuid)
+        public static IVsPackage LoadPackage(Guid packageGuid)
         {
             IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
             IVsPackage package;
@@ -381,10 +381,12 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 
         #endregion Methods: Loading packages
 
+        #region Methods: Miscellaneous
+
         /// <summary>
         /// Executes a Command (menu item) in the given context
         /// </summary>
-        public void ExecuteCommand(CommandID cmd)
+        public static void ExecuteCommand(CommandID cmd)
         {
             object customin = null;
             object customout = null;
@@ -393,5 +395,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             DTE dte = VsIdeTestHostContext.Dte;
             dte.Commands.Raise(guidString, cmdId, ref customin, ref customout);
         }
+
+        #endregion Methods: Miscellaneous
     }
 }

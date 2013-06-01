@@ -29,12 +29,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var testUtils = new TestUtils();
-
                 var buildProgressToolWindowCommand = new CommandID(GuidList.GuidCodeMaidCommandBuildProgressToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidBuildProgressToolWindow);
-                testUtils.ExecuteCommand(buildProgressToolWindowCommand);
+                TestUtils.ExecuteCommand(buildProgressToolWindowCommand);
 
-                Assert.IsTrue(testUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowBuildProgress));
+                Assert.IsTrue(TestUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowBuildProgress));
             }));
         }
 
@@ -44,12 +42,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var testUtils = new TestUtils();
-
                 var spadeToolWindowCommand = new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSpadeToolWindow);
-                testUtils.ExecuteCommand(spadeToolWindowCommand);
+                TestUtils.ExecuteCommand(spadeToolWindowCommand);
 
-                Assert.IsTrue(testUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowSpade));
+                Assert.IsTrue(TestUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowSpade));
             }));
         }
     }

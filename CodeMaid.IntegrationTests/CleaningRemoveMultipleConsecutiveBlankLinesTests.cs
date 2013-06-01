@@ -31,7 +31,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
 
         private static CodeMaidPackage _package;
         private static RemoveWhitespaceLogic _removeWhitespaceLogic;
-        private static TestUtils _testUtils;
         private static Project _project;
         private ProjectItem _projectItem;
 
@@ -50,16 +49,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
                 Assert.IsNotNull(_removeWhitespaceLogic);
 
-                _testUtils = new TestUtils();
-
                 // Generate an empty solution.
                 const string projectName = "CleaningTests";
-                _testUtils.CreateEmptySolution(testContext.TestDir, projectName);
-                Assert.AreEqual(0, _testUtils.ProjectCount());
+                TestUtils.CreateEmptySolution(testContext.TestDir, projectName);
+                Assert.AreEqual(0, TestUtils.ProjectCount());
 
                 // Generate an empty project.
-                _testUtils.CreateProjectFromTemplate(projectName, "ConsoleApplication.zip", "CSharp");
-                Assert.AreEqual(1, _testUtils.ProjectCount());
+                TestUtils.CreateProjectFromTemplate(projectName, "ConsoleApplication.zip", "CSharp");
+                Assert.AreEqual(1, TestUtils.ProjectCount());
 
                 // Capture the project for later use.
                 _project = _package.IDE.Solution.Projects.Item(1);

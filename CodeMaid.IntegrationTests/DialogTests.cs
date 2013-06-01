@@ -35,10 +35,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 {
                     dialogBoxPurger.Start();
 
-                    var testUtils = new TestUtils();
-
                     var aboutCommand = new CommandID(GuidList.GuidCodeMaidCommandAbout, (int)PkgCmdIDList.CmdIDCodeMaidAbout);
-                    testUtils.ExecuteCommand(aboutCommand);
+                    TestUtils.ExecuteCommand(aboutCommand);
                 }
                 finally
                 {
@@ -59,10 +57,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 {
                     dialogBoxPurger.Start();
 
-                    var testUtils = new TestUtils();
-
                     var configurationCommand = new CommandID(GuidList.GuidCodeMaidCommandConfiguration, (int)PkgCmdIDList.CmdIDCodeMaidConfiguration);
-                    testUtils.ExecuteCommand(configurationCommand);
+                    TestUtils.ExecuteCommand(configurationCommand);
                 }
                 finally
                 {
