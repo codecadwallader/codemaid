@@ -11,11 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System;
-using System.IO;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VSSDK.Tools.VsIdeTesting;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
@@ -31,8 +28,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 
         private static RemoveWhitespaceLogic _removeWhitespaceLogic;
         private ProjectItem _projectItem;
-
-        public TestContext TestContext { get; set; }
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
@@ -60,100 +55,38 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningRemoveMultipleConsecutiveBlankLines_AsExpected()
+        public void CleaningRemoveMultipleConsecutiveBlankLines_CleansAsExpected()
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
+            Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
 
-                var document = GetActivatedDocument(_projectItem);
-
-                // Run command and assert it is not saved afterwards.
-                Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
-                Assert.IsFalse(document.Saved);
-
-                // Save the document.
-                document.Save();
-                Assert.IsTrue(document.Saved);
-
-                // Compare the contents of the baseline with the generated content.
-                var baselineContent = File.ReadAllText(@"Data\MultipleConsecutiveBlankLines_Cleaned.cs");
-                var cleanedContent = File.ReadAllText(document.FullName);
-
-                Assert.AreEqual(baselineContent, cleanedContent);
-            }));
+            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveMultipleConsecutiveBlankLines, _projectItem, @"Data\MultipleConsecutiveBlankLines_Cleaned.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
         public void CleaningRemoveMultipleConsecutiveBlankLines_DoesNothingOnSecondPass()
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
+            Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
 
-                var document = GetActivatedDocument(_projectItem);
-
-                // Run command a first time and assert it is not saved afterwards.
-                Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
-                Assert.IsFalse(document.Saved);
-
-                // Save the document.
-                document.Save();
-                Assert.IsTrue(document.Saved);
-
-                // Run command a second time and assert it is still in a saved state (i.e. no changes).
-                RunRemoveMultipleConsecutiveBlankLines(document);
-                Assert.IsTrue(document.Saved);
-            }));
+            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
         }
 
         [TestMethod]
         [HostType("VS IDE")]
         public void CleaningRemoveMultipleConsecutiveBlankLines_DoesNothingWhenSettingIsDisabled()
         {
-            UIThreadInvoker.Invoke(new Action(() =>
-            {
-                Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = false;
+            Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = false;
 
-                var document = GetActivatedDocument(_projectItem);
-
-                // Run command and assert it is still in a saved state (i.e. no changes).
-                Assert.IsTrue(document.Saved);
-                RunRemoveMultipleConsecutiveBlankLines(document);
-                Assert.IsTrue(document.Saved);
-            }));
+            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
         }
 
         #endregion Tests
 
         #region Helpers
 
-        private static Document GetActivatedDocument(ProjectItem projectItem)
-        {
-            projectItem.Open(Constants.vsViewKindTextView);
-
-            var document = projectItem.Document;
-            Assert.IsNotNull(projectItem.Document);
-
-            document.Activate();
-
-            return document;
-        }
-
-        private static TextDocument GetTextDocument(Document document)
-        {
-            var textDocument = (TextDocument)document.Object("TextDocument");
-            Assert.IsNotNull(textDocument);
-
-            return textDocument;
-        }
-
         private void RunRemoveMultipleConsecutiveBlankLines(Document document)
         {
-            var textDocument = GetTextDocument(document);
+            var textDocument = TestUtils.GetTextDocument(document);
 
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
         }

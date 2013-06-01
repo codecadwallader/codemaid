@@ -111,6 +111,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Cleaning\CleaningTestHelper.cs" />
     <Compile Include="Cleaning\Remove\EndOfLineWhitespaceTests.cs" />
     <Compile Include="Cleaning\Remove\MultipleConsecutiveBlankLinesTests.cs" />
     <Content Include="Cleaning\Remove\Data\EndOfLineWhitespace.cs">

@@ -396,6 +396,19 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             dte.Commands.Raise(guidString, cmdId, ref customin, ref customout);
         }
 
+        /// <summary>
+        /// Gets the text document for the specified document.
+        /// </summary>
+        /// <param name="document">The document to act upon.</param>
+        /// <returns>The text document associated to the document.</returns>
+        public static TextDocument GetTextDocument(Document document)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+            Assert.IsNotNull(textDocument);
+
+            return textDocument;
+        }
+
         #endregion Methods: Miscellaneous
     }
 }
