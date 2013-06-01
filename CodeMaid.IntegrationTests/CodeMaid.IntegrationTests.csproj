@@ -129,7 +129,7 @@
     <Compile Include="Helpers\DialogBoxPurger.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
-    <Compile Include="PackageTest.cs" />
+    <Compile Include="PackageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolWindowTests.cs" />
     <Compile Include="CleaningRemoveEndOfLineWhitespaceTests.cs" />

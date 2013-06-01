@@ -20,7 +20,7 @@ using SteveCadwallader.CodeMaid.Integration;
 namespace SteveCadwallader.CodeMaid.IntegrationTests
 {
     [TestClass]
-    public class PackageTest
+    public class PackageTests
     {
         [TestMethod]
         [HostType("VS IDE")]
