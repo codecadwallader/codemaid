@@ -188,6 +188,13 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterRegionTags_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterEndRegionTagsTests.cs" />
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEndRegionTags.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEndRegionTags_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnStructsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />
