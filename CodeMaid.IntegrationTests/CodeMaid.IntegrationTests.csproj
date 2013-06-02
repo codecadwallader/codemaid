@@ -363,6 +363,13 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterProperties_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBetweenMultiLinePropertyAccessorsTests.cs" />
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBetweenMultiLinePropertyAccessors.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBetweenMultiLinePropertyAccessors_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnStructsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />
