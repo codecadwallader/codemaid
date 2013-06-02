@@ -22,4 +22,9 @@
     internal class InternalClass
     {
     }
+
+    // Partial classes should be ignored since the access modifier may be specified in another location.
+    partial class PartialClass
+    {
+    }
 }
