@@ -12,7 +12,7 @@
     {
     }
 
-    public class PublicClass
+    public class PublicClass2
     {
         interface NestedInterface
         {

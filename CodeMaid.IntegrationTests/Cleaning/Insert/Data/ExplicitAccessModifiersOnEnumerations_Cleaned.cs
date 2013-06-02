@@ -12,14 +12,6 @@
     {
     }
 
-    protected enum ProtectedEnum
-    {
-    }
-
-    private enum PrivateEnum
-    {
-    }
-
     public class ExplicitAccessModifiersOnEnumerations
     {
         private enum UnspecifiedEnum

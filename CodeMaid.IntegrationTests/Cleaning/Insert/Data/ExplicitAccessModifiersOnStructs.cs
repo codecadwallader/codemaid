@@ -10,10 +10,6 @@
         {
         }
 
-        protected struct ProtectedStruct
-        {
-        }
-
         private struct PrivateStruct
         {
         }
