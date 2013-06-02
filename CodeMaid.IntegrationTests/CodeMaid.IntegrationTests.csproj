@@ -119,6 +119,13 @@
     <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnClasses.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnDelegates.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnDelegates_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnDelegatesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnClassesTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAfterAttributesTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAfterOpeningBraceTests.cs" />
