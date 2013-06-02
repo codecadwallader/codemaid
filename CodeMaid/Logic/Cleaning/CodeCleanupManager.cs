@@ -242,7 +242,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var structs = codeItems.OfType<CodeItemStruct>().ToList();
 
             // Build up more complicated collections.
-            var usingStatementBlocks = GetCodeItemBlocks(usingStatements).ToList();
+            var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
             var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
             var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
             var fieldsWithComments = fields.Where(x => x.StartPoint.Line < x.EndPoint.Line).ToList();
@@ -443,41 +443,5 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         #endregion Private Cleanup Methods
-
-        #region Private Helper Methods
-
-        /// <summary>
-        /// Gets the specified code items as unique blocks by consecutive line positioning.
-        /// </summary>
-        /// <typeparam name="T">The type of the code item.</typeparam>
-        /// <param name="codeItems">The code items.</param>
-        /// <returns>An enumerable collection of blocks of code items.</returns>
-        private static IEnumerable<IList<T>> GetCodeItemBlocks<T>(IEnumerable<T> codeItems)
-            where T : BaseCodeItem
-        {
-            var codeItemBlocks = new List<IList<T>>();
-            IList<T> currentBlock = null;
-
-            var orderedCodeItems = codeItems.OrderBy(x => x.StartLine);
-            foreach (T codeItem in orderedCodeItems)
-            {
-                if (currentBlock != null &&
-                    (codeItem.StartLine <= currentBlock.Last().EndLine + 1))
-                {
-                    // This item belongs in the current block, add it.
-                    currentBlock.Add(codeItem);
-                }
-                else
-                {
-                    // This item starts a new block, create one.
-                    currentBlock = new List<T> { codeItem };
-                    codeItemBlocks.Add(currentBlock);
-                }
-            }
-
-            return codeItemBlocks;
-        }
-
-        #endregion Private Helper Methods
     }
 }

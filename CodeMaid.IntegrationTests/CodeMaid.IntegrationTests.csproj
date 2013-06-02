@@ -209,6 +209,17 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeSingleLineComments_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeClassesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeDelegatesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeEnumerationsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeEventsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeFieldsWithCommentsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeInterfacesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeMethodsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforePropertiesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeStructsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeNamespacesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeUsingStatementBlocksTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnStructsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />
