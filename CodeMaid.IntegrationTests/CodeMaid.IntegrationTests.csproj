@@ -155,6 +155,13 @@
     <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnMethods_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnProperties.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnProperties_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnInterfacesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnFieldsTests.cs" />
