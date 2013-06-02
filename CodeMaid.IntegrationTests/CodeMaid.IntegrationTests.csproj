@@ -202,6 +202,13 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeCaseStatements_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeSingleLineCommentsTests.cs" />
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeSingleLineComments.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeSingleLineComments_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnStructsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />
