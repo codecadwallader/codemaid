@@ -113,6 +113,13 @@
     </Compile>
     <Compile Include="Cleaning\CleaningTestHelper.cs" />
     <Compile Include="Cleaning\Insert\BlankSpaceBeforeSelfClosingAngleBracketTests.cs" />
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnClasses_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnClasses.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnClassesTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAfterAttributesTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAfterOpeningBraceTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAtBottomTests.cs" />
