@@ -39,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         [TestInitialize]
         public void TestInitialize()
         {
+            TestEnvironment.CommonTestInitialize();
             _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\BlankLinesAfterOpeningBrace.cs");
         }
 

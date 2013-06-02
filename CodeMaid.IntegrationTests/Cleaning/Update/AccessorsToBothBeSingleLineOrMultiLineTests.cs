@@ -42,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         [TestInitialize]
         public void TestInitialize()
         {
+            TestEnvironment.CommonTestInitialize();
             _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\AccessorsToBothBeSingleLineOrMultiLine.cs");
         }
 

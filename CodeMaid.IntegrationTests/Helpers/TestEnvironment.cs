@@ -75,10 +75,16 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                 Project = Package.IDE.Solution.Projects.Item(1);
                 Assert.IsNotNull(Project);
                 Assert.AreEqual(Project.Name, projectName);
-
-                // Reset all settings to default.
-                Settings.Default.Reset();
             }));
+        }
+
+        /// <summary>
+        /// A set of common actions for test initialization to be shared across most unit tests.
+        /// </summary>
+        public static void CommonTestInitialize()
+        {
+            // Reset all settings to default.
+            Settings.Default.Reset();
         }
 
         /// <summary>
