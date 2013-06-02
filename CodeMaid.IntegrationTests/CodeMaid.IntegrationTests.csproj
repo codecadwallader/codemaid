@@ -195,7 +195,14 @@
     <Content Include="Cleaning\Update\Data\AccessorsToBothBeSingleLineOrMultiLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\SingleLineMethods_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\SingleLineMethods.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Update\EndRegionDirectivesTests.cs" />
+    <Compile Include="Cleaning\Update\SingleLineMethodsTests.cs" />
     <Compile Include="DialogTests.cs" />
     <Compile Include="Helpers\TestEnvironment.cs" />
     <Compile Include="Helpers\DialogBoxPurger.cs" />
