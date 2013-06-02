@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,9 +23,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Insert\Data\BlankLinePaddingBeforeUsingStatementBlocks.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Insert\Data\BlankLinePaddingBeforeUsingStatementBlocks_Cleaned.cs", "Data")]
-    public class BlankLinePaddingBeforeUsingStatementBlocksTests
+    [DeploymentItem(@"Cleaning\Insert\Data\BlankLinePaddingAfterNamespaces.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Insert\Data\BlankLinePaddingAfterNamespaces_Cleaned.cs", "Data")]
+    public class BlankLinePaddingAfterNamespacesTests
     {
         #region Setup
 
@@ -44,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\BlankLinePaddingBeforeUsingStatementBlocks.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\BlankLinePaddingAfterNamespaces.cs");
         }
 
         [TestCleanup]
@@ -59,43 +58,41 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningInsertBlankLinePaddingBeforeUsingStatementBlocks_CleansAsExpected()
+        public void CleaningInsertBlankLinePaddingAfterNamespaces_CleansAsExpected()
         {
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = true;
+            Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingBeforeUsingStatementBlocks, _projectItem, @"Data\BlankLinePaddingBeforeUsingStatementBlocks_Cleaned.cs");
+            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingAfterNamespaces, _projectItem, @"Data\BlankLinePaddingAfterNamespaces_Cleaned.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningInsertBlankLinePaddingBeforeUsingStatementBlocks_DoesNothingOnSecondPass()
+        public void CleaningInsertBlankLinePaddingAfterNamespaces_DoesNothingOnSecondPass()
         {
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = true;
+            Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingBeforeUsingStatementBlocks, _projectItem);
+            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningInsertBlankLinePaddingBeforeUsingStatementBlocks_DoesNothingWhenSettingIsDisabled()
+        public void CleaningInsertBlankLinePaddingAfterNamespaces_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = false;
+            Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingBeforeUsingStatementBlocks, _projectItem);
+            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
         }
 
         #endregion Tests
 
         #region Helpers
 
-        private static void RunInsertBlankLinePaddingBeforeUsingStatementBlocks(Document document)
+        private static void RunInsertBlankLinePaddingAfterNamespaces(Document document)
         {
             var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
-            var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
-            var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
-            var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
+            var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
         }
 
         #endregion Helpers

@@ -2,7 +2,7 @@
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
 {
-    public class BlankLinePaddingBeforeProperties
+    public class BlankLinePaddingAfterProperties
     {
         public bool AutoImplementedProperty1 { get; set; }
 
@@ -20,6 +20,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
             get { return false; }
             set { }
         }
+
         public void Method()
         {
         }

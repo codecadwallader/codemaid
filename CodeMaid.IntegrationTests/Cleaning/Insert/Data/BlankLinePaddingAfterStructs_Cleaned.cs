@@ -22,6 +22,7 @@
     public struct Struct3
     {
     }
+
     public class PublicClass
     {
     }

@@ -11,6 +11,7 @@
     public enum Enum3
     {
     }
+
     public class PublicClass
     {
     }

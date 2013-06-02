@@ -1,27 +1,28 @@
 ﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
 {
-    public struct Struct1
+    public interface Interface1
     {
-        public struct NestedStruct1
+        public interface NestedInterface1
         {
         }
 
-        public struct NestedStruct2
+        public interface NestedInterface2
         {
         }
 
-        public struct NestedStruct3
+        public interface NestedInterface3
         {
         }
     }
 
-    public struct Struct2
+    public interface Interface2
     {
     }
 
-    public struct Struct3
+    public interface Interface3
     {
     }
+
     public class PublicClass
     {
     }

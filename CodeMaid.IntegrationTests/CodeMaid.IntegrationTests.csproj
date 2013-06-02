@@ -286,6 +286,83 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeUsingStatementBlocks_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterClassesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterDelegatesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterEnumerationsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterEventsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterFieldsWithCommentsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterInterfacesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterMethodsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterNamespacesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterPropertiesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterStructsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterUsingStatementBlocksTests.cs" />
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterClasses.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterDelegates.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEnumerations.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEvents.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsWithComments.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterInterfaces.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterMethods.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterNamespaces.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterProperties.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterStructs.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterUsingStatementBlocks.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterUsingStatementBlocks_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterClasses_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterDelegates_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEnumerations_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEvents_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsWithComments_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterInterfaces_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterMethods_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterNamespaces_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterStructs_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterProperties_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnStructsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnPropertiesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnMethodsTests.cs" />

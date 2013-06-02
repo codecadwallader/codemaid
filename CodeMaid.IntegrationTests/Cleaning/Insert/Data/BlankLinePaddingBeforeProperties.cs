@@ -16,5 +16,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
             get { return false; }
             set { }
         }
+        public void Method()
+        {
+        }
     }
 }

@@ -11,6 +11,7 @@
     namespace NestedNamespace3
     {
     }
+
     public class PublicClass
     {
     }

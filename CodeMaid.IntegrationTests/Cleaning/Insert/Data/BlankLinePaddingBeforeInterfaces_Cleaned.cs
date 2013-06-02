@@ -22,4 +22,7 @@
     public interface Interface3
     {
     }
+    public class PublicClass
+    {
+    }
 }

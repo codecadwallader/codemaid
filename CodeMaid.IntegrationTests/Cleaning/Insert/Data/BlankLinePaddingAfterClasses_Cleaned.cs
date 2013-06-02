@@ -22,6 +22,7 @@
     public class Class3
     {
     }
+
     public enum Enum
     {
     }
