@@ -2,7 +2,7 @@
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
 {
-    public class ExplicitAccessModifiersOnEvents
+    public class ExplicitAccessModifiersOnEvents : IExplicitAccessModifiersOnEvents
     {
         private event EventHandler UnspecifiedEvent;
 
@@ -13,5 +13,18 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert.Data
         protected event EventHandler ProtectedEvent;
 
         private event EventHandler PrivateEvent;
+
+        // Explicit interface implementations should not be given an explicit access modifier.
+        event EventHandler IExplicitAccessModifiersOnEvents.EventInInterface
+        {
+            add { }
+            remove { }
+        }
+    }
+
+    public interface IExplicitAccessModifiersOnEvents
+    {
+        // Events in an interface should not be given an explicit access modifier.
+        event EventHandler EventInInterface;
     }
 }
