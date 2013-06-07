@@ -12,11 +12,9 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
-using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
@@ -70,9 +68,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
 
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsTrue(_codeCleanupAvailabilityLogic.ShouldCleanup(document));
-
-                // Get the CleanupActiveCodeCommand and confirm it is in the expected state.
-                //Assert.IsTrue(CleanupActiveCodeCommand.Enabled);
             }));
         }
 
@@ -86,9 +81,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             {
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsTrue(_codeCleanupAvailabilityLogic.ShouldCleanup(_projectItem));
-
-                // Get the CleanupSelectedCodeCommand and confirm it is in the expected state.
-                //Assert.IsTrue(CleanupSelectedCodeCommand.Enabled);
             }));
         }
 
@@ -106,9 +98,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
 
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsFalse(_codeCleanupAvailabilityLogic.ShouldCleanup(document));
-
-                // Get the CleanupActiveCodeCommand and confirm it is in the expected state.
-                //Assert.IsFalse(CleanupActiveCodeCommand.Enabled);
             }));
         }
 
@@ -122,44 +111,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             {
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsFalse(_codeCleanupAvailabilityLogic.ShouldCleanup(_projectItem));
-
-                // Get the CleanupSelectedCodeCommand and confirm it is in the expected state.
-                //Assert.IsFalse(CleanupSelectedCodeCommand.Enabled);
             }));
         }
 
         #endregion Tests
-
-        #region Helpers
-
-        /// <summary>
-        /// Gets the cleanup active code command.
-        /// </summary>
-        private static MenuCommand CleanupActiveCodeCommand
-        {
-            get
-            {
-                var cleanupActiveCodeCommandID = new CommandID(GuidList.GuidCodeMaidCommandCleanupActiveCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupActiveCode);
-                var cleanupActiveCodeCommand = TestEnvironment.GetPackageCommand(cleanupActiveCodeCommandID);
-
-                return cleanupActiveCodeCommand;
-            }
-        }
-
-        /// <summary>
-        /// Gets the cleanup selected code command.
-        /// </summary>
-        private static MenuCommand CleanupSelectedCodeCommand
-        {
-            get
-            {
-                var cleanupSelectedCodeCommandID = new CommandID(GuidList.GuidCodeMaidCommandCleanupSelectedCode, (int)PkgCmdIDList.CmdIDCodeMaidCleanupSelectedCode);
-                var cleanupSelectedCodeCommand = TestEnvironment.GetPackageCommand(cleanupSelectedCodeCommandID);
-
-                return cleanupSelectedCodeCommand;
-            }
-        }
-
-        #endregion Helpers
     }
 }
