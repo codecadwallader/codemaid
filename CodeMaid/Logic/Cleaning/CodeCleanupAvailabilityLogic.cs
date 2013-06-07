@@ -214,7 +214,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "XAML": return Settings.Default.Cleaning_IncludeXAML;
                 case "XML": return Settings.Default.Cleaning_IncludeXML;
-                default: return false;
+                default:
+                    OutputWindowHelper.DiagnosticWriteLine("IsDocumentLanguageIncludedByOptions picked up an unrecognized document language: " + document.Language);
+                    return false;
             }
         }
 
@@ -299,7 +301,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{E34ACDC0-BAAE-11D0-88BF-00A0C9110049}": return Settings.Default.Cleaning_IncludeVB;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
-                default: return false;
+                default:
+                    OutputWindowHelper.DiagnosticWriteLine("IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid: " + languageServiceGuid);
+                    return false;
             }
         }
 

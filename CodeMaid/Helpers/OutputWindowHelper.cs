@@ -15,6 +15,7 @@ using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -39,6 +40,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Writes the specified line to the CodeMaid output pane, but only if diagnostics are enabled.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        internal static void DiagnosticWriteLine(string message)
+        {
+            if (!Settings.Default.General_DiagnosticsMode) return;
+
+            WriteLine(message);
+        }
 
         /// <summary>
         /// Writes the specified line to the CodeMaid output pane.
