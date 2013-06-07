@@ -113,8 +113,16 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Cleaning\CleaningTestHelper.cs" />
+    <Compile Include="Cleaning\FileTypes\TypeScriptTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeRegionTagsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankSpaceBeforeSelfClosingAngleBracketTests.cs" />
+    <Content Include="Cleaning\FileTypes\Data\TypeScript.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\FileTypes\Data\TypeScript.js">
+      <DependentUpon>TypeScript.ts</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Cleaning\Insert\Data\ExplicitAccessModifiersOnClasses_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
