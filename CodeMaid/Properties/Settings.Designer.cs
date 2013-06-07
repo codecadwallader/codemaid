@@ -1391,5 +1391,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_RemoveEndOfFileTrailingNewLine"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeTypeScript {
+            get {
+                return ((bool)(this["Cleaning_IncludeTypeScript"]));
+            }
+            set {
+                this["Cleaning_IncludeTypeScript"] = value;
+            }
+        }
     }
 }

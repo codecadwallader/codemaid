@@ -56,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
+            IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
             IncludeXML = Settings.Default.Cleaning_IncludeXML;
@@ -74,6 +75,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
+            Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
@@ -223,6 +225,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeJavaScript = value;
                     NotifyPropertyChanged("IncludeJavaScript");
+                }
+            }
+        }
+
+        private bool _includeTypeScript;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if TypeScript files should be included.
+        /// </summary>
+        public bool IncludeTypeScript
+        {
+            get { return _includeTypeScript; }
+            set
+            {
+                if (_includeTypeScript != value)
+                {
+                    _includeTypeScript = value;
+                    NotifyPropertyChanged("IncludeTypeScript");
                 }
             }
         }

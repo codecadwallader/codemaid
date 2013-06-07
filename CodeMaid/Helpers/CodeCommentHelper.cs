@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "C/C++":
                 case "JavaScript":
                 case "JScript":
+                case "TypeScript":
                     return "//+";
 
                 case "Basic":

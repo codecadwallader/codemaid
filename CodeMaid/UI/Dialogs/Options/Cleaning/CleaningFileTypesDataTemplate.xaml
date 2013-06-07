@@ -32,6 +32,7 @@
                     <CheckBox Grid.Row="2" Content="HTML" IsChecked="{Binding IncludeHTML}" />
                     <CheckBox Grid.Row="2" Grid.Column="2" Content="CSS" IsChecked="{Binding IncludeCSS}" />
                     <CheckBox Grid.Row="2" Grid.Column="4" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
+                    <CheckBox Grid.Row="2" Grid.Column="6" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
                 </Grid>
             </GroupBox>
 
