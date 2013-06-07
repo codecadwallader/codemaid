@@ -12,6 +12,7 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
+using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -85,6 +86,19 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         {
             // Reset all settings to default.
             Settings.Default.Reset();
+        }
+
+        /// <summary>
+        /// Gets the package command based on the specified command ID.
+        /// </summary>
+        /// <param name="commandID">The command ID to retrieve.</param>
+        /// <returns>The package command.</returns>
+        public static MenuCommand GetPackageCommand(CommandID commandID)
+        {
+            var command = Package.MenuCommandService.FindCommand(commandID);
+            Assert.IsNotNull(command);
+
+            return command;
         }
 
         /// <summary>

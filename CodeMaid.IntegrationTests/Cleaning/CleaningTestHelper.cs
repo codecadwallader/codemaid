@@ -24,8 +24,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
     /// </summary>
     public static class CleaningTestHelper
     {
-        #region Public Methods
-
         /// <summary>
         /// Executes the specified command on the specified project item and verifies the results against the specified baseline file.
         /// </summary>
@@ -102,16 +100,12 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
             }));
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         /// <summary>
         /// Gets an activated document for the specified project item.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>The document associated with the project item, opened and activated.</returns>
-        private static Document GetActivatedDocument(ProjectItem projectItem)
+        public static Document GetActivatedDocument(ProjectItem projectItem)
         {
             projectItem.Open(Constants.vsViewKindTextView);
 
@@ -122,7 +116,5 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
 
             return document;
         }
-
-        #endregion Private Methods
     }
 }

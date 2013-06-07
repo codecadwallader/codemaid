@@ -56,6 +56,7 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VSSDK.TestHostFramework, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Design" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="EnvDTE">
@@ -379,6 +380,10 @@
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnEnumerationsTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnDelegatesTests.cs" />
     <Compile Include="Cleaning\Insert\ExplicitAccessModifiersOnClassesTests.cs" />
+    <Compile Include="Cleaning\FileTypes\CSharpTests.cs" />
+    <Content Include="Cleaning\FileTypes\Data\CSharp.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Remove\BlankLinesAfterAttributesTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAfterOpeningBraceTests.cs" />
     <Compile Include="Cleaning\Remove\BlankLinesAtBottomTests.cs" />
