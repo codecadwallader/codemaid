@@ -57,7 +57,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             var enable = false;
 
-            if (activeTextDocument != null)
+            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11 versions) since not supported.
+            if (activeTextDocument != null && !Package.UsePOSIXRegEx)
             {
                 // Enable formatting if there is a comment pattern defined for this document.
                 enable = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument) != null;

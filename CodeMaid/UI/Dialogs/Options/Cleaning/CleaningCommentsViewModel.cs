@@ -142,5 +142,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         }
 
         #endregion Options
+
+        #region Enables
+
+        /// <summary>
+        /// Gets a flag indicating if this page should be enabled.
+        /// </summary>
+        /// <remarks>
+        /// Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11 versions) since not supported.
+        /// </remarks>
+        public bool IsEnabled
+        {
+            get { return !Package.UsePOSIXRegEx; }
+        }
+
+        #endregion Enables
     }
 }

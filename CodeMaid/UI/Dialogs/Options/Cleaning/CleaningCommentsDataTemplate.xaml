@@ -3,7 +3,7 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:CleaningCommentsViewModel}">
-        <StackPanel>
+        <StackPanel IsEnabled="{Binding IsEnabled}">
             <GroupBox Header="General">
                 <StackPanel>
                     <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
