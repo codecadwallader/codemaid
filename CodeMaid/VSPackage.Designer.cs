@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.6.0.4.
+        ///   Looks up a localized string similar to 0.6.0.6.
         /// </summary>
         internal static string _114 {
             get {
