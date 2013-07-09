@@ -165,7 +165,7 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <ButtonText>About CodeMaid &amp;v0.6.1...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.6.1.1...</ButtonText>
         </Strings>
       </Button>
 
