@@ -347,5 +347,8 @@
     <Setting Name="Cleaning_IncludeTypeScript" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="General_SkipUndoTransactionsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

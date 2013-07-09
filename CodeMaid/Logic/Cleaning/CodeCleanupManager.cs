@@ -145,10 +145,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                _codeReorderManager.Reorganize(document);
+                _codeReorderManager.Reorganize(document, isAutoSave);
             }
 
             _undoTransactionHelper.Run(
+                () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);

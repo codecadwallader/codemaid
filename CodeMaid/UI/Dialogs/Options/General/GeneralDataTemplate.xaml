@@ -126,6 +126,10 @@
                 <StackPanel>
                     <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
                     <CheckBox Content="Use undo transactions" IsChecked="{Binding UseUndoTransactions}" />
+                    <CheckBox Content="Skip during automatic cleanup on save"
+                              IsChecked="{Binding SkipUndoTransactionsDuringAutoCleanupOnSave}"
+                              IsEnabled="{Binding UseUndoTransactions}"
+                              Margin="35,5,5,5" />
                 </StackPanel>
             </GroupBox>
 

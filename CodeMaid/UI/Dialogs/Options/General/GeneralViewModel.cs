@@ -52,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
             ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
+            SkipUndoTransactionsDuringAutoCleanupOnSave = Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
             UseUndoTransactions = Settings.Default.General_UseUndoTransactions;
         }
@@ -65,6 +66,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
             Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
+            Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave = SkipUndoTransactionsDuringAutoCleanupOnSave;
             Settings.Default.General_Theme = (int)ThemeMode;
             Settings.Default.General_UseUndoTransactions = UseUndoTransactions;
         }
@@ -129,6 +131,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 {
                     _showStartPageOnSolutionClose = value;
                     NotifyPropertyChanged("ShowStartPageOnSolutionClose");
+                }
+            }
+        }
+
+        private bool _skipUndoTransactionsDuringAutoCleanupOnSave;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if undo transactions should not be used during auto cleanup on save.
+        /// </summary>
+        public bool SkipUndoTransactionsDuringAutoCleanupOnSave
+        {
+            get { return _skipUndoTransactionsDuringAutoCleanupOnSave; }
+            set
+            {
+                if (_skipUndoTransactionsDuringAutoCleanupOnSave != value)
+                {
+                    _skipUndoTransactionsDuringAutoCleanupOnSave = value;
+                    NotifyPropertyChanged("SkipUndoTransactionsDuringAutoCleanupOnSave");
                 }
             }
         }
