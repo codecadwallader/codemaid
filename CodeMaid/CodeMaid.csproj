@@ -347,6 +347,7 @@
   <ItemGroup>
     <VSCTCompile Include="CodeMaid.vsct">
       <ResourceName>1000</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
