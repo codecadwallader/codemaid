@@ -14,44 +14,40 @@
 namespace SteveCadwallader.CodeMaid.Model
 {
     /// <summary>
-    /// A manager class for centralizing code model creation and life cycles.
+    /// A builder class for generating code models.
     /// </summary>
-    internal class CodeModelManager
+    internal class CodeModelBuilder
     {
         #region Fields
 
         private readonly CodeMaidPackage _package;
-
-        private readonly CodeModelBuilder _codeModelBuilder;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CodeModelManager"/> class.
+        /// The singleton instance of the <see cref="CodeModelBuilder"/> class.
         /// </summary>
-        private static CodeModelManager _instance;
+        private static CodeModelBuilder _instance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeModelManager"/> class.
+        /// Initializes a new instance of the <see cref="CodeModelBuilder"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        private CodeModelManager(CodeMaidPackage package)
+        private CodeModelBuilder(CodeMaidPackage package)
         {
             _package = package;
-
-            _codeModelBuilder = CodeModelBuilder.GetInstance(_package);
         }
 
         /// <summary>
-        /// Gets an instance of the <see cref="CodeModelManager"/> class.
+        /// Gets an instance of the <see cref="CodeModelBuilder"/> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CodeModelManager"/> class.</returns>
-        internal static CodeModelManager GetInstance(CodeMaidPackage package)
+        /// <returns>An instance of the <see cref="CodeModelBuilder"/> class.</returns>
+        internal static CodeModelBuilder GetInstance(CodeMaidPackage package)
         {
-            return _instance ?? (_instance = new CodeModelManager(package));
+            return _instance ?? (_instance = new CodeModelBuilder(package));
         }
 
         #endregion Constructors
