@@ -15,15 +15,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Model
 {
     /// <summary>
     /// A static helper class for working with the code model.
     /// </summary>
-    /// <remarks>
-    /// Note:  All POSIXRegEx text replacements search against '\n' but insert/replace
-    ///        with Environment.NewLine.  This handles line endings correctly.
-    /// </remarks>
     internal static class CodeModelHelper
     {
         #region Internal Methods

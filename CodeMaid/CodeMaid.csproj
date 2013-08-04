@@ -168,7 +168,6 @@
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
     <Compile Include="Helpers\CodeItemParentExtensions.cs" />
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
-    <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\EditPointExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ExplicitInterfaceImplementationHelper.cs" />
@@ -250,6 +249,7 @@
     <Compile Include="Model\CodeItems\KindCodeItem.cs" />
     <Compile Include="Model\CodeItems\SetCodeItems.cs" />
     <Compile Include="Model\CodeModelBuilder.cs" />
+    <Compile Include="Model\CodeModelHelper.cs" />
     <Compile Include="Model\CodeModelManager.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilderAsync.cs" />
