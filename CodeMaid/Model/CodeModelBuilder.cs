@@ -11,6 +11,11 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Collections.Generic;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
+
 namespace SteveCadwallader.CodeMaid.Model
 {
     /// <summary>
@@ -51,5 +56,133 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         #endregion Constructors
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Walks the given document and constructs a <see cref="SetCodeItems"/> of CodeItems within it including regions.
+        /// </summary>
+        /// <param name="document">The document to walk.</param>
+        /// <returns>The set of code items within the document, including regions.</returns>
+        internal SetCodeItems RetrieveAllCodeItems(Document document)
+        {
+            var codeItems = new SetCodeItems();
+
+            RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
+            RetrieveCodeRegions(codeItems, document);
+
+            return codeItems;
+        }
+
+        #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Walks the given FileCodeModel, turning CodeElements into code items within the specified code items set.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="fcm">The FileCodeModel to walk.</param>
+        private static void RetrieveCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
+        {
+            if (fcm != null)
+            {
+                foreach (CodeElement codeElement in fcm.CodeElements)
+                {
+                    RetrieveCodeItemsRecursively(codeItems, codeElement);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recursive method for creating a code item for the specified code element,
+        /// adding it to the specified code items set and recursing into all of the code element's children.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="codeElement">The CodeElement to walk (add and recurse).</param>
+        private static void RetrieveCodeItemsRecursively(SetCodeItems codeItems, CodeElement codeElement)
+        {
+            var parentCodeItem = FactoryCodeItems.CreateCodeItemElement(codeElement);
+            if (parentCodeItem != null)
+            {
+                codeItems.Add(parentCodeItem);
+            }
+
+            if (codeElement.Children != null)
+            {
+                foreach (CodeElement child in codeElement.Children)
+                {
+                    RetrieveCodeItemsRecursively(codeItems, child);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retrieves code regions from the specified document into the specifed code items set.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="document">The document to walk.</param>
+        private void RetrieveCodeRegions(SetCodeItems codeItems, Document document)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+
+            var regionStack = new Stack<CodeItemRegion>();                   // Nested working hierarchy.
+            EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
+            TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
+            string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
+
+            // Keep pushing cursor forwards (FindPattern uses cursor as ref parameter) until finished.
+            while (cursor != null &&
+                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
+            {
+                // Move the cursor back one character to pick up the '#' symbol.
+                cursor.CharLeft();
+
+                // Create a pointer to capture the text for this line.
+                EditPoint eolCursor = cursor.CreateEditPoint();
+                eolCursor.EndOfLine();
+                string regionText = cursor.GetText(eolCursor);
+
+                // Move the cursor back to the start of the line.
+                cursor.StartOfLine();
+
+                if (regionText.StartsWith("#region ")) // Space required by compiler.
+                {
+                    // Get the region name.
+                    string regionName = regionText.Substring(8).Trim();
+
+                    // Push the parsed region info onto the top of the stack.
+                    regionStack.Push(new CodeItemRegion
+                    {
+                        Name = regionName,
+                        StartLine = cursor.Line,
+                        StartOffset = cursor.AbsoluteCharOffset,
+                        StartPoint = cursor.CreateEditPoint()
+                    });
+                }
+                else if (regionText.StartsWith("#endregion"))
+                {
+                    if (regionStack.Count > 0)
+                    {
+                        CodeItemRegion region = regionStack.Pop();
+                        region.EndLine = eolCursor.Line;
+                        region.EndOffset = eolCursor.AbsoluteCharOffset;
+                        region.EndPoint = eolCursor.CreateEditPoint();
+
+                        codeItems.Add(region);
+                    }
+                    else
+                    {
+                        // This document is improperly formatted, abort.
+                        return;
+                    }
+                }
+
+                // Move the cursor to the end of the line to continue searching.
+                cursor.EndOfLine();
+            }
+        }
+
+        #endregion Private Methods
     }
 }
