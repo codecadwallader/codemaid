@@ -16,6 +16,8 @@ using System.IO;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
+using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
+using SteveCadwallader.CodeMaid.Model;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
 {
@@ -24,6 +26,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
     /// </summary>
     public static class CleaningTestHelper
     {
+        /// <summary>
+        /// Gets the <see cref="CodeModelManager"/>.
+        /// </summary>
+        internal static CodeModelManager CodeModelManager
+        {
+            get { return CodeModelManager.GetInstance(TestEnvironment.Package); }
+        }
+
         /// <summary>
         /// Executes the specified command on the specified project item and verifies the results against the specified baseline file.
         /// </summary>

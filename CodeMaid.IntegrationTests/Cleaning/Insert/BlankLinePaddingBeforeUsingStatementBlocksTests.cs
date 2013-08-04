@@ -90,7 +90,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertBlankLinePaddingBeforeUsingStatementBlocks(Document document)
         {
-            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
+            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
             var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
             var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
