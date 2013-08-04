@@ -11,6 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
+
 namespace SteveCadwallader.CodeMaid.Model
 {
     /// <summary>
@@ -55,5 +58,19 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         #endregion Constructors
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document including regions.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The set of code items within the document, including regions.</returns>
+        internal SetCodeItems RetrieveAllCodeItems(Document document)
+        {
+            return _codeModelBuilder.RetrieveAllCodeItems(document);
+        }
+
+        #endregion Internal Methods
     }
 }
