@@ -132,12 +132,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 {
                     _package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
-                    // Retrieve all relevant code items.
-                    var codeItems = Settings.Default.Reorganizing_KeepMembersWithinRegions
-                                        ? CodeModelHelper.RetrieveCodeItemsIncludingRegions(document)
-                                        : CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
-
-                    codeItems.RemoveAll(x => x is CodeItemUsingStatement);
+                    // Retrieve all relevant code items (excluding using statements, and conditionally regions).
+                    var codeItems = _codeModelManager.RetrieveAllCodeItems(document);
+                    codeItems.RemoveAll(x => x is CodeItemUsingStatement ||
+                                             (!Settings.Default.Reorganizing_KeepMembersWithinRegions && x is CodeItemRegion));
 
                     // Build the code tree based on the current file layout.
                     var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));

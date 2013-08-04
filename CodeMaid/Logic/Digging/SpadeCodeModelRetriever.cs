@@ -14,7 +14,6 @@
 using System;
 using System.ComponentModel;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
@@ -99,9 +98,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         private void OnDoWork(object sender, DoWorkEventArgs e)
         {
             var document = e.Argument as Document;
-            if (document == null) return;
+            if (document == null || _codeModelManager == null) return;
 
-            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
+            var codeItems = _codeModelManager.RetrieveAllCodeItems(document);
             codeItems.RemoveAll(x => x is CodeItemUsingStatement || x is CodeItemNamespace);
 
             if (!e.Cancel)

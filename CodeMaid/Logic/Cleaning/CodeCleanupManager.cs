@@ -231,7 +231,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             // Interpret the document into a collection of elements.
-            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
+            var codeItems = _codeModelManager.RetrieveAllCodeItems(document);
 
             var regions = codeItems.OfType<CodeItemRegion>().ToList();
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
