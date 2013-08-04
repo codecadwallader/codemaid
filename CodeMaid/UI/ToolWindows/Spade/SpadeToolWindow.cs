@@ -148,8 +148,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             if (Package != null)
             {
-                // Pass the package over to the view model, not available during constructor.
+                // Pass the package over to the view model and code model retriever, not available during constructor.
                 _viewModel.Package = Package;
+                _codeModelRetriever.Package = Package;
 
                 // Attempt to initialize the Document, may have been set before Spade was created.
                 if (Document == null)

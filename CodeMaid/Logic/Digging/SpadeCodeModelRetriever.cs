@@ -15,6 +15,7 @@ using System;
 using System.ComponentModel;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Logic.Digging
@@ -25,6 +26,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
     internal class SpadeCodeModelRetriever
     {
         #region Fields
+
+        private CodeMaidPackage _package;
+        private CodeModelManager _codeModelManager;
 
         private readonly BackgroundWorker _bw;
         private readonly Action<SnapshotCodeItems> _callback;
@@ -49,6 +53,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
 
         #endregion Constructors
 
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the hosting package.
+        /// </summary>
+        internal CodeMaidPackage Package
+        {
+            get { return _package; }
+            set
+            {
+                if (_package != value)
+                {
+                    _package = value;
+                    if (_package != null)
+                    {
+                        _codeModelManager = CodeModelManager.GetInstance(_package);
+                    }
+                }
+            }
+        }
+
+        #endregion Properties
+
         #region Methods
 
         /// <summary>
@@ -69,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             }
         }
 
-        private static void OnDoWork(object sender, DoWorkEventArgs e)
+        private void OnDoWork(object sender, DoWorkEventArgs e)
         {
             var document = e.Argument as Document;
             if (document == null) return;
