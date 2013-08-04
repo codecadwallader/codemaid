@@ -116,7 +116,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             {
                 if (_complexity == null)
                 {
-                    _complexity = CodeModelHelper.CalculateComplexity(CodeElement);
+                    _complexity = CodeElementHelper.CalculateComplexity(CodeElement);
                 }
 
                 return _complexity.Value;
