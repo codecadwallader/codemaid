@@ -17,6 +17,7 @@ using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 
@@ -35,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private readonly CodeMaidPackage _package;
 
+        private readonly CodeModelManager _codeModelManager;
         private readonly CodeReorderManager _codeReorderManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
 
@@ -74,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             _package = package;
 
+            _codeModelManager = CodeModelManager.GetInstance(_package);
             _codeReorderManager = CodeReorderManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
 

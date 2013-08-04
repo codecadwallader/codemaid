@@ -17,6 +17,7 @@ using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
@@ -31,7 +32,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
+
+        private readonly CodeModelManager _codeModelManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
+
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
 
         #endregion Fields
@@ -61,6 +65,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             _package = package;
 
+            _codeModelManager = CodeModelManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Reorganize");
 
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
