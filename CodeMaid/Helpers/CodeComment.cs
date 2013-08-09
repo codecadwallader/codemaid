@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,8 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see>
-    /// which represent all the content of a comment.
+    /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see> which
+    /// represent all the content of a comment.
     /// </summary>
     internal class CodeComment
     {
@@ -31,9 +32,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private static readonly Regex CommentLineRegex = new Regex(@"(?<indent>[\t ]*(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?[\t ]*)(?<words>.*?)(\r?\n|$)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex WordSplitRegex = new Regex(@"[\t ]+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private readonly IndentSettings _indentSettings;
         private readonly CachedSettingSet<string> _majorTags;
         private readonly CachedSettingSet<string> _minorTags;
-        private readonly IndentSettings _indentSettings;
 
         #endregion Fields
 
@@ -60,7 +61,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             Phrases = new LinkedList<CodeCommentPhrase>();
 
+            // Get the complete comment text (including the comment prefixes).
             string text = from.GetText(to);
+
             var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
 
             CommentPrefix = commentMatch.Groups["prefix"].Value;
@@ -80,7 +83,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
                 var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
 
-                // Empty lines return a single empty string from split, null makes this easier to deal with.
+                // Empty lines return a single empty string from split, null makes this easier to
+                // deal with.
                 if (words[0].Length == 0)
                 {
                     words = null;
@@ -94,9 +98,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 if (
                     Phrases.Last == null // No phrases yet
                     || !String.IsNullOrEmpty(listPrefix) // Lists always starts on own line
-                    || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this line is not indented
-                    || (words == null && Phrases.Last.Value.Words.First != null) // This is an empty line and previous one is not
-                    || (words != null && Phrases.Last.Value.Words.First == null) // This is a normal line and previous one is empty
+                    || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this
+                                                                  // line is not indented
+                    || (words == null && Phrases.Last.Value.Words.First != null) // This is an empty
+                                                                                 // line and previous
+                                                                                 // one is not
+                    || (words != null && Phrases.Last.Value.Words.First == null) // This is a normal
+                                                                                 // line and previous
+                                                                                 // one is empty
                     )
                 {
                     Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix, words));
@@ -193,8 +202,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 while (word != null)
                 {
                     // Create a newline if the next space and word no longer fit on this line, but
-                    // keep in mind some words can by themself already be too long to fit on a
-                    // line.
+                    // keep in mind some words can by themself already be too long to fit on a line.
                     if (builder.LineCharOffset + word.Value.Length + 1 > maxWidth && word.Value.Length < maxWidth)
                     {
                         builder.WriteNewCommentLine(true);
@@ -253,84 +261,81 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var phrase = Phrases.First;
             while (phrase != null)
             {
-                if (!phrase.Value.IsList)
+                var word = phrase.Value.Words.First;
+                while (word != null)
                 {
-                    var word = phrase.Value.Words.First;
-                    while (word != null)
+                    var match = xmlTagRegex.Match(word.Value);
+
+                    if (match.Success)
                     {
-                        var match = xmlTagRegex.Match(word.Value);
-
-                        if (match.Success)
+                        // Text directly before this tag goes in current phrase.
+                        if (match.Groups["before"].Success)
                         {
-                            // Text directly before this tag goes in current phrase.
-                            if (match.Groups["before"].Success)
+                            word.List.AddBefore(word, match.Groups["before"].Value);
+                        }
+                        if (match.Groups["after"].Success)
+                        {
+                            word.List.AddAfter(word, match.Groups["after"].Value);
+                        }
+                        if (match.Groups["fulltag"].Success)
+                        {
+                            word.Value = match.Groups["fulltag"].Value;
+                        }
+
+                        var tagName = match.Groups["tagname"].Value;
+                        bool isCloseTag = word.Value.StartsWith("</");
+                        bool isMajorTag = _majorTags.Value.Contains(tagName);
+
+                        // Major tags and minor opening tags should be the first word.
+                        if (word.Previous != null && (isMajorTag || !isCloseTag))
+                        {
+                            // Previous word will be the last word of this phrase.
+                            word = word.Previous;
+
+                            // Create a new phrase with the rest of the words.
+                            Phrases.AddAfter(phrase, new CodeCommentPhrase(
+                                phrase.Value.Indent,
+                                null,
+                                GetWordsAfter(word)));
+
+                            // Remove the rest.
+                            while (word.Next != null)
                             {
-                                word.List.AddBefore(word, match.Groups["before"].Value);
-                            }
-                            if (match.Groups["after"].Success)
-                            {
-                                word.List.AddAfter(word, match.Groups["after"].Value);
-                            }
-                            if (match.Groups["fulltag"].Success)
-                            {
-                                word.Value = match.Groups["fulltag"].Value;
-                            }
-
-                            var tagName = match.Groups["tagname"].Value;
-                            bool isCloseTag = word.Value.StartsWith("</");
-                            bool isMajorTag = _majorTags.Value.Contains(tagName);
-
-                            // Major tags and minor opening tags should be the first word.
-                            if (word.Previous != null && (isMajorTag || !isCloseTag))
-                            {
-                                // Previous word will be the last word of this phrase.
-                                word = word.Previous;
-
-                                // Create a new phrase with the rest of the words.
-                                Phrases.AddAfter(phrase, new CodeCommentPhrase(
-                                    phrase.Value.Indent,
-                                    phrase.Value.ListPrefix,
-                                    GetWordsAfter(word)));
-
-                                // Remove the rest.
-                                while (word.Next != null)
-                                {
-                                    word.List.Remove(word.Next);
-                                }
-                            }
-
-                            // Major tags should be the last word.
-                            if (word.Next != null && isMajorTag)
-                            {
-                                Phrases.AddAfter(phrase, new CodeCommentPhrase(
-                                    phrase.Value.Indent,
-                                    phrase.Value.ListPrefix,
-                                    GetWordsAfter(word)));
-
-                                while (word.Next != null)
-                                {
-                                    word.List.Remove(word.Next);
-                                }
-                            }
-
-                            // Remove spacing between word and minor tags.
-                            if (!isMajorTag)
-                            {
-                                if (isCloseTag && word.Previous != null)
-                                {
-                                    word.Value = word.Previous.Value + word.Value;
-                                    word.List.Remove(word.Previous);
-                                }
-                                else if (!isCloseTag && word.Next != null)
-                                {
-                                    word.Value += word.Next.Value;
-                                    word.List.Remove(word.Next);
-                                }
+                                word.List.Remove(word.Next);
                             }
                         }
 
-                        word = word.Next;
+                        // Major tags should be the last word.
+                        if (word.Next != null && isMajorTag)
+                        {
+                            Phrases.AddAfter(phrase, new CodeCommentPhrase(
+                                phrase.Value.Indent,
+                                null,
+                                GetWordsAfter(word)));
+
+                            while (word.Next != null)
+                            {
+                                word.List.Remove(word.Next);
+                            }
+                        }
+
+                        // Remove spacing between word and minor tags.
+                        if (!isMajorTag)
+                        {
+                            if (isCloseTag && word.Previous != null)
+                            {
+                                word.Value = word.Previous.Value + word.Value;
+                                word.List.Remove(word.Previous);
+                            }
+                            else if (!isCloseTag && word.Next != null)
+                            {
+                                word.Value += word.Next.Value;
+                                word.List.Remove(word.Next);
+                            }
+                        }
                     }
+
+                    word = word.Next;
                 }
 
                 phrase = phrase.Next;
@@ -340,8 +345,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Methods
 
         /// <summary>
-        /// CommentBuilder mimics the functions of <c>EditPoint</c> used to create a comment, but
-        /// it works interally rather than editting the document directly.
+        /// CommentBuilder mimics the functions of <c>EditPoint</c> used to create a comment, but it
+        /// works interally rather than editting the document directly.
         /// </summary>
         private class CommentBuilder : IEquatable<string>
         {
@@ -374,21 +379,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 LineCharOffset += text.Length;
             }
 
-            private void PadToColumn(int column)
-            {
-                // If using tabs, insert as many tabs as possible without exceeding padding width.
-                if (_indentSettings.InsertTabs)
-                {
-                    int tabCount = (column - LineCharOffset) / _indentSettings.TabSize;
-                    Insert("".PadLeft(tabCount, '\t'));
-                    // Fixup character offset because tab is one character but takes up more room.
-                    LineCharOffset += tabCount * (_indentSettings.TabSize - 1);
-                }
-
-                // Fill remaining space with spaces.
-                Insert("".PadLeft(column - LineCharOffset, ' '));
-            }
-
             public override string ToString()
             {
                 return _builder.ToString();
@@ -405,6 +395,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     Insert(_commentPrefix);
                 }
+            }
+
+            private void PadToColumn(int column)
+            {
+                // If using tabs, insert as many tabs as possible without exceeding padding width.
+                if (_indentSettings.InsertTabs)
+                {
+                    int tabCount = (column - LineCharOffset) / _indentSettings.TabSize;
+                    Insert("".PadLeft(tabCount, '\t'));
+                    // Fixup character offset because tab is one character but takes up more room.
+                    LineCharOffset += tabCount * (_indentSettings.TabSize - 1);
+                }
+
+                // Fill remaining space with spaces.
+                Insert("".PadLeft(column - LineCharOffset, ' '));
             }
         }
     }
