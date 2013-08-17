@@ -249,6 +249,7 @@
     <Compile Include="Model\CodeItems\KindCodeItem.cs" />
     <Compile Include="Model\CodeItems\SetCodeItems.cs" />
     <Compile Include="Model\CodeModelBuilder.cs" />
+    <Compile Include="Model\CodeModelCache.cs" />
     <Compile Include="Model\CodeModelHelper.cs" />
     <Compile Include="Model\CodeModelManager.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />

@@ -11,10 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Collections.Generic;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
-using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -28,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Model
         private readonly CodeMaidPackage _package;
 
         private readonly CodeModelBuilder _codeModelBuilder;
-
-        private readonly Dictionary<Document, SnapshotCodeItems> _codeItemsCache;
+        private readonly CodeModelCache _codeModelCache;
 
         #endregion Fields
 
@@ -49,8 +46,7 @@ namespace SteveCadwallader.CodeMaid.Model
             _package = package;
 
             _codeModelBuilder = CodeModelBuilder.GetInstance(_package);
-
-            _codeItemsCache = new Dictionary<Document, SnapshotCodeItems>();
+            _codeModelCache = new CodeModelCache();
         }
 
         /// <summary>
@@ -74,52 +70,16 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document, including regions.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document)
         {
-            var codeItems = GetCodeItemsFromCacheIfEnabled(document);
+            var codeItems = _codeModelCache.GetCodeItemsFromCacheIfEnabled(document);
             if (codeItems == null)
             {
                 codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
-                PlaceCodeItemsInCacheIfEnabled(document, codeItems);
+                _codeModelCache.PlaceCodeItemsInCacheIfEnabled(document, codeItems);
             }
 
             return codeItems;
         }
 
         #endregion Internal Methods
-
-        #region Private Methods
-
-        /// <summary>
-        /// Checks the cache (if enabled) to retrieve the code items for the specified document if present.
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns>The cached code items, otherwise null.</returns>
-        private SetCodeItems GetCodeItemsFromCacheIfEnabled(Document document)
-        {
-            if (Settings.Default.Digging_CacheFiles)
-            {
-                SnapshotCodeItems snapshot;
-                if (_codeItemsCache.TryGetValue(document, out snapshot))
-                {
-                    return snapshot.CodeItems;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Places the specified code items into the cache (if enabled).
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <param name="codeItems">The code items.</param>
-        private void PlaceCodeItemsInCacheIfEnabled(Document document, SetCodeItems codeItems)
-        {
-            if (Settings.Default.Digging_CacheFiles)
-            {
-                _codeItemsCache[document] = new SnapshotCodeItems(document, codeItems);
-            }
-        }
-
-        #endregion Private Methods
     }
 }
