@@ -63,6 +63,18 @@ namespace SteveCadwallader.CodeMaid.Model
             return codeModel;
         }
 
+        /// <summary>
+        /// Removes the code model associated with the specified document if it exists.
+        /// </summary>
+        /// <param name="document">The document to remove.</param>
+        internal void RemoveCodeModel(Document document)
+        {
+            lock (_cache)
+            {
+                _cache.Remove(document);
+            }
+        }
+
         #endregion Internal Methods
     }
 }

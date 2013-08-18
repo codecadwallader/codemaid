@@ -73,6 +73,19 @@ namespace SteveCadwallader.CodeMaid.Model
 
         #endregion Events
 
+        #region Internal Event Handlers
+
+        /// <summary>
+        /// An event callbck that is raised when a document is closing.
+        /// </summary>
+        /// <param name="document">The document that is closing.</param>
+        internal void OnDocumentClosing(Document document)
+        {
+            _codeModelCache.RemoveCodeModel(document);
+        }
+
+        #endregion Internal Event Handlers
+
         #region Internal Methods
 
         /// <summary>

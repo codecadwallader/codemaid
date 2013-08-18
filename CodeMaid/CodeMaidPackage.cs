@@ -30,6 +30,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
@@ -205,6 +206,11 @@ namespace SteveCadwallader.CodeMaid
         /// Gets or sets the build progress event listener.
         /// </summary>
         private BuildProgressEventListener BuildProgressEventListener { get; set; }
+
+        /// <summary>
+        /// Gets or sets the document event listener.
+        /// </summary>
+        private DocumentEventListener DocumentEventListener { get; set; }
 
         /// <summary>
         /// Gets or sets the running document table event listener.
@@ -409,11 +415,16 @@ namespace SteveCadwallader.CodeMaid
                 var collapseAllSolutionExplorerCommand = _commands.OfType<CollapseAllSolutionExplorerCommand>().First();
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
+                var codeModelManager = CodeModelManager.GetInstance(this);
+
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
                 BuildProgressEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
                 BuildProgressEventListener.BuildProjConfigDone += buildProgressToolWindowCommand.OnBuildProjConfigDone;
                 BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
+
+                DocumentEventListener = new DocumentEventListener(this);
+                DocumentEventListener.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
@@ -450,6 +461,11 @@ namespace SteveCadwallader.CodeMaid
             if (BuildProgressEventListener != null)
             {
                 BuildProgressEventListener.Dispose();
+            }
+
+            if (DocumentEventListener != null)
+            {
+                DocumentEventListener.Dispose();
             }
 
             if (RunningDocumentTableEventListener != null)
