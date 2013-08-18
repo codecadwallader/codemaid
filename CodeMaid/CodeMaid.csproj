@@ -223,7 +223,6 @@
     <Compile Include="Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
-    <Compile Include="Logic\Digging\SpadeCodeModelRetriever.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorderManager.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItem.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItemElement.cs" />

@@ -12,7 +12,6 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -22,10 +21,11 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
-using SteveCadwallader.CodeMaid.Logic.Digging;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
+using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -37,9 +37,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     {
         #region Fields
 
-        private readonly SpadeCodeModelRetriever _codeModelRetriever;
         private readonly SpadeViewModel _viewModel;
-        private readonly Dictionary<Document, SnapshotCodeItems> _codeItemsCache;
+
+        private CodeModelManager _codeModelManager;
 
         private Document _document;
         private bool _isVisible;
@@ -65,9 +65,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarSpadeBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
-            _codeModelRetriever = new SpadeCodeModelRetriever(UpdateViewModelRawCodeItems);
             _viewModel = new SpadeViewModel();
-            _codeItemsCache = new Dictionary<Document, SnapshotCodeItems>();
 
             // Register for view model requests to be refreshed.
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
@@ -124,11 +122,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 // Refresh the document if active.
                 Refresh();
             }
-            else if (document != null)
-            {
-                // Invalidate the cache if inactive.
-                _codeItemsCache.Remove(document);
-            }
         }
 
         /// <summary>
@@ -146,11 +139,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // Register for events to this window.
             ((IVsWindowFrame)Frame).SetProperty((int)__VSFPROPID.VSFPROPID_ViewHelper, this);
 
+            // Package is not available at constructor time.
             if (Package != null)
             {
-                // Pass the package over to the view model and code model retriever, not available during constructor.
+                // Get an instance of the code model manager.
+                _codeModelManager = CodeModelManager.GetInstance(Package);
+                _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+
+                // Pass the package over to the view model.
                 _viewModel.Package = Package;
-                _codeModelRetriever.Package = Package;
 
                 // Attempt to initialize the Document, may have been set before Spade was created.
                 if (Document == null)
@@ -253,41 +250,44 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 if (isRefresh)
                 {
                     _viewModel.IsRefreshing = true;
-                    _codeItemsCache.Remove(Document);
                 }
                 else
                 {
                     _viewModel.IsLoading = true;
-
-                    SnapshotCodeItems snapshot;
-                    if (Settings.Default.Digging_CacheFiles && _codeItemsCache.TryGetValue(Document, out snapshot))
-                    {
-                        UpdateViewModelRawCodeItems(snapshot);
-                        return;
-                    }
                 }
 
-                _codeModelRetriever.RetrieveCodeModelAsync(Document);
+                var codeItems = _codeModelManager.RetrieveAllCodeItemsAsync(Document);
+                if (codeItems != null)
+                {
+                    UpdateViewModelRawCodeItems(codeItems);
+                }
             }
         }
 
         /// <summary>
-        /// Attempts to update the view model's raw set of code items based on the specified snapshot.
+        /// An event handler called when the <see cref="CodeModelManager"/> raises a
+        /// <see cref="CodeModelManager.CodeModelBuilt"/> event. If the code model was built for the
+        /// document currently being shown by Spade, the raw code items will be processed and
+        /// displayed.
         /// </summary>
-        /// <param name="snapshot">The code items snapshot.</param>
-        private void UpdateViewModelRawCodeItems(SnapshotCodeItems snapshot)
+        /// <param name="codeModel">The code model.</param>
+        private void OnCodeModelBuilt(CodeModel codeModel)
         {
-            if (Settings.Default.Digging_CacheFiles)
+            if (Document == codeModel.Document)
             {
-                _codeItemsCache[snapshot.Document] = snapshot;
+                UpdateViewModelRawCodeItems(codeModel.CodeItems);
             }
+        }
 
-            if (Document == snapshot.Document)
-            {
-                _viewModel.RawCodeItems = snapshot.CodeItems;
-                _viewModel.IsLoading = false;
-                _viewModel.IsRefreshing = false;
-            }
+        /// <summary>
+        /// Update the view model's raw set of code items based on the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
+        {
+            _viewModel.RawCodeItems = codeItems;
+            _viewModel.IsLoading = false;
+            _viewModel.IsRefreshing = false;
         }
 
         #endregion Private Methods
