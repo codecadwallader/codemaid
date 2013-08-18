@@ -13,8 +13,6 @@
 
 using System.Collections.Generic;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.CodeItems;
-using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -25,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Model
     {
         #region Fields
 
-        private readonly Dictionary<Document, SnapshotCodeItems> _codeItemsCache;
+        private readonly Dictionary<Document, CodeModel> _cache;
 
         #endregion Fields
 
@@ -36,7 +34,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </summary>
         internal CodeModelCache()
         {
-            _codeItemsCache = new Dictionary<Document, SnapshotCodeItems>();
+            _cache = new Dictionary<Document, CodeModel>();
         }
 
         #endregion Constructors
@@ -44,35 +42,25 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Internal Methods
 
         /// <summary>
-        /// Checks the cache (if enabled) to retrieve the code items for the specified document if present.
+        /// Gets a code model for the specified document. If the code model is not present in the
+        /// cache, a new code model will be generated and added to the cache.
         /// </summary>
         /// <param name="document">The document.</param>
-        /// <returns>The cached code items, otherwise null.</returns>
-        internal SetCodeItems GetCodeItemsFromCache(Document document)
+        /// <returns>A code model representing the document.</returns>
+        internal CodeModel GetCodeModel(Document document)
         {
-            if (Settings.Default.Digging_CacheFiles)
+            CodeModel codeModel;
+
+            lock (_cache)
             {
-                SnapshotCodeItems snapshot;
-                if (_codeItemsCache.TryGetValue(document, out snapshot))
+                if (!_cache.TryGetValue(document, out codeModel))
                 {
-                    return snapshot.CodeItems;
+                    codeModel = new CodeModel(document) { IsStale = true };
+                    _cache.Add(document, codeModel);
                 }
             }
 
-            return null;
-        }
-
-        /// <summary>
-        /// Places the specified code items into the cache (if enabled).
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <param name="codeItems">The code items.</param>
-        internal void PlaceCodeItemsInCache(Document document, SetCodeItems codeItems)
-        {
-            if (Settings.Default.Digging_CacheFiles)
-            {
-                _codeItemsCache[document] = new SnapshotCodeItems(document, codeItems);
-            }
+            return codeModel;
         }
 
         #endregion Internal Methods

@@ -66,6 +66,11 @@ namespace SteveCadwallader.CodeMaid.Model
 
         #region Events
 
+        /// <summary>
+        /// An event raised when a <see cref="CodeModel"/> has been built.
+        /// </summary>
+        internal event Action<CodeModel> CodeModelBuilt;
+
         #endregion Events
 
         #region Internal Methods
@@ -82,13 +87,17 @@ namespace SteveCadwallader.CodeMaid.Model
                 throw new ArgumentNullException("document");
             }
 
-            var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
-            if (codeItems == null)
+            var codeModel = _codeModelCache.GetCodeModel(document);
+            if (codeModel.IsBuilding)
             {
-                codeItems = BuildCodeModelAndPlaceInCache(document);
+                //TODO: Block on a code model WaitHandle?
+            }
+            else if (codeModel.IsStale)
+            {
+                BuildCodeItems(codeModel);
             }
 
-            return codeItems;
+            return codeModel.CodeItems;
         }
 
         /// <summary>
@@ -105,14 +114,26 @@ namespace SteveCadwallader.CodeMaid.Model
                 throw new ArgumentNullException("document");
             }
 
-            var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
-            if (codeItems == null)
+            var codeModel = _codeModelCache.GetCodeModel(document);
+            if (codeModel.IsBuilding)
             {
-                Task.Run(() => BuildCodeModelAndPlaceInCache(document))
-                    .ContinueWith(task => Raise(task.Result));
+                // Exit out and wait for the event to be raised.
+                return null;
             }
 
-            return codeItems;
+            if (codeModel.IsStale)
+            {
+                // Asynchronously build the code items then raise an event.
+                Task.Run(() =>
+                {
+                    BuildCodeItems(codeModel);
+                    RaiseCodeModelBuilt(codeModel);
+                });
+
+                return null;
+            }
+
+            return codeModel.CodeItems;
         }
 
         #endregion Internal Methods
@@ -120,33 +141,49 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Private Methods
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
-        /// After retrieving the CodeItems, places them into the cache.
+        /// Builds a <see cref="SetCodeItems"/> of CodeItems based on the specified code model. If
+        /// the document gets marked as stale during execution this process will recursively call
+        /// itself to start over in order to guarantee a valid code model is returned.
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns>The set of code items within the document.</returns>
-        private SetCodeItems BuildCodeModelAndPlaceInCache(Document document)
+        /// <param name="codeModel">The code model.</param>
+        private void BuildCodeItems(CodeModel codeModel)
         {
             try
             {
-                var codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
-                _codeModelCache.PlaceCodeItemsInCache(document, codeItems);
+                var codeItems = _codeModelBuilder.RetrieveAllCodeItems(codeModel.Document);
 
-                return codeItems;
+                if (codeModel.IsStale)
+                {
+                    codeModel.IsStale = false;
+                    BuildCodeItems(codeModel);
+                    return;
+                }
+
+                codeModel.CodeItems = codeItems;
+                codeModel.IsBuilding = false;
             }
             catch (Exception ex)
             {
                 OutputWindowHelper.WriteLine(String.Format(
                     "CodeMaid exception: Unable to build code model for {0}: {1}",
-                    document.FullName, ex));
+                    codeModel.Document.FullName, ex));
 
-                return null;
+                codeModel.CodeItems = null;
+                codeModel.IsBuilding = false;
             }
         }
 
-        private void Raise(SetCodeItems codeItems)
+        /// <summary>
+        /// Raises the <see cref="CodeModelBuilt"/> event.
+        /// </summary>
+        /// <param name="codeModel">The code model.</param>
+        private void RaiseCodeModelBuilt(CodeModel codeModel)
         {
-            //TODO: Implement
+            var codeModelBuilt = CodeModelBuilt;
+            if (codeModelBuilt != null)
+            {
+                codeModelBuilt(codeModel);
+            }
         }
 
         #endregion Private Methods
