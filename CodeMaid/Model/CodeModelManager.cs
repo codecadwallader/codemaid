@@ -11,8 +11,10 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Threading.Tasks;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
 namespace SteveCadwallader.CodeMaid.Model
@@ -75,6 +77,11 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document)
         {
+            if (document == null)
+            {
+                throw new ArgumentNullException("document");
+            }
+
             var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
             if (codeItems == null)
             {
@@ -93,6 +100,11 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document if already available, otherwise null.</returns>
         internal SetCodeItems RetrieveAllCodeItemsAsync(Document document)
         {
+            if (document == null)
+            {
+                throw new ArgumentNullException("document");
+            }
+
             var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
             if (codeItems == null)
             {
@@ -115,10 +127,21 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document.</returns>
         private SetCodeItems BuildCodeModelAndPlaceInCache(Document document)
         {
-            var codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
-            _codeModelCache.PlaceCodeItemsInCache(document, codeItems);
+            try
+            {
+                var codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
+                _codeModelCache.PlaceCodeItemsInCache(document, codeItems);
 
-            return codeItems;
+                return codeItems;
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.WriteLine(String.Format(
+                    "CodeMaid exception: Unable to build code model for {0}: {1}",
+                    document.FullName, ex));
+
+                return null;
+            }
         }
 
         private void Raise(SetCodeItems codeItems)
