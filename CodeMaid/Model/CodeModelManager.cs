@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Threading.Tasks;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
@@ -61,25 +62,70 @@ namespace SteveCadwallader.CodeMaid.Model
 
         #endregion Constructors
 
+        #region Events
+
+        #endregion Events
+
         #region Internal Methods
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document including regions.
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
         /// </summary>
         /// <param name="document">The document.</param>
-        /// <returns>The set of code items within the document, including regions.</returns>
+        /// <returns>The set of code items within the document.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document)
         {
-            var codeItems = _codeModelCache.GetCodeItemsFromCacheIfEnabled(document);
+            var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
             if (codeItems == null)
             {
-                codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
-                _codeModelCache.PlaceCodeItemsInCacheIfEnabled(document, codeItems);
+                codeItems = BuildCodeModelAndPlaceInCache(document);
+            }
+
+            return codeItems;
+        }
+
+        /// <summary>
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
+        /// If the code items are already available they will be returned,
+        /// otherwise an event will be raised once the code items have been asynchronously built.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The set of code items within the document if already available, otherwise null.</returns>
+        internal SetCodeItems RetrieveAllCodeItemsAsync(Document document)
+        {
+            var codeItems = _codeModelCache.GetCodeItemsFromCache(document);
+            if (codeItems == null)
+            {
+                Task.Run(() => BuildCodeModelAndPlaceInCache(document))
+                    .ContinueWith(task => Raise(task.Result));
             }
 
             return codeItems;
         }
 
         #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
+        /// After retrieving the CodeItems, places them into the cache.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The set of code items within the document.</returns>
+        private SetCodeItems BuildCodeModelAndPlaceInCache(Document document)
+        {
+            var codeItems = _codeModelBuilder.RetrieveAllCodeItems(document);
+            _codeModelCache.PlaceCodeItemsInCache(document, codeItems);
+
+            return codeItems;
+        }
+
+        private void Raise(SetCodeItems codeItems)
+        {
+            //TODO: Implement
+        }
+
+        #endregion Private Methods
     }
 }

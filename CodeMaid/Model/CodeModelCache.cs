@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>The cached code items, otherwise null.</returns>
-        internal SetCodeItems GetCodeItemsFromCacheIfEnabled(Document document)
+        internal SetCodeItems GetCodeItemsFromCache(Document document)
         {
             if (Settings.Default.Digging_CacheFiles)
             {
@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="codeItems">The code items.</param>
-        internal void PlaceCodeItemsInCacheIfEnabled(Document document, SetCodeItems codeItems)
+        internal void PlaceCodeItemsInCache(Document document, SetCodeItems codeItems)
         {
             if (Settings.Default.Digging_CacheFiles)
             {
