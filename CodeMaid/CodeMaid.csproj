@@ -207,6 +207,7 @@
     <Compile Include="Integration\Commands\SwitchFileCommand.cs" />
     <Compile Include="Integration\Events\BaseEventListener.cs" />
     <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
+    <Compile Include="Integration\Events\CodeModelEventListener.cs" />
     <Compile Include="Integration\Events\DocumentEventListener.cs" />
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Integration\Events\ShellEventListener.cs" />

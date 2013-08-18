@@ -66,12 +66,28 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Removes the code model associated with the specified document if it exists.
         /// </summary>
-        /// <param name="document">The document to remove.</param>
+        /// <param name="document">The document.</param>
         internal void RemoveCodeModel(Document document)
         {
             lock (_cache)
             {
                 _cache.Remove(document);
+            }
+        }
+
+        /// <summary>
+        /// Marks the code model associated with the specified document as stale if it exists.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        internal void StaleCodeModel(Document document)
+        {
+            lock (_cache)
+            {
+                CodeModel codeModel;
+                if (_cache.TryGetValue(document, out codeModel))
+                {
+                    codeModel.IsStale = true;
+                }
             }
         }
 

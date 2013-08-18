@@ -208,6 +208,11 @@ namespace SteveCadwallader.CodeMaid
         private BuildProgressEventListener BuildProgressEventListener { get; set; }
 
         /// <summary>
+        /// Gets or sets the code model event listener.
+        /// </summary>
+        private CodeModelEventListener CodeModelEventListener { get; set; }
+
+        /// <summary>
         /// Gets or sets the document event listener.
         /// </summary>
         private DocumentEventListener DocumentEventListener { get; set; }
@@ -423,6 +428,11 @@ namespace SteveCadwallader.CodeMaid
                 BuildProgressEventListener.BuildProjConfigDone += buildProgressToolWindowCommand.OnBuildProjConfigDone;
                 BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
 
+                CodeModelEventListener = new CodeModelEventListener(this);
+                CodeModelEventListener.OnElementAdded += codeModelManager.OnDocumentChanged;
+                CodeModelEventListener.OnElementChanged += codeModelManager.OnDocumentChanged;
+                CodeModelEventListener.OnElementDeleted += codeModelManager.OnDocumentChanged;
+
                 DocumentEventListener = new DocumentEventListener(this);
                 DocumentEventListener.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
@@ -461,6 +471,11 @@ namespace SteveCadwallader.CodeMaid
             if (BuildProgressEventListener != null)
             {
                 BuildProgressEventListener.Dispose();
+            }
+
+            if (CodeModelEventListener != null)
+            {
+                CodeModelEventListener.Dispose();
             }
 
             if (DocumentEventListener != null)

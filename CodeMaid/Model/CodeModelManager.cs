@@ -76,9 +76,18 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Internal Event Handlers
 
         /// <summary>
-        /// An event callbck that is raised when a document is closing.
+        /// An event callback that is raised when a document has changed.
         /// </summary>
-        /// <param name="document">The document that is closing.</param>
+        /// <param name="document">The document.</param>
+        internal void OnDocumentChanged(Document document)
+        {
+            _codeModelCache.StaleCodeModel(document);
+        }
+
+        /// <summary>
+        /// An event callback that is raised when a document is closing.
+        /// </summary>
+        /// <param name="document">The document.</param>
         internal void OnDocumentClosing(Document document)
         {
             _codeModelCache.RemoveCodeModel(document);
