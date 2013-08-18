@@ -13,6 +13,7 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
@@ -285,7 +286,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="codeItems">The code items.</param>
         private void UpdateViewModelRawCodeItems(SetCodeItems codeItems)
         {
-            _viewModel.RawCodeItems = codeItems;
+            // Create a copy of the original collection, filtering out undesired items.
+            var filteredCodeItems = new SetCodeItems(
+                codeItems.Where(x => !(x is CodeItemUsingStatement || x is CodeItemNamespace)));
+
+            _viewModel.RawCodeItems = filteredCodeItems;
             _viewModel.IsLoading = false;
             _viewModel.IsRefreshing = false;
         }
