@@ -90,7 +90,13 @@ namespace SteveCadwallader.CodeMaid.Model
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
             {
-                //TODO: Block on a code model WaitHandle?
+                if (!codeModel.IsBuiltWaitHandle.WaitOne(TimeSpan.FromSeconds(30)))
+                {
+                    OutputWindowHelper.WriteLine(String.Format(
+                        "CodeMaid warning: Timed out waiting for code model to be built for {0}.",
+                        codeModel.Document.FullName));
+                    return null;
+                }
             }
             else if (codeModel.IsStale)
             {
@@ -150,6 +156,8 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             try
             {
+                codeModel.IsBuilding = true;
+
                 var codeItems = _codeModelBuilder.RetrieveAllCodeItems(codeModel.Document);
 
                 if (codeModel.IsStale)

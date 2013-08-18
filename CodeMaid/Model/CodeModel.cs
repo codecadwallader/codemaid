@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Threading;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 
@@ -21,6 +22,12 @@ namespace SteveCadwallader.CodeMaid.Model
     /// </summary>
     internal class CodeModel
     {
+        #region Fields
+
+        private bool _isBuilding;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -30,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.Model
         internal CodeModel(Document document)
         {
             Document = document;
+            IsBuiltWaitHandle = new ManualResetEvent(false);
         }
 
         #endregion Constructors
@@ -49,7 +57,30 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets or sets a flag indicating if this model is currently being built.
         /// </summary>
-        internal bool IsBuilding { get; set; }
+        internal bool IsBuilding
+        {
+            get { return _isBuilding; }
+            set
+            {
+                if (_isBuilding != value)
+                {
+                    _isBuilding = value;
+                    if (_isBuilding)
+                    {
+                        IsBuiltWaitHandle.Reset();
+                    }
+                    else
+                    {
+                        IsBuiltWaitHandle.Set();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a wait handle that will be signaled when building is complete.
+        /// </summary>
+        internal ManualResetEvent IsBuiltWaitHandle { get; private set; }
 
         /// <summary>
         /// Gets or sets a flag indicating if this model is stale.
