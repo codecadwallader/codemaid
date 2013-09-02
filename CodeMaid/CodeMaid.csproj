@@ -212,6 +212,7 @@
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Integration\Events\ShellEventListener.cs" />
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
+    <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
     <Compile Include="Integration\PkgCmdIDList.cs" />

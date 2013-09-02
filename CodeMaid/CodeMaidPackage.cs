@@ -233,6 +233,11 @@ namespace SteveCadwallader.CodeMaid
         private SolutionEventListener SolutionEventListener { get; set; }
 
         /// <summary>
+        /// Gets or sets the text editor event listener.
+        /// </summary>
+        private TextEditorEventListener TextEditorEventListener { get; set; }
+
+        /// <summary>
         /// Gets or sets the window event listener.
         /// </summary>
         private WindowEventListener WindowEventListener { get; set; }
@@ -450,6 +455,9 @@ namespace SteveCadwallader.CodeMaid
                     collapseAllSolutionExplorerCommand.OnSolutionOpened();
                 }
 
+                TextEditorEventListener = new TextEditorEventListener(this);
+                TextEditorEventListener.OnLineChanged += codeModelManager.OnDocumentChanged;
+
                 WindowEventListener = new WindowEventListener(this);
                 WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
             }
@@ -496,6 +504,11 @@ namespace SteveCadwallader.CodeMaid
             if (SolutionEventListener != null)
             {
                 SolutionEventListener.Dispose();
+            }
+
+            if (TextEditorEventListener != null)
+            {
+                TextEditorEventListener.Dispose();
             }
 
             if (WindowEventListener != null)
