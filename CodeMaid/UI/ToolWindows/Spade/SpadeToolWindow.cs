@@ -250,6 +250,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 if (isRefresh)
                 {
+                    _codeModelManager.OnDocumentChanged(Document);
                     _viewModel.IsRefreshing = true;
                 }
                 else
