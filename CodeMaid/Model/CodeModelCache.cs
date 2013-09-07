@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Model
     {
         #region Fields
 
-        private readonly Dictionary<Document, CodeModel> _cache;
+        private readonly Dictionary<string, CodeModel> _cache;
 
         #endregion Fields
 
@@ -34,7 +34,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </summary>
         internal CodeModelCache()
         {
-            _cache = new Dictionary<Document, CodeModel>();
+            _cache = new Dictionary<string, CodeModel>();
         }
 
         #endregion Constructors
@@ -53,10 +53,10 @@ namespace SteveCadwallader.CodeMaid.Model
 
             lock (_cache)
             {
-                if (!_cache.TryGetValue(document, out codeModel))
+                if (!_cache.TryGetValue(document.FullName, out codeModel))
                 {
                     codeModel = new CodeModel(document) { IsStale = true };
-                    _cache.Add(document, codeModel);
+                    _cache.Add(document.FullName, codeModel);
                 }
             }
 
@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             lock (_cache)
             {
-                _cache.Remove(document);
+                _cache.Remove(document.FullName);
             }
         }
 
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Model
             lock (_cache)
             {
                 CodeModel codeModel;
-                if (_cache.TryGetValue(document, out codeModel))
+                if (_cache.TryGetValue(document.FullName, out codeModel))
                 {
                     codeModel.IsStale = true;
                 }
