@@ -987,12 +987,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_CacheFiles {
+        public bool General_CacheFiles {
             get {
-                return ((bool)(this["Digging_CacheFiles"]));
+                return ((bool)(this["General_CacheFiles"]));
             }
             set {
-                this["Digging_CacheFiles"] = value;
+                this["General_CacheFiles"] = value;
             }
         }
         

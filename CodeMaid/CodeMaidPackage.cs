@@ -30,6 +30,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
@@ -207,6 +208,11 @@ namespace SteveCadwallader.CodeMaid
         private BuildProgressEventListener BuildProgressEventListener { get; set; }
 
         /// <summary>
+        /// Gets or sets the document event listener.
+        /// </summary>
+        private DocumentEventListener DocumentEventListener { get; set; }
+
+        /// <summary>
         /// Gets or sets the running document table event listener.
         /// </summary>
         private RunningDocumentTableEventListener RunningDocumentTableEventListener { get; set; }
@@ -220,6 +226,11 @@ namespace SteveCadwallader.CodeMaid
         /// Gets or sets the solution event listener.
         /// </summary>
         private SolutionEventListener SolutionEventListener { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text editor event listener.
+        /// </summary>
+        private TextEditorEventListener TextEditorEventListener { get; set; }
 
         /// <summary>
         /// Gets or sets the window event listener.
@@ -409,11 +420,16 @@ namespace SteveCadwallader.CodeMaid
                 var collapseAllSolutionExplorerCommand = _commands.OfType<CollapseAllSolutionExplorerCommand>().First();
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
+                var codeModelManager = CodeModelManager.GetInstance(this);
+
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
                 BuildProgressEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
                 BuildProgressEventListener.BuildProjConfigDone += buildProgressToolWindowCommand.OnBuildProjConfigDone;
                 BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
+
+                DocumentEventListener = new DocumentEventListener(this);
+                DocumentEventListener.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
                 RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
                 RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
@@ -428,6 +444,9 @@ namespace SteveCadwallader.CodeMaid
                 {
                     collapseAllSolutionExplorerCommand.OnSolutionOpened();
                 }
+
+                TextEditorEventListener = new TextEditorEventListener(this);
+                TextEditorEventListener.OnLineChanged += codeModelManager.OnDocumentChanged;
 
                 WindowEventListener = new WindowEventListener(this);
                 WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
@@ -452,6 +471,11 @@ namespace SteveCadwallader.CodeMaid
                 BuildProgressEventListener.Dispose();
             }
 
+            if (DocumentEventListener != null)
+            {
+                DocumentEventListener.Dispose();
+            }
+
             if (RunningDocumentTableEventListener != null)
             {
                 RunningDocumentTableEventListener.Dispose();
@@ -465,6 +489,11 @@ namespace SteveCadwallader.CodeMaid
             if (SolutionEventListener != null)
             {
                 SolutionEventListener.Dispose();
+            }
+
+            if (TextEditorEventListener != null)
+            {
+                TextEditorEventListener.Dispose();
             }
 
             if (WindowEventListener != null)

@@ -17,6 +17,7 @@ using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
@@ -31,7 +32,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
+
+        private readonly CodeModelManager _codeModelManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
+
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
 
         #endregion Fields
@@ -61,6 +65,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             _package = package;
 
+            _codeModelManager = CodeModelManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Reorganize");
 
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
@@ -127,12 +132,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 {
                     _package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
-                    // Retrieve all relevant code items.
-                    var codeItems = Settings.Default.Reorganizing_KeepMembersWithinRegions
-                                        ? CodeModelHelper.RetrieveCodeItemsIncludingRegions(document)
-                                        : CodeModelHelper.RetrieveCodeItemsExcludingRegions(document);
-
-                    codeItems.RemoveAll(x => x is CodeItemUsingStatement);
+                    // Retrieve all relevant code items (excluding using statements, and conditionally regions).
+                    var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document);
+                    var filteredCodeItems = rawCodeItems.Where(x =>
+                        !(x is CodeItemUsingStatement ||
+                          (!Settings.Default.Reorganizing_KeepMembersWithinRegions && x is CodeItemRegion)));
+                    var codeItems = new SetCodeItems(filteredCodeItems);
 
                     // Build the code tree based on the current file layout.
                     var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));
