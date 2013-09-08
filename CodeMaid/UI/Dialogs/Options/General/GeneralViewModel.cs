@@ -48,6 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void LoadSettings()
         {
+            CacheFiles = Settings.Default.General_CacheFiles;
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
@@ -62,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.General_CacheFiles = CacheFiles;
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
@@ -74,6 +76,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _cacheFiles;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if files should be cached.
+        /// </summary>
+        public bool CacheFiles
+        {
+            get { return _cacheFiles; }
+            set
+            {
+                if (_cacheFiles != value)
+                {
+                    _cacheFiles = value;
+                    NotifyPropertyChanged("CacheFiles");
+                }
+            }
+        }
 
         private bool _diagnosticsMode;
 

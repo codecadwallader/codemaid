@@ -13,6 +13,8 @@
 
 using System.Collections.Generic;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -51,12 +53,25 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             CodeModel codeModel;
 
+            OutputWindowHelper.DiagnosticWriteLine("GetCodeModel: " + document.FullName);
+
             lock (_cache)
             {
                 if (!_cache.TryGetValue(document.FullName, out codeModel))
                 {
                     codeModel = new CodeModel(document) { IsStale = true };
-                    _cache.Add(document.FullName, codeModel);
+
+                    if (Settings.Default.General_CacheFiles)
+                    {
+                        _cache.Add(document.FullName, codeModel);
+                        OutputWindowHelper.DiagnosticWriteLine("  --added to cache.");
+                    }
+                }
+                else
+                {
+                    OutputWindowHelper.DiagnosticWriteLine(codeModel.IsStale
+                        ? "  --retrieved from cache (stale)."
+                        : "  --retrieved from cache (not stale).");
                 }
             }
 
@@ -71,7 +86,10 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             lock (_cache)
             {
-                _cache.Remove(document.FullName);
+                if (_cache.Remove(document.FullName))
+                {
+                    OutputWindowHelper.DiagnosticWriteLine("RemoveCodeModel from cache: " + document.FullName);
+                }
             }
         }
 
@@ -87,6 +105,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 if (_cache.TryGetValue(document.FullName, out codeModel))
                 {
                     codeModel.IsStale = true;
+                    OutputWindowHelper.DiagnosticWriteLine("StaleCodeModel in cache: " + document.FullName);
                 }
             }
         }
