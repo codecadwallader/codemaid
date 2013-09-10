@@ -18,18 +18,25 @@ using System.Linq;
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A phrase represents an individual block of comment text that will always start on a new
-    /// line and could span multiple lines.
+    /// A phrase represents an individual block of comment text that will always start on a new line
+    /// and could span multiple lines.
     /// </summary>
     internal class CodeCommentPhrase
     {
         #region Constructors
 
+        public CodeCommentPhrase()
+        {
+            Indent = 0;
+            ListPrefix = null;
+            Words = new LinkedList<string>();
+        }
+
         public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
+            : this()
         {
             Indent = indent;
             ListPrefix = listPrefix;
-            Words = new LinkedList<string>();
 
             AppendWords(words);
         }
@@ -41,6 +48,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public int Indent { get; private set; }
 
         public bool IsList { get { return ListPrefix != null; } }
+
+        public bool IsXml { get; set; }
 
         public string ListPrefix { get; private set; }
 
@@ -60,35 +69,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return this;
         }
 
+        public void AppendWords(string word)
+        {
+            AppendWords(new[] { word });
+        }
+
         public void AppendWords(IEnumerable<string> words)
         {
             if (words == null) return;
-
-            int depth = 0;
-            LinkedListNode<string> node = null;
-
-            foreach (var w in words.Where(w => !String.IsNullOrEmpty(w)))
+            foreach (var w in words.Where(w => !string.IsNullOrEmpty(w)))
             {
-                // Trickery to keep multiple-word XML tags (eg. with attributes) together in a single word.
-                int open = w.Count(c => c == '<');
-                int close = w.Count(c => c == '>');
-
-                if (node != null)
-                {
-                    node.Value = String.Format("{0} {1}", node.Value, w);
-                }
-                else
-                {
-                    node = Words.AddLast(w);
-                }
-
-                depth += (open - close);
-
-                if (depth <= 0)
-                {
-                    node = null;
-                    depth = 0;
-                }
+                Words.AddLast(w);
             }
         }
 

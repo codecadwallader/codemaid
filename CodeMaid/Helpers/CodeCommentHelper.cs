@@ -108,5 +108,48 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             return IsCommentedOutCode(text, prefix);
         }
+
+        /// <summary>
+        /// Creates the XML open tag string for an XElement.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>The XML open tag. In case of an element without value, the tag is
+        /// self-closing.</returns>
+        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element)
+        {
+            var builder = new System.Text.StringBuilder();
+            builder.Append("<");
+            builder.Append(element.Name);
+            if (element.HasAttributes)
+            {
+                foreach (var attr in element.Attributes())
+                {
+                    builder.Append(" ");
+                    builder.Append(attr.ToString());
+                }
+            }
+
+            if (element.IsEmpty)
+            {
+                builder.Append("/");
+            }
+
+            builder.Append(">");
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Creates the XML close tag string for an XElement.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>The XML close tag, or <c>null</c> if the element has no value and is a
+        /// self-closing tag.</returns>
+        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element)
+        {
+            if (element.IsEmpty)
+                return null;
+
+            return string.Format("</{0}>", element.Name);
+        }
     }
 }

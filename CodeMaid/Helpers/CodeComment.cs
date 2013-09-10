@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -35,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private readonly IndentSettings _indentSettings;
         private readonly CachedSettingSet<string> _majorTags;
         private readonly CachedSettingSet<string> _minorTags;
+        private readonly string _commentRegex;
 
         #endregion Fields
 
@@ -51,77 +53,120 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="indentSettings">The indent settings.</param>
         public CodeComment(string commentRegex, ref EditPoint from, ref EditPoint to, CachedSettingSet<string> majorTags, CachedSettingSet<string> minorTags, IndentSettings indentSettings)
         {
+            Phrases = new LinkedList<CodeCommentPhrase>();
+
             StartPoint = from.CreateEditPoint();
             EndPoint = to.CreateEditPoint();
             LineCharOffset = from.LineCharOffset;
 
+            _commentRegex = commentRegex;
             _majorTags = majorTags;
             _minorTags = minorTags;
             _indentSettings = indentSettings;
+        }
 
-            Phrases = new LinkedList<CodeCommentPhrase>();
+        private void ParseTextComment(IEnumerable<string> lines)
+        {
+            foreach (var line in lines)
+                ParseTextLine(line);
+        }
 
-            // Get the complete comment text (including the comment prefixes).
-            string text = from.GetText(to);
+        private void ParseTextLine(string line)
+        {
+            var lineMatch = CommentLineRegex.Match(line.Trim());
 
-            var commentMatch = Regex.Match(text, commentRegex, RegexOptions.IgnoreCase);
+            var indent = lineMatch.Groups["indent"].Success ? lineMatch.Groups["indent"].Length : 0;
+            var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
+            var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
 
-            CommentPrefix = commentMatch.Groups["prefix"].Value;
-
-            // Workaround for blockcomments.
-            if (CommentPrefix == "/*")
+            if (words[0].Length == 0 && listPrefix == null)
             {
-                IsBlockComment = true;
-                CommentPrefix = " *";
+                Phrases.AddLast(new CodeCommentPhrase());
+                Phrases.AddLast(new CodeCommentPhrase());
+            }
+            else if (
+                Phrases.Last == null // No phrases yet
+                || !String.IsNullOrEmpty(listPrefix) // Lists always starts on own line
+                || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this line is not indented
+                )
+            {
+                Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix, words));
+            }
+            else
+            {
+                Phrases.Last.Value.AppendWords(words);
+            }
+        }
+
+        private bool ParseXmlComment(IEnumerable<string> lines, int maxWidth)
+        {
+            XElement xml;
+            try
+            {
+                // Need to put a root element around the comment to make it valid XML before
+                // parsing.
+                xml = XElement.Parse(string.Format("<doc>{0}</doc>", string.Join(Environment.NewLine, lines)));
+            }
+            catch (System.Xml.XmlException)
+            {
+                // If there is a parsing error within the XML, return false so the calling function
+                // knows it cannot be treated as XML comment.
+                return false;
             }
 
-            foreach (Capture c in commentMatch.Groups["line"].Captures)
+            foreach (var element in xml.Elements())
             {
-                var lineMatch = CommentLineRegex.Match(c.Value);
+                // Root level elements always start on their own line.
+                var phrase = StartNewPhrase();
+                phrase.IsXml = true;
 
-                var indent = lineMatch.Groups["indent"].Success ? lineMatch.Groups["indent"].Length : 0;
-                var listPrefix = lineMatch.Groups["listprefix"].Success ? lineMatch.Groups["listprefix"].Value : null;
-                var words = WordSplitRegex.Split(lineMatch.Groups["words"].Value);
+                var openTag = CodeCommentHelper.CreateXmlOpenTag(element);
+                phrase.AppendWords(openTag);
 
-                // Empty lines return a single empty string from split, null makes this easier to
-                // deal with.
-                if (words[0].Length == 0)
+                if (!element.IsEmpty)
                 {
-                    words = null;
-                }
+                    // Major tags are alone on their line.
+                    var onNewLine = _majorTags.Value.Contains(element.Name.LocalName, StringComparer.OrdinalIgnoreCase);
 
-                if (Phrases.First == null && words != null)
-                {
-                    IsXmlComment = CommentPrefix.Length == 3 && words.First().StartsWith("<");
-                }
+                    var closeTag = CodeCommentHelper.CreateXmlCloseTag(element);
 
-                if (
-                    Phrases.Last == null // No phrases yet
-                    || !String.IsNullOrEmpty(listPrefix) // Lists always starts on own line
-                    || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this
-                                                                  // line is not indented
-                    || (words == null && Phrases.Last.Value.Words.First != null) // This is an empty
-                                                                                 // line and previous
-                                                                                 // one is not
-                    || (words != null && Phrases.Last.Value.Words.First == null) // This is a normal
-                                                                                 // line and previous
-                                                                                 // one is empty
-                    )
-                {
-                    Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix, words));
-                }
-                else
-                {
-                    Phrases.Last.Value.AppendWords(words);
+                    // Get the inner text of this node, including tags.
+                    string innerText;
+                    using (var reader = element.CreateReader())
+                    {
+                        reader.MoveToContent();
+                        innerText = reader.ReadInnerXml();
+                    }
+                   
+                    // With the fancy XML parsing, we can also check if the content will fit on a
+                    // single line, and if not, split it like it is a major tag.
+                    if (this.LineCharOffset + openTag.Length + closeTag.Length + innerText.Length > maxWidth)
+                        onNewLine = true;
+
+                    if (onNewLine)
+                        phrase = StartNewPhrase();
+
+                    ParseTextComment(innerText.Split(new[] { Environment.NewLine }, StringSplitOptions.None));
+
+                    if (onNewLine)
+                        phrase = StartNewPhrase();
+
+                    phrase.AppendWords(closeTag);
                 }
             }
+
+            return true;
+        }
+
+        private CodeCommentPhrase StartNewPhrase()
+        {
+            return Phrases.AddLast(new CodeCommentPhrase()).Value;
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public string CommentPrefix { get; private set; }
 
         public EditPoint EndPoint { get; private set; }
 
@@ -131,6 +176,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         public int LineCharOffset { get; private set; }
 
+        /// <summary>
+        /// Gets the collection of comment phrases for this comment. Each phrase starts on it's own
+        /// line, and may span one or more lines.
+        /// </summary>
         public LinkedList<CodeCommentPhrase> Phrases { get; private set; }
 
         public EditPoint StartPoint { get; private set; }
@@ -159,6 +208,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return EndPoint;
         }
 
+        /// <summary>
+        /// Gets the text and builds a comment out of it. This function does not change the actual
+        /// document.
+        /// </summary>
+        /// <param name="maxWidth">Max width of the comment.</param>
+        /// <returns>A <see cref="CommentBuilder"/> instance with the formatted content of this
+        /// comment.</returns>
         private CommentBuilder BuildComment(int maxWidth)
         {
             if (maxWidth < LineCharOffset + 20)
@@ -166,14 +222,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 maxWidth = LineCharOffset + 20;
             }
 
-            if (IsXmlComment)
+            // Get the complete comment text (including the comment prefixes) and parse it into phrases.
+            string text = StartPoint.GetText(EndPoint);
+
+            var commentMatch = Regex.Match(text, _commentRegex, RegexOptions.IgnoreCase);
+            var originalLines = commentMatch.Groups["line"].Captures.OfType<Capture>().Select(c => c.Value);
+            var commentPrefix = commentMatch.Groups["prefix"].Value;
+
+            if (commentPrefix.Length != 3 || !ParseXmlComment(originalLines, maxWidth))
             {
-                ReformatXmlPhrases();
+                ParseTextComment(originalLines);
             }
 
             // Output buffer. The magic minus 1 accounts for the difference between cursor position
             // and actual character count.
-            var builder = new CommentBuilder(LineCharOffset - 1, CommentPrefix, _indentSettings);
+            var builder = new CommentBuilder(LineCharOffset - 1, commentPrefix, _indentSettings);
 
             // Loop through each phrase.
             var phrase = Phrases.First;
@@ -187,7 +250,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
                 else
                 {
-                    builder.Insert(CommentPrefix);
+                    builder.Insert(commentPrefix);
                 }
 
                 // Phrase is a list, so output the list prefix before the first word.
@@ -215,8 +278,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         }
                     }
 
-                    // This is were we write the actual word.
-                    builder.Insert(" ");
+                    // Output spacing (with exception for the first and last word on an XML phrase),
+                    // and the actual word.
+                    if (!(phrase.Value.IsXml && word.Previous != null && (phrase.Value.Words.First == word.Previous || word.Next == null)))
+                        builder.Insert(" ");
                     builder.Insert(word.Value);
 
                     word = word.Next;
@@ -238,108 +303,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             return builder;
-        }
-
-        /// <summary>
-        /// Get all words including and after current word.
-        /// </summary>
-        private IEnumerable<string> GetWordsAfter(LinkedListNode<string> word)
-        {
-            while ((word = word.Next) != null)
-            {
-                yield return word.Value;
-            }
-        }
-
-        /// <summary>
-        /// Check for XML tags in phrases and make sure they follow the rules for newlines.
-        /// </summary>
-        private void ReformatXmlPhrases()
-        {
-            var xmlTagRegex = new Regex(@"(?<before>[^\<]+?)?\s*(?<fulltag><\/?(?<tagname>(" + String.Join("|", _majorTags.Value.Union(_minorTags.Value)) + @")).*?>)\s*(?<after>.+)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            var phrase = Phrases.First;
-            while (phrase != null)
-            {
-                var word = phrase.Value.Words.First;
-                while (word != null)
-                {
-                    var match = xmlTagRegex.Match(word.Value);
-
-                    if (match.Success)
-                    {
-                        // Text directly before this tag goes in current phrase.
-                        if (match.Groups["before"].Success)
-                        {
-                            word.List.AddBefore(word, match.Groups["before"].Value);
-                        }
-                        if (match.Groups["after"].Success)
-                        {
-                            word.List.AddAfter(word, match.Groups["after"].Value);
-                        }
-                        if (match.Groups["fulltag"].Success)
-                        {
-                            word.Value = match.Groups["fulltag"].Value;
-                        }
-
-                        var tagName = match.Groups["tagname"].Value;
-                        bool isCloseTag = word.Value.StartsWith("</");
-                        bool isMajorTag = _majorTags.Value.Contains(tagName);
-
-                        // Major tags and minor opening tags should be the first word.
-                        if (word.Previous != null && (isMajorTag || !isCloseTag))
-                        {
-                            // Previous word will be the last word of this phrase.
-                            word = word.Previous;
-
-                            // Create a new phrase with the rest of the words.
-                            Phrases.AddAfter(phrase, new CodeCommentPhrase(
-                                phrase.Value.Indent,
-                                null,
-                                GetWordsAfter(word)));
-
-                            // Remove the rest.
-                            while (word.Next != null)
-                            {
-                                word.List.Remove(word.Next);
-                            }
-                        }
-
-                        // Major tags should be the last word.
-                        if (word.Next != null && isMajorTag)
-                        {
-                            Phrases.AddAfter(phrase, new CodeCommentPhrase(
-                                phrase.Value.Indent,
-                                null,
-                                GetWordsAfter(word)));
-
-                            while (word.Next != null)
-                            {
-                                word.List.Remove(word.Next);
-                            }
-                        }
-
-                        // Remove spacing between word and minor tags.
-                        if (!isMajorTag)
-                        {
-                            if (isCloseTag && word.Previous != null)
-                            {
-                                word.Value = word.Previous.Value + word.Value;
-                                word.List.Remove(word.Previous);
-                            }
-                            else if (!isCloseTag && word.Next != null)
-                            {
-                                word.Value += word.Next.Value;
-                                word.List.Remove(word.Next);
-                            }
-                        }
-                    }
-
-                    word = word.Next;
-                }
-
-                phrase = phrase.Next;
-            }
         }
 
         #endregion Methods
