@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
@@ -21,6 +23,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemClass : BaseCodeItemElementParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemClass"/> class.
+        /// </summary>
+        public CodeItemClass()
+        {
+            TypeString = "class";
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -31,63 +45,24 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Class; }
         }
 
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            Task.Factory.StartNew(() =>
+            {
+                Access = TryDefault(() => CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessPublic);
+                Attributes = TryDefault(() => CodeClass != null ? CodeClass.Attributes : null);
+                DocComment = TryDefault(() => CodeClass != null ? CodeClass.DocComment : null);
+                IsStatic = TryDefault(() => CodeClass != null && CodeClass.IsShared);
+                Namespace = TryDefault(() => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null);
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return TryDefault(() => CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeClass != null ? CodeClass.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeClass != null ? CodeClass.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this class is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return TryDefault(() => CodeClass != null && CodeClass.IsShared); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "class"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public override string Namespace
-        {
-            get { return TryDefault(() => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null); }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 

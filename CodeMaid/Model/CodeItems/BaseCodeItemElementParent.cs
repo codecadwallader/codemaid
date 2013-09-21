@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCodeItemElementParent"/> class.
+        /// Abstract initialization code for <see cref="BaseCodeItemElementParent"/>.
         /// </summary>
         protected BaseCodeItemElementParent()
         {
@@ -87,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public abstract string Namespace { get; }
+        public string Namespace { get; protected set; }
 
         #endregion Properties
     }

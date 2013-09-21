@@ -18,6 +18,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemUsingStatement : BaseCodeItemElement
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemUsingStatement"/> class.
+        /// </summary>
+        public CodeItemUsingStatement()
+        {
+            TypeString = "using";
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -43,17 +55,5 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "using"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
     }
 }

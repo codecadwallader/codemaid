@@ -13,6 +13,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
@@ -23,6 +25,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemDelegate : BaseCodeItemElement, ICodeItemParameters
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemDelegate"/> class.
+        /// </summary>
+        public CodeItemDelegate()
+        {
+            TypeString = "delegate";
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -33,55 +47,24 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Delegate; }
         }
 
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            Task.Factory.StartNew(() =>
+            {
+                Access = TryDefault(() => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic);
+                Attributes = TryDefault(() => CodeDelegate != null ? CodeDelegate.Attributes : null);
+                DocComment = TryDefault(() => CodeDelegate != null ? CodeDelegate.DocComment : null);
+                Namespace = TryDefault(() => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null);
+                Parameters = TryDefault(() => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "delegate"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public string Namespace
-        {
-            get { return TryDefault(() => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null); }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 
@@ -91,12 +74,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeDelegate2 CodeDelegate { get; set; }
 
         /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        public string Namespace { get; private set; }
+
+        /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters
-        {
-            get { return TryDefault(() => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
-        }
+        public IEnumerable<CodeParameter> Parameters { get; private set; }
 
         #endregion Properties
     }

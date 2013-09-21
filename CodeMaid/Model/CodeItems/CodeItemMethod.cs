@@ -13,6 +13,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -24,12 +26,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemMethod : BaseCodeItemElement, ICodeItemComplexity, ICodeItemParameters
     {
-        #region Fields
-
-        private int? _complexity;
-
-        #endregion Fields
-
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -53,52 +49,32 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             }
         }
 
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            Task.Factory.StartNew(() =>
+            {
+                IsConstructor = TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor);
+                IsDestructor = TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor);
+                IsExplicitInterfaceImplementation = TryDefault(() => CodeFunction != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeFunction));
+                IsStatic = TryDefault(() => CodeFunction != null && CodeFunction.IsShared);
+
+                // Make exceptions for static constructors and explicit interface implementations - which report private access but really do not have a meaningful access level.
+                Access = TryDefault(() => CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessPublic);
+                Attributes = TryDefault(() => CodeFunction != null ? CodeFunction.Attributes : null);
+                Complexity = CodeElementHelper.CalculateComplexity(CodeElement);
+                DocComment = TryDefault(() => CodeFunction != null ? CodeFunction.DocComment : null);
+                OverrideKind = TryDefault(() => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone);
+                Parameters = TryDefault(() => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+                TypeString = TryDefault(() => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null);
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            // Make exceptions for static constructors and explicit interface implementations - which report private access but really do not have a meaningful access level.
-            get { return TryDefault(() => CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeFunction != null ? CodeFunction.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeFunction != null ? CodeFunction.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this method is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.IsShared); }
-        }
-
-        /// <summary>
-        /// Gets the return type.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null); }
-        }
-
-        #endregion BaseCodeItemElement Overrides
 
         #region Properties
 
@@ -110,58 +86,32 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the complexity.
         /// </summary>
-        public int Complexity
-        {
-            get
-            {
-                if (_complexity == null)
-                {
-                    _complexity = CodeElementHelper.CalculateComplexity(CodeElement);
-                }
-
-                return _complexity.Value;
-            }
-        }
+        public int Complexity { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if this method is a constructor.
         /// </summary>
-        public bool IsConstructor
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor); }
-        }
+        public bool IsConstructor { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if this method is a destructor.
         /// </summary>
-        public bool IsDestructor
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor); }
-        }
+        public bool IsDestructor { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if this method is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation
-        {
-            get { return TryDefault(() => CodeFunction != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeFunction)); }
-        }
+        public bool IsExplicitInterfaceImplementation { get; private set; }
 
         /// <summary>
         /// Gets the override kind (abstract, virtual, override, new), defaulting to none.
         /// </summary>
-        public vsCMOverrideKind OverrideKind
-        {
-            get { return TryDefault(() => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone); }
-        }
+        public vsCMOverrideKind OverrideKind { get; private set; }
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters
-        {
-            get { return TryDefault(() => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
-        }
+        public IEnumerable<CodeParameter> Parameters { get; private set; }
 
         #endregion Properties
     }

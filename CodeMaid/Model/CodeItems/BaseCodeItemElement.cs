@@ -64,39 +64,27 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the access level.
         /// </summary>
-        public virtual vsCMAccess Access
-        {
-            get { return vsCMAccess.vsCMAccessPublic; }
-        }
+        public vsCMAccess Access { get; protected set; }
 
         /// <summary>
         /// Gets the attributes.
         /// </summary>
-        public virtual CodeElements Attributes
-        {
-            get { return null; }
-        }
+        public CodeElements Attributes { get; protected set; }
 
         /// <summary>
         /// Gets the doc comment.
         /// </summary>
-        public virtual string DocComment
-        {
-            get { return null; }
-        }
+        public string DocComment { get; protected set; }
 
         /// <summary>
         /// Gets a flag indicating if this instance is static.
         /// </summary>
-        public virtual bool IsStatic
-        {
-            get { return false; }
-        }
+        public bool IsStatic { get; protected set; }
 
         /// <summary>
         /// Gets the type string.
         /// </summary>
-        public abstract string TypeString { get; }
+        public string TypeString { get; protected set; }
 
         #endregion Properties
 
@@ -135,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
                 if (Regex.IsMatch(text, @"^\s*//"))
                 {
-                    point.LineUp(1);
+                    point.LineUp();
                     point.StartOfLine();
                 }
                 else

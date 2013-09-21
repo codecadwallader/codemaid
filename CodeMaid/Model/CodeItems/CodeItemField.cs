@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
@@ -31,63 +33,27 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Field; }
         }
 
-        #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
         /// <summary>
-        /// Gets the access level.
+        /// Refreshes the cached fields on this item.
         /// </summary>
-        public override vsCMAccess Access
+        public override void Refresh()
         {
-            get
+            base.Refresh();
+
+            Task.Factory.StartNew(() =>
             {
-                return TryDefault(() =>
-                       {
-                           // Work-around for static C++ fields - in VS2012 checking the Access results in hanging Visual Studio.
-                           if (CodeVariable != null && !(IsStatic && CodeVariable.Language == CodeModelLanguageConstants.vsCMLanguageVC))
-                           {
-                               return CodeVariable.Access;
-                           }
-
-                           return vsCMAccess.vsCMAccessPublic;
-                       });
-            }
+                Access = TryDefault(() => CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessPublic);
+                Attributes = TryDefault(() => CodeVariable != null ? CodeVariable.Attributes : null);
+                DocComment = TryDefault(() => CodeVariable != null ? CodeVariable.DocComment : null);
+                IsConstant = TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
+                IsEnumItem = TryDefault(() => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum);
+                IsReadOnly = TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);
+                IsStatic = TryDefault(() => CodeVariable != null && CodeVariable.IsShared);
+                TypeString = TryDefault(() => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null);
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeVariable != null ? CodeVariable.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeVariable != null ? CodeVariable.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this field is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsShared); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null); }
-        }
-
-        #endregion BaseCodeItemElement Overrides
+        #endregion BaseCodeItem Overrides
 
         #region Properties
 
@@ -99,26 +65,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
-        public bool IsConstant
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst); }
-        }
+        public bool IsConstant { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if this field is an enumeration item.
         /// </summary>
-        public bool IsEnumItem
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum); }
-        }
+        public bool IsEnumItem { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if this field is read-only.
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly); }
-        }
+        public bool IsReadOnly { get; private set; }
 
         #endregion Properties
     }

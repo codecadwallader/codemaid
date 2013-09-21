@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
@@ -21,6 +23,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemStruct : BaseCodeItemElementParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemStruct"/> class.
+        /// </summary>
+        public CodeItemStruct()
+        {
+            TypeString = "struct";
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -31,55 +45,23 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Struct; }
         }
 
+        /// <summary>
+        /// Refreshes the cached fields on this item.
+        /// </summary>
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            Task.Factory.StartNew(() =>
+            {
+                Access = TryDefault(() => CodeStruct != null ? CodeStruct.Access : vsCMAccess.vsCMAccessPublic);
+                Attributes = TryDefault(() => CodeStruct != null ? CodeStruct.Attributes : null);
+                DocComment = TryDefault(() => CodeStruct != null ? CodeStruct.DocComment : null);
+                Namespace = TryDefault(() => CodeStruct != null && CodeStruct.Namespace != null ? CodeStruct.Namespace.Name : null);
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return TryDefault(() => CodeStruct != null ? CodeStruct.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeStruct != null ? CodeStruct.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeStruct != null ? CodeStruct.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "struct"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public override string Namespace
-        {
-            get { return TryDefault(() => CodeStruct != null && CodeStruct.Namespace != null ? CodeStruct.Namespace.Name : null); }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 
