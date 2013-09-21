@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,7 +136,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         reader.MoveToContent();
                         innerText = reader.ReadInnerXml();
                     }
-                   
+
                     // With the fancy XML parsing, we can also check if the content will fit on a
                     // single line, and if not, split it like it is a major tag.
                     if (this.LineCharOffset + openTag.Length + closeTag.Length + innerText.Length > maxWidth)
@@ -166,7 +165,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Constructors
 
         #region Properties
-
 
         public EditPoint EndPoint { get; private set; }
 

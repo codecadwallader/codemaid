@@ -11,7 +11,6 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

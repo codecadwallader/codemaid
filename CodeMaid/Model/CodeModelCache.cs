@@ -99,14 +99,11 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void StaleCodeModel(Document document)
         {
-            lock (_cache)
+            CodeModel codeModel;
+            if (_cache.TryGetValue(document.FullName, out codeModel))
             {
-                CodeModel codeModel;
-                if (_cache.TryGetValue(document.FullName, out codeModel))
-                {
-                    codeModel.IsStale = true;
-                    OutputWindowHelper.DiagnosticWriteLine("StaleCodeModel in cache: " + document.FullName);
-                }
+                codeModel.IsStale = true;
+                OutputWindowHelper.DiagnosticWriteLine("StaleCodeModel in cache: " + document.FullName);
             }
         }
 
