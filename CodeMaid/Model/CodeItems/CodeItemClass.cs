@@ -11,8 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 using EnvDTE;
 using EnvDTE80;
 
@@ -30,7 +29,23 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemClass()
         {
-            TypeString = "class";
+            _Access = LazyTryDefault(
+                () => CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeClass != null ? CodeClass.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeClass != null ? CodeClass.DocComment : null);
+
+            _IsStatic = LazyTryDefault(
+                () => CodeClass != null && CodeClass.IsShared);
+
+            _Namespace = LazyTryDefault(
+                () => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null);
+
+            _TypeString = new Lazy<string>(
+                () => "class");
         }
 
         #endregion Constructors
@@ -43,23 +58,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return KindCodeItem.Class; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                Access = TryDefault(() => CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeClass != null ? CodeClass.Attributes : null);
-                DocComment = TryDefault(() => CodeClass != null ? CodeClass.DocComment : null);
-                IsStatic = TryDefault(() => CodeClass != null && CodeClass.IsShared);
-                Namespace = TryDefault(() => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides

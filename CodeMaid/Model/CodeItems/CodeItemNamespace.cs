@@ -11,8 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
@@ -29,7 +28,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemNamespace()
         {
-            TypeString = "namespace";
+            _DocComment = LazyTryDefault(
+                () => CodeNamespace != null ? CodeNamespace.DocComment : null);
+
+            _TypeString = new Lazy<string>(
+                () => "namespace");
         }
 
         #endregion Constructors
@@ -42,19 +45,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return KindCodeItem.Namespace; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                DocComment = TryDefault(() => CodeNamespace != null ? CodeNamespace.DocComment : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides

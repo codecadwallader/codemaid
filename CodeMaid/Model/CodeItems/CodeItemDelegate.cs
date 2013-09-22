@@ -11,10 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
@@ -25,6 +24,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemDelegate : BaseCodeItemElement, ICodeItemParameters
     {
+        #region Fields
+
+        private readonly Lazy<string> _namespace;
+        private readonly Lazy<IEnumerable<CodeParameter>> _parameters;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -32,7 +38,23 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemDelegate()
         {
-            TypeString = "delegate";
+            _Access = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.DocComment : null);
+
+            _namespace = LazyTryDefault(
+                () => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null);
+
+            _parameters = LazyTryDefault(
+                () => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+
+            _TypeString = new Lazy<string>(
+                () => "delegate");
         }
 
         #endregion Constructors
@@ -47,23 +69,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Delegate; }
         }
 
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                Access = TryDefault(() => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeDelegate != null ? CodeDelegate.Attributes : null);
-                DocComment = TryDefault(() => CodeDelegate != null ? CodeDelegate.DocComment : null);
-                Namespace = TryDefault(() => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null);
-                Parameters = TryDefault(() => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
-        }
-
         #endregion BaseCodeItem Overrides
 
         #region Properties
@@ -76,12 +81,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace { get; private set; }
+        public string Namespace { get { return _namespace.Value; } }
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get; private set; }
+        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
 
         #endregion Properties
     }

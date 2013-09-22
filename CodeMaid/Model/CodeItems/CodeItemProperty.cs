@@ -11,10 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -26,6 +25,55 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemProperty : BaseCodeItemElement, ICodeItemComplexity, ICodeItemParameters
     {
+        #region Fields
+
+        private readonly Lazy<int> _complexity;
+        private readonly Lazy<bool> _isExplicitInterfaceImplementation;
+        private readonly Lazy<bool> _isIndexer;
+        private readonly Lazy<IEnumerable<CodeParameter>> _parameters;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemProperty"/> class.
+        /// </summary>
+        public CodeItemProperty()
+        {
+            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
+            _Access = LazyTryDefault(
+                () => CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeProperty != null ? CodeProperty.Attributes : null);
+
+            _complexity = LazyTryDefault(
+                () => CodeElementHelper.CalculateComplexity(CodeElement));
+
+            _DocComment = LazyTryDefault(
+                () => CodeProperty != null ? CodeProperty.DocComment : null);
+
+            _isExplicitInterfaceImplementation = LazyTryDefault(
+                () => CodeProperty != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeProperty));
+
+            _isIndexer = LazyTryDefault(
+                () => CodeProperty != null && CodeProperty.Parameters != null && CodeProperty.Parameters.Count > 0);
+
+            _IsStatic = LazyTryDefault(
+                () => CodeProperty != null &&
+                      ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
+                       (CodeProperty.Setter != null && CodeProperty.Setter.IsShared)));
+
+            _parameters = LazyTryDefault(
+                () => CodeProperty != null && CodeProperty.Parameters != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+
+            _TypeString = LazyTryDefault(
+                () => CodeProperty != null && CodeProperty.Type != null ? CodeProperty.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -34,31 +82,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return IsIndexer ? KindCodeItem.Indexer : KindCodeItem.Property; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                IsExplicitInterfaceImplementation = TryDefault(() => CodeProperty != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeProperty));
-
-                // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-                Access = TryDefault(() => CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeProperty != null ? CodeProperty.Attributes : null);
-                Complexity = CodeElementHelper.CalculateComplexity(CodeElement);
-                DocComment = TryDefault(() => CodeProperty != null ? CodeProperty.DocComment : null);
-                IsIndexer = TryDefault(() => CodeProperty != null && CodeProperty.Parameters != null && CodeProperty.Parameters.Count > 0);
-                IsStatic = TryDefault(() => CodeProperty != null &&
-                                            ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
-                                             (CodeProperty.Setter != null && CodeProperty.Setter.IsShared)));
-                Parameters = TryDefault(() => CodeProperty != null && CodeProperty.Parameters != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
-                TypeString = TryDefault(() => CodeProperty != null && CodeProperty.Type != null ? CodeProperty.Type.AsString : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides
@@ -73,22 +96,22 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the complexity.
         /// </summary>
-        public int Complexity { get; private set; }
+        public int Complexity { get { return _complexity.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this property is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get; private set; }
+        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this property is an indexer.
         /// </summary>
-        public bool IsIndexer { get; private set; }
+        public bool IsIndexer { get { return _isIndexer.Value; } }
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get; private set; }
+        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
 
         #endregion Properties
     }

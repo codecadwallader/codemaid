@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
@@ -23,6 +24,48 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemField : BaseCodeItemElement
     {
+        #region Fields
+
+        private readonly Lazy<bool> _isConstant;
+        private readonly Lazy<bool> _isEnumItem;
+        private readonly Lazy<bool> _isReadOnly;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemField"/> class.
+        /// </summary>
+        public CodeItemField()
+        {
+            _Access = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.DocComment : null);
+
+            _isConstant = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
+
+            _isEnumItem = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum);
+
+            _isReadOnly = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);
+
+            _IsStatic = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsShared);
+
+            _TypeString = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -42,14 +85,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
             Task.Factory.StartNew(() =>
             {
-                Access = TryDefault(() => CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeVariable != null ? CodeVariable.Attributes : null);
-                DocComment = TryDefault(() => CodeVariable != null ? CodeVariable.DocComment : null);
-                IsConstant = TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
-                IsEnumItem = TryDefault(() => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum);
-                IsReadOnly = TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);
-                IsStatic = TryDefault(() => CodeVariable != null && CodeVariable.IsShared);
-                TypeString = TryDefault(() => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null);
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
@@ -65,17 +100,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
-        public bool IsConstant { get; private set; }
+        public bool IsConstant { get { return _isConstant.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this field is an enumeration item.
         /// </summary>
-        public bool IsEnumItem { get; private set; }
+        public bool IsEnumItem { get { return _isEnumItem.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this field is read-only.
         /// </summary>
-        public bool IsReadOnly { get; private set; }
+        public bool IsReadOnly { get { return _isReadOnly.Value; } }
 
         #endregion Properties
     }

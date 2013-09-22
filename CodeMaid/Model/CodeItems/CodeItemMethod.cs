@@ -11,10 +11,9 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -26,6 +25,61 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemMethod : BaseCodeItemElement, ICodeItemComplexity, ICodeItemParameters
     {
+        #region Fields
+
+        private readonly Lazy<int> _complexity;
+        private readonly Lazy<bool> _isConstructor;
+        private readonly Lazy<bool> _isDestructor;
+        private readonly Lazy<bool> _isExplicitInterfaceImplementation;
+        private readonly Lazy<vsCMOverrideKind> _overrideKind;
+        private readonly Lazy<IEnumerable<CodeParameter>> _parameters;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemMethod"/> class.
+        /// </summary>
+        public CodeItemMethod()
+        {
+            // Make exceptions for static constructors and explicit interface implementations - which report private access but really do not have a meaningful access level.
+            _Access = LazyTryDefault(
+                () => CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeFunction != null ? CodeFunction.Attributes : null);
+
+            _complexity = LazyTryDefault(
+                () => CodeElementHelper.CalculateComplexity(CodeElement));
+
+            _DocComment = LazyTryDefault(
+                () => CodeFunction != null ? CodeFunction.DocComment : null);
+
+            _isConstructor = LazyTryDefault(
+                () => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor);
+
+            _isDestructor = LazyTryDefault(
+                () => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor);
+
+            _isExplicitInterfaceImplementation = LazyTryDefault(
+                () => CodeFunction != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeFunction));
+
+            _IsStatic = LazyTryDefault(
+                () => CodeFunction != null && CodeFunction.IsShared);
+
+            _overrideKind = LazyTryDefault(
+                () => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone);
+
+            _parameters = LazyTryDefault(
+                () => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+
+            _TypeString = LazyTryDefault(
+                () => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -49,31 +103,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             }
         }
 
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                IsConstructor = TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor);
-                IsDestructor = TryDefault(() => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionDestructor);
-                IsExplicitInterfaceImplementation = TryDefault(() => CodeFunction != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeFunction));
-                IsStatic = TryDefault(() => CodeFunction != null && CodeFunction.IsShared);
-
-                // Make exceptions for static constructors and explicit interface implementations - which report private access but really do not have a meaningful access level.
-                Access = TryDefault(() => CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeFunction != null ? CodeFunction.Attributes : null);
-                Complexity = CodeElementHelper.CalculateComplexity(CodeElement);
-                DocComment = TryDefault(() => CodeFunction != null ? CodeFunction.DocComment : null);
-                OverrideKind = TryDefault(() => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone);
-                Parameters = TryDefault(() => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
-                TypeString = TryDefault(() => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
-        }
-
         #endregion BaseCodeItem Overrides
 
         #region Properties
@@ -86,32 +115,32 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the complexity.
         /// </summary>
-        public int Complexity { get; private set; }
+        public int Complexity { get { return _complexity.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this method is a constructor.
         /// </summary>
-        public bool IsConstructor { get; private set; }
+        public bool IsConstructor { get { return _isConstructor.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this method is a destructor.
         /// </summary>
-        public bool IsDestructor { get; private set; }
+        public bool IsDestructor { get { return _isDestructor.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this method is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get; private set; }
+        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
 
         /// <summary>
         /// Gets the override kind (abstract, virtual, override, new), defaulting to none.
         /// </summary>
-        public vsCMOverrideKind OverrideKind { get; private set; }
+        public vsCMOverrideKind OverrideKind { get { return _overrideKind.Value; } }
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get; private set; }
+        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
 
         #endregion Properties
     }

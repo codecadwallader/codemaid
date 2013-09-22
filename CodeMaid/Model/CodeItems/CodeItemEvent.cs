@@ -11,8 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -24,6 +23,41 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemEvent : BaseCodeItemElement
     {
+        #region Fields
+
+        private readonly Lazy<bool> _isExplicitInterfaceImplementation;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemEvent"/> class.
+        /// </summary>
+        public CodeItemEvent()
+        {
+            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
+            _Access = LazyTryDefault(
+                () => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeEvent != null ? CodeEvent.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeEvent != null ? CodeEvent.DocComment : null);
+
+            _isExplicitInterfaceImplementation = LazyTryDefault(
+                () => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent));
+
+            _IsStatic = LazyTryDefault(
+                () => CodeEvent != null && CodeEvent.IsShared);
+
+            _TypeString = LazyTryDefault(
+                () => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -32,26 +66,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return KindCodeItem.Event; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                IsExplicitInterfaceImplementation = TryDefault(() => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent));
-
-                // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-                Access = TryDefault(() => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeEvent != null ? CodeEvent.Attributes : null);
-                DocComment = TryDefault(() => CodeEvent != null ? CodeEvent.DocComment : null);
-                IsStatic = TryDefault(() => CodeEvent != null && CodeEvent.IsShared);
-                TypeString = TryDefault(() => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides
@@ -66,7 +80,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this property is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get; private set; }
+        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
 
         #endregion Properties
     }

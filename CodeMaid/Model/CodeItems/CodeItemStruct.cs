@@ -11,8 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 using EnvDTE;
 using EnvDTE80;
 
@@ -30,7 +29,20 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemStruct()
         {
-            TypeString = "struct";
+            _Access = LazyTryDefault(
+                () => CodeStruct != null ? CodeStruct.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeStruct != null ? CodeStruct.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeStruct != null ? CodeStruct.DocComment : null);
+
+            _Namespace = LazyTryDefault(
+                () => CodeStruct != null && CodeStruct.Namespace != null ? CodeStruct.Namespace.Name : null);
+
+            _TypeString = new Lazy<string>(
+                () => "struct");
         }
 
         #endregion Constructors
@@ -43,22 +55,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return KindCodeItem.Struct; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                Access = TryDefault(() => CodeStruct != null ? CodeStruct.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeStruct != null ? CodeStruct.Attributes : null);
-                DocComment = TryDefault(() => CodeStruct != null ? CodeStruct.DocComment : null);
-                Namespace = TryDefault(() => CodeStruct != null && CodeStruct.Namespace != null ? CodeStruct.Namespace.Name : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides

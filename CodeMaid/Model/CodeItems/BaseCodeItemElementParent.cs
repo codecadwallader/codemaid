@@ -23,6 +23,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     {
         #region Fields
 
+        protected Lazy<string> _Namespace;
+
         private bool _isExpanded = true;
 
         #endregion Fields
@@ -35,6 +37,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         protected BaseCodeItemElementParent()
         {
             Children = new SetCodeItems();
+
+            _Namespace = new Lazy<string>();
         }
 
         #endregion Constructors
@@ -87,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace { get; protected set; }
+        public string Namespace { get { return _Namespace.Value; } }
 
         #endregion Properties
     }

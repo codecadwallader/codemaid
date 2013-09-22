@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
+
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
     /// <summary>
@@ -25,7 +27,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemUsingStatement()
         {
-            TypeString = "using";
+            _TypeString = new Lazy<string>(
+                () => "using");
         }
 
         #endregion Constructors

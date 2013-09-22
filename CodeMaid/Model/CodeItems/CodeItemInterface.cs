@@ -11,8 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 using EnvDTE;
 using EnvDTE80;
 
@@ -30,7 +29,20 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public CodeItemInterface()
         {
-            TypeString = "interface";
+            _Access = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.DocComment : null);
+
+            _Namespace = LazyTryDefault(
+                () => CodeInterface != null && CodeInterface.Namespace != null ? CodeInterface.Namespace.Name : null);
+
+            _TypeString = new Lazy<string>(
+                () => "interface");
         }
 
         #endregion Constructors
@@ -43,22 +55,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override KindCodeItem Kind
         {
             get { return KindCodeItem.Interface; }
-        }
-
-        /// <summary>
-        /// Refreshes the cached fields on this item.
-        /// </summary>
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            Task.Factory.StartNew(() =>
-            {
-                Access = TryDefault(() => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic);
-                Attributes = TryDefault(() => CodeInterface != null ? CodeInterface.Attributes : null);
-                DocComment = TryDefault(() => CodeInterface != null ? CodeInterface.DocComment : null);
-                Namespace = TryDefault(() => CodeInterface != null && CodeInterface.Namespace != null ? CodeInterface.Namespace.Name : null);
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Wait();
         }
 
         #endregion BaseCodeItem Overrides
