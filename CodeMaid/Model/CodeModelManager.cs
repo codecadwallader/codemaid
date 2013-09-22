@@ -179,12 +179,12 @@ namespace SteveCadwallader.CodeMaid.Model
             try
             {
                 codeModel.IsBuilding = true;
+                codeModel.IsStale = false;
 
                 var codeItems = _codeModelBuilder.RetrieveAllCodeItems(codeModel.Document);
 
                 if (codeModel.IsStale)
                 {
-                    codeModel.IsStale = false;
                     BuildCodeItems(codeModel);
                     return;
                 }
