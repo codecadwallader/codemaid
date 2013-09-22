@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
             // Populate the common fields.
             codeItem.CodeElement = codeElement;
-            codeItem.Refresh();
+            codeItem.RefreshCachedPositionAndName();
 
             return codeItem;
         }

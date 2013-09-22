@@ -68,9 +68,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Refreshes the cached position and name fields on this item.
         /// </summary>
-        public override void Refresh()
+        public override void RefreshCachedPositionAndName()
         {
             StartLine = CodeElement.StartPoint.Line;
             StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;

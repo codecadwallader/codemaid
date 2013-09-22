@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
 
             // Refresh them to make sure all positions are updated.
-            codeItemElements.ForEach(x => x.Refresh());
+            codeItemElements.ForEach(x => x.RefreshCachedPositionAndName());
 
             // Pull out the first item in a set if there are items sharing a definition (ex: fields).
             codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).ToList();
@@ -185,7 +185,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove, out int cursorOffset)
         {
             // Refresh the code item and capture its end points.
-            itemToRemove.Refresh();
+            itemToRemove.RefreshCachedPositionAndName();
             var removeStartPoint = itemToRemove.StartPoint;
             var removeEndPoint = itemToRemove.EndPoint;
 
@@ -257,7 +257,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
-            baseItem.Refresh();
+            baseItem.RefreshCachedPositionAndName();
             var baseStartPoint = baseItem.StartPoint;
             var pastePoint = baseStartPoint.CreateEditPoint();
 
@@ -290,7 +290,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
-            baseItem.Refresh();
+            baseItem.RefreshCachedPositionAndName();
             var baseEndPoint = baseItem.EndPoint;
             var pastePoint = baseEndPoint.CreateEditPoint();
 
@@ -327,7 +327,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
-            baseItem.Refresh();
+            baseItem.RefreshCachedPositionAndName();
             var baseInsertPoint = baseItem.InsertPoint;
             var pastePoint = baseInsertPoint.CreateEditPoint();
 

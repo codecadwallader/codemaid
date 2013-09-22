@@ -44,12 +44,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Refreshes the cached position and name fields on this item.
         /// </summary>
         /// <remarks>
         /// Similar to BaseCodeItemElement's implementation, except ignores the Name property which is not available for using statements.
         /// </remarks>
-        public override void Refresh()
+        public override void RefreshCachedPositionAndName()
         {
             StartLine = CodeElement.StartPoint.Line;
             StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;

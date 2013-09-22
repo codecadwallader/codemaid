@@ -67,9 +67,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Methods
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Refreshes the cached position and name fields on this item.
         /// </summary>
-        void Refresh();
+        void RefreshCachedPositionAndName();
 
         #endregion Methods
     }

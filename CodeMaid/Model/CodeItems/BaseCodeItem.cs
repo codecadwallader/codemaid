@@ -71,9 +71,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Methods
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Refreshes the cached position and name fields on this item.
         /// </summary>
-        public virtual void Refresh()
+        public virtual void RefreshCachedPositionAndName()
         {
             StartLine = StartPoint.Line;
             StartOffset = StartPoint.AbsoluteCharOffset;

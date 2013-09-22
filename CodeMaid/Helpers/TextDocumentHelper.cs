@@ -135,7 +135,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 object viewRangeEnd = null;
                 TextPoint navigatePoint = null;
 
-                codeItem.Refresh();
+                codeItem.RefreshCachedPositionAndName();
                 textDocument.Selection.MoveToPoint(codeItem.StartPoint, false);
 
                 if (centerOnWhole)
@@ -184,7 +184,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             try
             {
-                codeItem.Refresh();
+                codeItem.RefreshCachedPositionAndName();
                 textDocument.Selection.MoveToPoint(codeItem.StartPoint, false);
                 textDocument.Selection.MoveToPoint(codeItem.EndPoint, true);
 
