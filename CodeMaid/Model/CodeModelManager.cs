@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -216,7 +217,17 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void LoadLazyInitializedValues(CodeModel codeModel)
         {
-            Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
+            if (Settings.Default.General_Multithread)
+            {
+                Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
+            }
+            else
+            {
+                foreach (var codeItem in codeModel.CodeItems)
+                {
+                    codeItem.LoadLazyInitializedValues();
+                }
+            }
         }
 
         /// <summary>

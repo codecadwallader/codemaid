@@ -124,13 +124,19 @@
 
             <GroupBox Header="Miscellaneous">
                 <StackPanel>
-                    <CheckBox Content="Cache files for improved performance" IsChecked="{Binding CacheFiles}" />
                     <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
                     <CheckBox Content="Use undo transactions" IsChecked="{Binding UseUndoTransactions}" />
                     <CheckBox Content="Skip during automatic cleanup on save"
                               IsChecked="{Binding SkipUndoTransactionsDuringAutoCleanupOnSave}"
                               IsEnabled="{Binding UseUndoTransactions}"
                               Margin="35,5,5,5" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Performance">
+                <StackPanel>
+                    <CheckBox Content="Cache file code models" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="Multithread operations" IsChecked="{Binding Multithread}" />
                 </StackPanel>
             </GroupBox>
 

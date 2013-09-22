@@ -12,9 +12,12 @@
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -85,11 +88,28 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="fcm">The FileCodeModel to walk.</param>
         private static void RetrieveCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
         {
-            if (fcm != null)
+            if (fcm != null && fcm.CodeElements != null)
             {
-                foreach (CodeElement codeElement in fcm.CodeElements)
+                RetrieveCodeItemsFromElements(codeItems, fcm.CodeElements);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves code items from each specified code element into the specified code items set.
+        /// </summary>
+        /// <param name="codeItems">The code items set for accumulation.</param>
+        /// <param name="codeElements">The CodeElements to walk.</param>
+        private static void RetrieveCodeItemsFromElements(SetCodeItems codeItems, CodeElements codeElements)
+        {
+            if (Settings.Default.General_Multithread)
+            {
+                Parallel.ForEach(codeElements.OfType<CodeElement>(), child => RetrieveCodeItemsRecursively(codeItems, child));
+            }
+            else
+            {
+                foreach (CodeElement child in codeElements)
                 {
-                    RetrieveCodeItemsRecursively(codeItems, codeElement);
+                    RetrieveCodeItemsRecursively(codeItems, child);
                 }
             }
         }
@@ -110,10 +130,7 @@ namespace SteveCadwallader.CodeMaid.Model
 
             if (codeElement.Children != null)
             {
-                foreach (CodeElement child in codeElement.Children)
-                {
-                    RetrieveCodeItemsRecursively(codeItems, child);
-                }
+                RetrieveCodeItemsFromElements(codeItems, codeElement.Children);
             }
         }
 
