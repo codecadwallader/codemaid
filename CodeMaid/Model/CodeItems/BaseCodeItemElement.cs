@@ -41,10 +41,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         protected BaseCodeItemElement()
         {
             _Access = new Lazy<vsCMAccess>();
-            _Attributes = new Lazy<CodeElements>();
-            _DocComment = new Lazy<string>();
+            _Attributes = new Lazy<CodeElements>(() => null);
+            _DocComment = new Lazy<string>(() => null);
             _IsStatic = new Lazy<bool>();
-            _TypeString = new Lazy<string>();
+            _TypeString = new Lazy<string>(() => null);
         }
 
         #endregion Constructors
@@ -65,6 +65,20 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public override EditPoint EndPoint
         {
             get { return CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null; }
+        }
+
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ac = Access;
+            var at = Attributes;
+            var dc = DocComment;
+            var isS = IsStatic;
+            var ts = TypeString;
         }
 
         /// <summary>

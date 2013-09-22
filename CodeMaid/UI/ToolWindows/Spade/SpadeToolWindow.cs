@@ -258,7 +258,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     _viewModel.IsLoading = true;
                 }
 
-                var codeItems = _codeModelManager.RetrieveAllCodeItemsAsync(Document);
+                var codeItems = _codeModelManager.RetrieveAllCodeItemsAsync(Document, true);
                 if (codeItems != null)
                 {
                     UpdateViewModelRawCodeItems(codeItems);

@@ -103,6 +103,21 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var c = Complexity;
+            var ic = IsConstructor;
+            var id = IsDestructor;
+            var ieii = IsExplicitInterfaceImplementation;
+            var ok = OverrideKind;
+            var p = Parameters;
+        }
+
         #endregion BaseCodeItem Overrides
 
         #region Properties

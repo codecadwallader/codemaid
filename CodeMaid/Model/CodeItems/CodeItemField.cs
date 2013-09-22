@@ -74,6 +74,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Field; }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ic = IsConstant;
+            var ie = IsEnumItem;
+            var isro = IsReadOnly;
+        }
+
         #endregion BaseCodeItem Overrides
 
         #region Properties

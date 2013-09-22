@@ -67,6 +67,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Methods
 
         /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        void LoadLazyInitializedValues();
+
+        /// <summary>
         /// Refreshes the cached position and name fields on this item.
         /// </summary>
         void RefreshCachedPositionAndName();

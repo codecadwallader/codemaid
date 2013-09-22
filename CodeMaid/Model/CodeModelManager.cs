@@ -134,8 +134,9 @@ namespace SteveCadwallader.CodeMaid.Model
         /// otherwise an event will be raised once the code items have been asynchronously built.
         /// </summary>
         /// <param name="document">The document.</param>
+        /// <param name="loadLazyInitializedValues">A flag indicating of lazy initialized values should be immediately loaded.</param>
         /// <returns>The set of code items within the document if already available, otherwise null.</returns>
-        internal SetCodeItems RetrieveAllCodeItemsAsync(Document document)
+        internal SetCodeItems RetrieveAllCodeItemsAsync(Document document, bool loadLazyInitializedValues = false)
         {
             if (document == null)
             {
@@ -155,6 +156,12 @@ namespace SteveCadwallader.CodeMaid.Model
                 Task.Run(() =>
                 {
                     BuildCodeItems(codeModel);
+
+                    if (loadLazyInitializedValues)
+                    {
+                        LoadLazyInitializedValues(codeModel);
+                    }
+
                     RaiseCodeModelBuilt(codeModel);
                 });
 
@@ -201,6 +208,15 @@ namespace SteveCadwallader.CodeMaid.Model
                 codeModel.CodeItems = null;
                 codeModel.IsBuilding = false;
             }
+        }
+
+        /// <summary>
+        /// Loads all lazy initialized values for items within the code model.
+        /// </summary>
+        /// <param name="codeModel">The code model.</param>
+        private void LoadLazyInitializedValues(CodeModel codeModel)
+        {
+            Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
         }
 
         /// <summary>

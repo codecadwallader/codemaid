@@ -84,6 +84,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return IsIndexer ? KindCodeItem.Indexer : KindCodeItem.Property; }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var c = Complexity;
+            var ieii = IsExplicitInterfaceImplementation;
+            var ii = IsIndexer;
+            var p = Parameters;
+        }
+
         #endregion BaseCodeItem Overrides
 
         #region Properties

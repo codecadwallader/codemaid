@@ -38,10 +38,24 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             Children = new SetCodeItems();
 
-            _Namespace = new Lazy<string>();
+            _Namespace = new Lazy<string>(() => null);
         }
 
         #endregion Constructors
+
+        #region BaseCodeItem Overrides
+
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ns = Namespace;
+        }
+
+        #endregion BaseCodeItem Overrides
 
         #region Implementation of ICodeItemParent
 
