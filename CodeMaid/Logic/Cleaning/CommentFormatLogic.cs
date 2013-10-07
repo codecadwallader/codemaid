@@ -96,7 +96,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="endPoint">The end point.</param>
         public void FormatComments(TextDocument textDocument, TextPoint startPoint, TextPoint endPoint)
         {
-            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11 versions) since not supported.
+            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio
+            // 11 versions) since not supported.
             if (_package.UsePOSIXRegEx) return;
 
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentWrapColumn, 20);

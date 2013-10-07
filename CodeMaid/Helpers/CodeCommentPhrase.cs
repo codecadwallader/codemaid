@@ -32,12 +32,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
             Words = new LinkedList<string>();
         }
 
-        public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
+        public CodeCommentPhrase(int indent, string listPrefix)
             : this()
         {
             Indent = indent;
             ListPrefix = listPrefix;
+        }
 
+        public CodeCommentPhrase(int indent, string listPrefix, IEnumerable<string> words)
+            : this(indent, listPrefix)
+        {
             AppendWords(words);
         }
 
