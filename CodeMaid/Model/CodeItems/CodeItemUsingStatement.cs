@@ -11,6 +11,8 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
+
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
     /// <summary>
@@ -18,6 +20,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemUsingStatement : BaseCodeItemElement
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemUsingStatement"/> class.
+        /// </summary>
+        public CodeItemUsingStatement()
+        {
+            _TypeString = new Lazy<string>(
+                () => "using");
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -29,12 +44,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Refreshes the cached position and name fields on this item.
         /// </summary>
         /// <remarks>
         /// Similar to BaseCodeItemElement's implementation, except ignores the Name property which is not available for using statements.
         /// </remarks>
-        public override void Refresh()
+        public override void RefreshCachedPositionAndName()
         {
             StartLine = CodeElement.StartPoint.Line;
             StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
@@ -43,17 +58,5 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "using"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
     }
 }

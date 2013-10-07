@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
@@ -20,6 +21,22 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemNamespace : BaseCodeItemElementParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemNamespace"/> class.
+        /// </summary>
+        public CodeItemNamespace()
+        {
+            _DocComment = LazyTryDefault(
+                () => CodeNamespace != null ? CodeNamespace.DocComment : null);
+
+            _TypeString = new Lazy<string>(
+                () => "namespace");
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -31,38 +48,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeNamespace != null ? CodeNamespace.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "namespace"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public override string Namespace
-        {
-            get { return null; }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 

@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 using EnvDTE80;
 
@@ -21,6 +22,48 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemField : BaseCodeItemElement
     {
+        #region Fields
+
+        private readonly Lazy<bool> _isConstant;
+        private readonly Lazy<bool> _isEnumItem;
+        private readonly Lazy<bool> _isReadOnly;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemField"/> class.
+        /// </summary>
+        public CodeItemField()
+        {
+            _Access = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeVariable != null ? CodeVariable.DocComment : null);
+
+            _isConstant = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
+
+            _isEnumItem = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum);
+
+            _isReadOnly = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);
+
+            _IsStatic = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.IsShared);
+
+            _TypeString = LazyTryDefault(
+                () => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -31,63 +74,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Field; }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ic = IsConstant;
+            var ie = IsEnumItem;
+            var isro = IsReadOnly;
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get
-            {
-                return TryDefault(() =>
-                       {
-                           // Work-around for static C++ fields - in VS2012 checking the Access results in hanging Visual Studio.
-                           if (CodeVariable != null && !(IsStatic && CodeVariable.Language == CodeModelLanguageConstants.vsCMLanguageVC))
-                           {
-                               return CodeVariable.Access;
-                           }
-
-                           return vsCMAccess.vsCMAccessPublic;
-                       });
-            }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeVariable != null ? CodeVariable.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeVariable != null ? CodeVariable.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this field is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsShared); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null); }
-        }
-
-        #endregion BaseCodeItemElement Overrides
 
         #region Properties
 
@@ -99,26 +98,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
-        public bool IsConstant
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst); }
-        }
+        public bool IsConstant { get { return _isConstant.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this field is an enumeration item.
         /// </summary>
-        public bool IsEnumItem
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum); }
-        }
+        public bool IsEnumItem { get { return _isEnumItem.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this field is read-only.
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return TryDefault(() => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly); }
-        }
+        public bool IsReadOnly { get { return _isReadOnly.Value; } }
 
         #endregion Properties
     }

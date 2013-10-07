@@ -14,6 +14,7 @@
 using System;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -22,6 +23,32 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public abstract class BaseCodeItemElement : BaseCodeItem
     {
+        #region Fields
+
+        protected Lazy<vsCMAccess> _Access;
+        protected Lazy<CodeElements> _Attributes;
+        protected Lazy<string> _DocComment;
+        protected Lazy<bool> _IsStatic;
+        protected Lazy<string> _TypeString;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Abstract initialization code for <see cref="BaseCodeItemElement"/>.
+        /// </summary>
+        protected BaseCodeItemElement()
+        {
+            _Access = new Lazy<vsCMAccess>();
+            _Attributes = new Lazy<CodeElements>(() => null);
+            _DocComment = new Lazy<string>(() => null);
+            _IsStatic = new Lazy<bool>();
+            _TypeString = new Lazy<string>(() => null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -41,9 +68,23 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Loads all lazy initialized values immediately.
         /// </summary>
-        public override void Refresh()
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ac = Access;
+            var at = Attributes;
+            var dc = DocComment;
+            var isS = IsStatic;
+            var ts = TypeString;
+        }
+
+        /// <summary>
+        /// Refreshes the cached position and name fields on this item.
+        /// </summary>
+        public override void RefreshCachedPositionAndName()
         {
             StartLine = CodeElement.StartPoint.Line;
             StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
@@ -64,46 +105,45 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the access level.
         /// </summary>
-        public virtual vsCMAccess Access
-        {
-            get { return vsCMAccess.vsCMAccessPublic; }
-        }
+        public vsCMAccess Access { get { return _Access.Value; } }
 
         /// <summary>
         /// Gets the attributes.
         /// </summary>
-        public virtual CodeElements Attributes
-        {
-            get { return null; }
-        }
+        public CodeElements Attributes { get { return _Attributes.Value; } }
 
         /// <summary>
         /// Gets the doc comment.
         /// </summary>
-        public virtual string DocComment
-        {
-            get { return null; }
-        }
+        public string DocComment { get { return _DocComment.Value; } }
 
         /// <summary>
         /// Gets a flag indicating if this instance is static.
         /// </summary>
-        public virtual bool IsStatic
-        {
-            get { return false; }
-        }
+        public bool IsStatic { get { return _IsStatic.Value; } }
 
         /// <summary>
         /// Gets the type string.
         /// </summary>
-        public abstract string TypeString { get; }
+        public string TypeString { get { return _TypeString.Value; } }
 
         #endregion Properties
 
         #region Methods
 
         /// <summary>
-        /// Tries to execute the specified function, returning the default of the type on error.
+        /// Creates a lazy initializer wrapping TryDefault around the specified function.
+        /// </summary>
+        /// <typeparam name="T">The result type.</typeparam>
+        /// <param name="func">The function to execute.</param>
+        /// <returns>A lazy initializer for the specified function.</returns>
+        protected static Lazy<T> LazyTryDefault<T>(Func<T> func)
+        {
+            return new Lazy<T>(() => TryDefault(func));
+        }
+
+        /// <summary>
+        /// Tries to execute the specified function on a background thread, returning the default of the type on error or timeout.
         /// </summary>
         /// <typeparam name="T">The result type.</typeparam>
         /// <param name="func">The function to execute.</param>
@@ -114,8 +154,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             {
                 return func();
             }
-            catch
+            catch (Exception ex)
             {
+                OutputWindowHelper.WriteLine(String.Format("CodeMaid's TryDefault encountered an error on '{0}': {1}", func, ex));
+
                 return default(T);
             }
         }
@@ -135,7 +177,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
 
                 if (Regex.IsMatch(text, @"^\s*//"))
                 {
-                    point.LineUp(1);
+                    point.LineUp();
                     point.StartOfLine();
                 }
                 else

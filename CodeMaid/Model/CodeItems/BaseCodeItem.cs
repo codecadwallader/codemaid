@@ -71,9 +71,16 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Methods
 
         /// <summary>
-        /// Refreshes the cached fields on this item.
+        /// Loads all lazy initialized values immediately.
         /// </summary>
-        public virtual void Refresh()
+        public virtual void LoadLazyInitializedValues()
+        {
+        }
+
+        /// <summary>
+        /// Refreshes the cached position and name fields on this item.
+        /// </summary>
+        public virtual void RefreshCachedPositionAndName()
         {
             StartLine = StartPoint.Line;
             StartOffset = StartPoint.AbsoluteCharOffset;

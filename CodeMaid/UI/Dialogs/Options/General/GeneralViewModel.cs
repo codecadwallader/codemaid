@@ -48,9 +48,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void LoadSettings()
         {
+            CacheFiles = Settings.Default.General_CacheFiles;
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
+            Multithread = Settings.Default.General_Multithread;
             ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
             SkipUndoTransactionsDuringAutoCleanupOnSave = Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave;
             ThemeMode = (ThemeMode)Settings.Default.General_Theme;
@@ -62,9 +64,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.General_CacheFiles = CacheFiles;
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
+            Settings.Default.General_Multithread = Multithread;
             Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
             Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave = SkipUndoTransactionsDuringAutoCleanupOnSave;
             Settings.Default.General_Theme = (int)ThemeMode;
@@ -75,8 +79,29 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         #region Options
 
+        private bool _cacheFiles;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if files should be cached.
+        /// </summary>
+        public bool CacheFiles
+        {
+            get { return _cacheFiles; }
+            set
+            {
+                if (_cacheFiles != value)
+                {
+                    _cacheFiles = value;
+                    NotifyPropertyChanged("CacheFiles");
+                }
+            }
+        }
+
         private bool _diagnosticsMode;
 
+        /// <summary>
+        /// Gets or sets the flag indicating if diagnostics mode should be enabled.
+        /// </summary>
         public bool DiagnosticsMode
         {
             get { return _diagnosticsMode; }
@@ -92,6 +117,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         private string _font;
 
+        /// <summary>
+        /// Gets or sets the string representing the font.
+        /// </summary>
         public string Font
         {
             get { return _font; }
@@ -107,6 +135,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         private IconSetMode _iconSetMode;
 
+        /// <summary>
+        /// Gets or sets which icon set should be utilized.
+        /// </summary>
         public IconSetMode IconSetMode
         {
             get { return _iconSetMode; }
@@ -120,8 +151,29 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             }
         }
 
+        private bool _multithread;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if multithreading should be utilized.
+        /// </summary>
+        public bool Multithread
+        {
+            get { return _multithread; }
+            set
+            {
+                if (_multithread != value)
+                {
+                    _multithread = value;
+                    NotifyPropertyChanged("Multithread");
+                }
+            }
+        }
+
         private bool _showStartPageOnSolutionClose;
 
+        /// <summary>
+        /// Gets or sets the flag indicating if the start page should be shown when the solution is closed.
+        /// </summary>
         public bool ShowStartPageOnSolutionClose
         {
             get { return _showStartPageOnSolutionClose; }
@@ -155,6 +207,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         private ThemeMode _themeMode;
 
+        /// <summary>
+        /// Gets or sets the current theme.
+        /// </summary>
         public ThemeMode ThemeMode
         {
             get { return _themeMode; }
@@ -170,6 +225,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         private bool _useUndoTransactions;
 
+        /// <summary>
+        /// Gets or sets a flag indicating if undo transactions should be utilized.
+        /// </summary>
         public bool UseUndoTransactions
         {
             get { return _useUndoTransactions; }

@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 
@@ -90,7 +90,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertBlankLinePaddingAfterUsingStatementBlocks(Document document)
         {
-            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
+            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
             var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
             var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
             var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();

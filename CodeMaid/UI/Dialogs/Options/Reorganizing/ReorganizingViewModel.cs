@@ -385,7 +385,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         #region Sort Order Types Logic
 
         private static readonly PropertyInfo[] AllSortOrderTypes =
-            new[]
                 {
                     PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeFields),
                     PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeConstructors),

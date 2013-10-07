@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
@@ -23,6 +24,41 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemDelegate : BaseCodeItemElement, ICodeItemParameters
     {
+        #region Fields
+
+        private readonly Lazy<string> _namespace;
+        private readonly Lazy<IEnumerable<CodeParameter>> _parameters;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemDelegate"/> class.
+        /// </summary>
+        public CodeItemDelegate()
+        {
+            _Access = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeDelegate != null ? CodeDelegate.DocComment : null);
+
+            _namespace = LazyTryDefault(
+                () => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null);
+
+            _parameters = LazyTryDefault(
+                () => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+
+            _TypeString = new Lazy<string>(
+                () => "delegate");
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -33,55 +69,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Delegate; }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ns = Namespace;
+            var p = Parameters;
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeDelegate != null ? CodeDelegate.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "delegate"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public string Namespace
-        {
-            get { return TryDefault(() => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null); }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 
@@ -91,12 +90,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeDelegate2 CodeDelegate { get; set; }
 
         /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        public string Namespace { get { return _namespace.Value; } }
+
+        /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters
-        {
-            get { return TryDefault(() => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>()); }
-        }
+        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
 
         #endregion Properties
     }

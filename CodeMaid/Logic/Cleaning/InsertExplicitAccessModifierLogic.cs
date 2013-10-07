@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
             {
-                var classDeclaration = CodeModelHelper.GetClassDeclaration(codeClass);
+                var classDeclaration = CodeElementHelper.GetClassDeclaration(codeClass);
 
                 // Skip partial classes - access modifier may be specified elsewhere.
                 if (IsKeywordSpecified(classDeclaration, PartialKeyword))
@@ -96,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var codeDelegate in delegates.Select(x => x.CodeDelegate).Where(y => y != null))
             {
-                var delegateDeclaration = CodeModelHelper.GetDelegateDeclaration(codeDelegate);
+                var delegateDeclaration = CodeElementHelper.GetDelegateDeclaration(codeDelegate);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(delegateDeclaration, codeDelegate.Access))
                 {
@@ -116,7 +116,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
             {
-                var enumDeclaration = CodeModelHelper.GetEnumerationDeclaration(codeEnum);
+                var enumDeclaration = CodeElementHelper.GetEnumerationDeclaration(codeEnum);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(enumDeclaration, codeEnum.Access))
                 {
@@ -156,7 +156,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     continue;
                 }
 
-                var eventDeclaration = CodeModelHelper.GetEventDeclaration(codeEvent);
+                var eventDeclaration = CodeElementHelper.GetEventDeclaration(codeEvent);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(eventDeclaration, codeEvent.Access))
                 {
@@ -190,7 +190,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     continue;
                 }
 
-                var fieldDeclaration = CodeModelHelper.GetFieldDeclaration(codeField);
+                var fieldDeclaration = CodeElementHelper.GetFieldDeclaration(codeField);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(fieldDeclaration, codeField.Access))
                 {
@@ -210,7 +210,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
             {
-                var interfaceDeclaration = CodeModelHelper.GetInterfaceDeclaration(codeInterface);
+                var interfaceDeclaration = CodeElementHelper.GetInterfaceDeclaration(codeInterface);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(interfaceDeclaration, codeInterface.Access))
                 {
@@ -262,7 +262,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     continue;
                 }
 
-                var methodDeclaration = CodeModelHelper.GetMethodDeclaration(codeFunction);
+                var methodDeclaration = CodeElementHelper.GetMethodDeclaration(codeFunction);
 
                 // Skip partial methods - access modifier may be specified elsewhere.
                 if (IsKeywordSpecified(methodDeclaration, PartialKeyword))
@@ -308,7 +308,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     continue;
                 }
 
-                var propertyDeclaration = CodeModelHelper.GetPropertyDeclaration(codeProperty);
+                var propertyDeclaration = CodeElementHelper.GetPropertyDeclaration(codeProperty);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(propertyDeclaration, codeProperty.Access))
                 {
@@ -328,7 +328,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))
             {
-                var structDeclaration = CodeModelHelper.GetStructDeclaration(codeStruct);
+                var structDeclaration = CodeElementHelper.GetStructDeclaration(codeStruct);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(structDeclaration, codeStruct.Access))
                 {
@@ -350,7 +350,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if access modifier is explicitly specified, otherwise false.</returns>
         private static bool IsAccessModifierExplicitlySpecifiedOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier)
         {
-            string keyword = CodeModelHelper.GetAccessModifierKeyword(accessModifier);
+            string keyword = CodeElementHelper.GetAccessModifierKeyword(accessModifier);
 
             return IsKeywordSpecified(codeElementDeclaration, keyword);
         }

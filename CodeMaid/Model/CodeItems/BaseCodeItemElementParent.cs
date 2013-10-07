@@ -23,6 +23,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     {
         #region Fields
 
+        protected Lazy<string> _Namespace;
+
         private bool _isExpanded = true;
 
         #endregion Fields
@@ -30,14 +32,30 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCodeItemElementParent"/> class.
+        /// Abstract initialization code for <see cref="BaseCodeItemElementParent"/>.
         /// </summary>
         protected BaseCodeItemElementParent()
         {
             Children = new SetCodeItems();
+
+            _Namespace = new Lazy<string>(() => null);
         }
 
         #endregion Constructors
+
+        #region BaseCodeItem Overrides
+
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ns = Namespace;
+        }
+
+        #endregion BaseCodeItem Overrides
 
         #region Implementation of ICodeItemParent
 
@@ -87,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public abstract string Namespace { get; }
+        public string Namespace { get { return _Namespace.Value; } }
 
         #endregion Properties
     }

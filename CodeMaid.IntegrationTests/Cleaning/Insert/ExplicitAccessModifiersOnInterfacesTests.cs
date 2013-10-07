@@ -14,7 +14,6 @@
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -89,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertExplicitAccessModifiersOnInterfaces(Document document)
         {
-            var codeItems = CodeModelHelper.RetrieveCodeItemsIncludingRegions(document);
+            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
             var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
 
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);

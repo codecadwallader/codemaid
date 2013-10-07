@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 using EnvDTE80;
 
@@ -21,6 +22,31 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemInterface : BaseCodeItemElementParent
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemInterface"/> class.
+        /// </summary>
+        public CodeItemInterface()
+        {
+            _Access = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeInterface != null ? CodeInterface.DocComment : null);
+
+            _Namespace = LazyTryDefault(
+                () => CodeInterface != null && CodeInterface.Namespace != null ? CodeInterface.Namespace.Name : null);
+
+            _TypeString = new Lazy<string>(
+                () => "interface");
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -32,54 +58,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            get { return TryDefault(() => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeInterface != null ? CodeInterface.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeInterface != null ? CodeInterface.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return "interface"; }
-        }
-
-        #endregion BaseCodeItemElement Overrides
-
-        #region BaseCodeItemElementParent Overrides
-
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        public override string Namespace
-        {
-            get { return TryDefault(() => CodeInterface != null && CodeInterface.Namespace != null ? CodeInterface.Namespace.Name : null); }
-        }
-
-        #endregion BaseCodeItemElementParent Overrides
 
         #region Properties
 

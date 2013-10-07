@@ -162,12 +162,12 @@
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
+    <Compile Include="Helpers\CodeElementHelper.cs" />
     <Compile Include="Helpers\IndentSettings.cs" />
     <Compile Include="Helpers\CodeCommentPhrase.cs" />
     <Compile Include="Helpers\CodeItemNameComparer.cs" />
     <Compile Include="Helpers\CodeItemParentExtensions.cs" />
     <Compile Include="Helpers\CodeItemTypeComparer.cs" />
-    <Compile Include="Helpers\CodeModelHelper.cs" />
     <Compile Include="Helpers\EditPointExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ExplicitInterfaceImplementationHelper.cs" />
@@ -207,9 +207,11 @@
     <Compile Include="Integration\Commands\SwitchFileCommand.cs" />
     <Compile Include="Integration\Events\BaseEventListener.cs" />
     <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
+    <Compile Include="Integration\Events\DocumentEventListener.cs" />
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
     <Compile Include="Integration\Events\ShellEventListener.cs" />
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
+    <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
     <Compile Include="Integration\PkgCmdIDList.cs" />
@@ -223,7 +225,6 @@
     <Compile Include="Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
-    <Compile Include="Logic\Digging\SpadeCodeModelRetriever.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorderManager.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItem.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItemElement.cs" />
@@ -248,6 +249,11 @@
     <Compile Include="Model\CodeItems\ICodeItemParent.cs" />
     <Compile Include="Model\CodeItems\KindCodeItem.cs" />
     <Compile Include="Model\CodeItems\SetCodeItems.cs" />
+    <Compile Include="Model\CodeModel.cs" />
+    <Compile Include="Model\CodeModelBuilder.cs" />
+    <Compile Include="Model\CodeModelCache.cs" />
+    <Compile Include="Model\CodeModelHelper.cs" />
+    <Compile Include="Model\CodeModelManager.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilderAsync.cs" />
     <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />

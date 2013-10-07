@@ -11,6 +11,7 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -22,6 +23,41 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// </summary>
     public class CodeItemEvent : BaseCodeItemElement
     {
+        #region Fields
+
+        private readonly Lazy<bool> _isExplicitInterfaceImplementation;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemEvent"/> class.
+        /// </summary>
+        public CodeItemEvent()
+        {
+            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
+            _Access = LazyTryDefault(
+                () => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic);
+
+            _Attributes = LazyTryDefault(
+                () => CodeEvent != null ? CodeEvent.Attributes : null);
+
+            _DocComment = LazyTryDefault(
+                () => CodeEvent != null ? CodeEvent.DocComment : null);
+
+            _isExplicitInterfaceImplementation = LazyTryDefault(
+                () => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent));
+
+            _IsStatic = LazyTryDefault(
+                () => CodeEvent != null && CodeEvent.IsShared);
+
+            _TypeString = LazyTryDefault(
+                () => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null);
+        }
+
+        #endregion Constructors
+
         #region BaseCodeItem Overrides
 
         /// <summary>
@@ -32,52 +68,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             get { return KindCodeItem.Event; }
         }
 
+        /// <summary>
+        /// Loads all lazy initialized values immediately.
+        /// </summary>
+        public override void LoadLazyInitializedValues()
+        {
+            base.LoadLazyInitializedValues();
+
+            var ieii = IsExplicitInterfaceImplementation;
+        }
+
         #endregion BaseCodeItem Overrides
-
-        #region BaseCodeItemElement Overrides
-
-        /// <summary>
-        /// Gets the access level.
-        /// </summary>
-        public override vsCMAccess Access
-        {
-            // Make exceptions for explicit interface implementations - which report private access but really do not have a meaningful access level.
-            get { return TryDefault(() => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic); }
-        }
-
-        /// <summary>
-        /// Gets the attributes.
-        /// </summary>
-        public override CodeElements Attributes
-        {
-            get { return TryDefault(() => CodeEvent != null ? CodeEvent.Attributes : null); }
-        }
-
-        /// <summary>
-        /// Gets the doc comment.
-        /// </summary>
-        public override string DocComment
-        {
-            get { return TryDefault(() => CodeEvent != null ? CodeEvent.DocComment : null); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if this event is static.
-        /// </summary>
-        public override bool IsStatic
-        {
-            get { return TryDefault(() => CodeEvent != null && CodeEvent.IsShared); }
-        }
-
-        /// <summary>
-        /// Gets the type string.
-        /// </summary>
-        public override string TypeString
-        {
-            get { return TryDefault(() => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null); }
-        }
-
-        #endregion BaseCodeItemElement Overrides
 
         #region Properties
 
@@ -89,10 +90,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this property is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation
-        {
-            get { return TryDefault(() => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent)); }
-        }
+        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
 
         #endregion Properties
     }

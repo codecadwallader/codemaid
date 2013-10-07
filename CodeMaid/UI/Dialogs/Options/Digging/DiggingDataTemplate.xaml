@@ -5,10 +5,7 @@
     <DataTemplate DataType="{x:Type local:DiggingViewModel}">
         <StackPanel>
             <GroupBox Header="General">
-                <StackPanel>
-                    <CheckBox Content="Cache files for improved performance" IsChecked="{Binding CacheFiles}" />
-                    <CheckBox Content="Synchronize outlining with the code file" IsChecked="{Binding SynchronizeOutlining}" />
-                </StackPanel>
+                <CheckBox Content="Synchronize outlining with the code file" IsChecked="{Binding SynchronizeOutlining}" />
             </GroupBox>
 
             <GroupBox Header="Display">
