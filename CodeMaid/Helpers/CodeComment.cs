@@ -206,8 +206,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 if (phrase != null)
                 {
-                    // On a comment phrase, and there will not be another phrase, write a newline
-                    // but do not resume comment.
                     builder.WriteNewCommentLine();
                 }
                 else if (IsBlockComment)
@@ -323,25 +321,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         innerText = innerText.Replace("\r", string.Empty).TrimEnd(' ', '\t').Trim('\n');
                     }
 
-                    // With the fancy XML parsing, we can also check if the content will fit on a
-                    // single line, and if not, split it like it is a major tag.
-                    if (this.LineCharOffset + openTag.Length + closeTag.Length + innerText.Length > maxWidth)
-                        onNewLine = true;
-
-                    if (onNewLine)
+                    if (!string.IsNullOrWhiteSpace(innerText))
                     {
-                        phrase = StartNewPhrase();
-                        phrase.IsXml = true;
-                    }
+                        // With the fancy XML parsing, we can also check if the content will fit on a
+                        // single line, and if not, split it like it is a major tag.
+                        if (this.LineCharOffset + openTag.Length + closeTag.Length + innerText.Length > maxWidth)
+                            onNewLine = true;
 
-                    ParseTextComment(innerText.Split(new[] { "\n" }, StringSplitOptions.None));
+                        if (onNewLine)
+                        {
+                            phrase = StartNewPhrase();
+                            phrase.IsXml = true;
+                        }
 
-                    //ParseNodes(element.Nodes());
+                        ParseTextComment(innerText.Split(new[] { "\n" }, StringSplitOptions.None));
 
-                    if (onNewLine)
-                    {
-                        phrase = StartNewPhrase();
-                        phrase.IsXml = true;
+                        //ParseNodes(element.Nodes());
+
+                        if (onNewLine)
+                        {
+                            phrase = StartNewPhrase();
+                            phrase.IsXml = true;
+                        }
                     }
 
                     phrase.AppendWords(closeTag);
