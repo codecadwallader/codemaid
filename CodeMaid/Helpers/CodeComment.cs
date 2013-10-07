@@ -48,7 +48,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             StartPoint = from.CreateEditPoint();
             EndPoint = to.CreateEditPoint();
-            LineCharOffset = from.LineCharOffset;
+
+            // Use DisplayColumn rather than LineCharOffset, this should fix the offset problems
+            // with mixed indenting (tabs and spaces).
+            LineCharOffset = from.DisplayColumn;
 
             _commentRegex = commentRegex;
             _majorTags = majorTags;
