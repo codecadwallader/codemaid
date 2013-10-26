@@ -118,6 +118,7 @@
     <Compile Include="Cleaning\CleaningTestHelper.cs" />
     <Compile Include="Cleaning\FileTypes\CPlusPlusTests.cs" />
     <Compile Include="Cleaning\FileTypes\FSharpTests.cs" />
+    <Compile Include="Cleaning\FileTypes\LESSTests.cs" />
     <Compile Include="Cleaning\FileTypes\VisualBasicTests.cs" />
     <Compile Include="Cleaning\FileTypes\XAMLTests.cs" />
     <Compile Include="Cleaning\FileTypes\HTMLTests.cs" />
@@ -540,6 +541,9 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Content Include="Cleaning\FileTypes\Data\LESS.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\FileTypes\Data\XAML.xaml">

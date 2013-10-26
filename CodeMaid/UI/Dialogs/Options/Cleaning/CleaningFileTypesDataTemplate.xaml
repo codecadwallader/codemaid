@@ -19,6 +19,8 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <CheckBox Content="C#" IsChecked="{Binding IncludeCSharp}" />
@@ -31,8 +33,9 @@
 
                     <CheckBox Grid.Row="2" Content="HTML" IsChecked="{Binding IncludeHTML}" />
                     <CheckBox Grid.Row="2" Grid.Column="2" Content="CSS" IsChecked="{Binding IncludeCSS}" />
-                    <CheckBox Grid.Row="2" Grid.Column="4" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
-                    <CheckBox Grid.Row="2" Grid.Column="6" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
+                    <CheckBox Grid.Row="2" Grid.Column="4" Content="LESS" IsChecked="{Binding IncludeLESS}" />
+                    <CheckBox Grid.Row="2" Grid.Column="6" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
+                    <CheckBox Grid.Row="2" Grid.Column="8" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
                 </Grid>
             </GroupBox>
 

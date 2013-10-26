@@ -43,8 +43,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 case "CSharp":
                 case "C/C++":
+                case "CSS":
                 case "JavaScript":
                 case "JScript":
+                case "LESS":
                 case "TypeScript":
                     return "//+";
 

@@ -193,6 +193,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "CSS":
                 case "JavaScript":
                 case "JScript":
+                case "LESS":
                 case "TypeScript":
                     return RunCodeCleanupC;
 

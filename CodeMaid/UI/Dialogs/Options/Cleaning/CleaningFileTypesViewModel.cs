@@ -56,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
+            IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
             IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
@@ -75,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
+            Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
             Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
@@ -225,6 +227,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeJavaScript = value;
                     NotifyPropertyChanged("IncludeJavaScript");
+                }
+            }
+        }
+
+        private bool _includeLESS;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if LESS files should be included.
+        /// </summary>
+        public bool IncludeLESS
+        {
+            get { return _includeLESS; }
+            set
+            {
+                if (_includeLESS != value)
+                {
+                    _includeLESS = value;
+                    NotifyPropertyChanged("IncludeLESS");
                 }
             }
         }
