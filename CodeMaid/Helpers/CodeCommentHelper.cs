@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The regular expression pattern for matching comments.</returns>
         internal static string CreateCommentPatternFromPrefix(string prefix)
         {
-            return String.Format(@"(?<prefix>{0})(?<line>( [^\r\n]*)?)(\r?\n[\t ]*\k<prefix>(?<line>( [^\r\n]*)?))*", prefix);
+            return String.Format(@"(?<prefix>{0})(?<line>([ \t][^\r\n]*))(\r?\n[ \t]*\k<prefix>(?<line>([ \t][^\r\n]*)?))*", prefix);
         }
 
         /// <summary>

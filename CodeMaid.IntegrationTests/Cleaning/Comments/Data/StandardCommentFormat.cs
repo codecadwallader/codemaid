@@ -9,11 +9,21 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
 
         //This comment has no space after the comment prefix, so it should be treated as code and ignored instead of formatted.
 
-		// This comment is led with tabs instead of spaces and it is expected that this line and those following it contain the same indentation style.
+		// This comment is led with tabs instead of spaces and it is expected that this line keeps its formatting and following ones are defined by VS settings.
 
         public void Method()
         {
             string s = "This is a string that includes the comment prefix // but it should not trigger any re-formatting.";
         }
+
+        //public void CommentedOutMethod()
+        //{
+        //    string[] array = new string[0];
+        //
+        //    foreach (var item in array)
+        //    {
+        //        Console.WriteLine("Test");
+        //    }
+        //}
     }
 }
