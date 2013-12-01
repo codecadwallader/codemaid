@@ -5,8 +5,7 @@
         /// <summary>
         /// Firsts the method. This method has a really long description that will cover over
         /// multiple lines without any regard for the duration expected of a traditional comment
-        /// that has more respect for being at a reasonable length instead of an exceedingly long
-        /// length.
+        /// that has more respect for being at a reasonable length instead of an exceedingly long length.
         /// </summary>
         /// <param name="param1">The first parameter.</param>
         /// <param name="param2">The second parameter.</param>
@@ -55,8 +54,7 @@
         /// <summary>
         /// The summary for the comment.
         /// </summary>
-        /// <param name="maxSize">Max number of elements returned in <paramref name="array" />
-        /// </param>
+        /// <param name="maxSize">Max number of elements returned in <paramref name="array" /></param>
         /// <param name="array">The array.</param>
         public void FourthMethod(int maxSize, int[] array)
         {
