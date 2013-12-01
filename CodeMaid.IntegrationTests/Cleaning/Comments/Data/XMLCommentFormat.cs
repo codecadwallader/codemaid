@@ -47,5 +47,12 @@
         public void FifthMethod()
         {
         }
+
+        /// <summary>
+        /// This comment would only have a single word to wrap, which is wasteful and should be ignored.
+        /// </summary>
+        public void SixthMethod()
+        {
+        }
     }
 }

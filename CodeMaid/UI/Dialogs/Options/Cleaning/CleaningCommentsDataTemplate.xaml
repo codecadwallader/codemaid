@@ -6,13 +6,17 @@
         <StackPanel IsEnabled="{Binding IsEnabled}">
             <GroupBox Header="General">
                 <StackPanel>
-                    <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
-
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Wrap comments at column" VerticalAlignment="Center" />
                         <TextBox Text="{Binding CommentWrapColumn, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
+
+                    <CheckBox Content="Skip wrapping on the last word" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
                 </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Cleanup">
+                <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
             <GroupBox Header="XML Comments">
@@ -21,10 +25,9 @@
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding CommentMajorTags, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Text="Minor Tags (new line before)" />
+                    <TextBlock Text="Minor Tags (new line before)" Margin="5,10,5,5" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding CommentMinorTags, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
-
                     <TextBlock FontStyle="Italic" Text="Place each tag on a separate line" />
                 </StackPanel>
             </GroupBox>

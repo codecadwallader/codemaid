@@ -1439,5 +1439,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_IncludeLESS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_CommentSkipWrapOnLastWord {
+            get {
+                return ((bool)(this["Cleaning_CommentSkipWrapOnLastWord"]));
+            }
+            set {
+                this["Cleaning_CommentSkipWrapOnLastWord"] = value;
+            }
+        }
     }
 }

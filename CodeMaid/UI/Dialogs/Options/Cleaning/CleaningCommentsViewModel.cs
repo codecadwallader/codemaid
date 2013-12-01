@@ -51,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             CommentMajorTags = Settings.Default.Cleaning_CommentMajorTags;
             CommentMinorTags = Settings.Default.Cleaning_CommentMinorTags;
             CommentRunDuringCleanup = Settings.Default.Cleaning_CommentRunDuringCleanup;
+            CommentSkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
             CommentWrapColumn = Settings.Default.Cleaning_CommentWrapColumn;
         }
 
@@ -62,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_CommentMajorTags = CommentMajorTags;
             Settings.Default.Cleaning_CommentMinorTags = CommentMinorTags;
             Settings.Default.Cleaning_CommentRunDuringCleanup = CommentRunDuringCleanup;
+            Settings.Default.Cleaning_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
             Settings.Default.Cleaning_CommentWrapColumn = CommentWrapColumn;
         }
 
@@ -119,6 +121,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _commentRunDuringCleanup = value;
                     NotifyPropertyChanged("CommentRunDuringCleanup");
+                }
+            }
+        }
+
+        private bool _commentSkipWrapOnLastWord;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if comment formatting should skip wrapping the last word.
+        /// </summary>
+        public bool CommentSkipWrapOnLastWord
+        {
+            get { return _commentSkipWrapOnLastWord; }
+            set
+            {
+                if (_commentSkipWrapOnLastWord != value)
+                {
+                    _commentSkipWrapOnLastWord = value;
+                    NotifyPropertyChanged("CommentSkipWrapOnLastWord");
                 }
             }
         }

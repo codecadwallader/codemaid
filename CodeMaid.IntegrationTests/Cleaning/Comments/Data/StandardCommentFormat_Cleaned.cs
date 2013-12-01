@@ -27,5 +27,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
         ////        Console.WriteLine("Test");
         ////    }
         ////}
+
+        // This comment would only have a single word to wrap, which is wasteful and should be ignored.
     }
 }

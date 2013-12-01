@@ -103,7 +103,7 @@
 
                             <Style x:Key="TextBoxMultiLine" TargetType="{x:Type TextBox}">
                                 <Setter Property="AcceptsReturn" Value="True" />
-                                <Setter Property="Height" Value="200" />
+                                <Setter Property="Height" Value="160" />
                                 <Setter Property="Margin" Value="5" />
                                 <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                             </Style>

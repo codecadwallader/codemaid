@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -164,13 +165,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     bool newLine = false;
                     if (builder.LineCharOffset + word.Value.Length + 1 > maxWidth && word.Value.Length < maxWidth)
                     {
-                        builder.WriteNewCommentLine(true);
-                        newLine = true;
-                        // If the current phrase is a list, add extra spacing to create pretty
-                        // alignment of list items.
-                        if (phrase.Value.IsList)
+                        // Check if this is the last word and the user preference is to skip wrapping on the last word.
+                        if (!(word.Next == null && Settings.Default.Cleaning_CommentSkipWrapOnLastWord))
                         {
-                            builder.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
+                            builder.WriteNewCommentLine(true);
+                            newLine = true;
+
+                            // If the current phrase is a list, add extra spacing to create pretty
+                            // alignment of list items.
+                            if (phrase.Value.IsList)
+                            {
+                                builder.Insert("".PadLeft(phrase.Value.ListPrefix.Length + 1, ' '));
+                            }
                         }
                     }
 
@@ -271,10 +277,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             if (
-                Phrases.Last == null // No phrases yet
-                || !String.IsNullOrEmpty(listPrefix) // Lists always starts on own line
-                || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this line
-                                                              // is not indented
+                Phrases.Last == null                          // No phrases yet
+                || !String.IsNullOrEmpty(listPrefix)          // Lists always starts on own line
+                || (Phrases.Last.Value.IsList && indent <= 1) // Previous line is list but this line is not indented
                 )
             {
                 Phrases.AddLast(new CodeCommentPhrase(indent, listPrefix));
