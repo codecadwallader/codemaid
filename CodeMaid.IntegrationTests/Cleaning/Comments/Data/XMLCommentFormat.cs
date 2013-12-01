@@ -40,5 +40,12 @@
         public void FourthMethod(int maxSize, int[] array)
         {
         }
+
+        /// <summary>
+        /// This comment contains <c>XMLCommentFormat</c> an example of the c tag.
+        /// </summary>
+        public void FifthMethod()
+        {
+        }
     }
 }
