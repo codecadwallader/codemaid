@@ -181,7 +181,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         {
                             // XML close tag needs no space before.
                         }
-                        else if (word.Previous.Value.EndsWith(">") && !word.Previous.Value.EndsWith("/>"))
+                        else if (Regex.IsMatch(word.Previous.Value, @"<[^/]*>$"))
                         {
                             // If previous word was XML start tag (and not self-closing) we need no space before.
                         }
