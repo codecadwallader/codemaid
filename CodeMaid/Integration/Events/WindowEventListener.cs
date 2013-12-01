@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -24,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowEventListener"/> class.
+        /// Initializes a new instance of the <see cref="WindowEventListener" /> class.
         /// </summary>
         /// <param name="package">The package hosting the event listener.</param>
         internal WindowEventListener(CodeMaidPackage package)
@@ -97,7 +95,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (!IsDisposed)

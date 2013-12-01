@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -17,14 +15,15 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A class that handles tracking the cursor position and restoring it, typically in a using statement context.
+    /// A class that handles tracking the cursor position and restoring it, typically in a using
+    /// statement context.
     /// </summary>
     internal class CursorPositionRestorer : IDisposable
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CursorPositionRestorer"/> class.
+        /// Initializes a new instance of the <see cref="CursorPositionRestorer" /> class.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
         internal CursorPositionRestorer(TextDocument textDocument)
@@ -71,8 +70,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Determines whether the cursor position has been reset.
         /// </summary>
         /// <remarks>
-        /// Currently using cursor being reset to the StartOfDocument as key that cursor position was lost.
-        /// Tried using bookmarks to track locations but they are also lost on format document calls in CSS files.
+        /// Currently using cursor being reset to the StartOfDocument as key that cursor position
+        /// was lost. Tried using bookmarks to track locations but they are also lost on format
+        /// document calls in CSS files.
         /// </remarks>
         /// <returns>True if the cursor position was reset, otherwise false.</returns>
         private bool IsCursorPositionReset()
@@ -86,7 +86,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region IDisposable Members
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -119,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             #region Constructors
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="CursorPosition"/> struct.
+            /// Initializes a new instance of the <see cref="CursorPosition" /> struct.
             /// </summary>
             /// <param name="textSelection">The text selection.</param>
             public CursorPosition(TextSelection textSelection)

@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -36,21 +34,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.
+        /// The singleton instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
         /// </summary>
         private static InsertExplicitAccessModifierLogic _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.
+        /// Gets an instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
         /// </summary>
-        /// <returns>An instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.</returns>
+        /// <returns>
+        /// An instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
+        /// </returns>
         internal static InsertExplicitAccessModifierLogic GetInstance()
         {
             return _instance ?? (_instance = new InsertExplicitAccessModifierLogic());
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InsertExplicitAccessModifierLogic"/> class.
+        /// Initializes a new instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
         /// </summary>
         private InsertExplicitAccessModifierLogic()
         {

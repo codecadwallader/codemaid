@@ -26,7 +26,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         internal static volatile object Mutex = new object();
 
         /// <summary>
-        /// The IVsUIShell. This cannot be queried on the working thread from the service provider. Must be done in the main thread.!!
+        /// The IVsUIShell. This cannot be queried on the working thread from the service provider.
+        /// Must be done in the main thread.!!
         /// </summary>
         private IVsUIShell _uiShell;
 
@@ -51,18 +52,20 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         private readonly AutoResetEvent _threadStarted = new AutoResetEvent(false);
 
         /// <summary>
-        /// The result of the dialogbox closing for all the dialog boxes. That is if there are two of them and one fails this will be false.
+        /// The result of the dialogbox closing for all the dialog boxes. That is if there are two
+        /// of them and one fails this will be false.
         /// </summary>
         private bool _dialogBoxCloseResult;
 
         /// <summary>
-        /// The expected text to see on the dialog box. If set the thread will continue finding the dialog box with this text.
+        /// The expected text to see on the dialog box. If set the thread will continue finding the
+        /// dialog box with this text.
         /// </summary>
         private readonly string _expectedDialogBoxText = String.Empty;
 
         /// <summary>
-        /// The number of the same  dialog boxes to wait for.
-        /// This is for scenarios when two dialog boxes with the same text are popping up.
+        /// The number of the same dialog boxes to wait for. This is for scenarios when two dialog
+        /// boxes with the same text are popping up.
         /// </summary>
         private readonly int _numberOfDialogsToWaitFor = 1;
 
@@ -75,7 +78,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Overloaded ctor.
         /// </summary>
         /// <param name="buttonAction">The botton to "press" on the dialog box.</param>
-        /// <param name="numberOfDialogsToWaitFor">The number of dialog boxes with the same message to wait for. This is the situation when the same action pops up two of the same dialog boxes</param>
+        /// <param name="numberOfDialogsToWaitFor">
+        /// The number of dialog boxes with the same message to wait for. This is the situation when
+        /// the same action pops up two of the same dialog boxes
+        /// </param>
         /// <param name="expectedDialogMesssage">The expected dialog box message to check for.</param>
         internal DialogBoxPurger(int buttonAction, int numberOfDialogsToWaitFor, string expectedDialogMesssage)
         {
@@ -88,7 +94,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Overloaded ctor.
         /// </summary>
         /// <param name="buttonAction">The botton to "press" on the dialog box.</param>
-        /// <param name="numberOfDialogsToWaitFor">The number of dialog boxes with the same message to wait for. This is the situation when the same action pops up two of the same dialog boxes</param>
+        /// <param name="numberOfDialogsToWaitFor">
+        /// The number of dialog boxes with the same message to wait for. This is the situation when
+        /// the same action pops up two of the same dialog boxes
+        /// </param>
         internal DialogBoxPurger(int buttonAction, int numberOfDialogsToWaitFor)
         {
             _buttonAction = buttonAction;
@@ -147,13 +156,15 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             var thread = new Thread(HandleDialogBoxes);
             thread.Start();
 
-            // We should never deadlock here, hence do not use the lock. Wait to be sure that the thread started.
+            // We should never deadlock here, hence do not use the lock. Wait to be sure that the
+            // thread started.
             _threadStarted.WaitOne(3500, false);
         }
 
         /// <summary>
-        /// Waits for the dialog box close thread to terminate. If the thread does not signal back within millisecondsToWait that it is shutting down,
-        /// then it will tell to the thread to do it.
+        /// Waits for the dialog box close thread to terminate. If the thread does not signal back
+        /// within millisecondsToWait that it is shutting down, then it will tell to the thread to
+        /// do it.
         /// </summary>
         internal bool WaitForDialogThreadToTerminate()
         {
@@ -161,10 +172,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         }
 
         /// <summary>
-        /// Waits for the dialog box close thread to terminate. If the thread does not signal back within millisecondsToWait that it is shutting down,
-        /// then it will tell to the thread to do it.
+        /// Waits for the dialog box close thread to terminate. If the thread does not signal back
+        /// within millisecondsToWait that it is shutting down, then it will tell to the thread to
+        /// do it.
         /// </summary>
-        /// <param name="numberOfMillisecondsToWait">The number milliseconds to wait for until the dialog purger thread is signaled to terminate. This is just for safe precaution that we do not hang. </param>
+        /// <param name="numberOfMillisecondsToWait">
+        /// The number milliseconds to wait for until the dialog purger thread is signaled to
+        /// terminate. This is just for safe precaution that we do not hang.
+        /// </param>
         /// <returns>The result of the dialog boxes closing</returns>
         internal bool WaitForDialogThreadToTerminate(int numberOfMillisecondsToWait)
         {
@@ -204,7 +219,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                     _threadStarted.Set();
                 }
 
-                // The loop will be exited either if a message is send by the caller thread or if we found the dialog. If a message box text is specified the loop will not exit until the dialog is found.
+                // The loop will be exited either if a message is send by the caller thread or if we
+                // found the dialog. If a message box text is specified the loop will not exit until
+                // the dialog is found.
                 bool stayInLoop = true;
                 int dialogBoxesToWaitFor = 1;
 
@@ -308,7 +325,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Finds a messagebox string on a messagebox.
         /// </summary>
         /// <param name="hwnd">The windows handle of the dialog</param>
-        /// <param name="unmanagedMemoryLocation">A pointer to the memorylocation the string will be written to</param>
+        /// <param name="unmanagedMemoryLocation">
+        /// A pointer to the memorylocation the string will be written to
+        /// </param>
         /// <returns>True if found.</returns>
         private static bool FindMessageBoxString(IntPtr hwnd, IntPtr unmanagedMemoryLocation)
         {
@@ -328,8 +347,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                         stringAsPtr = Marshal.StringToHGlobalAnsi(windowText.ToString());
                         char[] stringAsArray = windowText.ToString().ToCharArray();
 
-                        // Since unicode characters are copied check if we are out of the allocated length.
-                        // If not add the end terminating zero.
+                        // Since unicode characters are copied check if we are out of the allocated
+                        // length. If not add the end terminating zero.
                         if ((2 * stringAsArray.Length) + 1 < 2048)
                         {
                             Marshal.Copy(stringAsArray, 0, unmanagedMemoryLocation, stringAsArray.Length);

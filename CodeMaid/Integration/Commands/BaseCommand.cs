@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -25,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCommand"/> class.
+        /// Initializes a new instance of the <see cref="BaseCommand" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <param name="id">The id for the command.</param>
@@ -54,7 +52,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// Handles the BeforeQueryStatus event of the BaseCommand control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs" /> instance containing the event data.
+        /// </param>
         private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;
@@ -68,7 +68,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// Handles the Execute event of the BaseCommand control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs" /> instance containing the event data.
+        /// </param>
         private static void BaseCommand_Execute(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;

@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -115,8 +113,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Creates the XML open tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns>The XML open tag. In case of an element without value, the tag is
-        /// self-closing.</returns>
+        /// <returns>
+        /// The XML open tag. In case of an element without value, the tag is self-closing.
+        /// </returns>
         internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element)
         {
             var builder = new System.Text.StringBuilder();
@@ -144,8 +143,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Creates the XML close tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns>The XML close tag, or <c>null</c> if the element has no value and is a
-        /// self-closing tag.</returns>
+        /// <returns>
+        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
+        /// </returns>
         internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element)
         {
             if (element.IsEmpty)

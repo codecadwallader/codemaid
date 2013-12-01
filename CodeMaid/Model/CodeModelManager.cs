@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -37,12 +35,12 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CodeModelManager"/> class.
+        /// The singleton instance of the <see cref="CodeModelManager" /> class.
         /// </summary>
         private static CodeModelManager _instance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeModelManager"/> class.
+        /// Initializes a new instance of the <see cref="CodeModelManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private CodeModelManager(CodeMaidPackage package)
@@ -54,10 +52,10 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         /// <summary>
-        /// Gets an instance of the <see cref="CodeModelManager"/> class.
+        /// Gets an instance of the <see cref="CodeModelManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CodeModelManager"/> class.</returns>
+        /// <returns>An instance of the <see cref="CodeModelManager" /> class.</returns>
         internal static CodeModelManager GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new CodeModelManager(package));
@@ -68,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Events
 
         /// <summary>
-        /// An event raised when a <see cref="CodeModel"/> has been built.
+        /// An event raised when a <see cref="CodeModel" /> has been built.
         /// </summary>
         internal event Action<CodeModel> CodeModelBuilt;
 
@@ -99,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Internal Methods
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
+        /// Retrieves a <see cref="SetCodeItems" /> of CodeItems within the specified document.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>The set of code items within the document.</returns>
@@ -130,13 +128,17 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
-        /// If the code items are already available they will be returned,
-        /// otherwise an event will be raised once the code items have been asynchronously built.
+        /// Retrieves a <see cref="SetCodeItems" /> of CodeItems within the specified document. If
+        /// the code items are already available they will be returned, otherwise an event will be
+        /// raised once the code items have been asynchronously built.
         /// </summary>
         /// <param name="document">The document.</param>
-        /// <param name="loadLazyInitializedValues">A flag indicating of lazy initialized values should be immediately loaded.</param>
-        /// <returns>The set of code items within the document if already available, otherwise null.</returns>
+        /// <param name="loadLazyInitializedValues">
+        /// A flag indicating of lazy initialized values should be immediately loaded.
+        /// </param>
+        /// <returns>
+        /// The set of code items within the document if already available, otherwise null.
+        /// </returns>
         internal SetCodeItems RetrieveAllCodeItemsAsync(Document document, bool loadLazyInitializedValues = false)
         {
             if (document == null)
@@ -177,7 +179,7 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Private Methods
 
         /// <summary>
-        /// Builds a <see cref="SetCodeItems"/> of CodeItems based on the specified code model. If
+        /// Builds a <see cref="SetCodeItems" /> of CodeItems based on the specified code model. If
         /// the document gets marked as stale during execution this process will recursively call
         /// itself to start over in order to guarantee a valid code model is returned.
         /// </summary>
@@ -231,7 +233,7 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         /// <summary>
-        /// Raises the <see cref="CodeModelBuilt"/> event.
+        /// Raises the <see cref="CodeModelBuilt" /> event.
         /// </summary>
         /// <param name="codeModel">The code model.</param>
         private void RaiseCodeModelBuilt(CodeModel codeModel)

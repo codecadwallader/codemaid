@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -50,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpadeToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="SpadeToolWindow" /> class.
         /// </summary>
         public SpadeToolWindow()
             : base(null)
@@ -126,11 +124,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// This method can be overriden by the derived class to execute
-        /// any code that needs to run after the IVsWindowFrame is created.
-        /// If the toolwindow has a toolbar with a combobox, it should make
-        /// sure its command handler are set by the time they return from
-        /// this method.
+        /// This method can be overriden by the derived class to execute any code that needs to run
+        /// after the IVsWindowFrame is created. If the toolwindow has a toolbar with a combobox, it
+        /// should make sure its command handler are set by the time they return from this method.
         /// This is called when someone set the Frame property.
         /// </summary>
         public override void OnToolWindowCreated()
@@ -159,7 +155,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     }
                     catch (Exception)
                     {
-                        // If a project property page is active, accessing the ActiveDocument causes an exception.
+                        // If a project property page is active, accessing the ActiveDocument causes
+                        // an exception.
                     }
                 }
 
@@ -267,10 +264,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// An event handler called when the <see cref="CodeModelManager"/> raises a
-        /// <see cref="CodeModelManager.CodeModelBuilt"/> event. If the code model was built for the
-        /// document currently being shown by Spade, the raw code items will be processed and
-        /// displayed.
+        /// An event handler called when the <see cref="CodeModelManager" /> raises a <see
+        /// cref="CodeModelManager.CodeModelBuilt" /> event. If the code model was built for the
+        /// document currently being shown by Spade, the raw code items will be processed and displayed.
         /// </summary>
         /// <param name="codeModel">The code model.</param>
         private void OnCodeModelBuilt(CodeModel codeModel)

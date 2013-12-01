@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -49,22 +47,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CodeCleanupAvailabilityLogic"/> class.
+        /// The singleton instance of the <see cref="CodeCleanupAvailabilityLogic" /> class.
         /// </summary>
         private static CodeCleanupAvailabilityLogic _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="CodeCleanupAvailabilityLogic"/> class.
+        /// Gets an instance of the <see cref="CodeCleanupAvailabilityLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CodeCleanupAvailabilityLogic"/> class.</returns>
+        /// <returns>An instance of the <see cref="CodeCleanupAvailabilityLogic" /> class.</returns>
         internal static CodeCleanupAvailabilityLogic GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new CodeCleanupAvailabilityLogic(package));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCleanupAvailabilityLogic"/> class.
+        /// Initializes a new instance of the <see cref="CodeCleanupAvailabilityLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private CodeCleanupAvailabilityLogic(CodeMaidPackage package)
@@ -164,12 +162,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the specified document should be excluded because it is external to the solution.
-        /// Conditionally includes prompting the user.
+        /// Determines whether the specified document should be excluded because it is external to
+        /// the solution. Conditionally includes prompting the user.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="allowUserPrompts">A flag indicating if user prompts should be allowed.</param>
-        /// <returns>True if document should be excluded because it is external to the solution, otherwise false.</returns>
+        /// <returns>
+        /// True if document should be excluded because it is external to the solution, otherwise false.
+        /// </returns>
         private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
         {
             bool isExternal = IsDocumentExternal(document);
@@ -244,7 +244,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the specified document has a parent item that is a code generator which is excluded by options.
+        /// Determines whether the specified document has a parent item that is a code generator
+        /// which is excluded by options.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
@@ -256,7 +257,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the specified project item has a parent item that is a code generator which is excluded by options.
+        /// Determines whether the specified project item has a parent item that is a code generator
+        /// which is excluded by options.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
@@ -286,7 +288,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
-                // Make an exception for JavaScript files - they may incorrectly return the HTML language service.
+                // Make an exception for JavaScript files - they may incorrectly return the HTML
+                // language service.
                 return Settings.Default.Cleaning_IncludeJavaScript;
             }
 

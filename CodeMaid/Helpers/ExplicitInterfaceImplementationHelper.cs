@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -25,8 +23,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Determines if the specified code event is an explicit interface implementation.
         /// </summary>
         /// <remarks>
-        /// CodeEvent does not report the interface name as usual, but it can be identified by looking at the
-        /// FullName and comparing it to the expected concatenation of parent name + event name.
+        /// CodeEvent does not report the interface name as usual, but it can be identified by
+        /// looking at the FullName and comparing it to the expected concatenation of parent name +
+        /// event name.
         /// </remarks>
         /// <param name="codeEvent">The code event.</param>
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>

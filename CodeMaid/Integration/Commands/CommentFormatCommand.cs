@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -34,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommentFormatCommand"/> class.
+        /// Initializes a new instance of the <see cref="CommentFormatCommand" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CommentFormatCommand(CodeMaidPackage package)
@@ -57,7 +55,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var activeTextDocument = ActiveTextDocument;
             var enable = false;
 
-            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11 versions) since not supported.
+            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio
+            // 11 versions) since not supported.
             if (activeTextDocument != null && !Package.UsePOSIXRegEx)
             {
                 // Enable formatting if there is a comment pattern defined for this document.
@@ -118,7 +117,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="start">Reference to the startpoint of the selection.</param>
         /// <param name="end">Reference to the endpoint of the selection.</param>
         /// <param name="prefix">The comment prefix.</param>
-        /// <returns><c>true</c> if a valid comment was found within the selection, otherwise <c>false</c>.</returns>
+        /// <returns>
+        /// <c>true</c> if a valid comment was found within the selection, otherwise <c>false</c>.
+        /// </returns>
         private bool ExpandToFullComment(ref EditPoint start, ref EditPoint end, string prefix)
         {
             bool found = false;

@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -43,22 +41,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CodeReorderManager"/> class.
+        /// The singleton instance of the <see cref="CodeReorderManager" /> class.
         /// </summary>
         private static CodeReorderManager _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="CodeReorderManager"/> class.
+        /// Gets an instance of the <see cref="CodeReorderManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CodeReorderManager"/> class.</returns>
+        /// <returns>An instance of the <see cref="CodeReorderManager" /> class.</returns>
         internal static CodeReorderManager GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new CodeReorderManager(package));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeReorderManager"/> class.
+        /// Initializes a new instance of the <see cref="CodeReorderManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private CodeReorderManager(CodeMaidPackage package)
@@ -132,7 +130,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 {
                     _package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
-                    // Retrieve all relevant code items (excluding using statements, and conditionally regions).
+                    // Retrieve all relevant code items (excluding using statements, and
+                    // conditionally regions).
                     var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document);
                     var filteredCodeItems = rawCodeItems.Where(x =>
                         !(x is CodeItemUsingStatement ||
@@ -181,7 +180,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Gets the text and removes the specified item.
         /// </summary>
         /// <param name="itemToRemove">The item to remove.</param>
-        /// <param name="cursorOffset">The cursor's offset within the item being removed, otherwise -1.</param>
+        /// <param name="cursorOffset">
+        /// The cursor's offset within the item being removed, otherwise -1.
+        /// </param>
         private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove, out int cursorOffset)
         {
             // Refresh the code item and capture its end points.

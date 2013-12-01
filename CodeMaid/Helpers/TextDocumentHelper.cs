@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -23,8 +21,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// A static helper class for working with text documents.
     /// </summary>
     /// <remarks>
-    /// Note:  All POSIXRegEx text replacements search against '\n' but insert/replace
-    ///        with Environment.NewLine.  This handles line endings correctly.
+    ///
+    /// Note: All POSIXRegEx text replacements search against '\n' but insert/replace with
+    ///       Environment.NewLine. This handles line endings correctly.
     /// </remarks>
     internal static class TextDocumentHelper
     {
@@ -202,8 +201,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Substitutes all occurrences in the specified text document of
-        /// the specified pattern string with the specified replacement string.
+        /// Substitutes all occurrences in the specified text document of the specified pattern
+        /// string with the specified replacement string.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
         /// <param name="patternString">The pattern string.</param>
@@ -214,8 +213,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int lastCount = -1;
             while (textDocument.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                // it is possible that the replacements aren't actually being done.  In such a case, we can
-                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                // it is possible that the replacements aren't actually being done. In such a case,
+                // we can detect the situation by seeing if the count always remains the same, and
+                // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
@@ -226,8 +226,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Substitutes all occurrences in the specified text selection of
-        /// the specified pattern string with the specified replacement string.
+        /// Substitutes all occurrences in the specified text selection of the specified pattern
+        /// string with the specified replacement string.
         /// </summary>
         /// <param name="textSelection">The text selection.</param>
         /// <param name="patternString">The pattern string.</param>
@@ -238,8 +238,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int lastCount = -1;
             while (textSelection.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                // it is possible that the replacements aren't actually being done.  In such a case, we can
-                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                // it is possible that the replacements aren't actually being done. In such a case,
+                // we can detect the situation by seeing if the count always remains the same, and
+                // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
@@ -250,8 +251,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Substitutes all occurrences between the specified start and end points of
-        /// the specified pattern string with the specified replacement string.
+        /// Substitutes all occurrences between the specified start and end points of the specified
+        /// pattern string with the specified replacement string.
         /// </summary>
         /// <param name="startPoint">The start point.</param>
         /// <param name="endPoint">The end point.</param>
@@ -263,8 +264,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int lastCount = -1;
             while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))
             {
-                // it is possible that the replacements aren't actually being done.  In such a case, we can
-                // detect the situation by seeing if the count always remains the same, and if so exiting early.
+                // it is possible that the replacements aren't actually being done. In such a case,
+                // we can detect the situation by seeing if the count always remains the same, and
+                // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
                     OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");

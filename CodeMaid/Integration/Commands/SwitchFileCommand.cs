@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -30,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SwitchFileCommand"/> class.
+        /// Initializes a new instance of the <see cref="SwitchFileCommand" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SwitchFileCommand(CodeMaidPackage package)
@@ -79,8 +77,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Private Methods
 
         /// <summary>
-        /// Attempts to get a path to an alternate document for the specified document
-        /// as well as checking that the alternate document exists in the solution.
+        /// Attempts to get a path to an alternate document for the specified document as well as
+        /// checking that the alternate document exists in the solution.
         /// </summary>
         /// <param name="document">The document to analyze.</param>
         /// <returns>The path to an alternate document, otherwise null.</returns>

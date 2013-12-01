@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -49,12 +47,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CommentFormatLogic"/> class.
+        /// The singleton instance of the <see cref="CommentFormatLogic" /> class.
         /// </summary>
         private static CommentFormatLogic _instance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommentFormatLogic"/> class.
+        /// Initializes a new instance of the <see cref="CommentFormatLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private CommentFormatLogic(CodeMaidPackage package)
@@ -63,10 +61,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Gets an instance of the <see cref="CommentFormatLogic"/> class.
+        /// Gets an instance of the <see cref="CommentFormatLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CommentFormatLogic"/> class.</returns>
+        /// <returns>An instance of the <see cref="CommentFormatLogic" /> class.</returns>
         internal static CommentFormatLogic GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new CommentFormatLogic(package));
@@ -88,8 +86,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Reformat all comments between the specified start and end point.
-        /// Comments that start within the range, even if they overlap the end are included.
+        /// Reformat all comments between the specified start and end point. Comments that start
+        /// within the range, even if they overlap the end are included.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
         /// <param name="startPoint">The start point.</param>

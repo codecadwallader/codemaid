@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -27,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
     public static class CleaningTestHelper
     {
         /// <summary>
-        /// Gets the <see cref="CodeModelManager"/>.
+        /// Gets the <see cref="CodeModelManager" />.
         /// </summary>
         internal static CodeModelManager CodeModelManager
         {
@@ -35,7 +33,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
         }
 
         /// <summary>
-        /// Executes the specified command on the specified project item and verifies the results against the specified baseline file.
+        /// Executes the specified command on the specified project item and verifies the results
+        /// against the specified baseline file.
         /// </summary>
         /// <param name="command">The command to execute.</param>
         /// <param name="projectItem">The project item to execute the command upon.</param>
@@ -64,7 +63,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning
         }
 
         /// <summary>
-        /// Executes the specified command on the specified project item twice and verifies the second execution does not result in any changes.
+        /// Executes the specified command on the specified project item twice and verifies the
+        /// second execution does not result in any changes.
         /// </summary>
         /// <param name="command">The command to execute.</param>
         /// <param name="projectItem">The project item to execute the command upon.</param>

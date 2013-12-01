@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -28,8 +26,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
-        /// Causes the given item and all of its expanded children to be collapsed.
-        /// This may cause selections to change.
+        /// Causes the given item and all of its expanded children to be collapsed. This may cause
+        /// selections to change.
         /// </summary>
         /// <param name="parentItem">The parent item to collapse from.</param>
         internal static void CollapseRecursively(UIHierarchyItem parentItem)
@@ -52,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // Attempt the direct collapse first.
                 parentItem.UIHierarchyItems.Expanded = false;
 
-                // If failed, solution folder oddity may be at play.  Try an alternate path.
+                // If failed, solution folder oddity may be at play. Try an alternate path.
                 if (parentItem.UIHierarchyItems.Expanded)
                 {
                     parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
@@ -131,7 +129,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             // Conditionally skip collapsing the only project in a solution.
-            // Note: Visual Studio automatically creates a second invisible project called "Miscellaneous files".
+            // Note: Visual Studio automatically creates a second invisible project called
+            //       "Miscellaneous files".
             if (Settings.Default.Collapsing_KeepSoloProjectExpanded && parentItem.Object is Project)
             {
                 var solution = parentItem.DTE.Solution;

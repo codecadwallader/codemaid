@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -27,7 +25,8 @@ using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 namespace SteveCadwallader.CodeMaid.Logic.Digging
 {
     /// <summary>
-    /// A manager class for controlling the synchronization of outlining states between the code document and Spade.
+    /// A manager class for controlling the synchronization of outlining states between the code
+    /// document and Spade.
     /// </summary>
     internal class OutliningSynchronizationManager : IDisposable
     {
@@ -49,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutliningSynchronizationManager"/> class.
+        /// Initializes a new instance of the <see cref="OutliningSynchronizationManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         public OutliningSynchronizationManager(CodeMaidPackage package)
@@ -182,10 +181,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         #region Helper Methods
 
         /// <summary>
-        /// Attempts to find a <see cref="ICodeItemParent"/> associated with the specified <see cref="ICollapsible"/>.
+        /// Attempts to find a <see cref="ICodeItemParent" /> associated with the specified <see
+        /// cref="ICollapsible" />.
         /// </summary>
         /// <param name="collapsible">The collapsible region.</param>
-        /// <returns>The <see cref="ICodeItemParent"/> on the same starting line, otherwise null.</returns>
+        /// <returns>
+        /// The <see cref="ICodeItemParent" /> on the same starting line, otherwise null.
+        /// </returns>
         private ICodeItemParent FindCodeItemParentFromCollapsible(ICollapsible collapsible)
         {
             var startLine = GetStartLineForCollapsible(collapsible);
@@ -194,10 +196,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         }
 
         /// <summary>
-        /// Attempts to find a <see cref="ICollapsible"/> associated with the specified <see cref="ICodeItemParent"/>.
+        /// Attempts to find a <see cref="ICollapsible" /> associated with the specified <see
+        /// cref="ICodeItemParent" />.
         /// </summary>
         /// <param name="parent">The code item parent.</param>
-        /// <returns>The <see cref="ICollapsible"/> on the same starting line, otherwise null.</returns>
+        /// <returns>
+        /// The <see cref="ICollapsible" /> on the same starting line, otherwise null.
+        /// </returns>
         private ICollapsible FindCollapsibleFromCodeItemParent(ICodeItemParent parent)
         {
             if (_outliningManager == null || _wpfTextView == null)
@@ -304,7 +309,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         }
 
         /// <summary>
-        /// Initializes the code item parents by synchronizing their current state and registering for events.
+        /// Initializes the code item parents by synchronizing their current state and registering
+        /// for events.
         /// </summary>
         private void InitializeCodeItemParents()
         {
@@ -339,7 +345,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         #region Implementation of IDisposable
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {

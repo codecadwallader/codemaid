@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -40,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="OptionsViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
@@ -181,7 +179,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="ExportCommand"/> is executed.
+        /// Called when the <see cref="ExportCommand" /> is executed.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         private void OnExportCommandExecuted(object parameter)
@@ -232,7 +230,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="ImportCommand"/> is executed.
+        /// Called when the <see cref="ImportCommand" /> is executed.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         private void OnImportCommandExecuted(object parameter)
@@ -250,7 +248,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
-                    // Always save first, forcing the configuration file to be created if it does not exist yet.
+                    // Always save first, forcing the configuration file to be created if it does
+                    // not exist yet.
                     Save();
 
                     var sectionName = Settings.Default.Context["GroupName"].ToString();
@@ -295,7 +294,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="ResetToDefaultsCommand"/> is executed.
+        /// Called when the <see cref="ResetToDefaultsCommand" /> is executed.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         private void OnResetToDefaultsCommandExecuted(object parameter)
@@ -331,7 +330,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="SaveCommand"/> needs to determine if it can execute.
+        /// Called when the <see cref="SaveCommand" /> needs to determine if it can execute.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         /// <returns>True if the command can execute, otherwise false.</returns>
@@ -341,7 +340,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="SaveCommand"/> is executed.
+        /// Called when the <see cref="SaveCommand" /> is executed.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
@@ -379,7 +378,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Called when the <see cref="CancelCommand"/> is executed.
+        /// Called when the <see cref="CancelCommand" /> is executed.
         /// </summary>
         /// <param name="parameter">The command parameter.</param>
         private void OnCancelCommandExecuted(object parameter)
@@ -395,7 +394,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Called when a page has raised a PropertyChanged event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.ComponentModel.PropertyChangedEventArgs" /> instance containing
+        /// the event data.
+        /// </param>
         private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             HasChanges = true;

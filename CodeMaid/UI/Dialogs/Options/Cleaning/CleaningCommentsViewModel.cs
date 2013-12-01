@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -23,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CleaningCommentsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="CleaningCommentsViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         public CleaningCommentsViewModel(CodeMaidPackage package)
@@ -169,7 +167,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets a flag indicating if this page should be enabled.
         /// </summary>
         /// <remarks>
-        /// Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11 versions) since not supported.
+        /// Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11
+        /// versions) since not supported.
         /// </remarks>
         public bool IsEnabled
         {

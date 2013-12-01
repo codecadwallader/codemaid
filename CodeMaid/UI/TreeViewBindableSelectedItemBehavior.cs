@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -45,7 +43,10 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when the SelectedItem dependency property has changed.
         /// </summary>
         /// <param name="obj">The dependency object where the value has changed.</param>
-        /// <param name="e">The <see cref="System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DependencyPropertyChangedEventArgs" /> instance containing
+        /// the event data.
+        /// </param>
         private static void OnSelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             var behavior = obj as TreeViewBindableSelectedItemBehavior;
@@ -64,9 +65,11 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Attempts to find a TreeViewItem recursively that is the container for the specified content to find.
+        /// Attempts to find a TreeViewItem recursively that is the container for the specified
+        /// content to find.
         /// </summary>
         /// <remarks>
+        ///
         /// Source: http://blogs.msdn.com/b/wpfsdk/archive/2010/02/23/finding-an-object-treeviewitem.aspx.
         /// </remarks>
         /// <param name="itemsControl">The items control.</param>
@@ -115,8 +118,8 @@ namespace SteveCadwallader.CodeMaid.UI
             }
             else
             {
-                // The Tree template has not named the ItemsPresenter,
-                // so walk the descendents and find the child.
+                // The Tree template has not named the ItemsPresenter, so walk the descendents and
+                // find the child.
                 itemsPresenter = itemsControl.FindVisualChild<ItemsPresenter>();
 
                 if (itemsPresenter == null)
@@ -151,7 +154,8 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Called when the behavior is being detached from its AssociatedObject, but before it has actually occurred.
+        /// Called when the behavior is being detached from its AssociatedObject, but before it has
+        /// actually occurred.
         /// </summary>
         protected override void OnDetaching()
         {
@@ -167,7 +171,10 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when the SelectedItem has changed.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.RoutedPropertyChangedEventArgs&lt;Object&gt;"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.RoutedPropertyChangedEventArgs&lt;Object&gt;" /> instance
+        /// containing the event data.
+        /// </param>
         private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectedItem = e.NewValue;

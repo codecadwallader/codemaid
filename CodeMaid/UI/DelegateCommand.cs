@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -31,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.UI
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
         /// </summary>
         /// <param name="execute">The execute handler.</param>
         /// <param name="canExecute">The can execute handler.</param>
@@ -57,7 +55,10 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
         /// </summary>
-        /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        /// <param name="parameter">
+        /// Data used by the command. If the command does not require data to be passed, this object
+        /// can be set to null.
+        /// </param>
         /// <returns>True if this command can be executed; otherwise, false.</returns>
         public bool CanExecute(object parameter)
         {
@@ -72,7 +73,10 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
-        /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        /// <param name="parameter">
+        /// Data used by the command. If the command does not require data to be passed, this object
+        /// can be set to null.
+        /// </param>
         public void Execute(object parameter)
         {
             _execute(parameter);

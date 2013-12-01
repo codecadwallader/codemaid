@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -36,22 +34,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="UpdateLogic"/> class.
+        /// The singleton instance of the <see cref="UpdateLogic" /> class.
         /// </summary>
         private static UpdateLogic _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="UpdateLogic"/> class.
+        /// Gets an instance of the <see cref="UpdateLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="UpdateLogic"/> class.</returns>
+        /// <returns>An instance of the <see cref="UpdateLogic" /> class.</returns>
         internal static UpdateLogic GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new UpdateLogic(package));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateLogic"/> class.
+        /// Initializes a new instance of the <see cref="UpdateLogic" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private UpdateLogic(CodeMaidPackage package)
@@ -64,13 +62,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Methods
 
         /// <summary>
-        /// Updates the #endregion directives to match the names of the matching
-        /// #region directive and cleans up any unnecessary white space.
+        /// Updates the #endregion directives to match the names of the matching #region directive
+        /// and cleans up any unnecessary white space.
         /// </summary>
         /// <remarks>
-        /// This code is very similar to the Common region retrieval function, but
-        /// since it manipulates the cursors during processing the logic is different
-        /// enough to warrant a separate copy of the code.
+        /// This code is very similar to the Common region retrieval function, but since it
+        /// manipulates the cursors during processing the logic is different enough to warrant a
+        /// separate copy of the code.
         /// </remarks>
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void UpdateEndRegionDirectives(TextDocument textDocument)

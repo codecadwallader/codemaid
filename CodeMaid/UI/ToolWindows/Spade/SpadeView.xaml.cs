@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -26,7 +24,7 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
     /// <summary>
-    /// The WPF based control/view for the <see cref="SpadeToolWindow"/>.
+    /// The WPF based control/view for the <see cref="SpadeToolWindow" />.
     /// </summary>
     public partial class SpadeView
     {
@@ -43,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpadeView"/> class.
+        /// Initializes a new instance of the <see cref="SpadeView" /> class.
         /// </summary>
         public SpadeView()
         {
@@ -136,7 +134,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Called when a PreviewMouseDown event is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
+        /// event data.
+        /// </param>
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control &&
@@ -152,7 +153,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Called when a PreviewMouseWheel event is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseWheelEventArgs" /> instance containing the
+        /// event data.
+        /// </param>
         private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control && e.Delta != 0)
@@ -166,11 +170,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by TreeView).
-        /// Used to jump to a code item upon enter, or toggle the expansion state upon space.
+        /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by
+        /// TreeView). Used to jump to a code item upon enter, or toggle the expansion state upon space.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.KeyEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
             var treeViewItem = e.Source as TreeViewItem;
@@ -189,11 +195,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse down event.
-        /// Used to start detecting a drag and drop operation or toggle the expansion state depending on conditions.
+        /// Called when the header of a TreeViewItem receives a mouse down event. Used to start
+        /// detecting a drag and drop operation or toggle the expansion state depending on conditions.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
+        /// event data.
+        /// </param>
         private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
         {
             _isDoubleClick = false;
@@ -223,11 +232,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse move event.
-        /// Used to conditionally initiate a drag and drop operation.
+        /// Called when the header of a TreeViewItem receives a mouse move event. Used to
+        /// conditionally initiate a drag and drop operation.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
             if (_dragCandidate == null || !_startPoint.HasValue) return;
@@ -250,11 +261,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse up event.
-        /// Used to conditionally jump to a code item.
+        /// Called when the header of a TreeViewItem receives a mouse up event. Used to
+        /// conditionally jump to a code item.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
+        /// event data.
+        /// </param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
             _dragCandidate = null;
@@ -286,11 +300,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Handles the drag events for a TreeViewItem header.
-        /// Used to conditionally determine if a drop operation is allowed or not.
+        /// Handles the drag events for a TreeViewItem header. Used to conditionally determine if a
+        /// drop operation is allowed or not.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
             HandleDragScrolling(ScrollViewer, e);
@@ -338,11 +354,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Called when the header of a TreeViewItem receives a drag leave event.
-        /// Used to conditionally clear the show drop attached properties.
+        /// Called when the header of a TreeViewItem receives a drag leave event. Used to
+        /// conditionally clear the show drop attached properties.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnTreeViewItemHeaderDragLeave(object sender, DragEventArgs e)
         {
             var targetTreeViewItem = FindParentTreeViewItem(sender);
@@ -358,7 +376,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Called when the header of a TreeViewItem receives a drop event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
@@ -413,7 +433,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Determines the drop position for the specified drag event and the drop target.
         /// </summary>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
         /// <param name="targetItem">The target item.</param>
         /// <param name="targetElement">The target element.</param>
         /// <returns>The drop position.</returns>
@@ -438,11 +460,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Handles scrolling the specified scroll viewer if the drag event indicates the drag operation
-        /// is nearing the scroll viewers top or bottom boundaries.
+        /// Handles scrolling the specified scroll viewer if the drag event indicates the drag
+        /// operation is nearing the scroll viewers top or bottom boundaries.
         /// </summary>
         /// <param name="scrollViewer">The scroll viewer.</param>
-        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
         private static void HandleDragScrolling(ScrollViewer scrollViewer, DragEventArgs e)
         {
             const int threshold = 20;

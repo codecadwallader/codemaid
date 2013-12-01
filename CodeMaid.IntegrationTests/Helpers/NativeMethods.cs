@@ -115,9 +115,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             return ((error & 0x0000FFFF) | (Facility_Win32 << 16) | 0x80000000);
         }
 
-        /// <devdoc>
-        /// Please use this "approved" method to compare file names.
-        /// </devdoc>
+        /// <devdoc>Please use this "approved" method to compare file names.</devdoc>
         public static bool IsSamePath(string file1, string file2)
         {
             if (file1 == null || file1.Length == 0)

@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -23,7 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CleaningInsertViewModel"/> class.
+        /// Initializes a new instance of the <see cref="CleaningInsertViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         public CleaningInsertViewModel(CodeMaidPackage package)
@@ -358,7 +356,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _insertBlankLinePaddingAfterUsingStatementBlocks;
 
         /// <summary>
-        /// Gets or sets the flag indicating if blank line padding should be added after using statement blocks.
+        /// Gets or sets the flag indicating if blank line padding should be added after using
+        /// statement blocks.
         /// </summary>
         public bool InsertBlankLinePaddingAfterUsingStatementBlocks
         {
@@ -592,7 +591,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _insertBlankLinePaddingBeforeSingleLineComments;
 
         /// <summary>
-        /// Gets or sets the flag indicating if blank line padding should be added before single line comments.
+        /// Gets or sets the flag indicating if blank line padding should be added before single
+        /// line comments.
         /// </summary>
         public bool InsertBlankLinePaddingBeforeSingleLineComments
         {
@@ -628,7 +628,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _insertBlankLinePaddingBeforeUsingStatementBlocks;
 
         /// <summary>
-        /// Gets or sets the flag indicating if blank line padding should be added before using statement blocks.
+        /// Gets or sets the flag indicating if blank line padding should be added before using
+        /// statement blocks.
         /// </summary>
         public bool InsertBlankLinePaddingBeforeUsingStatementBlocks
         {
@@ -646,7 +647,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _insertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
 
         /// <summary>
-        /// Gets or sets the flag indicating if blank line padding should be added between properties with multi-line accessors.
+        /// Gets or sets the flag indicating if blank line padding should be added between
+        /// properties with multi-line accessors.
         /// </summary>
         public bool InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors
         {
@@ -664,7 +666,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         private bool _insertBlankSpaceBeforeSelfClosingAngleBrackets;
 
         /// <summary>
-        /// Gets or sets the flag indicating if a blank space should be added before self closing angle brackets.
+        /// Gets or sets the flag indicating if a blank space should be added before self closing
+        /// angle brackets.
         /// </summary>
         public bool InsertBlankSpaceBeforeSelfClosingAngleBrackets
         {

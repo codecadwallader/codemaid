@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -27,8 +25,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     /// A manager class for cleaning up code.
     /// </summary>
     /// <remarks>
-    /// Note:  All POSIXRegEx text replacements search against '\n' but insert/replace
-    ///        with Environment.NewLine.  This handles line endings correctly.
+    ///
+    /// Note: All POSIXRegEx text replacements search against '\n' but insert/replace with
+    ///       Environment.NewLine. This handles line endings correctly.
     /// </remarks>
     internal class CodeCleanupManager
     {
@@ -54,22 +53,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="CodeCleanupManager"/> class.
+        /// The singleton instance of the <see cref="CodeCleanupManager" /> class.
         /// </summary>
         private static CodeCleanupManager _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="CodeCleanupManager"/> class.
+        /// Gets an instance of the <see cref="CodeCleanupManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CodeCleanupManager"/> class.</returns>
+        /// <returns>An instance of the <see cref="CodeCleanupManager" /> class.</returns>
         internal static CodeCleanupManager GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new CodeCleanupManager(package));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCleanupManager"/> class.
+        /// Initializes a new instance of the <see cref="CodeCleanupManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private CodeCleanupManager(CodeMaidPackage package)
@@ -137,7 +136,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document, true)) return;
 
-            // Make sure the document to be cleaned up is active, required for some commands like format document.
+            // Make sure the document to be cleaned up is active, required for some commands like
+            // format document.
             document.Activate();
 
             if (_package.IDE.ActiveDocument != document)

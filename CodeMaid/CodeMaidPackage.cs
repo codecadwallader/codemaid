@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -41,12 +39,12 @@ namespace SteveCadwallader.CodeMaid
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
     ///
-    /// The minimum requirement for a class to be considered a valid package for Visual Studio
-    /// is to implement the IVsPackage interface and register itself with the shell.
-    /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    /// to do it: it derives from the Package class that provides the implementation of the
-    /// IVsPackage interface and uses the registration attributes defined in the framework to
-    /// register itself and its components with the shell.
+    /// The minimum requirement for a class to be considered a valid package for Visual Studio is to
+    /// implement the IVsPackage interface and register itself with the shell. This package uses the
+    /// helper classes defined inside the Managed Package Framework (MPF) to do it: it derives from
+    /// the Package class that provides the implementation of the IVsPackage interface and uses the
+    /// registration attributes defined in the framework to register itself and its components with
+    /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
     [InstalledProductRegistration("#110", "#112", "#114", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
@@ -96,11 +94,10 @@ namespace SteveCadwallader.CodeMaid
         #region Constructors
 
         /// <summary>
-        /// Default constructor of the package.
-        /// Inside this method you can place any initialization code that does not require
-        /// any Visual Studio service because at this point the package object is created but
-        /// not sited yet inside Visual Studio environment. The place to do all the other
-        /// initialization is the Initialize method.
+        /// Default constructor of the package. Inside this method you can place any initialization
+        /// code that does not require any Visual Studio service because at this point the package
+        /// object is created but not sited yet inside Visual Studio environment. The place to do
+        /// all the other initialization is the Initialize method.
         /// </summary>
         public CodeMaidPackage()
         {
@@ -190,8 +187,8 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument Find/Replace actions.
-        /// Applies to pre-Visual Studio 11 versions.
+        /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument
+        /// Find/Replace actions. Applies to pre-Visual Studio 11 versions.
         /// </summary>
         public bool UsePOSIXRegEx
         {
@@ -254,8 +251,9 @@ namespace SteveCadwallader.CodeMaid
         #region Package Members
 
         /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
+        /// Initialization of the package; this method is called right after the package is sited,
+        /// so this is the place where you can put all the initialization code that rely on services
+        /// provided by VisualStudio.
         /// </summary>
         protected override void Initialize()
         {
@@ -326,7 +324,9 @@ namespace SteveCadwallader.CodeMaid
         /// Called when a DispatcherUnhandledException is raised by Visual Studio.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="DispatcherUnhandledExceptionEventArgs" /> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="DispatcherUnhandledExceptionEventArgs" /> instance containing the event data.
+        /// </param>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             if (!Settings.Default.General_DiagnosticsMode) return;
@@ -406,8 +406,8 @@ namespace SteveCadwallader.CodeMaid
         /// Register the package event listeners.
         /// </summary>
         /// <remarks>
-        /// This must occur after the DTE service is available since many of the events
-        /// are based off of the DTE object.
+        /// This must occur after the DTE service is available since many of the events are based
+        /// off of the DTE object.
         /// </remarks>
         private void RegisterNonShellEventListeners()
         {
@@ -460,7 +460,10 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

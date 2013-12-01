@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -29,12 +27,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         #region Fields
 
         /// <summary>
-        /// A default instance of the <see cref="CodeItemToMetadataStringConverter"/>.
+        /// A default instance of the <see cref="CodeItemToMetadataStringConverter" />.
         /// </summary>
         public static CodeItemToMetadataStringConverter Default = new CodeItemToMetadataStringConverter();
 
         /// <summary>
-        /// An instance of the <see cref="CodeItemToMetadataStringConverter"/> that uses extended strings.
+        /// An instance of the <see cref="CodeItemToMetadataStringConverter" /> that uses extended strings.
         /// </summary>
         public static CodeItemToMetadataStringConverter Extended = new CodeItemToMetadataStringConverter { UseExtendedStrings = true };
 
@@ -58,7 +56,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var codeItem = value as BaseCodeItemElement;
@@ -112,7 +112,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

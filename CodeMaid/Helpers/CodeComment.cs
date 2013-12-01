@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private readonly CachedSettingSet<string> _minorTags;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeComment"/> class.
+        /// Initializes a new instance of the <see cref="CodeComment" /> class.
         /// </summary>
         /// <param name="commentRegex">The comment regular expression.</param>
         /// <param name="from">The start point.</param>
@@ -104,12 +104,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Gets the text and builds a comment out of it. This function does not change the actual
-        /// document.
+        /// Gets the text and builds a comment out of it. This function does not change the actual document.
         /// </summary>
         /// <param name="maxWidth">Max width of the comment.</param>
-        /// <returns>A <see cref="CommentBuilder"/> instance with the formatted content of this
-        /// comment.</returns>
+        /// <returns>
+        /// A <see cref="CommentBuilder" /> instance with the formatted content of this comment.
+        /// </returns>
         private CommentBuilder BuildComment(int maxWidth)
         {
             if (maxWidth < LineCharOffset + 20)
@@ -117,8 +117,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 maxWidth = LineCharOffset + 20;
             }
 
-            // Get the complete comment text (including the comment prefixes) and parse it into
-            // phrases.
+            // Get the complete comment text (including the comment prefixes) and parse it into phrases.
             string text = StartPoint.GetText(EndPoint);
 
             var commentMatch = Regex.Match(text, _commentRegex, RegexOptions.IgnoreCase);
@@ -165,7 +164,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     bool newLine = false;
                     if (builder.LineCharOffset + word.Value.Length + 1 > maxWidth && word.Value.Length < maxWidth)
                     {
-                        // Check if this is the last word and the user preference is to skip wrapping on the last word.
+                        // Check if this is the last word and the user preference is to skip
+                        // wrapping on the last word.
                         if (!(word.Next == null && Settings.Default.Cleaning_CommentSkipWrapOnLastWord))
                         {
                             builder.WriteNewCommentLine(true);
@@ -189,7 +189,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         }
                         else if (Regex.IsMatch(word.Previous.Value, @"<[^/]*>$"))
                         {
-                            // If previous word was XML start tag (and not self-closing) we need no space before.
+                            // If previous word was XML start tag (and not self-closing) we need no
+                            // space before.
                         }
                         else if (word.Previous.Value.EndsWith(">") && word.Value.StartsWith("<"))
                         {
@@ -293,8 +294,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             XElement xml;
             try
             {
-                // Need to put a root element around the comment to make it valid XML before
-                // parsing.
+                // Need to put a root element around the comment to make it valid XML before parsing.
                 xml = XElement.Parse(string.Format("<doc>{0}</doc>", string.Join(Environment.NewLine, lines)));
             }
             catch (System.Xml.XmlException)
@@ -331,8 +331,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                     if (!string.IsNullOrWhiteSpace(innerText))
                     {
-                        // With the fancy XML parsing, we can also check if the content will fit on a
-                        // single line, and if not, split it like it is a major tag.
+                        // With the fancy XML parsing, we can also check if the content will fit on
+                        // a single line, and if not, split it like it is a major tag.
                         if (this.LineCharOffset + openTag.Length + closeTag.Length + innerText.Length > maxWidth)
                             onNewLine = true;
 

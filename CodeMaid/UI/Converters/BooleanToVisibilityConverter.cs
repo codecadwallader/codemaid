@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -26,12 +24,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         #region Fields
 
         /// <summary>
-        /// The default <see cref="BooleanToVisibilityConverter"/> that returns Visible for true and Collapsed for false.
+        /// The default <see cref="BooleanToVisibilityConverter" /> that returns Visible for true
+        /// and Collapsed for false.
         /// </summary>
         public static BooleanToVisibilityConverter Default = new BooleanToVisibilityConverter();
 
         /// <summary>
-        /// The inverse <see cref="BooleanToVisibilityConverter"/> that returns Collapsed for true and Visible for false.
+        /// The inverse <see cref="BooleanToVisibilityConverter" /> that returns Collapsed for true
+        /// and Visible for false.
         /// </summary>
         public static BooleanToVisibilityConverter Inverse = new BooleanToVisibilityConverter
                                                                  {
@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BooleanToVisibilityConverter"/> class.
+        /// Initializes a new instance of the <see cref="BooleanToVisibilityConverter" /> class.
         /// </summary>
         public BooleanToVisibilityConverter()
         {
@@ -77,7 +77,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is bool && (bool)value ? TrueResult : FalseResult;
@@ -90,7 +92,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (value is Visibility && (Visibility)value == TrueResult);

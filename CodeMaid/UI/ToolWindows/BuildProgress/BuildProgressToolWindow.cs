@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -38,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildProgressToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="BuildProgressToolWindow" /> class.
         /// </summary>
         public BuildProgressToolWindow()
             : base(null)
@@ -106,11 +104,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         #region Methods
 
         /// <summary>
-        /// This method can be overriden by the derived class to execute
-        /// any code that needs to run after the IVsWindowFrame is created.
-        /// If the toolwindow has a toolbar with a combobox, it should make
-        /// sure its command handler are set by the time they return from
-        /// this method.
+        /// This method can be overriden by the derived class to execute any code that needs to run
+        /// after the IVsWindowFrame is created. If the toolwindow has a toolbar with a combobox, it
+        /// should make sure its command handler are set by the time they return from this method.
         /// This is called when someone set the Frame property.
         /// </summary>
         public override void OnToolWindowCreated()
@@ -276,7 +272,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
                 }
                 catch (ArgumentException)
                 {
-                    // This is a work-around for a known issue with the SolutionContexts.GetEnumerator with unloaded projects in VS2010.
+                    // This is a work-around for a known issue with the
+                    // SolutionContexts.GetEnumerator with unloaded projects in VS2010.
                 }
             }
 

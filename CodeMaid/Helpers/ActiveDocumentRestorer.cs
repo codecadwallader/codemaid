@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -17,14 +15,15 @@ using EnvDTE;
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A class that handles tracking a document and switching back to it, typically in a using statement context.
+    /// A class that handles tracking a document and switching back to it, typically in a using
+    /// statement context.
     /// </summary>
     internal class ActiveDocumentRestorer : IDisposable
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveDocumentRestorer"/> class.
+        /// Initializes a new instance of the <see cref="ActiveDocumentRestorer" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal ActiveDocumentRestorer(CodeMaidPackage package)
@@ -63,7 +62,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region IDisposable Members
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {

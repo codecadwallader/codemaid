@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -31,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndoTransactionHelper"/> class.
+        /// Initializes a new instance of the <see cref="UndoTransactionHelper" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <param name="transactionName">The name of the transaction.</param>
@@ -55,7 +53,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Runs the specified try action within a try block, and conditionally the catch action within a catch block.
+        /// Runs the specified try action within a try block, and conditionally the catch action
+        /// within a catch block.
         /// </summary>
         /// <param name="tryAction">The action to be performed within a try block.</param>
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
@@ -65,10 +64,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Runs the specified try action within a try block, and conditionally the catch action within a catch block
-        /// all conditionally within the context of an undo transaction.
+        /// Runs the specified try action within a try block, and conditionally the catch action
+        /// within a catch block all conditionally within the context of an undo transaction.
         /// </summary>
-        /// <param name="undoConditions">A set of additional conditions for wrapping in an undo context.</param>
+        /// <param name="undoConditions">
+        /// A set of additional conditions for wrapping in an undo context.
+        /// </param>
         /// <param name="tryAction">The action to be performed within a try block.</param>
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
         public void Run(Func<bool> undoConditions, Action tryAction, Action<Exception> catchAction)

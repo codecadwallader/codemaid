@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -74,11 +72,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Methods
 
         /// <summary>
-        /// When overridden in a derived class, returns a <see cref="T:System.Windows.DataTemplate"/> based on custom logic.
+        /// When overridden in a derived class, returns a <see cref="T:System.Windows.DataTemplate"
+        /// /> based on custom logic.
         /// </summary>
         /// <param name="item">The data object for which to select the template.</param>
         /// <param name="container">The data-bound object.</param>
-        /// <returns>Returns a <see cref="T:System.Windows.DataTemplate"/> or null. The default value is null.</returns>
+        /// <returns>
+        /// Returns a <see cref="T:System.Windows.DataTemplate" /> or null. The default value is null.
+        /// </returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var codeItem = item as BaseCodeItem;

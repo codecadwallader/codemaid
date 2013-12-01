@@ -1,13 +1,11 @@
 ﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -38,22 +36,22 @@ namespace SteveCadwallader.CodeMaid.UI
         #region Constructors
 
         /// <summary>
-        /// The singleton instance of the <see cref="ThemeManager"/> class.
+        /// The singleton instance of the <see cref="ThemeManager" /> class.
         /// </summary>
         private static ThemeManager _instance;
 
         /// <summary>
-        /// Gets an instance of the <see cref="ThemeManager"/> class.
+        /// Gets an instance of the <see cref="ThemeManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="ThemeManager"/> class.</returns>
+        /// <returns>An instance of the <see cref="ThemeManager" /> class.</returns>
         internal static ThemeManager GetInstance(CodeMaidPackage package)
         {
             return _instance ?? (_instance = new ThemeManager(package));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ThemeManager"/> class.
+        /// Initializes a new instance of the <see cref="ThemeManager" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
         private ThemeManager(CodeMaidPackage package)
@@ -84,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Gets the dictionary of Uris corresponding to <see cref="ThemeMode"/> values.
+        /// Gets the dictionary of Uris corresponding to <see cref="ThemeMode" /> values.
         /// </summary>
         private static Dictionary<ThemeMode, Uri> ThemeUris
         {
@@ -157,7 +155,7 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// A simple converter for turning a <see cref="uint"/> into a <see cref="Color"/>.
+        /// A simple converter for turning a <see cref="uint" /> into a <see cref="Color" />.
         /// </summary>
         /// <param name="number">The number to convert.</param>
         /// <returns>The color.</returns>

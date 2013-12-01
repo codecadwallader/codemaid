@@ -21,8 +21,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         #region Methods: Handling embedded resources
 
         /// <summary>
-        /// Gets the embedded file identified by the resource name, and converts the
-        /// file into a string.
+        /// Gets the embedded file identified by the resource name, and converts the file into a string.
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="resourceName">In VS, is DefaultNamespace.FileName?</param>
@@ -70,7 +69,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <summary>
         /// Writes an embedded resource to a file.
         /// </summary>
-        /// <param name="assembly">The name of the assembly that the embedded resource is defined.</param>
+        /// <param name="assembly">
+        /// The name of the assembly that the embedded resource is defined.
+        /// </param>
         /// <param name="embeddedResourceName">The name of the embedded resource.</param>
         /// <param name="fileName">The file to write the embedded resource's content.</param>
         public static void WriteEmbeddedResourceToBinaryFile(Assembly assembly, string embeddedResourceName, string fileName)
@@ -117,16 +118,15 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         #region Methods: Handling temporary files and directories
 
         /// <summary>
-        /// Returns the first available file name on the form
-        ///   [baseFileName]i.[extension]
-        /// where [i] starts at 1 and increases until there is an available file name
-        /// in the given directory. Also creates an empty file with that name to mark
-        /// that file as occupied.
+        /// Returns the first available file name on the form [baseFileName]i.[extension] where [i]
+        /// starts at 1 and increases until there is an available file name in the given directory.
+        /// Also creates an empty file with that name to mark that file as occupied.
         /// </summary>
         /// <param name="directory">Directory that the file should live in.</param>
         /// <param name="baseFileName"></param>
-        /// <param name="extension">may be null, in which case the .[extension] part
-        /// is not added.</param>
+        /// <param name="extension">
+        /// may be null, in which case the .[extension] part is not added.
+        /// </param>
         /// <returns>Full file name.</returns>
         public static string GetNewFileName(string directory, string baseFileName, string extension)
         {
@@ -142,10 +142,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         }
 
         /// <summary>
-        /// Returns the first available directory name on the form
-        ///   [baseDirectoryName]i
-        /// where [i] starts at 1 and increases until there is an available directory name
-        /// in the given directory. Also creates the directory to mark it as occupied.
+        /// Returns the first available directory name on the form [baseDirectoryName]i where [i]
+        /// starts at 1 and increases until there is an available directory name in the given
+        /// directory. Also creates the directory to mark it as occupied.
         /// </summary>
         /// <param name="directory">Directory that the file should live in.</param>
         /// <param name="baseDirectoryName"></param>
@@ -299,7 +298,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <summary>
         /// Save an open document.
         /// </summary>
-        /// <param name="documentMoniker">for filebased documents this is the full path to the document</param>
+        /// <param name="documentMoniker">
+        /// for filebased documents this is the full path to the document
+        /// </param>
         public static void SaveDocument(string documentMoniker)
         {
             // Get document cookie and hierarchy for the file

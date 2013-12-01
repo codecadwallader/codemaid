@@ -1,13 +1,11 @@
 #region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-// CodeMaid is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License version 3
-// as published by the Free Software Foundation.
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
 //
-// CodeMaid is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
@@ -36,7 +34,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Constructors
 
         /// <summary>
-        /// Abstract initialization code for <see cref="BaseCodeItemElement"/>.
+        /// Abstract initialization code for <see cref="BaseCodeItemElement" />.
         /// </summary>
         protected BaseCodeItemElement()
         {
@@ -143,7 +141,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         }
 
         /// <summary>
-        /// Tries to execute the specified function on a background thread, returning the default of the type on error or timeout.
+        /// Tries to execute the specified function on a background thread, returning the default of
+        /// the type on error or timeout.
         /// </summary>
         /// <typeparam name="T">The result type.</typeparam>
         /// <param name="func">The function to execute.</param>
