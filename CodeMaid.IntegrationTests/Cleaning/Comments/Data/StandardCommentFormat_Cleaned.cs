@@ -18,14 +18,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
             string s = "This is a string that includes the comment prefix // but it should not trigger any re-formatting.";
         }
 
-        //public void CommentedOutMethod()
-        //{
-        //    string[] array = new string[0];
-        //
-        //    foreach (var item in array)
-        //    {
-        //        Console.WriteLine("Test");
-        //    }
-        //}
+        ////public void CommentedOutMethod()
+        ////{
+        ////    string[] array = new string[0];
+
+        ////    foreach (var item in array)
+        ////    {
+        ////        Console.WriteLine("Test");
+        ////    }
+        ////}
     }
 }
