@@ -11,7 +11,7 @@
         d:DataContext="{d:DesignInstance local:YesNoPromptViewModel, IsDesignTimeCreatable=False}"
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="{Binding Title}"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
-        Height="180" Width="400" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
+        Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}"
         FocusManager.FocusedElement="{Binding ElementName=noButton}">
     <platformUI:DialogWindow.Resources>

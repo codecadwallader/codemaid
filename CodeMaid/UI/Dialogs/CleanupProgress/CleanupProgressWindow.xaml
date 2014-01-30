@@ -10,7 +10,7 @@
         d:DataContext="{d:DesignInstance local:CleanupProgressViewModel, IsDesignTimeCreatable=False}"
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid: Cleanup Progress"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
-        Height="180" Width="400" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
+        Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}" Closing="OnClosing"
         FocusManager.FocusedElement="{Binding ElementName=cancelButton}">
     <platformUI:DialogWindow.Resources>
