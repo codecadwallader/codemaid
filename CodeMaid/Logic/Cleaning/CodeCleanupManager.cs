@@ -198,6 +198,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupC;
 
                 case "HTML":
+                case "HTMLX":
                 case "XAML":
                 case "XML":
                     return RunCodeCleanupMarkup;

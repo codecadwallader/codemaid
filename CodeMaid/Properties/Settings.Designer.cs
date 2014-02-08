@@ -1451,5 +1451,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_CommentSkipWrapOnLastWord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeCSHTML {
+            get {
+                return ((bool)(this["Cleaning_IncludeCSHTML"]));
+            }
+            set {
+                this["Cleaning_IncludeCSHTML"] = value;
+            }
+        }
     }
 }
