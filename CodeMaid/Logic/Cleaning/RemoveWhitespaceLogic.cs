@@ -154,6 +154,24 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Removes blank lines between chained statements.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void RemoveBlankLinesBetweenChainedStatements(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements) return;
+
+            string pattern = _package.UsePOSIXRegEx
+                                 ? @"\n\n{:b*}(else|catch|finally)(:b|\n)"
+                                 : @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
+            string replacement = _package.UsePOSIXRegEx
+                                     ? Environment.NewLine + @"\1\2\3"
+                                     : Environment.NewLine + @"$2$3$4";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
         /// Removes blank spaces before a closing angle bracket.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>

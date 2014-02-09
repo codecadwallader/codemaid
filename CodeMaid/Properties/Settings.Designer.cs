@@ -1451,5 +1451,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_CommentSkipWrapOnLastWord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBetweenChainedStatements {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBetweenChainedStatements"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBetweenChainedStatements"] = value;
+            }
+        }
     }
 }

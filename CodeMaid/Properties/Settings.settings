@@ -359,5 +359,8 @@
     <Setting Name="Cleaning_CommentSkipWrapOnLastWord" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_RemoveBlankLinesBetweenChainedStatements" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

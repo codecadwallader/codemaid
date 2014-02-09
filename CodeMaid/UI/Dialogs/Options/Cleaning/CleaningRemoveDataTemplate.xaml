@@ -10,6 +10,7 @@
                 <ToggleButton Content="after opening braces" IsChecked="{Binding RemoveBlankLinesAfterOpeningBraces}" />
                 <ToggleButton Content="before closing braces" IsChecked="{Binding RemoveBlankLinesBeforeClosingBraces}" />
                 <ToggleButton Content="before closing tags" IsChecked="{Binding RemoveBlankLinesBeforeClosingTags}" />
+                <ToggleButton Content="between chained statements" IsChecked="{Binding RemoveBlankLinesBetweenChainedStatements}" />
                 <ToggleButton Content="at bottom of file" IsChecked="{Binding RemoveBlankLinesAtBottom}" />
             </WrapPanel>
 

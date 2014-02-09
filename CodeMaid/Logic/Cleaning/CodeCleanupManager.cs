@@ -262,6 +262,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveBlankLinesAfterAttributes(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBetweenChainedStatements(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.

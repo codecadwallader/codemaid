@@ -52,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
             RemoveBlankLinesBeforeClosingBraces = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
             RemoveBlankLinesBeforeClosingTags = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags;
+            RemoveBlankLinesBetweenChainedStatements = Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements;
             RemoveBlankSpacesBeforeClosingAngleBrackets = Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets;
             RemoveEndOfFileTrailingNewLine = Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine;
             RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
@@ -69,6 +70,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
             Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBraces;
             Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags = RemoveBlankLinesBeforeClosingTags;
+            Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements = RemoveBlankLinesBetweenChainedStatements;
             Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = RemoveBlankSpacesBeforeClosingAngleBrackets;
             Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = RemoveEndOfFileTrailingNewLine;
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
@@ -183,6 +185,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _removeBlankLinesBeforeClosingTags = value;
                     NotifyPropertyChanged("RemoveBlankLinesBeforeClosingTags");
+                }
+            }
+        }
+
+        private bool _removeBlankLinesBetweenChainedStatements;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank lines should be removed between chained statements.
+        /// </summary>
+        public bool RemoveBlankLinesBetweenChainedStatements
+        {
+            get { return _removeBlankLinesBetweenChainedStatements; }
+            set
+            {
+                if (_removeBlankLinesBetweenChainedStatements != value)
+                {
+                    _removeBlankLinesBetweenChainedStatements = value;
+                    NotifyPropertyChanged("RemoveBlankLinesBetweenChainedStatements");
                 }
             }
         }
