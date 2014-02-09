@@ -60,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidContextCSSDocumentGroup = new Guid("8b375766-4cfd-4a2d-9e15-a535304efe2b");
         public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
         public static readonly Guid GuidCodeMaidContextHTMLWindowGroup = new Guid("248aaae5-8d3e-4914-9cd9-89c95941965a");
+        public static readonly Guid GuidCodeMaidContextHTMLDocumentGroup = new Guid("5d667016-1652-4c9e-b57e-66c94ba59f19");
         public static readonly Guid GuidCodeMaidContextScriptWindowGroup = new Guid("b6343c4a-01bd-4a5e-b1fb-9a8a6203c74c");
         public static readonly Guid GuidCodeMaidContextXAMLWindowGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
 

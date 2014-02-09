@@ -130,6 +130,9 @@
       <Group guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" priority="0x0100">
         <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioHTMLWindowContextMenu" />
       </Group>
+      <Group guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLDocumentContextMenu" id="IDVisualStudioHTMLDocumentContextMenu" />
+      </Group>
       <Group guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" priority="0x0100">
         <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioScriptWindowContextMenu" />
       </Group>
@@ -430,6 +433,9 @@
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
@@ -529,6 +535,9 @@
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
@@ -555,6 +564,9 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
       <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
@@ -635,6 +647,9 @@
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
       <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
@@ -693,6 +708,9 @@
       <IDSymbol name="IDVisualStudioASPXCodeWindowContextMenu" value="0x36" />
       <IDSymbol name="IDVisualStudioHTMLWindowContextMenu" value="0x33" />
       <IDSymbol name="IDVisualStudioScriptWindowContextMenu" value="0x34" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioHTMLDocumentContextMenu" value="{78f03954-2fb8-4087-8ce7-59d71710b3bb}">
+      <IDSymbol name="IDVisualStudioHTMLDocumentContextMenu" value="0x1" />
     </GuidSymbol>
     <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
       <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x103" />
@@ -809,11 +827,14 @@
     <GuidSymbol name="GuidCodeMaidContextHTMLWindowGroup" value="{248aaae5-8d3e-4914-9cd9-89c95941965a}">
       <IDSymbol name="GroupIDCodeMaidContextHTMLWindowGroup" value="0x105b" />
     </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLDocumentGroup" value="{5d667016-1652-4c9e-b57e-66c94ba59f19}">
+      <IDSymbol name="GroupIDCodeMaidContextHTMLDocumentGroup" value="0x105c" />
+    </GuidSymbol>
     <GuidSymbol name="GuidCodeMaidContextScriptWindowGroup" value="{b6343c4a-01bd-4a5e-b1fb-9a8a6203c74c}">
-      <IDSymbol name="GroupIDCodeMaidContextScriptWindowGroup" value="0x105c" />
+      <IDSymbol name="GroupIDCodeMaidContextScriptWindowGroup" value="0x105d" />
     </GuidSymbol>
     <GuidSymbol name="GuidCodeMaidContextXAMLWindowGroup" value="{b362d22f-6a03-4247-aaf9-bfc02f81d41b}">
-      <IDSymbol name="GroupIDCodeMaidContextXAMLWindowGroup" value="0x105d" />
+      <IDSymbol name="GroupIDCodeMaidContextXAMLWindowGroup" value="0x105e" />
     </GuidSymbol>
 
     <!-- These are the symbols for the individual commands -->
