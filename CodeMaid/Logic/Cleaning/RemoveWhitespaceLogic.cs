@@ -162,7 +162,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements) return;
 
             string pattern = _package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}(else|catch|finally)(:b|\n)"
+                                 ? @"\n\n{:b*}{else|catch|finally}{:b|\n}"
                                  : @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
             string replacement = _package.UsePOSIXRegEx
                                      ? Environment.NewLine + @"\1\2\3"
