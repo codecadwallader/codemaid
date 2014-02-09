@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
         [HostType("VS IDE")]
         public void CleaningFileTypesCSHTML_EnablesForDocument()
         {
-            Settings.Default.Cleaning_IncludeCSHTML = true;
+            Settings.Default.Cleaning_IncludeHTML = true;
 
             UIThreadInvoker.Invoke(new Action(() =>
             {
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
         [HostType("VS IDE")]
         public void CleaningFileTypesCSHTML_EnablesForProjectItem()
         {
-            Settings.Default.Cleaning_IncludeCSHTML = true;
+            Settings.Default.Cleaning_IncludeHTML = true;
 
             UIThreadInvoker.Invoke(new Action(() =>
             {
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
         [HostType("VS IDE")]
         public void CleaningFileTypesCSHTML_DisablesForDocumentWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_IncludeCSHTML = false;
+            Settings.Default.Cleaning_IncludeHTML = false;
 
             UIThreadInvoker.Invoke(new Action(() =>
             {
@@ -103,7 +103,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
         [HostType("VS IDE")]
         public void CleaningFileTypesCSHTML_DisablesForProjectItemWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_IncludeCSHTML = false;
+            Settings.Default.Cleaning_IncludeHTML = false;
 
             UIThreadInvoker.Invoke(new Action(() =>
             {

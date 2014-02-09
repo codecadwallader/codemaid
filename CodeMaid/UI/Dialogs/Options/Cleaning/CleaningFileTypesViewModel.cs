@@ -50,7 +50,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             ExclusionExpression = Settings.Default.Cleaning_ExclusionExpression;
             IncludeCPlusPlus = Settings.Default.Cleaning_IncludeCPlusPlus;
             IncludeCSharp = Settings.Default.Cleaning_IncludeCSharp;
-            IncludeCSHTML = Settings.Default.Cleaning_IncludeCSHTML;
             IncludeCSS = Settings.Default.Cleaning_IncludeCSS;
             IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
@@ -71,7 +70,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_ExclusionExpression = ExclusionExpression;
             Settings.Default.Cleaning_IncludeCPlusPlus = IncludeCPlusPlus;
             Settings.Default.Cleaning_IncludeCSharp = IncludeCSharp;
-            Settings.Default.Cleaning_IncludeCSHTML = IncludeCSHTML;
             Settings.Default.Cleaning_IncludeCSS = IncludeCSS;
             Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
@@ -155,24 +153,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeCSharp = value;
                     NotifyPropertyChanged("IncludeCSharp");
-                }
-            }
-        }
-
-        private bool _includeCSHTML;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if CSHTML files should be included.
-        /// </summary>
-        public bool IncludeCSHTML
-        {
-            get { return _includeCSHTML; }
-            set
-            {
-                if (_includeCSHTML != value)
-                {
-                    _includeCSHTML = value;
-                    NotifyPropertyChanged("IncludeCSHTML");
                 }
             }
         }
