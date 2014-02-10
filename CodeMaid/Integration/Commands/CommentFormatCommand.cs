@@ -24,8 +24,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     {
         #region Fields
 
-        private readonly UndoTransactionHelper _undoTransactionHelper;
         private readonly CommentFormatLogic _commentFormatLogic;
+        private readonly UndoTransactionHelper _undoTransactionHelper;
 
         #endregion Fields
 
@@ -86,79 +86,35 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     if (selection.IsEmpty)
                     {
                         start = selection.ActivePoint.CreateEditPoint();
-                        end = selection.ActivePoint.CreateEditPoint();
+                        end = start.CreateEditPoint();
+                        end.EndOfLine();
                     }
                     else
                     {
                         start = selection.TopPoint.CreateEditPoint();
+                        start.StartOfLine();
                         end = selection.BottomPoint.CreateEditPoint();
+                        end.EndOfLine();
                     }
 
-                    if (ExpandToFullComment(ref start, ref end, prefix))
-                    {
-                        _undoTransactionHelper.Run(() => _commentFormatLogic.FormatComments(activeTextDocument, start, end));
+                    bool foundComments = false;
+                    _undoTransactionHelper.Run(() => foundComments = _commentFormatLogic.FormatComments(activeTextDocument, start, end));
 
+                    if (foundComments)
+                    {
                         Package.IDE.StatusBar.Text = "CodeMaid finished formatting the comment.";
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = String.Format(
+                            foundComments ?
+                            "CodeMaid finished formatting the comments {0}." :
                             "CodeMaid did not find a non-code comment {0} to reformat.",
                             selection.IsEmpty ? "under the cursor" : "in the selection"
                         );
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Expand a selection to the complete comment.
-        /// </summary>
-        /// <param name="start">Reference to the startpoint of the selection.</param>
-        /// <param name="end">Reference to the endpoint of the selection.</param>
-        /// <param name="prefix">The comment prefix.</param>
-        /// <returns>
-        /// <c>true</c> if a valid comment was found within the selection, otherwise <c>false</c>.
-        /// </returns>
-        private bool ExpandToFullComment(ref EditPoint start, ref EditPoint end, string prefix)
-        {
-            bool found = false;
-
-            EditPoint from = start.CreateEditPoint();
-            EditPoint to = null;
-
-            from.EndOfLine();
-
-            string prefix2 = prefix + @"( |\t|\r|\n|$)";
-
-            while (from.FindPattern(prefix2, (int)(vsFindOptions.vsFindOptionsRegularExpression | vsFindOptions.vsFindOptionsBackwards), ref to) && to.Line + 1 >= start.Line)
-            {
-                start = from.CreateEditPoint();
-                found = true;
-            }
-
-            from = end.CreateEditPoint();
-            from.StartOfLine();
-
-            while (from.FindPattern(prefix2, (int)(vsFindOptions.vsFindOptionsRegularExpression), ref to) && from.Line - 1 <= end.Line)
-            {
-                end = to.CreateEditPoint();
-                from = to;
-                found = true;
-            }
-
-            if (found)
-            {
-                if (CodeCommentHelper.IsCommentedOutCodeBefore(start, prefix) || CodeCommentHelper.IsCommentedOutCodeAfter(end, prefix))
-                {
-                    return false;
-                }
-
-                start.StartOfLine();
-                end.EndOfLine();
-            }
-
-            return found;
         }
 
         #endregion BaseCommand Methods

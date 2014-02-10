@@ -24,8 +24,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     {
         #region Fields
 
-        private readonly CodeMaidPackage _package;
-
         private readonly CachedSettingSet<string> _majorTags =
             new CachedSettingSet<string>(() => Settings.Default.Cleaning_CommentMajorTags,
                                          expression =>
@@ -41,6 +39,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                                                    .Select(x => x.Trim().ToLower())
                                                    .Where(y => !string.IsNullOrEmpty(y))
                                                    .ToList());
+
+        private readonly CodeMaidPackage _package;
 
         #endregion Fields
 
@@ -82,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_CommentRunDuringCleanup) return;
 
-            FormatComments(textDocument, textDocument.StartPoint, textDocument.EndPoint);
+            FormatComments(textDocument, textDocument.StartPoint.CreateEditPoint(), textDocument.EndPoint.CreateEditPoint());
         }
 
         /// <summary>
@@ -90,38 +90,39 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// within the range, even if they overlap the end are included.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
-        /// <param name="startPoint">The start point.</param>
-        /// <param name="endPoint">The end point.</param>
-        public void FormatComments(TextDocument textDocument, TextPoint startPoint, TextPoint endPoint)
+        /// <param name="start">The start point.</param>
+        /// <param name="end">The end point.</param>
+        public bool FormatComments(TextDocument document, EditPoint start, EditPoint end)
         {
-            // Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio
-            // 11 versions) since not supported.
-            if (_package.UsePOSIXRegEx) return;
-
             int maxWidth = Math.Max(Settings.Default.Cleaning_CommentWrapColumn, 20);
 
-            var indentSettings = CodeCommentHelper.GetIndentSettings(_package, textDocument.Language);
-            var commentPrefix = CodeCommentHelper.GetCommentPrefixForDocument(textDocument);
-            var commentPattern = CodeCommentHelper.CreateCommentPatternFromPrefix(commentPrefix);
+            bool foundComments = false;
 
-            if (commentPattern == null) return;
-
-            var cursor = startPoint.CreateEditPoint();
-            EditPoint end = null;
-            TextRanges tags = null;
-
-            while (cursor != null && cursor.FindPattern(commentPattern, TextDocumentHelper.StandardFindOptions, ref end, ref tags) && cursor.LessThan(endPoint))
+            while (start.Line <= end.Line)
             {
-                if (CodeCommentHelper.IsCommentedOutCodeBefore(cursor, commentPrefix) || CodeCommentHelper.IsCommentedOutCodeAfter(end, commentPrefix))
+                if (CodeCommentHelper.IsCommentLine(start))
                 {
-                    cursor = end;
+                    var comment = new CodeComment(start, this._package);
+                    if (comment.IsValid)
+                    {
+                        comment.Format(maxWidth);
+                        foundComments = true;
+                    }
+
+                    start = comment.EndPoint.CreateEditPoint();
+                    start.LineDown();
+                    start.StartOfLine();
                 }
                 else
                 {
-                    var comment = new CodeComment(commentPattern, ref cursor, ref end, _majorTags, _minorTags, indentSettings);
-                    cursor = comment.Output(maxWidth);
+                    if (start.Line == document.EndPoint.Line)
+                        break;
+
+                    start.LineDown();
                 }
             }
+
+            return foundComments;
         }
 
         #endregion Methods
