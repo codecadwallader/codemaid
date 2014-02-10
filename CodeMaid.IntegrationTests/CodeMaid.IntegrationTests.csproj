@@ -54,7 +54,7 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.VSSDK.TestHostFramework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"/>
+    <Reference Include="Microsoft.VSSDK.TestHostFramework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -128,7 +128,15 @@
     <Content Include="Cleaning\Comments\Data\XMLCommentFormat_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Comments\Data\StylecopHeaderFormat.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Comments\Data\StylecopHeaderFormat_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Comments\StandardCommentFormatTests.cs" />
+    <Compile Include="Cleaning\Comments\CommentFormatTestsHelper.cs" />
+    <Compile Include="Cleaning\Comments\StylecopHeaderFormatTests.cs" />
     <Compile Include="Cleaning\Comments\XMLCommentFormatTests.cs" />
     <Compile Include="Cleaning\FileTypes\CPlusPlusTests.cs" />
     <Compile Include="Cleaning\FileTypes\FSharpTests.cs" />
