@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using System;
 using System.Collections.Generic;
@@ -198,6 +198,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupC;
 
                 case "HTML":
+                case "HTMLX":
                 case "XAML":
                 case "XML":
                     return RunCodeCleanupMarkup;
@@ -261,6 +262,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveBlankLinesAfterAttributes(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBetweenChainedStatements(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.

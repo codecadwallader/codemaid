@@ -1394,7 +1394,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool General_Multithread {
             get {
                 return ((bool)(this["General_Multithread"]));
@@ -1425,6 +1425,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_CommentSkipWrapOnLastWord"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBetweenChainedStatements {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBetweenChainedStatements"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBetweenChainedStatements"] = value;
             }
         }
         

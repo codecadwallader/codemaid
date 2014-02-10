@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options"
-        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.12.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
@@ -12,7 +12,7 @@
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
         Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
-        ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>

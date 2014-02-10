@@ -1,7 +1,7 @@
 <platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.About.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.12.0"
         Width="878" Height="264"
         MouseLeftButtonDown="OnMouseLeftButtonDown" HasDialogFrame="False" ResizeMode="NoResize" ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen" WindowStyle="None">

@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using System;
 
@@ -57,8 +57,10 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidContextASPXCodeWindowGroup = new Guid("9c3012ad-61b1-4272-9ea2-5c07e33a9e2f");
         public static readonly Guid GuidCodeMaidContextCodeWindowGroup = new Guid("29039753-26f9-4548-b81c-d7baa5ebc661");
         public static readonly Guid GuidCodeMaidContextCSSWindowGroup = new Guid("5c88b2b2-24c7-4ff5-b16c-19f01e46a229");
+        public static readonly Guid GuidCodeMaidContextCSSDocumentGroup = new Guid("8b375766-4cfd-4a2d-9e15-a535304efe2b");
         public static readonly Guid GuidCodeMaidContextDocumentTabGroup = new Guid("9cba7ef0-ce80-42bb-9f25-c69a9710d328");
         public static readonly Guid GuidCodeMaidContextHTMLWindowGroup = new Guid("248aaae5-8d3e-4914-9cd9-89c95941965a");
+        public static readonly Guid GuidCodeMaidContextHTMLDocumentGroup = new Guid("5d667016-1652-4c9e-b57e-66c94ba59f19");
         public static readonly Guid GuidCodeMaidContextScriptWindowGroup = new Guid("b6343c4a-01bd-4a5e-b1fb-9a8a6203c74c");
         public static readonly Guid GuidCodeMaidContextXAMLWindowGroup = new Guid("b362d22f-6a03-4247-aaf9-bfc02f81d41b");
 

@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using System;
 using EnvDTE;
@@ -149,6 +149,24 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             string replacement = _package.UsePOSIXRegEx
                                      ? Environment.NewLine + @"\1</"
                                      : Environment.NewLine + @"$2</";
+
+            TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
+        /// Removes blank lines between chained statements.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void RemoveBlankLinesBetweenChainedStatements(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements) return;
+
+            string pattern = _package.UsePOSIXRegEx
+                                 ? @"\n\n{:b*}{else|catch|finally}{:b|\n}"
+                                 : @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
+            string replacement = _package.UsePOSIXRegEx
+                                     ? Environment.NewLine + @"\1\2\3"
+                                     : Environment.NewLine + @"$2$3$4";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }

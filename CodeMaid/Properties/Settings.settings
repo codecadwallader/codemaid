@@ -345,12 +345,15 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="General_Multithread" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Cleaning_IncludeLESS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_CommentSkipWrapOnLastWord" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Cleaning_RemoveBlankLinesBetweenChainedStatements" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_CommentXmlValueIndent" Type="System.Int32" Scope="User">
