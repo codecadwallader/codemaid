@@ -21,6 +21,8 @@
 
             <GroupBox Header="XML Comments">
                 <StackPanel>
+                    <CheckBox Content="Indent values inside XML comments" IsChecked="{Binding CommentIndentXmlValues}" />
+
                     <TextBlock Text="Major Tags (new line before and after)" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding CommentMajorTags, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />

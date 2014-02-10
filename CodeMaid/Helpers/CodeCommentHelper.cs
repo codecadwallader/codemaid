@@ -106,7 +106,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Gets the regex for matching a complete comment line..
+        /// Gets the regex for matching a complete comment line.
         /// </summary>
         internal static Regex GetCommentRegexForDocument(TextDocument document, bool includePrefix = true)
         {

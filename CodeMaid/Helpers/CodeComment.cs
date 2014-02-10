@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -226,6 +227,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private class CommentFormatter : IEquatable<string>
         {
             private const string spacer = " ";
+            private const string extraSpacer = spacer + spacer;
+
             private readonly StringBuilder builder;
             private readonly string commentPrefix;
             private int currentPosition;
@@ -241,7 +244,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 this.currentPosition = 0;
             }
 
-            public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases)
+            public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases, bool extraIndent = false)
             {
                 foreach (var phrase in phrases)
                 {
@@ -273,7 +276,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                         if (!singleLine)
                         {
-                            AppendPhrases(xmlPhrase.Phrases);
+                            AppendPhrases(xmlPhrase.Phrases, Settings.Default.Cleaning_CommentIndentXmlValue);
                             AppendLine();
                             AppendWord(spacer);
                         }
@@ -282,7 +285,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     }
                     else
                     {
-                        AppendPhrase(phrase as CodeCommentPhrase);
+                        AppendPhrase(phrase as CodeCommentPhrase, true, extraIndent);
                     }
                 }
             }
@@ -307,25 +310,50 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 AppendWord(commentPrefix);
             }
 
-            private void AppendPhrase(CodeCommentPhrase phrase, bool initialSpacer = true)
+            private void AppendPhrase(CodeCommentPhrase phrase, bool initialSpacer = true, bool extraIndent = false)
             {
                 if (phrase != null)
                 {
+                    if (extraIndent)
+                        AppendWord(extraSpacer);
+
                     if (phrase.IsList)
                     {
                         AppendWord(spacer);
                         AppendWord(phrase.ListPrefix);
                     }
 
-                    foreach (var word in phrase.Words)
+                    var word = phrase.Words.First;
+
+                    var firstWord = true;
+                    while (word != null)
                     {
-                        var length = WordLength(word);
-                        if (currentPosition + length + 1 > wrapAtColumn && WordLength(commentPrefix) + length + 1 < wrapAtColumn)
+                        var wordLength = WordLength(word.Value);
+
+                        var wrap = false;
+
+                        // If current position plus word length exceeds the maximum comment length,
+                        // wrap to the next line. Take care not to wrap on the first word, otherwise
+                        // a word that never fits a line (ie. too long) would cause endless linewrapping.
+                        if (!firstWord && currentPosition + wordLength + 1 > wrapAtColumn)
+                            wrap = true;
+
+                        // If this is the last word and user selected to not wrap on the last word,
+                        // don't wrap.
+                        if (wrap && word.Next == null && Settings.Default.Cleaning_CommentSkipWrapOnLastWord)
+                            wrap = false;
+
+                        if (wrap)
                         {
                             AppendLine();
 
+                            if (extraIndent)
+                                AppendWord(extraSpacer);
+
                             if (phrase.IsList)
                                 AppendWord(string.Empty.PadLeft(WordLength(phrase.ListPrefix) + 1, ' '));
+
+                            firstWord = true;
                         }
 
                         if (initialSpacer)
@@ -333,7 +361,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         else
                             initialSpacer = true;
 
-                        AppendWord(word);
+                        AppendWord(word.Value);
+
+                        firstWord = false;
+                        word = word.Next;
                     }
                 }
             }

@@ -51,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             CommentRunDuringCleanup = Settings.Default.Cleaning_CommentRunDuringCleanup;
             CommentSkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
             CommentWrapColumn = Settings.Default.Cleaning_CommentWrapColumn;
+            CommentIndentXmlValues = Settings.Default.Cleaning_CommentIndentXmlValue;
         }
 
         /// <summary>
@@ -63,6 +64,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_CommentRunDuringCleanup = CommentRunDuringCleanup;
             Settings.Default.Cleaning_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
             Settings.Default.Cleaning_CommentWrapColumn = CommentWrapColumn;
+            Settings.Default.Cleaning_CommentIndentXmlValue = CommentIndentXmlValues;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -155,6 +157,25 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _commentWrapColumn = value;
                     NotifyPropertyChanged("CommentWrapColumn");
+                }
+            }
+        }
+
+
+        private bool _commentIndentXmlValues;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if comment formatting should indent XML values.
+        /// </summary>
+        public bool CommentIndentXmlValues
+        {
+            get { return _commentIndentXmlValues; }
+            set
+            {
+                if (_commentIndentXmlValues != value)
+                {
+                    _commentIndentXmlValues = value;
+                    NotifyPropertyChanged("CommentIndentXmlValues");
                 }
             }
         }
