@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (activeTextDocument != null && !Package.UsePOSIXRegEx)
             {
                 // Enable formatting if there is a comment pattern defined for this document.
-                enable = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument) != null;
+                enable = CodeCommentHelper.GetCommentPrefix(activeTextDocument) != null;
             }
 
             Enabled = enable;
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (activeTextDocument != null && activeTextDocument.Selection != null)
             {
-                var prefix = CodeCommentHelper.GetCommentPrefixForDocument(activeTextDocument);
+                var prefix = CodeCommentHelper.GetCommentPrefix(activeTextDocument);
                 if (prefix != null)
                 {
                     var selection = activeTextDocument.Selection;

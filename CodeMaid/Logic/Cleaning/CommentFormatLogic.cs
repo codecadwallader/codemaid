@@ -9,8 +9,6 @@
 
 #endregion CodeMaid is Copyright 2007-2013 Steve Cadwallader.
 
-using System;
-using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
@@ -23,22 +21,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
     internal class CommentFormatLogic
     {
         #region Fields
-
-        private readonly CachedSettingSet<string> _majorTags =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_CommentMajorTags,
-                                         expression =>
-                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                   .Select(x => x.Trim().ToLower())
-                                                   .Where(y => !string.IsNullOrEmpty(y))
-                                                   .ToList());
-
-        private readonly CachedSettingSet<string> _minorTags =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_CommentMinorTags,
-                                         expression =>
-                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                   .Select(x => x.Trim().ToLower())
-                                                   .Where(y => !string.IsNullOrEmpty(y))
-                                                   .ToList());
 
         private readonly CodeMaidPackage _package;
 
@@ -94,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="end">The end point.</param>
         public bool FormatComments(TextDocument document, EditPoint start, EditPoint end)
         {
-            int maxWidth = Math.Max(Settings.Default.Cleaning_CommentWrapColumn, 20);
+            var options = new CodeCommentOptions(_package, document);
 
             bool foundComments = false;
 
@@ -105,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     var comment = new CodeComment(start, this._package);
                     if (comment.IsValid)
                     {
-                        comment.Format(maxWidth);
+                        comment.Format(options);
                         foundComments = true;
                     }
 

@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Raises the <see cref="PropertyChanged" /> event.
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
-        protected void NotifyPropertyChanged(string propertyName)
+        protected virtual void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {

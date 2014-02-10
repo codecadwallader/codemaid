@@ -1118,30 +1118,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("summary||remarks||example")]
-        public string Cleaning_CommentMajorTags {
-            get {
-                return ((string)(this["Cleaning_CommentMajorTags"]));
-            }
-            set {
-                this["Cleaning_CommentMajorTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("param||exception||returns||value||permissions")]
-        public string Cleaning_CommentMinorTags {
-            get {
-                return ((string)(this["Cleaning_CommentMinorTags"]));
-            }
-            set {
-                this["Cleaning_CommentMinorTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int Reorganizing_SortOrderTypeFields {
             get {
@@ -1454,13 +1430,37 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_CommentIndentXmlValue {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Cleaning_CommentXmlValueIndent {
             get {
-                return ((bool)(this["Cleaning_CommentIndentXmlValue"]));
+                return ((int)(this["Cleaning_CommentXmlValueIndent"]));
             }
             set {
-                this["Cleaning_CommentIndentXmlValue"] = value;
+                this["Cleaning_CommentXmlValueIndent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_CommentXmlSpaceTags {
+            get {
+                return ((bool)(this["Cleaning_CommentXmlSpaceTags"]));
+            }
+            set {
+                this["Cleaning_CommentXmlSpaceTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_CommentXmlAlignParamTags {
+            get {
+                return ((bool)(this["Cleaning_CommentXmlAlignParamTags"]));
+            }
+            set {
+                this["Cleaning_CommentXmlAlignParamTags"] = value;
             }
         }
     }

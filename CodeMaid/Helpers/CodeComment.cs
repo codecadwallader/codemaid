@@ -16,7 +16,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -45,8 +44,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             this.document = point.Parent;
             this.package = package;
 
-            this.commentLineRegex = CodeCommentHelper.GetCommentRegexForDocument(this.document, true);
-            this.codeLineRegex = CodeCommentHelper.GetCodeRegexForDocument(this.document);
+            this.commentLineRegex = CodeCommentHelper.GetCommentRegex(this.document.Language, true);
+            this.codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(this.document.Language);
 
             this.Expand(point);
         }
@@ -60,31 +59,30 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Formats the comment.
         /// </summary>
-        public TextPoint Format(int maxWidth)
+        public TextPoint Format(CodeCommentOptions options)
         {
             if (!IsValid)
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
-
-            LinkedList<ICodeCommentPhrase> phrases = null;
 
             var originalText = startPoint.GetText(endPoint);
             var matches = commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
             var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
 
+            LinkedList<ICodeCommentPhrase> phrases = null;
+
             // Concatenate the comment lines without comment prefixes and see if the resulting bit
             // can be parsed as XML.
             var commentText = string.Join("", matches.Select(m => m.Groups["line"].Value));
-            XElement commentXml = null;
             if (commentText.Contains('<'))
             {
                 try
                 {
-                    commentXml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
+                    var commentXml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
 
                     // We need a different regex for parsing the XML values, because it no longer
                     // contains the comment prefix value.
                     phrases = XmlToPhrases(
-                        CodeCommentHelper.GetCommentRegexForDocument(this.document, false),
+                        CodeCommentHelper.GetCommentRegex(this.document.Language, false),
                         commentXml);
                 }
                 catch (System.Xml.XmlException)
@@ -98,7 +96,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 phrases = MatchesToPhrases(matches);
             }
 
-            var formatter = new CommentFormatter(commentPrefix, maxWidth, CodeCommentHelper.GetTabSize(package, document));
+            var formatter = new CommentFormatter(commentPrefix, options);
+
             formatter.AppendPhrases(phrases);
 
             if (!formatter.Equals(originalText))
@@ -112,6 +111,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return EndPoint;
         }
 
+        /// <summary>
+        /// Expands a text point to the full comment.
+        /// </summary>
+        /// <param name="point">The original text point to expand from.</param>
         private void Expand(TextPoint point)
         {
             var i = point.CreateEditPoint();
@@ -166,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return result;
         }
 
-        private LinkedList<ICodeCommentPhrase> MatchesToPhrases(IList<Match> matches)
+        private static LinkedList<ICodeCommentPhrase> MatchesToPhrases(IList<Match> matches)
         {
             Match m;
             while ((m = matches.FirstOrDefault()) != null && string.IsNullOrWhiteSpace(m.Value))
@@ -200,7 +203,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return new LinkedList<ICodeCommentPhrase>(phrases);
         }
 
-        private LinkedList<ICodeCommentPhrase> XmlToPhrases(Regex regex, XElement xml)
+        /// <summary>
+        /// Helper function to generate the preview in the options menu.
+        /// </summary>
+        public static string FormatXml(string text, CodeCommentOptions options)
+        {
+            var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
+            var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
+            var phrases = XmlToPhrases(regex, xml);
+
+            var formatter = new CommentFormatter("///", options);
+            formatter.AppendPhrases(phrases);
+
+            return formatter.ToString();
+        }
+
+        private static LinkedList<ICodeCommentPhrase> XmlToPhrases(Regex regex, XElement xml)
         {
             var result = new LinkedList<ICodeCommentPhrase>();
             foreach (var element in xml.Elements())
@@ -221,31 +239,48 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 result.AddLast(phrase);
             }
+
             return result;
         }
 
         private class CommentFormatter : IEquatable<string>
         {
             private const string spacer = " ";
-            private const string extraSpacer = spacer + spacer;
 
             private readonly StringBuilder builder;
             private readonly string commentPrefix;
+            private readonly int commentPrefixLength;
             private int currentPosition;
-            private int tabSize;
-            private int wrapAtColumn;
+            private CodeCommentOptions options;
 
-            public CommentFormatter(string commentPrefix, int wrapAtColumn, int tabSize)
+            public CommentFormatter(string commentPrefix, CodeCommentOptions options)
             {
                 this.builder = new StringBuilder();
-                this.commentPrefix = commentPrefix;
-                this.wrapAtColumn = wrapAtColumn;
-                this.tabSize = tabSize;
                 this.currentPosition = 0;
+
+                this.options = options;
+
+                this.commentPrefix = commentPrefix;
+                this.commentPrefixLength = WordLength(commentPrefix);
             }
 
-            public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases, bool extraIndent = false)
+            public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases, int extraIndent = 0)
             {
+                // If XML parameter tags should be aligned, find the longest one and then pad
+                // all to an equal size.
+                if (options.XmlAlignParamTags)
+                {
+                    var paramPhrases = phrases.OfType<CodeCommentPhraseXml>().Where(p => p.OpenTag.StartsWith("<param "));
+                    if (paramPhrases.Any())
+                    {
+                        var longestParam = paramPhrases.Max(p => p.OpenTag.Length);
+                        foreach (var phrase in paramPhrases)
+                        {
+                            phrase.OpenTag = phrase.OpenTag.PadRight(longestParam);
+                        }
+                    }
+                }
+
                 foreach (var phrase in phrases)
                 {
                     AppendLine();
@@ -265,10 +300,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
                             var firstPhrase = xmlPhrase.Phrases.First.Value as CodeCommentPhrase;
                             if (firstPhrase != null)
                             {
-                                var length = xmlPhrase.OpenTag.Length + xmlPhrase.CloseTag.Length + firstPhrase.Length;
-                                if (length <= wrapAtColumn)
+                                var length = xmlPhrase.OpenTag.Length +
+                                    xmlPhrase.CloseTag.Length +
+                                    firstPhrase.Length +
+                                    (options.XmlSpaceTags ? 2 : 0) +
+                                    commentPrefixLength;
+
+                                if (options.SkipWrapOnLastWord)
                                 {
-                                    AppendPhrase(firstPhrase, false);
+                                    var lastWord = firstPhrase.Words.Last;
+                                    length -= lastWord != null ? WordLength(lastWord.Value) + 1 : 0;
+                                }
+
+                                if (length <= options.WrapAtColumn)
+                                {
+                                    // Single XML line has no extra indenting.
+                                    AppendPhrase(firstPhrase, options.XmlSpaceTags, 0);
                                     singleLine = true;
                                 }
                             }
@@ -276,8 +323,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                         if (!singleLine)
                         {
-                            AppendPhrases(xmlPhrase.Phrases, Settings.Default.Cleaning_CommentIndentXmlValue);
+                            AppendPhrases(xmlPhrase.Phrases, options.XmlValueIndent);
                             AppendLine();
+                            AppendWord(spacer);
+                        }
+                        else if (options.XmlSpaceTags)
+                        {
                             AppendWord(spacer);
                         }
 
@@ -307,15 +358,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     builder.AppendLine();
                     currentPosition = 0;
                 }
-                AppendWord(commentPrefix);
+
+                builder.Append(commentPrefix);
+                currentPosition += commentPrefixLength;
             }
 
-            private void AppendPhrase(CodeCommentPhrase phrase, bool initialSpacer = true, bool extraIndent = false)
+            private void AppendPhrase(CodeCommentPhrase phrase, bool initialSpacer, int extraIndent)
             {
                 if (phrase != null)
                 {
-                    if (extraIndent)
-                        AppendWord(extraSpacer);
+                    AppendWord(string.Empty.PadLeft(extraIndent));
 
                     if (phrase.IsList)
                     {
@@ -335,23 +387,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
                         // If current position plus word length exceeds the maximum comment length,
                         // wrap to the next line. Take care not to wrap on the first word, otherwise
                         // a word that never fits a line (ie. too long) would cause endless linewrapping.
-                        if (!firstWord && currentPosition + wordLength + 1 > wrapAtColumn)
+                        if (!firstWord && currentPosition + wordLength + 1 > options.WrapAtColumn)
                             wrap = true;
 
                         // If this is the last word and user selected to not wrap on the last word,
                         // don't wrap.
-                        if (wrap && word.Next == null && Settings.Default.Cleaning_CommentSkipWrapOnLastWord)
+                        if (wrap && word.Next == null && options.SkipWrapOnLastWord)
                             wrap = false;
 
                         if (wrap)
                         {
                             AppendLine();
 
-                            if (extraIndent)
-                                AppendWord(extraSpacer);
+                            AppendWord(string.Empty.PadLeft(extraIndent));
 
                             if (phrase.IsList)
-                                AppendWord(string.Empty.PadLeft(WordLength(phrase.ListPrefix) + 1, ' '));
+                                AppendWord(string.Empty.PadLeft(WordLength(phrase.ListPrefix) + 1, spacer[0]));
 
                             firstWord = true;
                         }
@@ -377,7 +428,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             private int WordLength(string word)
             {
-                return word.Length + word.Count(c => c == '\t') * (this.tabSize - 1);
+                return word.Length + word.Count(c => c == '\t') * (options.TabSize - 1);
             }
         }
     }

@@ -275,12 +275,6 @@
     <Setting Name="Cleaning_CommentWrapColumn" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentMajorTags" Type="System.String" Scope="User">
-      <Value Profile="(Default)">summary||remarks||example</Value>
-    </Setting>
-    <Setting Name="Cleaning_CommentMinorTags" Type="System.String" Scope="User">
-      <Value Profile="(Default)">param||exception||returns||value||permissions</Value>
-    </Setting>
     <Setting Name="Reorganizing_SortOrderTypeFields" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
@@ -359,7 +353,13 @@
     <Setting Name="Cleaning_CommentSkipWrapOnLastWord" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentIndentXmlValue" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_CommentXmlValueIndent" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Cleaning_CommentXmlSpaceTags" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Cleaning_CommentXmlAlignParamTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

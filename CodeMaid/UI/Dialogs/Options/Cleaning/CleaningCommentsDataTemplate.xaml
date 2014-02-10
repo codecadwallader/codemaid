@@ -12,6 +12,15 @@
                     </StackPanel>
 
                     <CheckBox Content="Skip wrapping on the last word" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Extra indent for values inside XML comments" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding CommentXmlValueIndent, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
+                    </StackPanel>
+
+                    <CheckBox Content="Add spacing around XML tags" IsChecked="{Binding CommentXmlSpaceTags}" />
+
+                    <CheckBox Content="Align XML &lt;param&gt; tags" IsChecked="{Binding CommentXmlAlignParamTags}" />
                 </StackPanel>
             </GroupBox>
 
@@ -19,19 +28,14 @@
                 <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="XML Comments">
-                <StackPanel>
-                    <CheckBox Content="Indent values inside XML comments" IsChecked="{Binding CommentIndentXmlValues}" />
-
-                    <TextBlock Text="Major Tags (new line before and after)" />
-                    <TextBox Style="{DynamicResource TextBoxMultiLine}"
-                             Text="{Binding CommentMajorTags, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
-
-                    <TextBlock Text="Minor Tags (new line before)" Margin="5,10,5,5" />
-                    <TextBox Style="{DynamicResource TextBoxMultiLine}"
-                             Text="{Binding CommentMinorTags, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock FontStyle="Italic" Text="Place each tag on a separate line" />
-                </StackPanel>
+            <GroupBox Header="Preview" VerticalAlignment="Stretch">
+                <TextBox FontFamily="{Binding CommentPreviewTextFont}"
+                         Foreground="{Binding CommentPreviewTextForeground}"
+                         Background="{Binding CommentPreviewTextBackground}"
+                         Text="{Binding CommentPreviewText}"
+                         Padding="3"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

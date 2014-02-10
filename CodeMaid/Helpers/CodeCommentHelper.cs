@@ -69,9 +69,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Gets the regex for matching a complete code line, including leading whitespace and
         /// comment prefix.
         /// </summary>
-        internal static Regex GetCodeRegexForDocument(TextDocument document)
+        internal static Regex GetCodeCommentRegex(string language)
         {
-            var prefix = GetCommentPrefixForDocument(document);
+            var prefix = GetCommentPrefixForLanguage(language);
             if (prefix == null)
                 return null;
 
@@ -84,9 +84,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>The comment prefix regex, without trailing spaces.</returns>
-        internal static string GetCommentPrefixForDocument(TextDocument document)
+        internal static string GetCommentPrefix(TextDocument document)
         {
-            switch (document.Language)
+            return GetCommentPrefixForLanguage(document.Language);
+        }
+
+        /// <summary>
+        /// Get the comment prefix (regex) for the given document's language.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The comment prefix regex, without trailing spaces.</returns>
+        internal static string GetCommentPrefixForLanguage(string language)
+        {
+            switch (language)
             {
                 case "CSharp":
                 case "C/C++":
@@ -108,12 +118,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the regex for matching a complete comment line.
         /// </summary>
-        internal static Regex GetCommentRegexForDocument(TextDocument document, bool includePrefix = true)
+        internal static Regex GetCommentRegex(string language, bool includePrefix = true)
         {
             string prefix = null;
             if (includePrefix)
             {
-                prefix = GetCommentPrefixForDocument(document);
+                prefix = GetCommentPrefixForLanguage(language);
                 if (prefix == null)
                 {
                     Debug.Fail("Attempting to create a comment regex for a document that has no comment prefix specified.");
@@ -136,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static bool IsCommentLine(EditPoint point)
         {
-            return LineMatchesRegex(point, GetCommentRegexForDocument(point.Parent)).Success;
+            return LineMatchesRegex(point, GetCommentRegex(point.Parent.Language)).Success;
         }
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)

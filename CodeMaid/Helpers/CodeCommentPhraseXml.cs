@@ -12,9 +12,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             this.Phrases = new LinkedList<ICodeCommentPhrase>();
         }
 
-        public string CloseTag { get; private set; }
+        public string CloseTag { get; set; }
 
-        public string OpenTag { get; private set; }
+        public string OpenTag { get; set; }
 
         public LinkedList<ICodeCommentPhrase> Phrases { get; private set; }
 
