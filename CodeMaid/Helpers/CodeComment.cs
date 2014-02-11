@@ -119,12 +119,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var i = point.CreateEditPoint();
 
+            // Loop upwards to find the start of the comment.
             startPoint = Expand(point, (p) => p.LineUp());
-            endPoint = Expand(point, (p) => p.LineDown());
+
+            // If a valid start is found, look down to find the end of the comment.
+            if (startPoint != null)
+                endPoint = Expand(point, (p) => p.LineDown());
 
             if (StartPoint != null && EndPoint != null)
             {
-                System.Diagnostics.Debug.WriteLine("Found comment from line {0} to {1}.", StartPoint.Line, EndPoint.Line);
                 startPoint.StartOfLine();
                 endPoint.EndOfLine();
                 IsValid = true;
@@ -144,7 +147,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 var line = i.Line;
                 var text = i.GetLine();
-                if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
+
+                if (CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
+                {
+                    result = null;
+                    i = null;
+                }
+                else if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
                 {
                     result = i.CreateEditPoint();
                     foundAction(i);
@@ -154,15 +163,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     // create an infinite loop.
                     if (result.Line == i.Line)
                         break;
-                }
-                else
-                {
-                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
-                    {
-                        result = null;
-                    }
-
-                    i = null;
                 }
             } while (i != null);
 
