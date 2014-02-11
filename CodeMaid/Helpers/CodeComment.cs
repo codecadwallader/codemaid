@@ -119,7 +119,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var i = point.CreateEditPoint();
 
-            // Loop upwards to find the start of the comment.
+            // Look up to find the start of the comment.
             startPoint = Expand(point, (p) => p.LineUp());
 
             // If a valid start is found, look down to find the end of the comment.
@@ -147,13 +147,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 var line = i.Line;
                 var text = i.GetLine();
-
-                if (CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
-                {
-                    result = null;
-                    i = null;
-                }
-                else if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
+                if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
                 {
                     result = i.CreateEditPoint();
                     foundAction(i);
@@ -163,6 +157,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     // create an infinite loop.
                     if (result.Line == i.Line)
                         break;
+                }
+                else
+                {
+                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
+                    {
+                        result = null;
+                    }
+
+                    i = null;
                 }
             } while (i != null);
 
@@ -186,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
                 else
                 {
-                    var indent = line.Groups["indent"].Success ? line.Groups["indent"].Value.Length - 1 : 0;
+                    var indent = line.Groups["indent"].Success ? line.Groups["indent"].Value.Length : 0;
                     var prefix = line.Groups["listprefix"].Success ? line.Groups["listprefix"].Value : null;
                     var words = line.Groups["words"].Success ? line.Groups["words"].Captures.OfType<Capture>().Select(c => c.Value) : null;
 
