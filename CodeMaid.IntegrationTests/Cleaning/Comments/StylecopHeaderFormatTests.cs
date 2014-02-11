@@ -9,7 +9,11 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 {
@@ -24,25 +28,55 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
             get { return "StylecopHeaderFormat"; }
         }
 
+        #region Setup
+
+        private static CommentFormatLogic _commentFormatLogic;
+        private ProjectItem _projectItem;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
+        {
+            CommentFormatTestsHelper.ClassInitialize(testContext);
+        }
+
+        [TestInitialize]
+        public override void TestInitialize()
+        {
+            base.TestInitialize();
+        }
+
+        [TestCleanup]
+        public override void TestCleanup()
+        {
+            base.TestCleanup();
+        }
+
+        #endregion Setup
+
+        #region Tests
+
         [TestMethod]
         [HostType("VS IDE")]
-        public void StylecopHeaderFormatTests_CleansAsExpected()
+        public void CleaningFormatStylecopHeaderComments_CleansAsExpected()
         {
             base.CleansAsExpected();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void StylecopHeaderFormatTests_DoesNothingOnSecondPass()
+        public void CleaningFormatStylecopHeaderComments_DoesNothingOnSecondPass()
         {
             base.DoesNothingOnSecondPass();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void StylecopHeaderFormatTests_DoesNothingWhenSettingIsDisabled()
+        public void CleaningFormatStylecopHeaderComments_DoesNothingWhenSettingIsDisabled()
         {
+            Settings.Default.Cleaning_CommentRunDuringCleanup = false;
             base.DoesNothingWhenSettingIsDisabled();
         }
+
+        #endregion Tests
     }
 }

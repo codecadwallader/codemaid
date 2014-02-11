@@ -19,47 +19,46 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 {
     public abstract class CommentFormatTestsHelper
     {
-        public CommentFormatTestsHelper()
+        private static CommentFormatLogic _commentFormatLogic;
+
+        private ProjectItem _projectItem;
+
+        protected abstract string BaseFileName { get; }
+
+        public static void ClassInitialize(TestContext testContext)
         {
             _commentFormatLogic = CommentFormatLogic.GetInstance(TestEnvironment.Package);
             Assert.IsNotNull(_commentFormatLogic);
         }
 
-        protected abstract string BaseFileName { get; }
-
-        protected virtual void SettingsInitialize(Settings settings)
+        public virtual void TestCleanup()
         {
+            TestEnvironment.RemoveFromProject(_projectItem);
         }
 
-        private static CommentFormatLogic _commentFormatLogic;
-        private ProjectItem _projectItem;
+        public virtual void TestInitialize()
+        {
+            TestEnvironment.CommonTestInitialize();
+            _projectItem = TestEnvironment.LoadFileIntoProject(string.Format(@"Data\{0}.cs", BaseFileName));
+        }
 
         #region Tests
 
         protected void CleansAsExpected()
         {
-            TestInitialize();
-
             Settings.Default.Cleaning_CommentRunDuringCleanup = true;
-            SettingsInitialize(Settings.Default);
             CleaningTestHelper.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Cleaned.cs", this.BaseFileName));
         }
 
         protected void DoesNothingOnSecondPass()
         {
-            TestInitialize();
-
             Settings.Default.Cleaning_CommentRunDuringCleanup = true;
-            SettingsInitialize(Settings.Default);
             CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunFormatComments, _projectItem);
         }
 
         protected void DoesNothingWhenSettingIsDisabled()
         {
-            TestInitialize();
-
             Settings.Default.Cleaning_CommentRunDuringCleanup = false;
-            SettingsInitialize(Settings.Default);
             CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunFormatComments, _projectItem);
         }
 
@@ -72,12 +71,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
             var textDocument = TestUtils.GetTextDocument(document);
 
             _commentFormatLogic.FormatComments(textDocument);
-        }
-
-        private void TestInitialize()
-        {
-            TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(string.Format(@"Data\{0}.cs", this.BaseFileName));
         }
 
         #endregion Helpers
