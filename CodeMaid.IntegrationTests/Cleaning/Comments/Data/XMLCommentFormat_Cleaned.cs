@@ -44,25 +44,19 @@
             return false;
         }
 
-        /// <summary>
-        /// <see cref="CommentFormatting" /><see cref="CommentFormatting" />
-        /// </summary>
+        /// <summary><see cref="CommentFormatting" /><see cref="CommentFormatting" /></summary>
         public void ThirdMethod()
         {
         }
 
-        /// <summary>
-        /// The summary for the comment.
-        /// </summary>
+        /// <summary>The summary for the comment.</summary>
         /// <param name="maxSize">Max number of elements returned in <paramref name="array" /></param>
         /// <param name="array">The array.</param>
         public void FourthMethod(int maxSize, int[] array)
         {
         }
 
-        /// <summary>
-        /// This comment contains <c>XMLCommentFormat</c> an example of the c tag.
-        /// </summary>
+        /// <summary>This comment contains <c>XMLCommentFormat</c> an example of the c tag.</summary>
         public void FifthMethod()
         {
         }

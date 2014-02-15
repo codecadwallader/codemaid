@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using System;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
@@ -18,6 +19,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
     /// </summary>
     public class CleaningCommentsViewModel : OptionsPageViewModel
     {
+        private const string UnformattedPreviewText =
+            "<summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae. Donec mattis vitae velit sed imperdiet.</summary>" +
+            "<param name=\"p1\">Praesent sollicitudin massa nunc.</param>" +
+            "<param name=\"param2\">Maecenas id neque ultricies.</param>" +
+            "<returns>Praesent euismod diam porta pulvinar, quis ut pharetra.</returns>";
+
+        private readonly EnvDTE.Properties _editorProperties;
+        private readonly EnvDTE.ColorableItems _commentColors;
+
         #region Constructors
 
         /// <summary>
@@ -27,6 +37,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public CleaningCommentsViewModel(CodeMaidPackage package)
             : base(package)
         {
+            _editorProperties = Package.IDE.Properties["FontsAndColors", "TextEditor"];
+            var property = _editorProperties.Item("FontsAndColorsItems");
+            var fontsAndColorsItems = (EnvDTE.FontsAndColorsItems)property.Object;
+            _commentColors = fontsAndColorsItems.Item("Comment");
         }
 
         #endregion Constructors
@@ -46,11 +60,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void LoadSettings()
         {
-            CommentMajorTags = Settings.Default.Cleaning_CommentMajorTags;
-            CommentMinorTags = Settings.Default.Cleaning_CommentMinorTags;
             CommentRunDuringCleanup = Settings.Default.Cleaning_CommentRunDuringCleanup;
             CommentSkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
             CommentWrapColumn = Settings.Default.Cleaning_CommentWrapColumn;
+            CommentXmlValueIndent = Settings.Default.Cleaning_CommentXmlValueIndent;
+            CommentXmlSpaceTags = Settings.Default.Cleaning_CommentXmlSpaceTags;
+            CommentXmlAlignParamTags = Settings.Default.Cleaning_CommentXmlAlignParamTags;
+
+            UpdatePreviewText();
         }
 
         /// <summary>
@@ -58,52 +75,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Cleaning_CommentMajorTags = CommentMajorTags;
-            Settings.Default.Cleaning_CommentMinorTags = CommentMinorTags;
             Settings.Default.Cleaning_CommentRunDuringCleanup = CommentRunDuringCleanup;
             Settings.Default.Cleaning_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
             Settings.Default.Cleaning_CommentWrapColumn = CommentWrapColumn;
+            Settings.Default.Cleaning_CommentXmlValueIndent = CommentXmlValueIndent;
+            Settings.Default.Cleaning_CommentXmlSpaceTags = CommentXmlSpaceTags;
+            Settings.Default.Cleaning_CommentXmlAlignParamTags = CommentXmlAlignParamTags;
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
-
-        private string _commentMajorTags;
-
-        /// <summary>
-        /// Gets or sets the major tag names.
-        /// </summary>
-        public string CommentMajorTags
-        {
-            get { return _commentMajorTags; }
-            set
-            {
-                if (_commentMajorTags != value)
-                {
-                    _commentMajorTags = value;
-                    NotifyPropertyChanged("CommentMajorTags");
-                }
-            }
-        }
-
-        private string _commentMinorTags;
-
-        /// <summary>
-        /// Gets or sets the minor tag names.
-        /// </summary>
-        public string CommentMinorTags
-        {
-            get { return _commentMinorTags; }
-            set
-            {
-                if (_commentMinorTags != value)
-                {
-                    _commentMinorTags = value;
-                    NotifyPropertyChanged("CommentMinorTags");
-                }
-            }
-        }
 
         private bool _commentRunDuringCleanup;
 
@@ -151,6 +133,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             get { return _commentWrapColumn; }
             set
             {
+                value = Math.Max(value, 0);
                 if (_commentWrapColumn != value)
                 {
                     _commentWrapColumn = value;
@@ -159,7 +142,130 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
+        private int _commentXmlValueIndent;
+
+        /// <summary>
+        /// Gets or sets the amount of extra spacing to add before XML values.
+        /// </summary>
+        public int CommentXmlValueIndent
+        {
+            get { return _commentXmlValueIndent; }
+            set
+            {
+                value = Math.Max(value, 0);
+                if (_commentXmlValueIndent != value)
+                {
+                    _commentXmlValueIndent = value;
+                    NotifyPropertyChanged("CommentXmlValueIndent");
+                }
+            }
+        }
+
+        private bool _commentXmlSpaceTags;
+
+        public bool CommentXmlSpaceTags
+        {
+            get { return _commentXmlSpaceTags; }
+            set
+            {
+                if (_commentXmlSpaceTags != value)
+                {
+                    _commentXmlSpaceTags = value;
+                    NotifyPropertyChanged("CommentSpaceXmlTags");
+                }
+            }
+        }
+
+        private bool _commentXmlAlignParamTags;
+
+        public bool CommentXmlAlignParamTags
+        {
+            get { return _commentXmlAlignParamTags; }
+            set
+            {
+                if (_commentXmlAlignParamTags != value)
+                {
+                    _commentXmlAlignParamTags = value;
+                    NotifyPropertyChanged("CommentAlignXmlParamTags");
+                }
+            }
+        }
+
         #endregion Options
+
+        #region Preview Text and Helpers
+
+        private string _commentPreviewText;
+
+        public string CommentPreviewText
+        {
+            get { return _commentPreviewText; }
+            private set
+            {
+                if (_commentPreviewText != value)
+                {
+                    _commentPreviewText = value;
+                    NotifyPropertyChanged("CommentPreviewText");
+                }
+            }
+        }
+
+        public System.Windows.Media.FontFamily CommentPreviewTextFont
+        {
+            get
+            {
+                return new System.Windows.Media.FontFamily(
+                    _editorProperties.Item("FontFamily").Value.ToString()
+                );
+            }
+        }
+
+        public System.Windows.Media.Brush CommentPreviewTextForeground
+        {
+            get
+            {
+                var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Foreground);
+
+                return new System.Windows.Media.SolidColorBrush(
+                    System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B)
+                );
+            }
+        }
+
+        public System.Windows.Media.Brush CommentPreviewTextBackground
+        {
+            get
+            {
+                var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Background);
+
+                return new System.Windows.Media.SolidColorBrush(
+                    System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B)
+                );
+            }
+        }
+
+        protected override void NotifyPropertyChanged(string propertyName)
+        {
+            base.NotifyPropertyChanged(propertyName);
+            UpdatePreviewText();
+        }
+
+        private void UpdatePreviewText()
+        {
+            CommentPreviewText = SteveCadwallader.CodeMaid.Helpers.CodeComment.FormatXml(
+                UnformattedPreviewText,
+                new Helpers.CodeCommentOptions()
+                {
+                    SkipWrapOnLastWord = this.CommentSkipWrapOnLastWord,
+                    TabSize = 4, // Not important for preview
+                    WrapAtColumn = 75, // Overridden to fit interface better
+                    XmlValueIndent = this.CommentXmlValueIndent,
+                    XmlSpaceTags = this.CommentXmlSpaceTags,
+                    XmlAlignParamTags = this.CommentXmlAlignParamTags
+                });
+        }
+
+        #endregion Preview Text and Helpers
 
         #region Enables
 
