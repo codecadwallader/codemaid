@@ -1,4 +1,4 @@
-﻿// <copyright file="StylecopHeaderFormat.cs" company="CompanyName">
+﻿// <copyright file="StyleCopHeaderFormat.cs" company="CompanyName">
 // Copyright (c) 2014 CompanyName. All rights reserved.
 // </copyright>
 // <summary>
@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
 {
-    public class StylecopHeaderFormat
+    public class StyleCopHeaderFormat
     {
     
     }

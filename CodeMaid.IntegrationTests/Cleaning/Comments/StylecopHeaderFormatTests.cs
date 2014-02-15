@@ -9,34 +9,26 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Cleaning;
-using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Comments\Data\StylecopHeaderFormat.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Comments\Data\StylecopHeaderFormat_Cleaned.cs", "Data")]
-    public class StylecopHeaderFormatTests
-        : CommentFormatTestsHelper
+    [DeploymentItem(@"Cleaning\Comments\Data\StyleCopHeaderFormat.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Comments\Data\StyleCopHeaderFormat_Cleaned.cs", "Data")]
+    public class StyleCopHeaderFormatTests : BaseCommentFormatTests
     {
-        protected override string BaseFileName
-        {
-            get { return "StylecopHeaderFormat"; }
-        }
-
         #region Setup
 
-        private static CommentFormatLogic _commentFormatLogic;
-        private ProjectItem _projectItem;
+        protected override string TestBaseFileName
+        {
+            get { return "StyleCopHeaderFormat"; }
+        }
 
         [ClassInitialize]
-        public static void ClassInitialize(TestContext testContext)
+        public new static void ClassInitialize(TestContext testContext)
         {
-            CommentFormatTestsHelper.ClassInitialize(testContext);
+            BaseCommentFormatTests.ClassInitialize(testContext);
         }
 
         [TestInitialize]
@@ -57,24 +49,23 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStylecopHeaderComments_CleansAsExpected()
+        public void CleaningFormatStyleCopHeaderComments_CleansAsExpected()
         {
-            base.CleansAsExpected();
+            CleansAsExpected();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStylecopHeaderComments_DoesNothingOnSecondPass()
+        public void CleaningFormatStyleCopHeaderComments_DoesNothingOnSecondPass()
         {
-            base.DoesNothingOnSecondPass();
+            DoesNothingOnSecondPass();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStylecopHeaderComments_DoesNothingWhenSettingIsDisabled()
+        public void CleaningFormatStyleCopHeaderComments_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_CommentRunDuringCleanup = false;
-            base.DoesNothingWhenSettingIsDisabled();
+            DoesNothingWhenSettingIsDisabled();
         }
 
         #endregion Tests

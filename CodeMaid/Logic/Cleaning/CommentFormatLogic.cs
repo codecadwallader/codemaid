@@ -74,9 +74,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document.</param>
         /// <param name="start">The start point.</param>
         /// <param name="end">The end point.</param>
-        public bool FormatComments(TextDocument document, EditPoint start, EditPoint end)
+        public bool FormatComments(TextDocument textDocument, EditPoint start, EditPoint end)
         {
-            var options = new CodeCommentOptions(_package, document);
+            var options = new CodeCommentOptions(_package, textDocument);
 
             bool foundComments = false;
 
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 if (CodeCommentHelper.IsCommentLine(start))
                 {
-                    var comment = new CodeComment(start, this._package);
+                    var comment = new CodeComment(start, _package);
                     if (comment.IsValid)
                     {
                         comment.Format(options);
@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 }
                 else
                 {
-                    if (start.Line == document.EndPoint.Line)
+                    if (start.Line == textDocument.EndPoint.Line)
                         break;
 
                     start.LineDown();
