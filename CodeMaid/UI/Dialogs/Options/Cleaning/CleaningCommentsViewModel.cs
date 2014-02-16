@@ -255,7 +255,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         private void UpdatePreviewText()
         {
-            CommentPreviewText = Helpers.CodeComment.FormatXml(
+            CommentPreviewText = CodeComment.FormatXml(
                 UnformattedPreviewText,
                 new CodeCommentOptions
                 {

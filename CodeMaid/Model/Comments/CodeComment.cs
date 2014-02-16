@@ -16,9 +16,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Helpers;
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     /// <summary>
     /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see> which
