@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 if (CodeCommentHelper.IsCommentLine(start))
                 {
-                    var comment = new CodeComment(start, _package);
+                    var comment = new CodeComment(start);
                     if (comment.IsValid)
                     {
                         comment.Format(options);
@@ -98,7 +98,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 else
                 {
                     if (start.Line == textDocument.EndPoint.Line)
+                    {
                         break;
+                    }
 
                     start.LineDown();
                 }

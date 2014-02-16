@@ -107,9 +107,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     else
                     {
                         Package.IDE.StatusBar.Text = String.Format(
-                            foundComments ?
-                            "CodeMaid finished formatting the comments {0}." :
-                            "CodeMaid did not find a non-code comment {0} to reformat.",
+                            foundComments
+                                ? "CodeMaid finished formatting the comments {0}."
+                                : "CodeMaid did not find a non-code comment {0} to reformat.",
                             selection.IsEmpty ? "under the cursor" : "in the selection"
                         );
                     }

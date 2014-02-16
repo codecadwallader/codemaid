@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -22,6 +23,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeCommentPhrase" /> class.
+        /// </summary>
         public CodeCommentPhrase()
         {
             ListPrefix = null;
@@ -29,6 +33,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             OnOwnLine = false;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeCommentPhrase" /> class.
+        /// </summary>
         /// <param name="words">
         /// The collection of words to build this phrase from. Use <c>null</c> to force this to be
         /// an empty line.
@@ -41,13 +48,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
             : this()
         {
             ListPrefix = listPrefix;
-            
+
             // Must check if no words but also no list, because the list prefix also is used to make
             // horizontal lines. Otherwise it would create an extra empty line.
             if (words == null && !IsList)
+            {
                 OnOwnLine = true;
+            }
             else
+            {
                 AppendWords(words);
+            }
         }
 
         #endregion Constructors
@@ -85,14 +96,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public CodeCommentPhrase Append(CodeCommentPhrase other)
         {
             if (other == null)
+            {
                 return this;
+            }
 
             if (other.IsList)
             {
-                if (!this.IsEmpty || this.IsList)
-                    System.Diagnostics.Debug.Fail("Appending a phrase that is a list to an existing phrase is most likely wrong.");
+                if (!IsEmpty || IsList)
+                {
+                    Debug.Fail("Appending a phrase that is a list to an existing phrase is most likely wrong.");
+                }
                 else
-                    this.ListPrefix = other.ListPrefix;
+                {
+                    ListPrefix = other.ListPrefix;
+                }
             }
 
             AppendWords(other.Words);
@@ -103,14 +120,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public void AppendWords(string word)
         {
             if (!string.IsNullOrWhiteSpace(word))
+            {
                 Words.AddLast(word);
+            }
         }
 
         public void AppendWords(IEnumerable<string> words)
         {
-            if (words == null) 
+            if (words == null)
+            {
                 return;
-            
+            }
+
             foreach (var w in words)
             {
                 AppendWords(w);
@@ -120,16 +141,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal bool CanAppend(CodeCommentPhrase other, bool indented)
         {
             if (other == null)
+            {
                 return true;
+            }
 
-            if (other.IsList && !this.IsEmpty && !this.OnOwnLine)
+            if (other.IsList && !IsEmpty && !OnOwnLine)
+            {
                 return false;
+            }
 
-            if (this.OnOwnLine || other.OnOwnLine)
+            if (OnOwnLine || other.OnOwnLine)
+            {
                 return false;
+            }
 
-            if (this.IsList && !indented)
+            if (IsList && !indented)
+            {
                 return false;
+            }
 
             return true;
         }

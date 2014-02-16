@@ -11,6 +11,7 @@
 
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -27,10 +28,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>
         /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
         /// </returns>
-        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element)
+        internal static string CreateXmlCloseTag(XElement element)
         {
             if (element.IsEmpty)
+            {
                 return null;
+            }
 
             return string.Format("</{0}>", element.Name);
         }
@@ -42,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>
         /// The XML open tag. In case of an element without value, the tag is self-closing.
         /// </returns>
-        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element)
+        internal static string CreateXmlOpenTag(XElement element)
         {
             var builder = new System.Text.StringBuilder();
             builder.Append("<");
@@ -52,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 foreach (var attr in element.Attributes())
                 {
                     builder.Append(" ");
-                    builder.Append(attr.ToString());
+                    builder.Append(attr);
                 }
             }
 
@@ -73,7 +76,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var prefix = GetCommentPrefixForLanguage(language);
             if (prefix == null)
+            {
                 return null;
+            }
 
             var pattern = string.Format(@"^[\t ]*{0}(?!(\t| |\r|\n|$))", prefix);
             return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture);
@@ -92,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Get the comment prefix (regex) for the given document's language.
         /// </summary>
-        /// <param name="document">The document.</param>
+        /// <param name="language">The language.</param>
         /// <returns>The comment prefix regex, without trailing spaces.</returns>
         internal static string GetCommentPrefixForLanguage(string language)
         {
@@ -127,7 +132,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 if (prefix == null)
                 {
                     Debug.Fail("Attempting to create a comment regex for a document that has no comment prefix specified.");
-                    return null;
                 }
 
                 // Be aware of the added space to the prefix. When prefix is added, we should take

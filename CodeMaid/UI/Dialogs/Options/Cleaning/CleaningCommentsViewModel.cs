@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using System;
+using System.Windows.Media;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
@@ -19,6 +20,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
     /// </summary>
     public class CleaningCommentsViewModel : OptionsPageViewModel
     {
+        #region Fields
+
         private const string UnformattedPreviewText =
             "<summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae. Donec mattis vitae velit sed imperdiet.</summary>" +
             "<param name=\"p1\">Praesent sollicitudin massa nunc.</param>" +
@@ -27,6 +30,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         private readonly EnvDTE.Properties _editorProperties;
         private readonly EnvDTE.ColorableItems _commentColors;
+
+        #endregion Fields
 
         #region Constructors
 
@@ -163,6 +168,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         private bool _commentXmlSpaceTags;
 
+        /// <summary>
+        /// Gets or sets the flag indicating if an extra space should be added inside XML tags.
+        /// </summary>
         public bool CommentXmlSpaceTags
         {
             get { return _commentXmlSpaceTags; }
@@ -171,13 +179,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 if (_commentXmlSpaceTags != value)
                 {
                     _commentXmlSpaceTags = value;
-                    NotifyPropertyChanged("CommentSpaceXmlTags");
+                    NotifyPropertyChanged("CommentXmlSpaceTags");
                 }
             }
         }
 
         private bool _commentXmlAlignParamTags;
 
+        /// <summary>
+        /// Gets or sets the flag indicating if the content of param tags should be aligned.
+        /// </summary>
         public bool CommentXmlAlignParamTags
         {
             get { return _commentXmlAlignParamTags; }
@@ -186,7 +197,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 if (_commentXmlAlignParamTags != value)
                 {
                     _commentXmlAlignParamTags = value;
-                    NotifyPropertyChanged("CommentAlignXmlParamTags");
+                    NotifyPropertyChanged("CommentXmlAlignParamTags");
                 }
             }
         }
@@ -210,37 +221,28 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
-        public System.Windows.Media.FontFamily CommentPreviewTextFont
+        public FontFamily CommentPreviewTextFont
         {
-            get
-            {
-                return new System.Windows.Media.FontFamily(
-                    _editorProperties.Item("FontFamily").Value.ToString()
-                );
-            }
+            get { return new FontFamily(_editorProperties.Item("FontFamily").Value.ToString()); }
         }
 
-        public System.Windows.Media.Brush CommentPreviewTextForeground
+        public Brush CommentPreviewTextForeground
         {
             get
             {
                 var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Foreground);
 
-                return new System.Windows.Media.SolidColorBrush(
-                    System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B)
-                );
+                return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
             }
         }
 
-        public System.Windows.Media.Brush CommentPreviewTextBackground
+        public Brush CommentPreviewTextBackground
         {
             get
             {
                 var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Background);
 
-                return new System.Windows.Media.SolidColorBrush(
-                    System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B)
-                );
+                return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
             }
         }
 
@@ -252,16 +254,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         private void UpdatePreviewText()
         {
-            CommentPreviewText = SteveCadwallader.CodeMaid.Helpers.CodeComment.FormatXml(
+            CommentPreviewText = Helpers.CodeComment.FormatXml(
                 UnformattedPreviewText,
-                new Helpers.CodeCommentOptions()
+                new Helpers.CodeCommentOptions
                 {
-                    SkipWrapOnLastWord = this.CommentSkipWrapOnLastWord,
+                    SkipWrapOnLastWord = CommentSkipWrapOnLastWord,
                     TabSize = 4, // Not important for preview
                     WrapAtColumn = 75, // Overridden to fit interface better
-                    XmlValueIndent = this.CommentXmlValueIndent,
-                    XmlSpaceTags = this.CommentXmlSpaceTags,
-                    XmlAlignParamTags = this.CommentXmlAlignParamTags
+                    XmlValueIndent = CommentXmlValueIndent,
+                    XmlSpaceTags = CommentXmlSpaceTags,
+                    XmlAlignParamTags = CommentXmlAlignParamTags
                 });
         }
 

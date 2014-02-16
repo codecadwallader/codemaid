@@ -25,47 +25,62 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class CodeComment
     {
-        private readonly TextDocument document;
-        private readonly CodeMaidPackage package;
-        private Regex codeLineRegex;
-        private Regex commentLineRegex;
+        #region Fields
 
-        private EditPoint endPoint;
-        private EditPoint startPoint;
+        private readonly TextDocument _document;
+        private readonly Regex _codeLineRegex;
+        private readonly Regex _commentLineRegex;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeComment" /> class.
         /// </summary>
-        public CodeComment(TextPoint point, CodeMaidPackage package)
+        /// <param name="point">A text point basis for the comment.</param>
+        public CodeComment(TextPoint point)
         {
             if (point == null)
+            {
                 throw new ArgumentNullException("point");
+            }
 
-            this.document = point.Parent;
-            this.package = package;
+            _document = point.Parent;
 
-            this.commentLineRegex = CodeCommentHelper.GetCommentRegex(this.document.Language, true);
-            this.codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(this.document.Language);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language);
+            _codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(_document.Language);
 
-            this.Expand(point);
+            Expand(point);
         }
 
-        public TextPoint EndPoint { get { return endPoint; } }
+        #endregion Constructors
+
+        #region Properties
+
+        public EditPoint EndPoint { get; private set; }
 
         public bool IsValid { get; private set; }
 
-        public TextPoint StartPoint { get { return startPoint; } }
+        public EditPoint StartPoint { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Formats the comment.
         /// </summary>
+        /// <param name="options">The options to be used for formatting.</param>
         public TextPoint Format(CodeCommentOptions options)
         {
             if (!IsValid)
+            {
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
+            }
 
-            var originalText = startPoint.GetText(endPoint);
-            var matches = commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
+            var originalText = StartPoint.GetText(EndPoint);
+            var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
             var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
 
             LinkedList<ICodeCommentPhrase> phrases = null;
@@ -82,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     // We need a different regex for parsing the XML values, because it no longer
                     // contains the comment prefix value.
                     phrases = XmlToPhrases(
-                        CodeCommentHelper.GetCommentRegex(this.document.Language, false),
+                        CodeCommentHelper.GetCommentRegex(_document.Language, false),
                         commentXml);
                 }
                 catch (System.Xml.XmlException)
@@ -105,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var cursor = StartPoint.CreateEditPoint();
                 cursor.Delete(EndPoint);
                 cursor.Insert(formatter.ToString());
-                endPoint = cursor.CreateEditPoint();
+                EndPoint = cursor.CreateEditPoint();
             }
 
             return EndPoint;
@@ -117,19 +132,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The original text point to expand from.</param>
         private void Expand(TextPoint point)
         {
-            var i = point.CreateEditPoint();
-
             // Look up to find the start of the comment.
-            startPoint = Expand(point, (p) => p.LineUp());
+            StartPoint = Expand(point, p => p.LineUp());
 
             // If a valid start is found, look down to find the end of the comment.
-            if (startPoint != null)
-                endPoint = Expand(point, (p) => p.LineDown());
+            if (StartPoint != null)
+            {
+                EndPoint = Expand(point, p => p.LineDown());
+            }
 
             if (StartPoint != null && EndPoint != null)
             {
-                startPoint.StartOfLine();
-                endPoint.EndOfLine();
+                StartPoint.StartOfLine();
+                EndPoint.EndOfLine();
                 IsValid = true;
             }
             else
@@ -145,9 +160,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             do
             {
-                var line = i.Line;
-                var text = i.GetLine();
-                if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
+                if (CodeCommentHelper.LineMatchesRegex(i, _commentLineRegex).Success)
                 {
                     result = i.CreateEditPoint();
                     foundAction(i);
@@ -156,11 +169,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     // down) did nothing. This means there is no point to keep searching, it would
                     // create an infinite loop.
                     if (result.Line == i.Line)
+                    {
                         break;
+                    }
                 }
                 else
                 {
-                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
+                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, _codeLineRegex).Success)
                     {
                         result = null;
                     }
@@ -176,9 +191,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             Match m;
             while ((m = matches.FirstOrDefault()) != null && string.IsNullOrWhiteSpace(m.Value))
+            {
                 matches.Remove(m);
+            }
+
             while ((m = matches.LastOrDefault()) != null && string.IsNullOrWhiteSpace(m.Value))
+            {
                 matches.Remove(m);
+            }
 
             var phrases = new LinkedList<ICodeCommentPhrase>();
             foreach (var line in matches)
@@ -198,12 +218,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     var lastValue = lastPhrase.Value as CodeCommentPhrase;
 
                     if (lastValue != null && lastValue.CanAppend(newPhrase, indent > 0))
+                    {
                         lastValue.Append(newPhrase);
+                    }
                     else
+                    {
                         phrases.AddLast(newPhrase);
+                    }
                 }
             }
-            return new LinkedList<ICodeCommentPhrase>(phrases);
+
+            return phrases;
         }
 
         /// <summary>
@@ -236,6 +261,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     reader.MoveToContent();
                     innerText = reader.ReadInnerXml();
                 }
+
                 var matches = regex.Matches(innerText).OfType<Match>().ToList();
 
                 phrase.Add(MatchesToPhrases(matches));
@@ -246,32 +272,48 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return result;
         }
 
+        #endregion Methods
+
         private class CommentFormatter : IEquatable<string>
         {
-            private const string spacer = " ";
+            #region Fields
 
-            private readonly StringBuilder builder;
-            private readonly string commentPrefix;
-            private readonly int commentPrefixLength;
-            private int currentPosition;
-            private CodeCommentOptions options;
+            private const string Spacer = " ";
 
+            private readonly StringBuilder _builder;
+            private readonly string _commentPrefix;
+            private readonly int _commentPrefixLength;
+            private readonly CodeCommentOptions _options;
+
+            private int _currentPosition;
+
+            #endregion Fields
+
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="CommentFormatter"/> class.
+            /// </summary>
+            /// <param name="commentPrefix">The comment prefix.</param>
+            /// <param name="options">The options.</param>
             public CommentFormatter(string commentPrefix, CodeCommentOptions options)
             {
-                this.builder = new StringBuilder();
-                this.currentPosition = 0;
-
-                this.options = options;
-
-                this.commentPrefix = commentPrefix;
-                this.commentPrefixLength = WordLength(commentPrefix);
+                _builder = new StringBuilder();
+                _currentPosition = 0;
+                _options = options;
+                _commentPrefix = commentPrefix;
+                _commentPrefixLength = WordLength(commentPrefix);
             }
+
+            #endregion Constructors
+
+            #region Methods
 
             public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases, int extraIndent = 0)
             {
                 // If XML parameter tags should be aligned, find the longest one and then pad
                 // all to an equal size.
-                if (options.XmlAlignParamTags)
+                if (_options.XmlAlignParamTags)
                 {
                     var paramPhrases = phrases.OfType<CodeCommentPhraseXml>().Where(p => p.OpenTag.StartsWith("<param "));
                     if (paramPhrases.Any())
@@ -291,7 +333,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     var xmlPhrase = phrase as CodeCommentPhraseXml;
                     if (xmlPhrase != null)
                     {
-                        AppendWord(spacer);
+                        AppendWord(Spacer);
                         AppendWord(xmlPhrase.OpenTag);
 
                         var phraseCount = xmlPhrase.Phrases.Count;
@@ -306,19 +348,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
                                 var length = xmlPhrase.OpenTag.Length +
                                     xmlPhrase.CloseTag.Length +
                                     firstPhrase.Length +
-                                    (options.XmlSpaceTags ? 2 : 0) +
-                                    commentPrefixLength;
+                                    (_options.XmlSpaceTags ? 2 : 0) +
+                                    _commentPrefixLength;
 
-                                if (options.SkipWrapOnLastWord)
+                                if (_options.SkipWrapOnLastWord)
                                 {
                                     var lastWord = firstPhrase.Words.Last;
                                     length -= lastWord != null ? WordLength(lastWord.Value) + 1 : 0;
                                 }
 
-                                if (length <= options.WrapAtColumn)
+                                if (length <= _options.WrapAtColumn)
                                 {
                                     // Single XML line has no extra indenting.
-                                    AppendPhrase(firstPhrase, options.XmlSpaceTags, 0);
+                                    AppendPhrase(firstPhrase, _options.XmlSpaceTags, 0);
                                     singleLine = true;
                                 }
                             }
@@ -326,13 +368,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                         if (!singleLine)
                         {
-                            AppendPhrases(xmlPhrase.Phrases, options.XmlValueIndent);
+                            AppendPhrases(xmlPhrase.Phrases, _options.XmlValueIndent);
                             AppendLine();
-                            AppendWord(spacer);
+                            AppendWord(Spacer);
                         }
-                        else if (options.XmlSpaceTags)
+                        else if (_options.XmlSpaceTags)
                         {
-                            AppendWord(spacer);
+                            AppendWord(Spacer);
                         }
 
                         AppendWord(xmlPhrase.CloseTag);
@@ -351,19 +393,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             public override string ToString()
             {
-                return builder.ToString();
+                return _builder.ToString();
             }
 
             private void AppendLine()
             {
-                if (currentPosition > 0)
+                if (_currentPosition > 0)
                 {
-                    builder.AppendLine();
-                    currentPosition = 0;
+                    _builder.AppendLine();
+                    _currentPosition = 0;
                 }
 
-                builder.Append(commentPrefix);
-                currentPosition += commentPrefixLength;
+                _builder.Append(_commentPrefix);
+                _currentPosition += _commentPrefixLength;
             }
 
             private void AppendPhrase(CodeCommentPhrase phrase, bool initialSpacer, int extraIndent)
@@ -374,7 +416,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                     if (phrase.IsList)
                     {
-                        AppendWord(spacer);
+                        AppendWord(Spacer);
                         AppendWord(phrase.ListPrefix);
                     }
 
@@ -385,18 +427,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     {
                         var wordLength = WordLength(word.Value);
 
-                        var wrap = false;
-
                         // If current position plus word length exceeds the maximum comment length,
                         // wrap to the next line. Take care not to wrap on the first word, otherwise
                         // a word that never fits a line (ie. too long) would cause endless linewrapping.
-                        if (!firstWord && currentPosition + wordLength + 1 > options.WrapAtColumn)
-                            wrap = true;
+                        bool wrap = !firstWord && _currentPosition + wordLength + 1 > _options.WrapAtColumn;
 
                         // If this is the last word and user selected to not wrap on the last word,
                         // don't wrap.
-                        if (wrap && word.Next == null && options.SkipWrapOnLastWord)
+                        if (wrap && word.Next == null && _options.SkipWrapOnLastWord)
+                        {
                             wrap = false;
+                        }
 
                         if (wrap)
                         {
@@ -405,15 +446,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
                             AppendWord(string.Empty.PadLeft(extraIndent));
 
                             if (phrase.IsList)
-                                AppendWord(string.Empty.PadLeft(WordLength(phrase.ListPrefix) + 1, spacer[0]));
-
-                            firstWord = true;
+                            {
+                                AppendWord(string.Empty.PadLeft(WordLength(phrase.ListPrefix) + 1, Spacer[0]));
+                            }
                         }
 
                         if (initialSpacer)
-                            AppendWord(spacer);
+                        {
+                            AppendWord(Spacer);
+                        }
                         else
+                        {
                             initialSpacer = true;
+                        }
 
                         AppendWord(word.Value);
 
@@ -425,14 +470,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             private void AppendWord(string word)
             {
-                builder.Append(word);
-                currentPosition += WordLength(word);
+                _builder.Append(word);
+                _currentPosition += WordLength(word);
             }
 
             private int WordLength(string word)
             {
-                return word.Length + word.Count(c => c == '\t') * (options.TabSize - 1);
+                return word.Length + word.Count(c => c == '\t') * (_options.TabSize - 1);
             }
+
+            #endregion Methods
         }
     }
 }
