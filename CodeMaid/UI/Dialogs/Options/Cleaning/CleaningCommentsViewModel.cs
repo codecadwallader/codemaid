@@ -11,6 +11,7 @@
 
 using System;
 using System.Windows.Media;
+using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
@@ -256,7 +257,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         {
             CommentPreviewText = Helpers.CodeComment.FormatXml(
                 UnformattedPreviewText,
-                new Helpers.CodeCommentOptions
+                new CodeCommentOptions
                 {
                     SkipWrapOnLastWord = CommentSkipWrapOnLastWord,
                     TabSize = 4, // Not important for preview

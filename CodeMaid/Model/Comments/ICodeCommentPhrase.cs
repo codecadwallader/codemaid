@@ -9,7 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     /// <summary>
     /// An empty interface used to identify a code comment phrase.

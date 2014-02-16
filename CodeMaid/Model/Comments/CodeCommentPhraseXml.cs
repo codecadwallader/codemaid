@@ -11,7 +11,7 @@
 
 using System.Collections.Generic;
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     /// <summary>
     /// A code comment phrase containing XML content.

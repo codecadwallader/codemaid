@@ -11,9 +11,10 @@
 
 using System;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 
-namespace SteveCadwallader.CodeMaid.Helpers
+namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     /// <summary>
     /// A data structure class used to store the options passed to the comment formatter.

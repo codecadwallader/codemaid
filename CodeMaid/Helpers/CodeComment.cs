@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
