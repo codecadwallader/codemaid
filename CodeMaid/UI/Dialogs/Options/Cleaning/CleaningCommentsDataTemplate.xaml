@@ -18,8 +18,8 @@
                     </StackPanel>
 
                     <CheckBox Content="Add spacing around XML tags" IsChecked="{Binding CommentXmlSpaceTags}" />
-
                     <CheckBox Content="Align XML &lt;param&gt; tags" IsChecked="{Binding CommentXmlAlignParamTags}" />
+                    <CheckBox Content="Always split summary tags onto multiple lines" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
                 </StackPanel>
             </GroupBox>
 

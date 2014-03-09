@@ -69,9 +69,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             CommentRunDuringCleanup = Settings.Default.Cleaning_CommentRunDuringCleanup;
             CommentSkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
             CommentWrapColumn = Settings.Default.Cleaning_CommentWrapColumn;
-            CommentXmlValueIndent = Settings.Default.Cleaning_CommentXmlValueIndent;
-            CommentXmlSpaceTags = Settings.Default.Cleaning_CommentXmlSpaceTags;
             CommentXmlAlignParamTags = Settings.Default.Cleaning_CommentXmlAlignParamTags;
+            CommentXmlSpaceTags = Settings.Default.Cleaning_CommentXmlSpaceTags;
+            CommentXmlSplitSummaryTagToMultipleLines = Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines;
+            CommentXmlValueIndent = Settings.Default.Cleaning_CommentXmlValueIndent;
 
             UpdatePreviewText();
         }
@@ -84,9 +85,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_CommentRunDuringCleanup = CommentRunDuringCleanup;
             Settings.Default.Cleaning_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
             Settings.Default.Cleaning_CommentWrapColumn = CommentWrapColumn;
-            Settings.Default.Cleaning_CommentXmlValueIndent = CommentXmlValueIndent;
-            Settings.Default.Cleaning_CommentXmlSpaceTags = CommentXmlSpaceTags;
             Settings.Default.Cleaning_CommentXmlAlignParamTags = CommentXmlAlignParamTags;
+            Settings.Default.Cleaning_CommentXmlSpaceTags = CommentXmlSpaceTags;
+            Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines = CommentXmlSplitSummaryTagToMultipleLines;
+            Settings.Default.Cleaning_CommentXmlValueIndent = CommentXmlValueIndent;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -148,21 +150,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
-        private int _commentXmlValueIndent;
+        private bool _commentXmlAlignParamTags;
 
         /// <summary>
-        /// Gets or sets the amount of extra spacing to add before XML values.
+        /// Gets or sets the flag indicating if the content of param tags should be aligned.
         /// </summary>
-        public int CommentXmlValueIndent
+        public bool CommentXmlAlignParamTags
         {
-            get { return _commentXmlValueIndent; }
+            get { return _commentXmlAlignParamTags; }
             set
             {
-                value = Math.Max(value, 0);
-                if (_commentXmlValueIndent != value)
+                if (_commentXmlAlignParamTags != value)
                 {
-                    _commentXmlValueIndent = value;
-                    NotifyPropertyChanged("CommentXmlValueIndent");
+                    _commentXmlAlignParamTags = value;
+                    NotifyPropertyChanged("CommentXmlAlignParamTags");
                 }
             }
         }
@@ -185,20 +186,39 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             }
         }
 
-        private bool _commentXmlAlignParamTags;
+        private bool _commentXmlSplitSummaryTagToMultipleLines;
 
         /// <summary>
-        /// Gets or sets the flag indicating if the content of param tags should be aligned.
+        /// Gets or sets the flag indicating if summary tags should always be split to multiple lines.
         /// </summary>
-        public bool CommentXmlAlignParamTags
+        public bool CommentXmlSplitSummaryTagToMultipleLines
         {
-            get { return _commentXmlAlignParamTags; }
+            get { return _commentXmlSplitSummaryTagToMultipleLines; }
             set
             {
-                if (_commentXmlAlignParamTags != value)
+                if (_commentXmlSplitSummaryTagToMultipleLines != value)
                 {
-                    _commentXmlAlignParamTags = value;
-                    NotifyPropertyChanged("CommentXmlAlignParamTags");
+                    _commentXmlSplitSummaryTagToMultipleLines = value;
+                    NotifyPropertyChanged("CommentXmlSplitSummaryTagToMultipleLines");
+                }
+            }
+        }
+
+        private int _commentXmlValueIndent;
+
+        /// <summary>
+        /// Gets or sets the amount of extra spacing to add before XML values.
+        /// </summary>
+        public int CommentXmlValueIndent
+        {
+            get { return _commentXmlValueIndent; }
+            set
+            {
+                value = Math.Max(value, 0);
+                if (_commentXmlValueIndent != value)
+                {
+                    _commentXmlValueIndent = value;
+                    NotifyPropertyChanged("CommentXmlValueIndent");
                 }
             }
         }

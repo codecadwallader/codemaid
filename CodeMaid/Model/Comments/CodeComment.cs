@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -338,8 +339,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         AppendWord(xmlPhrase.OpenTag);
 
                         var phraseCount = xmlPhrase.Phrases.Count;
-                        bool singleLine = phraseCount == 0;
-                        if (phraseCount == 1)
+                        bool isMajorTag = xmlPhrase.OpenTag == "<summary>" && Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines;
+                        bool singleLine = phraseCount == 0 && !isMajorTag;
+
+                        if (phraseCount == 1 && !isMajorTag)
                         {
                             // If there is only one phrase inside the XML phrase, see if it fits on
                             // a single line.

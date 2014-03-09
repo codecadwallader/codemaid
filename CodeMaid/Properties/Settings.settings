@@ -365,5 +365,8 @@
     <Setting Name="Cleaning_CommentXmlAlignParamTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Cleaning_CommentXmlSplitSummaryTagToMultipleLines" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
