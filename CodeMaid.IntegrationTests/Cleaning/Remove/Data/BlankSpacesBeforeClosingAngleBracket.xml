@@ -4,5 +4,16 @@
     <subElement  />
     <subElement2       />
     <subElement3></subElement3   >
+    <subElement4 Attribute1="Yes"
+                 Attribute2="No"
+                 Attribute3="Maybe"
+                 />
+    <subElement5 Attribute1="Yes"
+                 Attribute2="No"
+                 Attribute3="Maybe"
+                 >
+    </subElement5>
+    <subElement6 Attribute1="Yes"
+                 />
   </element   >
 </root          >

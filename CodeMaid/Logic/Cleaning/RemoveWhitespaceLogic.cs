@@ -180,7 +180,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets) return;
 
             // Remove blank spaces before regular closing angle brackets.
-            string pattern = _package.UsePOSIXRegEx ? @":b+\>\n" : @"[ \t]+>\r?\n";
+            string pattern = _package.UsePOSIXRegEx ? @"\n*:b+\>\n" : @"(\r?\n)*[ \t]+>\r?\n";
             string replacement = @">" + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
@@ -188,14 +188,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Handle blank spaces before self closing angle brackets based on insert blank space setting.
             if (Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets)
             {
-                string oneSpacePattern = _package.UsePOSIXRegEx ? @":b:b+/\>\n" : @"[ \t]{2,}/>\r?\n";
+                string oneSpacePattern = _package.UsePOSIXRegEx ? @"\n*:b:b+/\>\n" : @"(\r?\n)*[ \t]{2,}/>\r?\n";
                 string oneSpaceReplacement = @" />" + Environment.NewLine;
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, oneSpacePattern, oneSpaceReplacement);
             }
             else
             {
-                string noSpacePattern = _package.UsePOSIXRegEx ? @":b+/\>\n" : @"[ \t]+/>\r?\n";
+                string noSpacePattern = _package.UsePOSIXRegEx ? @"\n*:b+/\>\n" : @"(\r?\n)*[ \t]+/>\r?\n";
                 string noSpaceReplacement = @"/>" + Environment.NewLine;
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, noSpacePattern, noSpaceReplacement);
