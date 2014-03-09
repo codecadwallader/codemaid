@@ -200,9 +200,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// cref="ICodeItemParent" />.
         /// </summary>
         /// <param name="parent">The code item parent.</param>
-        /// <returns>
-        /// The <see cref="ICollapsible" /> on the same starting line, otherwise null.
-        /// </returns>
+        /// <returns>The <see cref="ICollapsible" /> on the same starting line, otherwise null.</returns>
         private ICollapsible FindCollapsibleFromCodeItemParent(ICodeItemParent parent)
         {
             if (_outliningManager == null || _wpfTextView == null)

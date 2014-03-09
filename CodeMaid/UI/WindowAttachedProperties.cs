@@ -16,9 +16,7 @@ namespace SteveCadwallader.CodeMaid.UI
     /// <summary>
     /// A helper class for attached properties on <see cref="Window" />.
     /// </summary>
-    /// <remarks>
-    /// DialogResult attached property based on: http://blog.excastle.com/2010/07/25/mvvm-and-dialogresult-with-no-code-behind/.
-    /// </remarks>
+    /// <remarks>DialogResult attached property based on: http://blog.excastle.com/2010/07/25/mvvm-and-dialogresult-with-no-code-behind/.</remarks>
     public static class WindowAttachedProperties
     {
         #region DialogResult (Attached Property)

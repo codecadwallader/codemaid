@@ -94,9 +94,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when a PreviewMouseMove event is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="MouseEventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
         private void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_dragCandidate == null || !_dragStartPoint.HasValue) return;
@@ -132,9 +130,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when a drag event (DragEnter, DragOver) is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="DragEventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="DragEventArgs" /> instance containing the event data.</param>
         private void OnDragEvent(object sender, DragEventArgs e)
         {
             var target = FindParentListBoxItem(e.OriginalSource);
@@ -171,9 +167,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when a DragLeave event is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="DragEventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="DragEventArgs" /> instance containing the event data.</param>
         private void OnDragLeave(object sender, DragEventArgs e)
         {
             var target = FindParentListBoxItem(e.OriginalSource);
@@ -188,9 +182,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Called when a Drop event is received.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="DragEventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="DragEventArgs" /> instance containing the event data.</param>
         private void OnDrop(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent(typeof(object))) return;
@@ -248,9 +240,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// Determines whether a drop event is occurring above or below a specified target.
         /// </summary>
-        /// <param name="e">
-        /// The <see cref="DragEventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="DragEventArgs" /> instance containing the event data.</param>
         /// <param name="target">The target.</param>
         /// <returns>True if the drop should occur above the target, otherwise false.</returns>
         private static bool IsDropAbove(DragEventArgs e, ListBoxItem target)

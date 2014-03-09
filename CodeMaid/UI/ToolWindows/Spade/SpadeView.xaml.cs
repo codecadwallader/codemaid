@@ -171,7 +171,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         /// <summary>
         /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by
-        /// TreeView). Used to jump to a code item upon enter, or toggle the expansion state upon space.
+        /// TreeView) . Used to jump to a code item upon enter, or toggle the expansion state upon space.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">

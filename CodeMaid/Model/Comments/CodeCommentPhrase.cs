@@ -78,9 +78,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Gets the total length in characters of this phrase.
         /// </summary>
-        /// <remarks>
-        /// This value is calculated on the fly, use with care.
-        /// </remarks>
+        /// <remarks>This value is calculated on the fly, use with care.</remarks>
         public int Length
         {
             get

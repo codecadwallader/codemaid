@@ -294,7 +294,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             #region Constructors
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="CommentFormatter"/> class.
+            /// Initializes a new instance of the <see cref="CommentFormatter" /> class.
             /// </summary>
             /// <param name="commentPrefix">The comment prefix.</param>
             /// <param name="options">The options.</param>
@@ -313,8 +313,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             public void AppendPhrases(IEnumerable<ICodeCommentPhrase> phrases, int extraIndent = 0)
             {
-                // If XML parameter tags should be aligned, find the longest one and then pad
-                // all to an equal size.
+                // If XML parameter tags should be aligned, find the longest one and then pad all to
+                // an equal size.
                 if (_options.XmlAlignParamTags)
                 {
                     var paramPhrases = phrases.OfType<CodeCommentPhraseXml>().Where(p => p.OpenTag.StartsWith("<param "));

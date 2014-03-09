@@ -50,12 +50,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="CachedSettingSet{T}" /> class.
         /// </summary>
-        /// <param name="lookupFunction">
-        /// The function to be executed to lookup the setting expression.
-        /// </param>
-        /// <param name="parseFunction">
-        /// The function to be executed to parse a setting expression.
-        /// </param>
+        /// <param name="lookupFunction">The function to be executed to lookup the setting expression.</param>
+        /// <param name="parseFunction">The function to be executed to parse a setting expression.</param>
         public CachedSettingSet(Func<string> lookupFunction, Func<string, IEnumerable<T>> parseFunction)
         {
             _lookupFunction = lookupFunction;

@@ -67,9 +67,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// item if it is a project item as well.
         /// </summary>
         /// <param name="parentItem">The parent item.</param>
-        /// <returns>
-        /// The enumerable set of project items within the parent item, may be empty.
-        /// </returns>
+        /// <returns>The enumerable set of project items within the parent item, may be empty.</returns>
         internal static IEnumerable<ProjectItem> GetProjectItemsRecursively(object parentItem)
         {
             if (parentItem == null)

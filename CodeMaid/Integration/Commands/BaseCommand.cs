@@ -52,9 +52,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// Handles the BeforeQueryStatus event of the BaseCommand control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;
@@ -68,9 +66,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// Handles the Execute event of the BaseCommand control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs" /> instance containing the event data.
-        /// </param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private static void BaseCommand_Execute(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;

@@ -22,9 +22,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Flattens the specified collection by pulling out children.
         /// </summary>
-        /// <remarks>
-        /// This currently only recurses down one level as that's all that is needed.
-        /// </remarks>
+        /// <remarks>This currently only recurses down one level as that's all that is needed.</remarks>
         /// <param name="pages">The initial pages collection.</param>
         /// <returns>The flattened collection including children.</returns>
         public static IEnumerable<OptionsPageViewModel> Flatten(this IEnumerable<OptionsPageViewModel> pages)

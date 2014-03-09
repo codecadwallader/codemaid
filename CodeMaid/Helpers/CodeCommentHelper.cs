@@ -42,9 +42,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Creates the XML open tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns>
-        /// The XML open tag. In case of an element without value, the tag is self-closing.
-        /// </returns>
+        /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
         internal static string CreateXmlOpenTag(XElement element)
         {
             var builder = new System.Text.StringBuilder();

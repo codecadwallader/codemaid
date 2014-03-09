@@ -148,9 +148,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Docks the specified frame window if it is currently floating.
         /// </summary>
-        /// <remarks>
-        /// Works in VS2010, does not appear to work in VS2008.
-        /// </remarks>
+        /// <remarks>Works in VS2010, does not appear to work in VS2008.</remarks>
         /// <param name="frame">The frame.</param>
         private static void DockWindowIfFloating(IVsWindowFrame frame)
         {

@@ -117,9 +117,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Called when a document has been saved.
         /// </summary>
-        /// <param name="docCookie">
-        /// An abstract value representing the document about to be saved.
-        /// </param>
+        /// <param name="docCookie">An abstract value representing the document about to be saved.</param>
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnAfterSave(uint docCookie)
         {
@@ -146,9 +144,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Called when a document is about to be saved.
         /// </summary>
-        /// <param name="docCookie">
-        /// An abstract value representing the document about to be saved.
-        /// </param>
+        /// <param name="docCookie">An abstract value representing the document about to be saved.</param>
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnBeforeSave(uint docCookie)
         {

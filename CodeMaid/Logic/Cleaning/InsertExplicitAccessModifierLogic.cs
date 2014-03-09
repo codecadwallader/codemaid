@@ -41,9 +41,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Gets an instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
         /// </summary>
-        /// <returns>
-        /// An instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.
-        /// </returns>
+        /// <returns>An instance of the <see cref="InsertExplicitAccessModifierLogic" /> class.</returns>
         internal static InsertExplicitAccessModifierLogic GetInstance()
         {
             return _instance ?? (_instance = new InsertExplicitAccessModifierLogic());
