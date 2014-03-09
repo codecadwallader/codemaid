@@ -14,7 +14,6 @@
 
         /// <summary>
         /// The method summary with a long description that just goes on for a long period of time that will exceed the line boundary.
-        ///
         /// </summary>
         /// <remarks> A remarks section that has a very long description that just goes on for a long period of time that will exceed the line boundary.
         /// </remarks>
@@ -52,6 +51,11 @@
         /// This comment would only have a single word to wrap, which is wasteful and should be ignored.
         /// </summary>
         public void SixthMethod()
+        {
+        }
+
+        /// <summary></summary>
+        public void SeventhMethod()
         {
         }
     }

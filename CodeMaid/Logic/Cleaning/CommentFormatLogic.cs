@@ -92,7 +92,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                         foundComments = true;
                     }
 
-                    start = comment.EndPoint.CreateEditPoint();
+                    if (comment.EndPoint != null)
+                    {
+                        start = comment.EndPoint.CreateEditPoint();
+                    }
+
                     start.LineDown();
                     start.StartOfLine();
                 }

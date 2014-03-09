@@ -11,7 +11,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
         //This comment has no space after the comment prefix, so it should be treated as code and ignored instead of formatted.
 
 		// This comment is led with tabs instead of spaces and it is expected that this line keeps
-        // its formatting and following ones are defined by VS settings.
+		// its formatting and following ones are defined by VS settings.
 
         public void Method()
         {
