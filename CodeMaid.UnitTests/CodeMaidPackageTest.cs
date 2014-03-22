@@ -18,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
     public class CodeMaidPackageTest
     {
         [TestMethod]
+        [Ignore]
         public void CreateCodeMaidPackage()
         {
             var package = CodeMaidPackageHelper.CreateInitializedPackage();

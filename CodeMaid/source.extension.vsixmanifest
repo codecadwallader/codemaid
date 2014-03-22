@@ -3,7 +3,7 @@
   <Identifier Id="4c82e17d-927e-42d2-8460-b473ac7df316">
     <Name>CodeMaid</Name>
     <Author>Steve Cadwallader</Author>
-    <Version>0.7.0.2</Version>
+    <Version>0.7.1</Version>
     <Description xml:space="preserve">CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, XAML, XML, ASP, HTML, CSS, LESS, JavaScript and TypeScript coding.</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>http://www.codemaid.net/</MoreInfoUrl>
