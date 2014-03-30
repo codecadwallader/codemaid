@@ -1,15 +1,15 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using EnvDTE;
+﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
+using System;
+using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
 {
