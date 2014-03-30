@@ -9,13 +9,13 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -142,26 +142,19 @@ namespace SteveCadwallader.CodeMaid.Model
         private void RetrieveCodeRegions(SetCodeItems codeItems, Document document)
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
+            string pattern = _package.UsePOSIXRegEx
+                ? @"^:b*\#(region|endregion)"
+                : @"^[ \t]*#(region|endregion)";
 
-            var regionStack = new Stack<CodeItemRegion>();                   // Nested working hierarchy.
-            EditPoint cursor = textDocument.StartPoint.CreateEditPoint();    // The document cursor.
-            TextRanges subGroupMatches = null;                               // Not used - required for FindPattern.
-            string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
+            var editPoints = TextDocumentHelper.FindMatches(textDocument, pattern);
+            var regionStack = new Stack<CodeItemRegion>();
 
-            // Keep pushing cursor forwards (FindPattern uses cursor as ref parameter) until finished.
-            while (cursor != null &&
-                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
+            foreach (var cursor in editPoints)
             {
-                // Move the cursor back one character to pick up the '#' symbol.
-                cursor.CharLeft();
-
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
                 eolCursor.EndOfLine();
-                string regionText = cursor.GetText(eolCursor);
-
-                // Move the cursor back to the start of the line.
-                cursor.StartOfLine();
+                string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
 
                 if (regionText.StartsWith("#region ")) // Space required by compiler.
                 {
@@ -194,9 +187,6 @@ namespace SteveCadwallader.CodeMaid.Model
                         return;
                     }
                 }
-
-                // Move the cursor to the end of the line to continue searching.
-                cursor.EndOfLine();
             }
         }
 
