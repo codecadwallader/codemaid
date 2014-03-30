@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.UI.Converters
 {

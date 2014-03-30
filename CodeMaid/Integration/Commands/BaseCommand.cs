@@ -9,9 +9,9 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {

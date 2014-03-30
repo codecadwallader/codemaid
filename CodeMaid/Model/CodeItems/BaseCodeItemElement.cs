@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
-using System.Text.RegularExpressions;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using System;
+using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {

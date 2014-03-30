@@ -9,13 +9,13 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
+using SteveCadwallader.CodeMaid.Integration;
 using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
-using EnvDTE;
-using Microsoft.VisualStudio.Shell;
-using SteveCadwallader.CodeMaid.Integration;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 {

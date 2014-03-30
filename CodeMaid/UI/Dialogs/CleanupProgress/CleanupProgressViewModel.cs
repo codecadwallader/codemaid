@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using SteveCadwallader.CodeMaid.Logic.Cleaning;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
 {

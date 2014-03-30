@@ -9,14 +9,6 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Windows;
-using System.Xml.Linq;
-using System.Xml.XPath;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
@@ -27,6 +19,14 @@ using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Linq;
+using System.Windows;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 {

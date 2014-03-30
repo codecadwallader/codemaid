@@ -9,9 +9,9 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System.Linq;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
 {

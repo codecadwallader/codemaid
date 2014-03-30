@@ -9,12 +9,12 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

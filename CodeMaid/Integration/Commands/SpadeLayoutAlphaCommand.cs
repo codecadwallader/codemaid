@@ -9,8 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System.ComponentModel.Design;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
+using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
