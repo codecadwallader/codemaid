@@ -219,16 +219,25 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void LoadLazyInitializedValues(CodeModel codeModel)
         {
-            if (Settings.Default.General_Multithread)
+            try
             {
-                Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
-            }
-            else
-            {
-                foreach (var codeItem in codeModel.CodeItems)
+                if (Settings.Default.General_Multithread)
                 {
-                    codeItem.LoadLazyInitializedValues();
+                    Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
                 }
+                else
+                {
+                    foreach (var codeItem in codeModel.CodeItems)
+                    {
+                        codeItem.LoadLazyInitializedValues();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.WriteLine(String.Format(
+                    "CodeMaid exception: Unable to load lazy initialized values for {0}: {1}",
+                    codeModel.Document.FullName, ex));
             }
         }
 

@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Outlining;
 using Microsoft.VisualStudio.TextManager.Interop;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Collections.Generic;
@@ -240,10 +241,19 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated outlining manager, otherwise null.</returns>
         private IOutliningManager GetOutliningManager(Document document)
         {
-            _wpfTextView = GetWpfTextView(document);
-            if (_wpfTextView != null && _outliningManagerService != null)
+            try
             {
-                return _outliningManagerService.GetOutliningManager(_wpfTextView);
+                _wpfTextView = GetWpfTextView(document);
+                if (_wpfTextView != null && _outliningManagerService != null)
+                {
+                    return _outliningManagerService.GetOutliningManager(_wpfTextView);
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.WriteLine(String.Format(
+                    "CodeMaid exception: Unable to retrieve an outlining manager for {0}: {1}",
+                    document.FullName, ex));
             }
 
             return null;
