@@ -31,7 +31,7 @@
                 <TextBox FontFamily="{Binding CommentPreviewTextFont}"
                          Foreground="{Binding CommentPreviewTextForeground}"
                          Background="{Binding CommentPreviewTextBackground}"
-                         Text="{Binding CommentPreviewText}"
+                         Text="{Binding CommentPreviewText, Mode=OneWay}"
                          Padding="3"
                          HorizontalAlignment="Stretch"
                          VerticalAlignment="Stretch" />
