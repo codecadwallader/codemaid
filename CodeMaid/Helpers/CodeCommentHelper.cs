@@ -108,7 +108,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "JScript":
                 case "LESS":
                 case "TypeScript":
-                    return "//+";
+                    return "///?";
 
                 case "Basic":
                     return "'+";

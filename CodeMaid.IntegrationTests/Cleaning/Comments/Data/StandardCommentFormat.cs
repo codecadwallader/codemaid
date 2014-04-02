@@ -27,5 +27,15 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
         ////}
 
         // This comment would only have a single word to wrap, which is wasteful and should be ignored.
+
+        //// List:
+        ////  1) item one
+        ////  2) item two
+
+        //// var buffer = input as object[];
+        //// if (buffer != null)
+        //// {
+        ////     Console.WriteLine("some example code");
+        //// }
     }
 }
