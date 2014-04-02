@@ -230,16 +230,26 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the parent's children should be reorganized, otherwise false.</returns>
         private bool ShouldReorganizeChildren(BaseCodeItemElement parent)
         {
+            // Enumeration values should never be reordered.
             if (parent is CodeItemEnum)
             {
                 return false;
             }
 
             var parentAttributes = parent.Attributes;
-            if (parentAttributes != null &&
-                parentAttributes.OfType<CodeAttribute>().Any(x => x.FullName == "System.Runtime.InteropServices.StructLayoutAttribute"))
+            if (parentAttributes != null)
             {
-                return false;
+                // Some attributes indicate that order is critical and should not be reordered.
+                var attributesToIgnore = new[]
+                {
+                    "System.Runtime.InteropServices.ComImportAttribute",
+                    "System.Runtime.InteropServices.StructLayoutAttribute"
+                };
+
+                if (parentAttributes.OfType<CodeAttribute>().Any(x => attributesToIgnore.Contains(x.FullName)))
+                {
+                    return false;
+                }
             }
 
             return true;
