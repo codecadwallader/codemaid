@@ -117,7 +117,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (projectItem.Document != null)
             {
-                Cleanup(projectItem.Document, false);
+                Cleanup(projectItem.Document);
 
                 // Close the document if it was opened for cleanup.
                 if (Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup && !wasOpen)
@@ -159,12 +159,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
+                        OutputWindowHelper.DiagnosticWriteLine(
+                            string.Format("CodeCleanupManager.Cleanup started for '{0}'", document.FullName));
+
                         _package.IDE.StatusBar.Text = string.Format("CodeMaid is cleaning '{0}'...", document.Name);
 
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document, isAutoSave);
 
                         _package.IDE.StatusBar.Text = string.Format("CodeMaid cleaned '{0}'.", document.Name);
+
+                        OutputWindowHelper.DiagnosticWriteLine(
+                            string.Format("CodeCleanupManager.Cleanup completed for '{0}'", document.FullName));
                     }
                 },
                 delegate(Exception ex)

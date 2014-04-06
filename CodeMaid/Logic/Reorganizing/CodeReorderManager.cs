@@ -128,6 +128,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
+                    OutputWindowHelper.DiagnosticWriteLine(
+                        string.Format("CodeReorderManager.Reorganize started for '{0}'", document.FullName));
+
                     _package.IDE.StatusBar.Text = string.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
                     // Retrieve all relevant code items (excluding using statements, and
@@ -145,6 +148,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     RecursivelyReorganize(codeTree);
 
                     _package.IDE.StatusBar.Text = string.Format("CodeMaid reorganized '{0}'.", document.Name);
+
+                    OutputWindowHelper.DiagnosticWriteLine(
+                        string.Format("CodeReorderManager.Reorganize completed for '{0}'", document.FullName));
                 },
                 delegate(Exception ex)
                 {
