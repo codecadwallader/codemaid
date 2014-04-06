@@ -37,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal CodeModel(Document document)
         {
+            CodeItems = new SetCodeItems();
             Document = document;
             IsBuiltWaitHandle = new ManualResetEvent(false);
         }

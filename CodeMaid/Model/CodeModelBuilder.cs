@@ -70,7 +70,11 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             var codeItems = new SetCodeItems();
 
-            RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
+            if (document.ProjectItem != null)
+            {
+                RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
+            }
+
             RetrieveCodeRegions(codeItems, document);
 
             return codeItems;

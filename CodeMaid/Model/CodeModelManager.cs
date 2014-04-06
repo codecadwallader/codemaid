@@ -218,7 +218,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 OutputWindowHelper.ExceptionWriteLine(
                     string.Format("Unable to build code model for '{0}'", codeModel.Document.FullName), ex);
 
-                codeModel.CodeItems = null;
+                codeModel.CodeItems = new SetCodeItems();
                 codeModel.IsBuilding = false;
             }
         }
