@@ -40,27 +40,39 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Methods
 
         /// <summary>
-        /// Writes the specified line to the CodeMaid output pane, but only if diagnostics are enabled.
+        /// Writes the specified diagnostic line to the CodeMaid output pane, but only if diagnostics are enabled.
         /// </summary>
         /// <param name="message">The message.</param>
         internal static void DiagnosticWriteLine(string message)
         {
             if (!Settings.Default.General_DiagnosticsMode) return;
 
-            WriteLine(message);
+            var diagnosticMessage = string.Format("[CodeMaid Diagnostic] {0}", message);
+
+            WriteLine(diagnosticMessage);
         }
 
         /// <summary>
-        /// Writes the specified line to the CodeMaid output pane.
+        /// Writes the specified exception line to the CodeMaid output pane.
         /// </summary>
         /// <param name="message">The message.</param>
-        internal static void WriteLine(string message)
+        /// <param name="ex">The exception that was handled.</param>
+        internal static void ExceptionWriteLine(string message, Exception ex)
         {
-            var outputWindowPane = CodeMaidOutputWindowPane;
-            if (outputWindowPane != null)
-            {
-                outputWindowPane.OutputString(message + Environment.NewLine);
-            }
+            var exceptionMessage = string.Format("[CodeMaid Handled Exception] {0}: {1}", message, ex);
+
+            WriteLine(exceptionMessage);
+        }
+
+        /// <summary>
+        /// Writes the specified warning line to the CodeMaid output pane.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        internal static void WarningWriteLine(string message)
+        {
+            var warningMessage = string.Format("[CodeMaid Warning] {0}", message);
+
+            WriteLine(warningMessage);
         }
 
         /// <summary>
@@ -79,6 +91,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
             outputWindow.GetPane(ref outputPaneGuid, out windowPane);
 
             return windowPane;
+        }
+
+        /// <summary>
+        /// Writes the specified line to the CodeMaid output pane.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        private static void WriteLine(string message)
+        {
+            var outputWindowPane = CodeMaidOutputWindowPane;
+            if (outputWindowPane != null)
+            {
+                outputWindowPane.OutputString(message + Environment.NewLine);
+            }
         }
 
         #endregion Methods

@@ -12,7 +12,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
-using System;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -106,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     }
                     else
                     {
-                        Package.IDE.StatusBar.Text = String.Format(
+                        Package.IDE.StatusBar.Text = string.Format(
                             foundComments
                                 ? "CodeMaid finished formatting the comments {0}."
                                 : "CodeMaid did not find a non-code comment {0} to reformat.",

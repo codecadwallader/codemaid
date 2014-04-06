@@ -331,7 +331,7 @@ namespace SteveCadwallader.CodeMaid
         {
             if (!Settings.Default.General_DiagnosticsMode) return;
 
-            OutputWindowHelper.WriteLine("CodeMaid's diagnostics mode caught the following unhandled exception in Visual Studio--" + Environment.NewLine + e.Exception);
+            OutputWindowHelper.ExceptionWriteLine("Diagnostics mode caught and marked as handled the following DispatcherUnhandledException raised in Visual Studio", e.Exception);
             e.Handled = true;
         }
 

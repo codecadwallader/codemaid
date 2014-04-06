@@ -166,7 +166,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
                 progressString = string.Format(" {0} of {1}", completeString, projectsString);
             }
 
-            Caption = String.Format("{0}: {1}{2} \"{3}\"...",
+            Caption = string.Format("{0}: {1}{2} \"{3}\"...",
                                     DefaultCaption, buildString, progressString, projectName);
             _viewModel.ProgressPercentage = ProgressPercentage;
         }

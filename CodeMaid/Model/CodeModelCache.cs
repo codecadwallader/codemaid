@@ -51,7 +51,8 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             CodeModel codeModel;
 
-            OutputWindowHelper.DiagnosticWriteLine("GetCodeModel: " + document.FullName);
+            OutputWindowHelper.DiagnosticWriteLine(
+                string.Format("GetCodeModel for '{0}'", document.FullName));
 
             lock (_cache)
             {
@@ -86,7 +87,8 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (_cache.Remove(document.FullName))
                 {
-                    OutputWindowHelper.DiagnosticWriteLine("RemoveCodeModel from cache: " + document.FullName);
+                    OutputWindowHelper.DiagnosticWriteLine(
+                        string.Format("RemoveCodeModel from cache for '{0}'", document.FullName));
                 }
             }
         }
@@ -101,7 +103,8 @@ namespace SteveCadwallader.CodeMaid.Model
             if (_cache.TryGetValue(document.FullName, out codeModel))
             {
                 codeModel.IsStale = true;
-                OutputWindowHelper.DiagnosticWriteLine("StaleCodeModel in cache: " + document.FullName);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("StaleCodeModel in cache for '{0}'", document.FullName));
             }
         }
 

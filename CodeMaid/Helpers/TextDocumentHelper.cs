@@ -218,7 +218,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
-                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
+                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
                     break;
                 }
                 lastCount = dummy.Count;
@@ -243,7 +243,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
-                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
+                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
                     break;
                 }
                 lastCount = dummy.Count;
@@ -269,7 +269,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // if so exiting early.
                 if (lastCount == dummy.Count)
                 {
-                    OutputWindowHelper.WriteLine("CodeMaid had to force a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");
+                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");
                     break;
                 }
                 lastCount = dummy.Count;

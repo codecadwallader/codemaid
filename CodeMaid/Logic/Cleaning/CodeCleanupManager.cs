@@ -142,7 +142,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (_package.IDE.ActiveDocument != document)
             {
-                OutputWindowHelper.WriteLine(document.Name + " did not complete activation before cleaning started.");
+                OutputWindowHelper.WarningWriteLine(
+                    string.Format("Activation was not completed before cleaning began for '{0}'", document.Name));
             }
 
             // Conditionally start cleanup with reorganization.
@@ -158,18 +159,19 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
-                        _package.IDE.StatusBar.Text = String.Format("CodeMaid is cleaning '{0}'...", document.Name);
+                        _package.IDE.StatusBar.Text = string.Format("CodeMaid is cleaning '{0}'...", document.Name);
 
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document, isAutoSave);
 
-                        _package.IDE.StatusBar.Text = String.Format("CodeMaid cleaned '{0}'.", document.Name);
+                        _package.IDE.StatusBar.Text = string.Format("CodeMaid cleaned '{0}'.", document.Name);
                     }
                 },
                 delegate(Exception ex)
                 {
-                    OutputWindowHelper.WriteLine(String.Format("CodeMaid stopped cleaning '{0}': {1}", document.Name, ex));
-                    _package.IDE.StatusBar.Text = String.Format("CodeMaid stopped cleaning '{0}'.  See output window for more details.", document.Name);
+                    OutputWindowHelper.ExceptionWriteLine(
+                        string.Format("Stopped cleaning '{0}'", document.Name), ex);
+                    _package.IDE.StatusBar.Text = string.Format("CodeMaid stopped cleaning '{0}'.  See output window for more details.", document.Name);
                 });
         }
 
@@ -208,8 +210,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupGeneric;
 
                 default:
-                    OutputWindowHelper.WriteLine(String.Format(
-                        "CodeMaid does not support document language '{0}'.", document.Language));
+                    OutputWindowHelper.WarningWriteLine(
+                        string.Format("FindCodeCleanupMethod does not recognize document language '{0}'", document.Language));
                     return null;
             }
         }

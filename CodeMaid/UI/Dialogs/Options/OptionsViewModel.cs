@@ -208,7 +208,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.WriteLine("CodeMaid was unable to export settings: " + ex);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to export settings", ex);
                     MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
                                     "CodeMaid: Export Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -272,7 +272,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.WriteLine("CodeMaid was unable to import settings: " + ex);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to import settings", ex);
                     MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
                                     "CodeMaid: Import Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }

@@ -113,9 +113,8 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (!codeModel.IsBuiltWaitHandle.WaitOne(TimeSpan.FromSeconds(30)))
                 {
-                    OutputWindowHelper.WriteLine(String.Format(
-                        "CodeMaid warning: Timed out waiting for code model to be built for {0}.",
-                        codeModel.Document.FullName));
+                    OutputWindowHelper.WarningWriteLine(
+                        string.Format("Timed out waiting for code model to be built for '{0}'", codeModel.Document.FullName));
                     return null;
                 }
             }
@@ -204,9 +203,8 @@ namespace SteveCadwallader.CodeMaid.Model
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.WriteLine(String.Format(
-                    "CodeMaid exception: Unable to build code model for {0}: {1}",
-                    codeModel.Document.FullName, ex));
+                OutputWindowHelper.ExceptionWriteLine(
+                    string.Format("Unable to build code model for '{0}'", codeModel.Document.FullName), ex);
 
                 codeModel.CodeItems = null;
                 codeModel.IsBuilding = false;
@@ -235,9 +233,8 @@ namespace SteveCadwallader.CodeMaid.Model
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.WriteLine(String.Format(
-                    "CodeMaid exception: Unable to load lazy initialized values for {0}: {1}",
-                    codeModel.Document.FullName, ex));
+                OutputWindowHelper.ExceptionWriteLine(
+                    string.Format("Unable to load lazy initialized values for '{0}'", codeModel.Document.FullName), ex);
             }
         }
 

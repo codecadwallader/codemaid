@@ -251,9 +251,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.WriteLine(String.Format(
-                    "CodeMaid exception: Unable to retrieve an outlining manager for {0}: {1}",
-                    document.FullName, ex));
+                OutputWindowHelper.ExceptionWriteLine(
+                    string.Format("Unable to retrieve an outlining manager for '{0}'", document.FullName), ex);
             }
 
             return null;

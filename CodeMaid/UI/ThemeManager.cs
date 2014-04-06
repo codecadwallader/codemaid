@@ -220,8 +220,9 @@ namespace SteveCadwallader.CodeMaid.UI
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.WriteLine(String.Format("CodeMaid failed to load theme '{0}': {1}", themeUri, ex));
-                _package.IDE.StatusBar.Text = String.Format("CodeMaid failed to load theme '{0}'.  See output window for more details.", themeUri);
+                OutputWindowHelper.ExceptionWriteLine(
+                    string.Format("Unable to load theme '{0}'", themeUri), ex);
+                _package.IDE.StatusBar.Text = string.Format("CodeMaid failed to load theme '{0}'.  See output window for more details.", themeUri);
 
                 return null;
             }

@@ -155,7 +155,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.WriteLine(String.Format("CodeMaid's TryDefault encountered an error on '{0}': {1}", func, ex));
+                OutputWindowHelper.ExceptionWriteLine(
+                    string.Format("TryDefault caught an exception on '{0}'", func), ex);
 
                 return default(T);
             }

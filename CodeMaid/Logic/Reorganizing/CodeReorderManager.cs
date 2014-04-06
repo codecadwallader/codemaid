@@ -128,7 +128,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
-                    _package.IDE.StatusBar.Text = String.Format("CodeMaid is reorganizing '{0}'...", document.Name);
+                    _package.IDE.StatusBar.Text = string.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
                     // Retrieve all relevant code items (excluding using statements, and
                     // conditionally regions).
@@ -144,12 +144,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
 
-                    _package.IDE.StatusBar.Text = String.Format("CodeMaid reorganized '{0}'.", document.Name);
+                    _package.IDE.StatusBar.Text = string.Format("CodeMaid reorganized '{0}'.", document.Name);
                 },
                 delegate(Exception ex)
                 {
-                    OutputWindowHelper.WriteLine(String.Format("CodeMaid stopped reorganizing '{0}': {1}", document.Name, ex));
-                    _package.IDE.StatusBar.Text = String.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
+                    OutputWindowHelper.ExceptionWriteLine(
+                        string.Format("Stopped reorganizing '{0}'", document.Name), ex);
+                    _package.IDE.StatusBar.Text = string.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
                 });
         }
 

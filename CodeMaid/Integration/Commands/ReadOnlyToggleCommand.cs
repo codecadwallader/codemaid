@@ -63,9 +63,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.WriteLine(String.Format(
-                        "CodeMaid exception: Unable to toggle read only state on {0}: {1}",
-                        document.FullName, ex));
+                    OutputWindowHelper.ExceptionWriteLine(
+                        string.Format("Unable to toggle read only state on '{0}'", document.FullName), ex);
                 }
             }
         }
