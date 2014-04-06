@@ -76,6 +76,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             _isWaitingToExecute = false;
 
             var topItem = TopUIHierarchyItem;

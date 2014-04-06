@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Threading;
 
@@ -24,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Fields
 
         private bool _isBuilding;
+        private bool _isStale;
 
         #endregion Fields
 
@@ -63,6 +65,9 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (_isBuilding != value)
                 {
+                    OutputWindowHelper.DiagnosticWriteLine(
+                        string.Format("CodeModel.IsBuilding changing to '{0}' for '{1}'", value, Document.FullName));
+
                     _isBuilding = value;
                     if (_isBuilding)
                     {
@@ -84,7 +89,20 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets or sets a flag indicating if this model is stale.
         /// </summary>
-        internal bool IsStale { get; set; }
+        internal bool IsStale
+        {
+            get { return _isStale; }
+            set
+            {
+                if (_isStale != value)
+                {
+                    OutputWindowHelper.DiagnosticWriteLine(
+                        string.Format("CodeModel.IsStale changing to '{0}' for '{1}'", value, Document.FullName));
+
+                    _isStale = value;
+                }
+            }
+        }
 
         #endregion Properties
     }

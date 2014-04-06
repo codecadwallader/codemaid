@@ -47,9 +47,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (!Settings.Default.General_DiagnosticsMode) return;
 
-            var diagnosticMessage = string.Format("[CodeMaid Diagnostic] {0}", message);
-
-            WriteLine(diagnosticMessage);
+            WriteLine("Diagnostic", message);
         }
 
         /// <summary>
@@ -59,9 +57,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="ex">The exception that was handled.</param>
         internal static void ExceptionWriteLine(string message, Exception ex)
         {
-            var exceptionMessage = string.Format("[CodeMaid Handled Exception] {0}: {1}", message, ex);
+            var exceptionMessage = string.Format("{0}: {1}", message, ex);
 
-            WriteLine(exceptionMessage);
+            WriteLine("Handled Exception", exceptionMessage);
         }
 
         /// <summary>
@@ -70,9 +68,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="message">The message.</param>
         internal static void WarningWriteLine(string message)
         {
-            var warningMessage = string.Format("[CodeMaid Warning] {0}", message);
-
-            WriteLine(warningMessage);
+            WriteLine("Warning", message);
         }
 
         /// <summary>
@@ -96,13 +92,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Writes the specified line to the CodeMaid output pane.
         /// </summary>
+        /// <param name="category">The category.</param>
         /// <param name="message">The message.</param>
-        private static void WriteLine(string message)
+        private static void WriteLine(string category, string message)
         {
             var outputWindowPane = CodeMaidOutputWindowPane;
             if (outputWindowPane != null)
             {
-                outputWindowPane.OutputString(message + Environment.NewLine);
+                string outputMessage = string.Format("[CodeMaid {0} {1}] {2}{3}",
+                    category, DateTime.Now.ToString("hh:mm:ss tt"), message, Environment.NewLine);
+
+                outputWindowPane.OutputString(outputMessage);
             }
         }
 

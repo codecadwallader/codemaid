@@ -108,6 +108,9 @@ namespace SteveCadwallader.CodeMaid.Model
                 throw new ArgumentNullException("document");
             }
 
+            OutputWindowHelper.DiagnosticWriteLine(
+                string.Format("CodeModelManager.RetrieveAllCodeItems for '{0}'", document.FullName));
+
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
             {
@@ -144,6 +147,9 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 throw new ArgumentNullException("document");
             }
+
+            OutputWindowHelper.DiagnosticWriteLine(
+                string.Format("CodeModelManager.RetrieveAllCodeItemsAsync for '{0}'", document.FullName));
 
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
@@ -187,6 +193,9 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             try
             {
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("CodeModelManager.BuildCodeItems started for '{0}'", codeModel.Document.FullName));
+
                 codeModel.IsBuilding = true;
                 codeModel.IsStale = false;
 
@@ -200,6 +209,9 @@ namespace SteveCadwallader.CodeMaid.Model
 
                 codeModel.CodeItems = codeItems;
                 codeModel.IsBuilding = false;
+
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("CodeModelManager.BuildCodeItems completed for '{0}'", codeModel.Document.FullName));
             }
             catch (Exception ex)
             {
@@ -219,6 +231,9 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             try
             {
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("CodeModelManager.LoadLazyInitializedValues for '{0}'", codeModel.Document.FullName));
+
                 if (Settings.Default.General_Multithread)
                 {
                     Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());

@@ -55,6 +55,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())
             {
                 MessageBox.Show(@"Cleanup cannot run while debugging.",

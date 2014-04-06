@@ -54,6 +54,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             using (new ActiveDocumentRestorer(Package))
             {
                 var viewModel = new CleanupProgressViewModel(Package, SelectedProjectItems);

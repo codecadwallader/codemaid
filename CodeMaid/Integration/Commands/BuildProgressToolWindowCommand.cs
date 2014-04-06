@@ -63,6 +63,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             ShowBuildProgressToolWindow();
         }
 

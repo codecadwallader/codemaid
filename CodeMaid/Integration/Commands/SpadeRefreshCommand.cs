@@ -39,6 +39,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             var spade = Package.Spade;
             if (spade != null)
             {

@@ -65,6 +65,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             string alternatePath = GetAlternatePathIfExists(Package.IDE.ActiveDocument);
             if (!String.IsNullOrEmpty(alternatePath))
             {

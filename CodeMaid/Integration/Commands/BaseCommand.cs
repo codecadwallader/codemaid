@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using Microsoft.VisualStudio.Shell;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.ComponentModel.Design;
 
@@ -92,7 +93,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Called to execute the command.
         /// </summary>
-        protected abstract void OnExecute();
+        protected virtual void OnExecute()
+        {
+            OutputWindowHelper.DiagnosticWriteLine(
+                string.Format("{0}.OnExecute invoked", GetType().Name));
+        }
 
         #endregion Methods
     }

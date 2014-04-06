@@ -70,6 +70,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
             var activeTextDocument = ActiveTextDocument;
 
             if (activeTextDocument != null && activeTextDocument.Selection != null)
