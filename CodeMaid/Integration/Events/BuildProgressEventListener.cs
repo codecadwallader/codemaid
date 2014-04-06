@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -79,9 +80,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="action">The action.</param>
         private void BuildEvents_OnBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
-            if (BuildBegin != null)
+            var buildBegin = BuildBegin;
+            if (buildBegin != null)
             {
-                BuildBegin(scope, action);
+                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildBegin raised");
+
+                buildBegin(scope, action);
             }
         }
 
@@ -94,9 +98,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="solutionConfig">The solution config.</param>
         private void BuildEvents_OnBuildProjConfigBegin(string project, string projectConfig, string platform, string solutionConfig)
         {
-            if (BuildProjConfigBegin != null)
+            var buildProjConfigBegin = BuildProjConfigBegin;
+            if (buildProjConfigBegin != null)
             {
-                BuildProjConfigBegin(project, projectConfig, platform, solutionConfig);
+                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildProjConfigBegin raised");
+
+                buildProjConfigBegin(project, projectConfig, platform, solutionConfig);
             }
         }
 
@@ -110,9 +117,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="success">True if project build was successful, otherwise false.</param>
         private void BuildEvents_OnBuildProjConfigDone(string project, string projectConfig, string platform, string solutionConfig, bool success)
         {
-            if (BuildProjConfigDone != null)
+            var buildProjConfigDone = BuildProjConfigDone;
+            if (buildProjConfigDone != null)
             {
-                BuildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
+                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildProjConfigDone raised");
+
+                buildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
             }
         }
 
@@ -123,9 +133,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="action">The action.</param>
         private void BuildEvents_OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            if (BuildDone != null)
+            var buildDone = BuildDone;
+            if (buildDone != null)
             {
-                BuildDone(scope, action);
+                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildDone raised");
+
+                buildDone(scope, action);
             }
         }
 

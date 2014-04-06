@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -71,9 +72,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
             var document = startPoint.Parent.Parent;
 
-            if (OnLineChanged != null && document != null)
+            var onLineChanged = OnLineChanged;
+            if (onLineChanged != null && document != null)
             {
-                OnLineChanged(document);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("TextEditorEventListener.OnLineChanged raised for '{0}'", document.FullName));
+
+                onLineChanged(document);
             }
         }
 

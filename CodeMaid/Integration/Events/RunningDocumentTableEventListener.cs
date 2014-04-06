@@ -13,6 +13,7 @@ using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Helpers;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -121,11 +122,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnAfterSave(uint docCookie)
         {
-            if (AfterSave != null)
+            var afterSave = AfterSave;
+            if (afterSave != null)
             {
                 Document document = GetDocumentFromCookie(docCookie);
 
-                AfterSave(document);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("RunningDocumentTableEventListener.AfterSave raised for '{0}'", document != null ? document.FullName : "(null)"));
+
+                afterSave(document);
             }
 
             return VSConstants.S_OK;
@@ -148,11 +153,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnBeforeSave(uint docCookie)
         {
-            if (BeforeSave != null)
+            var beforeSave = BeforeSave;
+            if (beforeSave != null)
             {
                 Document document = GetDocumentFromCookie(docCookie);
 
-                BeforeSave(document);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("RunningDocumentTableEventListener.BeforeSave raised for '{0}'", document != null ? document.FullName : "(null)"));
+
+                beforeSave(document);
             }
 
             return VSConstants.S_OK;

@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -82,9 +83,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="document">The document that got focus, may be null.</param>
         private void RaiseWindowChange(Document document)
         {
-            if (OnWindowChange != null)
+            var onWindowChange = OnWindowChange;
+            if (onWindowChange != null)
             {
-                OnWindowChange(document);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("WindowEventListener.OnWindowChange raised for '{0}'", document != null ? document.FullName : "(null)"));
+
+                onWindowChange(document);
             }
         }
 

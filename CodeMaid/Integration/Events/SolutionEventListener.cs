@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -66,9 +67,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         private void SolutionEvents_Opened()
         {
-            if (OnSolutionOpened != null)
+            var onSolutionOpened = OnSolutionOpened;
+            if (onSolutionOpened != null)
             {
-                OnSolutionOpened();
+                OutputWindowHelper.DiagnosticWriteLine("SolutionEventListener.OnSolutionOpened raised");
+
+                onSolutionOpened();
             }
         }
 
@@ -77,9 +81,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         private void SolutionEvents_AfterClosing()
         {
-            if (OnSolutionClosed != null)
+            var onSolutionClosed = OnSolutionClosed;
+            if (onSolutionClosed != null)
             {
-                OnSolutionClosed();
+                OutputWindowHelper.DiagnosticWriteLine("SolutionEventListener.OnSolutionClosed raised");
+
+                onSolutionClosed();
             }
         }
 

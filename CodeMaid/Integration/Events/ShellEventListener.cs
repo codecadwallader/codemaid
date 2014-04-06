@@ -11,6 +11,7 @@
 
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -92,9 +93,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             if (msg == WM_SYSCOLORCHANGE)
             {
-                if (EnvironmentColorChanged != null)
+                var environmentColorChanged = EnvironmentColorChanged;
+                if (environmentColorChanged != null)
                 {
-                    EnvironmentColorChanged();
+                    OutputWindowHelper.DiagnosticWriteLine("ShellEventListener.EnvironmentColorChanged raised");
+
+                    environmentColorChanged();
                 }
             }
 
@@ -116,10 +120,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             // Check if the zombie state property of the shell has changed to false.
             if ((int)__VSSPROPID.VSSPROPID_Zombie == propid && ((bool)var == false))
             {
-                // Raise the shell available event.
-                if (ShellAvailable != null)
+                var shellAvailable = ShellAvailable;
+                if (shellAvailable != null)
                 {
-                    ShellAvailable();
+                    OutputWindowHelper.DiagnosticWriteLine("ShellEventListener.ShellAvailable raised");
+
+                    shellAvailable();
                 }
             }
 

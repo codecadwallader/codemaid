@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -61,9 +62,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="document">The document that is closing.</param>
         private void DocumentEvents_DocumentClosing(Document document)
         {
-            if (OnDocumentClosing != null)
+            var onDocumentClosing = OnDocumentClosing;
+            if (onDocumentClosing != null)
             {
-                OnDocumentClosing(document);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("DocumentEventListener.OnDocumentClosing raised for '{0}'", document != null ? document.FullName : "(null)"));
+
+                onDocumentClosing(document);
             }
         }
 

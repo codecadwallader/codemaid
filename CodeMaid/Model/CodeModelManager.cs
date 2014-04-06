@@ -262,6 +262,9 @@ namespace SteveCadwallader.CodeMaid.Model
             var codeModelBuilt = CodeModelBuilt;
             if (codeModelBuilt != null)
             {
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("CodeModelManager.CodeModelBuilt raised for '{0}'", codeModel.Document.FullName));
+
                 codeModelBuilt(codeModel);
             }
         }
