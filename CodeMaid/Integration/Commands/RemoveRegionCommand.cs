@@ -9,6 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -18,6 +20,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class RemoveRegionCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly RemoveRegionLogic _removeRegionLogic;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -28,12 +36,101 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandRemoveRegion, (int)PkgCmdIDList.CmdIDCodeMaidRemoveRegion))
         {
+            _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }
 
         #endregion Constructors
 
+        #region Enumerations
+
+        /// <summary>
+        /// An enumeration of region command scopes.
+        /// </summary>
+        private enum RegionCommandScope
+        {
+            None,
+            Document,
+            CurrentLine,
+            Selection
+        }
+
+        #endregion Enumerations
+
         #region BaseCommand Methods
 
+        /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            var regionCommandScope = GetRegionCommandScope();
+
+            Enabled = regionCommandScope != RegionCommandScope.None;
+
+            switch (regionCommandScope)
+            {
+                case RegionCommandScope.CurrentLine:
+                    Text = "&Remove Current Region";
+                    break;
+
+                case RegionCommandScope.Selection:
+                    Text = "&Remove Selected Regions";
+                    break;
+
+                default:
+                    Text = "&Remove All Regions";
+                    break;
+            }
+        }
+
         #endregion BaseCommand Methods
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets the active text document, otherwise null.
+        /// </summary>
+        private TextDocument ActiveTextDocument
+        {
+            get
+            {
+                var document = Package.IDE.ActiveDocument;
+
+                return document != null ? document.Object("TextDocument") as TextDocument : null;
+            }
+        }
+
+        #endregion Private Properties
+
+        #region Private Methods
+
+        /// <summary>
+        /// Gets the region command scope based on the current document and selection conditions.
+        /// </summary>
+        /// <returns>The scope that should be used for the region command.</returns>
+        private RegionCommandScope GetRegionCommandScope()
+        {
+            var activeTextDocument = ActiveTextDocument;
+            if (activeTextDocument != null)
+            {
+                var textSelection = activeTextDocument.Selection;
+                if (textSelection != null)
+                {
+                    if (!textSelection.IsEmpty)
+                    {
+                        return RegionCommandScope.Selection;
+                    }
+
+                    //TODO: Extend conditional to determine if the current line contains a region, if not we'll fall back to the document.
+                    return RegionCommandScope.CurrentLine;
+                }
+
+                return RegionCommandScope.Document;
+            }
+
+            return RegionCommandScope.None;
+        }
+
+        #endregion Private Methods
     }
 }

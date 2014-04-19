@@ -294,7 +294,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>&amp;Remove Regions</ButtonText>
+          <ButtonText>&amp;Remove All Regions</ButtonText>
         </Strings>
       </Button>
 
