@@ -2,23 +2,38 @@
 {
     internal class Regions
     {
+        #region Fields
 
         private bool _field;
 
+        #endregion Fields
+
         /* placeholder */
         /* placeholder */
+
+        #region Constructors
 
         public Regions()
         {
+            #region In-Method region
 
             bool var1;
 
+            #endregion In-Method region
+
+            #region In-Method region
+
             bool var2;
 
+            #endregion In-Method region
         }
+
+        #endregion Constructors
 
         /* placeholder */
         /* placeholder */
+
+        #region Properties
 
         public bool Property
         {
@@ -26,9 +41,14 @@
             set { _field = value; }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         private void Method()
         {
         }
 
+        #endregion Methods
     }
 }

@@ -2,8 +2,11 @@
 {
     internal class Regions
     {
+        #region Fields
 
         private bool _field;
+
+        #endregion Fields
 
         /* placeholder */
         /* placeholder */
@@ -26,9 +29,12 @@
             set { _field = value; }
         }
 
+        #region Methods
+
         private void Method()
         {
         }
 
+        #endregion Methods
     }
 }
