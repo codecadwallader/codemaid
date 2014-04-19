@@ -62,6 +62,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Finds all matches of the specified pattern within the specified text selection.
+        /// </summary>
+        /// <param name="textSelection">The text selection.</param>
+        /// <param name="patternString">The pattern string.</param>
+        /// <returns>The set of matches.</returns>
+        internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
+        {
+            var matches = new List<EditPoint>();
+            var cursor = textSelection.TopPoint.CreateEditPoint();
+            EditPoint end = null;
+            TextRanges dummy = null;
+
+            while (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            {
+                if (end.AbsoluteCharOffset > textSelection.BottomPoint.AbsoluteCharOffset)
+                {
+                    break;
+                }
+
+                matches.Add(cursor.CreateEditPoint());
+                cursor = end;
+            }
+
+            return matches;
+        }
+
+        /// <summary>
         /// Gets the text between the specified start point and the first match.
         /// </summary>
         /// <param name="startPoint">The start point.</param>

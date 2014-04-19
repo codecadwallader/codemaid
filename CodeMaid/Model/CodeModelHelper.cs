@@ -94,14 +94,55 @@ namespace SteveCadwallader.CodeMaid.Model
         /// Retrieves code regions from the specified document.
         /// </summary>
         /// <param name="document">The document to walk.</param>
+        /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(Document document)
         {
             var textDocument = (TextDocument)document.Object("TextDocument");
-            string pattern = _package.UsePOSIXRegEx
-                ? @"^:b*\#(region|endregion)"
-                : @"^[ \t]*#(region|endregion)";
+            var editPoints = TextDocumentHelper.FindMatches(textDocument, RegionPattern);
 
-            var editPoints = TextDocumentHelper.FindMatches(textDocument, pattern);
+            return RetrieveCodeRegions(editPoints);
+        }
+
+        /// <summary>
+        /// Retrieves code regions from the specified text selection.
+        /// </summary>
+        /// <param name="textSelection">The text selection to walk.</param>
+        /// <returns>An enumerable collection of regions.</returns>
+        internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextSelection textSelection)
+        {
+            var editPoints = TextDocumentHelper.FindMatches(textSelection, RegionPattern);
+
+            return RetrieveCodeRegions(editPoints);
+        }
+
+        #endregion Internal Methods
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets the regular expression pattern for region matching.
+        /// </summary>
+        private string RegionPattern
+        {
+            get
+            {
+                return _package.UsePOSIXRegEx
+                    ? @"^:b*\#(region|endregion)"
+                    : @"^[ \t]*#(region|endregion)";
+            }
+        }
+
+        #endregion Private Properties
+
+        #region Private Methods
+
+        /// <summary>
+        /// Retrieves code regions based on the specified edit points.
+        /// </summary>
+        /// <param name="editPoints">The edit points to walk.</param>
+        /// <returns>An enumerable collection of regions.</returns>
+        private static IEnumerable<CodeItemRegion> RetrieveCodeRegions(IEnumerable<EditPoint> editPoints)
+        {
             var regionStack = new Stack<CodeItemRegion>();
             var codeItems = new List<CodeItemRegion>();
 
@@ -148,6 +189,6 @@ namespace SteveCadwallader.CodeMaid.Model
             return codeItems;
         }
 
-        #endregion Internal Methods
+        #endregion Private Methods
     }
 }
