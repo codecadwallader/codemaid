@@ -9,6 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,44 @@ using System.Linq;
 namespace SteveCadwallader.CodeMaid.Model
 {
     /// <summary>
-    /// A static helper class for working with the code model.
+    /// A helper class for working with the code model.
     /// </summary>
-    internal static class CodeModelHelper
+    internal class CodeModelHelper
     {
+        #region Fields
+
+        private readonly CodeMaidPackage _package;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// The singleton instance of the <see cref="CodeModelHelper" /> class.
+        /// </summary>
+        private static CodeModelHelper _instance;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeModelHelper" /> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        private CodeModelHelper(CodeMaidPackage package)
+        {
+            _package = package;
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="CodeModelHelper" /> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>An instance of the <see cref="CodeModelHelper" /> class.</returns>
+        internal static CodeModelHelper GetInstance(CodeMaidPackage package)
+        {
+            return _instance ?? (_instance = new CodeModelHelper(package));
+        }
+
+        #endregion Constructors
+
         #region Internal Methods
 
         /// <summary>
@@ -52,6 +88,64 @@ namespace SteveCadwallader.CodeMaid.Model
             }
 
             return codeItemBlocks;
+        }
+
+        /// <summary>
+        /// Retrieves code regions from the specified document.
+        /// </summary>
+        /// <param name="document">The document to walk.</param>
+        internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(Document document)
+        {
+            var textDocument = (TextDocument)document.Object("TextDocument");
+            string pattern = _package.UsePOSIXRegEx
+                ? @"^:b*\#(region|endregion)"
+                : @"^[ \t]*#(region|endregion)";
+
+            var editPoints = TextDocumentHelper.FindMatches(textDocument, pattern);
+            var regionStack = new Stack<CodeItemRegion>();
+            var codeItems = new List<CodeItemRegion>();
+
+            foreach (var cursor in editPoints)
+            {
+                // Create a pointer to capture the text for this line.
+                EditPoint eolCursor = cursor.CreateEditPoint();
+                eolCursor.EndOfLine();
+                string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
+
+                if (regionText.StartsWith("#region ")) // Space required by compiler.
+                {
+                    // Get the region name.
+                    string regionName = regionText.Substring(8).Trim();
+
+                    // Push the parsed region info onto the top of the stack.
+                    regionStack.Push(new CodeItemRegion
+                    {
+                        Name = regionName,
+                        StartLine = cursor.Line,
+                        StartOffset = cursor.AbsoluteCharOffset,
+                        StartPoint = cursor.CreateEditPoint()
+                    });
+                }
+                else if (regionText.StartsWith("#endregion"))
+                {
+                    if (regionStack.Count > 0)
+                    {
+                        CodeItemRegion region = regionStack.Pop();
+                        region.EndLine = eolCursor.Line;
+                        region.EndOffset = eolCursor.AbsoluteCharOffset;
+                        region.EndPoint = eolCursor.CreateEditPoint();
+
+                        codeItems.Add(region);
+                    }
+                    else
+                    {
+                        // This document is improperly formatted, abort.
+                        return Enumerable.Empty<CodeItemRegion>();
+                    }
+                }
+            }
+
+            return codeItems;
         }
 
         #endregion Internal Methods

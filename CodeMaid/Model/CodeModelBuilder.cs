@@ -10,10 +10,8 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
-using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Fields
 
         private readonly CodeMaidPackage _package;
+        private readonly CodeModelHelper _codeModelHelper;
 
         #endregion Fields
 
@@ -44,6 +43,8 @@ namespace SteveCadwallader.CodeMaid.Model
         private CodeModelBuilder(CodeMaidPackage package)
         {
             _package = package;
+
+            _codeModelHelper = CodeModelHelper.GetInstance(_package);
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
             }
 
-            RetrieveCodeRegions(codeItems, document);
+            codeItems.AddRange(_codeModelHelper.RetrieveCodeRegions(document));
 
             return codeItems;
         }
@@ -135,62 +136,6 @@ namespace SteveCadwallader.CodeMaid.Model
             if (codeElement.Children != null)
             {
                 RetrieveCodeItemsFromElements(codeItems, codeElement.Children);
-            }
-        }
-
-        /// <summary>
-        /// Retrieves code regions from the specified document into the specifed code items set.
-        /// </summary>
-        /// <param name="codeItems">The code items set for accumulation.</param>
-        /// <param name="document">The document to walk.</param>
-        private void RetrieveCodeRegions(SetCodeItems codeItems, Document document)
-        {
-            var textDocument = (TextDocument)document.Object("TextDocument");
-            string pattern = _package.UsePOSIXRegEx
-                ? @"^:b*\#(region|endregion)"
-                : @"^[ \t]*#(region|endregion)";
-
-            var editPoints = TextDocumentHelper.FindMatches(textDocument, pattern);
-            var regionStack = new Stack<CodeItemRegion>();
-
-            foreach (var cursor in editPoints)
-            {
-                // Create a pointer to capture the text for this line.
-                EditPoint eolCursor = cursor.CreateEditPoint();
-                eolCursor.EndOfLine();
-                string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
-
-                if (regionText.StartsWith("#region ")) // Space required by compiler.
-                {
-                    // Get the region name.
-                    string regionName = regionText.Substring(8).Trim();
-
-                    // Push the parsed region info onto the top of the stack.
-                    regionStack.Push(new CodeItemRegion
-                    {
-                        Name = regionName,
-                        StartLine = cursor.Line,
-                        StartOffset = cursor.AbsoluteCharOffset,
-                        StartPoint = cursor.CreateEditPoint()
-                    });
-                }
-                else if (regionText.StartsWith("#endregion"))
-                {
-                    if (regionStack.Count > 0)
-                    {
-                        CodeItemRegion region = regionStack.Pop();
-                        region.EndLine = eolCursor.Line;
-                        region.EndOffset = eolCursor.AbsoluteCharOffset;
-                        region.EndPoint = eolCursor.CreateEditPoint();
-
-                        codeItems.Add(region);
-                    }
-                    else
-                    {
-                        // This document is improperly formatted, abort.
-                        return;
-                    }
-                }
             }
         }
 
