@@ -12,6 +12,7 @@
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

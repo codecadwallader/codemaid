@@ -281,7 +281,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="UI\AskYesNo.cs" />
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
@@ -333,10 +332,11 @@
       <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DragDropAttachedProperties.cs" />
-    <Compile Include="UI\IconSetMode.cs" />
+    <Compile Include="UI\Enumerations\AskYesNo.cs" />
+    <Compile Include="UI\Enumerations\IconSetMode.cs" />
+    <Compile Include="UI\Enumerations\ThemeMode.cs" />
     <Compile Include="UI\ListBoxReorderBehavior.cs" />
     <Compile Include="UI\ThemeManager.cs" />
-    <Compile Include="UI\ThemeMode.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">
       <DependentUpon>BuildProgressView.xaml</DependentUpon>

@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2014 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -9,15 +9,15 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.UI
+namespace SteveCadwallader.CodeMaid.UI.Enumerations
 {
     /// <summary>
-    /// A user prompt enumeration.
+    /// The enumeration of theme options.
     /// </summary>
-    public enum AskYesNo
+    public enum ThemeMode
     {
-        Ask = 0,
-        Yes = 1,
-        No = 2
+        AutoDetect = 0,
+        Dark = 1,
+        Light = 2
     }
 }

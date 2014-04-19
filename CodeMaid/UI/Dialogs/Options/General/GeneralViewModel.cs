@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 {

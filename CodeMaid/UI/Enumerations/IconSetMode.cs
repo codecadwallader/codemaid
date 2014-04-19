@@ -9,7 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-namespace SteveCadwallader.CodeMaid.UI
+namespace SteveCadwallader.CodeMaid.UI.Enumerations
 {
     /// <summary>
     /// The enumeration of icon set options.

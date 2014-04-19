@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     <DataTemplate DataType="{x:Type local:GeneralViewModel}">
         <StackPanel>
@@ -38,17 +38,17 @@
                     <TextBlock Text="Theme" VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.AutoDetect}}" />
-                        <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Dark}}" />
-                        <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:ThemeMode.Light}}" />
+                        <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.AutoDetect}}" />
+                        <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Dark}}" />
+                        <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Light}}" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" Text="Icons" VerticalAlignment="Center" />
 
                     <RadioButton Grid.Row="1" Grid.Column="1" Content="auto-detect"
-                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.AutoDetect}}" />
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.AutoDetect}}" />
                     <RadioButton Grid.Row="2" Grid.Column="1" Padding="0,-2,0,0"
-                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2010}}">
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2010}}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="VS2010" MinWidth="100" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2010/Class.png" />
@@ -68,7 +68,7 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Grid.Row="3" Grid.Column="1" Padding="0,-2,0,0"
-                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Light}}">
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2012Light}}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="VS2012 Light" MinWidth="100" />
                             <Image Source="/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/VS2012_Light/Class.png" />
@@ -88,7 +88,7 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Grid.Row="4" Grid.Column="1" Padding="0,-2,0,0"
-                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static ui:IconSetMode.VS2012Dark}}">
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2012Dark}}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="VS2012 Dark" MinWidth="100" />
                             <StackPanel Orientation="Horizontal" Background="#FF252526">
