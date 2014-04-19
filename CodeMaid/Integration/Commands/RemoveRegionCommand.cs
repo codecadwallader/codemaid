@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using System.ComponentModel.Design;
 
@@ -120,7 +121,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             {
                 var document = Package.IDE.ActiveDocument;
 
-                return document != null ? document.Object("TextDocument") as TextDocument : null;
+                return document != null ? document.GetTextDocument() : null;
             }
         }
 

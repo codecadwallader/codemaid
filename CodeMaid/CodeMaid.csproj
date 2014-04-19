@@ -170,6 +170,7 @@
     </None>
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
+    <Compile Include="Helpers\DocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Logic\Reorganizing\RemoveRegionLogic.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />

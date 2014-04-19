@@ -153,7 +153,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="centerOnWhole">True if the whole element should be used for centering.</param>
         internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem, bool centerOnWhole)
         {
-            var textDocument = document.Object("TextDocument") as TextDocument;
+            var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
             try
@@ -205,7 +205,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeItem">The code item.</param>
         internal static void SelectCodeItem(Document document, BaseCodeItem codeItem)
         {
-            var textDocument = document.Object("TextDocument") as TextDocument;
+            var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
             try

@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(Document document)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
             var editPoints = TextDocumentHelper.FindMatches(textDocument, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);

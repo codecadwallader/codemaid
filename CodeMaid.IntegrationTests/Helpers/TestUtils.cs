@@ -4,6 +4,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
@@ -404,7 +405,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <returns>The text document associated to the document.</returns>
         public static TextDocument GetTextDocument(Document document)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
             Assert.IsNotNull(textDocument);
 
             return textDocument;

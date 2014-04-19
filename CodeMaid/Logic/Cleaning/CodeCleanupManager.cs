@@ -229,7 +229,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
             bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
@@ -345,7 +345,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupC(Document document, bool isAutoSave)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
 
@@ -366,7 +366,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupMarkup(Document document, bool isAutoSave)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
 
@@ -390,7 +390,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
         {
-            var textDocument = (TextDocument)document.Object("TextDocument");
+            var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
 
