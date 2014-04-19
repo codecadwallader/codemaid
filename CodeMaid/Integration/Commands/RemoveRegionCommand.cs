@@ -13,7 +13,6 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model;
-using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -75,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text = "&Remove Region " + RegionUnderCursor.Name;
+                    Text = "&Remove Current Region";
                     break;
 
                 case RegionCommandScope.Selection:
@@ -99,7 +98,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    _removeRegionLogic.RemoveRegion(RegionUnderCursor);
+                    _removeRegionLogic.RemoveRegion(_codeModelHelper.RetrieveCodeRegionUnderCursor(ActiveTextDocument));
                     break;
 
                 case RegionCommandScope.Selection:
@@ -129,14 +128,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        /// <summary>
-        /// Gets the region under the cursor, otherwise null.
-        /// </summary>
-        private CodeItemRegion RegionUnderCursor
-        {
-            get { return _codeModelHelper.RetrieveCodeRegionUnderCursor(ActiveTextDocument); }
-        }
-
         #endregion Private Properties
 
         #region Private Methods
@@ -158,7 +149,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                         return RegionCommandScope.Selection;
                     }
 
-                    if (RegionUnderCursor != null)
+                    if (_codeModelHelper.IsCodeRegionUnderCursor(ActiveTextDocument))
                     {
                         return RegionCommandScope.CurrentLine;
                     }

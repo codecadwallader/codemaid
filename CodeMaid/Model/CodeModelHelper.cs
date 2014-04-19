@@ -92,6 +92,24 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         /// <summary>
+        /// Determines if there is a region under the cursor for the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        /// <returns>True if there is a region under the cursor, otherwise false.</returns>
+        internal bool IsCodeRegionUnderCursor(TextDocument textDocument)
+        {
+            if (textDocument != null && textDocument.Selection != null)
+            {
+                var cursor = textDocument.GetEditPointAtCursor();
+                var currentLineText = cursor.GetLine();
+
+                return Regex.IsMatch(currentLineText, RegionPattern);
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Retrieves code regions from the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document to walk.</param>
@@ -122,17 +140,12 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The region under the cursor, otherwise null.</returns>
         internal CodeItemRegion RetrieveCodeRegionUnderCursor(TextDocument textDocument)
         {
-            if (textDocument != null && textDocument.Selection != null)
+            if (IsCodeRegionUnderCursor(textDocument))
             {
-                var cursor = textDocument.GetEditPointAtCursor();
-                var currentLineText = cursor.GetLine();
+                var regions = RetrieveCodeRegions(textDocument);
+                var currentLine = textDocument.Selection.CurrentLine;
 
-                if (Regex.IsMatch(currentLineText, RegionPattern))
-                {
-                    var regions = RetrieveCodeRegions(textDocument);
-
-                    return regions.FirstOrDefault(x => x.StartLine == cursor.Line || x.EndLine == cursor.Line);
-                }
+                return regions.FirstOrDefault(x => x.StartLine == currentLine || x.EndLine == currentLine);
             }
 
             return null;
