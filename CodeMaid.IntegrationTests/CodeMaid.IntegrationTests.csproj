@@ -589,6 +589,13 @@
     <Content Include="Reorganizing\Regions\Data\RemoveSelectedRegions_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reorganizing\Regions\Data\RemoveCurrentRegion.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Regions\Data\RemoveCurrentRegion_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Reorganizing\Regions\RemoveCurrentRegionTests.cs" />
     <Compile Include="Reorganizing\Regions\RemoveSelectedRegionsTests.cs" />
     <Compile Include="Reorganizing\Regions\RemoveAllRegionsTests.cs" />
     <Compile Include="ToolWindowTests.cs" />

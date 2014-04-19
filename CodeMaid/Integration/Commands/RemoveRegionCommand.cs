@@ -12,6 +12,8 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Model;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -23,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     {
         #region Fields
 
+        private readonly CodeModelHelper _codeModelHelper;
         private readonly RemoveRegionLogic _removeRegionLogic;
 
         #endregion Fields
@@ -37,6 +40,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandRemoveRegion, (int)PkgCmdIDList.CmdIDCodeMaidRemoveRegion))
         {
+            _codeModelHelper = CodeModelHelper.GetInstance(package);
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }
 
@@ -71,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text = "&Remove Current Region"; //TODO: Add name of region? e.g. "&Remove Region Constructors"
+                    Text = "&Remove Region " + RegionUnderCursor.Name;
                     break;
 
                 case RegionCommandScope.Selection:
@@ -95,7 +99,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    //TODO: Implement.
+                    _removeRegionLogic.RemoveRegion(RegionUnderCursor);
                     break;
 
                 case RegionCommandScope.Selection:
@@ -125,6 +129,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
+        /// <summary>
+        /// Gets the region under the cursor, otherwise null.
+        /// </summary>
+        private CodeItemRegion RegionUnderCursor
+        {
+            get { return _codeModelHelper.RetrieveCodeRegionUnderCursor(ActiveTextDocument); }
+        }
+
         #endregion Private Properties
 
         #region Private Methods
@@ -146,8 +158,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                         return RegionCommandScope.Selection;
                     }
 
-                    //TODO: Extend conditional to determine if the current line contains a region, if not we'll fall back to the document.
-                    //return RegionCommandScope.CurrentLine;
+                    if (RegionUnderCursor != null)
+                    {
+                        return RegionCommandScope.CurrentLine;
+                    }
                 }
 
                 return RegionCommandScope.Document;

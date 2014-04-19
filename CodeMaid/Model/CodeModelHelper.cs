@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -112,6 +113,29 @@ namespace SteveCadwallader.CodeMaid.Model
             var editPoints = TextDocumentHelper.FindMatches(textSelection, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
+        }
+
+        /// <summary>
+        /// Retrieves the region under the cursor for the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        /// <returns>The region under the cursor, otherwise null.</returns>
+        internal CodeItemRegion RetrieveCodeRegionUnderCursor(TextDocument textDocument)
+        {
+            if (textDocument != null && textDocument.Selection != null)
+            {
+                var cursor = textDocument.GetEditPointAtCursor();
+                var currentLineText = cursor.GetLine();
+
+                if (Regex.IsMatch(currentLineText, RegionPattern))
+                {
+                    var regions = RetrieveCodeRegions(textDocument);
+
+                    return regions.FirstOrDefault(x => x.StartLine == cursor.Line || x.EndLine == cursor.Line);
+                }
+            }
+
+            return null;
         }
 
         #endregion Internal Methods
