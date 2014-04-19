@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem, @"Data\ExplicitAccessModifiersOnInterfaces_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem, @"Data\ExplicitAccessModifiersOnInterfaces_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertExplicitAccessModifiersOnInterfaces, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertExplicitAccessModifiersOnInterfaces(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
 
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);

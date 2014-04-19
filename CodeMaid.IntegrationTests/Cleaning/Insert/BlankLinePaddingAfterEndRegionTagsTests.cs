@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem, @"Data\BlankLinePaddingAfterEndRegionTags_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem, @"Data\BlankLinePaddingAfterEndRegionTags_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingAfterEndRegionTags, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertBlankLinePaddingAfterEndRegionTags(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var regions = codeItems.OfType<CodeItemRegion>().ToList();
 
             _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);

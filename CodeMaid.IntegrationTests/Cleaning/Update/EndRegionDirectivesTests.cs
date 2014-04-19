@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateEndRegionDirectives = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunUpdateEndRegionDirectives, _projectItem, @"Data\EndRegionDirectives_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateEndRegionDirectives, _projectItem, @"Data\EndRegionDirectives_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateEndRegionDirectives = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateEndRegionDirectives, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateEndRegionDirectives, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateEndRegionDirectives = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunUpdateEndRegionDirectives, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateEndRegionDirectives, _projectItem);
         }
 
         #endregion Tests

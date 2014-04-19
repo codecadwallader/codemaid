@@ -54,21 +54,21 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
         {
             Settings.Default.Cleaning_CommentRunDuringCleanup = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Cleaned.cs", TestBaseFileName));
+            TestOperations.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Cleaned.cs", TestBaseFileName));
         }
 
         protected void DoesNothingOnSecondPass()
         {
             Settings.Default.Cleaning_CommentRunDuringCleanup = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunFormatComments, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunFormatComments, _projectItem);
         }
 
         protected void DoesNothingWhenSettingIsDisabled()
         {
             Settings.Default.Cleaning_CommentRunDuringCleanup = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunFormatComments, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunFormatComments, _projectItem);
         }
 
         #endregion Tests

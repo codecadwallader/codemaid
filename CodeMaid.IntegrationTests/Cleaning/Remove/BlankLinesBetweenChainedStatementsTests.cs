@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesBetweenChainedStatements, _projectItem, @"Data\BlankLinesBetweenChainedStatements_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesBetweenChainedStatements, _projectItem, @"Data\BlankLinesBetweenChainedStatements_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesBetweenChainedStatements, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesBetweenChainedStatements, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesBetweenChainedStatements, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesBetweenChainedStatements, _projectItem);
         }
 
         #endregion Tests

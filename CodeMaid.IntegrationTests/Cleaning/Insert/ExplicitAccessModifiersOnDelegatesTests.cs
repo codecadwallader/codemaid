@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertExplicitAccessModifiersOnDelegates, _projectItem, @"Data\ExplicitAccessModifiersOnDelegates_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertExplicitAccessModifiersOnDelegates, _projectItem, @"Data\ExplicitAccessModifiersOnDelegates_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertExplicitAccessModifiersOnDelegates, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertExplicitAccessModifiersOnDelegates, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertExplicitAccessModifiersOnDelegates, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertExplicitAccessModifiersOnDelegates, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertExplicitAccessModifiersOnDelegates(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var delegates = codeItems.OfType<CodeItemDelegate>().ToList();
 
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);

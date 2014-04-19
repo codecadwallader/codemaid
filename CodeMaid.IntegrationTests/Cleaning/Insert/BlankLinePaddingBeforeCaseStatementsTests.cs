@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem, @"Data\BlankLinePaddingBeforeCaseStatements_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem, @"Data\BlankLinePaddingBeforeCaseStatements_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingBeforeCaseStatements, _projectItem);
         }
 
         #endregion Tests

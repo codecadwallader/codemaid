@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingBeforeEvents, _projectItem, @"Data\BlankLinePaddingBeforeEvents_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingBeforeEvents, _projectItem, @"Data\BlankLinePaddingBeforeEvents_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingBeforeEvents, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingBeforeEvents, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingBeforeEvents, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingBeforeEvents, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertBlankLinePaddingBeforeEvents(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var events = codeItems.OfType<CodeItemEvent>().ToList();
 
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);

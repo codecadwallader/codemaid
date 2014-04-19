@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingAfterNamespaces, _projectItem, @"Data\BlankLinePaddingAfterNamespaces_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertBlankLinePaddingAfterNamespaces, _projectItem, @"Data\BlankLinePaddingAfterNamespaces_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertBlankLinePaddingAfterNamespaces, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 
         private static void RunInsertBlankLinePaddingAfterNamespaces(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
 
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);

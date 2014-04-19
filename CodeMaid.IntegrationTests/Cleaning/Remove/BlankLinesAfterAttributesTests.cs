@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAfterAttributes, _projectItem, @"Data\BlankLinesAfterAttributes_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAfterAttributes, _projectItem, @"Data\BlankLinesAfterAttributes_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAfterAttributes, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAfterAttributes, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAfterAttributes, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAfterAttributes, _projectItem);
         }
 
         #endregion Tests

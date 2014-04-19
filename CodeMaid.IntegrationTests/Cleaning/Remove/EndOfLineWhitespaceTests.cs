@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveEndOfLineWhitespace, _projectItem, @"Data\EndOfLineWhitespace_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveEndOfLineWhitespace, _projectItem, @"Data\EndOfLineWhitespace_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveEndOfLineWhitespace, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveEndOfLineWhitespace, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveEndOfLineWhitespace, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveEndOfLineWhitespace, _projectItem);
         }
 
         #endregion Tests

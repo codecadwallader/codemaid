@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem, @"Data\BlankSpacesBeforeClosingAngleBracket_Cleaned.xml");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem, @"Data\BlankSpacesBeforeClosingAngleBracket_Cleaned.xml");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankSpacesBeforeClosingAngleBracket, _projectItem);
         }
 
         #endregion Tests

@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveEndOfFileTrailingNewLine, _projectItem, @"Data\EndOfFileTrailingNewLine_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveEndOfFileTrailingNewLine, _projectItem, @"Data\EndOfFileTrailingNewLine_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveEndOfFileTrailingNewLine, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveEndOfFileTrailingNewLine, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveEndOfFileTrailingNewLine, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveEndOfFileTrailingNewLine, _projectItem);
         }
 
         #endregion Tests

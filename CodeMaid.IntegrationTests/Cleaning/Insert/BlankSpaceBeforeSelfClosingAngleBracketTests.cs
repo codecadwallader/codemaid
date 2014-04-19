@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem, @"Data\BlankSpaceBeforeSelfClosingAngleBracket_Cleaned.xml");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem, @"Data\BlankSpaceBeforeSelfClosingAngleBracket_Cleaned.xml");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunInsertBlankSpaceBeforeSelfClosingAngleBracket, _projectItem);
         }
 
         #endregion Tests

@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAtTop, _projectItem, @"Data\BlankLinesAtTop_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAtTop, _projectItem, @"Data\BlankLinesAtTop_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAtTop, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAtTop, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAtTop = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAtTop, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAtTop, _projectItem);
         }
 
         #endregion Tests

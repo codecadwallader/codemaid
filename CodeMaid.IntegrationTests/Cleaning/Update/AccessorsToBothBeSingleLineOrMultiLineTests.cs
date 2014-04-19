@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem, @"Data\AccessorsToBothBeSingleLineOrMultiLine_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem, @"Data\AccessorsToBothBeSingleLineOrMultiLine_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateAccessorsToBothBeSingleLineOrMultiLine, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 
         private static void RunUpdateAccessorsToBothBeSingleLineOrMultiLine(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var events = codeItems.OfType<CodeItemEvent>().ToList();
             var properties = codeItems.OfType<CodeItemProperty>().ToList();
 

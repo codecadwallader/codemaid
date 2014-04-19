@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAfterOpeningBrace, _projectItem, @"Data\BlankLinesAfterOpeningBrace_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveBlankLinesAfterOpeningBrace, _projectItem, @"Data\BlankLinesAfterOpeningBrace_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAfterOpeningBrace, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveBlankLinesAfterOpeningBrace, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAfterOpeningBrace, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveBlankLinesAfterOpeningBrace, _projectItem);
         }
 
         #endregion Tests

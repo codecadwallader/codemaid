@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             UIThreadInvoker.Invoke(new Action(() =>
             {
                 // Make sure the document is the active document for the environment.
-                var document = CleaningTestHelper.GetActivatedDocument(_projectItem);
+                var document = TestOperations.GetActivatedDocument(_projectItem);
                 Assert.AreEqual(document, TestEnvironment.Package.IDE.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.
@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             UIThreadInvoker.Invoke(new Action(() =>
             {
                 // Make sure the document is the active document for the environment.
-                var document = CleaningTestHelper.GetActivatedDocument(_projectItem);
+                var document = TestOperations.GetActivatedDocument(_projectItem);
                 Assert.AreEqual(document, TestEnvironment.Package.IDE.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.

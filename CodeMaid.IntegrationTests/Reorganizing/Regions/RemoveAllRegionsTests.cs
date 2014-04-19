@@ -11,7 +11,6 @@
 
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.IntegrationTests.Cleaning;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 
@@ -55,14 +54,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
         [HostType("VS IDE")]
         public void ReorganizingRemoveAllRegions_CleansAsExpected()
         {
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveAllRegions, _projectItem, @"Data\RemoveAllRegions_Reorganized.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveAllRegions, _projectItem, @"Data\RemoveAllRegions_Reorganized.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
         public void ReorganizingRemoveAllRegions_DoesNothingOnSecondPass()
         {
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveAllRegions, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveAllRegions, _projectItem);
         }
 
         #endregion Tests

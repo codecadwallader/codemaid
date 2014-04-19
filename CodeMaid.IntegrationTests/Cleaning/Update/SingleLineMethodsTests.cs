@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateSingleLineMethods = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunUpdateSingleLineMethods, _projectItem, @"Data\SingleLineMethods_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateSingleLineMethods, _projectItem, @"Data\SingleLineMethods_Cleaned.cs");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateSingleLineMethods = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateSingleLineMethods, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunUpdateSingleLineMethods, _projectItem);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateSingleLineMethods = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunUpdateSingleLineMethods, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateSingleLineMethods, _projectItem);
         }
 
         #endregion Tests
@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 
         private static void RunUpdateSingleLineMethods(Document document)
         {
-            var codeItems = CleaningTestHelper.CodeModelManager.RetrieveAllCodeItems(document);
+            var codeItems = TestOperations.CodeModelManager.RetrieveAllCodeItems(document);
             var methods = codeItems.OfType<CodeItemMethod>().ToList();
 
             _updateLogic.UpdateSingleLineMethods(methods);

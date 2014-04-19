@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyResults(RunRemoveMultipleConsecutiveBlankLines, _projectItem, @"Data\MultipleConsecutiveBlankLines_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveMultipleConsecutiveBlankLines, _projectItem, @"Data\MultipleConsecutiveBlankLines_Cleaned.cs");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = true;
 
-            CleaningTestHelper.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
         {
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = false;
 
-            CleaningTestHelper.ExecuteCommandAndVerifyNoChanges(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveMultipleConsecutiveBlankLines, _projectItem);
         }
 
         #endregion Tests
