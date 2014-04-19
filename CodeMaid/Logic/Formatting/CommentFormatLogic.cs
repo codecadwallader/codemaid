@@ -14,7 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
 
-namespace SteveCadwallader.CodeMaid.Logic.Cleaning
+namespace SteveCadwallader.CodeMaid.Logic.Formatting
 {
     /// <summary>
     /// A class for encapsulating comment formatting logic.
@@ -63,7 +63,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document.</param>
         public void FormatComments(TextDocument textDocument)
         {
-            if (!Settings.Default.Cleaning_CommentRunDuringCleanup) return;
+            if (!Settings.Default.Formatting_CommentRunDuringCleanup) return;
 
             FormatComments(textDocument, textDocument.StartPoint.CreateEditPoint(), textDocument.EndPoint.CreateEditPoint());
         }

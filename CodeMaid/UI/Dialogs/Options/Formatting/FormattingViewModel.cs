@@ -14,12 +14,12 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Windows.Media;
 
-namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
+namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 {
     /// <summary>
-    /// The view model for cleaning comment options.
+    /// The view model for comment formatting options.
     /// </summary>
-    public class CleaningCommentsViewModel : OptionsPageViewModel
+    public class FormattingViewModel : OptionsPageViewModel
     {
         #region Fields
 
@@ -37,10 +37,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CleaningCommentsViewModel" /> class.
+        /// Initializes a new instance of the <see cref="FormattingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningCommentsViewModel(CodeMaidPackage package)
+        public FormattingViewModel(CodeMaidPackage package)
             : base(package)
         {
             _editorProperties = Package.IDE.Properties["FontsAndColors", "TextEditor"];
@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override string Header
         {
-            get { return "Comments"; }
+            get { return "Formatting"; }
         }
 
         /// <summary>
@@ -66,13 +66,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void LoadSettings()
         {
-            CommentRunDuringCleanup = Settings.Default.Cleaning_CommentRunDuringCleanup;
-            CommentSkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
-            CommentWrapColumn = Settings.Default.Cleaning_CommentWrapColumn;
-            CommentXmlAlignParamTags = Settings.Default.Cleaning_CommentXmlAlignParamTags;
-            CommentXmlSpaceTags = Settings.Default.Cleaning_CommentXmlSpaceTags;
-            CommentXmlSplitSummaryTagToMultipleLines = Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines;
-            CommentXmlValueIndent = Settings.Default.Cleaning_CommentXmlValueIndent;
+            CommentRunDuringCleanup = Settings.Default.Formatting_CommentRunDuringCleanup;
+            CommentSkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
+            CommentWrapColumn = Settings.Default.Formatting_CommentWrapColumn;
+            CommentXmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
+            CommentXmlSpaceTags = Settings.Default.Formatting_CommentXmlSpaceTags;
+            CommentXmlSplitSummaryTagToMultipleLines = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
+            CommentXmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
 
             UpdatePreviewText();
         }
@@ -82,13 +82,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Cleaning_CommentRunDuringCleanup = CommentRunDuringCleanup;
-            Settings.Default.Cleaning_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
-            Settings.Default.Cleaning_CommentWrapColumn = CommentWrapColumn;
-            Settings.Default.Cleaning_CommentXmlAlignParamTags = CommentXmlAlignParamTags;
-            Settings.Default.Cleaning_CommentXmlSpaceTags = CommentXmlSpaceTags;
-            Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines = CommentXmlSplitSummaryTagToMultipleLines;
-            Settings.Default.Cleaning_CommentXmlValueIndent = CommentXmlValueIndent;
+            Settings.Default.Formatting_CommentRunDuringCleanup = CommentRunDuringCleanup;
+            Settings.Default.Formatting_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
+            Settings.Default.Formatting_CommentWrapColumn = CommentWrapColumn;
+            Settings.Default.Formatting_CommentXmlAlignParamTags = CommentXmlAlignParamTags;
+            Settings.Default.Formatting_CommentXmlSpaceTags = CommentXmlSpaceTags;
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = CommentXmlSplitSummaryTagToMultipleLines;
+            Settings.Default.Formatting_CommentXmlValueIndent = CommentXmlValueIndent;
         }
 
         #endregion Overrides of OptionsPageViewModel

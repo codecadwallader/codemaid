@@ -11,6 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Logic.Formatting;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;

@@ -11,7 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Logic.Formatting;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands

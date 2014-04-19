@@ -133,28 +133,28 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Content Include="Cleaning\Comments\Data\StandardCommentFormat.cs">
+    <Content Include="Formatting\Data\StandardCommentFormat.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Comments\Data\StandardCommentFormat_Cleaned.cs">
+    <Content Include="Formatting\Data\StandardCommentFormat_Formatted.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Comments\Data\XMLCommentFormat.cs">
+    <Content Include="Formatting\Data\XMLCommentFormat.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Comments\Data\XMLCommentFormat_Cleaned.cs">
+    <Content Include="Formatting\Data\XMLCommentFormat_Formatted.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Comments\Data\StyleCopHeaderFormat.cs">
+    <Content Include="Formatting\Data\StyleCopHeaderFormat.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Comments\Data\StyleCopHeaderFormat_Cleaned.cs">
+    <Content Include="Formatting\Data\StyleCopHeaderFormat_Formatted.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Cleaning\Comments\StandardCommentFormatTests.cs" />
-    <Compile Include="Cleaning\Comments\BaseCommentFormatTests.cs" />
-    <Compile Include="Cleaning\Comments\StylecopHeaderFormatTests.cs" />
-    <Compile Include="Cleaning\Comments\XMLCommentFormatTests.cs" />
+    <Compile Include="Formatting\StandardCommentFormatTests.cs" />
+    <Compile Include="Formatting\BaseCommentFormatTests.cs" />
+    <Compile Include="Formatting\StylecopHeaderFormatTests.cs" />
+    <Compile Include="Formatting\XMLCommentFormatTests.cs" />
     <Compile Include="Cleaning\FileTypes\CPlusPlusTests.cs" />
     <Compile Include="Cleaning\FileTypes\FSharpTests.cs" />
     <Compile Include="Cleaning\FileTypes\CSHTMLTests.cs" />

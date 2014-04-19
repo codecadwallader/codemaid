@@ -12,10 +12,10 @@
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Logic.Formatting;
 using SteveCadwallader.CodeMaid.Properties;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 {
     /// <summary>
     /// A base class implementing common logic for comment formatting unit tests.
@@ -50,23 +50,23 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 
         #region Tests
 
-        protected void CleansAsExpected()
+        protected void FormatsAsExpected()
         {
-            Settings.Default.Cleaning_CommentRunDuringCleanup = true;
+            Settings.Default.Formatting_CommentRunDuringCleanup = true;
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Cleaned.cs", TestBaseFileName));
+            TestOperations.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Formatted.cs", TestBaseFileName));
         }
 
         protected void DoesNothingOnSecondPass()
         {
-            Settings.Default.Cleaning_CommentRunDuringCleanup = true;
+            Settings.Default.Formatting_CommentRunDuringCleanup = true;
 
             TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunFormatComments, _projectItem);
         }
 
         protected void DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_CommentRunDuringCleanup = false;
+            Settings.Default.Formatting_CommentRunDuringCleanup = false;
 
             TestOperations.ExecuteCommandAndVerifyNoChanges(RunFormatComments, _projectItem);
         }

@@ -11,18 +11,18 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Comments\Data\XMLCommentFormat.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Comments\Data\XMLCommentFormat_Cleaned.cs", "Data")]
-    public class XMLCommentFormatTests : BaseCommentFormatTests
+    [DeploymentItem(@"Formatting\Data\StyleCopHeaderFormat.cs", "Data")]
+    [DeploymentItem(@"Formatting\Data\StyleCopHeaderFormat_Formatted.cs", "Data")]
+    public class StyleCopHeaderFormatTests : BaseCommentFormatTests
     {
         #region Setup
 
         protected override string TestBaseFileName
         {
-            get { return "XMLCommentFormat"; }
+            get { return "StyleCopHeaderFormat"; }
         }
 
         [ClassInitialize]
@@ -49,21 +49,21 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatXMLComments_CleansAsExpected()
+        public void FormatStyleCopHeaderComments_FormatsAsExpected()
         {
-            CleansAsExpected();
+            FormatsAsExpected();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatXMLComments_DoesNothingOnSecondPass()
+        public void FormatStyleCopHeaderComments_DoesNothingOnSecondPass()
         {
             DoesNothingOnSecondPass();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatXMLComments_DoesNothingWhenSettingIsDisabled()
+        public void FormatStyleCopHeaderComments_DoesNothingWhenSettingIsDisabled()
         {
             DoesNothingWhenSettingIsDisabled();
         }

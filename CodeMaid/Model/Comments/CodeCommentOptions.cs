@@ -37,12 +37,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="document">The text document.</param>
         public CodeCommentOptions(CodeMaidPackage package, TextDocument document)
         {
-            SkipWrapOnLastWord = Settings.Default.Cleaning_CommentSkipWrapOnLastWord;
+            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
             TabSize = CodeCommentHelper.GetTabSize(package, document);
-            WrapAtColumn = Math.Max(Settings.Default.Cleaning_CommentWrapColumn, 20);
-            XmlAlignParamTags = Settings.Default.Cleaning_CommentXmlAlignParamTags;
-            XmlSpaceTags = Settings.Default.Cleaning_CommentXmlSpaceTags;
-            XmlValueIndent = Settings.Default.Cleaning_CommentXmlValueIndent;
+            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
+            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
+            XmlSpaceTags = Settings.Default.Formatting_CommentXmlSpaceTags;
+            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
         }
 
         #endregion Constructors

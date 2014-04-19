@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing;
@@ -57,12 +58,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                                        new CleaningVisualStudioViewModel(package),
                                                        new CleaningInsertViewModel(package),
                                                        new CleaningRemoveViewModel(package),
-                                                       new CleaningUpdateViewModel(package),
-                                                       new CleaningCommentsViewModel(package)
+                                                       new CleaningUpdateViewModel(package)
                                                    }
                                 },
                             new CollapsingViewModel(package),
                             new DiggingViewModel(package),
+                            new FormattingViewModel(package),
                             new ProgressingViewModel(package),
                             new ReorganizingViewModel(package),
                             new SwitchingViewModel(package),

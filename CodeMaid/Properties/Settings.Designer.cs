@@ -1095,24 +1095,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_CommentRunDuringCleanup {
+        public bool Formatting_CommentRunDuringCleanup {
             get {
-                return ((bool)(this["Cleaning_CommentRunDuringCleanup"]));
+                return ((bool)(this["Formatting_CommentRunDuringCleanup"]));
             }
             set {
-                this["Cleaning_CommentRunDuringCleanup"] = value;
+                this["Formatting_CommentRunDuringCleanup"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int Cleaning_CommentWrapColumn {
+        public int Formatting_CommentWrapColumn {
             get {
-                return ((int)(this["Cleaning_CommentWrapColumn"]));
+                return ((int)(this["Formatting_CommentWrapColumn"]));
             }
             set {
-                this["Cleaning_CommentWrapColumn"] = value;
+                this["Formatting_CommentWrapColumn"] = value;
             }
         }
         
@@ -1419,12 +1419,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_CommentSkipWrapOnLastWord {
+        public bool Formatting_CommentSkipWrapOnLastWord {
             get {
-                return ((bool)(this["Cleaning_CommentSkipWrapOnLastWord"]));
+                return ((bool)(this["Formatting_CommentSkipWrapOnLastWord"]));
             }
             set {
-                this["Cleaning_CommentSkipWrapOnLastWord"] = value;
+                this["Formatting_CommentSkipWrapOnLastWord"] = value;
             }
         }
         
@@ -1443,48 +1443,48 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Cleaning_CommentXmlValueIndent {
+        public int Formatting_CommentXmlValueIndent {
             get {
-                return ((int)(this["Cleaning_CommentXmlValueIndent"]));
+                return ((int)(this["Formatting_CommentXmlValueIndent"]));
             }
             set {
-                this["Cleaning_CommentXmlValueIndent"] = value;
+                this["Formatting_CommentXmlValueIndent"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_CommentXmlSpaceTags {
+        public bool Formatting_CommentXmlSpaceTags {
             get {
-                return ((bool)(this["Cleaning_CommentXmlSpaceTags"]));
+                return ((bool)(this["Formatting_CommentXmlSpaceTags"]));
             }
             set {
-                this["Cleaning_CommentXmlSpaceTags"] = value;
+                this["Formatting_CommentXmlSpaceTags"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_CommentXmlAlignParamTags {
+        public bool Formatting_CommentXmlAlignParamTags {
             get {
-                return ((bool)(this["Cleaning_CommentXmlAlignParamTags"]));
+                return ((bool)(this["Formatting_CommentXmlAlignParamTags"]));
             }
             set {
-                this["Cleaning_CommentXmlAlignParamTags"] = value;
+                this["Formatting_CommentXmlAlignParamTags"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_CommentXmlSplitSummaryTagToMultipleLines {
+        public bool Formatting_CommentXmlSplitSummaryTagToMultipleLines {
             get {
-                return ((bool)(this["Cleaning_CommentXmlSplitSummaryTagToMultipleLines"]));
+                return ((bool)(this["Formatting_CommentXmlSplitSummaryTagToMultipleLines"]));
             }
             set {
-                this["Cleaning_CommentXmlSplitSummaryTagToMultipleLines"] = value;
+                this["Formatting_CommentXmlSplitSummaryTagToMultipleLines"] = value;
             }
         }
     }

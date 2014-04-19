@@ -173,6 +173,7 @@
     <Compile Include="Helpers\DocumentExtensions.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
+    <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
     <Compile Include="Logic\Reorganizing\RemoveRegionLogic.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
@@ -227,7 +228,6 @@
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
     <Compile Include="Integration\PkgCmdIDList.cs" />
-    <Compile Include="Logic\Cleaning\CommentFormatLogic.cs" />
     <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
@@ -314,7 +314,7 @@
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningCommentsViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Compatibility\CompatibilityViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
@@ -617,7 +617,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningCommentsDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\Formatting\FormattingDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

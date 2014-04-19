@@ -11,11 +11,11 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Comments\Data\StandardCommentFormat.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Comments\Data\StandardCommentFormat_Cleaned.cs", "Data")]
+    [DeploymentItem(@"Formatting\Data\StandardCommentFormat.cs", "Data")]
+    [DeploymentItem(@"Formatting\Data\StandardCommentFormat_Formatted.cs", "Data")]
     public class StandardCommentFormatTests : BaseCommentFormatTests
     {
         #region Setup
@@ -49,21 +49,21 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStandardComments_CleansAsExpected()
+        public void FormatStandardComments_FormatsAsExpected()
         {
-            CleansAsExpected();
+            FormatsAsExpected();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStandardComments_DoesNothingOnSecondPass()
+        public void FormatStandardComments_DoesNothingOnSecondPass()
         {
             DoesNothingOnSecondPass();
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningFormatStandardComments_DoesNothingWhenSettingIsDisabled()
+        public void FormatStandardComments_DoesNothingWhenSettingIsDisabled()
         {
             DoesNothingWhenSettingIsDisabled();
         }

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting.Data
 {
     [DataContract(Name = "SecurityContext", Namespace = "http://schemas.datacontract.org/2004/07/Example")]
     public class StandardCommentFormat

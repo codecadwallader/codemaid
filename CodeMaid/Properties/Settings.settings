@@ -269,10 +269,10 @@
     <Setting Name="Cleaning_PerformPartialCleanupOnExternal" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentRunDuringCleanup" Type="System.Boolean" Scope="User">
+    <Setting Name="Formatting_CommentRunDuringCleanup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentWrapColumn" Type="System.Int32" Scope="User">
+    <Setting Name="Formatting_CommentWrapColumn" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="Reorganizing_SortOrderTypeFields" Type="System.Int32" Scope="User">
@@ -350,22 +350,22 @@
     <Setting Name="Cleaning_IncludeLESS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentSkipWrapOnLastWord" Type="System.Boolean" Scope="User">
+    <Setting Name="Formatting_CommentSkipWrapOnLastWord" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_RemoveBlankLinesBetweenChainedStatements" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentXmlValueIndent" Type="System.Int32" Scope="User">
+    <Setting Name="Formatting_CommentXmlValueIndent" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentXmlSpaceTags" Type="System.Boolean" Scope="User">
+    <Setting Name="Formatting_CommentXmlSpaceTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentXmlAlignParamTags" Type="System.Boolean" Scope="User">
+    <Setting Name="Formatting_CommentXmlAlignParamTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Cleaning_CommentXmlSplitSummaryTagToMultipleLines" Type="System.Boolean" Scope="User">
+    <Setting Name="Formatting_CommentXmlSplitSummaryTagToMultipleLines" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

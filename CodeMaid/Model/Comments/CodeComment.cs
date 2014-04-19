@@ -339,7 +339,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         AppendWord(xmlPhrase.OpenTag);
 
                         var phraseCount = xmlPhrase.Phrases.Count;
-                        bool isMajorTag = xmlPhrase.OpenTag == "<summary>" && Settings.Default.Cleaning_CommentXmlSplitSummaryTagToMultipleLines;
+                        bool isMajorTag = xmlPhrase.OpenTag == "<summary>" && Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
                         bool singleLine = phraseCount == 0 && !isMajorTag;
 
                         if (phraseCount == 1 && !isMajorTag)

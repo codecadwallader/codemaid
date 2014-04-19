@@ -1,4 +1,4 @@
-﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Comments.Data
+﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting.Data
 {
     public class XMLCommentFormat
     {
