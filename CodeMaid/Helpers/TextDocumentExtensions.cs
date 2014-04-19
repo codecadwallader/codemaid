@@ -26,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static EditPoint GetEditPointAtCursor(this TextDocument textDocument)
         {
             var cursor = textDocument.CreateEditPoint();
-            cursor.MoveToLineAndOffset(textDocument.Selection.CurrentLine, textDocument.Selection.CurrentColumn);
+            cursor.MoveToPoint(textDocument.Selection.ActivePoint);
 
             return cursor;
         }
