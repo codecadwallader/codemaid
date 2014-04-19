@@ -91,13 +91,12 @@ namespace SteveCadwallader.CodeMaid.Model
         }
 
         /// <summary>
-        /// Retrieves code regions from the specified document.
+        /// Retrieves code regions from the specified text document.
         /// </summary>
-        /// <param name="document">The document to walk.</param>
+        /// <param name="textDocument">The text document to walk.</param>
         /// <returns>An enumerable collection of regions.</returns>
-        internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(Document document)
+        internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextDocument textDocument)
         {
-            var textDocument = document.GetTextDocument();
             var editPoints = TextDocumentHelper.FindMatches(textDocument, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
