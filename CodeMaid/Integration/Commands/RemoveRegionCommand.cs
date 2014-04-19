@@ -147,7 +147,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     }
 
                     //TODO: Extend conditional to determine if the current line contains a region, if not we'll fall back to the document.
-                    return RegionCommandScope.CurrentLine;
+                    //return RegionCommandScope.CurrentLine;
                 }
 
                 return RegionCommandScope.Document;

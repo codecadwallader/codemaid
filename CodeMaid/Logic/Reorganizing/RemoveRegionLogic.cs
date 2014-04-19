@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 {
@@ -66,9 +67,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="textDocument">The text document to update.</param>
         internal void RemoveRegions(TextDocument textDocument)
         {
+            // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
+            var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).Reverse();
+
             new UndoTransactionHelper(_package, "CodeMaid Remove All Regions").Run(() =>
             {
-                //TODO: Implement.
+                foreach (var region in regions)
+                {
+                    RemoveRegion(region);
+                }
             });
         }
 
@@ -78,9 +85,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="textSelection">The text selection to update.</param>
         internal void RemoveRegions(TextSelection textSelection)
         {
+            // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
+            var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).Reverse();
+
             new UndoTransactionHelper(_package, "CodeMaid Remove Selected Regions").Run(() =>
             {
-                //TODO: Implement.
+                foreach (var region in regions)
+                {
+                    RemoveRegion(region);
+                }
             });
         }
 
