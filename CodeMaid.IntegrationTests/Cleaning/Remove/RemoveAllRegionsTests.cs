@@ -12,14 +12,14 @@
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 {
     [TestClass]
-    [DeploymentItem(@"Reorganizing\Regions\Data\RemoveSelectedRegions.cs", "Data")]
-    [DeploymentItem(@"Reorganizing\Regions\Data\RemoveSelectedRegions_Reorganized.cs", "Data")]
-    public class RemoveSelectedRegionsTests
+    [DeploymentItem(@"Cleaning\Remove\Data\RemoveAllRegions.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\RemoveAllRegions_Cleaned.cs", "Data")]
+    public class RemoveAllRegionsTests
     {
         #region Setup
 
@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\RemoveSelectedRegions.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\RemoveAllRegions.cs");
         }
 
         [TestCleanup]
@@ -52,23 +52,27 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void ReorganizingRemoveSelectedRegions_RunsAsExpected()
+        public void CleaningRemoveAllRegions_RunsAsExpected()
         {
-            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveSelectedRegions, _projectItem, @"Data\RemoveSelectedRegions_Reorganized.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveAllRegions, _projectItem, @"Data\RemoveAllRegions_Cleaned.cs");
+        }
+
+        [TestMethod]
+        [HostType("VS IDE")]
+        public void CleaningRemoveAllRegions_DoesNothingOnSecondPass()
+        {
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveAllRegions, _projectItem);
         }
 
         #endregion Tests
 
         #region Helpers
 
-        private static void RunRemoveSelectedRegions(Document document)
+        private static void RunRemoveAllRegions(Document document)
         {
             var textDocument = TestUtils.GetTextDocument(document);
 
-            textDocument.Selection.MoveToLineAndOffset(14, 9);
-            textDocument.Selection.MoveToLineAndOffset(45, 5, true);
-
-            _removeRegionLogic.RemoveRegions(textDocument.Selection);
+            _removeRegionLogic.RemoveRegions(textDocument);
         }
 
         #endregion Helpers

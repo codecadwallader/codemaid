@@ -1,12 +1,9 @@
-﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions.Data
+﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
 {
     internal class Regions
     {
-        #region Fields
 
         private bool _field;
-
-        #endregion Fields
 
         /* placeholder */
         /* placeholder */
@@ -29,12 +26,9 @@
             set { _field = value; }
         }
 
-        #region Methods
-
         private void Method()
         {
         }
 
-        #endregion Methods
     }
 }

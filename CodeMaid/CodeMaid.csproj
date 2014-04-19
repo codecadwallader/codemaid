@@ -173,8 +173,8 @@
     <Compile Include="Helpers\DocumentExtensions.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
+    <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
-    <Compile Include="Logic\Reorganizing\RemoveRegionLogic.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
     <Compile Include="Helpers\CodeElementHelper.cs" />

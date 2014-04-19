@@ -16,7 +16,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Linq;
 
-namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
+namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
     /// <summary>
     /// A class for encapsulating the logic of removing regions.

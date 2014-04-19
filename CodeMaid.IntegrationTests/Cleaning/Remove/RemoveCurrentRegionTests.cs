@@ -12,14 +12,14 @@
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
 
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
+namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove
 {
     [TestClass]
-    [DeploymentItem(@"Reorganizing\Regions\Data\RemoveCurrentRegion.cs", "Data")]
-    [DeploymentItem(@"Reorganizing\Regions\Data\RemoveCurrentRegion_Reorganized.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\RemoveCurrentRegion.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Remove\Data\RemoveCurrentRegion_Cleaned.cs", "Data")]
     public class RemoveCurrentRegionTests
     {
         #region Setup
@@ -57,9 +57,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void ReorganizingRemoveCurrentRegion_RunsAsExpected()
+        public void CleaningRemoveCurrentRegion_RunsAsExpected()
         {
-            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveCurrentRegion, _projectItem, @"Data\RemoveCurrentRegion_Reorganized.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveCurrentRegion, _projectItem, @"Data\RemoveCurrentRegion_Cleaned.cs");
         }
 
         #endregion Tests

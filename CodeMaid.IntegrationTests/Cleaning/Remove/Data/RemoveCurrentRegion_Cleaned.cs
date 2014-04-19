@@ -1,4 +1,4 @@
-﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Regions.Data
+﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
 {
     internal class Regions
     {
@@ -15,11 +15,8 @@
 
         public Regions()
         {
-            #region In-Method region
 
             bool var1;
-
-            #endregion In-Method region
 
             #region In-Method region
 

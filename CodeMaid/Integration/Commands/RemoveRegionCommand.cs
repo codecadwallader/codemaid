@@ -11,7 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
 using System.ComponentModel.Design;
 
