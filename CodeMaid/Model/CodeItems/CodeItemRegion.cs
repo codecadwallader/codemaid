@@ -11,6 +11,7 @@
 
 using EnvDTE;
 using System;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -106,11 +107,27 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Properties
 
         /// <summary>
-        /// Gets a flag indictaing if this region is empty.
+        /// Gets a flag indicating if this region is empty.
         /// </summary>
         public bool IsEmpty
         {
-            get { return false; }
+            get
+            {
+                if (Children.Any())
+                {
+                    return false;
+                }
+
+                var start = StartPoint.CreateEditPoint();
+                start.EndOfLine();
+
+                var end = EndPoint.CreateEditPoint();
+                end.StartOfLine();
+
+                var text = start.GetText(end);
+
+                return string.IsNullOrWhiteSpace(text);
+            }
         }
 
         /// <summary>
