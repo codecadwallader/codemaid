@@ -106,6 +106,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         #region Properties
 
         /// <summary>
+        /// Gets a flag indictaing if this region is empty.
+        /// </summary>
+        public bool IsEmpty
+        {
+            get { return false; }
+        }
+
+        /// <summary>
         /// Gets or sets a flag indicating if this is a pseudo group.
         /// </summary>
         public bool IsPseudoGroup { get; set; }

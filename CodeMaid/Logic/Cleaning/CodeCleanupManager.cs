@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
         private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
+        private readonly RemoveRegionLogic _removeRegionLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
@@ -85,6 +86,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
             _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
+            _removeRegionLogic = RemoveRegionLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _updateLogic = UpdateLogic.GetInstance(_package);
             _usingStatementCleanupLogic = UsingStatementCleanupLogic.GetInstance(_package);
@@ -264,6 +266,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var fieldsWithComments = fields.Where(x => x.StartPoint.Line < x.EndPoint.Line).ToList();
 
             // Perform removal cleanup.
+            _removeRegionLogic.RemoveRegionsPerSettings(regions);
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);

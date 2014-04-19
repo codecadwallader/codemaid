@@ -13,7 +13,10 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
@@ -95,6 +98,36 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     RemoveRegion(region);
                 }
             });
+        }
+
+        /// <summary>
+        /// Removes the region tags from the specified regions based on user settings.
+        /// </summary>
+        /// <param name="regions">The regions to update.</param>
+        internal void RemoveRegionsPerSettings(IEnumerable<CodeItemRegion> regions)
+        {
+            IEnumerable<CodeItemRegion> regionsToRemove;
+
+            switch ((NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions)
+            {
+                case NoneEmptyAll.All:
+                    regionsToRemove = regions;
+                    break;
+
+                case NoneEmptyAll.Empty:
+                    regionsToRemove = regions.Where(x => x.IsEmpty);
+                    break;
+
+                default:
+                    regionsToRemove = Enumerable.Empty<CodeItemRegion>();
+                    break;
+            }
+
+            // Iterate through regions in reverse order (reduces line number updates during removal).
+            foreach (var region in regionsToRemove.Reverse())
+            {
+                RemoveRegion(region);
+            }
         }
 
         /// <summary>
