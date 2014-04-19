@@ -332,6 +332,7 @@
       <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DragDropAttachedProperties.cs" />
+    <Compile Include="UI\Enumerations\NoneEmptyAll.cs" />
     <Compile Include="UI\Enumerations\AskYesNo.cs" />
     <Compile Include="UI\Enumerations\IconSetMode.cs" />
     <Compile Include="UI\Enumerations\ThemeMode.cs" />

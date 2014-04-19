@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 {
@@ -57,6 +58,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             RemoveEndOfFileTrailingNewLine = Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine;
             RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
             RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
+            RemoveRegions = (NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions;
         }
 
         /// <summary>
@@ -75,6 +77,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = RemoveEndOfFileTrailingNewLine;
             Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
             Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
+            Settings.Default.Cleaning_RemoveRegions = (int)RemoveRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -276,6 +279,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _removeMultipleConsecutiveBlankLines = value;
                     NotifyPropertyChanged("RemoveMultipleConsecutiveBlankLines");
+                }
+            }
+        }
+
+        private NoneEmptyAll _removeRegions;
+
+        /// <summary>
+        /// Gets or sets the options for removing regions.
+        /// </summary>
+        public NoneEmptyAll RemoveRegions
+        {
+            get { return _removeRegions; }
+            set
+            {
+                if (_removeRegions != value)
+                {
+                    _removeRegions = value;
+                    NotifyPropertyChanged("RemoveRegions");
                 }
             }
         }

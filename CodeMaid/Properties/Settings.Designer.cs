@@ -1487,5 +1487,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Formatting_CommentXmlSplitSummaryTagToMultipleLines"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Cleaning_RemoveRegions {
+            get {
+                return ((int)(this["Cleaning_RemoveRegions"]));
+            }
+            set {
+                this["Cleaning_RemoveRegions"] = value;
+            }
+        }
     }
 }
