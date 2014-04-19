@@ -289,6 +289,15 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0100" type="Button">
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Remove Regions</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageReorganize" id="IconReorganize" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -582,10 +591,17 @@
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0500">
       <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0600">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0700">
       <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
     </CommandPlacement>
 
@@ -661,9 +677,6 @@
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" />
 
-    <KeyBinding guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" editor="guidVSStd97" key1="M" mod1="Control" key2="W" />
-
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
 
@@ -679,8 +692,8 @@
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
 
-    <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
+    <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
 
     <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" />
@@ -894,48 +907,52 @@
       <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2300" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandRemoveRegion" value="{88438672-b9f2-422c-83e8-706f89f33d80}">
+      <IDSymbol name="CmdIDCodeMaidRemoveRegion" value="0x2400" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandReorganizeActiveCode" value="{60bd7c93-ff19-4351-8d2f-8761bdfc6a2a}">
-      <IDSymbol name="CmdIDCodeMaidReorganizeActiveCode" value="0x2400" />
+      <IDSymbol name="CmdIDCodeMaidReorganizeActiveCode" value="0x2500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeConfiguration" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
-      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextDelete" value="{d8312056-c902-4d26-9f12-b4bb60db0365}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextFindReferences" value="{9ed89f6a-ab37-487a-8beb-d3c586d76a47}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2700" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextRemoveRegion" value="{502c000f-9afa-4c6a-af01-4d64d756733e}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x2800" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x2900" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x2900" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x3000" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x3000" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x3100" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x3100" />
+      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x3200" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3200" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3300" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3400" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3500" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
