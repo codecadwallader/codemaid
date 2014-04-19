@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text = "&Remove Current Region";
+                    Text = "&Remove Current Region"; //TODO: Add name of region? e.g. "&Remove Region Constructors"
                     break;
 
                 case RegionCommandScope.Selection:
@@ -79,6 +79,30 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                 default:
                     Text = "&Remove All Regions";
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Called to execute the command.
+        /// </summary>
+        protected override void OnExecute()
+        {
+            base.OnExecute();
+
+            var regionCommandScope = GetRegionCommandScope();
+            switch (regionCommandScope)
+            {
+                case RegionCommandScope.CurrentLine:
+                    //TODO: Implement.
+                    break;
+
+                case RegionCommandScope.Selection:
+                    _removeRegionLogic.RemoveRegions(ActiveTextDocument.Selection);
+                    break;
+
+                case RegionCommandScope.Document:
+                    _removeRegionLogic.RemoveRegions(ActiveTextDocument);
                     break;
             }
         }

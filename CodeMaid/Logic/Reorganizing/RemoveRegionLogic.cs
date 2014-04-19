@@ -11,6 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 
@@ -24,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
+        private readonly CodeModelHelper _codeModelHelper;
 
         #endregion Fields
 
@@ -51,11 +53,36 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private RemoveRegionLogic(CodeMaidPackage package)
         {
             _package = package;
+            _codeModelHelper = CodeModelHelper.GetInstance(_package);
         }
 
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Removes all region tags from the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document to update.</param>
+        internal void RemoveRegions(TextDocument textDocument)
+        {
+            new UndoTransactionHelper(_package, "CodeMaid Remove All Regions").Run(() =>
+            {
+                //TODO: Implement.
+            });
+        }
+
+        /// <summary>
+        /// Removes all region tags from the specified text selection.
+        /// </summary>
+        /// <param name="textSelection">The text selection to update.</param>
+        internal void RemoveRegions(TextSelection textSelection)
+        {
+            new UndoTransactionHelper(_package, "CodeMaid Remove Selected Regions").Run(() =>
+            {
+                //TODO: Implement.
+            });
+        }
 
         /// <summary>
         /// Removes the region tags from the specified region.
