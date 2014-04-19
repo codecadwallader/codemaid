@@ -136,7 +136,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="region">The region to update.</param>
         internal void RemoveRegion(CodeItemRegion region)
         {
-            if (region == null || region.IsPseudoGroup || region.StartLine <= 0 || region.EndLine <= 0)
+            if (region == null || region.IsInvalidated || region.IsPseudoGroup || region.StartLine <= 0 || region.EndLine <= 0)
             {
                 return;
             }
@@ -154,6 +154,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 start.Delete(start.LineLength);
                 start.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
                 start.Insert(Environment.NewLine);
+
+                region.IsInvalidated = true;
             });
         }
 

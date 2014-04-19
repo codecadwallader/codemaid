@@ -236,7 +236,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
-            foreach (var region in regions)
+            foreach (var region in regions.Where(x => !x.IsInvalidated))
             {
                 var startPoint = region.StartPoint.CreateEditPoint();
 
@@ -252,7 +252,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
-            foreach (var region in regions)
+            foreach (var region in regions.Where(x => !x.IsInvalidated))
             {
                 var startPoint = region.StartPoint.CreateEditPoint();
 
@@ -268,7 +268,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
-            foreach (var region in regions)
+            foreach (var region in regions.Where(x => !x.IsInvalidated))
             {
                 var endPoint = region.EndPoint.CreateEditPoint();
 
@@ -284,7 +284,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
-            foreach (var region in regions)
+            foreach (var region in regions.Where(x => !x.IsInvalidated))
             {
                 var endPoint = region.EndPoint.CreateEditPoint();
 
