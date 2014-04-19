@@ -9,10 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
-using System;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -22,6 +20,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class SpadeContextRemoveRegionCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly RemoveRegionLogic _removeRegionLogic;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -32,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandSpadeContextRemoveRegion, (int)PkgCmdIDList.CmdIDCodeMaidSpadeContextRemoveRegion))
         {
+            _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }
 
         #endregion Constructors
@@ -68,23 +73,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var item = spade.SelectedItem;
-                if (item != null && item.StartLine > 0 && item.EndLine > 0)
+                var region = spade.SelectedItem as CodeItemRegion;
+                if (region != null && region.StartLine > 0 && region.EndLine > 0)
                 {
-                    new UndoTransactionHelper(Package, "CodeMaid Remove Region " + item.Name).Run(() =>
-                    {
-                        var end = item.EndPoint.CreateEditPoint();
-                        end.StartOfLine();
-                        end.Delete(end.LineLength);
-                        end.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
-                        end.Insert(Environment.NewLine);
-
-                        var start = item.StartPoint.CreateEditPoint();
-                        start.StartOfLine();
-                        start.Delete(start.LineLength);
-                        start.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
-                        start.Insert(Environment.NewLine);
-                    });
+                    _removeRegionLogic.RemoveRegion(region);
 
                     spade.Refresh();
                 }

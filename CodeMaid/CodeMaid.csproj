@@ -171,6 +171,7 @@
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
+    <Compile Include="Logic\Reorganizing\RemoveRegionLogic.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
     <Compile Include="Helpers\CodeElementHelper.cs" />
