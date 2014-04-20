@@ -23,7 +23,10 @@
 
             #region In-Method region
 
+            #region Nested In-Method region
             bool var2;
+
+            #endregion
 
             #endregion In-Method region
         }
