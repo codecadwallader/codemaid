@@ -14,7 +14,6 @@ using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 {
@@ -51,20 +50,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void LoadSettings()
         {
-            SortOrderTypeFields = Settings.Default.Reorganizing_SortOrderTypeFields;
-            SortOrderTypeConstructors = Settings.Default.Reorganizing_SortOrderTypeConstructors;
-            SortOrderTypeDestructors = Settings.Default.Reorganizing_SortOrderTypeDestructors;
-            SortOrderTypeDelegates = Settings.Default.Reorganizing_SortOrderTypeDelegates;
-            SortOrderTypeEvents = Settings.Default.Reorganizing_SortOrderTypeEvents;
-            SortOrderTypeEnums = Settings.Default.Reorganizing_SortOrderTypeEnums;
-            SortOrderTypeInterfaces = Settings.Default.Reorganizing_SortOrderTypeInterfaces;
-            SortOrderTypeProperties = Settings.Default.Reorganizing_SortOrderTypeProperties;
-            SortOrderTypeIndexers = Settings.Default.Reorganizing_SortOrderTypeIndexers;
-            SortOrderTypeMethods = Settings.Default.Reorganizing_SortOrderTypeMethods;
-            SortOrderTypeStructs = Settings.Default.Reorganizing_SortOrderTypeStructs;
-            SortOrderTypeClasses = Settings.Default.Reorganizing_SortOrderTypeClasses;
+            Classes = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeClasses);
+            Constructors = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeConstructors);
+            Delegates = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDelegates);
+            Destructors = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDestructors);
+            Enums = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEnums);
+            Events = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEvents);
+            Fields = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeFields);
+            Indexers = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeIndexers);
+            Interfaces = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeInterfaces);
+            Methods = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeMethods);
+            Properties = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeProperties);
+            Structs = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeStructs);
 
-            SynchronizeSortOrderTypesFromSettings();
+            CreateMemberTypesFromCurrentState();
         }
 
         /// <summary>
@@ -72,314 +71,150 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Reorganizing_SortOrderTypeFields = SortOrderTypeFields;
-            Settings.Default.Reorganizing_SortOrderTypeConstructors = SortOrderTypeConstructors;
-            Settings.Default.Reorganizing_SortOrderTypeDestructors = SortOrderTypeDestructors;
-            Settings.Default.Reorganizing_SortOrderTypeDelegates = SortOrderTypeDelegates;
-            Settings.Default.Reorganizing_SortOrderTypeEvents = SortOrderTypeEvents;
-            Settings.Default.Reorganizing_SortOrderTypeEnums = SortOrderTypeEnums;
-            Settings.Default.Reorganizing_SortOrderTypeInterfaces = SortOrderTypeInterfaces;
-            Settings.Default.Reorganizing_SortOrderTypeProperties = SortOrderTypeProperties;
-            Settings.Default.Reorganizing_SortOrderTypeIndexers = SortOrderTypeIndexers;
-            Settings.Default.Reorganizing_SortOrderTypeMethods = SortOrderTypeMethods;
-            Settings.Default.Reorganizing_SortOrderTypeStructs = SortOrderTypeStructs;
-            Settings.Default.Reorganizing_SortOrderTypeClasses = SortOrderTypeClasses;
+            Settings.Default.Reorganizing_MemberTypeClasses = Classes.Serialize();
+            Settings.Default.Reorganizing_MemberTypeConstructors = Constructors.Serialize();
+            Settings.Default.Reorganizing_MemberTypeDelegates = Delegates.Serialize();
+            Settings.Default.Reorganizing_MemberTypeDestructors = Destructors.Serialize();
+            Settings.Default.Reorganizing_MemberTypeEnums = Enums.Serialize();
+            Settings.Default.Reorganizing_MemberTypeEvents = Events.Serialize();
+            Settings.Default.Reorganizing_MemberTypeFields = Fields.Serialize();
+            Settings.Default.Reorganizing_MemberTypeIndexers = Indexers.Serialize();
+            Settings.Default.Reorganizing_MemberTypeInterfaces = Interfaces.Serialize();
+            Settings.Default.Reorganizing_MemberTypeMethods = Methods.Serialize();
+            Settings.Default.Reorganizing_MemberTypeProperties = Properties.Serialize();
+            Settings.Default.Reorganizing_MemberTypeStructs = Structs.Serialize();
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
 
-        private int _sortOrderTypeFields;
+        /// <summary>
+        /// Gets or sets the settings associated with classes.
+        /// </summary>
+        public MemberTypeSetting Classes { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for field types.
+        /// Gets or sets the settings associated with constructors.
         /// </summary>
-        [Description("Fields")]
-        public int SortOrderTypeFields
-        {
-            get { return _sortOrderTypeFields; }
-            set
-            {
-                if (_sortOrderTypeFields != value)
-                {
-                    _sortOrderTypeFields = value;
-                    NotifyPropertyChanged("SortOrderTypeFields");
-                }
-            }
-        }
-
-        private int _sortOrderTypeConstructors;
+        public MemberTypeSetting Constructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for constructor types.
+        /// Gets or sets the settings associated with delegates.
         /// </summary>
-        [Description("Constructors")]
-        public int SortOrderTypeConstructors
-        {
-            get { return _sortOrderTypeConstructors; }
-            set
-            {
-                if (_sortOrderTypeConstructors != value)
-                {
-                    _sortOrderTypeConstructors = value;
-                    NotifyPropertyChanged("SortOrderTypeConstructors");
-                }
-            }
-        }
-
-        private int _sortOrderTypeDestructors;
+        public MemberTypeSetting Delegates { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for destructor types.
+        /// Gets or sets the settings associated with destructors.
         /// </summary>
-        [Description("Destructors")]
-        public int SortOrderTypeDestructors
-        {
-            get { return _sortOrderTypeDestructors; }
-            set
-            {
-                if (_sortOrderTypeDestructors != value)
-                {
-                    _sortOrderTypeDestructors = value;
-                    NotifyPropertyChanged("SortOrderTypeDestructors");
-                }
-            }
-        }
-
-        private int _sortOrderTypeDelegates;
+        public MemberTypeSetting Destructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for delegate types.
+        /// Gets or sets the settings associated with enums.
         /// </summary>
-        [Description("Delegates")]
-        public int SortOrderTypeDelegates
-        {
-            get { return _sortOrderTypeDelegates; }
-            set
-            {
-                if (_sortOrderTypeDelegates != value)
-                {
-                    _sortOrderTypeDelegates = value;
-                    NotifyPropertyChanged("SortOrderTypeDelegates");
-                }
-            }
-        }
-
-        private int _sortOrderTypeEvents;
+        public MemberTypeSetting Enums { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for event types.
+        /// Gets or sets the settings associated with events.
         /// </summary>
-        [Description("Events")]
-        public int SortOrderTypeEvents
-        {
-            get { return _sortOrderTypeEvents; }
-            set
-            {
-                if (_sortOrderTypeEvents != value)
-                {
-                    _sortOrderTypeEvents = value;
-                    NotifyPropertyChanged("SortOrderTypeEvents");
-                }
-            }
-        }
-
-        private int _sortOrderTypeEnums;
+        public MemberTypeSetting Events { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for enum types.
+        /// Gets or sets the settings associated with fields.
         /// </summary>
-        [Description("Enums")]
-        public int SortOrderTypeEnums
-        {
-            get { return _sortOrderTypeEnums; }
-            set
-            {
-                if (_sortOrderTypeEnums != value)
-                {
-                    _sortOrderTypeEnums = value;
-                    NotifyPropertyChanged("SortOrderTypeEnums");
-                }
-            }
-        }
-
-        private int _sortOrderTypeInterfaces;
+        public MemberTypeSetting Fields { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for interface types.
+        /// Gets or sets the settings associated with indexers.
         /// </summary>
-        [Description("Interfaces")]
-        public int SortOrderTypeInterfaces
-        {
-            get { return _sortOrderTypeInterfaces; }
-            set
-            {
-                if (_sortOrderTypeInterfaces != value)
-                {
-                    _sortOrderTypeInterfaces = value;
-                    NotifyPropertyChanged("SortOrderTypeInterfaces");
-                }
-            }
-        }
-
-        private int _sortOrderTypeProperties;
+        public MemberTypeSetting Indexers { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for property types.
+        /// Gets or sets the settings associated with interfaces.
         /// </summary>
-        [Description("Properties")]
-        public int SortOrderTypeProperties
-        {
-            get { return _sortOrderTypeProperties; }
-            set
-            {
-                if (_sortOrderTypeProperties != value)
-                {
-                    _sortOrderTypeProperties = value;
-                    NotifyPropertyChanged("SortOrderTypeProperties");
-                }
-            }
-        }
-
-        private int _sortOrderTypeIndexers;
+        public MemberTypeSetting Interfaces { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for indexer types.
+        /// Gets or sets the settings associated with methods.
         /// </summary>
-        [Description("Indexers")]
-        public int SortOrderTypeIndexers
-        {
-            get { return _sortOrderTypeIndexers; }
-            set
-            {
-                if (_sortOrderTypeIndexers != value)
-                {
-                    _sortOrderTypeIndexers = value;
-                    NotifyPropertyChanged("SortOrderTypeIndexers");
-                }
-            }
-        }
-
-        private int _sortOrderTypeMethods;
+        public MemberTypeSetting Methods { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for method types.
+        /// Gets or sets the settings associated with properties.
         /// </summary>
-        [Description("Methods")]
-        public int SortOrderTypeMethods
-        {
-            get { return _sortOrderTypeMethods; }
-            set
-            {
-                if (_sortOrderTypeMethods != value)
-                {
-                    _sortOrderTypeMethods = value;
-                    NotifyPropertyChanged("SortOrderTypeMethods");
-                }
-            }
-        }
-
-        private int _sortOrderTypeStructs;
+        public MemberTypeSetting Properties { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order for struct types.
+        /// Gets or sets the settings associated with structs.
         /// </summary>
-        [Description("Structs")]
-        public int SortOrderTypeStructs
-        {
-            get { return _sortOrderTypeStructs; }
-            set
-            {
-                if (_sortOrderTypeStructs != value)
-                {
-                    _sortOrderTypeStructs = value;
-                    NotifyPropertyChanged("SortOrderTypeStructs");
-                }
-            }
-        }
-
-        private int _sortOrderTypeClasses;
-
-        /// <summary>
-        /// Gets or sets the sort order for class types.
-        /// </summary>
-        [Description("Classes")]
-        public int SortOrderTypeClasses
-        {
-            get { return _sortOrderTypeClasses; }
-            set
-            {
-                if (_sortOrderTypeClasses != value)
-                {
-                    _sortOrderTypeClasses = value;
-                    NotifyPropertyChanged("SortOrderTypeClasses");
-                }
-            }
-        }
+        public MemberTypeSetting Structs { get; set; }
 
         #endregion Options
 
-        #region Sort Order Types Logic
+        #region Logic
 
-        private static readonly PropertyInfo[] AllSortOrderTypes =
-                {
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeFields),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeConstructors),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeDestructors),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeDelegates),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeEvents),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeEnums),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeInterfaces),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeProperties),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeIndexers),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeMethods),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeStructs),
-                    PropertyInfoHelper<ReorganizingTypesViewModel>.GetPropertyInfo(x => x.SortOrderTypeClasses)
-                };
-
-        private ObservableCollection<object> _sortOrderTypes;
+        private ObservableCollection<object> _memberTypes;
 
         /// <summary>
-        /// Gets an observable collection of the types in a sort order friendly fashion.
+        /// Gets an observable collection of the types.
         /// </summary>
-        public ObservableCollection<object> SortOrderTypes
+        public ObservableCollection<object> MemberTypes
         {
-            get { return _sortOrderTypes; }
+            get { return _memberTypes; }
             private set
             {
-                if (_sortOrderTypes != value)
+                if (_memberTypes != value)
                 {
-                    _sortOrderTypes = value;
-                    NotifyPropertyChanged("SortOrderTypes");
+                    _memberTypes = value;
+                    NotifyPropertyChanged("MemberTypes");
                 }
             }
         }
 
         /// <summary>
-        /// Synchronizes the sort order types collection from settings.
+        /// Creates the member types collection from the current state.
         /// </summary>
-        private void SynchronizeSortOrderTypesFromSettings()
+        private void CreateMemberTypesFromCurrentState()
         {
-            SortOrderTypes = new ObservableCollection<object>(from t in AllSortOrderTypes
-                                                              orderby (int)t.GetValue(this)
-                                                              select t);
-            SortOrderTypes.CollectionChanged += (sender, args) => SynchronizeSortOrderTypesToSettings();
+            var allMemberTypes = new[] { Classes, Constructors, Delegates, Destructors, Enums, Events, Fields, Indexers, Interfaces, Methods, Properties, Structs };
+            foreach (var memberType in allMemberTypes)
+            {
+                memberType.PropertyChanged += OnMemberTypeSettingPropertyChanged;
+            }
+
+            MemberTypes = new ObservableCollection<object>(from t in allMemberTypes
+                                                           orderby t.Order
+                                                           select t);
+            MemberTypes.CollectionChanged += (sender, args) => UpdateMemberTypeSettingsOrder();
         }
 
         /// <summary>
-        /// Synchronizes the sort order types collection to settings.
+        /// Handles a PropertyChanged event raised from a <see cref="MemberTypeSetting"/> and echoes it on the local object.
         /// </summary>
-        private void SynchronizeSortOrderTypesToSettings()
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnMemberTypeSettingPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int i = 1;
-
-            foreach (var type in SortOrderTypes.OfType<PropertyInfo>())
+            var memberTypeSetting = sender as MemberTypeSetting;
+            if (memberTypeSetting != null)
             {
-                type.SetValue(this, i++);
+                NotifyPropertyChanged(memberTypeSetting.DefaultName);
             }
         }
 
-        #endregion Sort Order Types Logic
+        /// <summary>
+        /// Updates the member type settings order based on the current collection state.
+        /// </summary>
+        private void UpdateMemberTypeSettingsOrder()
+        {
+            int i = 1;
+
+            foreach (var type in MemberTypes.OfType<MemberTypeSetting>())
+            {
+                type.Order = i++;
+            }
+        }
+
+        #endregion Logic
     }
 }

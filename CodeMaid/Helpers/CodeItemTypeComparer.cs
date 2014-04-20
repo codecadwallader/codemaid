@@ -76,18 +76,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             switch (codeItem.Kind)
             {
-                case KindCodeItem.Class: return Settings.Default.Reorganizing_SortOrderTypeClasses;
-                case KindCodeItem.Constructor: return Settings.Default.Reorganizing_SortOrderTypeConstructors;
-                case KindCodeItem.Delegate: return Settings.Default.Reorganizing_SortOrderTypeDelegates;
-                case KindCodeItem.Destructor: return Settings.Default.Reorganizing_SortOrderTypeDestructors;
-                case KindCodeItem.Enum: return Settings.Default.Reorganizing_SortOrderTypeEnums;
-                case KindCodeItem.Event: return Settings.Default.Reorganizing_SortOrderTypeEvents;
-                case KindCodeItem.Field: return Settings.Default.Reorganizing_SortOrderTypeFields;
-                case KindCodeItem.Indexer: return Settings.Default.Reorganizing_SortOrderTypeIndexers;
-                case KindCodeItem.Interface: return Settings.Default.Reorganizing_SortOrderTypeInterfaces;
-                case KindCodeItem.Method: return Settings.Default.Reorganizing_SortOrderTypeMethods;
-                case KindCodeItem.Property: return Settings.Default.Reorganizing_SortOrderTypeProperties;
-                case KindCodeItem.Struct: return Settings.Default.Reorganizing_SortOrderTypeStructs;
+                case KindCodeItem.Class: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeClasses).Order;
+                case KindCodeItem.Constructor: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeConstructors).Order;
+                case KindCodeItem.Delegate: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDelegates).Order;
+                case KindCodeItem.Destructor: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDestructors).Order;
+                case KindCodeItem.Enum: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEnums).Order;
+                case KindCodeItem.Event: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEvents).Order;
+                case KindCodeItem.Field: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeFields).Order;
+                case KindCodeItem.Indexer: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeIndexers).Order;
+                case KindCodeItem.Interface: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeInterfaces).Order;
+                case KindCodeItem.Method: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeMethods).Order;
+                case KindCodeItem.Property: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeProperties).Order;
+                case KindCodeItem.Struct: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeStructs).Order;
                 default: return 0;
             }
         }

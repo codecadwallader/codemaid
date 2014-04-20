@@ -275,42 +275,6 @@
     <Setting Name="Formatting_CommentWrapColumn" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeFields" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeConstructors" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeDestructors" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeDelegates" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">4</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeEvents" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">5</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeEnums" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">6</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeInterfaces" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">7</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeProperties" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">8</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeIndexers" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">9</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeMethods" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeStructs" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">11</Value>
-    </Setting>
-    <Setting Name="Reorganizing_SortOrderTypeClasses" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">12</Value>
-    </Setting>
     <Setting Name="General_IconSet" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -370,6 +334,42 @@
     </Setting>
     <Setting Name="Cleaning_RemoveRegions" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeFields" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Fields||1||Fields</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeClasses" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Classes||12||Classes</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeConstructors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Constructors||2||Constructors</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeDestructors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Destructors||3||Destructors</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeDelegates" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Delegates||4||Delegates</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeEnums" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enums||6||Enums</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeEvents" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Events||5||Events</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeIndexers" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Indexers||9||Indexers</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeMethods" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Methods||10||Methods</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeProperties" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Properties||8||Properties</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeInterfaces" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Interfaces||7||Interfaces</Value>
+    </Setting>
+    <Setting Name="Reorganizing_MemberTypeStructs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Structs||11||Structs</Value>
     </Setting>
   </Settings>
 </SettingsFile>
