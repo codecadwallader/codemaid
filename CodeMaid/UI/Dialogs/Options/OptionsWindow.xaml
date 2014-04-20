@@ -68,7 +68,8 @@
                                 <ResourceDictionary Source="Formatting/FormattingDataTemplate.xaml" />
                                 <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
-                                <ResourceDictionary Source="Reorganizing/ReorganizingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingGeneralDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingParentDataTemplate.xaml" />
                                 <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
                             </ResourceDictionary.MergedDictionaries>
 

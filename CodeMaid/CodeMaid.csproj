@@ -325,7 +325,8 @@
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingParentViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingGeneralViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
     <Compile Include="UI\Dialogs\Prompts\YesNoPromptViewModel.cs" />
     <Compile Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml.cs">
@@ -646,9 +647,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingGeneralDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingParentDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\Options\Switching\SwitchingDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>

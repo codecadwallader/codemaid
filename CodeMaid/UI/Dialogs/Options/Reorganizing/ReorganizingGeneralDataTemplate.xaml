@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
-    <DataTemplate DataType="{x:Type local:ReorganizingViewModel}">
+    <DataTemplate DataType="{x:Type local:ReorganizingGeneralViewModel}">
         <StackPanel>
             <GroupBox Header="General">
                 <StackPanel>

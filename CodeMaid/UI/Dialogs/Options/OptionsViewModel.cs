@@ -52,20 +52,26 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                             new CleaningParentViewModel(package)
                                 {
                                     Children = new OptionsPageViewModel[]
-                                                   {
-                                                       new CleaningGeneralViewModel(package),
-                                                       new CleaningFileTypesViewModel(package),
-                                                       new CleaningVisualStudioViewModel(package),
-                                                       new CleaningInsertViewModel(package),
-                                                       new CleaningRemoveViewModel(package),
-                                                       new CleaningUpdateViewModel(package)
-                                                   }
+                                    {
+                                        new CleaningGeneralViewModel(package),
+                                        new CleaningFileTypesViewModel(package),
+                                        new CleaningVisualStudioViewModel(package),
+                                        new CleaningInsertViewModel(package),
+                                        new CleaningRemoveViewModel(package),
+                                        new CleaningUpdateViewModel(package)
+                                    }
                                 },
                             new CollapsingViewModel(package),
                             new DiggingViewModel(package),
                             new FormattingViewModel(package),
                             new ProgressingViewModel(package),
-                            new ReorganizingViewModel(package),
+                            new ReorganizingParentViewModel(package)
+                            {
+                                Children = new OptionsPageViewModel[]
+                                {
+                                    new ReorganizingGeneralViewModel(package)
+                                }
+                            },
                             new SwitchingViewModel(package),
                             new CompatibilityViewModel(package),
                         };

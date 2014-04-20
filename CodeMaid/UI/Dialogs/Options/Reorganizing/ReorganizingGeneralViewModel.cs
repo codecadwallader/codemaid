@@ -19,17 +19,17 @@ using System.Reflection;
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 {
     /// <summary>
-    /// The view model for reorganizing options.
+    /// The view model for reorganizing general options.
     /// </summary>
-    public class ReorganizingViewModel : OptionsPageViewModel
+    public class ReorganizingGeneralViewModel : OptionsPageViewModel
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReorganizingViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ReorganizingGeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingViewModel(CodeMaidPackage package)
+        public ReorganizingGeneralViewModel(CodeMaidPackage package)
             : base(package)
         {
         }
@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override string Header
         {
-            get { return "Reorganizing"; }
+            get { return "General"; }
         }
 
         /// <summary>
@@ -384,18 +384,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         private static readonly PropertyInfo[] AllSortOrderTypes =
                 {
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeFields),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeConstructors),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeDestructors),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeDelegates),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeEvents),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeEnums),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeInterfaces),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeProperties),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeIndexers),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeMethods),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeStructs),
-                    PropertyInfoHelper<ReorganizingViewModel>.GetPropertyInfo(x => x.SortOrderTypeClasses)
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeFields),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeConstructors),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeDestructors),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeDelegates),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeEvents),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeEnums),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeInterfaces),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeProperties),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeIndexers),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeMethods),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeStructs),
+                    PropertyInfoHelper<ReorganizingGeneralViewModel>.GetPropertyInfo(x => x.SortOrderTypeClasses)
                 };
 
         private ObservableCollection<object> _sortOrderTypes;
