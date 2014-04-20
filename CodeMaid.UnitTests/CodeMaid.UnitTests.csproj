@@ -101,6 +101,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CachedSettingSetTests.cs" />
+    <Compile Include="CachedSettingTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
     <Compile Include="Helpers\UIShellServiceMock.cs" />
     <Compile Include="Helpers\WindowFrameMock.cs" />

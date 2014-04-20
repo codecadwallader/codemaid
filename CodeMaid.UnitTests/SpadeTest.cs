@@ -28,6 +28,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         }
 
         [TestMethod]
+        [Ignore]
         public void ShowSpadeToolWindow()
         {
             var package = CodeMaidPackageHelper.CreateInitializedPackage();
