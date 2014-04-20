@@ -169,8 +169,15 @@
     <Content Include="Cleaning\Remove\Data\RemoveSelectedRegions_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Remove\Data\RemoveEmptyRegions.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Remove\Data\RemoveEmptyRegions_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Remove\RemoveAllRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveCurrentRegionTests.cs" />
+    <Compile Include="Cleaning\Remove\RemoveEmptyRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveSelectedRegionsTests.cs" />
     <Compile Include="Formatting\StandardCommentFormatTests.cs" />
     <Compile Include="Formatting\BaseCommentFormatTests.cs" />
