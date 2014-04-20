@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -49,20 +50,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         #endregion Constructors
-
-        #region Enumerations
-
-        /// <summary>
-        /// An enumeration of drop positions.
-        /// </summary>
-        private enum DropPosition
-        {
-            Above,
-            Below,
-            On
-        }
-
-        #endregion Enumerations
 
         #region Properties
 
