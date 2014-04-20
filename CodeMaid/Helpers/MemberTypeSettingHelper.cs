@@ -161,6 +161,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         #region Methods
 
+        /// <summary>
+        /// Gets the effective name for the specified kind of code item.
+        /// </summary>
+        /// <param name="kindCodeItem">The kind of code item.</param>
+        /// <returns>The effective name for the specified kind of code item.</returns>
+        public static string GetEffectiveName(KindCodeItem kindCodeItem)
+        {
+            switch (kindCodeItem)
+            {
+                case KindCodeItem.Class: return ClassSettings.EffectiveName;
+                case KindCodeItem.Constructor: return ConstructorSettings.EffectiveName;
+                case KindCodeItem.Delegate: return DelegateSettings.EffectiveName;
+                case KindCodeItem.Destructor: return DestructorSettings.EffectiveName;
+                case KindCodeItem.Enum: return EnumSettings.EffectiveName;
+                case KindCodeItem.Event: return EventSettings.EffectiveName;
+                case KindCodeItem.Field: return FieldSettings.EffectiveName;
+                case KindCodeItem.Indexer: return IndexerSettings.EffectiveName;
+                case KindCodeItem.Interface: return InterfaceSettings.EffectiveName;
+                case KindCodeItem.Method: return MethodSettings.EffectiveName;
+                case KindCodeItem.Property: return PropertySettings.EffectiveName;
+                case KindCodeItem.Struct: return StructSettings.EffectiveName;
+                default: return kindCodeItem.GetDescription();
+            }
+        }
+
         #endregion Methods
     }
 }
