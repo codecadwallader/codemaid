@@ -21,6 +21,48 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class CodeItemTypeComparer : Comparer<BaseCodeItem>
     {
+        #region Fields
+
+        private static readonly CachedSetting<MemberTypeSetting> ClassSettings;
+        private static readonly CachedSetting<MemberTypeSetting> ConstructorSettings;
+        private static readonly CachedSetting<MemberTypeSetting> DelegateSettings;
+        private static readonly CachedSetting<MemberTypeSetting> DestructorSettings;
+        private static readonly CachedSetting<MemberTypeSetting> EnumSettings;
+        private static readonly CachedSetting<MemberTypeSetting> EventSettings;
+        private static readonly CachedSetting<MemberTypeSetting> FieldSettings;
+        private static readonly CachedSetting<MemberTypeSetting> IndexerSettings;
+        private static readonly CachedSetting<MemberTypeSetting> InterfaceSettings;
+        private static readonly CachedSetting<MemberTypeSetting> MethodSettings;
+        private static readonly CachedSetting<MemberTypeSetting> PropertySettings;
+        private static readonly CachedSetting<MemberTypeSetting> StructSettings;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// The static initializer for the <see cref="CodeItemTypeComparer"/> class.
+        /// </summary>
+        static CodeItemTypeComparer()
+        {
+            ClassSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeClasses, MemberTypeSetting.Deserialize);
+            ConstructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeConstructors, MemberTypeSetting.Deserialize);
+            DelegateSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDelegates, MemberTypeSetting.Deserialize);
+            DestructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDestructors, MemberTypeSetting.Deserialize);
+            EnumSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEnums, MemberTypeSetting.Deserialize);
+            EventSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEvents, MemberTypeSetting.Deserialize);
+            FieldSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeFields, MemberTypeSetting.Deserialize);
+            IndexerSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeIndexers, MemberTypeSetting.Deserialize);
+            InterfaceSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeInterfaces, MemberTypeSetting.Deserialize);
+            MethodSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeMethods, MemberTypeSetting.Deserialize);
+            PropertySettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeProperties, MemberTypeSetting.Deserialize);
+            StructSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeStructs, MemberTypeSetting.Deserialize);
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
         /// Performs a comparison of two objects of the same type and returns a value indicating
         /// whether one object is less than, equal to, or greater than the other.
@@ -76,18 +118,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             switch (codeItem.Kind)
             {
-                case KindCodeItem.Class: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeClasses).Order;
-                case KindCodeItem.Constructor: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeConstructors).Order;
-                case KindCodeItem.Delegate: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDelegates).Order;
-                case KindCodeItem.Destructor: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDestructors).Order;
-                case KindCodeItem.Enum: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEnums).Order;
-                case KindCodeItem.Event: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEvents).Order;
-                case KindCodeItem.Field: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeFields).Order;
-                case KindCodeItem.Indexer: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeIndexers).Order;
-                case KindCodeItem.Interface: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeInterfaces).Order;
-                case KindCodeItem.Method: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeMethods).Order;
-                case KindCodeItem.Property: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeProperties).Order;
-                case KindCodeItem.Struct: return MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeStructs).Order;
+                case KindCodeItem.Class: return ClassSettings.Value.Order;
+                case KindCodeItem.Constructor: return ConstructorSettings.Value.Order;
+                case KindCodeItem.Delegate: return DelegateSettings.Value.Order;
+                case KindCodeItem.Destructor: return DestructorSettings.Value.Order;
+                case KindCodeItem.Enum: return EnumSettings.Value.Order;
+                case KindCodeItem.Event: return EventSettings.Value.Order;
+                case KindCodeItem.Field: return FieldSettings.Value.Order;
+                case KindCodeItem.Indexer: return IndexerSettings.Value.Order;
+                case KindCodeItem.Interface: return InterfaceSettings.Value.Order;
+                case KindCodeItem.Method: return MethodSettings.Value.Order;
+                case KindCodeItem.Property: return PropertySettings.Value.Order;
+                case KindCodeItem.Struct: return StructSettings.Value.Order;
                 default: return 0;
             }
         }
@@ -132,5 +174,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             return codeItemField.IsReadOnly ? 0 : 1;
         }
+
+        #endregion Methods
     }
 }
