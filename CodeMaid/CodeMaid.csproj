@@ -326,7 +326,7 @@
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingOrderViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingTypesViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingParentViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingGeneralViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
@@ -654,7 +654,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingOrderDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingTypesDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
