@@ -336,6 +336,9 @@
       <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DragDropAttachedProperties.cs" />
+    <Compile Include="UI\EditableTextBlock.xaml.cs">
+      <DependentUpon>EditableTextBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Enumerations\DropPosition.cs" />
     <Compile Include="UI\Enumerations\NoneEmptyAll.cs" />
     <Compile Include="UI\Enumerations\AskYesNo.cs" />
@@ -668,6 +671,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\EditableTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

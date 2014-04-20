@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="SteveCadwallader.CodeMaid.UI.EditableTextBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+             xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+             KeyDown="OnKeyDown" LostFocus="OnLostFocus" MouseDoubleClick="OnMouseDoubleClick">
+    <Grid>
+        <TextBlock x:Name="TextBlock"
+                   Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:EditableTextBlock}}"
+                   Visibility="{Binding IsEditing, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:EditableTextBlock}, Converter={x:Static cnv:BooleanToVisibilityConverter.Inverse}}" />
+
+        <TextBox x:Name="TextBox"
+                 Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:EditableTextBlock}, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="{Binding IsEditing, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:EditableTextBlock}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+    </Grid>
+</UserControl>
