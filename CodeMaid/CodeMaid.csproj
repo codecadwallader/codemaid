@@ -173,6 +173,7 @@
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\DocumentExtensions.cs" />
     <Compile Include="Helpers\MemberTypeSetting.cs" />
+    <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
