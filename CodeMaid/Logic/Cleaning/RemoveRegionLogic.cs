@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void RemoveRegions(TextDocument textDocument)
         {
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
-            var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).Reverse();
+            var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).OrderByDescending(x => x.StartLine);
 
             new UndoTransactionHelper(_package, "CodeMaid Remove All Regions").Run(() =>
             {
@@ -89,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void RemoveRegions(TextSelection textSelection)
         {
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
-            var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).Reverse();
+            var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).OrderByDescending(x => x.StartLine);
 
             new UndoTransactionHelper(_package, "CodeMaid Remove Selected Regions").Run(() =>
             {
@@ -124,7 +124,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             // Iterate through regions in reverse order (reduces line number updates during removal).
-            foreach (var region in regionsToRemove.Reverse())
+            foreach (var region in regionsToRemove.OrderByDescending(x => x.StartLine))
             {
                 RemoveRegion(region);
             }
