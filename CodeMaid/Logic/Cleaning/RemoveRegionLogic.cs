@@ -106,26 +106,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to update.</param>
         internal void RemoveRegionsPerSettings(IEnumerable<CodeItemRegion> regions)
         {
-            IEnumerable<CodeItemRegion> regionsToRemove;
-
-            switch ((NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions)
-            {
-                case NoneEmptyAll.All:
-                    regionsToRemove = regions;
-                    break;
-
-                case NoneEmptyAll.Empty:
-                    regionsToRemove = regions.Where(x => x.IsEmpty);
-                    break;
-
-                default:
-                    regionsToRemove = Enumerable.Empty<CodeItemRegion>();
-                    break;
-            }
+            var setting = (NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions;
+            if (setting == NoneEmptyAll.None) return;
 
             // Iterate through regions in reverse order (reduces line number updates during removal).
-            foreach (var region in regionsToRemove.OrderByDescending(x => x.StartLine))
+            foreach (var region in regions.OrderByDescending(x => x.StartLine))
             {
+                // Check if a region IsEmpty on the fly to handle nested empty regions.
+                if (setting == NoneEmptyAll.Empty && !region.IsEmpty)
+                {
+                    continue;
+                }
+
                 RemoveRegion(region);
             }
         }
