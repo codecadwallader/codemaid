@@ -1499,5 +1499,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Reorganizing_MemberTypeStructs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_PrimaryOrderByAccessLevel {
+            get {
+                return ((bool)(this["Reorganizing_PrimaryOrderByAccessLevel"]));
+            }
+            set {
+                this["Reorganizing_PrimaryOrderByAccessLevel"] = value;
+            }
+        }
     }
 }

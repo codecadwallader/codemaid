@@ -371,5 +371,8 @@
     <Setting Name="Reorganizing_MemberTypeStructs" Type="System.String" Scope="User">
       <Value Profile="(Default)">Structs||11||Structs</Value>
     </Setting>
+    <Setting Name="Reorganizing_PrimaryOrderByAccessLevel" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

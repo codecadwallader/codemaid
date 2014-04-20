@@ -48,6 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
             KeepMembersWithinRegions = Settings.Default.Reorganizing_KeepMembersWithinRegions;
+            PrimaryOrderByAccessLevel = Settings.Default.Reorganizing_PrimaryOrderByAccessLevel;
             RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
         }
 
@@ -58,6 +59,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
             Settings.Default.Reorganizing_KeepMembersWithinRegions = KeepMembersWithinRegions;
+            Settings.Default.Reorganizing_PrimaryOrderByAccessLevel = PrimaryOrderByAccessLevel;
             Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
         }
 
@@ -97,6 +99,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 {
                     _keepMembersWithinRegions = value;
                     NotifyPropertyChanged("KeepMembersWithinRegions");
+                }
+            }
+        }
+
+        private bool _primaryOrderByAccessLevel;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if primary ordering should be by access level.
+        /// </summary>
+        public bool PrimaryOrderByAccessLevel
+        {
+            get { return _primaryOrderByAccessLevel; }
+            set
+            {
+                if (_primaryOrderByAccessLevel != value)
+                {
+                    _primaryOrderByAccessLevel = value;
+                    NotifyPropertyChanged("PrimaryOrderByAccessLevel");
                 }
             }
         }

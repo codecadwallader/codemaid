@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
-    /// A helper for comparing code items by type following the C# standard.
+    /// A helper for comparing code items by type, access level, etc.
     /// </summary>
     public class CodeItemTypeComparer : Comparer<BaseCodeItem>
     {
@@ -71,7 +71,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
             int staticOffset = CalculateStaticOffset(codeItem);
             int readOnlyOffset = CalculateReadOnlyOffset(codeItem);
 
-            return (typeOffset * 10000) + (accessOffset * 1000) + (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
+            int calc = 0;
+
+            if (!Settings.Default.Reorganizing_PrimaryOrderByAccessLevel)
+            {
+                calc += typeOffset * 10000;
+                calc += accessOffset * 1000;
+            }
+            else
+            {
+                calc += accessOffset * 10000;
+                calc += typeOffset * 1000;
+            }
+
+            calc += (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
+
+            return calc;
         }
 
         private static int CalculateTypeOffset(BaseCodeItem codeItem)
