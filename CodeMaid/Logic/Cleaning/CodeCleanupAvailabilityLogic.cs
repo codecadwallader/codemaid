@@ -295,21 +295,20 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return Settings.Default.Cleaning_IncludeJavaScript;
             }
 
-            var languageServiceGuid = EditorFactory.GetLanguageService(extension);
+            var languageServiceGuid = EditorFactory.GetLanguageService(extension).ToLowerInvariant();
             switch (languageServiceGuid)
             {
-                case "{694DD9B6-B865-4C5B-AD85-86356E9C88DC}": return Settings.Default.Cleaning_IncludeCSharp;
-                case "{B2F072B0-ABC1-11D0-9D62-00C04FD9DFD9}": return Settings.Default.Cleaning_IncludeCPlusPlus;
-                case "{a764e898-518d-11d2-9a89-00c04f79efc3}":
-                case "{A764E898-518D-11d2-9A89-00C04F79EFC3}": return Settings.Default.Cleaning_IncludeCSS;
+                case "{694dd9b6-b865-4c5b-ad85-86356e9c88dc}": return Settings.Default.Cleaning_IncludeCSharp;
+                case "{b2f072b0-abc1-11d0-9d62-00c04fd9dfd9}": return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case "{a764e898-518d-11d2-9a89-00c04f79efc3}": return Settings.Default.Cleaning_IncludeCSS;
                 case "{bc6dd5a5-d4d6-4dab-a00d-a51242dbaf1b}": return Settings.Default.Cleaning_IncludeFSharp;
                 case "{9bbfd173-9770-47dc-b191-651b7ff493cd}":
-                case "{58E975A0-F8FE-11D2-A6AE-00104BCC7269}": return Settings.Default.Cleaning_IncludeHTML;
-                case "{59E2F421-410A-4fc9-9803-1F4E79216BE8}": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "{58e975a0-f8fe-11d2-a6ae-00104bcc7269}": return Settings.Default.Cleaning_IncludeHTML;
+                case "{59e2f421-410a-4fc9-9803-1f4e79216be8}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{71d61d27-9011-4b17-9469-d20f798fb5c0}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{7b22909e-1b53-4cc7-8c2b-1f5c5039693a}": return Settings.Default.Cleaning_IncludeLESS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
-                case "{E34ACDC0-BAAE-11D0-88BF-00A0C9110049}": return Settings.Default.Cleaning_IncludeVB;
+                case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default:
