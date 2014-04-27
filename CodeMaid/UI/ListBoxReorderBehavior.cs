@@ -245,7 +245,7 @@ namespace SteveCadwallader.CodeMaid.UI
                     break;
 
                 case DropPosition.On:
-                    MergeSourceIntoTarget(collection, sourceData, targetData);
+                    MergeSourceIntoTarget(collection, sourceData, targetData, targetIndex);
                     break;
             }
 
@@ -341,7 +341,8 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <param name="collection">The collection</param>
         /// <param name="sourceItem">The source item.</param>
         /// <param name="targetItem">The target item.</param>
-        private void MergeSourceIntoTarget(ObservableCollection<object> collection, object sourceItem, object targetItem)
+        /// <param name="targetIndex">The target index.</param>
+        private void MergeSourceIntoTarget(ObservableCollection<object> collection, object sourceItem, object targetItem, int targetIndex)
         {
             // Remove the source item from the collection.
             collection.Remove(sourceItem);
@@ -349,8 +350,15 @@ namespace SteveCadwallader.CodeMaid.UI
             // Get a collection for the target, creating one if necessary.
             var targetCollection = targetItem as IList ?? new List<object> { targetItem };
 
-            // Add the source to the target collection.
+            // Add the source item to the target collection.
             targetCollection.Add(sourceItem);
+
+            // If a target collection was created, replace the target item with it.
+            if (targetItem != targetCollection)
+            {
+                collection.Insert(targetIndex, targetCollection);
+                collection.Remove(targetItem);
+            }
         }
 
         #endregion Methods
