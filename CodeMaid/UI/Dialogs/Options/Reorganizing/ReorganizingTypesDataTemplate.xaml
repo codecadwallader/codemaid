@@ -5,10 +5,10 @@
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:ReorganizingTypesViewModel}">
         <StackPanel>
-            <TextBlock Text="Order, breakdown and preferred names of member types" Margin="5,5,5,0" />
+            <TextBlock Text="Member type order, grouping and preferred names" Margin="5,5,5,0" />
             <ListBox ItemsSource="{Binding MemberTypes}">
                 <i:Interaction.Behaviors>
-                    <ui:ListBoxReorderBehavior />
+                    <ui:ListBoxReorderBehavior CanMerge="True" />
                 </i:Interaction.Behaviors>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
@@ -39,6 +39,11 @@
                                             <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Bottom" />
                                             <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="0,0,0,1" />
                                             <Setter TargetName="dropTargetCue" Property="Margin" Value="0,0,0,-1" />
+                                        </Trigger>
+                                        <Trigger Property="ui:DragDropAttachedProperties.IsDropOnTarget" Value="True">
+                                            <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                            <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="1" />
+                                            <Setter TargetName="dropTargetCue" Property="Margin" Value="0,1,0,-1" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>

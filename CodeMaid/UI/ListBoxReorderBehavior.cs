@@ -11,6 +11,8 @@
 
 using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -235,15 +237,15 @@ namespace SteveCadwallader.CodeMaid.UI
             switch (GetDropPostion(e, target))
             {
                 case DropPosition.Above:
-                    MoveTargetAboveSource(collection, sourceIndex, targetIndex);
+                    MoveSourceAboveTarget(collection, sourceIndex, targetIndex);
                     break;
 
                 case DropPosition.Below:
-                    MoveTargetBelowSource(collection, sourceIndex, targetIndex);
+                    MoveSourceBelowTarget(collection, sourceIndex, targetIndex);
                     break;
 
                 case DropPosition.On:
-                    MergeTargetIntoSource(collection, sourceIndex, targetIndex);
+                    MergeSourceIntoTarget(collection, sourceData, targetData);
                     break;
             }
 
@@ -297,12 +299,12 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Moves the item at the target index above the item at the source index within the specified collection.
+        /// Moves the item at the source index above the item at the target index within the specified collection.
         /// </summary>
         /// <param name="collection">The collection</param>
         /// <param name="sourceIndex">The source index.</param>
         /// <param name="targetIndex">The target index.</param>
-        private void MoveTargetAboveSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        private void MoveSourceAboveTarget(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
         {
             // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
             if (sourceIndex < targetIndex)
@@ -314,12 +316,12 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Moves the item at the target index below the item at the source index within the specified collection.
+        /// Moves the item at the source index below the item at the target index within the specified collection.
         /// </summary>
         /// <param name="collection">The collection</param>
         /// <param name="sourceIndex">The source index.</param>
         /// <param name="targetIndex">The target index.</param>
-        private void MoveTargetBelowSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        private void MoveSourceBelowTarget(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
         {
             // Increase target index by 1 to go after the specified target.
             targetIndex++;
@@ -334,13 +336,21 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Merges the item at the target index into the item at the source index within the specified collection.
+        /// Merges the source item into the target item within the specified collection.
         /// </summary>
         /// <param name="collection">The collection</param>
-        /// <param name="sourceIndex">The source index.</param>
-        /// <param name="targetIndex">The target index.</param>
-        private void MergeTargetIntoSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        /// <param name="sourceItem">The source item.</param>
+        /// <param name="targetItem">The target item.</param>
+        private void MergeSourceIntoTarget(ObservableCollection<object> collection, object sourceItem, object targetItem)
         {
+            // Remove the source item from the collection.
+            collection.Remove(sourceItem);
+
+            // Get a collection for the target, creating one if necessary.
+            var targetCollection = targetItem as IList ?? new List<object> { targetItem };
+
+            // Add the source to the target collection.
+            targetCollection.Add(sourceItem);
         }
 
         #endregion Methods
