@@ -307,7 +307,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// Merges the source item into the target item within the specified collection.
         /// </summary>
-        /// <param name="collection">The collection</param>
+        /// <param name="collection">The collection.</param>
         /// <param name="sourceItem">The source item.</param>
         /// <param name="targetItem">The target item.</param>
         /// <param name="targetIndex">The target index.</param>
@@ -319,15 +319,23 @@ namespace SteveCadwallader.CodeMaid.UI
             // Get a collection for the target, creating one if necessary.
             var targetCollection = targetItem as IList ?? new List<object> { targetItem };
 
-            // Add the source item to the target collection.
-            targetCollection.Add(sourceItem);
-
-            // If a target collection was created, replace the target item with it.
-            if (targetItem != targetCollection)
+            // Add the source(s) to the target collection.
+            var sourceCollection = sourceItem as IList;
+            if (sourceCollection != null)
             {
-                collection.Remove(targetItem);
-                collection.Insert(targetIndex, targetCollection);
+                foreach (var source in sourceCollection)
+                {
+                    targetCollection.Add(source);
+                }
             }
+            else
+            {
+                targetCollection.Add(sourceItem);
+            }
+
+            // Always replace the target item with the target collection, even if they are the same object to force a refresh.
+            collection.Remove(targetItem);
+            collection.Insert(targetIndex, targetCollection);
         }
 
         #endregion Methods

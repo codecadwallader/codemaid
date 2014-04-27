@@ -12,6 +12,7 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -183,9 +184,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 memberType.PropertyChanged += OnMemberTypeSettingPropertyChanged;
             }
 
-            MemberTypes = new ObservableCollection<object>(from t in allMemberTypes
-                                                           orderby t.Order
-                                                           select t);
+            MemberTypes = new ObservableCollection<object>(allMemberTypes.GroupBy(x => x.Order)
+                                                                         .Select(y => new List<object>(y))
+                                                                         .OrderBy(z => ((MemberTypeSetting)z[0]).Order));
+
             MemberTypes.CollectionChanged += (sender, args) => UpdateMemberTypeSettings();
         }
 
