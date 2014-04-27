@@ -11,6 +11,7 @@
 
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -185,7 +186,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             MemberTypes = new ObservableCollection<object>(from t in allMemberTypes
                                                            orderby t.Order
                                                            select t);
-            MemberTypes.CollectionChanged += (sender, args) => UpdateMemberTypeSettingsOrder();
+            MemberTypes.CollectionChanged += (sender, args) => UpdateMemberTypeSettings();
         }
 
         /// <summary>
@@ -203,15 +204,46 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         }
 
         /// <summary>
-        /// Updates the member type settings order based on the current collection state.
+        /// Updates the member type settings based on the current collection state.
         /// </summary>
-        private void UpdateMemberTypeSettingsOrder()
+        private void UpdateMemberTypeSettings()
         {
-            int i = 1;
+            int index = 1;
 
-            foreach (var type in MemberTypes.OfType<MemberTypeSetting>())
+            foreach (var memberType in MemberTypes)
             {
-                type.Order = i++;
+                var memberTypeSetting = memberType as MemberTypeSetting;
+                if (memberTypeSetting != null)
+                {
+                    memberTypeSetting.Order = index;
+                }
+                else
+                {
+                    var list = memberType as IList;
+                    if (list != null)
+                    {
+                        var types = list.OfType<MemberTypeSetting>().ToList();
+
+                        // If merged member types have distinct names, create a new effective name from joining their names together.
+                        string newEffectiveName = null;
+                        var distinctNames = types.Select(x => x.EffectiveName).Distinct().ToList();
+                        if (distinctNames.Count() > 1)
+                        {
+                            newEffectiveName = string.Join(" + ", distinctNames);
+                        }
+
+                        foreach (var type in types)
+                        {
+                            type.Order = index;
+                            if (!string.IsNullOrWhiteSpace(newEffectiveName))
+                            {
+                                type.EffectiveName = newEffectiveName;
+                            }
+                        }
+                    }
+                }
+
+                index++;
             }
         }
 

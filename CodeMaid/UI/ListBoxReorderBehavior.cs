@@ -234,14 +234,20 @@ namespace SteveCadwallader.CodeMaid.UI
             var sourceIndex = collection.IndexOf(sourceData);
             var targetIndex = collection.IndexOf(targetData);
 
+            // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
+            if (sourceIndex < targetIndex)
+            {
+                targetIndex--;
+            }
+
             switch (GetDropPostion(e, target))
             {
                 case DropPosition.Above:
-                    MoveSourceAboveTarget(collection, sourceIndex, targetIndex);
+                    collection.Move(sourceIndex, targetIndex);
                     break;
 
                 case DropPosition.Below:
-                    MoveSourceBelowTarget(collection, sourceIndex, targetIndex);
+                    collection.Move(sourceIndex, ++targetIndex);
                     break;
 
                 case DropPosition.On:
@@ -299,43 +305,6 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Moves the item at the source index above the item at the target index within the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection</param>
-        /// <param name="sourceIndex">The source index.</param>
-        /// <param name="targetIndex">The target index.</param>
-        private void MoveSourceAboveTarget(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
-        {
-            // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
-            if (sourceIndex < targetIndex)
-            {
-                targetIndex--;
-            }
-
-            collection.Move(sourceIndex, targetIndex);
-        }
-
-        /// <summary>
-        /// Moves the item at the source index below the item at the target index within the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection</param>
-        /// <param name="sourceIndex">The source index.</param>
-        /// <param name="targetIndex">The target index.</param>
-        private void MoveSourceBelowTarget(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
-        {
-            // Increase target index by 1 to go after the specified target.
-            targetIndex++;
-
-            // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
-            if (sourceIndex < targetIndex)
-            {
-                targetIndex--;
-            }
-
-            collection.Move(sourceIndex, targetIndex);
-        }
-
-        /// <summary>
         /// Merges the source item into the target item within the specified collection.
         /// </summary>
         /// <param name="collection">The collection</param>
@@ -356,8 +325,8 @@ namespace SteveCadwallader.CodeMaid.UI
             // If a target collection was created, replace the target item with it.
             if (targetItem != targetCollection)
             {
-                collection.Insert(targetIndex, targetCollection);
                 collection.Remove(targetItem);
+                collection.Insert(targetIndex, targetCollection);
             }
         }
 
