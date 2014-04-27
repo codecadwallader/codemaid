@@ -36,15 +36,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         {
         }
 
-        internal ~TypeDefaultOrder()
-        {
-        }
-
         protected interface ProtectedInterface
-        {
-        }
-
-        protected ~TypeDefaultOrder()
         {
         }
 
@@ -151,10 +143,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         }
 
         public void PublicOverloadedMethod()
-        {
-        }
-
-        private ~TypeDefaultOrder()
         {
         }
 

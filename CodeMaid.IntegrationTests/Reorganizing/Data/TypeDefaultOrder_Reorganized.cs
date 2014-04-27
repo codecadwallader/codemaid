@@ -39,19 +39,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         private TypeDefaultOrder(string param)
         {
         }
+
         public ~TypeDefaultOrder()
-        {
-        }
-
-        internal ~TypeDefaultOrder()
-        {
-        }
-
-        protected ~TypeDefaultOrder()
-        {
-        }
-
-        private ~TypeDefaultOrder()
         {
         }
 
@@ -98,7 +87,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         protected interface ProtectedInterface
         {
         }
-
         private interface PrivateInterface
         {
         }
@@ -173,11 +161,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         {
         }
 
-        private void PrivateOverloadedMethod()
+        private void PrivateOverloadedMethod(string input)
         {
         }
-
-        private void PrivateOverloadedMethod(string input)
+        private void PrivateOverloadedMethod()
         {
         }
 
