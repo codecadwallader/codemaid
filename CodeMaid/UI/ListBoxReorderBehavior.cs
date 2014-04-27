@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -19,7 +20,7 @@ using System.Windows.Interactivity;
 namespace SteveCadwallader.CodeMaid.UI
 {
     /// <summary>
-    /// A behavior for supporting list box drag and drop reordering.
+    /// A behavior for supporting list box drag and drop reordering, and optionally merging.
     /// </summary>
     public class ListBoxReorderBehavior : Behavior<ListBox>
     {
@@ -71,6 +72,25 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         #endregion Behavior Methods
+
+        #region CanMerge (Dependency Property)
+
+        /// <summary>
+        /// The dependency property definition for the CanMerge property.
+        /// </summary>
+        public static readonly DependencyProperty CanMergeProperty = DependencyProperty.Register(
+            "CanMerge", typeof(bool), typeof(ListBoxReorderBehavior));
+
+        /// <summary>
+        /// Gets or sets the flag indicating if items can be merged.
+        /// </summary>
+        public bool CanMerge
+        {
+            get { return (bool)GetValue(CanMergeProperty); }
+            set { SetValue(CanMergeProperty, value); }
+        }
+
+        #endregion CanMerge (Dependency Property)
 
         #region Event Handlers
 
@@ -141,15 +161,25 @@ namespace SteveCadwallader.CodeMaid.UI
 
                 if (sourceData != null && targetData != null && sourceData != targetData)
                 {
-                    if (IsDropAbove(e, target))
+                    switch (GetDropPostion(e, target))
                     {
-                        target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, true);
-                        target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
-                    }
-                    else
-                    {
-                        target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
-                        target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, true);
+                        case DropPosition.Above:
+                            target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, true);
+                            target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                            target.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
+                            break;
+
+                        case DropPosition.Below:
+                            target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
+                            target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, true);
+                            target.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
+                            break;
+
+                        case DropPosition.On:
+                            target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
+                            target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                            target.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, true);
+                            break;
                     }
 
                     e.Effects = DragDropEffects.Move;
@@ -175,6 +205,7 @@ namespace SteveCadwallader.CodeMaid.UI
             {
                 target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
                 target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+                target.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
             }
         }
 
@@ -201,20 +232,24 @@ namespace SteveCadwallader.CodeMaid.UI
             var sourceIndex = collection.IndexOf(sourceData);
             var targetIndex = collection.IndexOf(targetData);
 
-            if (!IsDropAbove(e, target))
+            switch (GetDropPostion(e, target))
             {
-                targetIndex++;
-            }
+                case DropPosition.Above:
+                    MoveTargetAboveSource(collection, sourceIndex, targetIndex);
+                    break;
 
-            if (sourceIndex < targetIndex)
-            {
-                targetIndex--;
-            }
+                case DropPosition.Below:
+                    MoveTargetBelowSource(collection, sourceIndex, targetIndex);
+                    break;
 
-            collection.Move(sourceIndex, targetIndex);
+                case DropPosition.On:
+                    MergeTargetIntoSource(collection, sourceIndex, targetIndex);
+                    break;
+            }
 
             target.SetValue(DragDropAttachedProperties.IsDropAboveTargetProperty, false);
             target.SetValue(DragDropAttachedProperties.IsDropBelowTargetProperty, false);
+            target.SetValue(DragDropAttachedProperties.IsDropOnTargetProperty, false);
             e.Handled = true;
         }
 
@@ -238,14 +273,74 @@ namespace SteveCadwallader.CodeMaid.UI
         }
 
         /// <summary>
-        /// Determines whether a drop event is occurring above or below a specified target.
+        /// Determines the drop position for the specified drag event and the drop target.
         /// </summary>
         /// <param name="e">The <see cref="DragEventArgs" /> instance containing the event data.</param>
         /// <param name="target">The target.</param>
-        /// <returns>True if the drop should occur above the target, otherwise false.</returns>
-        private static bool IsDropAbove(DragEventArgs e, ListBoxItem target)
+        /// <returns>The drop position.</returns>
+        private DropPosition GetDropPostion(DragEventArgs e, ListBoxItem target)
         {
-            return e.GetPosition(target).Y <= target.ActualHeight / 2;
+            var dropPoint = e.GetPosition(target);
+            var targetHeight = target.ActualHeight;
+
+            if (CanMerge)
+            {
+                bool isTopThird = dropPoint.Y <= targetHeight / 3;
+                bool isBottomThird = dropPoint.Y > targetHeight * 2 / 3;
+
+                return isTopThird ? DropPosition.Above : (isBottomThird ? DropPosition.Below : DropPosition.On);
+            }
+
+            bool isTopHalf = dropPoint.Y <= targetHeight / 2;
+
+            return isTopHalf ? DropPosition.Above : DropPosition.Below;
+        }
+
+        /// <summary>
+        /// Moves the item at the target index above the item at the source index within the specified collection.
+        /// </summary>
+        /// <param name="collection">The collection</param>
+        /// <param name="sourceIndex">The source index.</param>
+        /// <param name="targetIndex">The target index.</param>
+        private void MoveTargetAboveSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        {
+            // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
+            if (sourceIndex < targetIndex)
+            {
+                targetIndex--;
+            }
+
+            collection.Move(sourceIndex, targetIndex);
+        }
+
+        /// <summary>
+        /// Moves the item at the target index below the item at the source index within the specified collection.
+        /// </summary>
+        /// <param name="collection">The collection</param>
+        /// <param name="sourceIndex">The source index.</param>
+        /// <param name="targetIndex">The target index.</param>
+        private void MoveTargetBelowSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        {
+            // Increase target index by 1 to go after the specified target.
+            targetIndex++;
+
+            // If the source is in front of the target, offset the target by 1 as the indices will change then the source is removed.
+            if (sourceIndex < targetIndex)
+            {
+                targetIndex--;
+            }
+
+            collection.Move(sourceIndex, targetIndex);
+        }
+
+        /// <summary>
+        /// Merges the item at the target index into the item at the source index within the specified collection.
+        /// </summary>
+        /// <param name="collection">The collection</param>
+        /// <param name="sourceIndex">The source index.</param>
+        /// <param name="targetIndex">The target index.</param>
+        private void MergeTargetIntoSource(ObservableCollection<object> collection, int sourceIndex, int targetIndex)
+        {
         }
 
         #endregion Methods

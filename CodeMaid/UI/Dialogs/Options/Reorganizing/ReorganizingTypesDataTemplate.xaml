@@ -5,6 +5,7 @@
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:ReorganizingTypesViewModel}">
         <StackPanel>
+            <TextBlock Text="Order, breakdown and preferred names of member types" Margin="5,5,5,0" />
             <ListBox ItemsSource="{Binding MemberTypes}">
                 <i:Interaction.Behaviors>
                     <ui:ListBoxReorderBehavior />
@@ -46,7 +47,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <TextBlock FontStyle="Italic" Text="Drag to reorder, double-click to rename" />
+            <TextBlock FontStyle="Italic" Text="Drag to reorder, drag over to merge, right click to split, double-click to rename" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
