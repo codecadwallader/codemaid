@@ -153,6 +153,43 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         #endregion Options
 
+        #region Split Command
+
+        private DelegateCommand _splitCommand;
+
+        /// <summary>
+        /// Gets the split command.
+        /// </summary>
+        public DelegateCommand SplitCommand
+        {
+            get { return _splitCommand ?? (_splitCommand = new DelegateCommand(OnSplitCommandExecuted)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SplitCommand" /> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnSplitCommandExecuted(object parameter)
+        {
+            var list = parameter as IList;
+            if (list != null)
+            {
+                // Determine the position of the combined item and remove it.
+                int index = MemberTypes.IndexOf(parameter);
+                MemberTypes.Remove(parameter);
+
+                // Reset each item in the list and insert it into the specified position.
+                var memberTypeSettings = list.OfType<MemberTypeSetting>().Reverse();
+                foreach (var memberTypeSetting in memberTypeSettings)
+                {
+                    memberTypeSetting.EffectiveName = memberTypeSetting.DefaultName;
+                    MemberTypes.Insert(index, memberTypeSetting);
+                }
+            }
+        }
+
+        #endregion Split Command
+
         #region Logic
 
         private ObservableCollection<object> _memberTypes;
