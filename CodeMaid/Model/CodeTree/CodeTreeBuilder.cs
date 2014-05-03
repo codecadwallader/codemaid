@@ -179,15 +179,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             codeItem.Children.Clear();
 
             CodeItemRegion group = null;
-            KindCodeItem? kind = null;
+            int groupOrder = -1;
 
             foreach (var child in children)
             {
+                var memberTypeSetting = MemberTypeSettingHelper.LookupByKind(child.Kind);
+
                 // Create a new group unless the right kind has already been defined.
-                if (group == null || kind != child.Kind)
+                if (group == null || memberTypeSetting.Order != groupOrder)
                 {
-                    group = new CodeItemRegion { Name = MemberTypeSettingHelper.GetEffectiveName(child.Kind), IsPseudoGroup = true };
-                    kind = child.Kind;
+                    group = new CodeItemRegion { Name = memberTypeSetting.EffectiveName, IsPseudoGroup = true };
+                    groupOrder = memberTypeSetting.Order;
 
                     codeItem.Children.Add(group);
                 }

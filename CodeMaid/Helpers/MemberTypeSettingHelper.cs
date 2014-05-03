@@ -162,27 +162,27 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Methods
 
         /// <summary>
-        /// Gets the effective name for the specified kind of code item.
+        /// Looks up the <see cref="MemberTypeSetting"/> associated with the specified kind, otherwise null.
         /// </summary>
         /// <param name="kindCodeItem">The kind of code item.</param>
-        /// <returns>The effective name for the specified kind of code item.</returns>
-        public static string GetEffectiveName(KindCodeItem kindCodeItem)
+        /// <returns>The associated <see cref="MemberTypeSetting"/>, otherwise null.</returns>
+        public static MemberTypeSetting LookupByKind(KindCodeItem kindCodeItem)
         {
             switch (kindCodeItem)
             {
-                case KindCodeItem.Class: return ClassSettings.EffectiveName;
-                case KindCodeItem.Constructor: return ConstructorSettings.EffectiveName;
-                case KindCodeItem.Delegate: return DelegateSettings.EffectiveName;
-                case KindCodeItem.Destructor: return DestructorSettings.EffectiveName;
-                case KindCodeItem.Enum: return EnumSettings.EffectiveName;
-                case KindCodeItem.Event: return EventSettings.EffectiveName;
-                case KindCodeItem.Field: return FieldSettings.EffectiveName;
-                case KindCodeItem.Indexer: return IndexerSettings.EffectiveName;
-                case KindCodeItem.Interface: return InterfaceSettings.EffectiveName;
-                case KindCodeItem.Method: return MethodSettings.EffectiveName;
-                case KindCodeItem.Property: return PropertySettings.EffectiveName;
-                case KindCodeItem.Struct: return StructSettings.EffectiveName;
-                default: return kindCodeItem.GetDescription();
+                case KindCodeItem.Class: return ClassSettings;
+                case KindCodeItem.Constructor: return ConstructorSettings;
+                case KindCodeItem.Delegate: return DelegateSettings;
+                case KindCodeItem.Destructor: return DestructorSettings;
+                case KindCodeItem.Enum: return EnumSettings;
+                case KindCodeItem.Event: return EventSettings;
+                case KindCodeItem.Field: return FieldSettings;
+                case KindCodeItem.Indexer: return IndexerSettings;
+                case KindCodeItem.Interface: return InterfaceSettings;
+                case KindCodeItem.Method: return MethodSettings;
+                case KindCodeItem.Property: return PropertySettings;
+                case KindCodeItem.Struct: return StructSettings;
+                default: return null;
             }
         }
 
