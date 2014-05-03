@@ -9,6 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 {
     /// <summary>
@@ -44,6 +46,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void LoadSettings()
         {
+            AutoGenerate = Settings.Default.Reorganizing_RegionsAutoGenerate;
+            IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
+            InsertEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty;
+            RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
         }
 
         /// <summary>
@@ -51,11 +57,87 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void SaveSettings()
         {
+            Settings.Default.Reorganizing_RegionsAutoGenerate = AutoGenerate;
+            Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
+            Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty = InsertEvenIfEmpty;
+            Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        private bool _autoGenerate;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if regions should be automatically generated.
+        /// </summary>
+        public bool AutoGenerate
+        {
+            get { return _autoGenerate; }
+            set
+            {
+                if (_autoGenerate != value)
+                {
+                    _autoGenerate = value;
+                    NotifyPropertyChanged("AutoGenerate");
+                }
+            }
+        }
+
+        private bool _includeAccessLevel;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if the access level should be included in the regions.
+        /// </summary>
+        public bool IncludeAccessLevel
+        {
+            get { return _includeAccessLevel; }
+            set
+            {
+                if (_includeAccessLevel != value)
+                {
+                    _includeAccessLevel = value;
+                    NotifyPropertyChanged("IncludeAccessLevel");
+                }
+            }
+        }
+
+        private bool _insertEvenIfEmpty;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if regions should be inserted even if they would be empty.
+        /// </summary>
+        public bool InsertEvenIfEmpty
+        {
+            get { return _insertEvenIfEmpty; }
+            set
+            {
+                if (_insertEvenIfEmpty != value)
+                {
+                    _insertEvenIfEmpty = value;
+                    NotifyPropertyChanged("InsertEvenIfEmpty");
+                }
+            }
+        }
+
+        private bool _removeExistingRegions;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if the existing regions should be removed.
+        /// </summary>
+        public bool RemoveExistingRegions
+        {
+            get { return _removeExistingRegions; }
+            set
+            {
+                if (_removeExistingRegions != value)
+                {
+                    _removeExistingRegions = value;
+                    NotifyPropertyChanged("RemoveExistingRegions");
+                }
+            }
+        }
 
         #endregion Options
     }
