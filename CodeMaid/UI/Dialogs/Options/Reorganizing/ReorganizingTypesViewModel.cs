@@ -238,7 +238,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             var memberTypeSetting = sender as MemberTypeSetting;
             if (memberTypeSetting != null)
             {
+                // Raise NotifyPropertyChanged on the DefaultName of the MemberTypeSetting which matches the property name on this class.
                 NotifyPropertyChanged(memberTypeSetting.DefaultName);
+
+                // If the EffectiveName changed for one member in a group, be sure all other members in the group are synchronized.
+                if (e.PropertyName == "EffectiveName")
+                {
+                    var list = MemberTypes.OfType<IList>().FirstOrDefault(x => x.Contains(memberTypeSetting));
+                    if (list != null && list.Count > 1)
+                    {
+                        foreach (var type in list.OfType<MemberTypeSetting>())
+                        {
+                            type.EffectiveName = memberTypeSetting.EffectiveName;
+                        }
+                    }
+                }
             }
         }
 
