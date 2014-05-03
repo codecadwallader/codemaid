@@ -70,6 +70,7 @@
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingGeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingParentDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingRegionsDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingTypesDataTemplate.xaml" />
                                 <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
                             </ResourceDictionary.MergedDictionaries>

@@ -70,7 +70,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                 Children = new OptionsPageViewModel[]
                                 {
                                     new ReorganizingGeneralViewModel(package),
-                                    new ReorganizingTypesViewModel(package)
+                                    new ReorganizingTypesViewModel(package),
+                                    new ReorganizingRegionsViewModel(package)
                                 }
                             },
                             new SwitchingViewModel(package),
