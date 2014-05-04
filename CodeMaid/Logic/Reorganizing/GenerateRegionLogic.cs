@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An enumerable set of regions to be removed.</returns>
         public IEnumerable<CodeItemRegion> GetRegionsToRemove(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regionsToKeep = ComposeRegionList(codeItems);
+            var regionsToKeep = ComposeRegionsList(codeItems);
 
             var existingRegions = codeItems.OfType<CodeItemRegion>();
             var regionsToRemove = existingRegions.Except(regionsToKeep, _regionComparerByName);
@@ -75,32 +75,40 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             return regionsToRemove;
         }
 
+        /// <summary>
+        /// Inserts regions per user settings.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
         public void InsertRegions(SetCodeItems codeItems)
         {
-            var regionsToExist = ComposeRegionList(codeItems);
+            var regionsToExist = ComposeRegionsList(codeItems);
 
             var existingRegions = codeItems.OfType<CodeItemRegion>();
-            var regionsToInsert = regionsToExist.Except(existingRegions);
+            var regionsToInsert = regionsToExist.Except(existingRegions, _regionComparerByName);
 
             foreach (var region in regionsToInsert)
             {
-                //TODO: Create the region.
+                //TODO: Insert the region.
             }
         }
 
-        private IEnumerable<CodeItemRegion> ComposeRegionList(IEnumerable<BaseCodeItem> codeItems)
+        /// <summary>
+        /// Composes a list of regions that should be present for the specified set of code items based on user settings.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An enumerable set of regions that should be present.</returns>
+        private IEnumerable<CodeItemRegion> ComposeRegionsList(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regions = new List<CodeItemRegion>();
-
-            if (Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty)
-            {
-                regions.AddRange(GeneratePossibleRegionList());
-            }
-
-            return regions;
+            return Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty
+                ? ComposeAllPossibleRegionsList()
+                : ComposePresentTypesRegionsList(codeItems);
         }
 
-        private IEnumerable<CodeItemRegion> GeneratePossibleRegionList()
+        /// <summary>
+        /// Composes a list of all possible regions.
+        /// </summary>
+        /// <returns>An enumerable set of regions.</returns>
+        private IEnumerable<CodeItemRegion> ComposeAllPossibleRegionsList()
         {
             var regions = new List<CodeItemRegion>();
 
@@ -109,7 +117,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
                 {
-                    foreach (var accessModifier in GetAccessModifiers())
+                    foreach (var accessModifier in AccessModifiers)
                     {
                         regions.Add(new CodeItemRegion { Name = accessModifier + " " + type[0].EffectiveName });
                     }
@@ -123,9 +131,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             return regions;
         }
 
-        private IEnumerable<string> GetAccessModifiers()
+        /// <summary>
+        /// Composes a list of regions based on the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An enumerable set of regions.</returns>
+        private IEnumerable<CodeItemRegion> ComposePresentTypesRegionsList(IEnumerable<BaseCodeItem> codeItems)
         {
-            return new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" };
+            var regions = new List<CodeItemRegion>();
+
+            //TODO: Break down the codeItems collection into associated groups.
+
+            return regions;
+        }
+
+        private IEnumerable<string> AccessModifiers
+        {
+            get { return new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" }; }
         }
 
         #endregion Methods
