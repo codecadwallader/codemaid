@@ -113,5 +113,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         }
 
         #endregion Methods
+
+        public IEnumerable<CodeItemRegion> GetRegionsToRemove(SetCodeItems rawCodeItems)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

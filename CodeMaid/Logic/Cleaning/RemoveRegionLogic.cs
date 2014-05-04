@@ -101,6 +101,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
+        /// Removes the region tags from the specified regions.
+        /// </summary>
+        /// <param name="regions">The regions to update.</param>
+        internal void RemoveRegions(IEnumerable<CodeItemRegion> regions)
+        {
+            new UndoTransactionHelper(_package, "CodeMaid Remove Regions").Run(() =>
+            {
+                // Iterate through regions in reverse order (reduces line number updates during removal).
+                foreach (var region in regions.OrderByDescending(x => x.StartLine))
+                {
+                    RemoveRegion(region);
+                }
+            });
+        }
+
+        /// <summary>
         /// Removes the region tags from the specified regions based on user settings.
         /// </summary>
         /// <param name="regions">The regions to update.</param>

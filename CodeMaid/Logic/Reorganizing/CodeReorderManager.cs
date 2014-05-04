@@ -36,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
         private readonly GenerateRegionLogic _generateRegionLogic;
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
+        private readonly RemoveRegionLogic _removeRegionLogic;
 
         #endregion Fields
 
@@ -69,6 +70,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
             _generateRegionLogic = GenerateRegionLogic.GetInstance(_package);
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
+            _removeRegionLogic = RemoveRegionLogic.GetInstance(_package);
         }
 
         #endregion Constructors
@@ -138,6 +140,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Retrieve all relevant code items (excluding using statements, and
                     // conditionally regions).
                     var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document);
+
+                    if (Settings.Default.Reorganizing_RegionsAutoGenerate && Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
+                    {
+                        var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(rawCodeItems);
+                        _removeRegionLogic.RemoveRegions(regionsToRemove);
+                    }
+
+                    // Filter out using statements, and conditionally regions.
                     var filteredCodeItems = rawCodeItems.Where(x =>
                         !(x is CodeItemUsingStatement ||
                           (!Settings.Default.Reorganizing_KeepMembersWithinRegions && x is CodeItemRegion)));
