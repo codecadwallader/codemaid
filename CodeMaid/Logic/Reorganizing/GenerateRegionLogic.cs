@@ -61,7 +61,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
         #region Methods
 
-        public SetCodeItems ComposeRegionList(SetCodeItems codeItems)
+        public IEnumerable<CodeItemRegion> GetRegionsToRemove(IEnumerable<BaseCodeItem> codeItems)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InsertRegions(SetCodeItems codeItems)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private SetCodeItems ComposeRegionList(SetCodeItems codeItems)
         {
             var regions = new SetCodeItems();
 
@@ -113,10 +123,5 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         }
 
         #endregion Methods
-
-        public IEnumerable<CodeItemRegion> GetRegionsToRemove(SetCodeItems rawCodeItems)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

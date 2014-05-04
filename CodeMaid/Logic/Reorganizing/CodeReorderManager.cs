@@ -137,27 +137,36 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
                     _package.IDE.StatusBar.Text = string.Format("CodeMaid is reorganizing '{0}'...", document.Name);
 
-                    // Retrieve all relevant code items (excluding using statements, and
-                    // conditionally regions).
-                    var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document);
+                    // Retrieve all relevant code items (excluding using statements).
+                    var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document).Where(x => !(x is CodeItemUsingStatement));
 
+                    // Conditionally remove existing regions.
                     if (Settings.Default.Reorganizing_RegionsAutoGenerate && Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
                     {
                         var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(rawCodeItems);
                         _removeRegionLogic.RemoveRegions(regionsToRemove);
+
+                        rawCodeItems = rawCodeItems.Except(regionsToRemove);
                     }
 
-                    // Filter out using statements, and conditionally regions.
-                    var filteredCodeItems = rawCodeItems.Where(x =>
-                        !(x is CodeItemUsingStatement ||
-                          (!Settings.Default.Reorganizing_KeepMembersWithinRegions && x is CodeItemRegion)));
-                    var codeItems = new SetCodeItems(filteredCodeItems);
+                    // Conditionally ignore regions.
+                    if (!Settings.Default.Reorganizing_KeepMembersWithinRegions)
+                    {
+                        rawCodeItems = rawCodeItems.Where(x => !(x is CodeItemRegion));
+                    }
 
                     // Build the code tree based on the current file layout.
+                    var codeItems = new SetCodeItems(rawCodeItems);
                     var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));
 
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
+
+                    // Conditionally insert regions.
+                    if (Settings.Default.Reorganizing_RegionsAutoGenerate)
+                    {
+                        _generateRegionLogic.InsertRegions(codeTree);
+                    }
 
                     _package.IDE.StatusBar.Text = string.Format("CodeMaid reorganized '{0}'.", document.Name);
 
