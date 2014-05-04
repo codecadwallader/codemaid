@@ -34,6 +34,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private readonly CodeModelManager _codeModelManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
 
+        private readonly GenerateRegionLogic _generateRegionLogic;
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
 
         #endregion Fields
@@ -66,6 +67,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             _codeModelManager = CodeModelManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Reorganize");
 
+            _generateRegionLogic = GenerateRegionLogic.GetInstance(_package);
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
         }
 

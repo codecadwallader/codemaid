@@ -11,6 +11,7 @@
 
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -60,6 +61,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Constructors
 
         #region Properties
+
+        /// <summary>
+        /// Gets an enumerable set of all of the settings.
+        /// </summary>
+        public static IEnumerable<MemberTypeSetting> AllSettings
+        {
+            get
+            {
+                return new[]
+                {
+                    ClassSettings, ConstructorSettings, DelegateSettings, DestructorSettings,
+                    EnumSettings, EventSettings, FieldSettings, IndexerSettings,
+                    InterfaceSettings, MethodSettings, PropertySettings, StructSettings
+                };
+            }
+        }
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Class"/> type.
