@@ -10,7 +10,6 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
-        private readonly CodeModelHelper _codeModelHelper;
+        private readonly RegionComparerByName _regionComparerByName;
 
         #endregion Fields
 
@@ -54,37 +53,44 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private GenerateRegionLogic(CodeMaidPackage package)
         {
             _package = package;
-            _codeModelHelper = CodeModelHelper.GetInstance(_package);
+            _regionComparerByName = new RegionComparerByName();
         }
 
         #endregion Constructors
 
         #region Methods
 
+        /// <summary>
+        /// Gets the enumerable set of regions to be removed based on the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An enumerable set of regions to be removed.</returns>
         public IEnumerable<CodeItemRegion> GetRegionsToRemove(IEnumerable<BaseCodeItem> codeItems)
         {
-            throw new System.NotImplementedException();
+            var regionsToKeep = ComposeRegionList(codeItems);
+
+            var existingRegions = codeItems.OfType<CodeItemRegion>();
+            var regionsToRemove = existingRegions.Except(regionsToKeep, _regionComparerByName);
+
+            return regionsToRemove;
         }
 
         public void InsertRegions(SetCodeItems codeItems)
         {
-            throw new System.NotImplementedException();
+            var regionsToExist = ComposeRegionList(codeItems);
+
+            var existingRegions = codeItems.OfType<CodeItemRegion>();
+            var regionsToInsert = regionsToExist.Except(existingRegions);
+
+            foreach (var region in regionsToInsert)
+            {
+                //TODO: Create the region.
+            }
         }
 
-        private SetCodeItems ComposeRegionList(SetCodeItems codeItems)
+        private IEnumerable<CodeItemRegion> ComposeRegionList(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regions = new SetCodeItems();
-
-            if (!Settings.Default.Reorganizing_RegionsAutoGenerate)
-            {
-                regions.AddRange(codeItems.OfType<CodeItemRegion>());
-                return regions;
-            }
-
-            if (!Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
-            {
-                regions.AddRange(codeItems.OfType<CodeItemRegion>());
-            }
+            var regions = new List<CodeItemRegion>();
 
             if (Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty)
             {
@@ -94,9 +100,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             return regions;
         }
 
-        private SetCodeItems GeneratePossibleRegionList()
+        private IEnumerable<CodeItemRegion> GeneratePossibleRegionList()
         {
-            var regions = new SetCodeItems();
+            var regions = new List<CodeItemRegion>();
 
             var types = MemberTypeSettingHelper.AllSettings.GroupBy(x => x.Order).Select(y => new List<MemberTypeSetting>(y)).OrderBy(z => z[0].Order);
             foreach (var type in types)
