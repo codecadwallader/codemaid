@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 {
@@ -57,6 +58,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// A list of possible access modifiers.
+        /// </summary>
+        private static IEnumerable<string> AccessModifiers
+        {
+            get { return new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" }; }
+        }
+
+        #endregion Properties
 
         #region Methods
 
@@ -117,10 +130,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
                 {
-                    foreach (var accessModifier in AccessModifiers)
-                    {
-                        regions.Add(new CodeItemRegion { Name = accessModifier + " " + type[0].EffectiveName });
-                    }
+                    regions.AddRange(AccessModifiers.Select(x => new CodeItemRegion { Name = x + " " + type[0].EffectiveName }));
                 }
                 else
                 {
@@ -138,16 +148,34 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An enumerable set of regions.</returns>
         private IEnumerable<CodeItemRegion> ComposePresentTypesRegionsList(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regions = new List<CodeItemRegion>();
+            var regions = new HashSet<CodeItemRegion>(_regionComparerByName);
 
-            //TODO: Break down the codeItems collection into associated groups.
+            foreach (var codeItem in codeItems)
+            {
+                var setting = MemberTypeSettingHelper.LookupByKind(codeItem.Kind);
+                if (setting == null) continue;
+
+                var regionName = string.Empty;
+
+                if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
+                {
+                    var element = codeItem as BaseCodeItemElement;
+                    if (element != null)
+                    {
+                        var accessModifier = CodeElementHelper.GetAccessModifierKeyword(element.Access);
+                        if (accessModifier != null)
+                        {
+                            regionName = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(accessModifier) + " ";
+                        }
+                    }
+                }
+
+                regionName += setting.EffectiveName;
+
+                regions.Add(new CodeItemRegion { Name = regionName });
+            }
 
             return regions;
-        }
-
-        private IEnumerable<string> AccessModifiers
-        {
-            get { return new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" }; }
         }
 
         #endregion Methods
