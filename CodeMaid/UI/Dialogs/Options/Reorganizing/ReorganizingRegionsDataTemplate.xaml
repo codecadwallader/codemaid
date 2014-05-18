@@ -5,11 +5,11 @@
         <StackPanel>
             <CheckBox Content="Automatically generate regions" IsChecked="{Binding AutoGenerate}" />
 
-            <CheckBox Content="Include access level in regions" IsChecked="{Binding IncludeAccessLevel}" />
+            <CheckBox Content="Include access level in regions" IsChecked="{Binding IncludeAccessLevel}" IsEnabled="{Binding AutoGenerate}" />
             <TextBlock Text="Ex: #region Public Methods, #region Private Methods" Margin="35,0,5,10" />
 
-            <CheckBox Content="Insert regions even if they are empty" IsChecked="{Binding InsertEvenIfEmpty}" />
-            <CheckBox Content="Remove existing regions" IsChecked="{Binding RemoveExistingRegions}" />
+            <CheckBox Content="Insert regions even if they are empty" IsChecked="{Binding InsertEvenIfEmpty}" IsEnabled="{Binding AutoGenerate}" />
+            <CheckBox Content="Remove existing regions" IsChecked="{Binding RemoveExistingRegions}" IsEnabled="{Binding AutoGenerate}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
