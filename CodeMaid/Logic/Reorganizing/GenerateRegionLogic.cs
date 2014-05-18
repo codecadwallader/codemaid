@@ -92,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Inserts regions per user settings.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        public void InsertRegions(SetCodeItems codeItems)
+        public void InsertRegions(IEnumerable<BaseCodeItem> codeItems)
         {
             var regionsToExist = ComposeRegionsList(codeItems);
 
@@ -173,6 +173,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 if (region != null)
                 {
                     regions.Add(region);
+                }
+                else
+                {
+                    region = codeItem as CodeItemRegion;
+                    if (region != null)
+                    {
+                        regions.UnionWith(ComposePresentTypesRegionsList(region.Children));
+                    }
                 }
             }
 

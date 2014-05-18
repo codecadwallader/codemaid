@@ -140,33 +140,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Retrieve all relevant code items (excluding using statements).
                     var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document).Where(x => !(x is CodeItemUsingStatement));
 
-                    // Conditionally remove existing regions.
-                    if (Settings.Default.Reorganizing_RegionsAutoGenerate && Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
-                    {
-                        var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(rawCodeItems);
-                        _removeRegionLogic.RemoveRegions(regionsToRemove);
-
-                        rawCodeItems = rawCodeItems.Except(regionsToRemove);
-                    }
-
-                    // Conditionally ignore regions.
-                    if (!Settings.Default.Reorganizing_KeepMembersWithinRegions)
-                    {
-                        rawCodeItems = rawCodeItems.Where(x => !(x is CodeItemRegion));
-                    }
-
                     // Build the code tree based on the current file layout.
                     var codeItems = new SetCodeItems(rawCodeItems);
                     var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));
 
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
-
-                    // Conditionally insert regions.
-                    if (Settings.Default.Reorganizing_RegionsAutoGenerate)
-                    {
-                        _generateRegionLogic.InsertRegions(codeTree);
-                    }
 
                     _package.IDE.StatusBar.Text = string.Format("CodeMaid reorganized '{0}'.", document.Name);
 
@@ -190,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </summary>
         /// <param name="codeItems">The code items.</param>
         /// <returns>The set of reorganizable code item elements.</returns>
-        private static IList<BaseCodeItemElement> GetReorganizableCodeItemElements(SetCodeItems codeItems)
+        private static IList<BaseCodeItemElement> GetReorganizableCodeItemElements(IEnumerable<BaseCodeItem> codeItems)
         {
             // Get all code item elements.
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
@@ -390,12 +369,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Recursively reorganizes the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void RecursivelyReorganize(SetCodeItems codeItems)
+        private void RecursivelyReorganize(IEnumerable<BaseCodeItem> codeItems)
         {
             if (!codeItems.Any())
             {
                 return;
             }
+
+            // Conditionally remove existing regions.
+            codeItems = RegionsRemoveExisting(codeItems);
+
+            // Conditionally ignore regions.
+            codeItems = RegionsFlatten(codeItems);
 
             // Get the items in their current order and their desired order.
             var currentOrder = GetReorganizableCodeItemElements(codeItems);
@@ -426,11 +411,86 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 }
             }
 
+            // Conditionally insert regions.
+            RegionsInsert(codeItems);
+
             // Recursively reorganize the contents of any regions as well.
             var codeItemRegions = codeItems.OfType<CodeItemRegion>();
             foreach (var codeItemRegion in codeItemRegions)
             {
                 RecursivelyReorganize(codeItemRegion.Children);
+            }
+        }
+
+        /// <summary>
+        /// Conditionally removes existing regions that should not remain and returns an updated
+        /// collection including the members of removed regions.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An updated code items collection.</returns>
+        private IEnumerable<BaseCodeItem> RegionsRemoveExisting(IEnumerable<BaseCodeItem> codeItems)
+        {
+            if (!Settings.Default.Reorganizing_RegionsAutoGenerate || !Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
+            {
+                return codeItems;
+            }
+
+            while (true)
+            {
+                var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(codeItems);
+                _removeRegionLogic.RemoveRegions(regionsToRemove);
+
+                var removedRegionsChildren = regionsToRemove.SelectMany(x => x.Children);
+
+                // Update the code items collection by excluding the removed regions and including those region's direct children.
+                codeItems = codeItems.Except(regionsToRemove).Union(removedRegionsChildren);
+
+                // If there were any nested regions in those regions that were removed, loop back over again.
+                if (removedRegionsChildren.Any(x => x is CodeItemRegion))
+                {
+                    continue;
+                }
+
+                return codeItems;
+            }
+        }
+
+        /// <summary>
+        /// Conditionally flattens the contents of regions into the specified collection.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <returns>An updated code items collection.</returns>
+        private IEnumerable<BaseCodeItem> RegionsFlatten(IEnumerable<BaseCodeItem> codeItems)
+        {
+            if (Settings.Default.Reorganizing_KeepMembersWithinRegions)
+            {
+                return codeItems;
+            }
+
+            while (true)
+            {
+                var regions = codeItems.OfType<CodeItemRegion>();
+                if (!regions.Any())
+                {
+                    break;
+                }
+
+                // Update the code items collection by excluding the regions and including those region's direct children.
+                codeItems = codeItems.Except(regions).Union(regions.SelectMany(x => x.Children));
+            }
+
+            return codeItems;
+        }
+
+        /// <summary>
+        /// Conditionally inserts regions for the specified code items.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems)
+        {
+            if (Settings.Default.Reorganizing_RegionsAutoGenerate)
+            {
+                _generateRegionLogic.InsertRegions(codeItems);
             }
         }
 

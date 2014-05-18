@@ -4,9 +4,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 {
     public class RegionsRemoveExisting
     {
-
         public const int PublicConstant = 1;
-
         public int PublicField;
 
         internal const int InternalConstant = 1;
@@ -36,7 +34,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         protected delegate void ProtectedDelegate();
 
         private delegate void PrivateDelegate();
-
         public event EventHandler PublicEvent;
 
         internal event EventHandler InternalEvent;
