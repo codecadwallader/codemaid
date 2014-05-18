@@ -630,6 +630,13 @@
     <Content Include="Reorganizing\Data\TypeDefaultOrder_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reorganizing\Data\RegionsRemoveExisting.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsRemoveExisting_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Reorganizing\RegionsRemoveExistingTests.cs" />
     <Compile Include="Reorganizing\TypeCustomGroupingTests.cs" />
     <Compile Include="Reorganizing\TypeDefaultOrderTests.cs" />
     <Compile Include="Reorganizing\TypeCustomOrderTests.cs" />
