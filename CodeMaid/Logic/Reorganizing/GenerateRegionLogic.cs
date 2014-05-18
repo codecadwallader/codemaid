@@ -99,10 +99,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var existingRegions = codeItems.OfType<CodeItemRegion>();
             var regionsToInsert = regionsToExist.Except(existingRegions, _regionComparerByName);
 
-            foreach (var region in regionsToInsert)
+            foreach (var codeItem in codeItems)
             {
-                //TODO: Insert the region.
+                if (!regionsToInsert.Any())
+                {
+                    break;
+                }
+
+                var region = ComposeRegionForCodeItem(codeItem);
+                if (region == null) continue;
+
+                if (regionsToInsert.Contains(region, _regionComparerByName))
+                {
+                    //TODO: Create the start of the region at the start of this item.
+                    // Skip forwards, seeing how many more matching items there are.
+                    // When there is a break, end the region.
+                    // Remove the item from the hash set.
+                }
             }
+
+            // Alternatively.. we iterate across the regionsToInsert.. find the first matching element.. find the last consecutive element.. wrap that in a region.
+            // Can we have captured the matching elements already to reduce iterations?
         }
 
         /// <summary>
@@ -152,30 +169,44 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
             foreach (var codeItem in codeItems)
             {
-                var setting = MemberTypeSettingHelper.LookupByKind(codeItem.Kind);
-                if (setting == null) continue;
-
-                var regionName = string.Empty;
-
-                if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
+                var region = ComposeRegionForCodeItem(codeItem);
+                if (region != null)
                 {
-                    var element = codeItem as BaseCodeItemElement;
-                    if (element != null)
-                    {
-                        var accessModifier = CodeElementHelper.GetAccessModifierKeyword(element.Access);
-                        if (accessModifier != null)
-                        {
-                            regionName = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(accessModifier) + " ";
-                        }
-                    }
+                    regions.Add(region);
                 }
-
-                regionName += setting.EffectiveName;
-
-                regions.Add(new CodeItemRegion { Name = regionName });
             }
 
             return regions;
+        }
+
+        /// <summary>
+        /// Composes a region based on the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>A region.</returns>
+        private CodeItemRegion ComposeRegionForCodeItem(BaseCodeItem codeItem)
+        {
+            var setting = MemberTypeSettingHelper.LookupByKind(codeItem.Kind);
+            if (setting == null) return null;
+
+            var regionName = string.Empty;
+
+            if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
+            {
+                var element = codeItem as BaseCodeItemElement;
+                if (element != null)
+                {
+                    var accessModifier = CodeElementHelper.GetAccessModifierKeyword(element.Access);
+                    if (accessModifier != null)
+                    {
+                        regionName = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(accessModifier) + " ";
+                    }
+                }
+            }
+
+            regionName += setting.EffectiveName;
+
+            return new CodeItemRegion { Name = regionName };
         }
 
         #endregion Methods
