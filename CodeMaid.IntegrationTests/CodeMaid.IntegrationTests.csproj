@@ -636,6 +636,27 @@
     <Content Include="Reorganizing\Data\RegionsRemoveExisting_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertStandard.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertStandard_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertWithAccessModifiers.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertWithAccessModifiers_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmpty.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmpty_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyTests.cs" />
+    <Compile Include="Reorganizing\RegionsInsertWithAccessModifiersTests.cs" />
+    <Compile Include="Reorganizing\RegionsInsertStandardTests.cs" />
     <Compile Include="Reorganizing\RegionsRemoveExistingTests.cs" />
     <Compile Include="Reorganizing\TypeCustomGroupingTests.cs" />
     <Compile Include="Reorganizing\TypeDefaultOrderTests.cs" />
