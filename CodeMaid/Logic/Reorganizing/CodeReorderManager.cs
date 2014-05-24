@@ -369,7 +369,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Recursively reorganizes the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void RecursivelyReorganize(IEnumerable<BaseCodeItem> codeItems)
+        /// <param name="parent">The parent to the code items, otherwise null.</param>
+        private void RecursivelyReorganize(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent = null)
         {
             if (!codeItems.Any())
             {
@@ -396,7 +397,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 var itemAsParent = item as ICodeItemParent;
                 if (itemAsParent != null && ShouldReorganizeChildren(item))
                 {
-                    RecursivelyReorganize(itemAsParent.Children);
+                    RecursivelyReorganize(itemAsParent.Children, itemAsParent);
                 }
 
                 int currentIndex = currentOrder.IndexOf(item);
@@ -412,13 +413,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             }
 
             // Conditionally insert regions.
-            RegionsInsert(codeItems);
+            RegionsInsert(codeItems, parent);
 
             // Recursively reorganize the contents of any regions as well.
             var codeItemRegions = codeItems.OfType<CodeItemRegion>();
             foreach (var codeItemRegion in codeItemRegions)
             {
-                RecursivelyReorganize(codeItemRegion.Children);
+                RecursivelyReorganize(codeItemRegion.Children, codeItemRegion);
             }
         }
 
@@ -486,9 +487,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Conditionally inserts regions for the specified code items.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems)
+        /// <param name="parent">The parent to the code items, otherwise null.</param>
+        private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent)
         {
-            if (Settings.Default.Reorganizing_RegionsAutoGenerate)
+            if (Settings.Default.Reorganizing_RegionsAutoGenerate && !(parent is CodeItemRegion))
             {
                 _generateRegionLogic.InsertRegions(codeItems);
             }

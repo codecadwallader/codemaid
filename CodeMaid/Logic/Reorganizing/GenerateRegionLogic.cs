@@ -9,12 +9,15 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using Thread = System.Threading.Thread;
 
 namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 {
@@ -26,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Fields
 
         private readonly CodeMaidPackage _package;
+        private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly RegionComparerByName _regionComparerByName;
 
         #endregion Fields
@@ -54,6 +58,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private GenerateRegionLogic(CodeMaidPackage package)
         {
             _package = package;
+            _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _regionComparerByName = new RegionComparerByName();
         }
 
@@ -99,27 +104,74 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var existingRegions = codeItems.OfType<CodeItemRegion>();
             var regionsToInsert = regionsToExist.Except(existingRegions, _regionComparerByName);
 
+            CodeItemRegion currentRegion = null;
+            BaseCodeItem lastCodeItem = null;
+
             foreach (var codeItem in codeItems)
             {
-                if (!regionsToInsert.Any())
+                var region = ComposeRegionForCodeItem(codeItem);
+                if (_regionComparerByName.Equals(currentRegion, region))
                 {
-                    break;
+                    lastCodeItem = codeItem;
+                    continue;
                 }
 
-                var region = ComposeRegionForCodeItem(codeItem);
-                if (region == null) continue;
-
-                if (regionsToInsert.Contains(region, _regionComparerByName))
+                if (currentRegion != null)
                 {
-                    //TODO: Create the start of the region at the start of this item.
-                    // Skip forwards, seeing how many more matching items there are.
-                    // When there is a break, end the region.
-                    // Remove the item from the hash set.
+                    InsertEndRegionTag(currentRegion, lastCodeItem.EndPoint);
+                    currentRegion = null;
+                }
+
+                if (region != null && regionsToInsert.Contains(region, _regionComparerByName))
+                {
+                    currentRegion = region;
+                    lastCodeItem = codeItem;
+
+                    InsertRegionTag(currentRegion, codeItem.StartPoint);
+                    regionsToInsert = regionsToInsert.Except(new[] { region }, _regionComparerByName);
                 }
             }
 
-            // Alternatively.. we iterate across the regionsToInsert.. find the first matching element.. find the last consecutive element.. wrap that in a region.
-            // Can we have captured the matching elements already to reduce iterations?
+            if (currentRegion != null)
+            {
+                InsertEndRegionTag(currentRegion, lastCodeItem.EndPoint);
+            }
+
+            //TODO: When finished, dump all of the other remaining regions in.. or insert them somehow.. reorganization is done at this point, so items *should* be ordered.
+        }
+
+        /// <summary>
+        /// Inserts a #region tag for the specified region preceding the specified start point.
+        /// </summary>
+        /// <param name="region">The region to start.</param>
+        /// <param name="startPoint">The starting point.</param>
+        private void InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
+        {
+            region.StartPoint = startPoint.CreateEditPoint();
+            region.StartPoint.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
+            region.StartPoint.StartOfLine();
+            region.StartPoint.SmartFormat(startPoint);
+
+            var regionWrapper = new[] { region };
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regionWrapper);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regionWrapper);
+        }
+
+        /// <summary>
+        /// Inserts an #endregion tag for the specified region following the specified end point.
+        /// </summary>
+        /// <param name="region">The region to end.</param>
+        /// <param name="endPoint">The end point.</param>
+        private void InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
+        {
+            region.EndPoint = endPoint.CreateEditPoint();
+            region.EndPoint.Insert(string.Format("{0}#endregion {1}", Environment.NewLine, region.Name));
+            region.EndPoint.EndOfLine();
+            region.EndPoint.SmartFormat(endPoint);
+
+            var regionWrapper = new[] { region };
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regionWrapper);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regionWrapper);
         }
 
         /// <summary>
