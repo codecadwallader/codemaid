@@ -490,9 +490,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="parent">The parent to the code items, otherwise null.</param>
         private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent)
         {
-            if (Settings.Default.Reorganizing_RegionsAutoGenerate && !(parent is CodeItemRegion))
+            if (Settings.Default.Reorganizing_RegionsAutoGenerate)
             {
-                _generateRegionLogic.InsertRegions(codeItems);
+                // Only insert regions when directly inside the scope of a class, interface or struct.
+                if (parent is CodeItemClass || parent is CodeItemInterface || parent is CodeItemStruct)
+                {
+                    _generateRegionLogic.InsertRegions(codeItems);
+                }
             }
         }
 
