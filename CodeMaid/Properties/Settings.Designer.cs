@@ -1551,12 +1551,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_RegionsInsertEvenIfEmpty {
+        public bool Reorganizing_RegionsInsertKeepEvenIfEmpty {
             get {
-                return ((bool)(this["Reorganizing_RegionsInsertEvenIfEmpty"]));
+                return ((bool)(this["Reorganizing_RegionsInsertKeepEvenIfEmpty"]));
             }
             set {
-                this["Reorganizing_RegionsInsertEvenIfEmpty"] = value;
+                this["Reorganizing_RegionsInsertKeepEvenIfEmpty"] = value;
             }
         }
     }

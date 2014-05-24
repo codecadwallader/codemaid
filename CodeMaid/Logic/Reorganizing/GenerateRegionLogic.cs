@@ -185,7 +185,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An enumerable set of regions that should be present.</returns>
         private IEnumerable<CodeItemRegion> ComposeRegionsList(IEnumerable<BaseCodeItem> codeItems)
         {
-            return Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty
+            return Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty
                 ? ComposeAllPossibleRegionsList()
                 : ComposePresentTypesRegionsList(codeItems);
         }

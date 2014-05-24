@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             AutoGenerate = Settings.Default.Reorganizing_RegionsAutoGenerate;
             IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
-            InsertEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty;
+            InsertKeepEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty;
             RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
         }
 
@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             Settings.Default.Reorganizing_RegionsAutoGenerate = AutoGenerate;
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
-            Settings.Default.Reorganizing_RegionsInsertEvenIfEmpty = InsertEvenIfEmpty;
+            Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = InsertKeepEvenIfEmpty;
             Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 
@@ -103,20 +103,20 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             }
         }
 
-        private bool _insertEvenIfEmpty;
+        private bool _insertKeepEvenIfEmpty;
 
         /// <summary>
-        /// Gets or sets the flag indicating if regions should be inserted even if they would be empty.
+        /// Gets or sets the flag indicating if regions should be inserted or kept even if they would be empty.
         /// </summary>
-        public bool InsertEvenIfEmpty
+        public bool InsertKeepEvenIfEmpty
         {
-            get { return _insertEvenIfEmpty; }
+            get { return _insertKeepEvenIfEmpty; }
             set
             {
-                if (_insertEvenIfEmpty != value)
+                if (_insertKeepEvenIfEmpty != value)
                 {
-                    _insertEvenIfEmpty = value;
-                    NotifyPropertyChanged("InsertEvenIfEmpty");
+                    _insertKeepEvenIfEmpty = value;
+                    NotifyPropertyChanged("InsertKeepEvenIfEmpty");
                 }
             }
         }

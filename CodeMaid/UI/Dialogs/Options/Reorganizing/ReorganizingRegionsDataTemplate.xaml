@@ -3,19 +3,21 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing">
     <DataTemplate DataType="{x:Type local:ReorganizingRegionsViewModel}">
         <StackPanel>
-            <GroupBox Header="Remove">
-                <CheckBox Content="Remove existing regions" IsChecked="{Binding RemoveExistingRegions}" />
+            <GroupBox Header="General">
+                <StackPanel>
+                    <CheckBox Content="Include access level in regions" IsChecked="{Binding IncludeAccessLevel}" />
+                    <TextBlock Text="Ex: #region Public Methods, #region Private Methods" Margin="35,0,5,10" />
+
+                    <CheckBox Content="Insert/keep regions even if they are empty" IsChecked="{Binding InsertKeepEvenIfEmpty}" />
+                </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Insert">
-                <StackPanel>
-                    <CheckBox Content="Automatically generate regions" IsChecked="{Binding AutoGenerate}" />
+                <CheckBox Content="Insert new regions" IsChecked="{Binding AutoGenerate}" />
+            </GroupBox>
 
-                    <CheckBox Content="Include access level in regions" IsChecked="{Binding IncludeAccessLevel}" IsEnabled="{Binding AutoGenerate}" />
-                    <TextBlock Text="Ex: #region Public Methods, #region Private Methods" Margin="35,0,5,10" />
-
-                    <CheckBox Content="Insert regions even if they are empty" IsChecked="{Binding InsertEvenIfEmpty}" IsEnabled="{Binding AutoGenerate}" />
-                </StackPanel>
+            <GroupBox Header="Remove">
+                <CheckBox Content="Remove existing regions" IsChecked="{Binding RemoveExistingRegions}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

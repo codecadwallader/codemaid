@@ -383,7 +383,7 @@
     <Setting Name="Reorganizing_RegionsAutoGenerate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Reorganizing_RegionsInsertEvenIfEmpty" Type="System.Boolean" Scope="User">
+    <Setting Name="Reorganizing_RegionsInsertKeepEvenIfEmpty" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
