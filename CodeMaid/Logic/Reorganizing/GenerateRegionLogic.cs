@@ -147,10 +147,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="startPoint">The starting point.</param>
         private void InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
         {
-            region.StartPoint = startPoint.CreateEditPoint();
-            region.StartPoint.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
+            var cursor = startPoint.CreateEditPoint();
+            cursor.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
+            startPoint.SmartFormat(cursor);
+
+            region.StartPoint = startPoint;
             region.StartPoint.StartOfLine();
-            region.StartPoint.SmartFormat(startPoint);
 
             var regionWrapper = new[] { region };
             _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regionWrapper);
@@ -164,10 +166,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="endPoint">The end point.</param>
         private void InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
         {
-            region.EndPoint = endPoint.CreateEditPoint();
-            region.EndPoint.Insert(string.Format("{0}#endregion {1}", Environment.NewLine, region.Name));
+            var cursor = endPoint.CreateEditPoint();
+            cursor.Insert(string.Format("{0}#endregion {1}", Environment.NewLine, region.Name));
+            endPoint.SmartFormat(cursor);
+
+            region.EndPoint = cursor;
             region.EndPoint.EndOfLine();
-            region.EndPoint.SmartFormat(endPoint);
 
             var regionWrapper = new[] { region };
             _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regionWrapper);
