@@ -431,7 +431,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An updated code items collection.</returns>
         private IEnumerable<BaseCodeItem> RegionsRemoveExisting(IEnumerable<BaseCodeItem> codeItems)
         {
-            if (!Settings.Default.Reorganizing_RegionsAutoGenerate || !Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
+            if (!Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
             {
                 return codeItems;
             }
