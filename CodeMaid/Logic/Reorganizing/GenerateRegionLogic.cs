@@ -107,8 +107,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
             foreach (var region in regions)
             {
-                // If the current code item is this region, continue forwards.
+                // While the current code item is a region not in the list, advance to the next code item.
                 var currentCodeItemAsRegion = codeItemEnumerator.Current as CodeItemRegion;
+                while (currentCodeItemAsRegion != null && !regions.Contains(currentCodeItemAsRegion, _regionComparerByName))
+                {
+                    cursor = codeItemEnumerator.Current.EndPoint;
+                    codeItemEnumerator.MoveNext();
+                    currentCodeItemAsRegion = codeItemEnumerator.Current as CodeItemRegion;
+                }
+
+                // If the current code item is this region, advance to the next code item and end this iteration.
                 if (_regionComparerByName.Equals(currentCodeItemAsRegion, region))
                 {
                     cursor = codeItemEnumerator.Current.EndPoint;
@@ -124,7 +132,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 else if (cursor == null)
                 {
                     //TODO: We need at least one code item in order to insert regions.
-                    throw new NotImplementedException("There are no code items left to use for region insertion.");
+                    throw new NotImplementedException("There are no code items to use for region insertion.");
                 }
 
                 cursor = InsertRegionTag(region, cursor);
