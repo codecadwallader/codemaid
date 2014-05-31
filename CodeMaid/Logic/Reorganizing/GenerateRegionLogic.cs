@@ -85,10 +85,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An enumerable set of regions to be removed.</returns>
         public IEnumerable<CodeItemRegion> GetRegionsToRemove(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regionsToKeep = ComposeRegionsList(codeItems);
+            var composedRegions = ComposeRegionsList(codeItems);
 
             var existingRegions = codeItems.OfType<CodeItemRegion>();
-            var regionsToRemove = existingRegions.Except(regionsToKeep, _regionComparerByName);
+            var regionsToRemove = existingRegions.Except(composedRegions, _regionComparerByName);
 
             return regionsToRemove;
         }
@@ -99,45 +99,45 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="codeItems">The code items.</param>
         public void InsertRegions(IEnumerable<BaseCodeItem> codeItems)
         {
-            var regionsToExist = ComposeRegionsList(codeItems);
+            var regions = ComposeRegionsList(codeItems);
 
-            var existingRegions = codeItems.OfType<CodeItemRegion>();
-            var regionsToInsert = regionsToExist.Except(existingRegions, _regionComparerByName);
+            var codeItemEnumerator = codeItems.GetEnumerator();
+            codeItemEnumerator.MoveNext();
+            EditPoint cursor = null;
 
-            CodeItemRegion currentRegion = null;
-            BaseCodeItem lastCodeItem = null;
-
-            foreach (var codeItem in codeItems)
+            foreach (var region in regions)
             {
-                var region = ComposeRegionForCodeItem(codeItem);
-                if (_regionComparerByName.Equals(currentRegion, region))
+                // If the current code item is this region, continue forwards.
+                var currentCodeItemAsRegion = codeItemEnumerator.Current as CodeItemRegion;
+                if (_regionComparerByName.Equals(currentCodeItemAsRegion, region))
                 {
-                    lastCodeItem = codeItem;
+                    cursor = codeItemEnumerator.Current.EndPoint;
+                    codeItemEnumerator.MoveNext();
                     continue;
                 }
 
-                if (currentRegion != null)
+                // Update the cursor position to the current code item.
+                if (codeItemEnumerator.Current != null)
                 {
-                    InsertEndRegionTag(currentRegion, lastCodeItem.EndPoint);
-                    currentRegion = null;
+                    cursor = codeItemEnumerator.Current.StartPoint;
+                }
+                else if (cursor == null)
+                {
+                    //TODO: We need at least one code item in order to insert regions.
+                    throw new NotImplementedException("There are no code items left to use for region insertion.");
                 }
 
-                if (region != null && regionsToInsert.Contains(region, _regionComparerByName))
+                cursor = InsertRegionTag(region, cursor);
+
+                // Keep jumping forwards in code items as long as there's matches.
+                while (CodeItemBelongsInRegion(codeItemEnumerator.Current, region))
                 {
-                    currentRegion = region;
-                    lastCodeItem = codeItem;
-
-                    InsertRegionTag(currentRegion, codeItem.StartPoint);
-                    regionsToInsert = regionsToInsert.Except(new[] { region }, _regionComparerByName);
+                    cursor = codeItemEnumerator.Current.EndPoint;
+                    codeItemEnumerator.MoveNext();
                 }
-            }
 
-            if (currentRegion != null)
-            {
-                InsertEndRegionTag(currentRegion, lastCodeItem.EndPoint);
+                cursor = InsertEndRegionTag(region, cursor);
             }
-
-            //TODO: When finished, dump all of the other remaining regions in.. or insert them somehow.. reorganization is done at this point, so items *should* be ordered.
         }
 
         /// <summary>
@@ -145,9 +145,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </summary>
         /// <param name="region">The region to start.</param>
         /// <param name="startPoint">The starting point.</param>
-        private void InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
+        /// <returns>The updated cursor.</returns>
+        private EditPoint InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
         {
             var cursor = startPoint.CreateEditPoint();
+
+            // If the cursor is not preceeded only by whitespace, insert a new line.
+            var firstNonWhitespaceIndex = cursor.GetLine().TakeWhile(char.IsWhiteSpace).Count();
+            if (cursor.DisplayColumn > firstNonWhitespaceIndex + 1)
+            {
+                cursor.Insert(Environment.NewLine);
+            }
+
             cursor.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
             startPoint.SmartFormat(cursor);
 
@@ -157,6 +166,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var regionWrapper = new[] { region };
             _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regionWrapper);
             _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regionWrapper);
+
+            return cursor;
         }
 
         /// <summary>
@@ -164,11 +175,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </summary>
         /// <param name="region">The region to end.</param>
         /// <param name="endPoint">The end point.</param>
-        private void InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
+        /// <returns>The updated cursor.</returns>
+        private EditPoint InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
         {
             var cursor = endPoint.CreateEditPoint();
-            cursor.Insert(string.Format("{0}#endregion {1}", Environment.NewLine, region.Name));
+
+            // If the cursor is not preceeded only by whitespace, insert a new line.
+            var firstNonWhitespaceIndex = cursor.GetLine().TakeWhile(char.IsWhiteSpace).Count();
+            if (cursor.DisplayColumn > firstNonWhitespaceIndex + 1)
+            {
+                cursor.Insert(Environment.NewLine);
+            }
+
+            cursor.Insert("#endregion " + region.Name);
             endPoint.SmartFormat(cursor);
+
+            // If the cursor is not followed only by whitespace, insert a new line.
+            var lastNonWhitespaceIndex = cursor.GetLine().TrimEnd().Length;
+            if (cursor.DisplayColumn < lastNonWhitespaceIndex + 1)
+            {
+                cursor.Insert(Environment.NewLine);
+            }
 
             region.EndPoint = cursor;
             region.EndPoint.EndOfLine();
@@ -176,6 +203,19 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var regionWrapper = new[] { region };
             _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regionWrapper);
             _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regionWrapper);
+
+            return cursor;
+        }
+
+        /// <summary>
+        /// Determines if the specified code item belongs in the specified region.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <param name="region">The region.</param>
+        /// <returns>True if the specified code item belongs in the specified region, otherwise false.</returns>
+        private bool CodeItemBelongsInRegion(BaseCodeItem codeItem, CodeItemRegion region)
+        {
+            return codeItem != null && _regionComparerByName.Equals(region, ComposeRegionForCodeItem(codeItem));
         }
 
         /// <summary>
@@ -250,6 +290,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>A region.</returns>
         private CodeItemRegion ComposeRegionForCodeItem(BaseCodeItem codeItem)
         {
+            if (codeItem == null) return null;
+
             var setting = MemberTypeSettingHelper.LookupByKind(codeItem.Kind);
             if (setting == null) return null;
 
