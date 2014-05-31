@@ -275,7 +275,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     region = codeItem as CodeItemRegion;
                     if (region != null)
                     {
-                        regions.UnionWith(ComposePresentTypesRegionsList(region.Children));
+                        // Add an existing region to the list iff it has a child whose composed region name would match it.
+                        var childrenRegions = ComposePresentTypesRegionsList(region.Children);
+                        if (childrenRegions.Contains(region, _regionComparerByName))
+                        {
+                            regions.Add(region);
+                        }
                     }
                 }
             }
