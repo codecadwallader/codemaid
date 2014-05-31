@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 {
-    public class RegionsInsertStandard
+    public class RegionsInsertStandard : INotifyPropertyChanged
     {
         #region Fields
 
@@ -77,5 +78,19 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         }
 
         #endregion Interfaces
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        #endregion Implementation of INotifyPropertyChanged
     }
 }
