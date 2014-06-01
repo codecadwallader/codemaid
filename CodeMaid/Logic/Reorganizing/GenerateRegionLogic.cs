@@ -97,13 +97,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Inserts regions per user settings.
         /// </summary>
         /// <param name="codeItems">The code items.</param>
-        public void InsertRegions(IEnumerable<BaseCodeItem> codeItems)
+        /// <param name="insertPoint">The default insertion point.</param>
+        public void InsertRegions(IEnumerable<BaseCodeItem> codeItems, EditPoint insertPoint)
         {
             var regions = ComposeRegionsList(codeItems);
 
             var codeItemEnumerator = codeItems.GetEnumerator();
             codeItemEnumerator.MoveNext();
-            EditPoint cursor = null;
+            EditPoint cursor = insertPoint.CreateEditPoint();
 
             foreach (var region in regions)
             {
@@ -129,12 +130,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 {
                     cursor = codeItemEnumerator.Current.StartPoint;
                 }
-                else if (cursor == null)
-                {
-                    //TODO: We need at least one code item in order to insert regions.
-                    throw new NotImplementedException("There are no code items to use for region insertion.");
-                }
 
+                // Insert the #region tag
                 cursor = InsertRegionTag(region, cursor);
 
                 // Keep jumping forwards in code items as long as there's matches.
@@ -144,6 +141,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     codeItemEnumerator.MoveNext();
                 }
 
+                // Insert the #endregion tag
                 cursor = InsertEndRegionTag(region, cursor);
             }
         }

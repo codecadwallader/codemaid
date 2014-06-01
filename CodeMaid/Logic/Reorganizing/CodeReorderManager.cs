@@ -495,7 +495,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 // Only insert regions when directly inside the scope of a class, interface or struct.
                 if (parent is CodeItemClass || parent is CodeItemInterface || parent is CodeItemStruct)
                 {
-                    _generateRegionLogic.InsertRegions(codeItems);
+                    _generateRegionLogic.InsertRegions(codeItems, parent.InsertPoint);
                 }
             }
         }
