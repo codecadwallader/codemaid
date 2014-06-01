@@ -374,6 +374,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (!codeItems.Any())
             {
+                // If there are no code items, the only action we may want to take is conditionally insert regions.
+                RegionsInsert(codeItems, parent);
                 return;
             }
 

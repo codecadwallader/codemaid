@@ -50,16 +50,16 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
             Item2
         }
 
-        #region Interfaces
+        #region Methods
 
-        public interface PublicInterface
+        public void PublicMethod()
         {
         }
 
-        protected interface ProtectedInterface
+        protected void ProtectedMethod()
         {
         }
 
-        #endregion Interfaces
+        #endregion Methods
     }
 }

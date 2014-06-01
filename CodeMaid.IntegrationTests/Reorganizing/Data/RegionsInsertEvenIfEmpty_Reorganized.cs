@@ -72,14 +72,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 
         #region Interfaces
 
-        public interface PublicInterface
-        {
-        }
-
-        protected interface ProtectedInterface
-        {
-        }
-
         #endregion Interfaces
 
         #region Properties
@@ -91,6 +83,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         #endregion Indexers
 
         #region Methods
+
+        public void PublicMethod()
+        {
+        }
+
+        protected void ProtectedMethod()
+        {
+        }
 
         #endregion Methods
 

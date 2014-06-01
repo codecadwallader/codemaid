@@ -194,14 +194,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             }
 
             cursor.Insert("#endregion " + region.Name);
-            endPoint.SmartFormat(cursor);
 
             // If the cursor is not followed only by whitespace, insert a new line.
             var lastNonWhitespaceIndex = cursor.GetLine().TrimEnd().Length;
             if (cursor.DisplayColumn < lastNonWhitespaceIndex + 1)
             {
                 cursor.Insert(Environment.NewLine);
+                cursor.LineUp();
+                cursor.EndOfLine();
             }
+
+            endPoint.SmartFormat(cursor);
 
             region.EndPoint = cursor;
             region.EndPoint.EndOfLine();
