@@ -654,13 +654,20 @@
     <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmpty_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyOnEmptyClass.cs">
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyClass.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyOnEmptyClass_Reorganized.cs">
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyClass_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyOnEmptyClassTests.cs" />
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyRegion.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyRegion_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyRegionTests.cs" />
+    <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyClassTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertWithAccessModifiersTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertStandardTests.cs" />

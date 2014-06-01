@@ -18,9 +18,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
 {
     [TestClass]
-    [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyOnEmptyClass.cs", "Data")]
-    [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyOnEmptyClass_Reorganized.cs", "Data")]
-    public class RegionsInsertEvenIfEmptyOnEmptyClassOnEmptyClassTests
+    [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyClass.cs", "Data")]
+    [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyClass_Reorganized.cs", "Data")]
+    public class RegionsInsertEvenIfEmptyWithEmptyClassTests
     {
         #region Setup
 
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\RegionsInsertEvenIfEmptyOnEmptyClass.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\RegionsInsertEvenIfEmptyWithEmptyClass.cs");
         }
 
         [TestCleanup]
@@ -53,17 +53,17 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void ReorganizingRegionsInsertEvenIfEmptyOnEmptyClass_ReorganizesAsExpected()
+        public void ReorganizingRegionsInsertEvenIfEmptyWithEmptyClass_ReorganizesAsExpected()
         {
             Settings.Default.Reorganizing_RegionsAutoGenerate = true;
             Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = true;
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunReorganize, _projectItem, @"Data\RegionsInsertEvenIfEmptyOnEmptyClass_Reorganized.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunReorganize, _projectItem, @"Data\RegionsInsertEvenIfEmptyWithEmptyClass_Reorganized.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void ReorganizingRegionsInsertEvenIfEmptyOnEmptyClass_DoesNothingOnSecondPass()
+        public void ReorganizingRegionsInsertEvenIfEmptyWithEmptyClass_DoesNothingOnSecondPass()
         {
             Settings.Default.Reorganizing_RegionsAutoGenerate = true;
             Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = true;
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void ReorganizingRegionsInsertEvenIfEmptyOnEmptyClass_DoesNothingWhenSettingIsDisabled()
+        public void ReorganizingRegionsInsertEvenIfEmptyWithEmptyClass_DoesNothingWhenSettingIsDisabled()
         {
             Settings.Default.Reorganizing_RegionsAutoGenerate = false;
             Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = false;

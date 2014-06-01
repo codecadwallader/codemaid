@@ -2,7 +2,7 @@
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 {
-    public class RegionsInsertEvenIfEmptyOnEmptyClass
+    public class RegionsInsertEvenIfEmptyWithEmptyRegion
     {
         #region Fields
 
