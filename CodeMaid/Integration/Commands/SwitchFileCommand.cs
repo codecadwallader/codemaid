@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            string alternatePath = GetAlternatePathIfExists(Package.IDE.ActiveDocument);
+            string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
             bool canAlterate = !String.IsNullOrEmpty(alternatePath);
 
             Enabled = canAlterate;
@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            string alternatePath = GetAlternatePathIfExists(Package.IDE.ActiveDocument);
+            string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
             if (!String.IsNullOrEmpty(alternatePath))
             {
                 Package.IDE.ItemOperations.OpenFile(alternatePath, Constants.vsViewKindAny);

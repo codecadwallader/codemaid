@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var item = spade.SelectedItem as BaseCodeItemElement;
             if (item == null) return;
 
-            var document = Package.IDE.ActiveDocument;
+            var document = Package.ActiveDocument;
             if (document == null) return;
 
             var selection = ((TextSelection)document.Selection);

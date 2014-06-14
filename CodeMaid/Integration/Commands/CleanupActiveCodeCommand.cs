@@ -45,11 +45,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeCleanupAvailabilityLogic.ShouldCleanup(ActiveDocument);
+            Enabled = CodeCleanupAvailabilityLogic.ShouldCleanup(Package.ActiveDocument);
 
             if (Enabled)
             {
-                Text = "&Cleanup " + ActiveDocument.Name;
+                Text = "&Cleanup " + Package.ActiveDocument.Name;
             }
             else
             {
@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            CodeCleanupManager.Cleanup(ActiveDocument, false);
+            CodeCleanupManager.Cleanup(Package.ActiveDocument, false);
         }
 
         #endregion BaseCommand Members
@@ -89,11 +89,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #endregion Internal Methods
 
         #region Private Properties
-
-        /// <summary>
-        /// Gets the active document.
-        /// </summary>
-        private Document ActiveDocument { get { return Package.IDE.ActiveDocument; } }
 
         /// <summary>
         /// Gets or sets the code cleanup availability logic.

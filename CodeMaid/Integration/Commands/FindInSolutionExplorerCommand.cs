@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = Package.IDE.ActiveDocument != null;
+            Enabled = Package.ActiveDocument != null;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            Document document = Package.IDE.ActiveDocument;
+            Document document = Package.ActiveDocument;
             if (document != null)
             {
                 if (Package.IDEVersion >= 11)

@@ -42,11 +42,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeReorderManager.CanReorganize(ActiveDocument);
+            Enabled = CodeReorderManager.CanReorganize(Package.ActiveDocument);
 
             if (Enabled)
             {
-                Text = "Reorgani&ze " + ActiveDocument.Name;
+                Text = "Reorgani&ze " + Package.ActiveDocument.Name;
             }
             else
             {
@@ -61,17 +61,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            CodeReorderManager.Reorganize(ActiveDocument, false);
+            CodeReorderManager.Reorganize(Package.ActiveDocument, false);
         }
 
         #endregion BaseCommand Methods
 
         #region Private Properties
-
-        /// <summary>
-        /// Gets the active document.
-        /// </summary>
-        private Document ActiveDocument { get { return Package.IDE.ActiveDocument; } }
 
         /// <summary>
         /// Gets or sets the code reorder manager.

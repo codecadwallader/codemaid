@@ -114,6 +114,25 @@ namespace SteveCadwallader.CodeMaid
         #region Public Integration Properties
 
         /// <summary>
+        /// Gets the currently active document, otherwise null.
+        /// </summary>
+        public Document ActiveDocument
+        {
+            get
+            {
+                try
+                {
+                    return IDE.ActiveDocument;
+                }
+                catch (Exception)
+                {
+                    // If a project property page is active, accessing the ActiveDocument causes an exception.
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the build progress tool window, creating it if necessary.
         /// </summary>
         public BuildProgressToolWindow BuildProgress

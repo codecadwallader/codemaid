@@ -143,7 +143,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // format document.
             document.Activate();
 
-            if (_package.IDE.ActiveDocument != document)
+            if (_package.ActiveDocument != document)
             {
                 OutputWindowHelper.WarningWriteLine(
                     string.Format("Activation was not completed before cleaning began for '{0}'", document.Name));

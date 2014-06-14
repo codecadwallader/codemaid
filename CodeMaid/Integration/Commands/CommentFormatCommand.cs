@@ -129,7 +129,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             get
             {
-                var document = Package.IDE.ActiveDocument;
+                var document = Package.ActiveDocument;
 
                 return document != null ? document.GetTextDocument() : null;
             }

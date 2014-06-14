@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             {
                 // Make sure the document is the active document for the environment.
                 var document = TestOperations.GetActivatedDocument(_projectItem);
-                Assert.AreEqual(document, TestEnvironment.Package.IDE.ActiveDocument);
+                Assert.AreEqual(document, TestEnvironment.Package.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsTrue(_codeCleanupAvailabilityLogic.ShouldCleanup(document));
@@ -92,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             {
                 // Make sure the document is the active document for the environment.
                 var document = TestOperations.GetActivatedDocument(_projectItem);
-                Assert.AreEqual(document, TestEnvironment.Package.IDE.ActiveDocument);
+                Assert.AreEqual(document, TestEnvironment.Package.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.
                 Assert.IsFalse(_codeCleanupAvailabilityLogic.ShouldCleanup(document));

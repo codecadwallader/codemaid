@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             {
                 RaiseWindowChange(gotFocus.Document);
             }
-            else if (Package.IDE.ActiveDocument == null)
+            else if (Package.ActiveDocument == null)
             {
                 RaiseWindowChange(null);
             }

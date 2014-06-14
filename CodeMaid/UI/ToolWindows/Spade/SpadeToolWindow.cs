@@ -149,15 +149,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 // Attempt to initialize the Document, may have been set before Spade was created.
                 if (Document == null)
                 {
-                    try
-                    {
-                        Document = Package.IDE.ActiveDocument;
-                    }
-                    catch (Exception)
-                    {
-                        // If a project property page is active, accessing the ActiveDocument causes
-                        // an exception.
-                    }
+                    Document = Package.ActiveDocument;
                 }
 
                 var spadeContent = Content as FrameworkElement;

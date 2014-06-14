@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal void StartTracking()
         {
             // Cache the active document.
-            TrackedDocument = Package.IDE.ActiveDocument;
+            TrackedDocument = Package.ActiveDocument;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void RestoreTrackedDocument()
         {
-            if (TrackedDocument != null && Package.IDE.ActiveDocument != TrackedDocument)
+            if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
             {
                 TrackedDocument.Activate();
             }
