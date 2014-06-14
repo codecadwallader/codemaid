@@ -7,10 +7,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveDocumentRestorer" /> class.
+        /// Initializes a new instance of the <see cref="RegionsRemoveAndInsertWithoutAccessModifiers" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        internal ActiveDocumentRestorer(CodeMaidPackage package)
+        internal RegionsRemoveAndInsertWithoutAccessModifiers(CodeMaidPackage package)
         {
             Package = package;
 
