@@ -102,6 +102,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             var regions = ComposeRegionsList(codeItems);
 
+            foreach (var codeItem in codeItems)
+            {
+                codeItem.RefreshCachedPositionAndName();
+            }
+
             var codeItemEnumerator = codeItems.OrderBy(x => x.StartOffset).ToList().GetEnumerator();
             codeItemEnumerator.MoveNext();
             EditPoint cursor = insertPoint.CreateEditPoint();
