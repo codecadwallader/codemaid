@@ -131,6 +131,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     cursor = codeItemEnumerator.Current.StartPoint;
                 }
 
+                // If the current code item is a region, offset the position by 1 to workaround points not tracking for region types.
+                if (currentCodeItemAsRegion != null)
+                {
+                    cursor = cursor.CreateEditPoint();
+                    currentCodeItemAsRegion.StartPoint.CharRight();
+                    currentCodeItemAsRegion.EndPoint.CharRight();
+                }
+
                 // Insert the #region tag
                 cursor = InsertRegionTag(region, cursor);
 
@@ -143,6 +151,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
                 // Insert the #endregion tag
                 cursor = InsertEndRegionTag(region, cursor);
+
+                // If the current code item is a region, reverse offset of the position.
+                if (currentCodeItemAsRegion != null)
+                {
+                    currentCodeItemAsRegion.StartPoint.CharLeft();
+                    currentCodeItemAsRegion.EndPoint.CharLeft();
+                }
             }
         }
 
@@ -164,6 +179,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             }
 
             cursor.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
+
             startPoint.SmartFormat(cursor);
 
             region.StartPoint = cursor.CreateEditPoint();

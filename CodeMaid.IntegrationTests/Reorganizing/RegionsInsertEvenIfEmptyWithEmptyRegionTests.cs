@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
     [TestClass]
     [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyRegion.cs", "Data")]
     [DeploymentItem(@"Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyRegion_Reorganized.cs", "Data")]
-    public class RegionsInsertEvenIfEmptyWithEmptyRegionWithEmptyClassTests
+    public class RegionsInsertEvenIfEmptyWithEmptyRegionTests
     {
         #region Setup
 
