@@ -9,7 +9,6 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using System.ComponentModel.Design;
 

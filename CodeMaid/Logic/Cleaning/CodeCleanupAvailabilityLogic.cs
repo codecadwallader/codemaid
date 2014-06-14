@@ -295,7 +295,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return Settings.Default.Cleaning_IncludeJavaScript;
             }
 
-            var languageServiceGuid = EditorFactory.GetLanguageService(extension).ToLowerInvariant();
+            var languageService = EditorFactory.GetLanguageService(extension);
+            var languageServiceGuid = languageService != null ? languageService.ToLowerInvariant() : null;
             switch (languageServiceGuid)
             {
                 case "{694dd9b6-b865-4c5b-ad85-86356e9c88dc}": return Settings.Default.Cleaning_IncludeCSharp;
