@@ -69,15 +69,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
             TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunReorganize, _projectItem);
         }
 
-        [TestMethod]
-        [HostType("VS IDE")]
-        public void ReorganizingRegionsInsertAfterReorder_DoesNothingWhenSettingIsDisabled()
-        {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = false;
-
-            TestOperations.ExecuteCommandAndVerifyNoChanges(RunReorganize, _projectItem);
-        }
-
         #endregion Tests
 
         #region Helpers

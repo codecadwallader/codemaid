@@ -293,6 +293,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 baseStartPoint.Parent.Selection.MoveToAbsoluteOffset(baseStartPoint.AbsoluteCharOffset + cursorOffset);
             }
+
+            itemToMove.RefreshCachedPositionAndName();
+            baseItem.RefreshCachedPositionAndName();
         }
 
         /// <summary>
@@ -330,6 +333,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 insertPoint.Parent.Selection.MoveToAbsoluteOffset(insertPoint.AbsoluteCharOffset + cursorOffset);
             }
+
+            itemToMove.RefreshCachedPositionAndName();
+            baseItem.RefreshCachedPositionAndName();
         }
 
         /// <summary>
@@ -363,6 +369,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 baseInsertPoint.Parent.Selection.MoveToAbsoluteOffset(baseInsertPoint.AbsoluteCharOffset + cursorOffset);
             }
+
+            itemToMove.RefreshCachedPositionAndName();
+            baseItem.RefreshCachedPositionAndName();
         }
 
         /// <summary>
