@@ -666,6 +666,13 @@
     <Content Include="Reorganizing\Data\RegionsInsertEvenIfEmptyWithEmptyRegion_Reorganized.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertAfterReorder.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsInsertAfterReorder_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Reorganizing\RegionsInsertAfterReorderTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyRegionTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyClassTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyTests.cs" />
