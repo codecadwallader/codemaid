@@ -85,9 +85,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An enumerable set of regions to be removed.</returns>
         public IEnumerable<CodeItemRegion> GetRegionsToRemove(IEnumerable<BaseCodeItem> codeItems)
         {
-            var composedRegions = ComposeRegionsList(codeItems);
-
             var existingRegions = codeItems.OfType<CodeItemRegion>();
+
+            // If also generating regions, remove all existing.
+            if (Settings.Default.Reorganizing_RegionsAutoGenerate)
+            {
+                return existingRegions;
+            }
+
+            var composedRegions = ComposeRegionsList(codeItems);
             var regionsToRemove = existingRegions.Except(composedRegions, _regionComparerByName);
 
             return regionsToRemove;
