@@ -100,14 +100,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="insertPoint">The default insertion point.</param>
         public void InsertRegions(IEnumerable<BaseCodeItem> codeItems, EditPoint insertPoint)
         {
-            var regions = ComposeRegionsList(codeItems);
-
+            // Refresh and sort the code items.
             foreach (var codeItem in codeItems)
             {
                 codeItem.RefreshCachedPositionAndName();
             }
 
-            var codeItemEnumerator = codeItems.OrderBy(x => x.StartOffset).ToList().GetEnumerator();
+            codeItems = codeItems.OrderBy(x => x.StartOffset).ToList();
+
+            var regions = ComposeRegionsList(codeItems);
+            var codeItemEnumerator = codeItems.GetEnumerator();
             codeItemEnumerator.MoveNext();
             EditPoint cursor = insertPoint.CreateEditPoint();
 
