@@ -4,6 +4,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 {
     public class RegionsRemoveAndInsertWithoutAccessModifiers
     {
+
         #region Constructors
 
         /// <summary>

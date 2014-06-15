@@ -62,17 +62,6 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
             TestOperations.ExecuteCommandAndVerifyResults(RunReorganize, _projectItem, @"Data\RegionsRemoveAndInsertWithAccessModifiers_Reorganized.cs");
         }
 
-        [TestMethod]
-        [HostType("VS IDE")]
-        public void ReorganizingRegionsRemoveAndInsertWithAccessModifiers_DoesNothingOnSecondPass()
-        {
-            Settings.Default.Reorganizing_RegionsIncludeAccessLevel = true;
-            Settings.Default.Reorganizing_RegionsInsertNewRegions = true;
-            Settings.Default.Reorganizing_RegionsRemoveExistingRegions = true;
-
-            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunReorganize, _projectItem);
-        }
-
         #endregion Tests
 
         #region Helpers
