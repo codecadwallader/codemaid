@@ -46,9 +46,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void LoadSettings()
         {
-            AutoGenerate = Settings.Default.Reorganizing_RegionsAutoGenerate;
             IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
             InsertKeepEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty;
+            InsertNewRegions = Settings.Default.Reorganizing_RegionsInsertNewRegions;
             RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
         }
 
@@ -57,33 +57,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = AutoGenerate;
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
             Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = InsertKeepEvenIfEmpty;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = InsertNewRegions;
             Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
-
-        private bool _autoGenerate;
-
-        /// <summary>
-        /// Gets or sets the flag indicating if regions should be automatically generated.
-        /// </summary>
-        public bool AutoGenerate
-        {
-            get { return _autoGenerate; }
-            set
-            {
-                if (_autoGenerate != value)
-                {
-                    _autoGenerate = value;
-                    NotifyPropertyChanged("AutoGenerate");
-                }
-            }
-        }
 
         private bool _includeAccessLevel;
 
@@ -117,6 +99,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 {
                     _insertKeepEvenIfEmpty = value;
                     NotifyPropertyChanged("InsertKeepEvenIfEmpty");
+                }
+            }
+        }
+
+        private bool _insertNewRegions;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if new regions should be inserted.
+        /// </summary>
+        public bool InsertNewRegions
+        {
+            get { return _insertNewRegions; }
+            set
+            {
+                if (_insertNewRegions != value)
+                {
+                    _insertNewRegions = value;
+                    NotifyPropertyChanged("InsertNewRegions");
                 }
             }
         }

@@ -87,8 +87,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             var existingRegions = codeItems.OfType<CodeItemRegion>();
 
-            // If also generating regions, remove all existing.
-            if (Settings.Default.Reorganizing_RegionsAutoGenerate)
+            // If also inserting regions, remove all existing for more comprehensive reorganization.
+            if (Settings.Default.Reorganizing_RegionsInsertNewRegions)
             {
                 return existingRegions;
             }

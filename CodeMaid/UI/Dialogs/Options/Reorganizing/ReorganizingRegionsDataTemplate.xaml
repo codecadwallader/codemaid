@@ -13,7 +13,7 @@
             </GroupBox>
 
             <GroupBox Header="Insert">
-                <CheckBox Content="Insert new regions" IsChecked="{Binding AutoGenerate}" />
+                <CheckBox Content="Insert new regions" IsChecked="{Binding InsertNewRegions}" />
             </GroupBox>
 
             <GroupBox Header="Remove">

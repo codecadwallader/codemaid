@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         [HostType("VS IDE")]
         public void ReorganizingRegionsInsertAfterReorder_ReorganizesAsExpected()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = true;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = true;
 
             TestOperations.ExecuteCommandAndVerifyResults(RunReorganize, _projectItem, @"Data\RegionsInsertAfterReorder_Reorganized.cs");
         }
@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         [HostType("VS IDE")]
         public void ReorganizingRegionsInsertAfterReorder_DoesNothingOnSecondPass()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = true;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = true;
 
             TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunReorganize, _projectItem);
         }

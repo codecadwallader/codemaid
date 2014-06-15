@@ -55,8 +55,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         [HostType("VS IDE")]
         public void ReorganizingRegionsInsertWithAccessModifiers_ReorganizesAsExpected()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = true;
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = true;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = true;
 
             TestOperations.ExecuteCommandAndVerifyResults(RunReorganize, _projectItem, @"Data\RegionsInsertWithAccessModifiers_Reorganized.cs");
         }
@@ -65,8 +65,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         [HostType("VS IDE")]
         public void ReorganizingRegionsInsertWithAccessModifiers_DoesNothingOnSecondPass()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = true;
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = true;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = true;
 
             TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunReorganize, _projectItem);
         }
@@ -75,8 +75,8 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
         [HostType("VS IDE")]
         public void ReorganizingRegionsInsertWithAccessModifiers_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Reorganizing_RegionsAutoGenerate = false;
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = false;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = false;
 
             TestOperations.ExecuteCommandAndVerifyNoChanges(RunReorganize, _projectItem);
         }

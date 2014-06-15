@@ -1539,12 +1539,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_RegionsAutoGenerate {
+        public bool Reorganizing_RegionsInsertNewRegions {
             get {
-                return ((bool)(this["Reorganizing_RegionsAutoGenerate"]));
+                return ((bool)(this["Reorganizing_RegionsInsertNewRegions"]));
             }
             set {
-                this["Reorganizing_RegionsAutoGenerate"] = value;
+                this["Reorganizing_RegionsInsertNewRegions"] = value;
             }
         }
         
