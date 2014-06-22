@@ -290,6 +290,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0100" type="Button">
+        <Icon guid="GuidImageRemoveRegion" id="IconRemoveRegion" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -401,6 +402,7 @@
       <Bitmap guid="GuidImageLock" href="Integration\Images\IDE\lock.bmp" usedList="IconLock" />
       <Bitmap guid="GuidImageProgress" href="Integration\Images\IDE\progress.bmp" usedList="IconProgress" />
       <Bitmap guid="GuidImageRefresh" href="Integration\Images\IDE\refresh.bmp" usedList="IconRefresh" />
+      <Bitmap guid="GuidImageRemoveRegion" href="Integration\Images\IDE\removeRegion.bmp" usedList="IconRemoveRegion" />
       <Bitmap guid="GuidImageReorganize" href="Integration\Images\IDE\reorganize.bmp" usedList="IconReorganize" />
       <Bitmap guid="GuidImageSortAlpha" href="Integration\Images\IDE\sortAlpha.bmp" usedList="IconSortAlpha" />
       <Bitmap guid="GuidImageSortNumeric" href="Integration\Images\IDE\sortNumeric.bmp" usedList="IconSortNumeric" />
@@ -991,6 +993,9 @@
     </GuidSymbol>
     <GuidSymbol name="GuidImageRefresh" value="{fad83984-8b84-4176-98a0-7bd92ef7b3be}">
       <IDSymbol name="IconRefresh" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageRemoveRegion" value="{0130de2e-d65e-4e8f-b424-1a7ee90acd29}">
+      <IDSymbol name="IconRemoveRegion" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageReorganize" value="{8591e1d2-3204-4e9d-9789-c8de79bc5313}">
       <IDSymbol name="IconReorganize" value="1" />
