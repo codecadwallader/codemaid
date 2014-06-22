@@ -104,7 +104,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </param>
         private void OnGooglePlusLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"https://plus.google.com/u/0/104818751344933095922/");
+            LaunchLink(@"https://plus.google.com/+CodemaidNet/");
         }
 
         /// <summary>
@@ -116,7 +116,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </param>
         private void OnTrelloLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"https://trello.com/board/feature-ideas/4f6e6dcc255ed1e9085b8665");
+            LaunchLink(@"https://trello.com/b/VVxVhbQv/backlog");
+        }
+
+        /// <summary>
+        /// Called when the BitBucket link is clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
+        /// </param>
+        private void OnBitBucketLinkClick(object sender, RoutedEventArgs e)
+        {
+            LaunchLink(@"https://bitbucket.org/s_cadwallader/codemaid");
         }
 
         #endregion Event Handlers
