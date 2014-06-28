@@ -20,17 +20,17 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="Transparent">
-                                <Rectangle x:Name="Rectangle" Margin="-2" Stroke="{StaticResource FCodeMaidGray}"
-                                        StrokeThickness="2" RadiusX="4" RadiusY="4" Visibility="Collapsed">
-                                    <Rectangle.Effect>
-                                        <BlurEffect />
-                                    </Rectangle.Effect>
-                                </Rectangle>
+                                <Path x:Name="Hexagon"
+                                      Data="M12,0 L24,7 24,21 12,28 0,21 0,7, 12,0z"
+                                      Height="28" Width="24"
+                                      Stroke="{StaticResource FCodeMaidGray}"
+                                      StrokeThickness="2"
+                                      Visibility="Collapsed" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Cursor" Value="Hand" />
-                                    <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="Hexagon" Property="Visibility" Value="Visible" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -65,19 +65,25 @@
         <Button Canvas.Left="456" Canvas.Top="142" Height="16" Width="229" Style="{StaticResource underlineLinkButton}"
                 Click="OnWebsiteLinkClick" ToolTip="Launch CodeMaid's website" />
 
-        <Button Canvas.Left="615" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnEmailLinkClick" ToolTip="E-mail CodeMaid" />
+        <Button Canvas.Left="526" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnVisualStudioGalleryLinkClick" ToolTip="Download, Reviews - Visual Studio Gallery" />
 
-        <Button Canvas.Left="660" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnTwitterLinkClick" ToolTip="View CodeMaid's Twitter feed" />
+        <Button Canvas.Left="572" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnBitBucketLinkClick" ToolTip="Source code, Bugs - BitBucket" />
 
-        <Button Canvas.Left="704" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnRSSLinkClick" ToolTip="Subscribe to CodeMaid's blog" />
+        <Button Canvas.Left="615" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnTrelloLinkClick" ToolTip="Feature backlog - Trello" />
 
-        <Button Canvas.Left="748" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnGooglePlusLinkClick" ToolTip="View CodeMaid's Google+ page" />
+        <Button Canvas.Left="660" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnRSSLinkClick" ToolTip="Blog RSS" />
 
-        <Button Canvas.Left="790" Canvas.Top="228" Height="24" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnTrelloLinkClick" ToolTip="View CodeMaid's Trello boards" />
+        <Button Canvas.Left="704" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnTwitterLinkClick" ToolTip="Twitter" />
+
+        <Button Canvas.Left="748" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnGooglePlusLinkClick" ToolTip="Google+" />
+
+        <Button Canvas.Left="790" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnEmailLinkClick" ToolTip="E-mail" />
     </Canvas>
 </platformUI:DialogWindow>
