@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.ComponentModel.Design;
 
@@ -54,6 +55,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Document document = Package.ActiveDocument;
             if (document != null)
             {
+                ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
+
                 if (Package.IDEVersion >= 11)
                 {
                     Package.IDE.ExecuteCommand("SolutionExplorer.SyncWithActiveDocument", String.Empty);
@@ -68,5 +71,47 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         #endregion BaseCommand Methods
+
+        #region Methods
+
+        /// <summary>
+        /// Toggles all solution folders open temporarily to workaround searches not working inside
+        /// solution folders that have never been expanded.
+        /// </summary>
+        /// <param name="parentItem">The parent item to inspect.</param>
+        private void ToggleSolutionFoldersOpenTemporarily(UIHierarchyItem parentItem)
+        {
+            if (parentItem == null)
+            {
+                throw new ArgumentNullException("parentItem");
+            }
+
+            const string solutionFolderGuid = "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";
+
+            var project = parentItem.Object as Project;
+            bool isCollapsedSolutionFolder = project != null && project.Kind == solutionFolderGuid && !parentItem.UIHierarchyItems.Expanded;
+
+            // Expand the solution folder temporarily.
+            if (isCollapsedSolutionFolder)
+            {
+                parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
+                Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();
+            }
+
+            // Run recursively to children as well for nested solution folders.
+            foreach (UIHierarchyItem childItem in parentItem.UIHierarchyItems)
+            {
+                ToggleSolutionFoldersOpenTemporarily(childItem);
+            }
+
+            // Collapse the solution folder.
+            if (isCollapsedSolutionFolder)
+            {
+                parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
+                Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();
+            }
+        }
+
+        #endregion Methods
     }
 }
