@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Text;
 using TextSelection = EnvDTE.TextSelection;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -106,25 +107,33 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 textSelection.EndOfLine(true);
             }
 
-            //TODO: This is a work in progress.
-            System.Diagnostics.Debugger.Break();
-
+            // Capture the selected text lines.
             var start = textSelection.TopPoint.CreateEditPoint();
             start.StartOfLine();
 
             var end = textSelection.BottomPoint.CreateEditPoint();
             end.EndOfLine();
+            end.CharRight();
 
-            var text = start.GetText(end);
+            var selectedText = start.GetText(end);
 
-            var splitText = text.Split(Environment.NewLine.ToArray());
+            // Create the sorted text lines.
+            var splitText = selectedText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var orderedText = splitText.OrderBy(x => x);
 
-            start.Delete(end);
-
+            var sb = new StringBuilder();
             foreach (var line in orderedText)
             {
-                start.Insert(line + Environment.NewLine);
+                sb.AppendLine(line);
+            }
+
+            var sortedText = sb.ToString();
+
+            // If the selected and sorted text do not match, delete and insert the replacement.
+            if (!selectedText.Equals(sortedText, StringComparison.CurrentCulture))
+            {
+                start.Delete(end);
+                start.Insert(sortedText);
             }
         }
 
