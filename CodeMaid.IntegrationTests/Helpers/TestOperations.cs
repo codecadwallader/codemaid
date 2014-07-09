@@ -92,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// Executes the specified command on the specified project item and verifies no change occurs.
         /// </summary>
         /// <remarks>
-        /// Used for disabled setting tests.
+        /// Generally used for disabled setting tests.
         /// </remarks>
         /// <param name="command">The command to execute.</param>
         /// <param name="projectItem">The project item to execute the command upon.</param>

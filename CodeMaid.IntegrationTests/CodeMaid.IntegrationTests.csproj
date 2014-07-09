@@ -696,6 +696,24 @@
     <Compile Include="Reorganizing\TypeCustomGroupingTests.cs" />
     <Compile Include="Reorganizing\TypeDefaultOrderTests.cs" />
     <Compile Include="Reorganizing\TypeCustomOrderTests.cs" />
+    <Content Include="Sorting\Data\SortAtTop_Sorted.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sorting\Data\SortAtTop.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sorting\Data\SortAtBottom.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sorting\Data\SortAtBottom_Sorted.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sorting\Data\SortNoChange.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Sorting\SortAtBottomTests.cs" />
+    <Compile Include="Sorting\SortAtTopTests.cs" />
+    <Compile Include="Sorting\SortNoChangeTests.cs" />
     <Compile Include="ToolWindowTests.cs" />
   </ItemGroup>
   <ItemGroup>
