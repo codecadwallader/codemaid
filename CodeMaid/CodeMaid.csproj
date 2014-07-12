@@ -182,6 +182,7 @@
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
+    <Compile Include="Logic\Starting\StartupProjectsLogic.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
     <Compile Include="Helpers\CodeElementHelper.cs" />
