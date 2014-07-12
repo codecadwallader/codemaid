@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Logic.Starting;
 using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -18,6 +19,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class SetStartupProjectsCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly StartupProjectsLogic _startupProjectsLogic;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -28,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandSetStartupProjects, (int)PkgCmdIDList.CmdIDCodeMaidSetStartupProjects))
         {
+            _startupProjectsLogic = StartupProjectsLogic.GetInstance(package);
         }
 
         #endregion Constructors
@@ -39,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            Enabled = Package.IDE.Solution.IsOpen;
         }
 
         /// <summary>
@@ -46,6 +55,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            base.OnExecute();
+
+            _startupProjectsLogic.GetStartupProjects();
         }
 
         #endregion BaseCommand Methods

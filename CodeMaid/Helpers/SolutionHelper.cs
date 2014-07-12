@@ -24,24 +24,59 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Internal Methods
 
         /// <summary>
-        /// Gets an enumerable set of all project items within the solution.
+        /// Gets an enumerable set of all items of the specified type within the solution.
         /// </summary>
-        /// <param name="package">The hosting package.</param>
-        /// <returns>The enumerable set of all project items.</returns>
-        internal static IEnumerable<ProjectItem> GetAllProjectItemsInSolution(CodeMaidPackage package)
+        /// <typeparam name="T">The type of item to retrieve.</typeparam>
+        /// <param name="solution">The solution.</param>
+        /// <returns>The enumerable set of all items.</returns>
+        internal static IEnumerable<T> GetAllItemsInSolution<T>(Solution solution)
+            where T : class
         {
-            var allProjectItems = new List<ProjectItem>();
+            var allProjects = new List<T>();
 
-            if (package.IDE != null)
+            if (solution != null)
             {
-                var solution = package.IDE.Solution;
-                if (solution != null)
-                {
-                    allProjectItems.AddRange(GetProjectItemsRecursively(solution));
-                }
+                allProjects.AddRange(GetItemsRecursively<T>(solution));
             }
 
-            return allProjectItems;
+            return allProjects;
+        }
+
+        /// <summary>
+        /// Gets items of the specified type recursively from the specified parent item. Includes
+        /// the parent item if it matches the specified type as well.
+        /// </summary>
+        /// <typeparam name="T">The type of item to retrieve.</typeparam>
+        /// <param name="parentItem">The parent item.</param>
+        /// <returns>The enumerable set of items within the parent item, may be empty.</returns>
+        internal static IEnumerable<T> GetItemsRecursively<T>(object parentItem)
+            where T : class
+        {
+            if (parentItem == null)
+            {
+                throw new ArgumentNullException("parentItem");
+            }
+
+            // Create a collection.
+            var projectItems = new List<T>();
+
+            // Include the parent item if it is of the desired type.
+            var desiredType = parentItem as T;
+            if (desiredType != null)
+            {
+                projectItems.Add(desiredType);
+            }
+
+            // Get all children based on the type of parent item.
+            var children = GetChildren(parentItem);
+
+            // Then recurse through all children.
+            foreach (var childItem in children)
+            {
+                projectItems.AddRange(GetItemsRecursively<T>(childItem));
+            }
+
+            return projectItems;
         }
 
         /// <summary>
@@ -56,44 +91,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             foreach (var item in selectedUIHierarchyItems.Select(uiHierarchyItem => uiHierarchyItem.Object))
             {
-                selectedProjectItems.AddRange(GetProjectItemsRecursively(item));
+                selectedProjectItems.AddRange(GetItemsRecursively<ProjectItem>(item));
             }
 
             return selectedProjectItems;
-        }
-
-        /// <summary>
-        /// Gets the project items recursively from the specified parent item. Includes the parent
-        /// item if it is a project item as well.
-        /// </summary>
-        /// <param name="parentItem">The parent item.</param>
-        /// <returns>The enumerable set of project items within the parent item, may be empty.</returns>
-        internal static IEnumerable<ProjectItem> GetProjectItemsRecursively(object parentItem)
-        {
-            if (parentItem == null)
-            {
-                throw new ArgumentNullException("parentItem");
-            }
-
-            // Create a collection.
-            var projectItems = new List<ProjectItem>();
-
-            // Include the parent item if it is a project item.
-            if (parentItem is ProjectItem)
-            {
-                projectItems.Add((ProjectItem)parentItem);
-            }
-
-            // Get all children based on the type of parent item.
-            var children = GetChildren(parentItem);
-
-            // Then recurse through all children.
-            foreach (var childItem in children)
-            {
-                projectItems.AddRange(GetProjectItemsRecursively(childItem));
-            }
-
-            return projectItems;
         }
 
         #endregion Internal Methods

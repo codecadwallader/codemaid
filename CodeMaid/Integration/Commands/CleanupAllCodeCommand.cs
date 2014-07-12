@@ -87,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<ProjectItem> AllProjectItems
         {
-            get { return SolutionHelper.GetAllProjectItemsInSolution(Package).Where(x => CodeCleanupAvailabilityLogic.ShouldCleanup(x)); }
+            get { return SolutionHelper.GetAllItemsInSolution<ProjectItem>(Package.IDE.Solution).Where(x => CodeCleanupAvailabilityLogic.ShouldCleanup(x)); }
         }
 
         /// <summary>

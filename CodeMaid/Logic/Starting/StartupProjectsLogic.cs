@@ -9,6 +9,9 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
+
 namespace SteveCadwallader.CodeMaid.Logic.Starting
 {
     /// <summary>
@@ -49,5 +52,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Starting
         }
 
         #endregion Constructors
+
+        public void GetStartupProjects()
+        {
+            if (_package.IDE.Solution == null) return;
+
+            //TODO: Get all projects recursively.
+            var allProjects = SolutionHelper.GetAllItemsInSolution<Project>(_package.IDE.Solution);
+        }
     }
 }
