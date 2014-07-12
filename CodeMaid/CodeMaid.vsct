@@ -315,6 +315,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
