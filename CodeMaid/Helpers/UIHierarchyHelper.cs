@@ -134,7 +134,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (Settings.Default.Collapsing_KeepSoloProjectExpanded && parentItem.Object is Project)
             {
                 var solution = parentItem.DTE.Solution;
-                if (solution != null && solution.Projects.Count <= 2)
+
+                if (solution != null && solution.Projects.OfType<Project>().All(x => x == parentItem.Object || x.Name == "Miscellaneous Files"))
                 {
                     return false;
                 }
