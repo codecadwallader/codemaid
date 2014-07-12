@@ -176,6 +176,7 @@
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
+    <Compile Include="Integration\Commands\SetStartupProjectsCommand.cs" />
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
