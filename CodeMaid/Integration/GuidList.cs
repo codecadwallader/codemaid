@@ -89,6 +89,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidCommandReadOnlyToggle = new Guid("f8a69cbc-1c88-4229-8a28-eac0e7e55c30");
         public static readonly Guid GuidCodeMaidCommandRemoveRegion = new Guid("88438672-b9f2-422c-83e8-706f89f33d80");
         public static readonly Guid GuidCodeMaidCommandReorganizeActiveCode = new Guid("60bd7c93-ff19-4351-8d2f-8761bdfc6a2a");
+        public static readonly Guid GuidCodeMaidCommandSettingCleanupOnSave = new Guid("411f786c-cf13-4f96-82ae-89d2a1d4f5a1");
         public static readonly Guid GuidCodeMaidCommandSortLines = new Guid("e74645b3-7248-4001-ac8c-085b24908fee");
         public static readonly Guid GuidCodeMaidCommandSpadeConfiguration = new Guid("d068f0d3-267c-45b5-a02f-14f3422b8540");
         public static readonly Guid GuidCodeMaidCommandSpadeContextDelete = new Guid("d8312056-c902-4d26-9f12-b4bb60db0365");
