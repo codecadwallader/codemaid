@@ -138,24 +138,27 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The scope that should be used for the region command.</returns>
         private RegionCommandScope GetRegionCommandScope()
         {
-            var activeTextDocument = ActiveTextDocument;
-            if (activeTextDocument != null)
+            if (_removeRegionLogic.CanRemoveRegions(Package.ActiveDocument))
             {
-                var textSelection = activeTextDocument.Selection;
-                if (textSelection != null)
+                var activeTextDocument = ActiveTextDocument;
+                if (activeTextDocument != null)
                 {
-                    if (!textSelection.IsEmpty)
+                    var textSelection = activeTextDocument.Selection;
+                    if (textSelection != null)
                     {
-                        return RegionCommandScope.Selection;
+                        if (!textSelection.IsEmpty)
+                        {
+                            return RegionCommandScope.Selection;
+                        }
+
+                        if (_codeModelHelper.IsCodeRegionUnderCursor(ActiveTextDocument))
+                        {
+                            return RegionCommandScope.CurrentLine;
+                        }
                     }
 
-                    if (_codeModelHelper.IsCodeRegionUnderCursor(ActiveTextDocument))
-                    {
-                        return RegionCommandScope.CurrentLine;
-                    }
+                    return RegionCommandScope.Document;
                 }
-
-                return RegionCommandScope.Document;
             }
 
             return RegionCommandScope.None;

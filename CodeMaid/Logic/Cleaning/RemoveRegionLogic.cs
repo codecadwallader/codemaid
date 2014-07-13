@@ -65,6 +65,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Methods
 
         /// <summary>
+        /// Determines whether the specified document can remove regions.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if document can remove regions, otherwise false.</returns>
+        internal bool CanRemoveRegions(Document document)
+        {
+            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
+                   document != null &&
+                   document.Language == "CSharp";
+        }
+
+        /// <summary>
         /// Removes all region tags from the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document to update.</param>
