@@ -496,7 +496,7 @@
     <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0600">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
@@ -549,6 +549,9 @@
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextCSSDocumentGroup" id="GroupIDCodeMaidContextCSSDocumentGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
       <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
     </CommandPlacement>
@@ -596,7 +599,7 @@
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0600">
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0800">
       <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
     </CommandPlacement>
 
