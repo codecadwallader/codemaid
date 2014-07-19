@@ -6,6 +6,7 @@ CodeMaid is an open source Visual Studio extension to cleanup, dig through and s
 Currently supports VS2010, VS2012, VS2013 and VS14.
 
 For VS2005/VS2008, the last supported version is [v0.4.3](https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi) which can be installed side-by-side with the later editions.
+
 ---
 ###Links
 Project home, Documentation, News: http://www.codemaid.net
@@ -19,6 +20,7 @@ Feature backlog - Trello: https://trello.com/b/VVxVhbQv/backlog
 Twitter - @codemaid: https://twitter.com/codemaid/
 
 Google+: https://plus.google.com/+CodemaidNet/
+
 ---
 ###Overview
 ####Code Cleaning
