@@ -1,6 +1,5 @@
 ![codemaid.net](http://i1.visualstudiogallery.msdn.s-msft.com/76293c4d-8c16-4f4a-aee6-21f83a571496/image/file/137749/1/about.png)
 
-#CodeMaid
 CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, XAML, XML, ASP, HTML, CSS, LESS, JavaScript and TypeScript coding.
 
 Currently supports VS2010, VS2012, VS2013 and VS14.
