@@ -3,11 +3,10 @@
 #CodeMaid
 CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, XAML, XML, ASP, HTML, CSS, LESS, JavaScript and TypeScript coding.
 
-###Visual Studio Versions
-Supports VS2010, VS2012, VS2013 and VS14
+Currently supports VS2010, VS2012, VS2013 and VS14.
 
-For Visual Studio 2005/2008, the last supported version is [v0.4.3](https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi) which can be installed side-by-side with the later editions.
-
+For VS2005/VS2008, the last supported version is [v0.4.3](https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi) which can be installed side-by-side with the later editions.
+---
 ###Links
 Project home, Documentation, News: http://www.codemaid.net
 
@@ -20,7 +19,7 @@ Feature backlog - Trello: https://trello.com/b/VVxVhbQv/backlog
 Twitter - @codemaid: https://twitter.com/codemaid/
 
 Google+: https://plus.google.com/+CodemaidNet/
-
+---
 ###Overview
 ####Code Cleaning
 Cleanup random white space into a simple standard order.  Add unspecified access modifiers.  Utilize Visual Studio’s built-in formatting capabilities.  Remove and sort using statements.  And do it all automatically on save or on demand, from an individual file to the entire solution.
@@ -55,5 +54,5 @@ Switch between related files, such as cpp and header files or xaml and code-behi
 ####and More!
 Remove regions, toggle read-only state, close read-only files, etc.
 
-###Details
+---
 For more details, please visit: [codemaid.net](http://www.codemaid.net/)
