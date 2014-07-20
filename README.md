@@ -22,15 +22,8 @@ Google+: https://plus.google.com/+CodemaidNet/
 
 ---
 ###Features
-<div style="float:left">
-<a href="documentation/#cleaning"><img src="http://www.codemaid.net/wp-content/themes/codemaid/images/code-cleaning_thumb.png" alt="CodeMaid Cleaning" /></a>
-</div>
-<div style="float:right">
 ####Code Cleaning
 Cleanup random white space into a simple standard order.  Add unspecified access modifiers.  Utilize Visual Studio’s built-in formatting capabilities.  Remove and sort using statements.  And do it all automatically on save or on demand, from an individual file to the entire solution.
-</div>
-
-<div style="clear:both" />
 
 ####Code Digging
 Visualize and navigate through the contents of your C# and C++ files from a tree view hierarchy.  Quickly switch between different sorting methods to get a better overview.  Drag and drop to reorganize the code.  See McCabe complexity scores and informative tooltips.
