@@ -1,9 +1,17 @@
 <link href="http://www.codemaid.net/wp-content/uploads/external/ProjectDescription.css" rel="stylesheet"></link>
 
-<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img  src="http://www.codemaid.net/wp-content/uploads/external/about.png" alt="codemaid.net" /></a></div>
+<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/external/about.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank"> http://www.codemaid.net</a></div>
+<p>Currently supports VS2010, VS2012, VS2013 and VS14.</p>
 <p>For Visual Studio 2005/2008, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi" target="_blank"> v0.4.3</a> which can be installed side-by-side with the VS2010/VS2012/VS2013 VSIX.</p>
-<p>&nbsp;</p>
+<h2>Links</h2>
+Project home, Documentation, News: http://www.codemaid.net <br />
+Download, Reviews - Visual Studio Gallery: http://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496 <br />
+Source code, Bugs - GitHub: https://github.com/codecadwallader/codemaid <br />
+Feature backlog - Trello: https://trello.com/b/VVxVhbQv/backlog <br />
+Twitter - @codemaid: https://twitter.com/codemaid/ <br />
+Google+: https://plus.google.com/+CodemaidNet/ <br />
+<h2>Features</h2>
 <div id="mainFeatures">
     <div id="codeClean">
         <a href="http://www.codemaid.net/documentation/#cleaning" target="_blank"><img src="http://www.codemaid.net/wp-content/themes/codemaid/images/code-cleaning_thumb.png" alt="CodeMaid Cleaning" /></a>
