@@ -72,15 +72,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         }
 
         /// <summary>
-        /// Called when the BitBucket link is clicked.
+        /// Called when the GitHub link is clicked.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">
         /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
         /// </param>
-        private void OnBitBucketLinkClick(object sender, RoutedEventArgs e)
+        private void OnGitHubLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"https://bitbucket.org/s_cadwallader/codemaid");
+            LaunchLink(@"https://github.com/codecadwallader/codemaid");
         }
 
         /// <summary>

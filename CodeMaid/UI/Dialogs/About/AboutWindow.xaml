@@ -69,7 +69,7 @@
                 Click="OnVisualStudioGalleryLinkClick" ToolTip="Download, Reviews - Visual Studio Gallery" />
 
         <Button Canvas.Left="572" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnBitBucketLinkClick" ToolTip="Source code, Bugs - BitBucket" />
+                Click="OnGitHubLinkClick" ToolTip="Source code, Bugs - GitHub" />
 
         <Button Canvas.Left="615" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnTrelloLinkClick" ToolTip="Feature backlog - Trello" />
