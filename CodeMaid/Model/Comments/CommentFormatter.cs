@@ -24,8 +24,16 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             this.regex = regex;
             this.isFirstWord = true;
 
-            this.commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
-            this.commentPrefixLength = WordLength(commentPrefix);
+            if (!string.IsNullOrWhiteSpace(commentPrefix))
+            {
+                this.commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
+                this.commentPrefixLength = WordLength(commentPrefix);
+            }
+            else
+            {
+                this.commentPrefix = string.Empty;
+                this.commentPrefixLength = 0;
+            }
 
             // Special handling for the root XML line, it should not output it's surrounding xml
             // tags, only the content.
@@ -82,9 +90,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             isFirstWord = false;
         }
 
-        private void NewLine(int indentLevel = 0)
+        private void NewLine(int indentLevel = 0, bool force = false)
         {
-            if (currentPosition > 0)
+            if (currentPosition > 0 || force)
             {
                 builder.AppendLine();
                 currentPosition = 0;
@@ -187,7 +195,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     if (match.Words != null)
                     {
                         var wordCount = match.Words.Count - 1;
-                        var firstWord = true;
 
                         for (int i = 0; i <= wordCount; i++)
                         {
@@ -199,7 +206,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             // comment length, wrap to the next line. Take care not to wrap
                             // on the first word, otherwise a word that never fits a line
                             // (ie. too long) would cause endless linewrapping.
-                            if (!firstWord && currentPosition + length + 1 > options.WrapAtColumn)
+                            if (!isFirstWord && currentPosition + length + 1 > options.WrapAtColumn)
                                 wrap = true;
 
                             // If this is the last word and user selected to not wrap on the
@@ -210,19 +217,23 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             if (wrap)
                             {
                                 NewLine(indentLevel);
-                                firstWord = true;
 
                                 if (isList)
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix) + 1, CodeCommentHelper.Spacer));
                             }
 
-                            if (!firstWord)
+                            if (!isFirstWord)
                                 Append(CodeCommentHelper.Spacer);
 
                             Append(word);
-
-                            firstWord = false;
                         }
+                    }
+                    else
+                    {
+                        // Line without words, create a blank line.
+                        if (!isFirstWord)
+                            NewLine(0);
+                        NewLine(indentLevel, true);
                     }
                 }
 
@@ -263,7 +274,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var codeLines = Regex.Split(line.Content.Trim('\r', '\n'), "\n");
                 for (int i = 0; i < codeLines.Length; i++)
                 {
-                    Append(codeLines[i]);
+                    Append(codeLines[i].TrimEnd());
+                    // Append newline for all except the last line.
                     if (i + 1 < codeLines.Length)
                         NewLine(indentLevel);
                 }
