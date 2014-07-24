@@ -94,15 +94,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                                 this.ParseChildNodes(e, options);
 
-                                // Each word adds a space after itself. If we do not want spacing in
-                                // tag content, remove the last space before inserting the closing
-                                // tag. Only do this when the tag contains nodes, otherwise no space
-                                // will have been added anyway.
-                                if (!options.XmlSpaceTagContent && e.FirstNode != null)
-                                {
-                                    this.innerText.Remove(this.innerText.Length - 1, 1);
-                                }
-
                                 this.innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
                             }
 
@@ -111,8 +102,22 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     }
                     else
                     {
-                        this.innerText.Append(node.ToString().TrimEnd());
-                        this.innerText.Append(CodeCommentHelper.Spacer);
+                        // Always trim trailing 
+                        var value = node.ToString().TrimEnd(CodeCommentHelper.Spacer);
+
+                        // If the parent is an element, trim the starting spaces.
+                        if (node.PreviousNode == null && node.Parent.NodeType == XmlNodeType.Element && !options.XmlSpaceTagContent)
+                        {
+                            value = value.TrimStart(CodeCommentHelper.Spacer);
+                        }
+
+                        this.innerText.Append(value);
+
+                        // Add spacing after (almost) each word.
+                        if (node.NextNode != null || node.Parent.NodeType != XmlNodeType.Element || options.XmlSpaceTagContent)
+                        {
+                            this.innerText.Append(CodeCommentHelper.Spacer);
+                        }
                     }
 
                     node = node.NextNode;

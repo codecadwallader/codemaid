@@ -20,6 +20,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
+                WrapAtColumn = 100,
                 XmlBreakSummaryTag = false,
                 XmlBreakAllTags = false
             });
@@ -34,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
+                WrapAtColumn = 100,
                 XmlBreakSummaryTag = false,
                 XmlBreakAllTags = true
             });
@@ -48,6 +50,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
+                WrapAtColumn = 100,
                 XmlBreakSummaryTag = true,
                 XmlBreakAllTags = false
             });
@@ -62,8 +65,101 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
+                WrapAtColumn = 100,
                 XmlBreakSummaryTag = false,
                 XmlBreakAllTags = false
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_TagNameKeepCase()
+        {
+            var input = "<Summary></Summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlTagsToLowerCase = false
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_TagNameToLowerCase()
+        {
+            var input = "<Summary></Summary>";
+            var expected = "<summary></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlTagsToLowerCase = true
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToInsideTags()
+        {
+            var input = "<summary><see/></summary>";
+            var expected = "<summary><see /></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlBreakSummaryTag = false,
+                XmlBreakAllTags = false,
+                XmlSpaceSingleTags = true
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_RemoveSpaceFromInsideTags()
+        {
+            var input = "<summary><see /></summary>";
+            var expected = "<summary><see/></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlBreakSummaryTag = false,
+                XmlBreakAllTags = false,
+                XmlSpaceSingleTags = false
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_RemoveSpaceFromTagContent()
+        {
+            var input = "<summary><c> test </c></summary>";
+            var expected = "<summary><c>test</c></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlBreakSummaryTag = false,
+                XmlBreakAllTags = false,
+                XmlSpaceTagContent = false
+            });
+        }
+
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContent()
+        {
+            var input = "<summary><c>test</c></summary>";
+            var expected = "<summary><c> test </c></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlBreakSummaryTag = false,
+                XmlBreakAllTags = false,
+                XmlSpaceTagContent = true
             });
         }
     }

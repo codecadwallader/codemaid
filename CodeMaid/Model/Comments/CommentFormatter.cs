@@ -254,7 +254,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             this.Append(line.OpenTag);
-
+            // Consider the word after the opening tag still as the first word.
+            this.isFirstWord = true;
             indentLevel++;
 
             // Break after the tag if required:
