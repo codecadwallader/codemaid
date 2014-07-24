@@ -284,7 +284,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                     WrapAtColumn = 75, // Overridden to fit interface better
                     XmlValueIndent = CommentXmlValueIndent,
                     XmlSpaceTagContent = CommentXmlSpaceTags,
-                    XmlAlignParamTags = CommentXmlAlignParamTags
+                    XmlAlignParamTags = CommentXmlAlignParamTags,
+                    XmlBreakSummaryTag = CommentXmlSplitSummaryTagToMultipleLines
                 });
         }
 

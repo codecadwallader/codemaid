@@ -250,7 +250,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // - Break on all tags is set to true.
             // - Tag consists of multiple lines.
             // - Tag has literal content (eg. a <code> element).
-            bool tagOnOwnLine = this.options.XmlBreakAllTags || line.Lines.Count > 1 || line.Content != null;
+            // - Tag is <summary> tag and option to break on those is set.
+            bool tagOnOwnLine = this.options.XmlBreakAllTags || line.Lines.Count > 1 || line.Content != null || (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlBreakSummaryTag);
             if (tagOnOwnLine)
             {
                 this.NewLine(indentLevel);

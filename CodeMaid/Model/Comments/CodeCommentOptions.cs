@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
             XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
             XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
+            XmlBreakSummaryTag = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
         }
 
         #endregion Constructors
@@ -70,6 +71,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public bool XmlTagsToLowerCase { get; set; }
 
         public int XmlValueIndent { get; set; }
+
+        public bool XmlBreakSummaryTag { get; set; }
 
         #endregion Properties
     }
