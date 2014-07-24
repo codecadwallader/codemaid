@@ -49,6 +49,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 
         [TestMethod]
         [HostType("VS IDE")]
+        [TestCategory("Formatting")]
         public void FormatStyleCopHeaderComments_FormatsAsExpected()
         {
             FormatsAsExpected();
@@ -56,6 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 
         [TestMethod]
         [HostType("VS IDE")]
+        [TestCategory("Formatting")]
         public void FormatStyleCopHeaderComments_DoesNothingOnSecondPass()
         {
             DoesNothingOnSecondPass();
@@ -63,6 +65,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
 
         [TestMethod]
         [HostType("VS IDE")]
+        [TestCategory("Formatting")]
         public void FormatStyleCopHeaderComments_DoesNothingWhenSettingIsDisabled()
         {
             DoesNothingWhenSettingIsDisabled();
