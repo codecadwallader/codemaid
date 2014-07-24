@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -37,11 +37,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="document">The text document.</param>
         public CodeCommentOptions(CodeMaidPackage package, TextDocument document)
         {
-            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
             TabSize = CodeCommentHelper.GetTabSize(package, document);
+
+            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
             WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
+
             XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
-            XmlSpaceTags = Settings.Default.Formatting_CommentXmlSpaceTags;
+            XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
             XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
         }
 
@@ -57,7 +59,15 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public bool XmlAlignParamTags { get; set; }
 
-        public bool XmlSpaceTags { get; set; }
+        public bool XmlBreakAllTags { get; set; }
+
+        public bool XmlKeepTagsTogether { get; set; }
+
+        public bool XmlSpaceSingleTags { get; set; }
+
+        public bool XmlSpaceTagContent { get; set; }
+
+        public bool XmlTagsToLowerCase { get; set; }
 
         public int XmlValueIndent { get; set; }
 

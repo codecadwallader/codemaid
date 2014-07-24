@@ -283,7 +283,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                     TabSize = 4, // Not important for preview
                     WrapAtColumn = 75, // Overridden to fit interface better
                     XmlValueIndent = CommentXmlValueIndent,
-                    XmlSpaceTags = CommentXmlSpaceTags,
+                    XmlSpaceTagContent = CommentXmlSpaceTags,
                     XmlAlignParamTags = CommentXmlAlignParamTags
                 });
         }
