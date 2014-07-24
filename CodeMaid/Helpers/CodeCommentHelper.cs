@@ -23,6 +23,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         public const char KeepTogetherSpacer = '\a';
         public const char Spacer = ' ';
+        public const int CopyrightExtraIndent = 4;
 
         /// <summary>
         /// Creates the XML close tag string for an XElement.

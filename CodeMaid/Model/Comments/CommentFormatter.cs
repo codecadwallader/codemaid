@@ -19,9 +19,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CommentFormatter : IEquatable<string>
     {
-        private readonly StringBuilder builder;
-        private readonly string commentPrefix;
-        private readonly int commentPrefixLength;
+        private StringBuilder builder;
+        private string commentPrefix;
+        private int commentPrefixLength;
         private int currentPosition;
         private bool isFirstWord;
         private CodeCommentOptions options;
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (!string.IsNullOrWhiteSpace(commentPrefix))
             {
                 this.commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
-                this.commentPrefixLength = WordLength(commentPrefix);
+                this.commentPrefixLength = WordLength(this.commentPrefix);
             }
             else
             {
@@ -265,8 +265,21 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             this.Append(line.OpenTag);
+            
             // Consider the word after the opening tag still as the first word.
             this.isFirstWord = true;
+
+            // If this is the StyleCop SA1633 header <copyright> tag, the content should ALWAYS be
+            // indented. So if no indenting is set, fake it. This is done by adding the indenting to
+            // the comment prefix, otherwise it would indent recursively.
+            var isCopyrightTag = indentLevel == 0 && string.Equals(line.TagName, "copyright", StringComparison.OrdinalIgnoreCase);
+            if (isCopyrightTag && options.XmlValueIndent < 1)
+            {
+                this.commentPrefixLength += CodeCommentHelper.CopyrightExtraIndent;
+                this.commentPrefix += string.Empty.PadLeft(CodeCommentHelper.CopyrightExtraIndent);
+            }
+
+            // Increase the indent level.
             indentLevel++;
 
             // Break after the tag if required:
@@ -274,7 +287,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // - Tag consists of multiple lines.
             // - Tag has literal content (eg. a <code> element).
             // - Tag is <summary> tag and option to break on those is set.
-            bool tagOnOwnLine = this.options.XmlBreakAllTags || line.Lines.Count > 1 || line.Content != null || (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlBreakSummaryTag);
+            // - Tag is StyleCop SA1633 header <copyright> tag.
+            bool tagOnOwnLine = this.options.XmlBreakAllTags || 
+                line.Lines.Count > 1 || 
+                line.Content != null || 
+                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlBreakSummaryTag) ||
+                isCopyrightTag;
+
             if (tagOnOwnLine)
             {
                 this.NewLine(indentLevel);
@@ -306,6 +325,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             indentLevel--;
+
+            // Undo the indenting hack done for copyright tags.
+            if (isCopyrightTag && options.XmlValueIndent < 1)
+            {
+                this.commentPrefixLength -= CodeCommentHelper.CopyrightExtraIndent;
+                this.commentPrefix = this.commentPrefix.Substring(0, this.commentPrefixLength);
+            }
 
             // If opening tag was on own line, do the same for the closing tag.
             if (tagOnOwnLine && !this.isFirstWord)
