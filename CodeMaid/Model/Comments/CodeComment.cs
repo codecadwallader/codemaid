@@ -28,7 +28,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     internal class CodeComment
     {
         private readonly TextDocument document;
-        private readonly CodeMaidPackage package;
         private Regex codeLineRegex;
         private Regex commentLineRegex;
 
@@ -38,13 +37,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeComment" /> class.
         /// </summary>
-        public CodeComment(TextPoint point, CodeMaidPackage package)
+        public CodeComment(TextPoint point)
         {
             if (point == null)
                 throw new ArgumentNullException("point");
 
             this.document = point.Parent;
-            this.package = package;
 
             this.commentLineRegex = CodeCommentHelper.GetCommentRegex(this.document.Language, true);
             this.codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(this.document.Language);
