@@ -88,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var existingRegions = codeItems.OfType<CodeItemRegion>();
 
             // If also inserting regions, remove all existing for more comprehensive reorganization.
-            if (Settings.Default.Reorganizing_RegionsInsertNewRegions)
+            if (Settings.Default.Formatting_CommentXmlTagsToLowerCase)
             {
                 return existingRegions;
             }

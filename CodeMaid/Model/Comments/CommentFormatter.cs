@@ -53,7 +53,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 // On the content of the root, fix the optional alignment of param tags. This is
                 // not important if all tags will be broken onto seperate lines anyway.
-                if (!options.XmlBreakAllTags && options.XmlAlignParamTags)
+                if (!options.XmlSplitAllTags && options.XmlAlignParamTags)
                 {
                     var paramPhrases = xml.Lines.OfType<CommentLineXml>().Where(p => string.Equals(p.TagName, "param", StringComparison.OrdinalIgnoreCase));
                     if (paramPhrases.Count() > 1)
@@ -174,33 +174,40 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 if (!forceBreak && matchCount == 1 && matches[0].Words.Any())
                 {
                     // Calculate the length of the first line.
-                    var firstLineLength = this.commentPrefixLength + xmlTagLength + matches[0].Length + (indentLevel * options.XmlValueIndent);
+                    var firstLineLength = this.commentPrefixLength + xmlTagLength + matches[0].Length + (indentLevel * this.options.XmlValueIndent);
 
                     // Tag spacing adds a space before and after.
                     if (options.XmlSpaceTagContent)
                         firstLineLength += 2;
 
-                    // If set to skip wrapping on the last word, it's length does not matter.
+                    // If set to skip wrapping on the last word, the last word's length does not matter.
                     if (options.SkipWrapOnLastWord)
-                        firstLineLength -= WordLength(matches[0].Words.Last()) + 1;
+                        firstLineLength -= this.WordLength(matches[0].Words.Last()) + 1;
 
-                    forceBreak = firstLineLength > options.WrapAtColumn;
+                    forceBreak = firstLineLength > this.options.WrapAtColumn;
                 }
 
                 if (currentPosition == 0 || !this.isFirstWord && forceBreak)
                 {
-                    NewLine(indentLevel);
+                    this.NewLine(indentLevel);
                 }
+                else if (!this.isFirstWord && this.options.XmlSpaceTagContent)
+                {
+                    this.Append(CodeCommentHelper.Spacer);
+                }
+
+                // Always consider the word after the opening tag as the first word to prevent an
+                // extra space before.
+                this.isFirstWord = true;
 
                 foreach (var match in matches)
                 {
-                    var isList = false;
-                    if (!string.IsNullOrWhiteSpace(match.ListPrefix))
+                    if (match.IsList)
                     {
-                        isList = true;
-                        NewLine(indentLevel);
-                        Append(match.ListPrefix);
-                        Append(CodeCommentHelper.Spacer);
+                        if (!this.isFirstWord)
+                            this.NewLine(indentLevel);
+
+                        this.Append(match.ListPrefix);
                     }
 
                     if (match.Words != null)
@@ -210,45 +217,50 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         for (int i = 0; i <= wordCount; i++)
                         {
                             var word = match.Words[i];
-                            var length = WordLength(word);
+                            var length = this.WordLength(word);
                             var wrap = false;
 
                             // If current position plus word length exceeds the maximum
                             // comment length, wrap to the next line. Take care not to wrap
                             // on the first word, otherwise a word that never fits a line
                             // (ie. too long) would cause endless linewrapping.
-                            if (!isFirstWord && currentPosition + length + 1 > options.WrapAtColumn)
+                            if (!this.isFirstWord && this.currentPosition + length + 1 > this.options.WrapAtColumn)
                                 wrap = true;
 
                             // If this is the last word and user selected to not wrap on the
                             // last word, don't wrap.
-                            if (wrap && i == wordCount && options.SkipWrapOnLastWord)
+                            if (wrap && i == wordCount && this.options.SkipWrapOnLastWord)
                                 wrap = false;
 
                             if (wrap)
                             {
-                                NewLine(indentLevel);
+                                this.NewLine(indentLevel);
 
-                                if (isList)
-                                    Append(string.Empty.PadLeft(WordLength(match.ListPrefix) + 1, CodeCommentHelper.Spacer));
+                                if (match.IsList)
+                                    this.Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
                             }
 
                             if (!isFirstWord)
-                                Append(CodeCommentHelper.Spacer);
+                                this.Append(CodeCommentHelper.Spacer);
 
-                            Append(word);
+                            this.Append(word);
                         }
                     }
                     else
                     {
                         // Line without words, create a blank line.
                         if (!isFirstWord)
-                            NewLine(0);
-                        NewLine(indentLevel, true);
+                            this.NewLine(0);
+                        this.NewLine(indentLevel, true);
                     }
                 }
 
-                if (currentPosition == 0 || currentPosition > this.commentPrefixLength && forceBreak)
+                if (!forceBreak && this.options.XmlSpaceTagContent)
+                {
+                    this.Append(CodeCommentHelper.Spacer);
+                }
+
+                if (this.currentPosition == 0 || this.currentPosition > this.commentPrefixLength && forceBreak)
                 {
                     return true;
                 }
@@ -266,9 +278,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             this.Append(line.OpenTag);
             
-            // Consider the word after the opening tag still as the first word.
-            this.isFirstWord = true;
-
             // If this is the StyleCop SA1633 header <copyright> tag, the content should ALWAYS be
             // indented. So if no indenting is set, fake it. This is done by adding the indenting to
             // the comment prefix, otherwise it would indent recursively.
@@ -288,10 +297,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // - Tag has literal content (eg. a <code> element).
             // - Tag is <summary> tag and option to break on those is set.
             // - Tag is StyleCop SA1633 header <copyright> tag.
-            bool tagOnOwnLine = this.options.XmlBreakAllTags || 
+            bool tagOnOwnLine = this.options.XmlSplitAllTags || 
                 line.Lines.Count > 1 || 
                 line.Content != null || 
-                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlBreakSummaryTag) ||
+                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlSplitSummaryTag) ||
                 isCopyrightTag;
 
             if (tagOnOwnLine)
@@ -299,16 +308,17 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 this.NewLine(indentLevel);
             }
 
-            // If the literal content of an XML tag is set, output it without formatting.
+            // If the literal content of an XML tag is set, output that content without formatting.
             if (line.Content != null)
             {
                 var codeLines = Regex.Split(line.Content.Trim('\r', '\n'), "\n");
                 for (int i = 0; i < codeLines.Length; i++)
                 {
-                    Append(codeLines[i].TrimEnd());
+                    this.Append(codeLines[i].TrimEnd());
+
                     // Append newline for all except the last line.
                     if (i + 1 < codeLines.Length)
-                        NewLine(indentLevel);
+                        this.NewLine(indentLevel);
                 }
             }
             else

@@ -28,6 +28,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public CodeCommentOptions()
         {
+            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
+            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
+            FormatDuringCleanup = Settings.Default.Formatting_CommentRunDuringCleanup;
+
+            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
+            XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
+            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
+            XmlSplitSummaryTag = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
+            XmlSplitAllTags = Settings.Default.Formatting_CommentXmlSplitAllTags;
+            XmlSpaceSingleTags = Settings.Default.Formatting_CommentXmlSpaceSingleTags;
+            XmlTagsToLowerCase = Settings.Default.Reorganizing_RegionsInsertNewRegions;
+            XmlKeepTagsTogether = Settings.Default.Formatting_CommentXmlKeepTagsTogether;
         }
 
         /// <summary>
@@ -36,21 +48,21 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="package">The hosting package.</param>
         /// <param name="document">The text document.</param>
         public CodeCommentOptions(CodeMaidPackage package, TextDocument document)
+            : this(CodeCommentHelper.GetTabSize(package, document))
         {
-            TabSize = CodeCommentHelper.GetTabSize(package, document);
+        }
 
-            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
-            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
-
-            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
-            XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
-            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
-            XmlBreakSummaryTag = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
+        public CodeCommentOptions(int tabSize)
+            : this()
+        {
+            TabSize = tabSize;
         }
 
         #endregion Constructors
 
         #region Properties
+
+        public bool FormatDuringCleanup { get; set; }
 
         public bool SkipWrapOnLastWord { get; set; }
 
@@ -60,7 +72,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public bool XmlAlignParamTags { get; set; }
 
-        public bool XmlBreakAllTags { get; set; }
+        public bool XmlSplitAllTags { get; set; }
 
         public bool XmlKeepTagsTogether { get; set; }
 
@@ -72,7 +84,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public int XmlValueIndent { get; set; }
 
-        public bool XmlBreakSummaryTag { get; set; }
+        public bool XmlSplitSummaryTag { get; set; }
+
 
         #endregion Properties
     }
