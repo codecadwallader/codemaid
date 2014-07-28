@@ -15,14 +15,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_AllRootLevelTagsOnNewLine()
         {
-            var input = "<summary></summary><returns></returns>";
-            var expected = "<summary></summary>" + Environment.NewLine + "<returns></returns>";
+            var input = "<summary>abc</summary><returns>abc</returns>";
+            var expected = "<summary>abc</summary>" + Environment.NewLine + "<returns>abc</returns>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false
             });
         }
 
@@ -36,8 +36,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = true
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = true
             });
         }
 
@@ -51,8 +51,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = true,
-                XmlBreakAllTags = false
+                XmlSplitSummaryTag = true,
+                XmlSplitAllTags = false
             });
         }
 
@@ -66,8 +66,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false
             });
         }
 
@@ -80,7 +80,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlTagsToLowerCase = false
+                XmlTagsToLowerCase = false,
+                XmlSplitAllTags = false,
+                XmlSplitSummaryTag = false
             });
         }
 
@@ -94,7 +96,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlTagsToLowerCase = true
+                XmlTagsToLowerCase = true,
+                XmlSplitAllTags = false,
+                XmlSplitSummaryTag = false
             });
         }
 
@@ -108,8 +112,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
                 XmlSpaceSingleTags = true
             });
         }
@@ -124,8 +128,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
                 XmlSpaceSingleTags = false
             });
         }
@@ -134,14 +138,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_RemoveSpaceFromTagContent()
         {
-            var input = "<summary><c> test </c></summary>";
+            var input = "<summary> <c> test </c> </summary>";
             var expected = "<summary><c>test</c></summary>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
                 XmlSpaceTagContent = false
             });
         }
@@ -152,14 +156,32 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void XmlFormattingTests_AddSpaceToTagContent()
         {
             var input = "<summary><c>test</c></summary>";
-            var expected = "<summary><c> test </c></summary>";
+            var expected = "<summary> <c> test </c> </summary>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlBreakSummaryTag = false,
-                XmlBreakAllTags = false,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
                 XmlSpaceTagContent = true
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_SplitsTagsWhenLineDoesNotFit()
+        {
+            var input = "<test>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</test>";
+            var expected = "<test>" + Environment.NewLine + 
+                "Lorem ipsum dolor sit amet, consectetur adipiscing" + Environment.NewLine + 
+                "elit. Vivamus nisi neque, placerat sed neque vitae." + Environment.NewLine + 
+                "</test>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 50,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false
             });
         }
     }
