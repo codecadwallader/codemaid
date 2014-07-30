@@ -13,6 +13,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CommentLine : ICommentLine
     {
+        #region Constructors
+
         public CommentLine(string content)
         {
             if (!string.IsNullOrWhiteSpace(content))
@@ -21,6 +23,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         public string Content { get; protected set; }
+
+        #endregion Properties
     }
 }

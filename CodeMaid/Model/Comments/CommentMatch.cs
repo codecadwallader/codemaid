@@ -17,6 +17,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CodeCommentMatch
     {
+        #region Constructors
+
         public CodeCommentMatch(Match match)
         {
             if (!match.Success)
@@ -25,13 +27,17 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 return;
             }
 
-            this.Indent = match.Groups["indent"].Success ? match.Groups["indent"].Value.Length : 0;
-            this.ListPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
-            this.Words = match.Groups["words"].Success ? match.Groups["words"].Captures.OfType<Capture>().Select(c => c.Value).ToList() : null;
+            Indent = match.Groups["indent"].Success ? match.Groups["indent"].Value.Length : 0;
+            ListPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
+            Words = match.Groups["words"].Success ? match.Groups["words"].Captures.OfType<Capture>().Select(c => c.Value).ToList() : null;
 
-            this.IsEmpty = string.IsNullOrWhiteSpace(match.Value) || this.Words.Count < 1;
-            this.IsList = !string.IsNullOrWhiteSpace(this.ListPrefix);
+            IsEmpty = string.IsNullOrWhiteSpace(match.Value) || Words.Count < 1;
+            IsList = !string.IsNullOrWhiteSpace(ListPrefix);
         }
+
+        #endregion Constructors
+
+        #region Properties
 
         public int Indent { get; private set; }
 
@@ -43,8 +49,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
             get
             {
-                return this.Indent - 1 +
-                    this.Words.Sum(w => w.Length + 1) +
+                return Indent - 1 +
+                    Words.Sum(w => w.Length + 1) +
                     (IsList ? ListPrefix.Length + 1 : 0);
             }
         }
@@ -52,6 +58,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public string ListPrefix { get; private set; }
 
         public IList<string> Words { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Attempt to combine another match with this match. If possible, all words from the other
@@ -64,21 +74,23 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (other == null)
                 return false;
 
-            if (this.IsEmpty || other.IsEmpty)
+            if (IsEmpty || other.IsEmpty)
                 return false;
 
             if (other.IsList)
                 return false;
 
-            if (this.IsList && other.Indent < 1)
+            if (IsList && other.Indent < 1)
                 return false;
 
             foreach (var word in other.Words)
-                this.Words.Add(word);
+                Words.Add(word);
 
-            this.IsEmpty = this.Words.Count < 1;
+            IsEmpty = Words.Count < 1;
 
             return true;
         }
+
+        #endregion Methods
     }
 }

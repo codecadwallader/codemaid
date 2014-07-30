@@ -17,37 +17,47 @@ using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
+    /// <summary>
+    /// Class to handle the actual wrapping and formatting of a comment.
+    /// </summary>
     internal class CommentFormatter : IEquatable<string>
     {
-        private StringBuilder builder;
-        private string commentPrefix;
-        private int commentPrefixLength;
-        private int currentPosition;
-        private bool isFirstWord;
-        private CodeCommentOptions options;
-        private Regex regex;
+        #region Fields
+
+        private StringBuilder _builder;
+        private string _commentPrefix;
+        private int _commentPrefixLength;
+        private int _currentPosition;
+        private bool _isFirstWord;
+        private CodeCommentOptions _options;
+        private Regex _regex;
+
+        #endregion Fields
+
+        #region Constructors
 
         public CommentFormatter(ICommentLine line, string commentPrefix, CodeCommentOptions options, Regex regex)
         {
-            this.builder = new StringBuilder();
-            this.currentPosition = 0;
-            this.options = options;
-            this.regex = regex;
-            this.isFirstWord = true;
+            _builder = new StringBuilder();
+            _currentPosition = 0;
+            _options = options;
+            _regex = regex;
+            _isFirstWord = true;
 
+            // Handle optionally empty prefix.
             if (!string.IsNullOrWhiteSpace(commentPrefix))
             {
-                this.commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
-                this.commentPrefixLength = WordLength(this.commentPrefix);
+                _commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
+                _commentPrefixLength = WordLength(_commentPrefix);
             }
             else
             {
-                this.commentPrefix = string.Empty;
-                this.commentPrefixLength = 0;
+                _commentPrefix = string.Empty;
+                _commentPrefixLength = 0;
             }
 
             // Special handling for the root XML line, it should not output it's surrounding xml
-            // tags, only the content.
+            // tags, only it's child lines.
             var xml = line as CommentLineXml;
             if (xml != null)
             {
@@ -66,18 +76,24 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     }
                 }
 
+                // Process all the lines inside the root XML line.
                 foreach (var l in xml.Lines)
                 {
-                    this.NewLine();
-                    this.Parse(l);
+                    NewLine();
+                    Parse(l);
                 }
             }
             else
             {
-                this.NewLine();
-                this.Parse(line);
+                // Normal comment line has no child-lines and can be processed normally.
+                NewLine();
+                Parse(line);
             }
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public bool Equals(string other)
         {
@@ -86,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public override string ToString()
         {
-            return builder.ToString();
+            return _builder.ToString();
         }
 
         private void Append(char value)
@@ -96,28 +112,28 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private void Append(string value)
         {
-            builder.Append(this.options.XmlKeepTagsTogether ? CodeCommentHelper.FakeToSpace(value) : value);
-            currentPosition += WordLength(value);
-            isFirstWord = false;
+            _builder.Append(_options.XmlKeepTagsTogether ? CodeCommentHelper.FakeToSpace(value) : value);
+            _currentPosition += WordLength(value);
+            _isFirstWord = false;
         }
 
         private void NewLine(int indentLevel = 0, bool force = false)
         {
-            if (currentPosition > 0 || force)
+            if (_currentPosition > 0 || force)
             {
-                builder.AppendLine();
-                currentPosition = 0;
+                _builder.AppendLine();
+                _currentPosition = 0;
             }
 
-            builder.Append(commentPrefix);
-            currentPosition += commentPrefixLength;
+            _builder.Append(_commentPrefix);
+            _currentPosition += _commentPrefixLength;
 
-            if (indentLevel > 0 && options.XmlValueIndent > 0)
+            if (indentLevel > 0 && _options.XmlValueIndent > 0)
             {
-                Append(string.Empty.PadLeft(indentLevel * options.XmlValueIndent));
+                Append(string.Empty.PadLeft(indentLevel * _options.XmlValueIndent));
             }
 
-            isFirstWord = true;
+            _isFirstWord = true;
         }
 
         /// <summary>
@@ -135,11 +151,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var xml = line as CommentLineXml;
             if (xml != null)
             {
-                this.ParseXml(xml, indentLevel);
+                ParseXml(xml, indentLevel);
             }
             else
             {
-                var matches = this.regex.Matches(line.Content).OfType<Match>().Select(x => new CodeCommentMatch(x)).ToList();
+                var matches = _regex.Matches(line.Content).OfType<Match>().Select(x => new CodeCommentMatch(x)).ToList();
 
                 // Remove empty matches from the start and end of the comment.
                 CodeCommentMatch m;
@@ -174,40 +190,40 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 if (!forceBreak && matchCount == 1 && matches[0].Words.Any())
                 {
                     // Calculate the length of the first line.
-                    var firstLineLength = this.commentPrefixLength + xmlTagLength + matches[0].Length + (indentLevel * this.options.XmlValueIndent);
+                    var firstLineLength = _commentPrefixLength + xmlTagLength + matches[0].Length + (indentLevel * _options.XmlValueIndent);
 
                     // Tag spacing adds a space before and after.
-                    if (options.XmlSpaceTagContent)
+                    if (_options.XmlSpaceTagContent)
                         firstLineLength += 2;
 
                     // If set to skip wrapping on the last word, the last word's length does not matter.
-                    if (options.SkipWrapOnLastWord)
-                        firstLineLength -= this.WordLength(matches[0].Words.Last()) + 1;
+                    if (_options.SkipWrapOnLastWord)
+                        firstLineLength -= WordLength(matches[0].Words.Last()) + 1;
 
-                    forceBreak = firstLineLength > this.options.WrapAtColumn;
+                    forceBreak = firstLineLength > _options.WrapAtColumn;
                 }
 
-                if (currentPosition == 0 || !this.isFirstWord && forceBreak)
+                if (_currentPosition == 0 || !_isFirstWord && forceBreak)
                 {
-                    this.NewLine(indentLevel);
+                    NewLine(indentLevel);
                 }
-                else if (!this.isFirstWord && this.options.XmlSpaceTagContent)
+                else if (!_isFirstWord && _options.XmlSpaceTagContent)
                 {
-                    this.Append(CodeCommentHelper.Spacer);
+                    Append(CodeCommentHelper.Spacer);
                 }
 
                 // Always consider the word after the opening tag as the first word to prevent an
                 // extra space before.
-                this.isFirstWord = true;
+                _isFirstWord = true;
 
                 foreach (var match in matches)
                 {
                     if (match.IsList)
                     {
-                        if (!this.isFirstWord)
-                            this.NewLine(indentLevel);
+                        if (!_isFirstWord)
+                            NewLine(indentLevel);
 
-                        this.Append(match.ListPrefix);
+                        Append(match.ListPrefix);
                     }
 
                     if (match.Words != null)
@@ -217,75 +233,78 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         for (int i = 0; i <= wordCount; i++)
                         {
                             var word = match.Words[i];
-                            var length = this.WordLength(word);
+                            var length = WordLength(word);
                             var wrap = false;
 
                             // If current position plus word length exceeds the maximum
                             // comment length, wrap to the next line. Take care not to wrap
                             // on the first word, otherwise a word that never fits a line
                             // (ie. too long) would cause endless linewrapping.
-                            if (!this.isFirstWord && this.currentPosition + length + 1 > this.options.WrapAtColumn)
+                            if (!_isFirstWord && _currentPosition + length + 1 > _options.WrapAtColumn)
                                 wrap = true;
 
                             // If this is the last word and user selected to not wrap on the
                             // last word, don't wrap.
-                            if (wrap && i == wordCount && this.options.SkipWrapOnLastWord)
+                            if (wrap && i == wordCount && _options.SkipWrapOnLastWord)
                                 wrap = false;
 
                             if (wrap)
                             {
-                                this.NewLine(indentLevel);
+                                NewLine(indentLevel);
 
                                 if (match.IsList)
-                                    this.Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
+                                    Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
                             }
 
-                            if (!isFirstWord)
-                                this.Append(CodeCommentHelper.Spacer);
+                            if (!_isFirstWord)
+                                Append(CodeCommentHelper.Spacer);
 
-                            this.Append(word);
+                            Append(word);
                         }
                     }
                     else
                     {
                         // Line without words, create a blank line.
-                        if (!isFirstWord)
-                            this.NewLine(0);
-                        this.NewLine(indentLevel, true);
+                        if (!_isFirstWord)
+                            NewLine(0);
+                        NewLine(indentLevel, true);
                     }
                 }
 
-                if (!forceBreak && this.options.XmlSpaceTagContent)
+                if (!forceBreak && _options.XmlSpaceTagContent)
                 {
-                    this.Append(CodeCommentHelper.Spacer);
+                    Append(CodeCommentHelper.Spacer);
                 }
 
-                if (this.currentPosition == 0 || this.currentPosition > this.commentPrefixLength && forceBreak)
+                if (_currentPosition == 0 || _currentPosition > _commentPrefixLength && forceBreak)
                 {
+                    // This comment fitted on a single line.
                     return true;
                 }
             }
+
+            // This comment did not fit on a single line.
             return false;
         }
 
-        private bool ParseXml(CommentLineXml line, int indentLevel = 0)
+        private void ParseXml(CommentLineXml line, int indentLevel = 0)
         {
             // All XML lines start on a new line.
-            if (!this.isFirstWord)
+            if (!_isFirstWord)
             {
-                this.NewLine(indentLevel);
+                NewLine(indentLevel);
             }
 
-            this.Append(line.OpenTag);
-            
+            Append(line.OpenTag);
+
             // If this is the StyleCop SA1633 header <copyright> tag, the content should ALWAYS be
             // indented. So if no indenting is set, fake it. This is done by adding the indenting to
             // the comment prefix, otherwise it would indent recursively.
             var isCopyrightTag = indentLevel == 0 && string.Equals(line.TagName, "copyright", StringComparison.OrdinalIgnoreCase);
-            if (isCopyrightTag && options.XmlValueIndent < 1)
+            if (isCopyrightTag && _options.XmlValueIndent < 1)
             {
-                this.commentPrefixLength += CodeCommentHelper.CopyrightExtraIndent;
-                this.commentPrefix += string.Empty.PadLeft(CodeCommentHelper.CopyrightExtraIndent);
+                _commentPrefixLength += CodeCommentHelper.CopyrightExtraIndent;
+                _commentPrefix += string.Empty.PadLeft(CodeCommentHelper.CopyrightExtraIndent);
             }
 
             // Increase the indent level.
@@ -297,15 +316,15 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // - Tag has literal content (eg. a <code> element).
             // - Tag is <summary> tag and option to break on those is set.
             // - Tag is StyleCop SA1633 header <copyright> tag.
-            bool tagOnOwnLine = this.options.XmlSplitAllTags || 
-                line.Lines.Count > 1 || 
-                line.Content != null || 
-                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && options.XmlSplitSummaryTag) ||
+            bool tagOnOwnLine = _options.XmlSplitAllTags ||
+                line.Lines.Count > 1 ||
+                line.Content != null ||
+                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && _options.XmlSplitSummaryTag) ||
                 isCopyrightTag;
 
             if (tagOnOwnLine)
             {
-                this.NewLine(indentLevel);
+                NewLine(indentLevel);
             }
 
             // If the literal content of an XML tag is set, output that content without formatting.
@@ -314,11 +333,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var codeLines = Regex.Split(line.Content.Trim('\r', '\n'), "\n");
                 for (int i = 0; i < codeLines.Length; i++)
                 {
-                    this.Append(codeLines[i].TrimEnd());
+                    Append(codeLines[i].TrimEnd());
 
                     // Append newline for all except the last line.
                     if (i + 1 < codeLines.Length)
-                        this.NewLine(indentLevel);
+                        NewLine(indentLevel);
                 }
             }
             else
@@ -330,28 +349,26 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 {
                     // Parse function returns true if it had to wrap lines. If so, we need to
                     // force a newline before the closing tag.
-                    tagOnOwnLine |= this.Parse(l, indentLevel, xmlTagLength);
+                    tagOnOwnLine |= Parse(l, indentLevel, xmlTagLength);
                 }
             }
 
             indentLevel--;
 
             // Undo the indenting hack done for copyright tags.
-            if (isCopyrightTag && options.XmlValueIndent < 1)
+            if (isCopyrightTag && _options.XmlValueIndent < 1)
             {
-                this.commentPrefixLength -= CodeCommentHelper.CopyrightExtraIndent;
-                this.commentPrefix = this.commentPrefix.Substring(0, this.commentPrefixLength);
+                _commentPrefixLength -= CodeCommentHelper.CopyrightExtraIndent;
+                _commentPrefix = _commentPrefix.Substring(0, _commentPrefixLength);
             }
 
             // If opening tag was on own line, do the same for the closing tag.
-            if (tagOnOwnLine && !this.isFirstWord)
+            if (tagOnOwnLine && !_isFirstWord)
             {
-                this.NewLine(indentLevel);
+                NewLine(indentLevel);
             }
 
-            this.Append(line.Closetag);
-
-            return true;
+            Append(line.Closetag);
         }
 
         /// <summary>
@@ -361,7 +378,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <returns>The length of the string.</returns>
         private int WordLength(string word)
         {
-            return word.Length + word.Count(c => c == '\t') * (options.TabSize - 1);
+            return word.Length + word.Count(c => c == '\t') * (_options.TabSize - 1);
         }
 
         /// <summary>
@@ -371,7 +388,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <returns>The length of the character.</returns>
         private int WordLength(char word)
         {
-            return word == '\t' ? options.TabSize : 1;
+            return word == '\t' ? _options.TabSize : 1;
         }
+
+        #endregion Methods
     }
 }
