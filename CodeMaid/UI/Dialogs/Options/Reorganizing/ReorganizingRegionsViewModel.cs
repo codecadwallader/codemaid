@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
             InsertKeepEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty;
-            InsertNewRegions = Settings.Default.Formatting_CommentXmlTagsToLowerCase;
+            InsertNewRegions = Settings.Default.Reorganizing_RegionsInsertNewRegions;
             RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
         }
 
@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         {
             Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
             Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = InsertKeepEvenIfEmpty;
-            Settings.Default.Formatting_CommentXmlTagsToLowerCase = InsertNewRegions;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = InsertNewRegions;
             Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 

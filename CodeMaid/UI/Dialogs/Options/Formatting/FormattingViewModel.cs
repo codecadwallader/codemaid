@@ -32,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private readonly EnvDTE.Properties _editorProperties;
         private readonly EnvDTE.ColorableItems _commentColors;
-        private CodeCommentOptions options;
+        private CodeCommentOptions _options;
         private string _commentPreviewText;
 
         #endregion Fields
@@ -69,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void LoadSettings()
         {
-            options = new CodeCommentOptions(4);
+            _options = new CodeCommentOptions(4);
 
             UpdatePreviewText();
         }
@@ -97,12 +97,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public bool CommentRunDuringCleanup
         {
-            get { return options.FormatDuringCleanup; }
+            get { return _options.FormatDuringCleanup; }
             set
             {
-                if (options.FormatDuringCleanup != value)
+                if (_options.FormatDuringCleanup != value)
                 {
-                    options.FormatDuringCleanup = value;
+                    _options.FormatDuringCleanup = value;
                     NotifyPropertyChanged("CommentRunDuringCleanup");
                 }
             }
@@ -113,12 +113,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public bool CommentSkipWrapOnLastWord
         {
-            get { return options.SkipWrapOnLastWord; }
+            get { return _options.SkipWrapOnLastWord; }
             set
             {
-                if (options.SkipWrapOnLastWord != value)
+                if (_options.SkipWrapOnLastWord != value)
                 {
-                    options.SkipWrapOnLastWord = value;
+                    _options.SkipWrapOnLastWord = value;
                     NotifyPropertyChanged("CommentSkipWrapOnLastWord");
                 }
             }
@@ -129,13 +129,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public int CommentWrapColumn
         {
-            get { return options.WrapAtColumn; }
+            get { return _options.WrapAtColumn; }
             set
             {
                 value = Math.Max(value, 0);
-                if (options.WrapAtColumn != value)
+                if (_options.WrapAtColumn != value)
                 {
-                    options.WrapAtColumn = value;
+                    _options.WrapAtColumn = value;
                     NotifyPropertyChanged("CommentWrapColumn");
                 }
             }
@@ -146,12 +146,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public bool CommentXmlAlignParamTags
         {
-            get { return options.XmlAlignParamTags; }
+            get { return _options.XmlAlignParamTags; }
             set
             {
-                if (options.XmlAlignParamTags != value)
+                if (_options.XmlAlignParamTags != value)
                 {
-                    options.XmlAlignParamTags = value;
+                    _options.XmlAlignParamTags = value;
                     NotifyPropertyChanged("CommentXmlAlignParamTags");
                 }
             }
@@ -162,12 +162,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public bool CommentXmlSpaceTags
         {
-            get { return options.XmlSpaceTagContent; }
+            get { return _options.XmlSpaceTagContent; }
             set
             {
-                if (options.XmlSpaceTagContent != value)
+                if (_options.XmlSpaceTagContent != value)
                 {
-                    options.XmlSpaceTagContent = value;
+                    _options.XmlSpaceTagContent = value;
                     NotifyPropertyChanged("CommentXmlSpaceTags");
                 }
             }
@@ -178,12 +178,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public bool CommentXmlSplitSummaryTagToMultipleLines
         {
-            get { return options.XmlSplitSummaryTag; }
+            get { return _options.XmlSplitSummaryTag; }
             set
             {
-                if (options.XmlSplitSummaryTag != value)
+                if (_options.XmlSplitSummaryTag != value)
                 {
-                    options.XmlSplitSummaryTag = value;
+                    _options.XmlSplitSummaryTag = value;
                     NotifyPropertyChanged("CommentXmlSplitSummaryTagToMultipleLines");
                 }
             }
@@ -194,13 +194,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public int CommentXmlValueIndent
         {
-            get { return options.XmlValueIndent; }
+            get { return _options.XmlValueIndent; }
             set
             {
                 value = Math.Max(value, 0);
-                if (options.XmlValueIndent != value)
+                if (_options.XmlValueIndent != value)
                 {
-                    options.XmlValueIndent = value;
+                    _options.XmlValueIndent = value;
                     NotifyPropertyChanged("CommentXmlValueIndent");
                 }
             }
@@ -208,12 +208,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         public bool CommentXmlTagsToLowerCase
         {
-            get { return options.XmlTagsToLowerCase; }
+            get { return _options.XmlTagsToLowerCase; }
             set
             {
-                if (options.XmlTagsToLowerCase != value)
+                if (_options.XmlTagsToLowerCase != value)
                 {
-                    options.XmlTagsToLowerCase = value;
+                    _options.XmlTagsToLowerCase = value;
                     NotifyPropertyChanged("CommentXmlTagsToLowerCase");
                 }
             }
@@ -221,12 +221,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         public bool CommentXmlSpaceSingleTags
         {
-            get { return options.XmlSpaceSingleTags; }
+            get { return _options.XmlSpaceSingleTags; }
             set
             {
-                if (options.XmlSpaceSingleTags != value)
+                if (_options.XmlSpaceSingleTags != value)
                 {
-                    options.XmlSpaceSingleTags = value;
+                    _options.XmlSpaceSingleTags = value;
                     NotifyPropertyChanged("CommentXmlSpaceSingleTags");
                 }
             }
@@ -234,12 +234,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         public bool CommentXmlKeepTagsTogether
         {
-            get { return options.XmlKeepTagsTogether; }
+            get { return _options.XmlKeepTagsTogether; }
             set
             {
-                if (options.XmlKeepTagsTogether != value)
+                if (_options.XmlKeepTagsTogether != value)
                 {
-                    options.XmlKeepTagsTogether = value;
+                    _options.XmlKeepTagsTogether = value;
                     NotifyPropertyChanged("CommentXmlKeepTagsTogether");
                 }
             }
@@ -247,12 +247,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         public bool CommentXmlSplitAllTags
         {
-            get { return options.XmlSplitAllTags; }
+            get { return _options.XmlSplitAllTags; }
             set
             {
-                if (options.XmlSplitAllTags != value)
+                if (_options.XmlSplitAllTags != value)
                 {
-                    options.XmlSplitAllTags = value;
+                    _options.XmlSplitAllTags = value;
                     NotifyPropertyChanged("CommentXmlSplitAllTags");
                 }
             }
@@ -308,14 +308,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private void UpdatePreviewText()
         {
-            var temp = options.WrapAtColumn;
-            options.WrapAtColumn = 75; // Override to fit preview text better
+            var temp = _options.WrapAtColumn;
+            _options.WrapAtColumn = 75; // Override to fit preview text better
 
             CommentPreviewText = CodeComment.FormatXml(
                 UnformattedPreviewText,
-                options);
+                _options);
 
-            options.WrapAtColumn = temp;
+            _options.WrapAtColumn = temp;
         }
 
         #endregion Preview Text and Helpers
