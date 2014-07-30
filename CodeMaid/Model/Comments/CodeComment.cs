@@ -43,7 +43,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public CodeComment(TextPoint point)
         {
             if (point == null)
+            {
                 throw new ArgumentNullException("point");
+            }
 
             _document = point.Parent;
 
@@ -76,6 +78,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var line = new CommentLineXml(xml, options);
             var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
             var formatter = new CommentFormatter(line, "///", options, regex);
+
             return formatter.ToString();
         }
 
@@ -85,7 +88,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public TextPoint Format(CodeCommentOptions options)
         {
             if (!IsValid)
+            {
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
+            }
 
             var originalText = _startPoint.GetText(_endPoint);
             var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
@@ -140,11 +145,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var i = point.CreateEditPoint();
 
             // Look up to find the start of the comment.
-            _startPoint = Expand(point, (p) => p.LineUp());
+            _startPoint = Expand(point, p => p.LineUp());
 
             // If a valid start is found, look down to find the end of the comment.
             if (_startPoint != null)
-                _endPoint = Expand(point, (p) => p.LineDown());
+            {
+                _endPoint = Expand(point, p => p.LineDown());
+            }
 
             if (StartPoint != null && EndPoint != null)
             {

@@ -159,10 +159,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                 // Remove empty matches from the start and end of the comment.
                 CodeCommentMatch m;
-                while ((m = matches.FirstOrDefault()) != null && m.IsEmpty)
+                while (((m = matches.FirstOrDefault()) != null && m.IsEmpty) || ((m = matches.LastOrDefault()) != null && m.IsEmpty))
+                {
                     matches.Remove(m);
-                while ((m = matches.LastOrDefault()) != null && m.IsEmpty)
-                    matches.Remove(m);
+                }
 
                 // Join the comment matches into single lines where possible.
                 if (matches.Count > 1)
@@ -194,11 +194,15 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                     // Tag spacing adds a space before and after.
                     if (_options.XmlSpaceTagContent)
+                    {
                         firstLineLength += 2;
+                    }
 
                     // If set to skip wrapping on the last word, the last word's length does not matter.
                     if (_options.SkipWrapOnLastWord)
+                    {
                         firstLineLength -= WordLength(matches[0].Words.Last()) + 1;
+                    }
 
                     forceBreak = firstLineLength > _options.WrapAtColumn;
                 }
@@ -221,7 +225,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     if (match.IsList)
                     {
                         if (!_isFirstWord)
+                        {
                             NewLine(indentLevel);
+                        }
 
                         Append(match.ListPrefix);
                     }
@@ -241,23 +247,31 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             // on the first word, otherwise a word that never fits a line
                             // (ie. too long) would cause endless linewrapping.
                             if (!_isFirstWord && _currentPosition + length + 1 > _options.WrapAtColumn)
+                            {
                                 wrap = true;
+                            }
 
                             // If this is the last word and user selected to not wrap on the
                             // last word, don't wrap.
                             if (wrap && i == wordCount && _options.SkipWrapOnLastWord)
+                            {
                                 wrap = false;
+                            }
 
                             if (wrap)
                             {
                                 NewLine(indentLevel);
 
                                 if (match.IsList)
+                                {
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
+                                }
                             }
 
                             if (!_isFirstWord)
+                            {
                                 Append(CodeCommentHelper.Spacer);
+                            }
 
                             Append(word);
                         }
@@ -266,7 +280,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     {
                         // Line without words, create a blank line.
                         if (!_isFirstWord)
+                        {
                             NewLine(0);
+                        }
+
                         NewLine(indentLevel, true);
                     }
                 }
