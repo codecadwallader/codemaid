@@ -21,25 +21,35 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CommentLineXml : CommentLine
     {
+        #region Fields
+
         private static string[] NewLineElementNames = { "p", "para", "code" };
-        private StringBuilder innerText;
+        private StringBuilder _innerText;
+
+        #endregion Fields
+
+        #region Constructors
 
         public CommentLineXml(XElement xml, CodeCommentOptions options)
             : base(null)
         {
-            this.TagName = xml.Name.LocalName;
+            TagName = xml.Name.LocalName;
 
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
-            this.OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options, false);
-            this.Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options, false);
+            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options, false);
+            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options, false);
 
-            this.Lines = new List<ICommentLine>();
+            Lines = new List<ICommentLine>();
 
-            this.innerText = new StringBuilder();
-            this.ParseChildNodes(xml, options);
-            this.CloseInnerText();
+            _innerText = new StringBuilder();
+            ParseChildNodes(xml, options);
+            CloseInnerText();
         }
+
+        #endregion Constructors
+
+        #region Properties
 
         public string Closetag { get; set; }
 
@@ -49,27 +59,31 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public string TagName { get; private set; }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// If there is text left in the buffer, parse and append it as a comment line.
         /// </summary>
         private void CloseInnerText()
         {
-            if (this.innerText.Length > 0)
+            if (_innerText.Length > 0)
             {
-                this.Lines.Add(new CommentLine(innerText.ToString()));
-                this.innerText.Clear();
+                Lines.Add(new CommentLine(_innerText.ToString()));
+                _innerText.Clear();
             }
         }
 
         private void ParseChildNodes(XElement xml, CodeCommentOptions options)
         {
-            if (string.Equals(this.TagName, "code", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(TagName, "code", StringComparison.OrdinalIgnoreCase))
             {
                 // Content of code element should be read literally and preserve whitespace.
                 using (var reader = xml.CreateReader())
                 {
                     reader.MoveToContent();
-                    this.Content = reader.ReadInnerXml();
+                    Content = reader.ReadInnerXml();
                 }
             }
             else
@@ -87,33 +101,33 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         // be on their own line.
                         if (e.Parent == null || e.Parent.Parent == null || NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
                         {
-                            this.CloseInnerText();
-                            this.Lines.Add(new CommentLineXml(e, options));
+                            CloseInnerText();
+                            Lines.Add(new CommentLineXml(e, options));
                         }
                         else
                         {
                             // If the tag is not forced to be on it's own line, append it to the
                             // current content as string.
-                            this.innerText.Append(CodeCommentHelper.CreateXmlOpenTag(e, options));
+                            _innerText.Append(CodeCommentHelper.CreateXmlOpenTag(e, options));
 
                             if (!e.IsEmpty)
                             {
                                 if (options.XmlSpaceTagContent)
                                 {
-                                    this.innerText.Append(CodeCommentHelper.Spacer);
+                                    _innerText.Append(CodeCommentHelper.Spacer);
                                 }
 
-                                this.ParseChildNodes(e, options);
+                                ParseChildNodes(e, options);
 
-                                this.innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
+                                _innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
                             }
 
-                            this.innerText.Append(CodeCommentHelper.Spacer);
+                            _innerText.Append(CodeCommentHelper.Spacer);
                         }
                     }
                     else
                     {
-                        // Always trim trailing 
+                        // Always trim trailing
                         var value = node.ToString().TrimEnd(CodeCommentHelper.Spacer);
 
                         // If the parent is an element, trim the starting spaces.
@@ -122,12 +136,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             value = value.TrimStart(CodeCommentHelper.Spacer);
                         }
 
-                        this.innerText.Append(value);
+                        _innerText.Append(value);
 
                         // Add spacing after (almost) each word.
                         if (node.NextNode != null || node.Parent.NodeType != XmlNodeType.Element || options.XmlSpaceTagContent)
                         {
-                            this.innerText.Append(CodeCommentHelper.Spacer);
+                            _innerText.Append(CodeCommentHelper.Spacer);
                         }
                     }
 
@@ -135,5 +149,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 }
             }
         }
+
+        #endregion Methods
     }
 }

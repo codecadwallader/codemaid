@@ -9,15 +9,12 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Properties;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -27,12 +24,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     /// </summary>
     internal class CodeComment
     {
-        private readonly TextDocument document;
-        private Regex codeLineRegex;
-        private Regex commentLineRegex;
+        #region Fields
 
-        private EditPoint endPoint;
-        private EditPoint startPoint;
+        private readonly TextDocument _document;
+        private Regex _codeLineRegex;
+        private Regex _commentLineRegex;
+
+        private EditPoint _endPoint;
+        private EditPoint _startPoint;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeComment" /> class.
@@ -40,21 +43,31 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public CodeComment(TextPoint point)
         {
             if (point == null)
+            {
                 throw new ArgumentNullException("point");
+            }
 
-            this.document = point.Parent;
+            _document = point.Parent;
 
-            this.commentLineRegex = CodeCommentHelper.GetCommentRegex(this.document.Language, true);
-            this.codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(this.document.Language);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
+            _codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(_document.Language);
 
-            this.Expand(point);
+            Expand(point);
         }
 
-        public TextPoint EndPoint { get { return endPoint; } }
+        #endregion Constructors
+
+        #region Properties
+
+        public TextPoint EndPoint { get { return _endPoint; } }
 
         public bool IsValid { get; private set; }
 
-        public TextPoint StartPoint { get { return startPoint; } }
+        public TextPoint StartPoint { get { return _startPoint; } }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Helper function to generate the preview in the options menu.
@@ -65,6 +78,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var line = new CommentLineXml(xml, options);
             var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
             var formatter = new CommentFormatter(line, "///", options, regex);
+
             return formatter.ToString();
         }
 
@@ -74,10 +88,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public TextPoint Format(CodeCommentOptions options)
         {
             if (!IsValid)
+            {
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
+            }
 
-            var originalText = startPoint.GetText(endPoint);
-            var matches = commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
+            var originalText = _startPoint.GetText(_endPoint);
+            var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
             var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
 
             // Concatenate the comment lines without comment prefixes and see if the resulting bit
@@ -107,14 +123,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 line,
                 commentPrefix,
                 options,
-                CodeCommentHelper.GetCommentRegex(this.document.Language, false));
+                CodeCommentHelper.GetCommentRegex(_document.Language, false));
 
             if (!formatter.Equals(originalText))
             {
                 var cursor = StartPoint.CreateEditPoint();
                 cursor.Delete(EndPoint);
                 cursor.Insert(formatter.ToString());
-                endPoint = cursor.CreateEditPoint();
+                _endPoint = cursor.CreateEditPoint();
             }
 
             return EndPoint;
@@ -129,16 +145,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var i = point.CreateEditPoint();
 
             // Look up to find the start of the comment.
-            startPoint = Expand(point, (p) => p.LineUp());
+            _startPoint = Expand(point, p => p.LineUp());
 
             // If a valid start is found, look down to find the end of the comment.
-            if (startPoint != null)
-                endPoint = Expand(point, (p) => p.LineDown());
+            if (_startPoint != null)
+            {
+                _endPoint = Expand(point, p => p.LineDown());
+            }
 
             if (StartPoint != null && EndPoint != null)
             {
-                startPoint.StartOfLine();
-                endPoint.EndOfLine();
+                _startPoint.StartOfLine();
+                _endPoint.EndOfLine();
                 IsValid = true;
             }
             else
@@ -157,7 +175,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var line = i.Line;
                 var text = i.GetLine();
 
-                if (CodeCommentHelper.LineMatchesRegex(i, this.commentLineRegex).Success)
+                if (CodeCommentHelper.LineMatchesRegex(i, _commentLineRegex).Success)
                 {
                     result = i.CreateEditPoint();
                     foundAction(i);
@@ -170,7 +188,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 }
                 else
                 {
-                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, this.codeLineRegex).Success)
+                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, _codeLineRegex).Success)
                     {
                         result = null;
                     }
@@ -181,5 +199,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             return result;
         }
+
+        #endregion Methods
     }
 }

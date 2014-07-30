@@ -23,16 +23,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
     {
         #region Fields
 
+        /// <summary>
+        /// The singleton instance of the <see cref="CommentFormatLogic" /> class.
+        /// </summary>
+        private static CommentFormatLogic _instance;
+
         private readonly CodeMaidPackage _package;
 
         #endregion Fields
 
         #region Constructors
-
-        /// <summary>
-        /// The singleton instance of the <see cref="CommentFormatLogic" /> class.
-        /// </summary>
-        private static CommentFormatLogic _instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentFormatLogic" /> class.
@@ -41,16 +41,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         private CommentFormatLogic(CodeMaidPackage package)
         {
             _package = package;
-        }
-
-        /// <summary>
-        /// Gets an instance of the <see cref="CommentFormatLogic" /> class.
-        /// </summary>
-        /// <param name="package">The hosting package.</param>
-        /// <returns>An instance of the <see cref="CommentFormatLogic" /> class.</returns>
-        internal static CommentFormatLogic GetInstance(CodeMaidPackage package)
-        {
-            return _instance ?? (_instance = new CommentFormatLogic(package));
         }
 
         #endregion Constructors
@@ -112,6 +102,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
             }
 
             return foundComments;
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="CommentFormatLogic" /> class.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>An instance of the <see cref="CommentFormatLogic" /> class.</returns>
+        internal static CommentFormatLogic GetInstance(CodeMaidPackage package)
+        {
+            return _instance ?? (_instance = new CommentFormatLogic(package));
         }
 
         #endregion Methods

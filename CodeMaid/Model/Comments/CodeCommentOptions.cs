@@ -72,20 +72,19 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public bool XmlAlignParamTags { get; set; }
 
-        public bool XmlSplitAllTags { get; set; }
-
         public bool XmlKeepTagsTogether { get; set; }
 
         public bool XmlSpaceSingleTags { get; set; }
 
         public bool XmlSpaceTagContent { get; set; }
 
-        public bool XmlTagsToLowerCase { get; set; }
-
-        public int XmlValueIndent { get; set; }
+        public bool XmlSplitAllTags { get; set; }
 
         public bool XmlSplitSummaryTag { get; set; }
 
+        public bool XmlTagsToLowerCase { get; set; }
+
+        public int XmlValueIndent { get; set; }
 
         #endregion Properties
     }
