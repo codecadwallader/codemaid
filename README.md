@@ -3,14 +3,17 @@
 <div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/external/about.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank"> http://www.codemaid.net</a></div>
 <p>Currently supports VS2010, VS2012, VS2013 and VS14.</p>
-<p>For Visual Studio 2005/2008, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi" target="_blank"> v0.4.3</a> which can be installed side-by-side with the VS2010/VS2012/VS2013 VSIX.</p>
+<p>For Visual Studio 2005/2008, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi" target="_blank"> v0.4.3</a> which can be installed side-by-side with the VS2010/VS2012/VS2013/VS14 VSIX.</p>
 <h2>Links</h2>
-Project home, Documentation, News: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank">http://www.codemaid.net</a> <br />
-Download, Reviews - Visual Studio Gallery: <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496" target="_blank">http://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496</a> <br />
-Source code, Bugs - GitHub: <a title="GitHub" href="https://github.com/codecadwallader/codemaid" target="_blank">https://github.com/codecadwallader/codemaid</a> <br />
-Feature backlog - Trello: <a title="Trello" href="https://trello.com/b/VVxVhbQv/backlog" target="_blank">https://trello.com/b/VVxVhbQv/backlog</a> <br />
-Twitter - @codemaid: <a title="Twitter" href="https://twitter.com/codemaid/" target="_blank">https://twitter.com/codemaid/</a> <br />
-Google+: <a title="Google+" href="https://plus.google.com/+CodemaidNet/" target="_blank">https://plus.google.com/+CodemaidNet/</a> <br />
+Project home, Documentation, News: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank">www.codemaid.net</a> <br />
+Download, Reviews: <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496" target="_blank">Visual Studio Gallery</a> <br />
+Source code, Bugs: <a title="GitHub" href="https://github.com/codecadwallader/codemaid" target="_blank">GitHub</a> <br />
+Continuous Integration: <a title="AppVeyor" href="https://ci.appveyor.com/project/codecadwallader/codemaid" target="_blank">AppVeyor</a>
+[![Build status](https://ci.appveyor.com/api/projects/status/adpt8279h212ceiv)](https://ci.appveyor.com/project/codecadwallader/codemaid) <br />
+Feature backlog: <a title="Trello" href="https://trello.com/b/VVxVhbQv/backlog" target="_blank">Trello</a> <br />
+Blog RSS: <a title="Blog RSS" href="http://www.codemaid.net/feed/" target="_blank">www.codemaid.net</a> <br />
+Twitter @codemaid: <a title="Twitter" href="https://twitter.com/codemaid/" target="_blank">Twitter</a> <br />
+Google+: <a title="Google+" href="https://plus.google.com/+CodemaidNet/" target="_blank">Google+</a> <br />
 <h2>Features</h2>
 <div id="mainFeatures">
     <div id="codeClean">
