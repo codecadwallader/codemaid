@@ -1539,12 +1539,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_RegionsInsertNewRegions {
+        public bool Reorganizing_RegionsAutoGenerate {
             get {
-                return ((bool)(this["Reorganizing_RegionsInsertNewRegions"]));
+                return ((bool)(this["Reorganizing_RegionsAutoGenerate"]));
             }
             set {
-                this["Reorganizing_RegionsInsertNewRegions"] = value;
+                this["Reorganizing_RegionsAutoGenerate"] = value;
             }
         }
         
@@ -1557,6 +1557,66 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_RegionsInsertKeepEvenIfEmpty"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_RegionsInsertNewRegions {
+            get {
+                return ((bool)(this["Reorganizing_RegionsInsertNewRegions"]));
+            }
+            set {
+                this["Reorganizing_RegionsInsertNewRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlSpaceSingleTags {
+            get {
+                return ((bool)(this["Formatting_CommentXmlSpaceSingleTags"]));
+            }
+            set {
+                this["Formatting_CommentXmlSpaceSingleTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlKeepTagsTogether {
+            get {
+                return ((bool)(this["Formatting_CommentXmlKeepTagsTogether"]));
+            }
+            set {
+                this["Formatting_CommentXmlKeepTagsTogether"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlSplitAllTags {
+            get {
+                return ((bool)(this["Formatting_CommentXmlSplitAllTags"]));
+            }
+            set {
+                this["Formatting_CommentXmlSplitAllTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlTagsToLowerCase {
+            get {
+                return ((bool)(this["Formatting_CommentXmlTagsToLowerCase"]));
+            }
+            set {
+                this["Formatting_CommentXmlTagsToLowerCase"] = value;
             }
         }
     }

@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -28,6 +28,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public CodeCommentOptions()
         {
+            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
+            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
+            FormatDuringCleanup = Settings.Default.Formatting_CommentRunDuringCleanup;
+
+            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
+            XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
+            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
+            XmlSplitSummaryTag = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
+            XmlSplitAllTags = Settings.Default.Formatting_CommentXmlSplitAllTags;
+            XmlSpaceSingleTags = Settings.Default.Formatting_CommentXmlSpaceSingleTags;
+            XmlTagsToLowerCase = Settings.Default.Reorganizing_RegionsInsertNewRegions;
+            XmlKeepTagsTogether = Settings.Default.Formatting_CommentXmlKeepTagsTogether;
         }
 
         /// <summary>
@@ -36,18 +48,21 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="package">The hosting package.</param>
         /// <param name="document">The text document.</param>
         public CodeCommentOptions(CodeMaidPackage package, TextDocument document)
+            : this(CodeCommentHelper.GetTabSize(package, document))
         {
-            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
-            TabSize = CodeCommentHelper.GetTabSize(package, document);
-            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
-            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
-            XmlSpaceTags = Settings.Default.Formatting_CommentXmlSpaceTags;
-            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
+        }
+
+        public CodeCommentOptions(int tabSize)
+            : this()
+        {
+            TabSize = tabSize;
         }
 
         #endregion Constructors
 
         #region Properties
+
+        public bool FormatDuringCleanup { get; set; }
 
         public bool SkipWrapOnLastWord { get; set; }
 
@@ -57,7 +72,17 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public bool XmlAlignParamTags { get; set; }
 
-        public bool XmlSpaceTags { get; set; }
+        public bool XmlKeepTagsTogether { get; set; }
+
+        public bool XmlSpaceSingleTags { get; set; }
+
+        public bool XmlSpaceTagContent { get; set; }
+
+        public bool XmlSplitAllTags { get; set; }
+
+        public bool XmlSplitSummaryTag { get; set; }
+
+        public bool XmlTagsToLowerCase { get; set; }
 
         public int XmlValueIndent { get; set; }
 

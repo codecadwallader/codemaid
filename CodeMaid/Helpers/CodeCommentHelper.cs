@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -21,49 +21,76 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class CodeCommentHelper
     {
+        public const char KeepTogetherSpacer = '\a';
+        public const char Spacer = ' ';
+        public const int CopyrightExtraIndent = 4;
+
         /// <summary>
         /// Creates the XML close tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
+        /// <param name="options">The comment options used to contruct the tag.</param>
+        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>
-        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
+        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag. If self-closing tags are not allowed, a close tag is retrned regardless.
         /// </returns>
-        internal static string CreateXmlCloseTag(XElement element)
+        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
         {
-            if (element.IsEmpty)
+            if (element.IsEmpty && allowSelfClosing)
             {
                 return null;
             }
 
-            return string.Format("</{0}>", element.Name);
+            var name = element.Name.LocalName;
+
+            var result = string.Format("</{0}>", options.XmlTagsToLowerCase ? name.ToLowerInvariant() : name);
+
+            return options.XmlKeepTagsTogether ? SpaceToFake(result) : result;
         }
 
         /// <summary>
         /// Creates the XML open tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
+        /// <param name="options">The comment options used to contruct the tag.</param>
+        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
-        internal static string CreateXmlOpenTag(XElement element)
+        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
         {
             var builder = new System.Text.StringBuilder();
             builder.Append("<");
-            builder.Append(element.Name);
+            var name = element.Name.LocalName;
+            builder.Append(options.XmlTagsToLowerCase ? name.ToLowerInvariant() : name);
+
             if (element.HasAttributes)
             {
                 foreach (var attr in element.Attributes())
                 {
-                    builder.Append(" ");
-                    builder.Append(attr);
+                    builder.Append(CodeCommentHelper.Spacer);
+                    builder.Append(attr.ToString());
                 }
             }
 
-            if (element.IsEmpty)
+            if (element.IsEmpty && allowSelfClosing)
             {
+                if (options.XmlSpaceSingleTags)
+                {
+                    builder.Append(CodeCommentHelper.Spacer);
+                }
+
                 builder.Append("/");
             }
 
             builder.Append(">");
-            return builder.ToString();
+
+            var result = builder.ToString();
+
+            return options.XmlKeepTagsTogether ? SpaceToFake(result) : result;
+        }
+
+        internal static string FakeToSpace(string value)
+        {
+            return value.Replace(KeepTogetherSpacer, Spacer);
         }
 
         /// <summary>
@@ -137,7 +164,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 prefix = string.Format(@"(?<prefix>[\t ]*{0})[\t ]", prefix);
             }
 
-            var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?((?<words>[^\t\r\n ]+)*[\t ]*)*[\r\n]*)$", prefix);
+            var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
             return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline);
         }
 
@@ -156,6 +183,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)
         {
             return regex.Match(point.GetLine());
+        }
+
+        internal static string SpaceToFake(string value)
+        {
+            return value.Replace(Spacer, KeepTogetherSpacer);
         }
     }
 }

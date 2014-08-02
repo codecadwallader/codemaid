@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using SteveCadwallader.CodeMaid.Model.Comments;
-using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Windows.Media;
+using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 {
@@ -24,13 +24,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         #region Fields
 
         private const string UnformattedPreviewText =
-            "<summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae. Donec mattis vitae velit sed imperdiet.</summary>" +
+            "<summary>Lorem ipsum dolor sit amet.</summary>" +
             "<param name=\"p1\">Praesent sollicitudin massa nunc.</param>" +
             "<param name=\"param2\">Maecenas id neque ultricies.</param>" +
-            "<returns>Praesent euismod diam porta pulvinar, quis ut pharetra.</returns>";
+            "<returns>Praesent euismod diam porta pulvinar, quis ut pharetra.</returns>" +
+            "<remark>Phasellus porta luctus lorem. Ut tincidunt sapien quam, <see cref=\"nec malesuada\"/> nec malesuada enim elementum at.</remark>";
 
         private readonly EnvDTE.Properties _editorProperties;
         private readonly EnvDTE.ColorableItems _commentColors;
+        private CodeCommentOptions _options;
+        private string _commentPreviewText;
 
         #endregion Fields
 
@@ -66,13 +69,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void LoadSettings()
         {
-            CommentRunDuringCleanup = Settings.Default.Formatting_CommentRunDuringCleanup;
-            CommentSkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
-            CommentWrapColumn = Settings.Default.Formatting_CommentWrapColumn;
-            CommentXmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
-            CommentXmlSpaceTags = Settings.Default.Formatting_CommentXmlSpaceTags;
-            CommentXmlSplitSummaryTagToMultipleLines = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
-            CommentXmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
+            _options = new CodeCommentOptions(4);
 
             UpdatePreviewText();
         }
@@ -95,130 +92,168 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         #region Options
 
-        private bool _commentRunDuringCleanup;
-
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting will run during cleanup.
         /// </summary>
         public bool CommentRunDuringCleanup
         {
-            get { return _commentRunDuringCleanup; }
+            get { return _options.FormatDuringCleanup; }
             set
             {
-                if (_commentRunDuringCleanup != value)
+                if (_options.FormatDuringCleanup != value)
                 {
-                    _commentRunDuringCleanup = value;
+                    _options.FormatDuringCleanup = value;
                     NotifyPropertyChanged("CommentRunDuringCleanup");
                 }
             }
         }
-
-        private bool _commentSkipWrapOnLastWord;
 
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting should skip wrapping the last word.
         /// </summary>
         public bool CommentSkipWrapOnLastWord
         {
-            get { return _commentSkipWrapOnLastWord; }
+            get { return _options.SkipWrapOnLastWord; }
             set
             {
-                if (_commentSkipWrapOnLastWord != value)
+                if (_options.SkipWrapOnLastWord != value)
                 {
-                    _commentSkipWrapOnLastWord = value;
+                    _options.SkipWrapOnLastWord = value;
                     NotifyPropertyChanged("CommentSkipWrapOnLastWord");
                 }
             }
         }
-
-        private int _commentWrapColumn;
 
         /// <summary>
         /// Gets or sets the column where comments will attempt to wrap.
         /// </summary>
         public int CommentWrapColumn
         {
-            get { return _commentWrapColumn; }
+            get { return _options.WrapAtColumn; }
             set
             {
                 value = Math.Max(value, 0);
-                if (_commentWrapColumn != value)
+                if (_options.WrapAtColumn != value)
                 {
-                    _commentWrapColumn = value;
+                    _options.WrapAtColumn = value;
                     NotifyPropertyChanged("CommentWrapColumn");
                 }
             }
         }
-
-        private bool _commentXmlAlignParamTags;
 
         /// <summary>
         /// Gets or sets the flag indicating if the content of param tags should be aligned.
         /// </summary>
         public bool CommentXmlAlignParamTags
         {
-            get { return _commentXmlAlignParamTags; }
+            get { return _options.XmlAlignParamTags; }
             set
             {
-                if (_commentXmlAlignParamTags != value)
+                if (_options.XmlAlignParamTags != value)
                 {
-                    _commentXmlAlignParamTags = value;
+                    _options.XmlAlignParamTags = value;
                     NotifyPropertyChanged("CommentXmlAlignParamTags");
                 }
             }
         }
-
-        private bool _commentXmlSpaceTags;
 
         /// <summary>
         /// Gets or sets the flag indicating if an extra space should be added inside XML tags.
         /// </summary>
         public bool CommentXmlSpaceTags
         {
-            get { return _commentXmlSpaceTags; }
+            get { return _options.XmlSpaceTagContent; }
             set
             {
-                if (_commentXmlSpaceTags != value)
+                if (_options.XmlSpaceTagContent != value)
                 {
-                    _commentXmlSpaceTags = value;
+                    _options.XmlSpaceTagContent = value;
                     NotifyPropertyChanged("CommentXmlSpaceTags");
                 }
             }
         }
-
-        private bool _commentXmlSplitSummaryTagToMultipleLines;
 
         /// <summary>
         /// Gets or sets the flag indicating if summary tags should always be split to multiple lines.
         /// </summary>
         public bool CommentXmlSplitSummaryTagToMultipleLines
         {
-            get { return _commentXmlSplitSummaryTagToMultipleLines; }
+            get { return _options.XmlSplitSummaryTag; }
             set
             {
-                if (_commentXmlSplitSummaryTagToMultipleLines != value)
+                if (_options.XmlSplitSummaryTag != value)
                 {
-                    _commentXmlSplitSummaryTagToMultipleLines = value;
+                    _options.XmlSplitSummaryTag = value;
                     NotifyPropertyChanged("CommentXmlSplitSummaryTagToMultipleLines");
                 }
             }
         }
-
-        private int _commentXmlValueIndent;
 
         /// <summary>
         /// Gets or sets the amount of extra spacing to add before XML values.
         /// </summary>
         public int CommentXmlValueIndent
         {
-            get { return _commentXmlValueIndent; }
+            get { return _options.XmlValueIndent; }
             set
             {
                 value = Math.Max(value, 0);
-                if (_commentXmlValueIndent != value)
+                if (_options.XmlValueIndent != value)
                 {
-                    _commentXmlValueIndent = value;
+                    _options.XmlValueIndent = value;
                     NotifyPropertyChanged("CommentXmlValueIndent");
+                }
+            }
+        }
+
+        public bool CommentXmlTagsToLowerCase
+        {
+            get { return _options.XmlTagsToLowerCase; }
+            set
+            {
+                if (_options.XmlTagsToLowerCase != value)
+                {
+                    _options.XmlTagsToLowerCase = value;
+                    NotifyPropertyChanged("CommentXmlTagsToLowerCase");
+                }
+            }
+        }
+
+        public bool CommentXmlSpaceSingleTags
+        {
+            get { return _options.XmlSpaceSingleTags; }
+            set
+            {
+                if (_options.XmlSpaceSingleTags != value)
+                {
+                    _options.XmlSpaceSingleTags = value;
+                    NotifyPropertyChanged("CommentXmlSpaceSingleTags");
+                }
+            }
+        }
+
+        public bool CommentXmlKeepTagsTogether
+        {
+            get { return _options.XmlKeepTagsTogether; }
+            set
+            {
+                if (_options.XmlKeepTagsTogether != value)
+                {
+                    _options.XmlKeepTagsTogether = value;
+                    NotifyPropertyChanged("CommentXmlKeepTagsTogether");
+                }
+            }
+        }
+
+        public bool CommentXmlSplitAllTags
+        {
+            get { return _options.XmlSplitAllTags; }
+            set
+            {
+                if (_options.XmlSplitAllTags != value)
+                {
+                    _options.XmlSplitAllTags = value;
+                    NotifyPropertyChanged("CommentXmlSplitAllTags");
                 }
             }
         }
@@ -226,8 +261,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         #endregion Options
 
         #region Preview Text and Helpers
-
-        private string _commentPreviewText;
 
         public string CommentPreviewText
         {
@@ -275,17 +308,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private void UpdatePreviewText()
         {
+            var temp = _options.WrapAtColumn;
+            _options.WrapAtColumn = 75; // Override to fit preview text better
+
             CommentPreviewText = CodeComment.FormatXml(
                 UnformattedPreviewText,
-                new CodeCommentOptions
-                {
-                    SkipWrapOnLastWord = CommentSkipWrapOnLastWord,
-                    TabSize = 4, // Not important for preview
-                    WrapAtColumn = 75, // Overridden to fit interface better
-                    XmlValueIndent = CommentXmlValueIndent,
-                    XmlSpaceTags = CommentXmlSpaceTags,
-                    XmlAlignParamTags = CommentXmlAlignParamTags
-                });
+                _options);
+
+            _options.WrapAtColumn = temp;
         }
 
         #endregion Preview Text and Helpers
