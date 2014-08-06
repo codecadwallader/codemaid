@@ -60,6 +60,26 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         #endregion Constructors
 
+        #region Methods
+
+        internal void Save()
+        {
+            Settings.Default.Formatting_CommentSkipWrapOnLastWord = SkipWrapOnLastWord;
+            Settings.Default.Formatting_CommentWrapColumn = WrapAtColumn;
+            Settings.Default.Formatting_CommentRunDuringCleanup = FormatDuringCleanup;
+
+            Settings.Default.Formatting_CommentXmlAlignParamTags = XmlAlignParamTags;
+            Settings.Default.Formatting_CommentXmlSpaceTags = XmlSpaceTagContent;
+            Settings.Default.Formatting_CommentXmlValueIndent = XmlValueIndent;
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = XmlSplitSummaryTag;
+            Settings.Default.Formatting_CommentXmlSplitAllTags = XmlSplitAllTags;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = XmlSpaceSingleTags;
+            Settings.Default.Reorganizing_RegionsInsertNewRegions = XmlTagsToLowerCase;
+            Settings.Default.Formatting_CommentXmlKeepTagsTogether = XmlKeepTagsTogether;
+        }
+
+        #endregion Methods
+
         #region Properties
 
         public bool FormatDuringCleanup { get; set; }
