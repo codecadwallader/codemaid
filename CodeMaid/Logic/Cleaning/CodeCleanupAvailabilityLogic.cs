@@ -214,6 +214,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "JavaScript":
                 case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "LESS": return Settings.Default.Cleaning_IncludeLESS;
+                case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
                 case "TypeScript": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "XAML": return Settings.Default.Cleaning_IncludeXAML;
                 case "XML": return Settings.Default.Cleaning_IncludeXML;
@@ -308,6 +309,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{59e2f421-410a-4fc9-9803-1f4e79216be8}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{71d61d27-9011-4b17-9469-d20f798fb5c0}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{7b22909e-1b53-4cc7-8c2b-1f5c5039693a}": return Settings.Default.Cleaning_IncludeLESS;
+                case "{5fa499f6-2cec-435b-bfce-53bbe29f37f6}": return Settings.Default.Cleaning_IncludeSCSS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
