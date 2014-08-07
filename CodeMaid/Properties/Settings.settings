@@ -398,5 +398,8 @@
     <Setting Name="Formatting_CommentXmlTagsToLowerCase" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Cleaning_IncludeSCSS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

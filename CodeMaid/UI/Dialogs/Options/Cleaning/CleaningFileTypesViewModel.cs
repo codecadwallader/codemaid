@@ -55,6 +55,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
             IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
+            IncludeSCSS = Settings.Default.Cleaning_IncludeSCSS;
             IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
@@ -75,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
             Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
+            Settings.Default.Cleaning_IncludeSCSS = IncludeSCSS;
             Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
@@ -243,6 +245,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 {
                     _includeLESS = value;
                     NotifyPropertyChanged("IncludeLESS");
+                }
+            }
+        }
+
+        private bool _includeSCSS;
+
+        /// <summary>
+        /// Gets or sets the flag indicating if SCSS files should be included.
+        /// </summary>
+        public bool IncludeSCSS
+        {
+            get { return _includeSCSS; }
+            set
+            {
+                if (_includeSCSS != value)
+                {
+                    _includeSCSS = value;
+                    NotifyPropertyChanged("IncludeSCSS");
                 }
             }
         }
