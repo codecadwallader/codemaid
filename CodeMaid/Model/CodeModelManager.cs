@@ -97,11 +97,14 @@ namespace SteveCadwallader.CodeMaid.Model
         #region Internal Methods
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems" /> of CodeItems within the specified document.
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document.
         /// </summary>
         /// <param name="document">The document.</param>
+        /// <param name="loadLazyInitializedValues">
+        /// A flag indicating if lazy initialized values should be immediately loaded.
+        /// </param>
         /// <returns>The set of code items within the document.</returns>
-        internal SetCodeItems RetrieveAllCodeItems(Document document)
+        internal SetCodeItems RetrieveAllCodeItems(Document document, bool loadLazyInitializedValues = false)
         {
             if (document == null)
             {
@@ -124,19 +127,24 @@ namespace SteveCadwallader.CodeMaid.Model
             else if (codeModel.IsStale)
             {
                 BuildCodeItems(codeModel);
+
+                if (loadLazyInitializedValues)
+                {
+                    LoadLazyInitializedValues(codeModel);
+                }
             }
 
             return codeModel.CodeItems;
         }
 
         /// <summary>
-        /// Retrieves a <see cref="SetCodeItems" /> of CodeItems within the specified document. If
+        /// Retrieves a <see cref="SetCodeItems"/> of CodeItems within the specified document. If
         /// the code items are already available they will be returned, otherwise an event will be
         /// raised once the code items have been asynchronously built.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="loadLazyInitializedValues">
-        /// A flag indicating of lazy initialized values should be immediately loaded.
+        /// A flag indicating if lazy initialized values should be immediately loaded.
         /// </param>
         /// <returns>
         /// The set of code items within the document if already available, otherwise null.
@@ -146,6 +154,12 @@ namespace SteveCadwallader.CodeMaid.Model
             if (document == null)
             {
                 throw new ArgumentNullException("document");
+            }
+
+            // If asynchronous loading has been disabled, redirect to the synchronous version.
+            if (!Settings.Default.General_LoadModelsAsynchronously)
+            {
+                return RetrieveAllCodeItems(document, loadLazyInitializedValues);
             }
 
             OutputWindowHelper.DiagnosticWriteLine(

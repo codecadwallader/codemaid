@@ -1619,5 +1619,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_IncludeSCSS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_LoadModelsAsynchronously {
+            get {
+                return ((bool)(this["General_LoadModelsAsynchronously"]));
+            }
+            set {
+                this["General_LoadModelsAsynchronously"] = value;
+            }
+        }
     }
 }

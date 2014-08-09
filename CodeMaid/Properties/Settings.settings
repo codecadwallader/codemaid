@@ -401,5 +401,8 @@
     <Setting Name="Cleaning_IncludeSCSS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="General_LoadModelsAsynchronously" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -51,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
+            LoadModelsAsynchronously = Settings.Default.General_LoadModelsAsynchronously;
             Multithread = Settings.Default.General_Multithread;
             ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
             SkipUndoTransactionsDuringAutoCleanupOnSave = Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave;
@@ -67,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
+            Settings.Default.General_LoadModelsAsynchronously = LoadModelsAsynchronously;
             Settings.Default.General_Multithread = Multithread;
             Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
             Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave = SkipUndoTransactionsDuringAutoCleanupOnSave;
@@ -111,6 +113,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public IconSetMode IconSetMode
         {
             get { return GetPropertyValue<IconSetMode>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if models can be loaded asynchronously.
+        /// </summary>
+        public bool LoadModelsAsynchronously
+        {
+            get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
         }
 
