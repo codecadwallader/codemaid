@@ -23,10 +23,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     {
         #region Fields
 
-        private bool _hasBuildFailed;
-        private bool _isBuildActive;
-        private bool _isProgressIndeterminate;
-        private double _progressPercentage;
         private TaskbarItemInfo _taskbarItemInfo;
 
         #endregion Fields
@@ -38,14 +34,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         public bool HasBuildFailed
         {
-            get { return _hasBuildFailed; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_hasBuildFailed != value)
+                if (SetPropertyValue(value))
                 {
-                    _hasBuildFailed = value;
-                    NotifyPropertyChanged("HasBuildFailed");
-
                     UpdateTaskbarStatus();
                 }
             }
@@ -56,15 +49,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         public bool IsBuildActive
         {
-            get { return _isBuildActive; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_isBuildActive != value)
+                if (SetPropertyValue(value))
                 {
-                    _isBuildActive = value;
-                    NotifyPropertyChanged("IsBuildActive");
-                    NotifyPropertyChanged("ShowProgressPercentage");
-
                     CancelBuildCommand.RaiseCanExecuteChanged();
                     UpdateTaskbarStatus();
                 }
@@ -76,15 +65,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         public bool IsProgressIndeterminate
         {
-            get { return _isProgressIndeterminate; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_isProgressIndeterminate != value)
+                if (SetPropertyValue(value))
                 {
-                    _isProgressIndeterminate = value;
-                    NotifyPropertyChanged("IsProgressIndeterminate");
-                    NotifyPropertyChanged("ShowProgressPercentage");
-
                     UpdateTaskbarStatus();
                 }
             }
@@ -100,14 +85,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         public double ProgressPercentage
         {
-            get { return _progressPercentage; }
+            get { return GetPropertyValue<double>(); }
             set
             {
-                if (_progressPercentage != value)
+                if (SetPropertyValue(value))
                 {
-                    _progressPercentage = value;
-                    NotifyPropertyChanged("ProgressPercentage");
-
                     UpdateTaskbarStatus();
                 }
             }
@@ -116,6 +98,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <summary>
         /// Gets a flag indicating if the progress percentage should be shown.
         /// </summary>
+        [NotifiesOn("IsBuildActive")]
+        [NotifiesOn("IsProgressIndeterminate")]
         public bool ShowProgressPercentage
         {
             get { return IsBuildActive && !IsProgressIndeterminate; }

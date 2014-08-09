@@ -84,133 +84,68 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         #region Options
 
-        private bool _removeBlankLinesAfterAttributes;
-
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed after attributes.
         /// </summary>
         public bool RemoveBlankLinesAfterAttributes
         {
-            get { return _removeBlankLinesAfterAttributes; }
-            set
-            {
-                if (_removeBlankLinesAfterAttributes != value)
-                {
-                    _removeBlankLinesAfterAttributes = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAfterAttributes");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesAfterOpeningBraces;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed after an opening brace.
         /// </summary>
         public bool RemoveBlankLinesAfterOpeningBraces
         {
-            get { return _removeBlankLinesAfterOpeningBraces; }
-            set
-            {
-                if (_removeBlankLinesAfterOpeningBraces != value)
-                {
-                    _removeBlankLinesAfterOpeningBraces = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAfterOpeningBraces");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesAtBottom;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed at the bottom of the file.
         /// </summary>
         public bool RemoveBlankLinesAtBottom
         {
-            get { return _removeBlankLinesAtBottom; }
-            set
-            {
-                if (_removeBlankLinesAtBottom != value)
-                {
-                    _removeBlankLinesAtBottom = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAtBottom");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesAtTop;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed at the top of the file.
         /// </summary>
         public bool RemoveBlankLinesAtTop
         {
-            get { return _removeBlankLinesAtTop; }
-            set
-            {
-                if (_removeBlankLinesAtTop != value)
-                {
-                    _removeBlankLinesAtTop = value;
-                    NotifyPropertyChanged("RemoveBlankLinesAtTop");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesBeforeClosingBraces;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed before a closing brace.
         /// </summary>
         public bool RemoveBlankLinesBeforeClosingBraces
         {
-            get { return _removeBlankLinesBeforeClosingBraces; }
-            set
-            {
-                if (_removeBlankLinesBeforeClosingBraces != value)
-                {
-                    _removeBlankLinesBeforeClosingBraces = value;
-                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingBraces");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesBeforeClosingTags;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed before a closing tag.
         /// </summary>
         public bool RemoveBlankLinesBeforeClosingTags
         {
-            get { return _removeBlankLinesBeforeClosingTags; }
-            set
-            {
-                if (_removeBlankLinesBeforeClosingTags != value)
-                {
-                    _removeBlankLinesBeforeClosingTags = value;
-                    NotifyPropertyChanged("RemoveBlankLinesBeforeClosingTags");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankLinesBetweenChainedStatements;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank lines should be removed between chained statements.
         /// </summary>
         public bool RemoveBlankLinesBetweenChainedStatements
         {
-            get { return _removeBlankLinesBetweenChainedStatements; }
-            set
-            {
-                if (_removeBlankLinesBetweenChainedStatements != value)
-                {
-                    _removeBlankLinesBetweenChainedStatements = value;
-                    NotifyPropertyChanged("RemoveBlankLinesBetweenChainedStatements");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeBlankSpacesBeforeClosingAngleBrackets;
 
         /// <summary>
         /// Gets or sets the flag indicating if blank spaces should be removed before a closing
@@ -218,87 +153,44 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public bool RemoveBlankSpacesBeforeClosingAngleBrackets
         {
-            get { return _removeBlankSpacesBeforeClosingAngleBrackets; }
-            set
-            {
-                if (_removeBlankSpacesBeforeClosingAngleBrackets != value)
-                {
-                    _removeBlankSpacesBeforeClosingAngleBrackets = value;
-                    NotifyPropertyChanged("RemoveBlankSpacesBeforeClosingAngleBrackets");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeEndOfFileTrailingNewLine;
 
         /// <summary>
         /// Gets or sets the flag indicating if the end of file trailing newline should be removed.
         /// </summary>
         public bool RemoveEndOfFileTrailingNewLine
         {
-            get { return _removeEndOfFileTrailingNewLine; }
-            set
-            {
-                if (_removeEndOfFileTrailingNewLine != value)
-                {
-                    _removeEndOfFileTrailingNewLine = value;
-                    NotifyPropertyChanged("RemoveEndOfFileTrailingNewLine");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeEndOfLineWhitespace;
 
         /// <summary>
         /// Gets or sets the flag indicating if end of line whitespace should be removed.
         /// </summary>
         public bool RemoveEndOfLineWhitespace
         {
-            get { return _removeEndOfLineWhitespace; }
-            set
-            {
-                if (_removeEndOfLineWhitespace != value)
-                {
-                    _removeEndOfLineWhitespace = value;
-                    NotifyPropertyChanged("RemoveEndOfLineWhitespace");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeMultipleConsecutiveBlankLines;
 
         /// <summary>
         /// Gets or sets the flag indicating if multiple consecutive blank lines should be removed.
         /// </summary>
         public bool RemoveMultipleConsecutiveBlankLines
         {
-            get { return _removeMultipleConsecutiveBlankLines; }
-            set
-            {
-                if (_removeMultipleConsecutiveBlankLines != value)
-                {
-                    _removeMultipleConsecutiveBlankLines = value;
-                    NotifyPropertyChanged("RemoveMultipleConsecutiveBlankLines");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private NoneEmptyAll _removeRegions;
 
         /// <summary>
         /// Gets or sets the options for removing regions.
         /// </summary>
         public NoneEmptyAll RemoveRegions
         {
-            get { return _removeRegions; }
-            set
-            {
-                if (_removeRegions != value)
-                {
-                    _removeRegions = value;
-                    NotifyPropertyChanged("RemoveRegions");
-                }
-            }
+            get { return GetPropertyValue<NoneEmptyAll>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

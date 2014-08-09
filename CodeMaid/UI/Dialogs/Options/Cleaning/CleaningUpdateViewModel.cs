@@ -65,59 +65,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         #region Options
 
-        private bool _updateAccessorsToBothBeSingleLineOrMultiLine;
-
         /// <summary>
         /// Gets or sets the flag indicating if accessors should be updated to both be single line
         /// or multi line.
         /// </summary>
         public bool UpdateAccessorsToBothBeSingleLineOrMultiLine
         {
-            get { return _updateAccessorsToBothBeSingleLineOrMultiLine; }
-            set
-            {
-                if (_updateAccessorsToBothBeSingleLineOrMultiLine != value)
-                {
-                    _updateAccessorsToBothBeSingleLineOrMultiLine = value;
-                    NotifyPropertyChanged("UpdateAccessorsToBothBeSingleLineOrMultiLine");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _updateEndRegionDirectives;
 
         /// <summary>
         /// Gets or sets the flag indicating if end region directives should be updated.
         /// </summary>
         public bool UpdateEndRegionDirectives
         {
-            get { return _updateEndRegionDirectives; }
-            set
-            {
-                if (_updateEndRegionDirectives != value)
-                {
-                    _updateEndRegionDirectives = value;
-                    NotifyPropertyChanged("UpdateEndRegionDirectives");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _updateSingleLineMethods;
 
         /// <summary>
         /// Gets or sets the flag indicating if single line methods should be updated.
         /// </summary>
         public bool UpdateSingleLineMethods
         {
-            get { return _updateSingleLineMethods; }
-            set
-            {
-                if (_updateSingleLineMethods != value)
-                {
-                    _updateSingleLineMethods = value;
-                    NotifyPropertyChanged("UpdateSingleLineMethods");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

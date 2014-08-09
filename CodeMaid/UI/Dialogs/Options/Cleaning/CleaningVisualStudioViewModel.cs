@@ -71,61 +71,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         #region Options
 
-        private bool _runVisualStudioFormatDocument;
-
         /// <summary>
         /// Gets or sets the flag indicating if the Visual Studio format document command should be run.
         /// </summary>
         public bool RunVisualStudioFormatDocument
         {
-            get { return _runVisualStudioFormatDocument; }
-            set
-            {
-                if (_runVisualStudioFormatDocument != value)
-                {
-                    _runVisualStudioFormatDocument = value;
-                    NotifyPropertyChanged("RunVisualStudioFormatDocument");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _runVisualStudioRemoveUnusedUsingStatements;
 
         /// <summary>
         /// Gets or sets the flag indicating if unused using statements should be removed.
         /// </summary>
         public bool RunVisualStudioRemoveUnusedUsingStatements
         {
-            get { return _runVisualStudioRemoveUnusedUsingStatements; }
-            set
-            {
-                if (_runVisualStudioRemoveUnusedUsingStatements != value)
-                {
-                    _runVisualStudioRemoveUnusedUsingStatements = value;
-                    NotifyPropertyChanged("RunVisualStudioRemoveUnusedUsingStatements");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _runVisualStudioSortUsingStatements;
 
         /// <summary>
         /// Gets or sets the flag indicating if using statements should be sorted.
         /// </summary>
         public bool RunVisualStudioSortUsingStatements
         {
-            get { return _runVisualStudioSortUsingStatements; }
-            set
-            {
-                if (_runVisualStudioSortUsingStatements != value)
-                {
-                    _runVisualStudioSortUsingStatements = value;
-                    NotifyPropertyChanged("RunVisualStudioSortUsingStatements");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
 
         /// <summary>
         /// Gets or sets the flag indicating if unused using statements should not be removed during
@@ -133,18 +104,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public bool SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave
         {
-            get { return _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave; }
-            set
-            {
-                if (_skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave != value)
-                {
-                    _skipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = value;
-                    NotifyPropertyChanged("SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _skipSortUsingStatementsDuringAutoCleanupOnSave;
 
         /// <summary>
         /// Gets or sets the flag indicating if using statements should not be sorted during auto
@@ -152,33 +114,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public bool SkipSortUsingStatementsDuringAutoCleanupOnSave
         {
-            get { return _skipSortUsingStatementsDuringAutoCleanupOnSave; }
-            set
-            {
-                if (_skipSortUsingStatementsDuringAutoCleanupOnSave != value)
-                {
-                    _skipSortUsingStatementsDuringAutoCleanupOnSave = value;
-                    NotifyPropertyChanged("SkipSortUsingStatementsDuringAutoCleanupOnSave");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private string _usingStatementsToReinsertWhenRemovedExpression;
 
         /// <summary>
         /// Gets or sets the expression for using statements that should be re-inserted when removed.
         /// </summary>
         public string UsingStatementsToReinsertWhenRemovedExpression
         {
-            get { return _usingStatementsToReinsertWhenRemovedExpression; }
-            set
-            {
-                if (_usingStatementsToReinsertWhenRemovedExpression != value)
-                {
-                    _usingStatementsToReinsertWhenRemovedExpression = value;
-                    NotifyPropertyChanged("UsingStatementsToReinsertWhenRemovedExpression");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

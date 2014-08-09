@@ -87,256 +87,130 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         #region Options
 
-        private bool _excludeT4GeneratedCode;
-
         /// <summary>
         /// Gets or sets the flag indicating if T4 generated code files should be excluded.
         /// </summary>
         public bool ExcludeT4GeneratedCode
         {
-            get { return _excludeT4GeneratedCode; }
-            set
-            {
-                if (_excludeT4GeneratedCode != value)
-                {
-                    _excludeT4GeneratedCode = value;
-                    NotifyPropertyChanged("ExcludeT4GeneratedCode");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private string _exclusionExpression;
 
         /// <summary>
         /// Gets or sets the expression for files to exclude.
         /// </summary>
         public string ExclusionExpression
         {
-            get { return _exclusionExpression; }
-            set
-            {
-                if (_exclusionExpression != value)
-                {
-                    _exclusionExpression = value;
-                    NotifyPropertyChanged("ExclusionExpression");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeCPlusPlus;
 
         /// <summary>
         /// Gets or sets the flag indicating if C++ files should be included.
         /// </summary>
         public bool IncludeCPlusPlus
         {
-            get { return _includeCPlusPlus; }
-            set
-            {
-                if (_includeCPlusPlus != value)
-                {
-                    _includeCPlusPlus = value;
-                    NotifyPropertyChanged("IncludeCPlusPlus");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeCSharp;
 
         /// <summary>
         /// Gets or sets the flag indicating if C# files should be included.
         /// </summary>
         public bool IncludeCSharp
         {
-            get { return _includeCSharp; }
-            set
-            {
-                if (_includeCSharp != value)
-                {
-                    _includeCSharp = value;
-                    NotifyPropertyChanged("IncludeCSharp");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeCSS;
 
         /// <summary>
         /// Gets or sets the flag indicating if CSS files should be included.
         /// </summary>
         public bool IncludeCSS
         {
-            get { return _includeCSS; }
-            set
-            {
-                if (_includeCSS != value)
-                {
-                    _includeCSS = value;
-                    NotifyPropertyChanged("IncludeCSS");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeFSharp;
 
         /// <summary>
         /// Gets or sets the flag indicating if F# files should be included.
         /// </summary>
         public bool IncludeFSharp
         {
-            get { return _includeFSharp; }
-            set
-            {
-                if (_includeFSharp != value)
-                {
-                    _includeFSharp = value;
-                    NotifyPropertyChanged("IncludeFSharp");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeHTML;
 
         /// <summary>
         /// Gets or sets the flag indicating if HTML files should be included.
         /// </summary>
         public bool IncludeHTML
         {
-            get { return _includeHTML; }
-            set
-            {
-                if (_includeHTML != value)
-                {
-                    _includeHTML = value;
-                    NotifyPropertyChanged("IncludeHTML");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeJavaScript;
 
         /// <summary>
         /// Gets or sets the flag indicating if JavaScript files should be included.
         /// </summary>
         public bool IncludeJavaScript
         {
-            get { return _includeJavaScript; }
-            set
-            {
-                if (_includeJavaScript != value)
-                {
-                    _includeJavaScript = value;
-                    NotifyPropertyChanged("IncludeJavaScript");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeLESS;
 
         /// <summary>
         /// Gets or sets the flag indicating if LESS files should be included.
         /// </summary>
         public bool IncludeLESS
         {
-            get { return _includeLESS; }
-            set
-            {
-                if (_includeLESS != value)
-                {
-                    _includeLESS = value;
-                    NotifyPropertyChanged("IncludeLESS");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeSCSS;
 
         /// <summary>
         /// Gets or sets the flag indicating if SCSS files should be included.
         /// </summary>
         public bool IncludeSCSS
         {
-            get { return _includeSCSS; }
-            set
-            {
-                if (_includeSCSS != value)
-                {
-                    _includeSCSS = value;
-                    NotifyPropertyChanged("IncludeSCSS");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeTypeScript;
 
         /// <summary>
         /// Gets or sets the flag indicating if TypeScript files should be included.
         /// </summary>
         public bool IncludeTypeScript
         {
-            get { return _includeTypeScript; }
-            set
-            {
-                if (_includeTypeScript != value)
-                {
-                    _includeTypeScript = value;
-                    NotifyPropertyChanged("IncludeTypeScript");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeVisualBasic;
 
         /// <summary>
         /// Gets or sets the flag indicating if Visual Basic files should be included.
         /// </summary>
         public bool IncludeVisualBasic
         {
-            get { return _includeVisualBasic; }
-            set
-            {
-                if (_includeVisualBasic != value)
-                {
-                    _includeVisualBasic = value;
-                    NotifyPropertyChanged("IncludeVisualBasic");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeXAML;
 
         /// <summary>
         /// Gets or sets the flag indicating if XAML files should be included.
         /// </summary>
         public bool IncludeXAML
         {
-            get { return _includeXAML; }
-            set
-            {
-                if (_includeXAML != value)
-                {
-                    _includeXAML = value;
-                    NotifyPropertyChanged("IncludeXAML");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _includeXML;
 
         /// <summary>
         /// Gets or sets the flag indicating if XML files should be included.
         /// </summary>
         public bool IncludeXML
         {
-            get { return _includeXML; }
-            set
-            {
-                if (_includeXML != value)
-                {
-                    _includeXML = value;
-                    NotifyPropertyChanged("IncludeXML");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

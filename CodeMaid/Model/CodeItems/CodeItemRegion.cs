@@ -92,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 if (_isExpanded != value)
                 {
                     _isExpanded = value;
-                    NotifyPropertyChanged("IsExpanded");
+                    RaisePropertyChanged();
 
                     if (IsExpandedChanged != null)
                     {

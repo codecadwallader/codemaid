@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                 }
                             },
                             new SwitchingViewModel(package),
-                            new CompatibilityViewModel(package),
+                            new CompatibilityViewModel(package)
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
@@ -85,38 +85,25 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
         #region Properties
 
-        private bool? _dialogResult;
-
         /// <summary>
         /// Gets or sets the dialog result.
         /// </summary>
         public bool? DialogResult
         {
-            get { return _dialogResult; }
-            set
-            {
-                if (_dialogResult != value)
-                {
-                    _dialogResult = value;
-                    NotifyPropertyChanged("DialogResult");
-                }
-            }
+            get { return GetPropertyValue<bool?>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _hasChanges;
 
         /// <summary>
         /// Gets or sets a flag indicating if there are any changes that need to be saved.
         /// </summary>
         public bool HasChanges
         {
-            get { return _hasChanges; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_hasChanges != value)
+                if (SetPropertyValue(value))
                 {
-                    _hasChanges = value;
-                    NotifyPropertyChanged("HasChanges");
                     SaveCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -140,7 +127,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     }
 
                     _pages = value;
-                    NotifyPropertyChanged("Pages");
+                    RaisePropertyChanged();
 
                     foreach (var newPage in (_pages ?? Enumerable.Empty<OptionsPageViewModel>()).Flatten())
                     {
@@ -150,22 +137,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
         }
 
-        private OptionsPageViewModel _selectedPage;
-
         /// <summary>
         /// Gets or sets the selected option page.
         /// </summary>
         public OptionsPageViewModel SelectedPage
         {
-            get { return _selectedPage; }
-            set
-            {
-                if (_selectedPage != value)
-                {
-                    _selectedPage = value;
-                    NotifyPropertyChanged("SelectedPage");
-                }
-            }
+            get { return GetPropertyValue<OptionsPageViewModel>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>

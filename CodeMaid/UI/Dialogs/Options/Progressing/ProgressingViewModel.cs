@@ -65,58 +65,31 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
 
         #region Options
 
-        private bool _hideBuildProgressOnBuildStop;
-
         /// <summary>
         /// Gets or sets a flag indicating if build progress should be hidden when a build stops.
         /// </summary>
         public bool HideBuildProgressOnBuildStop
         {
-            get { return _hideBuildProgressOnBuildStop; }
-            set
-            {
-                if (_hideBuildProgressOnBuildStop != value)
-                {
-                    _hideBuildProgressOnBuildStop = value;
-                    NotifyPropertyChanged("HideBuildProgressOnBuildStop");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showBuildProgressOnBuildStart;
 
         /// <summary>
         /// Gets or sets a flag indicating if build progress should be shown when a build starts.
         /// </summary>
         public bool ShowBuildProgressOnBuildStart
         {
-            get { return _showBuildProgressOnBuildStart; }
-            set
-            {
-                if (_showBuildProgressOnBuildStart != value)
-                {
-                    _showBuildProgressOnBuildStart = value;
-                    NotifyPropertyChanged("ShowBuildProgressOnBuildStart");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showProgressOnWindowsTaskbar;
 
         /// <summary>
         /// Gets or sets a flag indicating if build progress should be shown on the windows taskbar.
         /// </summary>
         public bool ShowProgressOnWindowsTaskbar
         {
-            get { return _showProgressOnWindowsTaskbar; }
-            set
-            {
-                if (_showProgressOnWindowsTaskbar != value)
-                {
-                    _showProgressOnWindowsTaskbar = value;
-                    NotifyPropertyChanged("ShowProgressOnWindowsTaskbar");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

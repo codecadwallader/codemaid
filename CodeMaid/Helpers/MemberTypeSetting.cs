@@ -23,8 +23,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Fields
 
         private readonly string _defaultName;
-        private string _effectiveName;
-        private int _order;
 
         #endregion Fields
 
@@ -60,15 +58,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         public string EffectiveName
         {
-            get { return _effectiveName; }
-            set
-            {
-                if (_effectiveName != value)
-                {
-                    _effectiveName = value;
-                    NotifyPropertyChanged("EffectiveName");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
@@ -76,15 +67,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         public int Order
         {
-            get { return _order; }
-            set
-            {
-                if (_order != value)
-                {
-                    _order = value;
-                    NotifyPropertyChanged("Order");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Properties

@@ -64,22 +64,13 @@ namespace SteveCadwallader.CodeMaid.UI
 
         #region Properties
 
-        private ThemeMode _activeTheme;
-
         /// <summary>
         /// Gets the active theme.
         /// </summary>
         public ThemeMode ActiveTheme
         {
-            get { return _activeTheme; }
-            private set
-            {
-                if (_activeTheme != value)
-                {
-                    _activeTheme = value;
-                    NotifyPropertyChanged("ActiveTheme");
-                }
-            }
+            get { return GetPropertyValue<ThemeMode>(); }
+            private set { SetPropertyValue(value); }
         }
 
         /// <summary>

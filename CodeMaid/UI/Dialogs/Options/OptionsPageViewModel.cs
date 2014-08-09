@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 if (_children != value)
                 {
                     _children = value;
-                    NotifyPropertyChanged("Children");
+                    RaisePropertyChanged();
                 }
             }
         }

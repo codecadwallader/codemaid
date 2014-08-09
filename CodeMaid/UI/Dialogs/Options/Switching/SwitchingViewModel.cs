@@ -61,22 +61,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
 
         #region Options
 
-        private string _relatedFileExtensionsExpression;
-
         /// <summary>
         /// Gets or sets the expression for related file extensions.
         /// </summary>
         public string RelatedFileExtensionsExpression
         {
-            get { return _relatedFileExtensionsExpression; }
-            set
-            {
-                if (_relatedFileExtensionsExpression != value)
-                {
-                    _relatedFileExtensionsExpression = value;
-                    NotifyPropertyChanged("RelatedFileExtensionsExpression");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

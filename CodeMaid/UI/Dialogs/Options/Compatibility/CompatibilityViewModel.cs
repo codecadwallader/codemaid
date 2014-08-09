@@ -68,18 +68,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility
         /// </summary>
         public bool UseReSharperSilentCleanup
         {
-            get { return _useReSharperSilentCleanup; }
-            set
-            {
-                if (_useReSharperSilentCleanup != value)
-                {
-                    _useReSharperSilentCleanup = value;
-                    NotifyPropertyChanged("UseReSharperSilentCleanup");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _useReSharperSilentCleanup;
 
         #endregion Options
 

@@ -77,166 +77,85 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
 
         #region Options
 
-        private bool _centerOnWhole;
-
         /// <summary>
         /// Gets or sets the flag indicating if the view should center on the whole item upon navigation.
         /// </summary>
         public bool CenterOnWhole
         {
-            get { return _centerOnWhole; }
-            set
-            {
-                if (_centerOnWhole != value)
-                {
-                    _centerOnWhole = value;
-                    NotifyPropertyChanged("CenterOnWhole");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private int _complexityAlertThreshold;
 
         /// <summary>
         /// Gets or sets the complexity alert threshold.
         /// </summary>
         public int ComplexityAlertThreshold
         {
-            get { return _complexityAlertThreshold; }
-            set
-            {
-                if (_complexityAlertThreshold != value)
-                {
-                    _complexityAlertThreshold = value;
-                    NotifyPropertyChanged("ComplexityAlertThreshold");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private int _complexityWarningThreshold;
 
         /// <summary>
         /// Gets or sets the complexity warning threshold.
         /// </summary>
         public int ComplexityWarningThreshold
         {
-            get { return _complexityWarningThreshold; }
-            set
-            {
-                if (_complexityWarningThreshold != value)
-                {
-                    _complexityWarningThreshold = value;
-                    NotifyPropertyChanged("ComplexityWarningThreshold");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private int _indentationMargin;
 
         /// <summary>
         /// Gets or sets the indentation margin.
         /// </summary>
         public int IndentationMargin
         {
-            get { return _indentationMargin; }
-            set
-            {
-                if (_indentationMargin != value)
-                {
-                    _indentationMargin = value;
-                    NotifyPropertyChanged("IndentationMargin");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _secondarySortTypeByName;
 
         /// <summary>
         /// Gets or sets the flag indicating if secondary sorting during type layout should be on name.
         /// </summary>
         public bool SecondarySortTypeByName
         {
-            get { return _secondarySortTypeByName; }
-            set
-            {
-                if (_secondarySortTypeByName != value)
-                {
-                    _secondarySortTypeByName = value;
-                    NotifyPropertyChanged("SecondarySortTypeByName");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showItemComplexity;
 
         /// <summary>
         /// Gets or sets the flag indicating if item complexity should be shown.
         /// </summary>
         public bool ShowItemComplexity
         {
-            get { return _showItemComplexity; }
-            set
-            {
-                if (_showItemComplexity != value)
-                {
-                    _showItemComplexity = value;
-                    NotifyPropertyChanged("ShowItemComplexity");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showItemMetadata;
 
         /// <summary>
         /// Gets or sets the flag indicating if item metadata should be shown.
         /// </summary>
         public bool ShowItemMetadata
         {
-            get { return _showItemMetadata; }
-            set
-            {
-                if (_showItemMetadata != value)
-                {
-                    _showItemMetadata = value;
-                    NotifyPropertyChanged("ShowItemMetadata");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showMethodParameters;
 
         /// <summary>
         /// Gets or sets the flag indicating if method parameters should be shown.
         /// </summary>
         public bool ShowMethodParameters
         {
-            get { return _showMethodParameters; }
-            set
-            {
-                if (_showMethodParameters != value)
-                {
-                    _showMethodParameters = value;
-                    NotifyPropertyChanged("ShowMethodParameters");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _synchronizeOutlining;
 
         /// <summary>
         /// Gets or sets the flag indicating if outlining should be synchronized with the code file.
         /// </summary>
         public bool SynchronizeOutlining
         {
-            get { return _synchronizeOutlining; }
-            set
-            {
-                if (_synchronizeOutlining != value)
-                {
-                    _synchronizeOutlining = value;
-                    NotifyPropertyChanged("SynchronizeOutlining");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

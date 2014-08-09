@@ -192,22 +192,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         #region Logic
 
-        private ObservableCollection<object> _memberTypes;
-
         /// <summary>
         /// Gets an observable collection of the types.
         /// </summary>
         public ObservableCollection<object> MemberTypes
         {
-            get { return _memberTypes; }
-            private set
-            {
-                if (_memberTypes != value)
-                {
-                    _memberTypes = value;
-                    NotifyPropertyChanged("MemberTypes");
-                }
-            }
+            get { return GetPropertyValue<ObservableCollection<object>>(); }
+            private set { SetPropertyValue(value); }
         }
 
         /// <summary>
@@ -239,7 +230,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             if (memberTypeSetting != null)
             {
                 // Raise NotifyPropertyChanged on the DefaultName of the MemberTypeSetting which matches the property name on this class.
-                NotifyPropertyChanged(memberTypeSetting.DefaultName);
+                RaisePropertyChanged(memberTypeSetting.DefaultName);
 
                 // If the EffectiveName changed for one member in a group, be sure all other members in the group are synchronized.
                 if (e.PropertyName == "EffectiveName")

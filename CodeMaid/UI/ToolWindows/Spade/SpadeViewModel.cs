@@ -28,9 +28,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private readonly CodeTreeBuilderAsync _codeTreeBuilderAsync;
         private OutliningSynchronizationManager _outliningSynchronizationManager;
 
-        private Document _document;
-        private bool _isLoading;
-        private bool _isRefreshing;
         private TreeLayoutMode _layoutMode;
         private SetCodeItems _organizedCodeItems;
         private SetCodeItems _rawCodeItems;
@@ -65,16 +62,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public Document Document
         {
-            get { return _document; }
-            set
-            {
-                if (_document != value)
-                {
-                    _document = value;
-
-                    NotifyPropertyChanged("Document");
-                }
-            }
+            get { return GetPropertyValue<Document>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
@@ -82,16 +71,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public bool IsLoading
         {
-            get { return _isLoading; }
-            set
-            {
-                if (_isLoading != value)
-                {
-                    _isLoading = value;
-
-                    NotifyPropertyChanged("IsLoading");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
@@ -99,16 +80,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public bool IsRefreshing
         {
-            get { return _isRefreshing; }
-            set
-            {
-                if (_isRefreshing != value)
-                {
-                    _isRefreshing = value;
-
-                    NotifyPropertyChanged("IsRefreshing");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
@@ -124,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     _layoutMode = value;
 
                     RequestUpdatedOrganizedCodeItems();
-                    NotifyPropertyChanged("LayoutMode");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -142,7 +115,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     _organizedCodeItems = value;
 
                     UpdateOutliningSynchronization();
-                    NotifyPropertyChanged("OrganizedCodeItems");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -173,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                         OrganizedCodeItems = null;
                     }
 
-                    NotifyPropertyChanged("RawCodeItems");
+                    RaisePropertyChanged();
                 }
             }
         }

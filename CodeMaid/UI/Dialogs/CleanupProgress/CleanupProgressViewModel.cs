@@ -59,94 +59,49 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
 
         #region Properties
 
-        private string _currentFileName;
-
         /// <summary>
         /// Gets or sets the name of the current file being cleaned.
         /// </summary>
         public string CurrentFileName
         {
-            get { return _currentFileName; }
-            set
-            {
-                if (_currentFileName != value)
-                {
-                    _currentFileName = value;
-                    NotifyPropertyChanged("CurrentFileName");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
-        private int _countProgress;
-
         /// <summary>
-        /// Gets or sets the progress count
+        /// Gets or sets the progress count.
         /// </summary>
         public int CountProgress
         {
-            get { return _countProgress; }
-            set
-            {
-                if (_countProgress != value)
-                {
-                    _countProgress = value;
-                    NotifyPropertyChanged("CountProgress");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
 
-        private int _countTotal;
-
         /// <summary>
-        /// Gets or sets the total count
+        /// Gets or sets the total count.
         /// </summary>
         public int CountTotal
         {
-            get { return _countTotal; }
-            set
-            {
-                if (_countTotal != value)
-                {
-                    _countTotal = value;
-                    NotifyPropertyChanged("CountTotal");
-                }
-            }
+            get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool? _dialogResult;
 
         /// <summary>
         /// Gets or sets the dialog result.
         /// </summary>
         public bool? DialogResult
         {
-            get { return _dialogResult; }
-            set
-            {
-                if (_dialogResult != value)
-                {
-                    _dialogResult = value;
-                    NotifyPropertyChanged("DialogResult");
-                }
-            }
+            get { return GetPropertyValue<bool?>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _isCanceling;
 
         /// <summary>
         /// Gets or sets a flag indicating if the operation is being canceled.
         /// </summary>
         public bool IsCanceling
         {
-            get { return _isCanceling; }
-            set
-            {
-                if (_isCanceling != value)
-                {
-                    _isCanceling = value;
-                    NotifyPropertyChanged("IsCanceling");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>

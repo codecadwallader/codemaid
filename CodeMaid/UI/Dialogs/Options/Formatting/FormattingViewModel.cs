@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
-using System.Windows.Media;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
+using System.Windows.Media;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 {
@@ -33,7 +33,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         private readonly EnvDTE.Properties _editorProperties;
         private readonly EnvDTE.ColorableItems _commentColors;
         private CodeCommentOptions _options;
-        private string _commentPreviewText;
 
         #endregion Fields
 
@@ -50,6 +49,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             var property = _editorProperties.Item("FontsAndColorsItems");
             var fontsAndColorsItems = (EnvDTE.FontsAndColorsItems)property.Object;
             _commentColors = fontsAndColorsItems.Item("Comment");
+
+            PropertyChanged += (sender, args) => UpdatePreviewText();
         }
 
         #endregion Constructors
@@ -103,7 +104,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.FormatDuringCleanup != value)
                 {
                     _options.FormatDuringCleanup = value;
-                    NotifyPropertyChanged("CommentRunDuringCleanup");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -119,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.SkipWrapOnLastWord != value)
                 {
                     _options.SkipWrapOnLastWord = value;
-                    NotifyPropertyChanged("CommentSkipWrapOnLastWord");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -136,7 +137,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.WrapAtColumn != value)
                 {
                     _options.WrapAtColumn = value;
-                    NotifyPropertyChanged("CommentWrapColumn");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -152,7 +153,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlAlignParamTags != value)
                 {
                     _options.XmlAlignParamTags = value;
-                    NotifyPropertyChanged("CommentXmlAlignParamTags");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -168,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlSpaceTagContent != value)
                 {
                     _options.XmlSpaceTagContent = value;
-                    NotifyPropertyChanged("CommentXmlSpaceTags");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -184,7 +185,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlSplitSummaryTag != value)
                 {
                     _options.XmlSplitSummaryTag = value;
-                    NotifyPropertyChanged("CommentXmlSplitSummaryTagToMultipleLines");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -201,7 +202,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlValueIndent != value)
                 {
                     _options.XmlValueIndent = value;
-                    NotifyPropertyChanged("CommentXmlValueIndent");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -214,7 +215,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlTagsToLowerCase != value)
                 {
                     _options.XmlTagsToLowerCase = value;
-                    NotifyPropertyChanged("CommentXmlTagsToLowerCase");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -227,7 +228,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlSpaceSingleTags != value)
                 {
                     _options.XmlSpaceSingleTags = value;
-                    NotifyPropertyChanged("CommentXmlSpaceSingleTags");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -240,7 +241,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlKeepTagsTogether != value)
                 {
                     _options.XmlKeepTagsTogether = value;
-                    NotifyPropertyChanged("CommentXmlKeepTagsTogether");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -253,7 +254,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                 if (_options.XmlSplitAllTags != value)
                 {
                     _options.XmlSplitAllTags = value;
-                    NotifyPropertyChanged("CommentXmlSplitAllTags");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -264,15 +265,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         public string CommentPreviewText
         {
-            get { return _commentPreviewText; }
-            private set
-            {
-                if (_commentPreviewText != value)
-                {
-                    _commentPreviewText = value;
-                    NotifyPropertyChanged("CommentPreviewText");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            private set { SetPropertyValue(value); }
         }
 
         public FontFamily CommentPreviewTextFont
@@ -298,12 +292,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
                 return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
             }
-        }
-
-        protected override void NotifyPropertyChanged(string propertyName)
-        {
-            base.NotifyPropertyChanged(propertyName);
-            UpdatePreviewText();
         }
 
         private void UpdatePreviewText()
