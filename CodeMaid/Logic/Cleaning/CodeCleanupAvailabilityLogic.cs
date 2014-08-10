@@ -158,7 +158,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The file extension, otherwise an empty string.</returns>
         private static string GetProjectItemExtension(ProjectItem projectItem)
         {
-            return Path.GetExtension(projectItem.Name) ?? string.Empty;
+            try
+            {
+                return Path.GetExtension(projectItem.Name) ?? string.Empty;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
