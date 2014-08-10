@@ -72,10 +72,8 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             var codeItems = new SetCodeItems();
 
-            if (document.ProjectItem != null)
-            {
-                RetrieveCodeItems(codeItems, document.ProjectItem.FileCodeModel);
-            }
+            var fileCodeModel = RetrieveFileCodeModel(document.ProjectItem);
+            RetrieveCodeItems(codeItems, fileCodeModel);
 
             codeItems.AddRange(_codeModelHelper.RetrieveCodeRegions(document.GetTextDocument()));
 
@@ -85,6 +83,39 @@ namespace SteveCadwallader.CodeMaid.Model
         #endregion Internal Methods
 
         #region Private Methods
+
+        /// <summary>
+        /// Attempts to return the FileCodeModel associated with the specified project item.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>The associated FileCodeModel, otherwise null.</returns>
+        private FileCodeModel RetrieveFileCodeModel(ProjectItem projectItem)
+        {
+            if (projectItem == null)
+            {
+                return null;
+            }
+
+            if (projectItem.FileCodeModel != null)
+            {
+                return projectItem.FileCodeModel;
+            }
+
+            // If this project item is part of a shared project, retrieve the FileCodeModel via a similar platform project item.
+            const string sharedProjectTypeGUID = "{d954291e-2a0b-460d-934e-dc6b0785db48}";
+            var containingProject = projectItem.ContainingProject;
+
+            if (containingProject != null && containingProject.Kind != null &&
+                containingProject.Kind.ToLowerInvariant() == sharedProjectTypeGUID)
+            {
+                var similarProjectItems = SolutionHelper.GetSimilarProjectItems(_package, projectItem);
+                var fileCodeModel = similarProjectItems.Select(x => x.FileCodeModel).FirstOrDefault(y => y != null);
+
+                return fileCodeModel;
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Walks the given FileCodeModel, turning CodeElements into code items within the specified
