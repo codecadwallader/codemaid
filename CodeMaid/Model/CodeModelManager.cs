@@ -80,7 +80,10 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentChanged(Document document)
         {
-            _codeModelCache.StaleCodeModel(document);
+            if (document != null)
+            {
+                _codeModelCache.StaleCodeModel(document);
+            }
         }
 
         /// <summary>
@@ -89,7 +92,10 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentClosing(Document document)
         {
-            _codeModelCache.RemoveCodeModel(document);
+            if (document != null)
+            {
+                _codeModelCache.RemoveCodeModel(document);
+            }
         }
 
         #endregion Internal Event Handlers
