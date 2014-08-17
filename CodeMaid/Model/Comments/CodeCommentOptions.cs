@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             XmlSplitSummaryTag = settings.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
             XmlSplitAllTags = settings.Formatting_CommentXmlSplitAllTags;
             XmlSpaceSingleTags = settings.Formatting_CommentXmlSpaceSingleTags;
-            XmlTagsToLowerCase = settings.Reorganizing_RegionsInsertNewRegions;
+            XmlTagsToLowerCase = settings.Formatting_CommentXmlTagsToLowerCase;
             XmlKeepTagsTogether = settings.Formatting_CommentXmlKeepTagsTogether;
         }
 
@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             settings.Formatting_CommentXmlSplitSummaryTagToMultipleLines = XmlSplitSummaryTag;
             settings.Formatting_CommentXmlSplitAllTags = XmlSplitAllTags;
             settings.Formatting_CommentXmlSpaceSingleTags = XmlSpaceSingleTags;
-            settings.Reorganizing_RegionsInsertNewRegions = XmlTagsToLowerCase;
+            settings.Formatting_CommentXmlTagsToLowerCase = XmlTagsToLowerCase;
             settings.Formatting_CommentXmlKeepTagsTogether = XmlKeepTagsTogether;
         }
 
