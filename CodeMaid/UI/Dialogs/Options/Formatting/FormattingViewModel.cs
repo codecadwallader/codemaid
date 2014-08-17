@@ -69,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void LoadSettings()
         {
-            _options = new CodeCommentOptions(4);
+            _options = new CodeCommentOptions(Settings.Default, 4);
 
             UpdatePreviewText();
         }
@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void SaveSettings()
         {
-            _options.Save();
+            _options.Save(Settings.Default);
         }
 
         #endregion Overrides of OptionsPageViewModel

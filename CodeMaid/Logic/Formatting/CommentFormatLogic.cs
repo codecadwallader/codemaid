@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="end">The end point.</param>
         public bool FormatComments(TextDocument textDocument, EditPoint start, EditPoint end)
         {
-            var options = new CodeCommentOptions(_package, textDocument);
+            var options = new CodeCommentOptions(Settings.Default, _package, textDocument);
 
             bool foundComments = false;
 
