@@ -67,76 +67,40 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         #region Options
 
-        private bool _includeAccessLevel;
-
         /// <summary>
         /// Gets or sets the flag indicating if the access level should be included in the regions.
         /// </summary>
         public bool IncludeAccessLevel
         {
-            get { return _includeAccessLevel; }
-            set
-            {
-                if (_includeAccessLevel != value)
-                {
-                    _includeAccessLevel = value;
-                    NotifyPropertyChanged("IncludeAccessLevel");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _insertKeepEvenIfEmpty;
 
         /// <summary>
         /// Gets or sets the flag indicating if regions should be inserted or kept even if they would be empty.
         /// </summary>
         public bool InsertKeepEvenIfEmpty
         {
-            get { return _insertKeepEvenIfEmpty; }
-            set
-            {
-                if (_insertKeepEvenIfEmpty != value)
-                {
-                    _insertKeepEvenIfEmpty = value;
-                    NotifyPropertyChanged("InsertKeepEvenIfEmpty");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _insertNewRegions;
 
         /// <summary>
         /// Gets or sets the flag indicating if new regions should be inserted.
         /// </summary>
         public bool InsertNewRegions
         {
-            get { return _insertNewRegions; }
-            set
-            {
-                if (_insertNewRegions != value)
-                {
-                    _insertNewRegions = value;
-                    NotifyPropertyChanged("InsertNewRegions");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _removeExistingRegions;
 
         /// <summary>
         /// Gets or sets the flag indicating if the existing regions should be removed.
         /// </summary>
         public bool RemoveExistingRegions
         {
-            get { return _removeExistingRegions; }
-            set
-            {
-                if (_removeExistingRegions != value)
-                {
-                    _removeExistingRegions = value;
-                    NotifyPropertyChanged("RemoveExistingRegions");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

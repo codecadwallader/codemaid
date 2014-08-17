@@ -136,6 +136,7 @@
             <GroupBox Header="Performance">
                 <StackPanel>
                     <CheckBox Content="Cache file code models" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="Load models asynchronously" IsChecked="{Binding LoadModelsAsynchronously}" />
                     <CheckBox Content="Multithread operations" IsChecked="{Binding Multithread}" />
                 </StackPanel>
             </GroupBox>

@@ -97,6 +97,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return selectedProjectItems;
         }
 
+        /// <summary>
+        /// Gets an enumerable set of similar project items compared by file name, useful for shared projects.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <param name="projectItem">The project item to match.</param>
+        /// <returns>The enumerable set of similar project items.</returns>
+        internal static IEnumerable<ProjectItem> GetSimilarProjectItems(CodeMaidPackage package, ProjectItem projectItem)
+        {
+            var allItems = GetAllItemsInSolution<ProjectItem>(package.IDE.Solution);
+
+            return allItems.Where(x => x.Name == projectItem.Name && x.Kind == projectItem.Kind && x.Document.FullName == projectItem.Document.FullName);
+        }
+
         #endregion Internal Methods
 
         #region Private Methods

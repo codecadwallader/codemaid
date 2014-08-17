@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// <see cref="CommentFormatting" /><see cref="CommentFormatting" />
+        /// <see cref="CommentFormatting"/> <see cref="CommentFormatting"/>
         /// </summary>
         public void ThirdMethod()
         {
@@ -54,7 +54,7 @@
         /// <summary>
         /// The summary for the comment.
         /// </summary>
-        /// <param name="maxSize">Max number of elements returned in <paramref name="array" /></param>
+        /// <param name="maxSize">Max number of elements returned in <paramref name="array"/></param>
         /// <param name="array">The array.</param>
         public void FourthMethod(int maxSize, int[] array)
         {

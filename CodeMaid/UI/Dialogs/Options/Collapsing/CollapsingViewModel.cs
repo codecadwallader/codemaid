@@ -63,40 +63,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
 
         #region Options
 
-        private bool _collapseSolutionWhenOpened;
-
         /// <summary>
         /// Gets or sets a flag indicating if the solution should be collapsed when it is opened.
         /// </summary>
         public bool CollapseSolutionWhenOpened
         {
-            get { return _collapseSolutionWhenOpened; }
-            set
-            {
-                if (_collapseSolutionWhenOpened != value)
-                {
-                    _collapseSolutionWhenOpened = value;
-                    NotifyPropertyChanged("CollapseSolutionWhenOpened");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _keepSoloProjectExpanded;
 
         /// <summary>
         /// Gets or sets a flag indicating if a solo project should be kept expanded.
         /// </summary>
         public bool KeepSoloProjectExpanded
         {
-            get { return _keepSoloProjectExpanded; }
-            set
-            {
-                if (_keepSoloProjectExpanded != value)
-                {
-                    _keepSoloProjectExpanded = value;
-                    NotifyPropertyChanged("KeepSoloProjectExpanded");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

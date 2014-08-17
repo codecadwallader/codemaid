@@ -66,25 +66,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 
         #region Options
 
-        private bool _autoCleanupOnFileSave;
-
         /// <summary>
         /// Gets or sets the flag indicating if cleanup should run automatically on file save.
         /// </summary>
         public bool AutoCleanupOnFileSave
         {
-            get { return _autoCleanupOnFileSave; }
-            set
-            {
-                if (_autoCleanupOnFileSave != value)
-                {
-                    _autoCleanupOnFileSave = value;
-                    NotifyPropertyChanged("AutoCleanupOnFileSave");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _autoSaveAndCloseIfOpenedByCleanup;
 
         /// <summary>
         /// Gets or sets the flag indicating if files should be automatically saved and closed if
@@ -92,33 +81,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// </summary>
         public bool AutoSaveAndCloseIfOpenedByCleanup
         {
-            get { return _autoSaveAndCloseIfOpenedByCleanup; }
-            set
-            {
-                if (_autoSaveAndCloseIfOpenedByCleanup != value)
-                {
-                    _autoSaveAndCloseIfOpenedByCleanup = value;
-                    NotifyPropertyChanged("AutoSaveAndCloseIfOpenedByCleanup");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private AskYesNo _performPartialCleanupOnExternal;
 
         /// <summary>
         /// Gets or sets the options for performing partial cleanup on external files.
         /// </summary>
         public AskYesNo PerformPartialCleanupOnExternal
         {
-            get { return _performPartialCleanupOnExternal; }
-            set
-            {
-                if (_performPartialCleanupOnExternal != value)
-                {
-                    _performPartialCleanupOnExternal = value;
-                    NotifyPropertyChanged("PerformPartialCleanupOnExternal");
-                }
-            }
+            get { return GetPropertyValue<AskYesNo>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

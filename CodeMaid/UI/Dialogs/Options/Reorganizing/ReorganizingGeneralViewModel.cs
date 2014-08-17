@@ -67,76 +67,40 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 
         #region Options
 
-        private bool _alphabetizeMembersOfTheSameGroup;
-
         /// <summary>
         /// Gets or sets the flag indicating if members of the same group should be alphabetized.
         /// </summary>
         public bool AlphabetizeMembersOfTheSameGroup
         {
-            get { return _alphabetizeMembersOfTheSameGroup; }
-            set
-            {
-                if (_alphabetizeMembersOfTheSameGroup != value)
-                {
-                    _alphabetizeMembersOfTheSameGroup = value;
-                    NotifyPropertyChanged("AlphabetizeMembersOfTheSameGroup");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _keepMembersWithinRegions;
 
         /// <summary>
         /// Gets or sets the flag indicating if members should be kept within regions.
         /// </summary>
         public bool KeepMembersWithinRegions
         {
-            get { return _keepMembersWithinRegions; }
-            set
-            {
-                if (_keepMembersWithinRegions != value)
-                {
-                    _keepMembersWithinRegions = value;
-                    NotifyPropertyChanged("KeepMembersWithinRegions");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _primaryOrderByAccessLevel;
 
         /// <summary>
         /// Gets or sets the flag indicating if primary ordering should be by access level.
         /// </summary>
         public bool PrimaryOrderByAccessLevel
         {
-            get { return _primaryOrderByAccessLevel; }
-            set
-            {
-                if (_primaryOrderByAccessLevel != value)
-                {
-                    _primaryOrderByAccessLevel = value;
-                    NotifyPropertyChanged("PrimaryOrderByAccessLevel");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _runAtStartOfCleanup;
 
         /// <summary>
         /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
         /// </summary>
         public bool RunAtStartOfCleanup
         {
-            get { return _runAtStartOfCleanup; }
-            set
-            {
-                if (_runAtStartOfCleanup != value)
-                {
-                    _runAtStartOfCleanup = value;
-                    NotifyPropertyChanged("RunAtStartOfCleanup");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

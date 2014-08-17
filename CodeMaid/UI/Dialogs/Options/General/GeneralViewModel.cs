@@ -51,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
             Font = Settings.Default.General_Font;
             IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
+            LoadModelsAsynchronously = Settings.Default.General_LoadModelsAsynchronously;
             Multithread = Settings.Default.General_Multithread;
             ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
             SkipUndoTransactionsDuringAutoCleanupOnSave = Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave;
@@ -67,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
             Settings.Default.General_Font = Font;
             Settings.Default.General_IconSet = (int)IconSetMode;
+            Settings.Default.General_LoadModelsAsynchronously = LoadModelsAsynchronously;
             Settings.Default.General_Multithread = Multithread;
             Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
             Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave = SkipUndoTransactionsDuringAutoCleanupOnSave;
@@ -78,115 +80,68 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 
         #region Options
 
-        private bool _cacheFiles;
-
         /// <summary>
         /// Gets or sets the flag indicating if files should be cached.
         /// </summary>
         public bool CacheFiles
         {
-            get { return _cacheFiles; }
-            set
-            {
-                if (_cacheFiles != value)
-                {
-                    _cacheFiles = value;
-                    NotifyPropertyChanged("CacheFiles");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _diagnosticsMode;
 
         /// <summary>
         /// Gets or sets the flag indicating if diagnostics mode should be enabled.
         /// </summary>
         public bool DiagnosticsMode
         {
-            get { return _diagnosticsMode; }
-            set
-            {
-                if (_diagnosticsMode != value)
-                {
-                    _diagnosticsMode = value;
-                    NotifyPropertyChanged("DiagnosticsMode");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private string _font;
 
         /// <summary>
         /// Gets or sets the string representing the font.
         /// </summary>
         public string Font
         {
-            get { return _font; }
-            set
-            {
-                if (_font != value)
-                {
-                    _font = value;
-                    NotifyPropertyChanged("Font");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private IconSetMode _iconSetMode;
 
         /// <summary>
         /// Gets or sets which icon set should be utilized.
         /// </summary>
         public IconSetMode IconSetMode
         {
-            get { return _iconSetMode; }
-            set
-            {
-                if (_iconSetMode != value)
-                {
-                    _iconSetMode = value;
-                    NotifyPropertyChanged("IconSetMode");
-                }
-            }
+            get { return GetPropertyValue<IconSetMode>(); }
+            set { SetPropertyValue(value); }
         }
 
-        private bool _multithread;
+        /// <summary>
+        /// Gets or sets the flag indicating if models can be loaded asynchronously.
+        /// </summary>
+        public bool LoadModelsAsynchronously
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
 
         /// <summary>
         /// Gets or sets the flag indicating if multithreading should be utilized.
         /// </summary>
         public bool Multithread
         {
-            get { return _multithread; }
-            set
-            {
-                if (_multithread != value)
-                {
-                    _multithread = value;
-                    NotifyPropertyChanged("Multithread");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _showStartPageOnSolutionClose;
 
         /// <summary>
         /// Gets or sets the flag indicating if the start page should be shown when the solution is closed.
         /// </summary>
         public bool ShowStartPageOnSolutionClose
         {
-            get { return _showStartPageOnSolutionClose; }
-            set
-            {
-                if (_showStartPageOnSolutionClose != value)
-                {
-                    _showStartPageOnSolutionClose = value;
-                    NotifyPropertyChanged("ShowStartPageOnSolutionClose");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _skipUndoTransactionsDuringAutoCleanupOnSave;
 
         /// <summary>
         /// Gets or sets the flag indicating if undo transactions should not be used during auto
@@ -194,51 +149,26 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// </summary>
         public bool SkipUndoTransactionsDuringAutoCleanupOnSave
         {
-            get { return _skipUndoTransactionsDuringAutoCleanupOnSave; }
-            set
-            {
-                if (_skipUndoTransactionsDuringAutoCleanupOnSave != value)
-                {
-                    _skipUndoTransactionsDuringAutoCleanupOnSave = value;
-                    NotifyPropertyChanged("SkipUndoTransactionsDuringAutoCleanupOnSave");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private ThemeMode _themeMode;
 
         /// <summary>
         /// Gets or sets the current theme.
         /// </summary>
         public ThemeMode ThemeMode
         {
-            get { return _themeMode; }
-            set
-            {
-                if (_themeMode != value)
-                {
-                    _themeMode = value;
-                    NotifyPropertyChanged("ThemeMode");
-                }
-            }
+            get { return GetPropertyValue<ThemeMode>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private bool _useUndoTransactions;
 
         /// <summary>
         /// Gets or sets a flag indicating if undo transactions should be utilized.
         /// </summary>
         public bool UseUndoTransactions
         {
-            get { return _useUndoTransactions; }
-            set
-            {
-                if (_useUndoTransactions != value)
-                {
-                    _useUndoTransactions = value;
-                    NotifyPropertyChanged("UseUndoTransactions");
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Options

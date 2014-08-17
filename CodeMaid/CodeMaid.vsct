@@ -136,6 +136,10 @@
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
 
+      <Group guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN" />
+      </Group>
+
       <Group guid="GuidCodeMaidToolbarSpadeBaseGroup" id="GroupIDCodeMaidToolbarSpadeBaseGroup" priority="0x0000">
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
       </Group>
@@ -253,7 +257,7 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <ButtonText>About CodeMaid &amp;v0.7.3...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.7.3.2 beta...</ButtonText>
         </Strings>
       </Button>
 
@@ -556,6 +560,9 @@
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
     </CommandPlacement>
 
@@ -588,6 +595,9 @@
 
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
@@ -933,6 +943,11 @@
 
     <GuidSymbol name="GuidCodeMaidContextSpadeDeleteGroup" value="{e4abf3d9-e332-4c5d-97a9-4ac09395c28f}">
       <IDSymbol name="GroupIDCodeMaidContextSpadeDeleteGroup" value="0x1063" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for extending toolbars -->
+    <GuidSymbol name="GuidCodeMaidToolbarSolutionExplorerGroup" value="{ed596e0f-d1cb-46e7-8dd3-741758451f27}">
+      <IDSymbol name="GroupIDCodeMaidToolbarSolutionExplorerGroup" value="0x1030" />
     </GuidSymbol>
 
     <!-- These are the command sets for the solution explorer context menus -->

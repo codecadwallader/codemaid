@@ -23,40 +23,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
     {
         #region Properties
 
-        private string _title;
-
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
         public string Title
         {
-            get { return _title; }
-            set
-            {
-                if (_title != value)
-                {
-                    _title = value;
-                    NotifyPropertyChanged("Title");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
-
-        private string _message;
 
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
         public string Message
         {
-            get { return _message; }
-            set
-            {
-                if (_message != value)
-                {
-                    _message = value;
-                    NotifyPropertyChanged("Message");
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
         private BitmapSource _iconSource;
@@ -69,63 +51,43 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
             get { return _iconSource ?? (_iconSource = Imaging.CreateBitmapSourceFromHIcon(SystemIcons.Question.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())); }
         }
 
-        private bool _canRemember;
-
         /// <summary>
         /// Gets or sets a flag indicating if the result can be remembered.
         /// </summary>
         public bool CanRemember
         {
-            get { return _canRemember; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_canRemember != value)
+                if (SetPropertyValue(value) && !CanRemember)
                 {
-                    _canRemember = value;
-                    NotifyPropertyChanged("CanRemember");
-
-                    if (!CanRemember)
-                    {
-                        Remember = false;
-                    }
+                    Remember = false;
                 }
             }
         }
-
-        private bool _remember;
 
         /// <summary>
         /// Gets or sets a flag indicating if the result should be remembered.
         /// </summary>
         public bool Remember
         {
-            get { return _remember; }
+            get { return GetPropertyValue<bool>(); }
             set
             {
-                if (_remember != value && (CanRemember || !value))
+                if (CanRemember || !value)
                 {
-                    _remember = value;
-                    NotifyPropertyChanged("Remember");
+                    SetPropertyValue(value);
                 }
             }
         }
-
-        private bool? _dialogResult;
 
         /// <summary>
         /// Gets or sets the dialog result.
         /// </summary>
         public bool? DialogResult
         {
-            get { return _dialogResult; }
-            set
-            {
-                if (_dialogResult != value)
-                {
-                    _dialogResult = value;
-                    NotifyPropertyChanged("DialogResult");
-                }
-            }
+            get { return GetPropertyValue<bool?>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Properties
