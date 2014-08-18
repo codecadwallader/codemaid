@@ -85,6 +85,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Formats the comment.
         /// </summary>
+        /// <param name="options">The options to be used for formatting.</param>
         public TextPoint Format(CodeCommentOptions options)
         {
             if (!IsValid)
@@ -184,7 +185,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     // down) did nothing. This means there is no point to keep searching, it would
                     // create an infinite loop.
                     if (result.Line == i.Line)
+                    {
                         break;
+                    }
                 }
                 else
                 {

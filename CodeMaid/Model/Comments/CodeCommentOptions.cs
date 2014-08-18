@@ -26,20 +26,20 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
         /// </summary>
-        public CodeCommentOptions()
+        public CodeCommentOptions(Settings settings)
         {
-            SkipWrapOnLastWord = Settings.Default.Formatting_CommentSkipWrapOnLastWord;
-            WrapAtColumn = Math.Max(Settings.Default.Formatting_CommentWrapColumn, 20);
-            FormatDuringCleanup = Settings.Default.Formatting_CommentRunDuringCleanup;
+            SkipWrapOnLastWord = settings.Formatting_CommentSkipWrapOnLastWord;
+            WrapAtColumn = Math.Max(settings.Formatting_CommentWrapColumn, 20);
+            FormatDuringCleanup = settings.Formatting_CommentRunDuringCleanup;
 
-            XmlAlignParamTags = Settings.Default.Formatting_CommentXmlAlignParamTags;
-            XmlSpaceTagContent = Settings.Default.Formatting_CommentXmlSpaceTags;
-            XmlValueIndent = Settings.Default.Formatting_CommentXmlValueIndent;
-            XmlSplitSummaryTag = Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
-            XmlSplitAllTags = Settings.Default.Formatting_CommentXmlSplitAllTags;
-            XmlSpaceSingleTags = Settings.Default.Formatting_CommentXmlSpaceSingleTags;
-            XmlTagsToLowerCase = Settings.Default.Reorganizing_RegionsInsertNewRegions;
-            XmlKeepTagsTogether = Settings.Default.Formatting_CommentXmlKeepTagsTogether;
+            XmlAlignParamTags = settings.Formatting_CommentXmlAlignParamTags;
+            XmlSpaceTagContent = settings.Formatting_CommentXmlSpaceTags;
+            XmlValueIndent = settings.Formatting_CommentXmlValueIndent;
+            XmlSplitSummaryTag = settings.Formatting_CommentXmlSplitSummaryTagToMultipleLines;
+            XmlSplitAllTags = settings.Formatting_CommentXmlSplitAllTags;
+            XmlSpaceSingleTags = settings.Formatting_CommentXmlSpaceSingleTags;
+            XmlTagsToLowerCase = settings.Formatting_CommentXmlTagsToLowerCase;
+            XmlKeepTagsTogether = settings.Formatting_CommentXmlKeepTagsTogether;
         }
 
         /// <summary>
@@ -47,18 +47,38 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <param name="document">The text document.</param>
-        public CodeCommentOptions(CodeMaidPackage package, TextDocument document)
-            : this(CodeCommentHelper.GetTabSize(package, document))
+        public CodeCommentOptions(Settings settings, CodeMaidPackage package, TextDocument document)
+            : this(settings, CodeCommentHelper.GetTabSize(package, document))
         {
         }
 
-        public CodeCommentOptions(int tabSize)
-            : this()
+        public CodeCommentOptions(Settings settings, int tabSize)
+            : this(settings)
         {
             TabSize = tabSize;
         }
 
         #endregion Constructors
+
+        #region Methods
+
+        internal void Save(Settings settings)
+        {
+            settings.Formatting_CommentSkipWrapOnLastWord = SkipWrapOnLastWord;
+            settings.Formatting_CommentWrapColumn = WrapAtColumn;
+            settings.Formatting_CommentRunDuringCleanup = FormatDuringCleanup;
+
+            settings.Formatting_CommentXmlAlignParamTags = XmlAlignParamTags;
+            settings.Formatting_CommentXmlSpaceTags = XmlSpaceTagContent;
+            settings.Formatting_CommentXmlValueIndent = XmlValueIndent;
+            settings.Formatting_CommentXmlSplitSummaryTagToMultipleLines = XmlSplitSummaryTag;
+            settings.Formatting_CommentXmlSplitAllTags = XmlSplitAllTags;
+            settings.Formatting_CommentXmlSpaceSingleTags = XmlSpaceSingleTags;
+            settings.Formatting_CommentXmlTagsToLowerCase = XmlTagsToLowerCase;
+            settings.Formatting_CommentXmlKeepTagsTogether = XmlKeepTagsTogether;
+        }
+
+        #endregion Methods
 
         #region Properties
 

@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void LoadSettings()
         {
-            _options = new CodeCommentOptions(4);
+            _options = new CodeCommentOptions(Settings.Default, 4);
 
             UpdatePreviewText();
         }
@@ -80,13 +80,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void SaveSettings()
         {
-            Settings.Default.Formatting_CommentRunDuringCleanup = CommentRunDuringCleanup;
-            Settings.Default.Formatting_CommentSkipWrapOnLastWord = CommentSkipWrapOnLastWord;
-            Settings.Default.Formatting_CommentWrapColumn = CommentWrapColumn;
-            Settings.Default.Formatting_CommentXmlAlignParamTags = CommentXmlAlignParamTags;
-            Settings.Default.Formatting_CommentXmlSpaceTags = CommentXmlSpaceTags;
-            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = CommentXmlSplitSummaryTagToMultipleLines;
-            Settings.Default.Formatting_CommentXmlValueIndent = CommentXmlValueIndent;
+            _options.Save(Settings.Default);
         }
 
         #endregion Overrides of OptionsPageViewModel
