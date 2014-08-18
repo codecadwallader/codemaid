@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -26,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
         /// </summary>
+        /// <param name="settings">The settings container.</param>
         public CodeCommentOptions(Settings settings)
         {
             SkipWrapOnLastWord = settings.Formatting_CommentSkipWrapOnLastWord;
@@ -45,6 +46,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
         /// </summary>
+        /// <param name="settings">The settings container.</param>
         /// <param name="package">The hosting package.</param>
         /// <param name="document">The text document.</param>
         public CodeCommentOptions(Settings settings, CodeMaidPackage package, TextDocument document)
@@ -52,6 +54,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
+        /// </summary>
+        /// <param name="settings">The settings container.</param>
+        /// <param name="tabSize">The tab size.</param>
         public CodeCommentOptions(Settings settings, int tabSize)
             : this(settings)
         {
