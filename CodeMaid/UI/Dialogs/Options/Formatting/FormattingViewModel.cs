@@ -72,6 +72,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         {
             _options = new CodeCommentOptions(Settings.Default, 4);
 
+            RaisePropertyChangedForAllOptionsProperties();
             UpdatePreviewText();
         }
 
@@ -90,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting will run during cleanup.
         /// </summary>
-        public bool CommentRunDuringCleanup
+        public bool FormatDuringCleanup
         {
             get { return _options.FormatDuringCleanup; }
             set
@@ -106,7 +107,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting should skip wrapping the last word.
         /// </summary>
-        public bool CommentSkipWrapOnLastWord
+        public bool SkipWrapOnLastWord
         {
             get { return _options.SkipWrapOnLastWord; }
             set
@@ -122,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the column where comments will attempt to wrap.
         /// </summary>
-        public int CommentWrapColumn
+        public int WrapAtColumn
         {
             get { return _options.WrapAtColumn; }
             set
@@ -139,7 +140,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if the content of param tags should be aligned.
         /// </summary>
-        public bool CommentXmlAlignParamTags
+        public bool XmlAlignParamTags
         {
             get { return _options.XmlAlignParamTags; }
             set
@@ -155,7 +156,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if an extra space should be added inside XML tags.
         /// </summary>
-        public bool CommentXmlSpaceTags
+        public bool XmlSpaceTagContent
         {
             get { return _options.XmlSpaceTagContent; }
             set
@@ -171,7 +172,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if summary tags should always be split to multiple lines.
         /// </summary>
-        public bool CommentXmlSplitSummaryTagToMultipleLines
+        public bool XmlSplitSummaryTag
         {
             get { return _options.XmlSplitSummaryTag; }
             set
@@ -187,7 +188,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the amount of extra spacing to add before XML values.
         /// </summary>
-        public int CommentXmlValueIndent
+        public int XmlValueIndent
         {
             get { return _options.XmlValueIndent; }
             set
@@ -201,7 +202,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             }
         }
 
-        public bool CommentXmlTagsToLowerCase
+        public bool XmlTagsToLowerCase
         {
             get { return _options.XmlTagsToLowerCase; }
             set
@@ -214,7 +215,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             }
         }
 
-        public bool CommentXmlSpaceSingleTags
+        public bool XmlSpaceSingleTags
         {
             get { return _options.XmlSpaceSingleTags; }
             set
@@ -227,7 +228,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             }
         }
 
-        public bool CommentXmlKeepTagsTogether
+        public bool XmlKeepTagsTogether
         {
             get { return _options.XmlKeepTagsTogether; }
             set
@@ -240,7 +241,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             }
         }
 
-        public bool CommentXmlSplitAllTags
+        public bool XmlSplitAllTags
         {
             get { return _options.XmlSplitAllTags; }
             set
@@ -250,6 +251,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
                     _options.XmlSplitAllTags = value;
                     RaisePropertyChanged();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Calls <see cref="Bindable.RaisePropertyChanged"/> for every public property exposed on
+        /// the <see cref="CodeCommentOptions"/> class. This ensures that changes to that class
+        /// (which do not raise events) will be bubbled up to the UI correctly.
+        /// </summary>
+        /// <remarks>
+        /// Note: For this to work properly, the wrapping property on this view model must match the
+        ///       name of the underlying property within the options class.
+        /// </remarks>
+        private void RaisePropertyChangedForAllOptionsProperties()
+        {
+            var optionsProperties = _options.GetType().GetProperties();
+            foreach (var optionsProperty in optionsProperties)
+            {
+                RaisePropertyChanged(optionsProperty.Name);
             }
         }
 
