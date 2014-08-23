@@ -9,11 +9,11 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
