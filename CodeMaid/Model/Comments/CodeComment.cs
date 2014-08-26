@@ -27,7 +27,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #region Fields
 
         private readonly TextDocument _document;
-        private Regex _codeLineRegex;
         private Regex _commentLineRegex;
 
         private EditPoint _endPoint;
@@ -50,7 +49,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _document = point.Parent;
 
             _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
-            _codeLineRegex = CodeCommentHelper.GetCodeCommentRegex(_document.Language);
 
             Expand(point);
         }
@@ -168,37 +166,43 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
         {
-            EditPoint i = point.CreateEditPoint();
+            EditPoint current = point.CreateEditPoint();
             EditPoint result = null;
 
             do
             {
-                var line = i.Line;
-                var text = i.GetLine();
+                var line = current.Line;
+                var text = current.GetLine();
 
-                if (CodeCommentHelper.LineMatchesRegex(i, _commentLineRegex).Success)
+                var match = _commentLineRegex.Match(text);
+                if (match.Success)
                 {
-                    result = i.CreateEditPoint();
-                    foundAction(i);
-
-                    // If result and iterator line are the same, the found action (move line up or
-                    // down) did nothing. This means there is no point to keep searching, it would
-                    // create an infinite loop.
-                    if (result.Line == i.Line)
+                    // The initial spacer is required, otherwise we assume this is commented out
+                    // code and do not format.
+                    if (match.Groups["initialspacer"].Success)
                     {
-                        break;
+                        result = current.CreateEditPoint();
+                        foundAction(current);
+                        // If result and iterator line are the same, the found action (move line up or
+                        // down) did nothing. This means we're at the start or end of the file, and
+                        // there is no point to keep searching, it would create an infinite loop.
+                        if (result.Line == current.Line)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // This is code! Set to null to abandon loop.
+                        result = null;
+                        current = null;
                     }
                 }
                 else
                 {
-                    if (i != null && result != null && CodeCommentHelper.LineMatchesRegex(i, _codeLineRegex).Success)
-                    {
-                        result = null;
-                    }
-
-                    i = null;
+                    current = null;
                 }
-            } while (i != null);
+            } while (current != null);
 
             return result;
         }

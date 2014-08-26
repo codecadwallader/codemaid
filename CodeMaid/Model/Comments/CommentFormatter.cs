@@ -145,13 +145,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// The length of the enclosing XML tags, this is needed to calculate the line length for
         /// single line XML comments.
         /// </param>
-        /// <returns>True if line fitted on single line, false if wrapped.</returns>
+        /// <returns><c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.</returns>
         private bool Parse(ICommentLine line, int indentLevel = 0, int xmlTagLength = 0)
         {
             var xml = line as CommentLineXml;
             if (xml != null)
             {
-                ParseXml(xml, indentLevel);
+                return ParseXml(xml, indentLevel);
             }
             else
             {
@@ -304,7 +304,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             return false;
         }
 
-        private void ParseXml(CommentLineXml line, int indentLevel = 0)
+        /// <returns><c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.</returns>
+        private bool ParseXml(CommentLineXml line, int indentLevel = 0)
         {
             // All XML lines start on a new line.
             if (!_isFirstWord)
@@ -327,17 +328,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Increase the indent level.
             indentLevel++;
 
-            // Break after the tag if required:
-            // - Break on all tags is set to true.
-            // - Tag consists of multiple lines.
-            // - Tag has literal content (eg. a <code> element).
-            // - Tag is <summary> tag and option to break on those is set.
-            // - Tag is StyleCop SA1633 header <copyright> tag.
-            bool tagOnOwnLine = _options.XmlSplitAllTags ||
-                line.Lines.Count > 1 ||
-                line.Content != null ||
-                (string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase) && _options.XmlSplitSummaryTag) ||
-                isCopyrightTag;
+            bool tagOnOwnLine = TagsOnOwnLine(line, indentLevel);
 
             if (tagOnOwnLine)
             {
@@ -386,6 +377,39 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             Append(line.Closetag);
+
+            return tagOnOwnLine;
+        }
+
+        /// <summary>
+        /// Check if the open and close tags for an XML line should be on their own lines or not.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="indentlevel"></param>
+        /// <returns><c>true</c> if the tags should be split, otherwise <c>false</c>.</returns>
+        private bool TagsOnOwnLine(CommentLineXml line, int indentlevel)
+        {
+            // Check for splitting all root level tags.
+            if (_options.XmlSplitAllTags && indentlevel <= 1)
+                return true;
+
+            // Split if there is more than one child line.
+            if (line.Lines.Count > 1)
+                return true;
+
+            // Split if there is literal content (eg. a code tag).
+            if (line.Content != null)
+                return true;
+
+            // Split if this is a summary tag and option to split is set.
+            if (_options.XmlSplitSummaryTag && string.Equals(line.TagName, "summary", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            // Always split on StyleCop SA1633 copyright tag.
+            if (_options.XmlSplitSummaryTag && string.Equals(line.TagName, "copyright", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
         }
 
         /// <summary>

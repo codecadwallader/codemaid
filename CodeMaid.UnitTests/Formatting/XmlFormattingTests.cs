@@ -171,15 +171,44 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_SplitsTagsWhenLineDoesNotFit()
         {
-            var input = "<test>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</test>";
+            var input = "<test>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae</test>";
             var expected = "<test>" + Environment.NewLine + 
                 "Lorem ipsum dolor sit amet, consectetur adipiscing" + Environment.NewLine + 
-                "elit. Vivamus nisi neque, placerat sed neque vitae." + Environment.NewLine + 
+                "elit. Vivamus nisi neque, placerat sed neque vitae" + Environment.NewLine + 
                 "</test>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 50,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
+                SkipWrapOnLastWord = false
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_KeepCodeFormatting()
+        {
+            var input =
+                "<test><code>" + Environment.NewLine +
+                "some" + Environment.NewLine +
+                "  code" + Environment.NewLine +
+                "stuff" + Environment.NewLine +
+                "</code></test>";
+
+            var expected =
+                "<test>" + Environment.NewLine +
+                "<code>" + Environment.NewLine +
+                "some" + Environment.NewLine +
+                "  code" + Environment.NewLine +
+                "stuff" + Environment.NewLine +
+                "</code>" + Environment.NewLine +
+                "</test>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
                 XmlSplitAllTags = false
             });

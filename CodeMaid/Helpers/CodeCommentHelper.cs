@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -21,9 +21,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class CodeCommentHelper
     {
+        public const int CopyrightExtraIndent = 4;
         public const char KeepTogetherSpacer = '\a';
         public const char Spacer = ' ';
-        public const int CopyrightExtraIndent = 4;
 
         /// <summary>
         /// Creates the XML close tag string for an XElement.
@@ -94,22 +94,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Gets the regex for matching a complete code line, including leading whitespace and
-        /// comment prefix.
-        /// </summary>
-        internal static Regex GetCodeCommentRegex(string language)
-        {
-            var prefix = GetCommentPrefixForLanguage(language);
-            if (prefix == null)
-            {
-                return null;
-            }
-
-            var pattern = string.Format(@"^[\t ]*{0}(?!(\t| |\r|\n|$))", prefix);
-            return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture);
-        }
-
-        /// <summary>
         /// Get the comment prefix (regex) for the given document's language.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -162,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 // Be aware of the added space to the prefix. When prefix is added, we should take
                 // care not to match code comment lines.
-                prefix = string.Format(@"(?<prefix>[\t ]*{0})[\t ]", prefix);
+                prefix = string.Format(@"(?<prefix>[\t ]*{0})(?<initialspacer>( |\t|\r|\n|$))?", prefix);
             }
 
             var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
@@ -183,7 +167,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)
         {
-            return regex.Match(point.GetLine());
+            var line = point.GetLine();
+            var match = regex.Match(line);
+            return match;
         }
 
         internal static string SpaceToFake(string value)
