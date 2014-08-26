@@ -9,6 +9,17 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     internal class CommentFormatHelper
     {
+        public static void AssertEqualAfterFormat(string input, CodeCommentOptions options)
+        {
+            AssertEqualAfterFormat(input, input, options);
+        }
+
+        public static void AssertEqualAfterFormat(string input, string expected, CodeCommentOptions options)
+        {
+            var result = Format(input, options);
+            Assert.AreEqual(expected, result);
+        }
+
         public static string Format(IEnumerable<string> text, CodeCommentOptions options)
         {
             return Format(string.Join(Environment.NewLine, text), options);
@@ -21,18 +32,6 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
             var formatter = new CommentFormatter(line, string.Empty, options, regex);
             return formatter.ToString();
-        }
-
-
-        public static void AssertEqualAfterFormat(string input, CodeCommentOptions options)
-        {
-            AssertEqualAfterFormat(input, input, options);
-        }
-
-        public static void AssertEqualAfterFormat(string input, string expected, CodeCommentOptions options)
-        {
-            var result = Format(input, options);
-            Assert.AreEqual(expected, result);
         }
     }
 }

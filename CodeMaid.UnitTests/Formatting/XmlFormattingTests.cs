@@ -213,5 +213,24 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 XmlSplitAllTags = false
             });
         }
+
+        /// <summary>
+        /// Test to make sure there is no spacing is added between an inline XML tag directly
+        /// followed by interpunction.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_InterpunctionNoSpacing()
+        {
+            var input = "<test>Line with <interpunction/>.</test>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
+                SkipWrapOnLastWord = false
+            });
+        }
     }
 }
