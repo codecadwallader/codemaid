@@ -7,28 +7,27 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Wrap comments at column" VerticalAlignment="Center" />
-                        <TextBox Text="{Binding CommentWrapColumn, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
+                        <TextBox Text="{Binding WrapAtColumn, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="Skip wrapping on the last word" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
+                    <CheckBox Content="Skip wrapping on the last word" IsChecked="{Binding SkipWrapOnLastWord}" />
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Extra indent for values inside XML comments" VerticalAlignment="Center" />
-                        <TextBox Text="{Binding CommentXmlValueIndent, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
+                        <TextBox Text="{Binding XmlValueIndent, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="Add spacing around XML tags" IsChecked="{Binding CommentXmlSpaceTags}" />
-                    <CheckBox Content="Add space inside self closing tags" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
-                    <CheckBox Content="Keep XML tags together" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
-                    <CheckBox Content="Align XML &lt;param&gt; tags" IsChecked="{Binding CommentXmlAlignParamTags}" />
-                    <CheckBox Content="Always split &lt;summary&gt; tags onto multiple lines" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
-                    <CheckBox Content="Always split all XML tags onto multiple lines" IsChecked="{Binding CommentXmlSplitAllTags}" />
-
+                    <CheckBox Content="Add spacing around XML tags" IsChecked="{Binding XmlSpaceTagContent}" />
+                    <CheckBox Content="Add space inside self closing tags" IsChecked="{Binding XmlSpaceSingleTags}" />
+                    <CheckBox Content="Keep XML tags together" IsChecked="{Binding XmlKeepTagsTogether}" />
+                    <CheckBox Content="Align XML &lt;param&gt; tags" IsChecked="{Binding XmlAlignParamTags}" />
+                    <CheckBox Content="Always split &lt;summary&gt; tags onto multiple lines" IsChecked="{Binding XmlSplitSummaryTag}" />
+                    <CheckBox Content="Always split all XML tags onto multiple lines" IsChecked="{Binding XmlSplitAllTags}" />
                 </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Cleanup">
-                <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
+                <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding FormatDuringCleanup}" />
             </GroupBox>
 
             <GroupBox Header="Preview" VerticalAlignment="Stretch">

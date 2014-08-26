@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using System;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -24,17 +24,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class with default values.
-        /// </summary>
-        public CodeCommentOptions()
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class with values
         /// loaded from the given settings object.
         /// </summary>
-        /// <param name="settings">The settings object to load values from.</param>
+        /// <param name="settings">The settings container.</param>
         public CodeCommentOptions(Settings settings)
         {
             SkipWrapOnLastWord = settings.Formatting_CommentSkipWrapOnLastWord;
@@ -52,23 +45,21 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class with values
-        /// loaded from the given settings object.
+        /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
         /// </summary>
-        /// <param name="settings">The settings object to load values from.</param>
+        /// <param name="settings">The settings container.</param>
         /// <param name="package">The hosting package.</param>
-        /// <param name="document">The text document, used to get text settings for tab size.</param>
+        /// <param name="document">The text document.</param>
         public CodeCommentOptions(Settings settings, CodeMaidPackage package, TextDocument document)
             : this(settings, CodeCommentHelper.GetTabSize(package, document))
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class with values
-        /// loaded from the given settings object.
+        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class.
         /// </summary>
-        /// <param name="settings">The settings object to load values from.</param>
-        /// <param name="tabSize">The character size of a tab.</param>
+        /// <param name="settings">The settings container.</param>
+        /// <param name="tabSize">The character size of a single tab.</param>
         public CodeCommentOptions(Settings settings, int tabSize)
             : this(settings)
         {

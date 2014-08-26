@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -14,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void SimpleFormattingTests_DoesNotCreateText()
         {
-            CommentFormatHelper.AssertEqualAfterFormat(string.Empty, string.Empty, new CodeCommentOptions());
+            CommentFormatHelper.AssertEqualAfterFormat(string.Empty, string.Empty, new CodeCommentOptions(Settings.Default));
         }
 
         [TestMethod]
@@ -23,7 +24,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "Lorem ipsum dolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100
             });
@@ -35,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "Lorem ipsum\r\n\r\n\r\ndolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
             });
@@ -47,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "Lorem ipsum\r\n\r\ndolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
             });
@@ -60,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit amet.\r\n\r\n";
             var expected = "Lorem ipsum dolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
             });
@@ -73,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "\r\n\r\nLorem ipsum dolor sit amet.";
             var expected = "Lorem ipsum dolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
             });
@@ -86,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum\r\ndolor sit amet.";
             var expected = "Lorem ipsum dolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
             });
@@ -99,7 +100,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit amet.";
             var expected = "Lorem ipsum\r\ndolor sit amet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 12,
                 SkipWrapOnLastWord = true
@@ -113,7 +114,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit amet.";
             var expected = "Lorem ipsum\r\ndolor sit\r\namet.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 12,
                 SkipWrapOnLastWord = false
@@ -127,7 +128,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit.";
             var expected = "Lorem ipsum\r\ndolor sit.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 12,
             });
