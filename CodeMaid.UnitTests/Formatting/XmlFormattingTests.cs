@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "<summary><see/></summary>";
             var expected = "<summary><see /></summary>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "<summary><c>test</c></summary>";
             var expected = "<summary> <c> test </c> </summary>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "<summary></summary>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
@@ -127,7 +127,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "<test>Line with <interpunction/>.</test>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
@@ -206,7 +206,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 "elit. Vivamus nisi neque, placerat sed neque vitae" + Environment.NewLine +
                 "</test>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 50,
                 XmlSplitSummaryTag = false,
@@ -221,7 +221,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "<Summary></Summary>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default)
             {
                 WrapAtColumn = 100,
                 XmlTagsToLowerCase = false,
