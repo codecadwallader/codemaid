@@ -30,13 +30,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="element">The element.</param>
         /// <param name="options">The comment options used to contruct the tag.</param>
-        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>
-        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag. If self-closing tags are not allowed, a close tag is retrned regardless.
+        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
         /// </returns>
-        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
+        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
         {
-            if (element.IsEmpty && allowSelfClosing)
+            if (element.IsEmpty)
             {
                 return null;
             }
@@ -53,9 +52,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="element">The element.</param>
         /// <param name="options">The comment options used to contruct the tag.</param>
-        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
-        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
+        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
         {
             var builder = new System.Text.StringBuilder();
             builder.Append("<");
@@ -71,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
             }
 
-            if (element.IsEmpty && allowSelfClosing)
+            if (element.IsEmpty)
             {
                 if (options.XmlSpaceSingleTags)
                 {

@@ -13,6 +13,38 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     {
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToInsideTags()
+        {
+            var input = "<summary><see/></summary>";
+            var expected = "<summary><see /></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
+                XmlSpaceSingleTags = true
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContent()
+        {
+            var input = "<summary><c>test</c></summary>";
+            var expected = "<summary> <c> test </c> </summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false,
+                XmlSpaceTagContent = true
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_AllRootLevelTagsOnNewLine()
         {
             var input = "<summary>abc</summary><returns>abc</returns>";
@@ -58,12 +90,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_SeperateClosingTagOnRootLevel()
+        public void XmlFormattingTests_DoNotAutoCollapseTags()
         {
-            var input = "<summary/>";
-            var expected = "<summary></summary>";
+            var input = "<summary></summary>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
@@ -73,48 +104,62 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_TagNameKeepCase()
+        public void XmlFormattingTests_DoNotAutoExpandTags()
         {
-            var input = "<Summary></Summary>";
+            var input = "<summary/>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlTagsToLowerCase = false,
-                XmlSplitAllTags = false,
-                XmlSplitSummaryTag = false
+                XmlSplitSummaryTag = false,
+                XmlSplitAllTags = false
             });
         }
 
+        /// <summary>
+        /// Test to make sure there is no spacing is added between an inline XML tag directly
+        /// followed by interpunction.
+        /// </summary>
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_TagNameToLowerCase()
+        public void XmlFormattingTests_InterpunctionNoSpacing()
         {
-            var input = "<Summary></Summary>";
-            var expected = "<summary></summary>";
+            var input = "<test>Line with <interpunction/>.</test>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlTagsToLowerCase = true,
+                XmlSplitSummaryTag = false,
                 XmlSplitAllTags = false,
-                XmlSplitSummaryTag = false
+                SkipWrapOnLastWord = false
             });
         }
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_AddSpaceToInsideTags()
+        public void XmlFormattingTests_KeepCodeFormatting()
         {
-            var input = "<summary><see/></summary>";
-            var expected = "<summary><see /></summary>";
+            var input =
+                "<test><code>" + Environment.NewLine +
+                "some" + Environment.NewLine +
+                "  code" + Environment.NewLine +
+                "stuff" + Environment.NewLine +
+                "</code></test>";
+
+            var expected =
+                "<test>" + Environment.NewLine +
+                "<code>" + Environment.NewLine +
+                "some" + Environment.NewLine +
+                "  code" + Environment.NewLine +
+                "stuff" + Environment.NewLine +
+                "</code>" + Environment.NewLine +
+                "</test>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
                 XmlSplitSummaryTag = false,
-                XmlSplitAllTags = false,
-                XmlSpaceSingleTags = true
+                XmlSplitAllTags = false
             });
         }
 
@@ -150,31 +195,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_AddSpaceToTagContent()
-        {
-            var input = "<summary><c>test</c></summary>";
-            var expected = "<summary> <c> test </c> </summary>";
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
-            {
-                WrapAtColumn = 100,
-                XmlSplitSummaryTag = false,
-                XmlSplitAllTags = false,
-                XmlSpaceTagContent = true
-            });
-        }
-
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_SplitsTagsWhenLineDoesNotFit()
         {
             var input = "<test>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae</test>";
-            var expected = "<test>" + Environment.NewLine + 
-                "Lorem ipsum dolor sit amet, consectetur adipiscing" + Environment.NewLine + 
-                "elit. Vivamus nisi neque, placerat sed neque vitae" + Environment.NewLine + 
+            var expected = "<test>" + Environment.NewLine +
+                "Lorem ipsum dolor sit amet, consectetur adipiscing" + Environment.NewLine +
+                "elit. Vivamus nisi neque, placerat sed neque vitae" + Environment.NewLine +
                 "</test>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
@@ -188,48 +216,32 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_KeepCodeFormatting()
+        public void XmlFormattingTests_TagNameKeepCase()
         {
-            var input =
-                "<test><code>" + Environment.NewLine +
-                "some" + Environment.NewLine +
-                "  code" + Environment.NewLine +
-                "stuff" + Environment.NewLine +
-                "</code></test>";
-
-            var expected =
-                "<test>" + Environment.NewLine +
-                "<code>" + Environment.NewLine +
-                "some" + Environment.NewLine +
-                "  code" + Environment.NewLine +
-                "stuff" + Environment.NewLine +
-                "</code>" + Environment.NewLine +
-                "</test>";
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
-            {
-                WrapAtColumn = 100,
-                XmlSplitSummaryTag = false,
-                XmlSplitAllTags = false
-            });
-        }
-
-        /// <summary>
-        /// Test to make sure there is no spacing is added between an inline XML tag directly
-        /// followed by interpunction.
-        /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_InterpunctionNoSpacing()
-        {
-            var input = "<test>Line with <interpunction/>.</test>";
+            var input = "<Summary></Summary>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions()
             {
                 WrapAtColumn = 100,
-                XmlSplitSummaryTag = false,
+                XmlTagsToLowerCase = false,
                 XmlSplitAllTags = false,
-                SkipWrapOnLastWord = false
+                XmlSplitSummaryTag = false
+            });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_TagNameToLowerCase()
+        {
+            var input = "<Summary></Summary>";
+            var expected = "<summary></summary>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions()
+            {
+                WrapAtColumn = 100,
+                XmlTagsToLowerCase = true,
+                XmlSplitAllTags = false,
+                XmlSplitSummaryTag = false
             });
         }
     }

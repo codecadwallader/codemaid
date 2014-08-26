@@ -419,7 +419,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <returns>The length of the string.</returns>
         private int WordLength(string word)
         {
-            return word.Length + word.Count(c => c == '\t') * (_options.TabSize - 1);
+            return word == null ? 0 : word.Length + word.Count(c => c == '\t') * (_options.TabSize - 1);
         }
 
         /// <summary>

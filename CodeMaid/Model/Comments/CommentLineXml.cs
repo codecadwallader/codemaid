@@ -39,8 +39,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
-            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options, false);
-            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options, false);
+            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options);
+            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options);
 
             Lines = new List<ICommentLine>();
 
