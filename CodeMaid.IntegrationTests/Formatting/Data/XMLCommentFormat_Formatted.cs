@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// <see cref="CommentFormatting"/> <see cref="CommentFormatting"/>
+        /// <see cref="CommentFormatting"/><see cref="CommentFormatting"/>
         /// </summary>
         public void ThirdMethod()
         {
