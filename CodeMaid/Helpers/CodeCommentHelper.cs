@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -21,22 +21,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class CodeCommentHelper
     {
+        public const int CopyrightExtraIndent = 4;
         public const char KeepTogetherSpacer = '\a';
         public const char Spacer = ' ';
-        public const int CopyrightExtraIndent = 4;
 
         /// <summary>
         /// Creates the XML close tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
         /// <param name="options">The comment options used to contruct the tag.</param>
-        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>
-        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag. If self-closing tags are not allowed, a close tag is retrned regardless.
+        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
         /// </returns>
-        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
+        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
         {
-            if (element.IsEmpty && allowSelfClosing)
+            if (element.IsEmpty)
             {
                 return null;
             }
@@ -53,9 +52,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="element">The element.</param>
         /// <param name="options">The comment options used to contruct the tag.</param>
-        /// <param name="allowSelfClosing">Whether to allow a self-closing tag or not.</param>
         /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
-        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options, bool allowSelfClosing = true)
+        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
         {
             var builder = new System.Text.StringBuilder();
             builder.Append("<");
@@ -71,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 }
             }
 
-            if (element.IsEmpty && allowSelfClosing)
+            if (element.IsEmpty)
             {
                 if (options.XmlSpaceSingleTags)
                 {
@@ -91,22 +89,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static string FakeToSpace(string value)
         {
             return value.Replace(KeepTogetherSpacer, Spacer);
-        }
-
-        /// <summary>
-        /// Gets the regex for matching a complete code line, including leading whitespace and
-        /// comment prefix.
-        /// </summary>
-        internal static Regex GetCodeCommentRegex(string language)
-        {
-            var prefix = GetCommentPrefixForLanguage(language);
-            if (prefix == null)
-            {
-                return null;
-            }
-
-            var pattern = string.Format(@"^[\t ]*{0}(?!(\t| |\r|\n|$))", prefix);
-            return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture);
         }
 
         /// <summary>
@@ -162,7 +144,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                 // Be aware of the added space to the prefix. When prefix is added, we should take
                 // care not to match code comment lines.
-                prefix = string.Format(@"(?<prefix>[\t ]*{0})[\t ]", prefix);
+                prefix = string.Format(@"(?<prefix>[\t ]*{0})(?<initialspacer>( |\t|\r|\n|$))?", prefix);
             }
 
             var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
@@ -183,7 +165,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)
         {
-            return regex.Match(point.GetLine());
+            var line = point.GetLine();
+            var match = regex.Match(line);
+            return match;
         }
 
         internal static string SpaceToFake(string value)

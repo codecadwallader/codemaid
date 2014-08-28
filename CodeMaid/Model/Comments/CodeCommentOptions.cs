@@ -24,7 +24,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
+        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class with values
+        /// loaded from the given settings object.
         /// </summary>
         /// <param name="settings">The settings container.</param>
         public CodeCommentOptions(Settings settings)
@@ -55,10 +56,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCommentOptions" /> class.
+        /// Initializes a new instance of the <see cref="CodeCommentOptions"/> class.
         /// </summary>
         /// <param name="settings">The settings container.</param>
-        /// <param name="tabSize">The tab size.</param>
+        /// <param name="tabSize">The character size of a single tab.</param>
         public CodeCommentOptions(Settings settings, int tabSize)
             : this(settings)
         {

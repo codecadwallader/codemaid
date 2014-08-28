@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -24,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #region Fields
 
         private static string[] NewLineElementNames = { "p", "para", "code" };
+        private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
 
         #endregion Fields
@@ -37,8 +39,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
-            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options, false);
-            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options, false);
+            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options);
+            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options);
 
             Lines = new List<ICommentLine>();
 
@@ -122,7 +124,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                                 _innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
                             }
 
-                            _innerText.Append(CodeCommentHelper.Spacer);
                         }
                     }
                     else
@@ -134,6 +135,16 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         if (node.PreviousNode == null && node.Parent.NodeType == XmlNodeType.Element && !options.XmlSpaceTagContent)
                         {
                             value = value.TrimStart(CodeCommentHelper.Spacer);
+                        }
+
+                        // If the previous node was an XML element, put a space before the text
+                        // unless the first character is interpunction.
+                        if (node.PreviousNode != null && node.PreviousNode.NodeType == XmlNodeType.Element)
+                        {
+                            if (!StartsWithInterpunction(value))
+                            {
+                                _innerText.Append(CodeCommentHelper.Spacer);
+                            }
                         }
 
                         _innerText.Append(value);
@@ -148,6 +159,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     node = node.NextNode;
                 }
             }
+        }
+
+        private static bool StartsWithInterpunction(string value)
+        {
+            return InterpunctionRegex.IsMatch(value);
         }
 
         #endregion Methods
