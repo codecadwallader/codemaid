@@ -49,16 +49,16 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input =
                 @"-----------------------------------------------------------------------" + Environment.NewLine +
-                @" <copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
-                @"     Company copyright tag." + Environment.NewLine +
-                @" </copyright>" + Environment.NewLine +
+                @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
+                @"    Company copyright tag." + Environment.NewLine +
+                @"</copyright>" + Environment.NewLine +
                 @"-----------------------------------------------------------------------";
 
             var expected =
                 @"-----------------------------------------------------------------------" + Environment.NewLine +
-                @" <copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
-                @"     Company copyright tag." + Environment.NewLine +
-                @" </copyright>" + Environment.NewLine +
+                @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
+                @"    Company copyright tag." + Environment.NewLine +
+                @"</copyright>" + Environment.NewLine +
                 @"-----------------------------------------------------------------------";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
@@ -72,18 +72,18 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void HeaderFormattingTests_PreservesHyphenLinesWithoutXML()
         {
             var input =
-                @" --------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
-                @" " + Environment.NewLine +
-                @" Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
-                @" " + Environment.NewLine +
-                @" --------------------------------------------------------------------------------------------------------------------";
+                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"--------------------------------------------------------------------------------------------------------------------";
 
             var expected =
-                @" --------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
-                @" " + Environment.NewLine +
-                @" Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
-                @" " + Environment.NewLine +
-                @" --------------------------------------------------------------------------------------------------------------------";
+                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"--------------------------------------------------------------------------------------------------------------------";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
             {
