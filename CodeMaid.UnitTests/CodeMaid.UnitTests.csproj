@@ -87,6 +87,7 @@
     <Compile Include="CachedSettingSetTests.cs" />
     <Compile Include="CachedSettingTests.cs" />
     <Compile Include="Formatting\CommentFormatHelper.cs" />
+    <Compile Include="Formatting\HeaderFormattingTests.cs" />
     <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\SimpleFormattingTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
