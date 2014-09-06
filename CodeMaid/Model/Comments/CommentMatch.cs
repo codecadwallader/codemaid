@@ -31,8 +31,17 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             ListPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
             Words = match.Groups["words"].Success ? match.Groups["words"].Captures.OfType<Capture>().Select(c => c.Value).ToList() : null;
 
-            IsEmpty = string.IsNullOrWhiteSpace(match.Value) || Words.Count < 1;
+            IsEmpty = string.IsNullOrWhiteSpace(match.Value) || Words == null || Words.Count < 1;
             IsList = !string.IsNullOrWhiteSpace(ListPrefix);
+
+            // In the case of a list prefix but no content (e.g. hyphen line) convert to regular content.
+            if (IsEmpty && IsList)
+            {
+                Words = new[] { ListPrefix };
+                ListPrefix = null;
+                IsEmpty = false;
+                IsList = false;
+            }
         }
 
         #endregion Constructors
