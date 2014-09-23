@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // In the case of a list prefix but no content (e.g. hyphen line) convert to regular content.
             if (IsEmpty && IsList)
             {
-                Words = new[] { ListPrefix };
+                Words = new List<string>(new[] { ListPrefix });
                 ListPrefix = null;
                 IsEmpty = false;
                 IsList = false;
