@@ -12,6 +12,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -143,6 +144,20 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             {
                 WrapAtColumn = 12,
             });
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void SimpleFormattingTests_MergesHyphenAndNonHyphenLines()
+        {
+            var input =
+                @"-----" + Environment.NewLine +
+                @"Second line to merge onto hyphen line";
+
+            var expected =
+                @"----- Second line to merge onto hyphen line";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default));
         }
     }
 }
