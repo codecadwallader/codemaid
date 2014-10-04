@@ -24,14 +24,14 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
     {
         #region Setup
 
-        private static CodeReorderManager _codeReorderManager;
+        private static CodeReorganizationManager _codeReorganizationManager;
         private ProjectItem _projectItem;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            _codeReorderManager = CodeReorderManager.GetInstance(TestEnvironment.Package);
-            Assert.IsNotNull(_codeReorderManager);
+            _codeReorganizationManager = CodeReorganizationManager.GetInstance(TestEnvironment.Package);
+            Assert.IsNotNull(_codeReorganizationManager);
         }
 
         [TestInitialize]
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
 
         private static void RunReorganize(Document document)
         {
-            _codeReorderManager.Reorganize(document, false);
+            _codeReorganizationManager.Reorganize(document, false);
         }
 
         #endregion Helpers

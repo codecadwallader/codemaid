@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CodeMaidPackage _package;
 
         private readonly CodeModelManager _codeModelManager;
-        private readonly CodeReorderManager _codeReorderManager;
+        private readonly CodeReorganizationManager _codeReorganizationManager;
         private readonly UndoTransactionHelper _undoTransactionHelper;
 
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _package = package;
 
             _codeModelManager = CodeModelManager.GetInstance(_package);
-            _codeReorderManager = CodeReorderManager.GetInstance(_package);
+            _codeReorganizationManager = CodeReorganizationManager.GetInstance(_package);
             _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
 
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
@@ -102,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
-            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(projectItem)) return;
+            if (!_codeCleanupAvailabilityLogic.CanCleanup(projectItem)) return;
 
             // Attempt to open the document if not already opened.
             bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView];
@@ -137,7 +137,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
         internal void Cleanup(Document document, bool isAutoSave = false)
         {
-            if (!_codeCleanupAvailabilityLogic.ShouldCleanup(document, true)) return;
+            if (!_codeCleanupAvailabilityLogic.CanCleanup(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like
             // format document.
@@ -152,7 +152,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                _codeReorderManager.Reorganize(document, isAutoSave);
+                _codeReorganizationManager.Reorganize(document, isAutoSave);
             }
 
             _undoTransactionHelper.Run(
@@ -234,11 +234,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
         {
             var textDocument = document.GetTextDocument();
-            bool isExternal = _codeCleanupAvailabilityLogic.IsDocumentExternal(document);
 
             // Perform any actions that can modify the file code model first.
             RunExternalFormatting(textDocument);
-            if (!isExternal)
+            if (!document.IsExternal())
             {
                 _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
                 _usingStatementCleanupLogic.SortUsingStatements(isAutoSave);

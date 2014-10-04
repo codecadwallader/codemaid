@@ -158,6 +158,7 @@
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
+    <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
     <Compile Include="Model\Comments\CommentLine.cs" />
@@ -226,7 +227,7 @@
     <Compile Include="Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
-    <Compile Include="Logic\Reorganizing\CodeReorderManager.cs" />
+    <Compile Include="Logic\Reorganizing\CodeReorganizationManager.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItem.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItemElement.cs" />
     <Compile Include="Model\CodeItems\BaseCodeItemElementParent.cs" />
