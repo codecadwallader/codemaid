@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeCleanupAvailabilityLogic.ShouldCleanup(Package.ActiveDocument);
+            Enabled = CodeCleanupAvailabilityLogic.CanCleanup(Package.ActiveDocument);
 
             if (Enabled)
             {
@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal void OnBeforeDocumentSave(Document document)
         {
             if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
-            if (!CodeCleanupAvailabilityLogic.ShouldCleanup(document)) return;
+            if (!CodeCleanupAvailabilityLogic.CanCleanup(document)) return;
 
             using (new ActiveDocumentRestorer(Package))
             {

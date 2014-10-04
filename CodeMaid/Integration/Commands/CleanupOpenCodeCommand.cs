@@ -85,7 +85,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<Document> OpenCleanableDocuments
         {
-            get { return Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null && CodeCleanupAvailabilityLogic.ShouldCleanup(x)); }
+            get { return Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null && CodeCleanupAvailabilityLogic.CanCleanup(x)); }
         }
 
         #endregion Private Properties

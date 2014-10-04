@@ -19,6 +19,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class ReorganizeActiveCodeCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly CodeReorganizationAvailabilityLogic _codeReorganizationAvailabilityLogic;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -29,7 +35,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandReorganizeActiveCode, (int)PkgCmdIDList.CmdIDCodeMaidReorganizeActiveCode))
         {
-            CodeReorderManager = CodeReorderManager.GetInstance(Package);
+            CodeReorganizationManager = CodeReorganizationManager.GetInstance(Package);
+
+            _codeReorganizationAvailabilityLogic = CodeReorganizationAvailabilityLogic.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -41,7 +49,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeReorderManager.CanReorganize(Package.ActiveDocument);
+            Enabled = _codeReorganizationAvailabilityLogic.CanReorganize(Package.ActiveDocument);
 
             if (Enabled)
             {
@@ -60,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            CodeReorderManager.Reorganize(Package.ActiveDocument, false);
+            CodeReorganizationManager.Reorganize(Package.ActiveDocument, false);
         }
 
         #endregion BaseCommand Methods
@@ -68,9 +76,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the code reorder manager.
+        /// Gets or sets the code reorganization manager.
         /// </summary>
-        private CodeReorderManager CodeReorderManager { get; set; }
+        private CodeReorganizationManager CodeReorganizationManager { get; set; }
 
         #endregion Private Properties
     }

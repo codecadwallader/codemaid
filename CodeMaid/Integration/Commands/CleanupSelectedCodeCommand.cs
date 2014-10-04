@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<ProjectItem> SelectedProjectItems
         {
-            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package).Where(x => CodeCleanupAvailabilityLogic.ShouldCleanup(x)); }
+            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package).Where(x => CodeCleanupAvailabilityLogic.CanCleanup(x)); }
         }
 
         #endregion Private Properties

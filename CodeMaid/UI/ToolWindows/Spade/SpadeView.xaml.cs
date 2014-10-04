@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     {
         #region Fields
 
-        private CodeReorderManager _codeReorderManager;
+        private CodeReorganizationManager _codeReorganizationManager;
         private TreeViewItem _dragCandidate;
         private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
@@ -54,11 +54,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Properties
 
         /// <summary>
-        /// Gets the lazy-initialized code reorder manager.
+        /// Gets the lazy-initialized code reorganization manager.
         /// </summary>
-        private CodeReorderManager CodeReorderManager
+        private CodeReorganizationManager CodeReorganizationManager
         {
-            get { return _codeReorderManager ?? (_codeReorderManager = CodeReorderManager.GetInstance(ViewModel.Package)); }
+            get { return _codeReorganizationManager ?? (_codeReorganizationManager = CodeReorganizationManager.GetInstance(ViewModel.Package)); }
         }
 
         /// <summary>
@@ -382,15 +382,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
                 case DropPosition.Above:
-                    CodeReorderManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
                     break;
 
                 case DropPosition.Below:
-                    CodeReorderManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
                     break;
 
                 case DropPosition.On:
-                    CodeReorderManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
                     break;
             }
 

@@ -95,34 +95,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Internal Methods
 
         /// <summary>
-        /// Determines whether the environment is in a valid state for cleanup.
-        /// </summary>
-        /// <returns>True if cleanup can occur, false otherwise.</returns>
-        internal bool IsCleanupEnvironmentAvailable()
-        {
-            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
-        }
-
-        /// <summary>
-        /// Determines if the specified document is external to the solution.
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns>True if the document is external, otherwise false.</returns>
-        internal bool IsDocumentExternal(Document document)
-        {
-            var projectItem = document.ProjectItem;
-            if (projectItem == null || projectItem.Collection == null || projectItem.Kind != Constants.vsProjectItemKindPhysicalFile) return true;
-
-            return projectItem.Collection.OfType<ProjectItem>().All(x => x.Object != projectItem.Object);
-        }
-
-        /// <summary>
-        /// Determines if the specified document should be cleaned up.
+        /// Determines if the specified document can be cleaned up.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="allowUserPrompts">A flag indicating if user prompts should be allowed.</param>
-        /// <returns>True if item should be cleaned up, otherwise false.</returns>
-        internal bool ShouldCleanup(Document document, bool allowUserPrompts = false)
+        /// <returns>True if item can be cleaned up, otherwise false.</returns>
+        internal bool CanCleanup(Document document, bool allowUserPrompts = false)
         {
             return IsCleanupEnvironmentAvailable() &&
                    document != null &&
@@ -133,11 +111,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines if the specified project item should be cleaned up.
+        /// Determines if the specified project item can be cleaned up.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
-        /// <returns>True if item should be cleaned up, otherwise false.</returns>
-        internal bool ShouldCleanup(ProjectItem projectItem)
+        /// <returns>True if item can be cleaned up, otherwise false.</returns>
+        internal bool CanCleanup(ProjectItem projectItem)
         {
             return IsCleanupEnvironmentAvailable() &&
                    projectItem != null &&
@@ -145,6 +123,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                    IsProjectItemLanguageIncludedByOptions(projectItem) &&
                    !IsFileNameExcludedByOptions(projectItem.Name) &&
                    !IsParentCodeGeneratorExcludedByOptions(projectItem);
+        }
+
+        /// <summary>
+        /// Determines whether the environment is in a valid state for cleanup.
+        /// </summary>
+        /// <returns>True if cleanup can occur, false otherwise.</returns>
+        internal bool IsCleanupEnvironmentAvailable()
+        {
+            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
         }
 
         #endregion Internal Methods
@@ -179,8 +166,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </returns>
         private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
         {
-            bool isExternal = IsDocumentExternal(document);
-            if (!isExternal) return false;
+            if (!document.IsExternal()) return false;
 
             switch ((AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal)
             {

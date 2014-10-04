@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -26,6 +27,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static TextDocument GetTextDocument(this Document document)
         {
             return document.Object("TextDocument") as TextDocument;
+        }
+
+        /// <summary>
+        /// Determines if the specified document is external to the solution.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if the document is external, otherwise false.</returns>
+        internal static bool IsExternal(this Document document)
+        {
+            var projectItem = document.ProjectItem;
+            if (projectItem == null || projectItem.Collection == null || projectItem.Kind != Constants.vsProjectItemKindPhysicalFile) return true;
+
+            return projectItem.Collection.OfType<ProjectItem>().All(x => x.Object != projectItem.Object);
         }
     }
 }
