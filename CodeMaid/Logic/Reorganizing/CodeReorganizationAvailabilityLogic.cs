@@ -74,9 +74,38 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             return IsReorganizationEnvironmentAvailable() &&
                    document != null &&
                    document.Language == "CSharp" &&
-                   !document.IsExternal();
+                   !document.IsExternal() &&
+                   !HasPreprocessorConditionalCompilationDirectives(document);
         }
 
         #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Determines if the specified document contains preprocessor conditional compilation directives.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>True if preprocessor conditional compilation directives are detected, otherwise false.</returns>
+        private bool HasPreprocessorConditionalCompilationDirectives(Document document)
+        {
+            var textDocument = document.GetTextDocument();
+            if (textDocument != null)
+            {
+                var pattern = _package.UsePOSIXRegEx
+                    ? @"^\#(if|else|elif|endif)"
+                    : @"^#(if|else|elif|endif)";
+
+                var editPoint = TextDocumentHelper.FirstOrDefaultMatch(textDocument, pattern);
+                if (editPoint != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion Private Methods
     }
 }

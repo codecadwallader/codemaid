@@ -89,6 +89,26 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
+        /// Finds the first match of the specified pattern within the specified text document, otherwise null.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        /// <param name="patternString">The pattern string.</param>
+        /// <returns>The first match, otherwise null.</returns>
+        internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
+        {
+            var cursor = textDocument.StartPoint.CreateEditPoint();
+            EditPoint end = null;
+            TextRanges dummy = null;
+
+            if (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            {
+                return cursor.CreateEditPoint();
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets the text between the specified start point and the first match.
         /// </summary>
         /// <param name="startPoint">The start point.</param>
