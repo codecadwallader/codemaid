@@ -30,7 +30,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private SetCodeItems _organizedCodeItems;
         private SetCodeItems _rawCodeItems;
-        private CodeSortOrder _sortOrder;
 
         #endregion Fields
 
@@ -143,17 +142,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public CodeSortOrder SortOrder
         {
-            get { return _sortOrder; }
-            set
-            {
-                if (_sortOrder != value)
-                {
-                    _sortOrder = value;
-
-                    RequestUpdatedOrganizedCodeItems();
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<CodeSortOrder>(); }
+            set { SetPropertyValue(value); }
         }
 
         #endregion Properties
