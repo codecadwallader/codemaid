@@ -1631,5 +1631,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["General_LoadModelsAsynchronously"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Digging_PrimarySort {
+            get {
+                return ((int)(this["Digging_PrimarySort"]));
+            }
+            set {
+                this["Digging_PrimarySort"] = value;
+            }
+        }
     }
 }

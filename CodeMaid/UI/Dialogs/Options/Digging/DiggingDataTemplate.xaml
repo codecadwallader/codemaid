@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging"
-        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:codeTree="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeTree">
     <DataTemplate DataType="{x:Type local:DiggingViewModel}">
         <StackPanel>
             <GroupBox Header="General">
@@ -32,11 +33,23 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Layout">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="When sorting by type, secondary sort should be" VerticalAlignment="Center" />
-                    <RadioButton Content="by file order" IsChecked="{Binding SecondarySortTypeByName, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
-                    <RadioButton Content="alphabetical" IsChecked="{Binding SecondarySortTypeByName}" />
+            <GroupBox Header="Sort">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Primary sort should be by" VerticalAlignment="Center" />
+                        <RadioButton Content="file order"
+                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.FileLayout}}" />
+                        <RadioButton Content="type"
+                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.TypeLayout}}" />
+                        <RadioButton Content="alphabetical"
+                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.AlphaLayout}}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="When sorting by type, secondary sort should be by" VerticalAlignment="Center" />
+                        <RadioButton Content="file order" IsChecked="{Binding SecondarySortTypeByName, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
+                        <RadioButton Content="alphabetical" IsChecked="{Binding SecondarySortTypeByName}" />
+                    </StackPanel>
                 </StackPanel>
             </GroupBox>
 
