@@ -201,9 +201,9 @@
     <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeLayoutAlphaCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeLayoutFileCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeLayoutTypeCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeSortOrderAlphaCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeSortOrderFileCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeSortOrderTypeCommand.cs" />
     <Compile Include="Integration\Commands\SpadeRefreshCommand.cs" />
     <Compile Include="Integration\Commands\SpadeToolWindowCommand.cs" />
     <Compile Include="Integration\Commands\SwitchFileCommand.cs" />
@@ -259,7 +259,7 @@
     <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />
     <Compile Include="Model\CodeTree\CodeTreeBuilderAsync.cs" />
     <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
-    <Compile Include="Model\CodeTree\TreeLayoutMode.cs" />
+    <Compile Include="Model\CodeTree\CodeSortOrder.cs" />
     <Compile Include="CodeMaidPackage.cs" />
     <Compile Include="Model\Comments\CodeCommentOptions.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />

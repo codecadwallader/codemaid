@@ -24,12 +24,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="rawCodeItems">The raw code items.</param>
-        /// <param name="layoutMode">The layout mode.</param>
-        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, TreeLayoutMode layoutMode)
+        /// <param name="sortOrder">The sort order.</param>
+        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder)
         {
             Document = document;
             RawCodeItems = rawCodeItems;
-            LayoutMode = layoutMode;
+            SortOrder = sortOrder;
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         internal SetCodeItems RawCodeItems { get; private set; }
 
         /// <summary>
-        /// Gets the layout mode.
+        /// Gets the sort order.
         /// </summary>
-        internal TreeLayoutMode LayoutMode { get; private set; }
+        internal CodeSortOrder SortOrder { get; private set; }
     }
 }

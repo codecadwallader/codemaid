@@ -28,9 +28,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private readonly CodeTreeBuilderAsync _codeTreeBuilderAsync;
         private OutliningSynchronizationManager _outliningSynchronizationManager;
 
-        private TreeLayoutMode _layoutMode;
         private SetCodeItems _organizedCodeItems;
         private SetCodeItems _rawCodeItems;
+        private CodeSortOrder _sortOrder;
 
         #endregion Fields
 
@@ -82,24 +82,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the current layout mode.
-        /// </summary>
-        public TreeLayoutMode LayoutMode
-        {
-            get { return _layoutMode; }
-            set
-            {
-                if (_layoutMode != value)
-                {
-                    _layoutMode = value;
-
-                    RequestUpdatedOrganizedCodeItems();
-                    RaisePropertyChanged();
-                }
-            }
         }
 
         /// <summary>
@@ -156,6 +138,24 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public BaseCodeItem SelectedItem { get; set; }
 
+        /// <summary>
+        /// Gets or sets the current sort order.
+        /// </summary>
+        public CodeSortOrder SortOrder
+        {
+            get { return _sortOrder; }
+            set
+            {
+                if (_sortOrder != value)
+                {
+                    _sortOrder = value;
+
+                    RequestUpdatedOrganizedCodeItems();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -176,7 +176,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, LayoutMode));
+            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder));
         }
 
         /// <summary>

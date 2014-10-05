@@ -1635,12 +1635,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Digging_PrimarySort {
+        public int Digging_PrimarySortOrder {
             get {
-                return ((int)(this["Digging_PrimarySort"]));
+                return ((int)(this["Digging_PrimarySortOrder"]));
             }
             set {
-                this["Digging_PrimarySort"] = value;
+                this["Digging_PrimarySortOrder"] = value;
             }
         }
     }

@@ -146,7 +146,7 @@
       <Group guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" priority="0x0200">
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
       </Group>
-      <Group guid="GuidCodeMaidToolbarSpadeLayoutGroup" id="GroupIDCodeMaidToolbarSpadeLayoutGroup" priority="0x0400">
+      <Group guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" priority="0x0400">
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
       </Group>
       <Group guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" priority="0x0600">
@@ -440,24 +440,24 @@
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0100" type="Button">
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <Strings>
-          <ButtonText>Layout alphabetically</ButtonText>
+          <ButtonText>Sort alphabetically</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandSpadeLayoutFile" id="CmdIDCodeMaidSpadeLayoutFile" priority="0x0100" type="Button">
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderFile" id="CmdIDCodeMaidSpadeSortOrderFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
         <Strings>
-          <ButtonText>Layout by file order</ButtonText>
+          <ButtonText>Sort by file order</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandSpadeLayoutType" id="CmdIDCodeMaidSpadeLayoutType" priority="0x0100" type="Button">
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortType" id="IconSortType" />
         <Strings>
-          <ButtonText>Layout by type</ButtonText>
+          <ButtonText>Sort by type</ButtonText>
         </Strings>
       </Button>
 
@@ -764,16 +764,16 @@
       <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeLayoutAlpha" id="CmdIDCodeMaidSpadeLayoutAlpha" priority="0x0600">
-      <Parent guid="GuidCodeMaidToolbarSpadeLayoutGroup" id="GroupIDCodeMaidToolbarSpadeLayoutGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0600">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeLayoutFile" id="CmdIDCodeMaidSpadeLayoutFile" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarSpadeLayoutGroup" id="GroupIDCodeMaidToolbarSpadeLayoutGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderFile" id="CmdIDCodeMaidSpadeSortOrderFile" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeLayoutType" id="CmdIDCodeMaidSpadeLayoutType" priority="0x0400">
-      <Parent guid="GuidCodeMaidToolbarSpadeLayoutGroup" id="GroupIDCodeMaidToolbarSpadeLayoutGroup" />
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0400">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
@@ -922,8 +922,8 @@
       <IDSymbol name="GroupIDCodeMaidToolbarSpadeRefreshGroup" value="0x1042" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidToolbarSpadeLayoutGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
-      <IDSymbol name="GroupIDCodeMaidToolbarSpadeLayoutGroup" value="0x1043" />
+    <GuidSymbol name="GuidCodeMaidToolbarSpadeSortOrderGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
+      <IDSymbol name="GroupIDCodeMaidToolbarSpadeSortOrderGroup" value="0x1043" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidToolbarSpadeMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
@@ -1148,16 +1148,16 @@
       <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3100" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutAlpha" value="0x3200" />
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3200" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutFile" value="0x3300" />
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3300" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSpadeLayoutType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeLayoutType" value="0x3400" />
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">

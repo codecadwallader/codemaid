@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
             ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
             IndentationMargin = Settings.Default.Digging_IndentationMargin;
-            PrimarySort = (TreeLayoutMode)Settings.Default.Digging_PrimarySort;
+            PrimarySortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
             SecondarySortTypeByName = Settings.Default.Digging_SecondarySortTypeByName;
             ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
             ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
             Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
             Settings.Default.Digging_IndentationMargin = IndentationMargin;
-            Settings.Default.Digging_PrimarySort = (int)PrimarySort;
+            Settings.Default.Digging_PrimarySortOrder = (int)PrimarySortOrder;
             Settings.Default.Digging_SecondarySortTypeByName = SecondarySortTypeByName;
             Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
             Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
@@ -119,14 +119,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// <summary>
         /// Gets or sets the primary sort order.
         /// </summary>
-        public TreeLayoutMode PrimarySort
+        public CodeSortOrder PrimarySortOrder
         {
-            get { return GetPropertyValue<TreeLayoutMode>(); }
+            get { return GetPropertyValue<CodeSortOrder>(); }
             set { SetPropertyValue(value); }
         }
 
         /// <summary>
-        /// Gets or sets the flag indicating if secondary sorting during type layout should be on name.
+        /// Gets or sets the flag indicating if secondary sorting during type sort should be on name.
         /// </summary>
         public bool SecondarySortTypeByName
         {

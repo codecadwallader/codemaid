@@ -35,9 +35,9 @@ namespace SteveCadwallader.CodeMaid.Integration
         public const uint CmdIDCodeMaidSpadeContextDelete = 0x2900;
         public const uint CmdIDCodeMaidSpadeContextFindReferences = 0x3000;
         public const uint CmdIDCodeMaidSpadeContextRemoveRegion = 0x3100;
-        public const uint CmdIDCodeMaidSpadeLayoutAlpha = 0x3200;
-        public const uint CmdIDCodeMaidSpadeLayoutFile = 0x3300;
-        public const uint CmdIDCodeMaidSpadeLayoutType = 0x3400;
+        public const uint CmdIDCodeMaidSpadeSortOrderAlpha = 0x3200;
+        public const uint CmdIDCodeMaidSpadeSortOrderFile = 0x3300;
+        public const uint CmdIDCodeMaidSpadeSortOrderType = 0x3400;
         public const uint CmdIDCodeMaidSpadeRefresh = 0x3500;
         public const uint CmdIDCodeMaidSpadeToolWindow = 0x3600;
         public const uint CmdIDCodeMaidSwitchFile = 0x3700;
