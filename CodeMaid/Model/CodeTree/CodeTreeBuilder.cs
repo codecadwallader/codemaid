@@ -34,18 +34,18 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
 
             SetCodeItems codeItems = null;
 
-            switch (request.LayoutMode)
+            switch (request.SortOrder)
             {
-                case TreeLayoutMode.AlphaLayout:
-                    codeItems = OrganizeCodeItemsByAlphaLayout(request.RawCodeItems);
+                case CodeSortOrder.Alpha:
+                    codeItems = OrganizeCodeItemsByAlphaSortOrder(request.RawCodeItems);
                     break;
 
-                case TreeLayoutMode.FileLayout:
-                    codeItems = OrganizeCodeItemsByFileLayout(request.RawCodeItems);
+                case CodeSortOrder.File:
+                    codeItems = OrganizeCodeItemsByFileSortOrder(request.RawCodeItems);
                     break;
 
-                case TreeLayoutMode.TypeLayout:
-                    codeItems = OrganizeCodeItemsByTypeLayout(request.RawCodeItems);
+                case CodeSortOrder.Type:
+                    codeItems = OrganizeCodeItemsByTypeSortOrder(request.RawCodeItems);
                     break;
             }
 
@@ -69,11 +69,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         }
 
         /// <summary>
-        /// Organizes the specified code items by alpha layout.
+        /// Organizes the specified code items by alpha sort order.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByAlphaLayout(SetCodeItems rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByAlphaSortOrder(SetCodeItems rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             {
                 var codeItemsWithoutRegions = rawCodeItems.Where(x => !(x is CodeItemRegion));
 
-                var structuredCodeItems = OrganizeCodeItemsByFileLayout(codeItemsWithoutRegions);
+                var structuredCodeItems = OrganizeCodeItemsByFileSortOrder(codeItemsWithoutRegions);
                 organizedCodeItems.AddRange(structuredCodeItems);
 
                 // Sort the list of code items by name recursively.
@@ -92,11 +92,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         }
 
         /// <summary>
-        /// Organizes the specified code items by file layout.
+        /// Organizes the specified code items by file sort order.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByFileLayout(IEnumerable<BaseCodeItem> rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByFileSortOrder(IEnumerable<BaseCodeItem> rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
@@ -134,11 +134,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         }
 
         /// <summary>
-        /// Organizes the specified code items by type layout.
+        /// Organizes the specified code items by type sort order.
         /// </summary>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <returns>The organized code items.</returns>
-        private static SetCodeItems OrganizeCodeItemsByTypeLayout(SetCodeItems rawCodeItems)
+        private static SetCodeItems OrganizeCodeItemsByTypeSortOrder(SetCodeItems rawCodeItems)
         {
             var organizedCodeItems = new SetCodeItems();
 
@@ -146,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             {
                 var codeItemsWithoutRegions = rawCodeItems.Where(x => !(x is CodeItemRegion));
 
-                var structuredCodeItems = OrganizeCodeItemsByFileLayout(codeItemsWithoutRegions);
+                var structuredCodeItems = OrganizeCodeItemsByFileSortOrder(codeItemsWithoutRegions);
                 organizedCodeItems.AddRange(structuredCodeItems);
 
                 // Sort the list of code items by type recursively.

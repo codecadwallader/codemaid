@@ -81,12 +81,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the layout mode.
+        /// Gets or sets the sort order.
         /// </summary>
-        public TreeLayoutMode LayoutMode
+        public CodeSortOrder SortOrder
         {
-            get { return _viewModel.LayoutMode; }
-            set { _viewModel.LayoutMode = value; }
+            get { return _viewModel.SortOrder; }
+            set { _viewModel.SortOrder = value; }
         }
 
         /// <summary>

@@ -38,11 +38,11 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Primary sort should be by" VerticalAlignment="Center" />
                         <RadioButton Content="file order"
-                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.FileLayout}}" />
+                                     IsChecked="{Binding PrimarySortOrder, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:CodeSortOrder.File}}" />
                         <RadioButton Content="type"
-                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.TypeLayout}}" />
+                                     IsChecked="{Binding PrimarySortOrder, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:CodeSortOrder.Type}}" />
                         <RadioButton Content="alphabetical"
-                                     IsChecked="{Binding PrimarySort, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:TreeLayoutMode.AlphaLayout}}" />
+                                     IsChecked="{Binding PrimarySortOrder, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static codeTree:CodeSortOrder.Alpha}}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">

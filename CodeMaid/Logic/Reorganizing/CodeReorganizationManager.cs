@@ -130,9 +130,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Retrieve all relevant code items (excluding using statements).
                     var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document).Where(x => !(x is CodeItemUsingStatement));
 
-                    // Build the code tree based on the current file layout.
+                    // Build the code tree based on the current file sort order.
                     var codeItems = new SetCodeItems(rawCodeItems);
-                    var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, TreeLayoutMode.FileLayout));
+                    var codeTree = CodeTreeBuilder.RetrieveCodeTree(new CodeTreeRequest(document, codeItems, CodeSortOrder.File));
 
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);

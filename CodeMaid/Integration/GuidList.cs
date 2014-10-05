@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid("ed596e0f-d1cb-46e7-8dd3-741758451f27");
         public static readonly Guid GuidCodeMaidToolbarSpadeBaseGroup = new Guid("93e0e5d3-d335-4c12-ae8b-bccccdcd1eda");
         public static readonly Guid GuidCodeMaidToolbarSpadeRefreshGroup = new Guid("c4640933-0ac0-485c-875f-4aaa94fdd8d0");
-        public static readonly Guid GuidCodeMaidToolbarSpadeLayoutGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
+        public static readonly Guid GuidCodeMaidToolbarSpadeSortOrderGroup = new Guid("e5e5ca6a-7cdd-473f-9d55-9d726e220bd3");
         public static readonly Guid GuidCodeMaidToolbarSpadeMetaGroup = new Guid("e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b");
 
         // Context menu group guids.
@@ -87,9 +87,9 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidCommandSpadeContextDelete = new Guid("d8312056-c902-4d26-9f12-b4bb60db0365");
         public static readonly Guid GuidCodeMaidCommandSpadeContextFindReferences = new Guid("9ed89f6a-ab37-487a-8beb-d3c586d76a47");
         public static readonly Guid GuidCodeMaidCommandSpadeContextRemoveRegion = new Guid("502c000f-9afa-4c6a-af01-4d64d756733e");
-        public static readonly Guid GuidCodeMaidCommandSpadeLayoutAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
-        public static readonly Guid GuidCodeMaidCommandSpadeLayoutFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
-        public static readonly Guid GuidCodeMaidCommandSpadeLayoutType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");
+        public static readonly Guid GuidCodeMaidCommandSpadeSortOrderAlpha = new Guid("96d3277b-ef42-45a0-ab4e-199068aee37a");
+        public static readonly Guid GuidCodeMaidCommandSpadeSortOrderFile = new Guid("f415e355-9e84-40d4-9162-0d1035fed5ad");
+        public static readonly Guid GuidCodeMaidCommandSpadeSortOrderType = new Guid("a59af09e-4c0f-4790-a954-3d967adcf216");
         public static readonly Guid GuidCodeMaidCommandSpadeRefresh = new Guid("6e26b076-d635-4a6e-82a8-ba10483f5414");
         public static readonly Guid GuidCodeMaidCommandSpadeToolWindow = new Guid("aaf6a75d-2ccc-4081-b1ab-76306653807c");
         public static readonly Guid GuidCodeMaidCommandSwitchFile = new Guid("8cd97d41-8750-4dbb-9e89-eaa91620b078");
