@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarSpadeBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
-            _viewModel = new SpadeViewModel();
+            _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };
 
             // Register for view model requests to be refreshed.
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             base.Content = new SpadeView { DataContext = _viewModel };
 
             // Register for changes to settings.
-            Settings.Default.SettingsSaving += (sender, args) => Refresh();
+            Settings.Default.SettingsSaving += (sender, args) => OnSettingsSave();
         }
 
         #endregion Constructors
@@ -86,7 +86,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public CodeSortOrder SortOrder
         {
             get { return _viewModel.SortOrder; }
-            set { _viewModel.SortOrder = value; }
+            set
+            {
+                if (_viewModel.SortOrder != value)
+                {
+                    Settings.Default.Digging_PrimarySortOrder = (int)value;
+                    Settings.Default.Save();
+                }
+            }
         }
 
         /// <summary>
@@ -267,6 +274,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 UpdateViewModelRawCodeItems(codeModel.CodeItems);
             }
+        }
+
+        /// <summary>
+        /// An event handler called when settings are saved.
+        /// </summary>
+        private void OnSettingsSave()
+        {
+            _viewModel.SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
+            Refresh();
         }
 
         /// <summary>
