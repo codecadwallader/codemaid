@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
@@ -50,6 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
             ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
             IndentationMargin = Settings.Default.Digging_IndentationMargin;
+            PrimarySort = (TreeLayoutMode)Settings.Default.Digging_PrimarySort;
             SecondarySortTypeByName = Settings.Default.Digging_SecondarySortTypeByName;
             ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
             ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
@@ -66,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
             Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
             Settings.Default.Digging_IndentationMargin = IndentationMargin;
+            Settings.Default.Digging_PrimarySort = (int)PrimarySort;
             Settings.Default.Digging_SecondarySortTypeByName = SecondarySortTypeByName;
             Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
             Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
@@ -110,6 +113,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         public int IndentationMargin
         {
             get { return GetPropertyValue<int>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the primary sort order.
+        /// </summary>
+        public TreeLayoutMode PrimarySort
+        {
+            get { return GetPropertyValue<TreeLayoutMode>(); }
             set { SetPropertyValue(value); }
         }
 
