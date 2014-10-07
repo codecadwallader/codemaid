@@ -70,9 +70,19 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         private vsBuildScope BuildScope { get; set; }
 
         /// <summary>
+        /// Gets or sets the last project which started building.
+        /// </summary>
+        private string BuildingProject { get; set; }
+
+        /// <summary>
         /// Gets or sets the number of projects built.
         /// </summary>
         private int NumberOfProjectsBuilt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of projects which have started building.
+        /// </summary>
+        private int NumberOfProjectsStartedBuilding { get; set; }
 
         /// <summary>
         /// Gets or sets the number of projects to be built.
@@ -126,7 +136,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         {
             BuildAction = action;
             BuildScope = scope;
+            BuildingProject = null;
             NumberOfProjectsBuilt = 0;
+            NumberOfProjectsStartedBuilding = 0;
 
             if (BuildScope == vsBuildScope.vsBuildScopeSolution)
             {
@@ -154,20 +166,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <param name="solutionConfig">The solution config.</param>
         internal void NotifyBuildProjConfigBegin(string project, string projectConfig, string platform, string solutionConfig)
         {
-            string projectName = ExtractProjectName(project);
-            string buildString = GetBuildTypeString(BuildScope, BuildAction);
-
-            string progressString = string.Empty;
-            if (NumberOfProjectsToBeBuilt > 0)
-            {
-                string projectsString = NumberOfProjectsToBeBuilt.ToString(CultureInfo.CurrentUICulture);
-                string completeString = (++NumberOfProjectsBuilt).ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
-
-                progressString = string.Format(" {0} of {1}", completeString, projectsString);
-            }
-
-            Caption = string.Format("{0}: {1}{2} \"{3}\"...",
-                                    DefaultCaption, buildString, progressString, projectName);
+            BuildingProject = project;
+            ++NumberOfProjectsStartedBuilding;
+            Caption = GetToolWindowCaption(project);
             _viewModel.ProgressPercentage = ProgressPercentage;
         }
 
@@ -185,6 +186,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             {
                 _viewModel.HasBuildFailed = true;
             }
+
+            ++NumberOfProjectsBuilt;
+            Caption = GetToolWindowCaption(project);
+            _viewModel.ProgressPercentage = ProgressPercentage;
         }
 
         /// <summary>
@@ -278,6 +283,28 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             }
 
             return count;
+        }
+
+        /// <summary>
+        /// Gets the build progress tool window caption to be displayed.
+        /// </summary>
+        /// <returns>The string to be displayed as the tool window caption.</returns>
+        private string GetToolWindowCaption(string project)
+        {
+            string projectName = ExtractProjectName(BuildingProject);
+            string buildString = GetBuildTypeString(BuildScope, BuildAction);
+
+            string progressString = string.Empty;
+            if (NumberOfProjectsToBeBuilt > 0)
+            {
+                string projectsString = NumberOfProjectsToBeBuilt.ToString(CultureInfo.CurrentUICulture);
+                string completeString = NumberOfProjectsStartedBuilding.ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
+
+                progressString = string.Format(" {0} of {1}", completeString, projectsString);
+            }
+
+            return string.Format("{0}: {1}{2} \"{3}\"...",
+                                 DefaultCaption, buildString, progressString, projectName);
         }
 
         #endregion Methods
