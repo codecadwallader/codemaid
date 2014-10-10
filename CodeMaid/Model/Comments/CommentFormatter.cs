@@ -112,6 +112,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private void Append(string value)
         {
+            if (String.IsNullOrEmpty(value))
+            {
+                return;
+            }
             _builder.Append(_options.XmlKeepTagsTogether ? CodeCommentHelper.FakeToSpace(value) : value);
             _currentPosition += WordLength(value);
             _isFirstWord = false;
