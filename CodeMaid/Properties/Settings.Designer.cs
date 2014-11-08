@@ -182,7 +182,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".*\\.Designer\\.cs||.*\\.Designer\\.vb||.*\\.resx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\.Designer\\.cs$||\\.Designer\\.vb$||\\.resx$")]
         public string Cleaning_ExclusionExpression {
             get {
                 return ((string)(this["Cleaning_ExclusionExpression"]));
