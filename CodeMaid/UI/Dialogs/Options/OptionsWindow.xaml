@@ -65,6 +65,7 @@
                                 <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Finding/FindingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Formatting/FormattingDataTemplate.xaml" />
                                 <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />

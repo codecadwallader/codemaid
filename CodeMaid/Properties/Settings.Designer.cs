@@ -1643,5 +1643,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_PrimarySortOrder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Finding_TemporarilyOpenSolutionFolders {
+            get {
+                return ((bool)(this["Finding_TemporarilyOpenSolutionFolders"]));
+            }
+            set {
+                this["Finding_TemporarilyOpenSolutionFolders"] = value;
+            }
+        }
     }
 }

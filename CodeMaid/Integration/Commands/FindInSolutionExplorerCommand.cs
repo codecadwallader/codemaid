@@ -11,6 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
 
@@ -55,7 +56,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Document document = Package.ActiveDocument;
             if (document != null)
             {
-                ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
+                if (Settings.Default.Finding_TemporarilyOpenSolutionFolders)
+                {
+                    ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
+                }
 
                 if (Package.IDEVersion >= 11)
                 {
@@ -94,6 +98,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             // Expand the solution folder temporarily.
             if (isCollapsedSolutionFolder)
             {
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily expanding '{0}'", parentItem.Name));
+
                 parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
                 Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();
             }
@@ -107,6 +114,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             // Collapse the solution folder.
             if (isCollapsedSolutionFolder)
             {
+                OutputWindowHelper.DiagnosticWriteLine(
+                    string.Format("FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily collapsing '{0}'", parentItem.Name));
+
                 parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
                 Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();
             }

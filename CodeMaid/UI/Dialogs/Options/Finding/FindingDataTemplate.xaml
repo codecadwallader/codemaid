@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding">
+    <DataTemplate DataType="{x:Type local:FindingViewModel}">
+        <CheckBox Content="Temporarily open solution folders to find nested items" IsChecked="{Binding TemporarilyOpenSolutionFolders}" />
+    </DataTemplate>
+</ResourceDictionary>
