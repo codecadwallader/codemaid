@@ -106,7 +106,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                    document != null &&
                    IsDocumentLanguageIncludedByOptions(document) &&
                    !IsDocumentExcludedBecauseExternal(document, allowUserPrompts) &&
-                   !IsFileNameExcludedByOptions(document.Name) &&
+                   !IsFileNameExcludedByOptions(document.FullName) &&
                    !IsParentCodeGeneratorExcludedByOptions(document);
         }
 
@@ -121,7 +121,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                    projectItem != null &&
                    projectItem.Kind == Constants.vsProjectItemKindPhysicalFile &&
                    IsProjectItemLanguageIncludedByOptions(projectItem) &&
-                   !IsFileNameExcludedByOptions(projectItem.Name) &&
+                   !IsFileNameExcludedByOptions(projectItem) &&
                    !IsParentCodeGeneratorExcludedByOptions(projectItem);
         }
 
@@ -215,6 +215,24 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     OutputWindowHelper.DiagnosticWriteLine(
                         string.Format("CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{0}'", document.Language));
                     return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified project item has a filename which is excluded by configuration.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>True if the project item has a filename which is excluded, otherwise false.</returns>
+        private bool IsFileNameExcludedByOptions(ProjectItem projectItem)
+        {
+            try
+            {
+                return IsFileNameExcludedByOptions(projectItem.FileNames[1]);
+            }
+            catch (Exception)
+            {
+                // Guard in case FileNames is ever invalid as there isn't a way to test the collection.
+                return false;
             }
         }
 

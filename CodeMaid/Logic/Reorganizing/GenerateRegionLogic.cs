@@ -223,7 +223,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 cursor.Insert(Environment.NewLine);
             }
 
-            cursor.Insert("#endregion " + region.Name);
+            cursor.Insert("#endregion");
+
+            if (Settings.Default.Cleaning_UpdateEndRegionDirectives)
+            {
+                cursor.Insert(" " + region.Name);
+            }
 
             // If the cursor is not followed only by whitespace, insert a new line.
             var lastNonWhitespaceIndex = cursor.GetLine().TrimEnd().Length;

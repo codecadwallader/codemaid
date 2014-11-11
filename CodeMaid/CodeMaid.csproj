@@ -302,6 +302,7 @@
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Compatibility\CompatibilityViewModel.cs" />
@@ -615,6 +616,10 @@
     <Page Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\Finding\FindingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\Options\Formatting\FormattingDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>

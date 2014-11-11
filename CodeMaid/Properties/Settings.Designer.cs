@@ -182,7 +182,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".*\\.Designer\\.cs||.*\\.Designer\\.vb||.*\\.resx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\.Designer\\.cs$||\\.Designer\\.vb$||\\.resx$")]
         public string Cleaning_ExclusionExpression {
             get {
                 return ((string)(this["Cleaning_ExclusionExpression"]));
@@ -1641,6 +1641,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Digging_PrimarySortOrder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Finding_TemporarilyOpenSolutionFolders {
+            get {
+                return ((bool)(this["Finding_TemporarilyOpenSolutionFolders"]));
+            }
+            set {
+                this["Finding_TemporarilyOpenSolutionFolders"] = value;
             }
         }
     }
