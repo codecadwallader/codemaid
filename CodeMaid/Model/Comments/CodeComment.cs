@@ -168,6 +168,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
             EditPoint current = point.CreateEditPoint();
             EditPoint result = null;
+            string prefix = null;
 
             do
             {
@@ -181,8 +182,19 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     // code and do not format.
                     if (match.Groups["initialspacer"].Success)
                     {
+                        // Get the comment prefix for the current line.
+                        var currentPrefix = match.Groups["prefix"].Value.TrimStart();
+                        if (prefix == null) { prefix = currentPrefix; }
+
+                        // Cancel the expanding if the prefix does not match.
+                        if (prefix != currentPrefix)
+                        {
+                            break;
+                        }
+
                         result = current.CreateEditPoint();
                         foundAction(current);
+
                         // If result and iterator line are the same, the found action (move line up or
                         // down) did nothing. This means we're at the start or end of the file, and
                         // there is no point to keep searching, it would create an infinite loop.
