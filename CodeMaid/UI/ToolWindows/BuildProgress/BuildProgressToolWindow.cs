@@ -303,8 +303,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
                 progressString = string.Format(" {0} of {1}", completeString, projectsString);
             }
 
-            return string.Format("{0}: {1}{2} {3}...",
-                                 DefaultCaption, buildString, progressString, string.Join(", ", projectNames));
+            return string.Format("{0}{1}: {2} {3}...",
+                                 DefaultCaption, progressString, buildString, string.Join(", ", projectNames));
         }
 
         #endregion Methods
