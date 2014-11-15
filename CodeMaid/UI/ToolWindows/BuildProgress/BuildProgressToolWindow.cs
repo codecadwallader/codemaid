@@ -13,6 +13,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Integration;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -70,19 +71,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         private vsBuildScope BuildScope { get; set; }
 
         /// <summary>
-        /// Gets or sets the last project which started building.
+        /// Gets or sets the projects which are currently building.
         /// </summary>
-        private string BuildingProject { get; set; }
+        private List<string> BuildingProjects { get; set; }
 
         /// <summary>
         /// Gets or sets the number of projects built.
         /// </summary>
         private int NumberOfProjectsBuilt { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of projects which have started building.
-        /// </summary>
-        private int NumberOfProjectsStartedBuilding { get; set; }
 
         /// <summary>
         /// Gets or sets the number of projects to be built.
@@ -136,9 +132,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         {
             BuildAction = action;
             BuildScope = scope;
-            BuildingProject = null;
+            BuildingProjects = new List<string>();
             NumberOfProjectsBuilt = 0;
-            NumberOfProjectsStartedBuilding = 0;
 
             if (BuildScope == vsBuildScope.vsBuildScopeSolution)
             {
@@ -166,9 +161,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <param name="solutionConfig">The solution config.</param>
         internal void NotifyBuildProjConfigBegin(string project, string projectConfig, string platform, string solutionConfig)
         {
-            BuildingProject = project;
-            ++NumberOfProjectsStartedBuilding;
-            Caption = GetToolWindowCaption(project);
+            BuildingProjects.Add(project);
+            Caption = GetToolWindowCaption();
             _viewModel.ProgressPercentage = ProgressPercentage;
         }
 
@@ -188,7 +182,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             }
 
             ++NumberOfProjectsBuilt;
-            Caption = GetToolWindowCaption(project);
+            BuildingProjects.Remove(project);
+            Caption = GetToolWindowCaption();
             _viewModel.ProgressPercentage = ProgressPercentage;
         }
 
@@ -289,22 +284,27 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// Gets the build progress tool window caption to be displayed.
         /// </summary>
         /// <returns>The string to be displayed as the tool window caption.</returns>
-        private string GetToolWindowCaption(string project)
+        private string GetToolWindowCaption()
         {
-            string projectName = ExtractProjectName(BuildingProject);
+            List<string> projectNames = new List<string>(BuildingProjects.Count);
+            foreach (string buildingProject in BuildingProjects) {
+                projectNames.Add(string.Format("\"{0}\"",
+                ExtractProjectName(buildingProject)));
+            }
+
             string buildString = GetBuildTypeString(BuildScope, BuildAction);
 
             string progressString = string.Empty;
             if (NumberOfProjectsToBeBuilt > 0)
             {
                 string projectsString = NumberOfProjectsToBeBuilt.ToString(CultureInfo.CurrentUICulture);
-                string completeString = NumberOfProjectsStartedBuilding.ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
+                string completeString = NumberOfProjectsBuilt.ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
 
                 progressString = string.Format(" {0} of {1}", completeString, projectsString);
             }
 
-            return string.Format("{0}: {1}{2} \"{3}\"...",
-                                 DefaultCaption, buildString, progressString, projectName);
+            return string.Format("{0}: {1}{2} {3}...",
+                                 DefaultCaption, buildString, progressString, string.Join(", ", projectNames));
         }
 
         #endregion Methods
