@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.Integration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -222,7 +223,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <returns>The build type string.</returns>
         private static string GetBuildTypeString(vsBuildScope buildScope, vsBuildAction buildAction)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             // First append the word 'Batch ' if this is a batch build event.
             if (buildScope == vsBuildScope.vsBuildScopeBatch)
@@ -286,12 +287,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <returns>The string to be displayed as the tool window caption.</returns>
         private string GetToolWindowCaption()
         {
-            List<string> projectNames = new List<string>(BuildingProjects.Count);
-            foreach (string buildingProject in BuildingProjects) {
-                projectNames.Add(string.Format("\"{0}\"",
-                ExtractProjectName(buildingProject)));
-            }
-
+            var projectNames = BuildingProjects.Select(x => string.Format("\"{0}\"", ExtractProjectName(x))).ToList();
             string buildString = GetBuildTypeString(BuildScope, BuildAction);
 
             string progressString = string.Empty;
