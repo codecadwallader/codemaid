@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            new AboutWindow().ShowDialog();
+            new AboutWindow().ShowModal();
         }
 
         #endregion BaseCommand Methods
