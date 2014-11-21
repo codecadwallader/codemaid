@@ -153,6 +153,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Cleaning\FileTypes\SCSSTests.cs" />
+    <Content Include="Cleaning\Insert\Data\EndOfFileTrailingNewLine.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\EndOfFileTrailingNewLine_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Insert\EndOfFileTrailingNewLineTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveAllRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveCurrentRegionTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveEmptyRegionsTests.cs" />

@@ -12,6 +12,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -72,6 +73,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                                      : @"$1 />";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
+        }
+
+        /// <summary>
+        /// Insert the trailing newline to the end of the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        internal void InsertEOFTrailingNewLine(TextDocument textDocument)
+        {
+            if (!Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine) return;
+
+            EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
+
+            if (cursor.AtEndOfDocument && !cursor.AtStartOfLine)
+            {
+                cursor.Insert(Environment.NewLine);
+            }
         }
 
         #endregion Methods

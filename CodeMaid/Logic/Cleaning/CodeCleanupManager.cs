@@ -332,6 +332,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
+            // Perform insertion of whitespace cleanup.
+            _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
+
             // Perform update cleanup.
             _updateLogic.UpdateEndRegionDirectives(textDocument);
             _updateLogic.UpdateEventAccessorsToBothBeSingleLineOrMultiLine(events);
@@ -361,6 +364,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveBlankLinesAfterOpeningBrace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+
+            // Perform insertion cleanup.
+            _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
         }
 
         /// <summary>
@@ -385,6 +391,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
+            _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
         }
 
         /// <summary>
@@ -404,6 +411,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
             _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+
+            // Perform insertion cleanup.
+            _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
         }
 
         #endregion Private Language Methods

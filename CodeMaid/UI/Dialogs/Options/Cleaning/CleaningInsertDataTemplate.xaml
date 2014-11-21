@@ -52,7 +52,7 @@
             </WrapPanel>
 
             <TextBlock Text="Insert explicit access modifiers on" Margin="5,5,5,0" />
-            <WrapPanel Margin="35,0,5,10">
+            <WrapPanel Margin="35,0,5,20">
                 <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
                 <ToggleButton Content="delegates" IsChecked="{Binding InsertExplicitAccessModifiersOnDelegates}" />
                 <ToggleButton Content="enumerations" IsChecked="{Binding InsertExplicitAccessModifiersOnEnumerations}" />
@@ -63,6 +63,8 @@
                 <ToggleButton Content="properties" IsChecked="{Binding InsertExplicitAccessModifiersOnProperties}" />
                 <ToggleButton Content="structs" IsChecked="{Binding InsertExplicitAccessModifiersOnStructs}" />
             </WrapPanel>
+
+            <CheckBox Content="Insert end of file trailing new line" IsChecked="{Binding InsertEndOfFileTrailingNewLine}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

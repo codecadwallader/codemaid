@@ -1655,5 +1655,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Finding_TemporarilyOpenSolutionFolders"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertEndOfFileTrailingNewLine {
+            get {
+                return ((bool)(this["Cleaning_InsertEndOfFileTrailingNewLine"]));
+            }
+            set {
+                this["Cleaning_InsertEndOfFileTrailingNewLine"] = value;
+            }
+        }
     }
 }

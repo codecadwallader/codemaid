@@ -76,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
             InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             InsertBlankSpaceBeforeSelfClosingAngleBrackets = Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets;
+            InsertEndOfFileTrailingNewLine = Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine;
             InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
             InsertExplicitAccessModifiersOnDelegates = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates;
             InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
@@ -122,6 +123,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
             Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
             Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = InsertBlankSpaceBeforeSelfClosingAngleBrackets;
+            Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine = InsertEndOfFileTrailingNewLine;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = InsertExplicitAccessModifiersOnDelegates;
             Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
@@ -407,6 +409,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// angle brackets.
         /// </summary>
         public bool InsertBlankSpaceBeforeSelfClosingAngleBrackets
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if an end of file trailing newline should be inserted.
+        /// </summary>
+        public bool InsertEndOfFileTrailingNewLine
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

@@ -19,7 +19,7 @@
                     </WrapPanel>
 
                     <TextBlock Text="Remove blank spaces" Margin="5,5,5,0" />
-                    <WrapPanel Margin="35,0,5,10">
+                    <WrapPanel Margin="35,0,5,20">
                         <ToggleButton Content="before closing angle brackets" IsChecked="{Binding RemoveBlankSpacesBeforeClosingAngleBrackets}" />
                     </WrapPanel>
 
