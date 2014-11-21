@@ -13,7 +13,6 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing;
-using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Compatibility;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting;
@@ -21,6 +20,7 @@ using SteveCadwallader.CodeMaid.UI.Dialogs.Options.General;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching;
+using SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                 }
                             },
                             new SwitchingViewModel(package),
-                            new CompatibilityViewModel(package)
+                            new ThirdPartyViewModel(package)
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));

@@ -305,7 +305,7 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Compatibility\CompatibilityViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\OptionsPageViewModel.cs" />
@@ -629,7 +629,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Dialogs\Options\Compatibility\CompatibilityDataTemplate.xaml">
+    <Page Include="UI\Dialogs\Options\ThirdParty\ThirdPartyDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -278,7 +278,7 @@
     <Setting Name="General_IconSet" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Compatibility_UseReSharperSilentCleanup" Type="System.Boolean" Scope="User">
+    <Setting Name="ThirdParty_UseJetBrainsReSharperCleanup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="General_Font" Type="System.String" Scope="User">
@@ -411,6 +411,9 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Cleaning_InsertEndOfFileTrailingNewLine" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ThirdParty_UseTelerikJustCodeCleanup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

@@ -63,7 +63,6 @@
                                 <ResourceDictionary Source="Cleaning/CleaningUpdateDataTemplate.xaml" />
                                 <ResourceDictionary Source="Cleaning/CleaningVisualStudioDataTemplate.xaml" />
                                 <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
-                                <ResourceDictionary Source="Compatibility/CompatibilityDataTemplate.xaml" />
                                 <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Finding/FindingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Formatting/FormattingDataTemplate.xaml" />
@@ -74,6 +73,7 @@
                                 <ResourceDictionary Source="Reorganizing/ReorganizingRegionsDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingTypesDataTemplate.xaml" />
                                 <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
+                                <ResourceDictionary Source="ThirdParty/ThirdPartyDataTemplate.xaml" />
                             </ResourceDictionary.MergedDictionaries>
 
                             <Style TargetType="{x:Type CheckBox}">

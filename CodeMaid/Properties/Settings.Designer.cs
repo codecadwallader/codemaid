@@ -1131,12 +1131,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Compatibility_UseReSharperSilentCleanup {
+        public bool ThirdParty_UseJetBrainsReSharperCleanup {
             get {
-                return ((bool)(this["Compatibility_UseReSharperSilentCleanup"]));
+                return ((bool)(this["ThirdParty_UseJetBrainsReSharperCleanup"]));
             }
             set {
-                this["Compatibility_UseReSharperSilentCleanup"] = value;
+                this["ThirdParty_UseJetBrainsReSharperCleanup"] = value;
             }
         }
         
@@ -1665,6 +1665,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_InsertEndOfFileTrailingNewLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThirdParty_UseTelerikJustCodeCleanup {
+            get {
+                return ((bool)(this["ThirdParty_UseTelerikJustCodeCleanup"]));
+            }
+            set {
+                this["ThirdParty_UseTelerikJustCodeCleanup"] = value;
             }
         }
     }

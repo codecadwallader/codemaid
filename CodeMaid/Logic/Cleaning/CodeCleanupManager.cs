@@ -421,13 +421,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Private Cleanup Methods
 
         /// <summary>
-        /// Runs external formatting tools (e.g. Visual Studio, ReSharper).
+        /// Runs external formatting tools (e.g. Visual Studio, JetBrains ReSharper, Telerik JustCode).
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunExternalFormatting(TextDocument textDocument)
         {
             RunVisualStudioFormatDocument(textDocument);
-            RunReSharperSilentCleanup(textDocument);
+            RunJetBrainsReSharperCleanup(textDocument);
+            RunTelerikJustCodeCleanup(textDocument);
         }
 
         /// <summary>
@@ -452,18 +453,39 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Runs the ReSharper silent cleanup command.
+        /// Runs the JetBrains ReSharper cleanup command.
         /// </summary>
         /// <param name="textDocument">The text document to cleanup.</param>
-        private void RunReSharperSilentCleanup(TextDocument textDocument)
+        private void RunJetBrainsReSharperCleanup(TextDocument textDocument)
         {
-            if (!Settings.Default.Compatibility_UseReSharperSilentCleanup) return;
+            if (!Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup) return;
 
             try
             {
                 using (new CursorPositionRestorer(textDocument))
                 {
                     _package.IDE.ExecuteCommand("ReSharper_SilentCleanupCode", String.Empty);
+                }
+            }
+            catch
+            {
+                // OK if fails, not available for some file types.
+            }
+        }
+
+        /// <summary>
+        /// Runs the Telerik JustCode cleanup command.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunTelerikJustCodeCleanup(TextDocument textDocument)
+        {
+            if (!Settings.Default.ThirdParty_UseTelerikJustCodeCleanup) return;
+
+            try
+            {
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    _package.IDE.ExecuteCommand("JustCode.JustCode_CleanCodeWithDefaultProfile", String.Empty);
                 }
             }
             catch
