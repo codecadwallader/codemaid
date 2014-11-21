@@ -112,11 +112,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             start.StartOfLine();
 
             var end = textSelection.BottomPoint.CreateEditPoint();
-			if (end.LineCharOffset != 1)
-			{
-				end.EndOfLine();
-				end.CharRight();
-			}
+            if (end.LineCharOffset != 1)
+            {
+                end.EndOfLine();
+                end.CharRight();
+            }
 
             var selectedText = start.GetText(end);
 
