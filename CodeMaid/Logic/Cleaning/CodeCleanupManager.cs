@@ -437,6 +437,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             RunVisualStudioFormatDocument(textDocument);
             RunJetBrainsReSharperCleanup(textDocument);
             RunTelerikJustCodeCleanup(textDocument);
+            RunXAMLStylerCleanup(textDocument);
             RunOtherCleanupCommands(textDocument);
         }
 
@@ -495,6 +496,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 using (new CursorPositionRestorer(textDocument))
                 {
                     _package.IDE.ExecuteCommand("JustCode.JustCode_CleanCodeWithDefaultProfile", String.Empty);
+                }
+            }
+            catch
+            {
+                // OK if fails, not available for some file types.
+            }
+        }
+
+        /// <summary>
+        /// Runs the XAML Styler cleanup command.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunXAMLStylerCleanup(TextDocument textDocument)
+        {
+            if (!Settings.Default.ThirdParty_UseXAMLStylerCleanup) return;
+
+            try
+            {
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    _package.IDE.ExecuteCommand("EditorContextMenus.XAMLEditor.FormatXAML", String.Empty);
                 }
             }
             catch

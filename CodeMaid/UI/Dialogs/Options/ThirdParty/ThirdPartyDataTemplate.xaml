@@ -8,6 +8,7 @@
                 <StackPanel>
                     <CheckBox Content="Run JetBrains ReSharper cleanup" IsChecked="{Binding UseJetBrainsReSharperCleanup}" IsEnabled="{Binding IsEnabledUseJetBrainsReSharperCleanup}" />
                     <CheckBox Content="Run Telerik JustCode cleanup" IsChecked="{Binding UseTelerikJustCodeCleanup}" IsEnabled="{Binding IsEnabledUseTelerikJustCodeCleanup}" />
+                    <CheckBox Content="Run XAML Styler cleanup" IsChecked="{Binding UseXAMLStylerCleanup}" IsEnabled="{Binding IsEnabledUseXAMLStylerCleanup}" />
 
                     <TextBlock Text="Other cleaning commands (ex: ReSharper_SilentCleanupCode)" Margin="5,5,5,0" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"

@@ -1691,5 +1691,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["ThirdParty_OtherCleaningCommandsExpression"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThirdParty_UseXAMLStylerCleanup {
+            get {
+                return ((bool)(this["ThirdParty_UseXAMLStylerCleanup"]));
+            }
+            set {
+                this["ThirdParty_UseXAMLStylerCleanup"] = value;
+            }
+        }
     }
 }

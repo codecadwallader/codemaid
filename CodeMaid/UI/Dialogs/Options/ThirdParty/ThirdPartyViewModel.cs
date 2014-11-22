@@ -50,6 +50,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         {
             UseJetBrainsReSharperCleanup = Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup;
             UseTelerikJustCodeCleanup = Settings.Default.ThirdParty_UseTelerikJustCodeCleanup;
+            UseXAMLStylerCleanup = Settings.Default.ThirdParty_UseXAMLStylerCleanup;
             OtherCleaningCommandsExpression = Settings.Default.ThirdParty_OtherCleaningCommandsExpression;
         }
 
@@ -60,6 +61,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         {
             Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup = UseJetBrainsReSharperCleanup;
             Settings.Default.ThirdParty_UseTelerikJustCodeCleanup = UseTelerikJustCodeCleanup;
+            Settings.Default.ThirdParty_UseXAMLStylerCleanup = UseXAMLStylerCleanup;
             Settings.Default.ThirdParty_OtherCleaningCommandsExpression = OtherCleaningCommandsExpression;
         }
 
@@ -80,6 +82,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// Gets or sets the flag indicating if Telerik JustCode cleanup should be utilized during cleanup.
         /// </summary>
         public bool UseTelerikJustCodeCleanup
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if XAML Styler cleanup should be utilized during cleanup.
+        /// </summary>
+        public bool UseXAMLStylerCleanup
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
@@ -112,6 +123,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         public bool IsEnabledUseTelerikJustCodeCleanup
         {
             get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "JustCode.JustCode_CleanCodeWithDefaultProfile"); }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the UseXAMLStylerCleanup option should be enabled.
+        /// </summary>
+        public bool IsEnabledUseXAMLStylerCleanup
+        {
+            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "EditorContextMenus.XAMLEditor.FormatXAML"); }
         }
 
         #endregion Enables
