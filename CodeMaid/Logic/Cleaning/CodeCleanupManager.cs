@@ -50,6 +50,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly UpdateLogic _updateLogic;
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
 
+        private readonly CachedSettingSet<string> _otherCleaningCommands =
+            new CachedSettingSet<string>(() => Settings.Default.ThirdParty_OtherCleaningCommandsExpression,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
         #endregion Fields
 
         #region Constructors
@@ -429,6 +437,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             RunVisualStudioFormatDocument(textDocument);
             RunJetBrainsReSharperCleanup(textDocument);
             RunTelerikJustCodeCleanup(textDocument);
+            RunOtherCleanupCommands(textDocument);
         }
 
         /// <summary>
@@ -486,6 +495,30 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 using (new CursorPositionRestorer(textDocument))
                 {
                     _package.IDE.ExecuteCommand("JustCode.JustCode_CleanCodeWithDefaultProfile", String.Empty);
+                }
+            }
+            catch
+            {
+                // OK if fails, not available for some file types.
+            }
+        }
+
+        /// <summary>
+        /// Runs the other cleanup commands.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        private void RunOtherCleanupCommands(TextDocument textDocument)
+        {
+            if (!_otherCleaningCommands.Value.Any()) return;
+
+            try
+            {
+                using (new CursorPositionRestorer(textDocument))
+                {
+                    foreach (var command in _otherCleaningCommands.Value)
+                    {
+                        _package.IDE.ExecuteCommand(command, String.Empty);
+                    }
                 }
             }
             catch

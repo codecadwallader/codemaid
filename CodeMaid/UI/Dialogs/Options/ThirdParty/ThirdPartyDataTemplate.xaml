@@ -1,12 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:ThirdPartyViewModel}">
         <StackPanel>
             <GroupBox Header="While Cleaning">
                 <StackPanel>
                     <CheckBox Content="Run JetBrains ReSharper cleanup" IsChecked="{Binding UseJetBrainsReSharperCleanup}" IsEnabled="{Binding IsEnabledUseJetBrainsReSharperCleanup}" />
                     <CheckBox Content="Run Telerik JustCode cleanup" IsChecked="{Binding UseTelerikJustCodeCleanup}" IsEnabled="{Binding IsEnabledUseTelerikJustCodeCleanup}" />
+
+                    <TextBlock Text="Other cleaning commands (ex: ReSharper_SilentCleanupCode)" Margin="5,5,5,0" />
+                    <TextBox Style="{DynamicResource TextBoxMultiLine}"
+                             Text="{Binding OtherCleaningCommandsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock FontStyle="Italic" Text="Place each command on a separate line" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

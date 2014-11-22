@@ -50,6 +50,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         {
             UseJetBrainsReSharperCleanup = Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup;
             UseTelerikJustCodeCleanup = Settings.Default.ThirdParty_UseTelerikJustCodeCleanup;
+            OtherCleaningCommandsExpression = Settings.Default.ThirdParty_OtherCleaningCommandsExpression;
         }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         {
             Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup = UseJetBrainsReSharperCleanup;
             Settings.Default.ThirdParty_UseTelerikJustCodeCleanup = UseTelerikJustCodeCleanup;
+            Settings.Default.ThirdParty_OtherCleaningCommandsExpression = OtherCleaningCommandsExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -80,6 +82,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         public bool UseTelerikJustCodeCleanup
         {
             get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the expression for other cleaning commands to be utilized during cleanup.
+        /// </summary>
+        public string OtherCleaningCommandsExpression
+        {
+            get { return GetPropertyValue<string>(); }
             set { SetPropertyValue(value); }
         }
 

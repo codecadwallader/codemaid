@@ -1679,5 +1679,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["ThirdParty_UseTelerikJustCodeCleanup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ThirdParty_OtherCleaningCommandsExpression {
+            get {
+                return ((string)(this["ThirdParty_OtherCleaningCommandsExpression"]));
+            }
+            set {
+                this["ThirdParty_OtherCleaningCommandsExpression"] = value;
+            }
+        }
     }
 }

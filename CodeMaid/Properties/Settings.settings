@@ -416,5 +416,8 @@
     <Setting Name="ThirdParty_UseTelerikJustCodeCleanup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ThirdParty_OtherCleaningCommandsExpression" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
