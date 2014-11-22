@@ -107,17 +107,19 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 textSelection.EndOfLine(true);
             }
 
-            // Capture the selected text lines.
+            // Start of selection should always be at the beginning of the line.
             var start = textSelection.TopPoint.CreateEditPoint();
             start.StartOfLine();
 
+            // End of selection should always be at the start of the following line (i.e. extend past the last line's newline character).
             var end = textSelection.BottomPoint.CreateEditPoint();
-            if (end.LineCharOffset != 1)
+            if (!end.AtStartOfLine)
             {
                 end.EndOfLine();
                 end.CharRight();
             }
 
+            // Capture the selected text.
             var selectedText = start.GetText(end);
 
             // Create the sorted text lines.
@@ -136,7 +138,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (!selectedText.Equals(sortedText, StringComparison.CurrentCulture))
             {
                 start.Delete(end);
-                start.Insert(sortedText);
+
+                var insertCursor = start.CreateEditPoint();
+                insertCursor.Insert(sortedText);
+
+                textSelection.MoveToPoint(start, false);
+                textSelection.MoveToPoint(insertCursor, true);
             }
         }
 
