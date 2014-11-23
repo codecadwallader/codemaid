@@ -209,13 +209,21 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
                 return null;
             }
 
-            var snapshotLine = _wpfTextView.TextBuffer.CurrentSnapshot.GetLineFromLineNumber(parent.StartLine);
-            var collapsibles = _outliningManager.GetAllRegions(snapshotLine.Extent);
+            try
+            {
+                var snapshotLine = _wpfTextView.TextBuffer.CurrentSnapshot.GetLineFromLineNumber(parent.StartLine);
+                var collapsibles = _outliningManager.GetAllRegions(snapshotLine.Extent);
 
-            return (from collapsible in collapsibles
-                    let startLine = GetStartLineForCollapsible(collapsible)
-                    where startLine == parent.StartLine
-                    select collapsible).FirstOrDefault();
+                return (from collapsible in collapsibles
+                        let startLine = GetStartLineForCollapsible(collapsible)
+                        where startLine == parent.StartLine
+                        select collapsible).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to find collapsible from ICodeItemParent", ex);
+                return null;
+            }
         }
 
         /// <summary>

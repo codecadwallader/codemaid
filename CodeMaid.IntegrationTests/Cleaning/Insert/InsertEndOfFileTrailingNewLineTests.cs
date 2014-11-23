@@ -18,9 +18,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Insert\Data\EndOfFileTrailingNewLine.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Insert\Data\EndOfFileTrailingNewLine_Cleaned.cs", "Data")]
-    public class EndOfFileTrailingNewLineTests
+    [DeploymentItem(@"Cleaning\Insert\Data\InsertEndOfFileTrailingNewLine.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Insert\Data\InsertEndOfFileTrailingNewLine_Cleaned.cs", "Data")]
+    public class InsertEndOfFileTrailingNewLineTests
     {
         #region Setup
 
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\EndOfFileTrailingNewLine.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\InsertEndOfFileTrailingNewLine.cs");
         }
 
         [TestCleanup]
@@ -57,7 +57,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Insert
         {
             Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine = true;
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunInsertEndOfFileTrailingNewLine, _projectItem, @"Data\EndOfFileTrailingNewLine_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunInsertEndOfFileTrailingNewLine, _projectItem, @"Data\InsertEndOfFileTrailingNewLine_Cleaned.cs");
         }
 
         [TestMethod]
