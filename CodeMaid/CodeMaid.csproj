@@ -149,6 +149,7 @@
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSetting.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
+    <Compile Include="Helpers\CommandHelper.cs" />
     <Compile Include="Helpers\DocumentExtensions.cs" />
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />

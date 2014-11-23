@@ -9,9 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
-using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
 {
@@ -20,6 +19,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
     /// </summary>
     public class ThirdPartyViewModel : OptionsPageViewModel
     {
+        #region Fields
+
+        private readonly CommandHelper _commandHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -29,6 +34,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         public ThirdPartyViewModel(CodeMaidPackage package)
             : base(package)
         {
+            _commandHelper = CommandHelper.GetInstance(package);
         }
 
         #endregion Constructors
@@ -114,7 +120,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// </summary>
         public bool IsEnabledUseJetBrainsReSharperCleanup
         {
-            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "ReSharper_SilentCleanupCode"); }
+            get { return _commandHelper.FindCommand("ReSharper_SilentCleanupCode") != null; }
         }
 
         /// <summary>
@@ -122,7 +128,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// </summary>
         public bool IsEnabledUseTelerikJustCodeCleanup
         {
-            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "JustCode.JustCode_CleanCodeWithDefaultProfile"); }
+            get { return _commandHelper.FindCommand("JustCode.JustCode_CleanCodeWithDefaultProfile") != null; }
         }
 
         /// <summary>
@@ -130,7 +136,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// </summary>
         public bool IsEnabledUseXAMLStylerCleanup
         {
-            get { return Package.IDE.Commands.OfType<Command>().Any(x => x.Name == "EditorContextMenus.XAMLEditor.FormatXAML"); }
+            get { return _commandHelper.FindCommand("EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML") != null; }
         }
 
         #endregion Enables
