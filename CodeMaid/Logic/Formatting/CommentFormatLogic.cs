@@ -86,19 +86,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
                     {
                         start = comment.EndPoint.CreateEditPoint();
                     }
-
-                    start.LineDown();
-                    start.StartOfLine();
                 }
-                else
+
+                if (start.Line == textDocument.EndPoint.Line)
                 {
-                    if (start.Line == textDocument.EndPoint.Line)
-                    {
-                        break;
-                    }
-
-                    start.LineDown();
+                    break;
                 }
+
+                start.LineDown();
+                start.StartOfLine();
             }
 
             return foundComments;
