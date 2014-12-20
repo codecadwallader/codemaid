@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2014 Steve Cadwallader.
 
 using EnvDTE;
+using System;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -37,7 +38,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static bool IsExternal(this Document document)
         {
             var projectItem = document.ProjectItem;
-            if (projectItem == null || projectItem.Collection == null || projectItem.Kind != Constants.vsProjectItemKindPhysicalFile) return true;
+            if (projectItem == null || 
+                projectItem.Collection == null ||
+                !string.Equals(projectItem.Kind, Constants.vsProjectItemKindPhysicalFile, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
 
             return projectItem.Collection.OfType<ProjectItem>().All(x => x.Object != projectItem.Object);
         }

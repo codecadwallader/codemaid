@@ -119,7 +119,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             return IsCleanupEnvironmentAvailable() &&
                    projectItem != null &&
-                   projectItem.Kind == Constants.vsProjectItemKindPhysicalFile &&
+                   string.Equals(projectItem.Kind, Constants.vsProjectItemKindPhysicalFile, StringComparison.OrdinalIgnoreCase) &&
                    IsProjectItemLanguageIncludedByOptions(projectItem) &&
                    !IsFileNameExcludedByOptions(projectItem) &&
                    !IsParentCodeGeneratorExcludedByOptions(projectItem);
