@@ -25,15 +25,16 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Content="C#" IsChecked="{Binding IncludeCSharp}" />
-                    <CheckBox Grid.Column="2" Content="C++" IsChecked="{Binding IncludeCPlusPlus}" />
-                    <CheckBox Grid.Column="4" Content="F#" IsChecked="{Binding IncludeFSharp}" />
-                    <CheckBox Grid.Column="6" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="C#" IsChecked="{Binding IncludeCSharp}" />
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="C++" IsChecked="{Binding IncludeCPlusPlus}" />
+                    <CheckBox Grid.Row="0" Grid.Column="4" Content="F#" IsChecked="{Binding IncludeFSharp}" />
+                    <CheckBox Grid.Row="0" Grid.Column="6" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
 
-                    <CheckBox Grid.Row="1" Content="XAML" IsChecked="{Binding IncludeXAML}" />
-                    <CheckBox Grid.Row="1" Grid.Column="2" Content="XML" IsChecked="{Binding IncludeXML}" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="JSON" IsChecked="{Binding IncludeJSON}" />
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="XAML" IsChecked="{Binding IncludeXAML}" />
+                    <CheckBox Grid.Row="1" Grid.Column="4" Content="XML" IsChecked="{Binding IncludeXML}" />
 
-                    <CheckBox Grid.Row="2" Content="HTML" IsChecked="{Binding IncludeHTML}" />
+                    <CheckBox Grid.Row="2" Grid.Column="0" Content="HTML" IsChecked="{Binding IncludeHTML}" />
                     <CheckBox Grid.Row="2" Grid.Column="2" Content="CSS" IsChecked="{Binding IncludeCSS}" />
                     <CheckBox Grid.Row="2" Grid.Column="4" Content="LESS" IsChecked="{Binding IncludeLESS}" />
                     <CheckBox Grid.Row="2" Grid.Column="6" Content="SCSS" IsChecked="{Binding IncludeSCSS}" />

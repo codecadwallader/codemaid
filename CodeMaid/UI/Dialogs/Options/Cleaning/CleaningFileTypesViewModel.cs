@@ -54,6 +54,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
             IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
+            IncludeJSON = Settings.Default.Cleaning_IncludeJSON;
             IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
             IncludeSCSS = Settings.Default.Cleaning_IncludeSCSS;
             IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
@@ -75,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
             Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
+            Settings.Default.Cleaning_IncludeJSON = IncludeJSON;
             Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
             Settings.Default.Cleaning_IncludeSCSS = IncludeSCSS;
             Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
@@ -154,6 +156,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if JavaScript files should be included.
         /// </summary>
         public bool IncludeJavaScript
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if JSON files should be included.
+        /// </summary>
+        public bool IncludeJSON
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

@@ -206,6 +206,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
                 case "JavaScript":
                 case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "JSON": return Settings.Default.Cleaning_IncludeJSON;
                 case "LESS": return Settings.Default.Cleaning_IncludeLESS;
                 case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
                 case "TypeScript": return Settings.Default.Cleaning_IncludeTypeScript;
@@ -319,6 +320,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{58e975a0-f8fe-11d2-a6ae-00104bcc7269}": return Settings.Default.Cleaning_IncludeHTML;
                 case "{59e2f421-410a-4fc9-9803-1f4e79216be8}": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "{71d61d27-9011-4b17-9469-d20f798fb5c0}": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "{18588c2a-9945-44ad-9894-b271babc0582}": return Settings.Default.Cleaning_IncludeJSON;
                 case "{7b22909e-1b53-4cc7-8c2b-1f5c5039693a}": return Settings.Default.Cleaning_IncludeLESS;
                 case "{5fa499f6-2cec-435b-bfce-53bbe29f37f6}": return Settings.Default.Cleaning_IncludeSCSS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
