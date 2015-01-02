@@ -20,6 +20,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class CodeMaidSettingsProvider : LocalFileSettingsProvider
     {
+        #region Constants
+
+        private const string ConfigFilename = "CodeMaid.config";
+
+        #endregion Constants
+
         #region Overridden Members
 
         /// <summary>
@@ -79,6 +85,128 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Private Methods
 
         /// <summary>
+        /// Gets the path to the user configuration file.
+        /// </summary>
+        private static string GetUserConfigPath()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", ConfigFilename);
+        }
+
+        /// <summary>
+        /// Gets the path to the solution configuration file based on the specified <see cref="SettingsContext"/>.
+        /// </summary>
+        /// <param name="context">
+        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
+        /// application usage.
+        /// </param>
+        /// <returns>The path to the solution configuration, otherwise null.</returns>
+        private static string GetSolutionConfigPath(SettingsContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+
+            var solutionPath = context["SolutionPath"];
+
+            return solutionPath != null ? Path.Combine(solutionPath.ToString(), ConfigFilename) : null;
+        }
+
+        /// <summary>
+        /// Gets the name of the section where settings will be located based on the specified <see cref="SettingsContext"/>.
+        /// </summary>
+        /// <param name="context">
+        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
+        /// application usage.
+        /// </param>
+        /// <returns>The section name, otherwise null.</returns>
+        private static string GetSectionName(SettingsContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+
+            var groupName = context["GroupName"];
+
+            return groupName != null ? groupName.ToString() : null;
+        }
+
+        /// <summary>
+        /// Read users settings from the configuration file.
+        /// </summary>
+        /// <param name="context">
+        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
+        /// application usage.
+        /// </param>
+        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
+        private static SettingElementCollection ReadUserSettingsFromFile(SettingsContext context)
+        {
+            try
+            {
+                var path = GetUserConfigPath();
+                var sectionName = GetSectionName(context);
+
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
+                {
+                    return ReadSettingsFromFile(path, sectionName);
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to read user settings.", ex);
+            }
+
+            return new SettingElementCollection();
+        }
+
+        /// <summary>
+        /// Read solution settings from the configuration file.
+        /// </summary>
+        /// <param name="context">
+        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
+        /// application usage.
+        /// </param>
+        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
+        private static SettingElementCollection ReadSolutionSettingsFromFile(SettingsContext context)
+        {
+            try
+            {
+                var path = GetSolutionConfigPath(context);
+                var sectionName = GetSectionName(context);
+
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
+                {
+                    return ReadSettingsFromFile(path, sectionName);
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to read solution settings.", ex);
+            }
+
+            return new SettingElementCollection();
+        }
+
+        /// <summary>
+        /// Reads settings from a configuration file at the specified path.
+        /// </summary>
+        /// <param name="path">The configuration file path.</param>
+        /// <param name="sectionName">The name of the settings section.</param>
+        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
+        private static SettingElementCollection ReadSettingsFromFile(string path, string sectionName)
+        {
+            var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = path };
+            var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+
+            var userSettings = config.GetSectionGroup("userSettings");
+            if (userSettings != null)
+            {
+                var section = userSettings.Sections[sectionName] as ClientSettingsSection;
+                if (section != null)
+                {
+                    return section.Settings;
+                }
+            }
+
+            return new SettingElementCollection();
+        }
+
+        /// <summary>
         /// Checks the specified settings collection to see if it has a serialized value that should
         /// be applied to the specified <see cref="SettingsPropertyValue"/>.
         /// </summary>
@@ -97,77 +225,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Read users settings from the configuration file.
+        /// Writes settings to a configuration file within the specified path.
         /// </summary>
-        /// <param name="context">
-        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
-        /// application usage.
-        /// </param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadUserSettingsFromFile(SettingsContext context)
+        private static void WriteSettingsToFile()
         {
-            try
-            {
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                var sectionName = context["GroupName"].ToString();
-
-                return ReadSettingsFromFile(path, sectionName);
-            }
-            catch (Exception ex)
-            {
-                OutputWindowHelper.ExceptionWriteLine("Unable to read user settings.", ex);
-                return new SettingElementCollection();
-            }
-        }
-
-        /// <summary>
-        /// Read solution settings from the configuration file.
-        /// </summary>
-        /// <param name="context">
-        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
-        /// application usage.
-        /// </param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadSolutionSettingsFromFile(SettingsContext context)
-        {
-            try
-            {
-                var path = context["SolutionPath"].ToString();
-                var sectionName = context["GroupName"].ToString();
-
-                return ReadSettingsFromFile(path, sectionName);
-            }
-            catch (Exception ex)
-            {
-                OutputWindowHelper.ExceptionWriteLine("Unable to read solution settings.", ex);
-                return new SettingElementCollection();
-            }
-        }
-
-        /// <summary>
-        /// Reads settings from a configuration file within the specified path.
-        /// </summary>
-        /// <param name="path">The path where the settings are located.</param>
-        /// <param name="sectionName">The name of the settings section.</param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadSettingsFromFile(string path, string sectionName)
-        {
-            var configFilename = Path.Combine(path, "CodeMaid", "CodeMaid.config");
-            var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = configFilename };
-
-            var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
-
-            var userSettings = config.GetSectionGroup("userSettings");
-            if (userSettings != null)
-            {
-                var section = userSettings.Sections[sectionName] as ClientSettingsSection;
-                if (section != null)
-                {
-                    return section.Settings;
-                }
-            }
-
-            return new SettingElementCollection();
         }
 
         #endregion Private Methods
