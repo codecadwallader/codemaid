@@ -276,7 +276,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
                     UpdateSettingsFromPropertyValues(settings, values);
 
-                    config.Save(ConfigurationSaveMode.Full, true);
+                    config.Save();
                 }
             }
             catch (Exception ex)
