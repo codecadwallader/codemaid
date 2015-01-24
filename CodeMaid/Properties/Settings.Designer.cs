@@ -25,158 +25,37 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Progressing_ShowBuildProgressOnBuildStart {
-            get {
-                return ((bool)(this["Progressing_ShowBuildProgressOnBuildStart"]));
-            }
-            set {
-                this["Progressing_ShowBuildProgressOnBuildStart"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Progressing_HideBuildProgressOnBuildStop {
-            get {
-                return ((bool)(this["Progressing_HideBuildProgressOnBuildStop"]));
-            }
-            set {
-                this["Progressing_HideBuildProgressOnBuildStop"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Reorganizing_AlphabetizeMembersOfTheSameGroup {
-            get {
-                return ((bool)(this["Reorganizing_AlphabetizeMembersOfTheSameGroup"]));
-            }
-            set {
-                this["Reorganizing_AlphabetizeMembersOfTheSameGroup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_RunAtStartOfCleanup {
+        public bool Cleaning_AutoCleanupOnFileSave {
             get {
-                return ((bool)(this["Reorganizing_RunAtStartOfCleanup"]));
+                return ((bool)(this["Cleaning_AutoCleanupOnFileSave"]));
             }
             set {
-                this["Reorganizing_RunAtStartOfCleanup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .mast" +
-            "er.cs")]
-        public string Switching_RelatedFileExtensionsExpression {
-            get {
-                return ((string)(this["Switching_RelatedFileExtensionsExpression"]));
-            }
-            set {
-                this["Switching_RelatedFileExtensionsExpression"] = value;
+                this["Cleaning_AutoCleanupOnFileSave"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_CenterOnWhole {
+        public bool Cleaning_AutoSaveAndCloseIfOpenedByCleanup {
             get {
-                return ((bool)(this["Digging_CenterOnWhole"]));
+                return ((bool)(this["Cleaning_AutoSaveAndCloseIfOpenedByCleanup"]));
             }
             set {
-                this["Digging_CenterOnWhole"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int Digging_ComplexityWarningThreshold {
-            get {
-                return ((int)(this["Digging_ComplexityWarningThreshold"]));
-            }
-            set {
-                this["Digging_ComplexityWarningThreshold"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
-        public int Digging_ComplexityAlertThreshold {
-            get {
-                return ((int)(this["Digging_ComplexityAlertThreshold"]));
-            }
-            set {
-                this["Digging_ComplexityAlertThreshold"] = value;
+                this["Cleaning_AutoSaveAndCloseIfOpenedByCleanup"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_ShowMethodParameters {
+        public bool Cleaning_ExcludeT4GeneratedCode {
             get {
-                return ((bool)(this["Digging_ShowMethodParameters"]));
+                return ((bool)(this["Cleaning_ExcludeT4GeneratedCode"]));
             }
             set {
-                this["Digging_ShowMethodParameters"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_ShowItemComplexity {
-            get {
-                return ((bool)(this["Digging_ShowItemComplexity"]));
-            }
-            set {
-                this["Digging_ShowItemComplexity"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_ShowItemMetadata {
-            get {
-                return ((bool)(this["Digging_ShowItemMetadata"]));
-            }
-            set {
-                this["Digging_ShowItemMetadata"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_UpdateEndRegionDirectives {
-            get {
-                return ((bool)(this["Cleaning_UpdateEndRegionDirectives"]));
-            }
-            set {
-                this["Cleaning_UpdateEndRegionDirectives"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RunVisualStudioSortUsingStatements {
-            get {
-                return ((bool)(this["Cleaning_RunVisualStudioSortUsingStatements"]));
-            }
-            set {
-                this["Cleaning_RunVisualStudioSortUsingStatements"] = value;
+                this["Cleaning_ExcludeT4GeneratedCode"] = value;
             }
         }
         
@@ -231,6 +110,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeFSharp {
+            get {
+                return ((bool)(this["Cleaning_IncludeFSharp"]));
+            }
+            set {
+                this["Cleaning_IncludeFSharp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_IncludeHTML {
             get {
                 return ((bool)(this["Cleaning_IncludeHTML"]));
@@ -249,6 +140,66 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_IncludeJavaScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeJSON {
+            get {
+                return ((bool)(this["Cleaning_IncludeJSON"]));
+            }
+            set {
+                this["Cleaning_IncludeJSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeLESS {
+            get {
+                return ((bool)(this["Cleaning_IncludeLESS"]));
+            }
+            set {
+                this["Cleaning_IncludeLESS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeSCSS {
+            get {
+                return ((bool)(this["Cleaning_IncludeSCSS"]));
+            }
+            set {
+                this["Cleaning_IncludeSCSS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeTypeScript {
+            get {
+                return ((bool)(this["Cleaning_IncludeTypeScript"]));
+            }
+            set {
+                this["Cleaning_IncludeTypeScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeVB {
+            get {
+                return ((bool)(this["Cleaning_IncludeVB"]));
+            }
+            set {
+                this["Cleaning_IncludeVB"] = value;
             }
         }
         
@@ -278,390 +229,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_AutoCleanupOnFileSave {
-            get {
-                return ((bool)(this["Cleaning_AutoCleanupOnFileSave"]));
-            }
-            set {
-                this["Cleaning_AutoCleanupOnFileSave"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_AutoSaveAndCloseIfOpenedByCleanup {
-            get {
-                return ((bool)(this["Cleaning_AutoSaveAndCloseIfOpenedByCleanup"]));
-            }
-            set {
-                this["Cleaning_AutoSaveAndCloseIfOpenedByCleanup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RunVisualStudioFormatDocumentCommand {
-            get {
-                return ((bool)(this["Cleaning_RunVisualStudioFormatDocumentCommand"]));
-            }
-            set {
-                this["Cleaning_RunVisualStudioFormatDocumentCommand"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave {
-            get {
-                return ((bool)(this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"]));
-            }
-            set {
-                this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RunVisualStudioRemoveUnusedUsingStatements {
-            get {
-                return ((bool)(this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"]));
-            }
-            set {
-                this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveMultipleConsecutiveBlankLines {
-            get {
-                return ((bool)(this["Cleaning_RemoveMultipleConsecutiveBlankLines"]));
-            }
-            set {
-                this["Cleaning_RemoveMultipleConsecutiveBlankLines"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveEndOfLineWhitespace {
-            get {
-                return ((bool)(this["Cleaning_RemoveEndOfLineWhitespace"]));
-            }
-            set {
-                this["Cleaning_RemoveEndOfLineWhitespace"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesBeforeClosingBrace {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesBeforeClosingBrace"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankLinesBeforeClosingBrace"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesAfterOpeningBrace {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesAfterOpeningBrace"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankLinesAfterOpeningBrace"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesAtTop {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesAtTop"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankLinesAtTop"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesAtBottom {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesAtBottom"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankLinesAtBottom"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnStructs {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnStructs"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnStructs"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnProperties {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnProperties"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnProperties"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnMethods {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnMethods"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnMethods"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnInterfaces {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnInterfaces"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnInterfaces"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnEvents {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnEvents"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnEvents"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnEnumerations {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnEnumerations"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnEnumerations"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnClasses {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnClasses"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnClasses"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterStructs {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterStructs"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterStructs"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeStructs {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeStructs"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeStructs"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterProperties {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterProperties"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterProperties"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeProperties {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeProperties"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeProperties"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterMethods {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterMethods"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterMethods"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeMethods {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeMethods"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeMethods"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterInterfaces {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterInterfaces"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterInterfaces"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeInterfaces {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeInterfaces"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeInterfaces"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterEvents {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEvents"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterEvents"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeEvents {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEvents"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeEvents"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterEnumerations {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEnumerations"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterEnumerations"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeEnumerations {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEnumerations"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeEnumerations"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_InsertBlankLinePaddingAfterClasses {
             get {
@@ -669,138 +236,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_InsertBlankLinePaddingAfterClasses"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeClasses {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeClasses"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeClasses"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterEndRegionTags {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEndRegionTags"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterEndRegionTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeEndRegionTags {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEndRegionTags"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeEndRegionTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterRegionTags {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterRegionTags"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterRegionTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeRegionTags {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeRegionTags"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeRegionTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterNamespaces {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterNamespaces"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterNamespaces"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeNamespaces {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeNamespaces"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeNamespaces"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertExplicitAccessModifiersOnFields {
-            get {
-                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnFields"]));
-            }
-            set {
-                this["Cleaning_InsertExplicitAccessModifiersOnFields"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors"] = value;
             }
         }
         
@@ -819,12 +254,360 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterEndRegionTags {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEndRegionTags"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterEndRegionTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterEnumerations {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEnumerations"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterEnumerations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterEvents {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterEvents"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterEvents"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterInterfaces {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterInterfaces"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterInterfaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterMethods {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterMethods"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterNamespaces {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterNamespaces"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterNamespaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterProperties {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterProperties"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterRegionTags {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterRegionTags"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterRegionTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterStructs {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterStructs"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterStructs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeCaseStatements {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeClasses {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeClasses"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeClasses"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_InsertBlankLinePaddingBeforeDelegates {
             get {
                 return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeDelegates"]));
             }
             set {
                 this["Cleaning_InsertBlankLinePaddingBeforeDelegates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeEndRegionTags {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEndRegionTags"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeEndRegionTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeEnumerations {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEnumerations"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeEnumerations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeEvents {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeEvents"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeEvents"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeInterfaces {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeInterfaces"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeInterfaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeMethods {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeMethods"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeNamespaces {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeNamespaces"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeNamespaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeProperties {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeProperties"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeRegionTags {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeRegionTags"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeRegionTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeSingleLineComments {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeStructs {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeStructs"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeStructs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"]));
+            }
+            set {
+                this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertEndOfFileTrailingNewLine {
+            get {
+                return ((bool)(this["Cleaning_InsertEndOfFileTrailingNewLine"]));
+            }
+            set {
+                this["Cleaning_InsertEndOfFileTrailingNewLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnClasses {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnClasses"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnClasses"] = value;
             }
         }
         
@@ -843,6 +626,102 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnEnumerations {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnEnumerations"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnEnumerations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnEvents {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnEvents"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnEvents"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnFields {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnFields"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnFields"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnInterfaces {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnInterfaces"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnInterfaces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnMethods {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnMethods"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnProperties {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnProperties"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_InsertExplicitAccessModifiersOnStructs {
+            get {
+                return ((bool)(this["Cleaning_InsertExplicitAccessModifiersOnStructs"]));
+            }
+            set {
+                this["Cleaning_InsertExplicitAccessModifiersOnStructs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Cleaning_PerformPartialCleanupOnExternal {
+            get {
+                return ((int)(this["Cleaning_PerformPartialCleanupOnExternal"]));
+            }
+            set {
+                this["Cleaning_PerformPartialCleanupOnExternal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_RemoveBlankLinesAfterAttributes {
             get {
                 return ((bool)(this["Cleaning_RemoveBlankLinesAfterAttributes"]));
@@ -855,24 +734,240 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Reorganizing_KeepMembersWithinRegions {
+        public bool Cleaning_RemoveBlankLinesAfterOpeningBrace {
             get {
-                return ((bool)(this["Reorganizing_KeepMembersWithinRegions"]));
+                return ((bool)(this["Cleaning_RemoveBlankLinesAfterOpeningBrace"]));
             }
             set {
-                this["Reorganizing_KeepMembersWithinRegions"] = value;
+                this["Cleaning_RemoveBlankLinesAfterOpeningBrace"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Progressing_ShowProgressOnWindowsTaskbar {
+        public bool Cleaning_RemoveBlankLinesAtBottom {
             get {
-                return ((bool)(this["Progressing_ShowProgressOnWindowsTaskbar"]));
+                return ((bool)(this["Cleaning_RemoveBlankLinesAtBottom"]));
             }
             set {
-                this["Progressing_ShowProgressOnWindowsTaskbar"] = value;
+                this["Cleaning_RemoveBlankLinesAtBottom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesAtTop {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesAtTop"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesAtTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBeforeClosingBrace {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBeforeClosingBrace"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBeforeClosingBrace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBeforeClosingTags {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBeforeClosingTags"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBeforeClosingTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankLinesBetweenChainedStatements {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankLinesBetweenChainedStatements"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankLinesBetweenChainedStatements"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets {
+            get {
+                return ((bool)(this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"]));
+            }
+            set {
+                this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveEndOfFileTrailingNewLine {
+            get {
+                return ((bool)(this["Cleaning_RemoveEndOfFileTrailingNewLine"]));
+            }
+            set {
+                this["Cleaning_RemoveEndOfFileTrailingNewLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveEndOfLineWhitespace {
+            get {
+                return ((bool)(this["Cleaning_RemoveEndOfLineWhitespace"]));
+            }
+            set {
+                this["Cleaning_RemoveEndOfLineWhitespace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RemoveMultipleConsecutiveBlankLines {
+            get {
+                return ((bool)(this["Cleaning_RemoveMultipleConsecutiveBlankLines"]));
+            }
+            set {
+                this["Cleaning_RemoveMultipleConsecutiveBlankLines"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Cleaning_RemoveRegions {
+            get {
+                return ((int)(this["Cleaning_RemoveRegions"]));
+            }
+            set {
+                this["Cleaning_RemoveRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RunVisualStudioFormatDocumentCommand {
+            get {
+                return ((bool)(this["Cleaning_RunVisualStudioFormatDocumentCommand"]));
+            }
+            set {
+                this["Cleaning_RunVisualStudioFormatDocumentCommand"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RunVisualStudioRemoveUnusedUsingStatements {
+            get {
+                return ((bool)(this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"]));
+            }
+            set {
+                this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_RunVisualStudioSortUsingStatements {
+            get {
+                return ((bool)(this["Cleaning_RunVisualStudioSortUsingStatements"]));
+            }
+            set {
+                this["Cleaning_RunVisualStudioSortUsingStatements"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave {
+            get {
+                return ((bool)(this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"]));
+            }
+            set {
+                this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave {
+            get {
+                return ((bool)(this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"]));
+            }
+            set {
+                this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine {
+            get {
+                return ((bool)(this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"]));
+            }
+            set {
+                this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_UpdateEndRegionDirectives {
+            get {
+                return ((bool)(this["Cleaning_UpdateEndRegionDirectives"]));
+            }
+            set {
+                this["Cleaning_UpdateEndRegionDirectives"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_UpdateSingleLineMethods {
+            get {
+                return ((bool)(this["Cleaning_UpdateSingleLineMethods"]));
+            }
+            set {
+                this["Cleaning_UpdateSingleLineMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UsingStatementsToReinsertWhenRemovedExpression {
+            get {
+                return ((string)(this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"]));
+            }
+            set {
+                this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"] = value;
             }
         }
         
@@ -902,169 +997,37 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Cleaning_UsingStatementsToReinsertWhenRemovedExpression {
-            get {
-                return ((string)(this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"]));
-            }
-            set {
-                this["Cleaning_UsingStatementsToReinsertWhenRemovedExpression"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Digging_SecondarySortTypeByName {
-            get {
-                return ((bool)(this["Digging_SecondarySortTypeByName"]));
-            }
-            set {
-                this["Digging_SecondarySortTypeByName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Digging_SynchronizeOutlining {
+        public bool Digging_CenterOnWhole {
             get {
-                return ((bool)(this["Digging_SynchronizeOutlining"]));
+                return ((bool)(this["Digging_CenterOnWhole"]));
             }
             set {
-                this["Digging_SynchronizeOutlining"] = value;
+                this["Digging_CenterOnWhole"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeCaseStatements {
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int Digging_ComplexityAlertThreshold {
             get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"]));
+                return ((int)(this["Digging_ComplexityAlertThreshold"]));
             }
             set {
-                this["Cleaning_InsertBlankLinePaddingBeforeCaseStatements"] = value;
+                this["Digging_ComplexityAlertThreshold"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets {
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int Digging_ComplexityWarningThreshold {
             get {
-                return ((bool)(this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"]));
+                return ((int)(this["Digging_ComplexityWarningThreshold"]));
             }
             set {
-                this["Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesBeforeClosingTags {
-            get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesBeforeClosingTags"]));
-            }
-            set {
-                this["Cleaning_RemoveBlankLinesBeforeClosingTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool General_CacheFiles {
-            get {
-                return ((bool)(this["General_CacheFiles"]));
-            }
-            set {
-                this["General_CacheFiles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeSingleLineComments {
-            get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"]));
-            }
-            set {
-                this["Cleaning_InsertBlankLinePaddingBeforeSingleLineComments"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int General_Theme {
-            get {
-                return ((int)(this["General_Theme"]));
-            }
-            set {
-                this["General_Theme"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_ExcludeT4GeneratedCode {
-            get {
-                return ((bool)(this["Cleaning_ExcludeT4GeneratedCode"]));
-            }
-            set {
-                this["Cleaning_ExcludeT4GeneratedCode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_UpdateSingleLineMethods {
-            get {
-                return ((bool)(this["Cleaning_UpdateSingleLineMethods"]));
-            }
-            set {
-                this["Cleaning_UpdateSingleLineMethods"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine {
-            get {
-                return ((bool)(this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"]));
-            }
-            set {
-                this["Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool General_DiagnosticsMode {
-            get {
-                return ((bool)(this["General_DiagnosticsMode"]));
-            }
-            set {
-                this["General_DiagnosticsMode"] = value;
+                this["Digging_ComplexityWarningThreshold"] = value;
             }
         }
         
@@ -1083,12 +1046,84 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Cleaning_PerformPartialCleanupOnExternal {
+        public int Digging_PrimarySortOrder {
             get {
-                return ((int)(this["Cleaning_PerformPartialCleanupOnExternal"]));
+                return ((int)(this["Digging_PrimarySortOrder"]));
             }
             set {
-                this["Cleaning_PerformPartialCleanupOnExternal"] = value;
+                this["Digging_PrimarySortOrder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Digging_SecondarySortTypeByName {
+            get {
+                return ((bool)(this["Digging_SecondarySortTypeByName"]));
+            }
+            set {
+                this["Digging_SecondarySortTypeByName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_ShowItemComplexity {
+            get {
+                return ((bool)(this["Digging_ShowItemComplexity"]));
+            }
+            set {
+                this["Digging_ShowItemComplexity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_ShowItemMetadata {
+            get {
+                return ((bool)(this["Digging_ShowItemMetadata"]));
+            }
+            set {
+                this["Digging_ShowItemMetadata"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_ShowMethodParameters {
+            get {
+                return ((bool)(this["Digging_ShowMethodParameters"]));
+            }
+            set {
+                this["Digging_ShowMethodParameters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_SynchronizeOutlining {
+            get {
+                return ((bool)(this["Digging_SynchronizeOutlining"]));
+            }
+            set {
+                this["Digging_SynchronizeOutlining"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Finding_TemporarilyOpenSolutionFolders {
+            get {
+                return ((bool)(this["Finding_TemporarilyOpenSolutionFolders"]));
+            }
+            set {
+                this["Finding_TemporarilyOpenSolutionFolders"] = value;
             }
         }
         
@@ -1106,174 +1141,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int Formatting_CommentWrapColumn {
-            get {
-                return ((int)(this["Formatting_CommentWrapColumn"]));
-            }
-            set {
-                this["Formatting_CommentWrapColumn"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int General_IconSet {
-            get {
-                return ((int)(this["General_IconSet"]));
-            }
-            set {
-                this["General_IconSet"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ThirdParty_UseJetBrainsReSharperCleanup {
-            get {
-                return ((bool)(this["ThirdParty_UseJetBrainsReSharperCleanup"]));
-            }
-            set {
-                this["ThirdParty_UseJetBrainsReSharperCleanup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
-        public string General_Font {
-            get {
-                return ((string)(this["General_Font"]));
-            }
-            set {
-                this["General_Font"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave {
-            get {
-                return ((bool)(this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"]));
-            }
-            set {
-                this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeVB {
-            get {
-                return ((bool)(this["Cleaning_IncludeVB"]));
-            }
-            set {
-                this["Cleaning_IncludeVB"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeFSharp {
-            get {
-                return ((bool)(this["Cleaning_IncludeFSharp"]));
-            }
-            set {
-                this["Cleaning_IncludeFSharp"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool General_ShowStartPageOnSolutionClose {
-            get {
-                return ((bool)(this["General_ShowStartPageOnSolutionClose"]));
-            }
-            set {
-                this["General_ShowStartPageOnSolutionClose"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool General_UseUndoTransactions {
-            get {
-                return ((bool)(this["General_UseUndoTransactions"]));
-            }
-            set {
-                this["General_UseUndoTransactions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveEndOfFileTrailingNewLine {
-            get {
-                return ((bool)(this["Cleaning_RemoveEndOfFileTrailingNewLine"]));
-            }
-            set {
-                this["Cleaning_RemoveEndOfFileTrailingNewLine"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeTypeScript {
-            get {
-                return ((bool)(this["Cleaning_IncludeTypeScript"]));
-            }
-            set {
-                this["Cleaning_IncludeTypeScript"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool General_SkipUndoTransactionsDuringAutoCleanupOnSave {
-            get {
-                return ((bool)(this["General_SkipUndoTransactionsDuringAutoCleanupOnSave"]));
-            }
-            set {
-                this["General_SkipUndoTransactionsDuringAutoCleanupOnSave"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool General_Multithread {
-            get {
-                return ((bool)(this["General_Multithread"]));
-            }
-            set {
-                this["General_Multithread"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeLESS {
-            get {
-                return ((bool)(this["Cleaning_IncludeLESS"]));
-            }
-            set {
-                this["Cleaning_IncludeLESS"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Formatting_CommentSkipWrapOnLastWord {
             get {
@@ -1286,25 +1153,49 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RemoveBlankLinesBetweenChainedStatements {
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int Formatting_CommentWrapColumn {
             get {
-                return ((bool)(this["Cleaning_RemoveBlankLinesBetweenChainedStatements"]));
+                return ((int)(this["Formatting_CommentWrapColumn"]));
             }
             set {
-                this["Cleaning_RemoveBlankLinesBetweenChainedStatements"] = value;
+                this["Formatting_CommentWrapColumn"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Formatting_CommentXmlValueIndent {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlAlignParamTags {
             get {
-                return ((int)(this["Formatting_CommentXmlValueIndent"]));
+                return ((bool)(this["Formatting_CommentXmlAlignParamTags"]));
             }
             set {
-                this["Formatting_CommentXmlValueIndent"] = value;
+                this["Formatting_CommentXmlAlignParamTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlKeepTagsTogether {
+            get {
+                return ((bool)(this["Formatting_CommentXmlKeepTagsTogether"]));
+            }
+            set {
+                this["Formatting_CommentXmlKeepTagsTogether"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlSpaceSingleTags {
+            get {
+                return ((bool)(this["Formatting_CommentXmlSpaceSingleTags"]));
+            }
+            set {
+                this["Formatting_CommentXmlSpaceSingleTags"] = value;
             }
         }
         
@@ -1323,12 +1214,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Formatting_CommentXmlAlignParamTags {
+        public bool Formatting_CommentXmlSplitAllTags {
             get {
-                return ((bool)(this["Formatting_CommentXmlAlignParamTags"]));
+                return ((bool)(this["Formatting_CommentXmlSplitAllTags"]));
             }
             set {
-                this["Formatting_CommentXmlAlignParamTags"] = value;
+                this["Formatting_CommentXmlSplitAllTags"] = value;
             }
         }
         
@@ -1346,25 +1237,205 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int Cleaning_RemoveRegions {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Formatting_CommentXmlTagsToLowerCase {
             get {
-                return ((int)(this["Cleaning_RemoveRegions"]));
+                return ((bool)(this["Formatting_CommentXmlTagsToLowerCase"]));
             }
             set {
-                this["Cleaning_RemoveRegions"] = value;
+                this["Formatting_CommentXmlTagsToLowerCase"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Fields||1||Fields")]
-        public string Reorganizing_MemberTypeFields {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Formatting_CommentXmlValueIndent {
             get {
-                return ((string)(this["Reorganizing_MemberTypeFields"]));
+                return ((int)(this["Formatting_CommentXmlValueIndent"]));
             }
             set {
-                this["Reorganizing_MemberTypeFields"] = value;
+                this["Formatting_CommentXmlValueIndent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_CacheFiles {
+            get {
+                return ((bool)(this["General_CacheFiles"]));
+            }
+            set {
+                this["General_CacheFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool General_DiagnosticsMode {
+            get {
+                return ((bool)(this["General_DiagnosticsMode"]));
+            }
+            set {
+                this["General_DiagnosticsMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        public string General_Font {
+            get {
+                return ((string)(this["General_Font"]));
+            }
+            set {
+                this["General_Font"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int General_IconSet {
+            get {
+                return ((int)(this["General_IconSet"]));
+            }
+            set {
+                this["General_IconSet"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_LoadModelsAsynchronously {
+            get {
+                return ((bool)(this["General_LoadModelsAsynchronously"]));
+            }
+            set {
+                this["General_LoadModelsAsynchronously"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool General_Multithread {
+            get {
+                return ((bool)(this["General_Multithread"]));
+            }
+            set {
+                this["General_Multithread"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_ShowStartPageOnSolutionClose {
+            get {
+                return ((bool)(this["General_ShowStartPageOnSolutionClose"]));
+            }
+            set {
+                this["General_ShowStartPageOnSolutionClose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_SkipUndoTransactionsDuringAutoCleanupOnSave {
+            get {
+                return ((bool)(this["General_SkipUndoTransactionsDuringAutoCleanupOnSave"]));
+            }
+            set {
+                this["General_SkipUndoTransactionsDuringAutoCleanupOnSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int General_Theme {
+            get {
+                return ((int)(this["General_Theme"]));
+            }
+            set {
+                this["General_Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool General_UseUndoTransactions {
+            get {
+                return ((bool)(this["General_UseUndoTransactions"]));
+            }
+            set {
+                this["General_UseUndoTransactions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Progressing_HideBuildProgressOnBuildStop {
+            get {
+                return ((bool)(this["Progressing_HideBuildProgressOnBuildStop"]));
+            }
+            set {
+                this["Progressing_HideBuildProgressOnBuildStop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Progressing_ShowBuildProgressOnBuildStart {
+            get {
+                return ((bool)(this["Progressing_ShowBuildProgressOnBuildStart"]));
+            }
+            set {
+                this["Progressing_ShowBuildProgressOnBuildStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Progressing_ShowProgressOnWindowsTaskbar {
+            get {
+                return ((bool)(this["Progressing_ShowProgressOnWindowsTaskbar"]));
+            }
+            set {
+                this["Progressing_ShowProgressOnWindowsTaskbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Reorganizing_AlphabetizeMembersOfTheSameGroup {
+            get {
+                return ((bool)(this["Reorganizing_AlphabetizeMembersOfTheSameGroup"]));
+            }
+            set {
+                this["Reorganizing_AlphabetizeMembersOfTheSameGroup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Reorganizing_KeepMembersWithinRegions {
+            get {
+                return ((bool)(this["Reorganizing_KeepMembersWithinRegions"]));
+            }
+            set {
+                this["Reorganizing_KeepMembersWithinRegions"] = value;
             }
         }
         
@@ -1394,18 +1465,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Destructors||3||Destructors")]
-        public string Reorganizing_MemberTypeDestructors {
-            get {
-                return ((string)(this["Reorganizing_MemberTypeDestructors"]));
-            }
-            set {
-                this["Reorganizing_MemberTypeDestructors"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Delegates||4||Delegates")]
         public string Reorganizing_MemberTypeDelegates {
             get {
@@ -1413,6 +1472,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_MemberTypeDelegates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Destructors||3||Destructors")]
+        public string Reorganizing_MemberTypeDestructors {
+            get {
+                return ((string)(this["Reorganizing_MemberTypeDestructors"]));
+            }
+            set {
+                this["Reorganizing_MemberTypeDestructors"] = value;
             }
         }
         
@@ -1442,6 +1513,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Fields||1||Fields")]
+        public string Reorganizing_MemberTypeFields {
+            get {
+                return ((string)(this["Reorganizing_MemberTypeFields"]));
+            }
+            set {
+                this["Reorganizing_MemberTypeFields"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Indexers||9||Indexers")]
         public string Reorganizing_MemberTypeIndexers {
             get {
@@ -1449,6 +1532,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_MemberTypeIndexers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Interfaces||7||Interfaces")]
+        public string Reorganizing_MemberTypeInterfaces {
+            get {
+                return ((string)(this["Reorganizing_MemberTypeInterfaces"]));
+            }
+            set {
+                this["Reorganizing_MemberTypeInterfaces"] = value;
             }
         }
         
@@ -1473,18 +1568,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_MemberTypeProperties"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Interfaces||7||Interfaces")]
-        public string Reorganizing_MemberTypeInterfaces {
-            get {
-                return ((string)(this["Reorganizing_MemberTypeInterfaces"]));
-            }
-            set {
-                this["Reorganizing_MemberTypeInterfaces"] = value;
             }
         }
         
@@ -1527,18 +1610,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_RegionsRemoveExistingRegions {
-            get {
-                return ((bool)(this["Reorganizing_RegionsRemoveExistingRegions"]));
-            }
-            set {
-                this["Reorganizing_RegionsRemoveExistingRegions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Reorganizing_RegionsInsertKeepEvenIfEmpty {
             get {
                 return ((bool)(this["Reorganizing_RegionsInsertKeepEvenIfEmpty"]));
@@ -1563,120 +1634,37 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Formatting_CommentXmlSpaceSingleTags {
+        public bool Reorganizing_RegionsRemoveExistingRegions {
             get {
-                return ((bool)(this["Formatting_CommentXmlSpaceSingleTags"]));
+                return ((bool)(this["Reorganizing_RegionsRemoveExistingRegions"]));
             }
             set {
-                this["Formatting_CommentXmlSpaceSingleTags"] = value;
+                this["Reorganizing_RegionsRemoveExistingRegions"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Formatting_CommentXmlKeepTagsTogether {
+        public bool Reorganizing_RunAtStartOfCleanup {
             get {
-                return ((bool)(this["Formatting_CommentXmlKeepTagsTogether"]));
+                return ((bool)(this["Reorganizing_RunAtStartOfCleanup"]));
             }
             set {
-                this["Formatting_CommentXmlKeepTagsTogether"] = value;
+                this["Reorganizing_RunAtStartOfCleanup"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Formatting_CommentXmlSplitAllTags {
+        [global::System.Configuration.DefaultSettingValueAttribute(".cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .mast" +
+            "er.cs")]
+        public string Switching_RelatedFileExtensionsExpression {
             get {
-                return ((bool)(this["Formatting_CommentXmlSplitAllTags"]));
+                return ((string)(this["Switching_RelatedFileExtensionsExpression"]));
             }
             set {
-                this["Formatting_CommentXmlSplitAllTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Formatting_CommentXmlTagsToLowerCase {
-            get {
-                return ((bool)(this["Formatting_CommentXmlTagsToLowerCase"]));
-            }
-            set {
-                this["Formatting_CommentXmlTagsToLowerCase"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeSCSS {
-            get {
-                return ((bool)(this["Cleaning_IncludeSCSS"]));
-            }
-            set {
-                this["Cleaning_IncludeSCSS"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool General_LoadModelsAsynchronously {
-            get {
-                return ((bool)(this["General_LoadModelsAsynchronously"]));
-            }
-            set {
-                this["General_LoadModelsAsynchronously"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Digging_PrimarySortOrder {
-            get {
-                return ((int)(this["Digging_PrimarySortOrder"]));
-            }
-            set {
-                this["Digging_PrimarySortOrder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Finding_TemporarilyOpenSolutionFolders {
-            get {
-                return ((bool)(this["Finding_TemporarilyOpenSolutionFolders"]));
-            }
-            set {
-                this["Finding_TemporarilyOpenSolutionFolders"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_InsertEndOfFileTrailingNewLine {
-            get {
-                return ((bool)(this["Cleaning_InsertEndOfFileTrailingNewLine"]));
-            }
-            set {
-                this["Cleaning_InsertEndOfFileTrailingNewLine"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ThirdParty_UseTelerikJustCodeCleanup {
-            get {
-                return ((bool)(this["ThirdParty_UseTelerikJustCodeCleanup"]));
-            }
-            set {
-                this["ThirdParty_UseTelerikJustCodeCleanup"] = value;
+                this["Switching_RelatedFileExtensionsExpression"] = value;
             }
         }
         
@@ -1695,24 +1683,36 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThirdParty_UseJetBrainsReSharperCleanup {
+            get {
+                return ((bool)(this["ThirdParty_UseJetBrainsReSharperCleanup"]));
+            }
+            set {
+                this["ThirdParty_UseJetBrainsReSharperCleanup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThirdParty_UseTelerikJustCodeCleanup {
+            get {
+                return ((bool)(this["ThirdParty_UseTelerikJustCodeCleanup"]));
+            }
+            set {
+                this["ThirdParty_UseTelerikJustCodeCleanup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ThirdParty_UseXAMLStylerCleanup {
             get {
                 return ((bool)(this["ThirdParty_UseXAMLStylerCleanup"]));
             }
             set {
                 this["ThirdParty_UseXAMLStylerCleanup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_IncludeJSON {
-            get {
-                return ((bool)(this["Cleaning_IncludeJSON"]));
-            }
-            set {
-                this["Cleaning_IncludeJSON"] = value;
             }
         }
     }
