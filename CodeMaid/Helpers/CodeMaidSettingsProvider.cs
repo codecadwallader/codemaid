@@ -12,6 +12,7 @@
 using System;
 using System.Configuration;
 using System.IO;
+using System.Xml;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -46,22 +47,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </returns>
         public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context, SettingsPropertyCollection properties)
         {
-            var values = new SettingsPropertyValueCollection();
-
-            var userSettings = ReadUserSettingsFromFile(context);
-            var solutionSettings = ReadSolutionSettingsFromFile(context);
-
-            foreach (SettingsProperty property in properties)
+            try
             {
-                var value = new SettingsPropertyValue(property);
+                var solutionConfigPath = GetSolutionConfigPath(context);
+                var userConfigPath = GetUserConfigPath();
+                var sectionName = GetSectionName(context);
 
-                ApplySettingToValue(value, userSettings);
-                ApplySettingToValue(value, solutionSettings);
+                var userSettings = ReadSettingsFromFile(userConfigPath, sectionName);
+                var solutionSettings = ReadSettingsFromFile(solutionConfigPath, sectionName);
 
-                values.Add(value);
+                var propertyValues = MergeSettingsIntoPropertyValues(userSettings, solutionSettings, properties);
+
+                return propertyValues;
             }
-
-            return base.GetPropertyValues(context, properties);
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to GetPropertyValues.", ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -77,12 +80,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </param>
         public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection values)
         {
-            base.SetPropertyValues(context, values);
+            try
+            {
+                var configPath = GetSolutionConfigPath(context) ?? GetUserConfigPath();
+                var sectionName = GetSectionName(context);
+
+                WriteSettingsToFile(configPath, sectionName, values);
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to SetPropertyValues.", ex);
+                throw;
+            }
         }
 
         #endregion Overridden Members
 
-        #region Private Methods
+        #region Shared Methods
 
         /// <summary>
         /// Gets the path to the user configuration file.
@@ -127,72 +141,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Read users settings from the configuration file.
+        /// Gets the <see cref="Configuration"/> at the specified path.
         /// </summary>
-        /// <param name="context">
-        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
-        /// application usage.
-        /// </param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadUserSettingsFromFile(SettingsContext context)
+        /// <param name="path">The path to the configuration file.</param>
+        /// <returns>The <see cref="Configuration"/> object.</returns>
+        private static Configuration GetConfiguration(string path)
         {
-            try
-            {
-                var path = GetUserConfigPath();
-                var sectionName = GetSectionName(context);
+            if (path == null) throw new ArgumentNullException("path");
 
-                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
-                {
-                    return ReadSettingsFromFile(path, sectionName);
-                }
-            }
-            catch (Exception ex)
-            {
-                OutputWindowHelper.ExceptionWriteLine("Unable to read user settings.", ex);
-            }
-
-            return new SettingElementCollection();
-        }
-
-        /// <summary>
-        /// Read solution settings from the configuration file.
-        /// </summary>
-        /// <param name="context">
-        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
-        /// application usage.
-        /// </param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadSolutionSettingsFromFile(SettingsContext context)
-        {
-            try
-            {
-                var path = GetSolutionConfigPath(context);
-                var sectionName = GetSectionName(context);
-
-                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
-                {
-                    return ReadSettingsFromFile(path, sectionName);
-                }
-            }
-            catch (Exception ex)
-            {
-                OutputWindowHelper.ExceptionWriteLine("Unable to read solution settings.", ex);
-            }
-
-            return new SettingElementCollection();
-        }
-
-        /// <summary>
-        /// Reads settings from a configuration file at the specified path.
-        /// </summary>
-        /// <param name="path">The configuration file path.</param>
-        /// <param name="sectionName">The name of the settings section.</param>
-        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
-        private static SettingElementCollection ReadSettingsFromFile(string path, string sectionName)
-        {
             var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = path };
             var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
 
+            return config;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="SettingElementCollection"/> for the specified section name within
+        /// the specified configuration.
+        /// </summary>
+        /// <param name="config">The <see cref="Configuration"/> object.</param>
+        /// <param name="sectionName">The settings section name.</param>
+        /// <returns>
+        /// A <see cref="SettingElementCollection"/> for the section, or an empty section if not found.
+        /// </returns>
+        private static SettingElementCollection GetSettingElementCollection(Configuration config, string sectionName)
+        {
             var userSettings = config.GetSectionGroup("userSettings");
             if (userSettings != null)
             {
@@ -204,6 +177,61 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             return new SettingElementCollection();
+        }
+
+        #endregion Shared Methods
+
+        #region Read Methods
+
+        /// <summary>
+        /// Reads settings from a configuration file at the specified path.
+        /// </summary>
+        /// <param name="path">The configuration file path.</param>
+        /// <param name="sectionName">The name of the settings section.</param>
+        /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
+        private static SettingElementCollection ReadSettingsFromFile(string path, string sectionName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
+                {
+                    var config = GetConfiguration(path);
+                    var settings = GetSettingElementCollection(config, sectionName);
+
+                    return settings;
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to read settings.", ex);
+            }
+
+            return new SettingElementCollection();
+        }
+
+        /// <summary>
+        /// Merges the specified user and solution settings into a new <see cref="SettingsPropertyValueCollection"/>.
+        /// </summary>
+        /// <param name="userSettings">The user settings.</param>
+        /// <param name="solutionSettings">The solution settings.</param>
+        /// <param name="properties">The setting properties collection.</param>
+        /// <returns>A merged <see cref="SettingsPropertyValueCollection"/>.</returns>
+        private static SettingsPropertyValueCollection MergeSettingsIntoPropertyValues(SettingElementCollection userSettings, SettingElementCollection solutionSettings, SettingsPropertyCollection properties)
+        {
+            var values = new SettingsPropertyValueCollection();
+
+            foreach (SettingsProperty property in properties)
+            {
+                var value = new SettingsPropertyValue(property);
+
+                ApplySettingToValue(value, userSettings);
+                ApplySettingToValue(value, solutionSettings);
+
+                value.IsDirty = false;
+
+                values.Add(value);
+            }
+            return values;
         }
 
         /// <summary>
@@ -224,13 +252,77 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        #endregion Read Methods
+
+        #region Write Methods
+
         /// <summary>
-        /// Writes settings to a configuration file within the specified path.
+        /// Writes settings to a configuration file at the specified path.
         /// </summary>
-        private static void WriteSettingsToFile()
+        /// <param name="path">The configuration file path.</param>
+        /// <param name="sectionName">The name of the settings section.</param>
+        /// <param name="values">
+        /// A <see cref="T:System.Configuration.SettingsPropertyValueCollection"/> representing the
+        /// group of property settings to set.
+        /// </param>
+        private static void WriteSettingsToFile(string path, string sectionName, SettingsPropertyValueCollection values)
         {
+            try
+            {
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(sectionName))
+                {
+                    var config = GetConfiguration(path);
+                    var settings = GetSettingElementCollection(config, sectionName);
+
+                    UpdateSettingsFromPropertyValues(settings, values);
+
+                    config.Save(ConfigurationSaveMode.Full, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to write settings.", ex);
+            }
         }
 
-        #endregion Private Methods
+        /// <summary>
+        /// Updates the <see cref="SettingElementCollection"/> from the <see cref="SettingsPropertyValueCollection"/>.
+        /// </summary>
+        /// <param name="settings">A collection representing the settings.</param>
+        /// <param name="values">
+        /// A <see cref="T:System.Configuration.SettingsPropertyValueCollection"/> representing the
+        /// group of property settings to set.
+        /// </param>
+        private static void UpdateSettingsFromPropertyValues(SettingElementCollection settings, SettingsPropertyValueCollection values)
+        {
+            foreach (SettingsPropertyValue value in values)
+            {
+                var element = settings.Get(value.Name);
+                if (element == null)
+                {
+                    // Note: We only support string serialization for brevity of implementation.
+                    element = new SettingElement(value.Name, SettingsSerializeAs.String);
+                    settings.Add(element);
+                }
+
+                element.SerializeAs = SettingsSerializeAs.String;
+                element.Value.ValueXml = CreateXmlValue(value.SerializedValue);
+            }
+        }
+
+        /// <summary>
+        /// Creates an <see cref="XmlNode"/> containing the specified serialized value.
+        /// </summary>
+        /// <param name="serializedValue">The serialized value.</param>
+        /// <returns>The <see cref="XmlNode"/>.</returns>
+        private static XmlNode CreateXmlValue(object serializedValue)
+        {
+            var node = new XmlDocument().CreateElement("value");
+            node.InnerText = serializedValue.ToString();
+
+            return node;
+        }
+
+        #endregion Write Methods
     }
 }
