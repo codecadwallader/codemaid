@@ -153,6 +153,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Cleaning\FileTypes\JSONTests.cs" />
+    <Compile Include="Cleaning\FileTypes\PHPTests.cs" />
     <Compile Include="Cleaning\FileTypes\SCSSTests.cs" />
     <Content Include="Cleaning\Insert\Data\InsertEndOfFileTrailingNewLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

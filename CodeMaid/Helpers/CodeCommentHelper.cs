@@ -118,6 +118,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "LESS":
                 case "SCSS":
                 case "TypeScript":
+                case "PHP":
                     return "///?";
 
                 case "Basic":
