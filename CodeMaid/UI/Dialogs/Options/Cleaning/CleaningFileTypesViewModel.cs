@@ -61,6 +61,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
             IncludeXML = Settings.Default.Cleaning_IncludeXML;
+            IncludePHP = Settings.Default.Cleaning_IncludePHP;
         }
 
         /// <summary>
@@ -83,6 +84,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
+            Settings.Default.Cleaning_IncludePHP = IncludePHP;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -219,6 +221,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if XML files should be included.
         /// </summary>
         public bool IncludeXML
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if PHP files should be included.
+        /// </summary>
+        public bool IncludePHP
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

@@ -195,6 +195,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsDocumentLanguageIncludedByOptions(Document document)
         {
+            var projectItem = document.ProjectItem;
+            var extension = GetProjectItemExtension(projectItem);
+            if (extension.Equals(".php", StringComparison.CurrentCultureIgnoreCase))
+            {
+                // Make an exception for PHP files - they may incorrectly return the HTML
+                // language service.
+                return Settings.Default.Cleaning_IncludePHP;
+            }
+
             switch (document.Language)
             {
                 case "Basic": return Settings.Default.Cleaning_IncludeVB;
@@ -327,6 +336,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
+                case "{16b0638d-251a-4705-98d2-5251112c4139}": return Settings.Default.Cleaning_IncludePHP;
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
                         string.Format("CodeCleanupAvailabilityLogic.IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid '{0}'", languageServiceGuid));
