@@ -23,14 +23,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <CheckBox Grid.Row="0" Grid.Column="0" Content="C#" IsChecked="{Binding IncludeCSharp}" />
                     <CheckBox Grid.Row="0" Grid.Column="2" Content="C++" IsChecked="{Binding IncludeCPlusPlus}" />
                     <CheckBox Grid.Row="0" Grid.Column="4" Content="F#" IsChecked="{Binding IncludeFSharp}" />
                     <CheckBox Grid.Row="0" Grid.Column="6" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
+                    <CheckBox Grid.Row="0" Grid.Column="8" Content="PHP" IsChecked="{Binding IncludePHP}" />
 
                     <CheckBox Grid.Row="1" Grid.Column="0" Content="JSON" IsChecked="{Binding IncludeJSON}" />
                     <CheckBox Grid.Row="1" Grid.Column="2" Content="XAML" IsChecked="{Binding IncludeXAML}" />
@@ -42,7 +41,6 @@
                     <CheckBox Grid.Row="2" Grid.Column="6" Content="SCSS" IsChecked="{Binding IncludeSCSS}" />
                     <CheckBox Grid.Row="2" Grid.Column="8" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
                     <CheckBox Grid.Row="2" Grid.Column="10" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
-                    <CheckBox Grid.Row="2" Grid.Column="12" Content="PHP" IsChecked="{Binding IncludePHP}" />
                 </Grid>
             </GroupBox>
 

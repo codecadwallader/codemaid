@@ -56,12 +56,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
             IncludeJSON = Settings.Default.Cleaning_IncludeJSON;
             IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
+            IncludePHP = Settings.Default.Cleaning_IncludePHP;
             IncludeSCSS = Settings.Default.Cleaning_IncludeSCSS;
             IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
             IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
             IncludeXML = Settings.Default.Cleaning_IncludeXML;
-            IncludePHP = Settings.Default.Cleaning_IncludePHP;
         }
 
         /// <summary>
@@ -79,12 +79,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
             Settings.Default.Cleaning_IncludeJSON = IncludeJSON;
             Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
+            Settings.Default.Cleaning_IncludePHP = IncludePHP;
             Settings.Default.Cleaning_IncludeSCSS = IncludeSCSS;
             Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
             Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
             Settings.Default.Cleaning_IncludeXML = IncludeXML;
-            Settings.Default.Cleaning_IncludePHP = IncludePHP;
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -182,6 +182,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         }
 
         /// <summary>
+        /// Gets or sets the flag indicating if PHP files should be included.
+        /// </summary>
+        public bool IncludePHP
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
         /// Gets or sets the flag indicating if SCSS files should be included.
         /// </summary>
         public bool IncludeSCSS
@@ -221,15 +230,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if XML files should be included.
         /// </summary>
         public bool IncludeXML
-        {
-            get { return GetPropertyValue<bool>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the flag indicating if PHP files should be included.
-        /// </summary>
-        public bool IncludePHP
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
