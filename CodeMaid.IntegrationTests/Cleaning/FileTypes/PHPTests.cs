@@ -19,6 +19,7 @@ using System;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
 {
+    [Ignore]
     [TestClass]
     [DeploymentItem(@"Cleaning\FileTypes\Data\PHP.php", "Data")]
     public class PHPTests
