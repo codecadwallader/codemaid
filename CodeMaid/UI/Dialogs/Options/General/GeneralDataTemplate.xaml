@@ -115,7 +115,7 @@
                               HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock FontFamily="{Binding}" Text="{Binding Source}" />
+                                <TextBlock FontFamily="{Binding}" MinHeight="20" Text="{Binding Source}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
