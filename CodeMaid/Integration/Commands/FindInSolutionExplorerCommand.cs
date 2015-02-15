@@ -63,7 +63,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                 if (Package.IDEVersion >= 11)
                 {
-                    Package.IDE.ExecuteCommand("SolutionExplorer.SyncWithActiveDocument", String.Empty);
+                    //Note: Instead of directly invoking the command by name, we are using the GUID/ID pair.
+                    // This is a workaround for the canonical name being undefined in Spanish versions of Visual Studio.
+                    object customIn = null;
+                    object customOut = null;
+                    Package.IDE.Commands.Raise("{D63DB1F0-404E-4B21-9648-CA8D99245EC3}", 36, ref customIn, ref customOut);
+                    //Package.IDE.ExecuteCommand("SolutionExplorer.SyncWithActiveDocument", String.Empty);
                 }
                 else
                 {

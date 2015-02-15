@@ -56,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
             IncludeJSON = Settings.Default.Cleaning_IncludeJSON;
             IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
+            IncludePHP = Settings.Default.Cleaning_IncludePHP;
             IncludeSCSS = Settings.Default.Cleaning_IncludeSCSS;
             IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
             IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
@@ -78,6 +79,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
             Settings.Default.Cleaning_IncludeJSON = IncludeJSON;
             Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
+            Settings.Default.Cleaning_IncludePHP = IncludePHP;
             Settings.Default.Cleaning_IncludeSCSS = IncludeSCSS;
             Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
             Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
@@ -174,6 +176,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if LESS files should be included.
         /// </summary>
         public bool IncludeLESS
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if PHP files should be included.
+        /// </summary>
+        public bool IncludePHP
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

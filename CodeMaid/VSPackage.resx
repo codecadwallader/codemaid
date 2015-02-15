@@ -122,13 +122,13 @@
     <comment>Package name</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
+    <value>CodeMaid is an open source Visual Studio extension to cleanup, dig through and simplify our C#, C++, F#, VB, PHP, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
 
 Written by Steve Cadwallader, for more information visit http://www.codemaid.net/</value>
     <comment>Package description</comment>
   </data>
   <data name="114" xml:space="preserve">
-    <value>0.7.5</value>
+    <value>0.7.5.1</value>
     <comment>Package version</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

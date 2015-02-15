@@ -29,6 +29,7 @@
                     <CheckBox Grid.Row="0" Grid.Column="2" Content="C++" IsChecked="{Binding IncludeCPlusPlus}" />
                     <CheckBox Grid.Row="0" Grid.Column="4" Content="F#" IsChecked="{Binding IncludeFSharp}" />
                     <CheckBox Grid.Row="0" Grid.Column="6" Content="VB" IsChecked="{Binding IncludeVisualBasic}" />
+                    <CheckBox Grid.Row="0" Grid.Column="8" Content="PHP" IsChecked="{Binding IncludePHP}" />
 
                     <CheckBox Grid.Row="1" Grid.Column="0" Content="JSON" IsChecked="{Binding IncludeJSON}" />
                     <CheckBox Grid.Row="1" Grid.Column="2" Content="XAML" IsChecked="{Binding IncludeXAML}" />
