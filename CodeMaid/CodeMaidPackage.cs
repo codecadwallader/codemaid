@@ -355,9 +355,9 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Called when a solution is closed.
+        /// Called when a solution is closed to conditionally show the start page.
         /// </summary>
-        private void OnSolutionClosed()
+        private void OnSolutionClosedShowStartPage()
         {
             if (!Settings.Default.General_ShowStartPageOnSolutionClose) return;
 
@@ -443,6 +443,7 @@ namespace SteveCadwallader.CodeMaid
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
                 var codeModelManager = CodeModelManager.GetInstance(this);
+                var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
@@ -459,7 +460,9 @@ namespace SteveCadwallader.CodeMaid
 
                 SolutionEventListener = new SolutionEventListener(this);
                 SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
-                SolutionEventListener.OnSolutionClosed += OnSolutionClosed;
+                SolutionEventListener.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
+                SolutionEventListener.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
+                SolutionEventListener.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
                 // Check if a solution has already been opened before CodeMaid was initialized.
                 if (IDE.Solution != null && IDE.Solution.IsOpen)
