@@ -1,8 +1,8 @@
 <link href="http://www.codemaid.net/wp-content/uploads/external/ProjectDescription.css" rel="stylesheet"></link>
  
-<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/external/about_v_0_7_5.png" alt="codemaid.net" /></a></div>
+<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/external/about_v_0_7_6.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank"> http://www.codemaid.net</a></div>
-<p>Currently supports VS2010, VS2012, VS2013 and VS14.</p>
+<p>Currently supports VS2010, VS2012, VS2013 and VS2015.</p>
 <p>For Visual Studio 2005/2008, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi" target="_blank"> v0.4.3</a> which can be installed side-by-side with the VS2010/VS2012/VS2013/VS14 VSIX.</p>
 <h2>Links</h2>
 Project home, Documentation, News: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank">www.codemaid.net</a> <br />
