@@ -27,7 +27,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         protected OptionsPageViewModel(CodeMaidPackage package)
         {
             Package = package;
-            LoadSettings();
         }
 
         #endregion Constructors
@@ -62,6 +61,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
         }
 
+        /// <summary>
+        /// Gets or sets the list of settings to options mappings.
+        /// </summary>
+        protected SettingsToOptionsList Mappings { get; set; }
+
         #endregion Properties
 
         #region Methods
@@ -69,12 +73,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Loads the settings.
         /// </summary>
-        public abstract void LoadSettings();
+        public virtual void LoadSettings()
+        {
+            if (Mappings != null)
+            {
+                Mappings.CopySettingsToOptions();
+            }
+        }
 
         /// <summary>
         /// Saves the settings.
         /// </summary>
-        public abstract void SaveSettings();
+        public virtual void SaveSettings()
+        {
+            if (Mappings != null)
+            {
+                Mappings.CopyOptionsToSettings();
+            }
+        }
 
         #endregion Methods
     }

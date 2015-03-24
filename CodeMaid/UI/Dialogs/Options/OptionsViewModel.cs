@@ -81,6 +81,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
+
+            ReloadPagesFromSettings();
         }
 
         #endregion Constructors

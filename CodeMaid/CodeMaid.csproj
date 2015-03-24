@@ -312,6 +312,9 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
     <Compile Include="UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
