@@ -27,6 +27,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public ReorganizingRegionsViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsIncludeAccessLevel, x => IncludeAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty, x => InsertKeepEvenIfEmpty),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsInsertNewRegions, x => InsertNewRegions),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsRemoveExistingRegions, x => RemoveExistingRegions)
+            };
         }
 
         #endregion Constructors
@@ -39,28 +46,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public override string Header
         {
             get { return "Regions"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
-            InsertKeepEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty;
-            InsertNewRegions = Settings.Default.Reorganizing_RegionsInsertNewRegions;
-            RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
-            Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = InsertKeepEvenIfEmpty;
-            Settings.Default.Reorganizing_RegionsInsertNewRegions = InsertNewRegions;
-            Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel

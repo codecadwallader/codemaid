@@ -39,20 +39,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             get { return "Reorganizing"; }
         }
 
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-        }
-
         #endregion Overrides of OptionsPageViewModel
     }
 }

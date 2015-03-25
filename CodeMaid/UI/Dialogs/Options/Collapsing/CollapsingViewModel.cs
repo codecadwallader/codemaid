@@ -27,6 +27,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         public CollapsingViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Collapsing_CollapseSolutionWhenOpened, x => CollapseSolutionWhenOpened),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Collapsing_KeepSoloProjectExpanded, x => KeepSoloProjectExpanded)
+            };
         }
 
         #endregion Constructors
@@ -39,24 +44,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         public override string Header
         {
             get { return "Collapsing"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            CollapseSolutionWhenOpened = Settings.Default.Collapsing_CollapseSolutionWhenOpened;
-            KeepSoloProjectExpanded = Settings.Default.Collapsing_KeepSoloProjectExpanded;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Collapsing_CollapseSolutionWhenOpened = CollapseSolutionWhenOpened;
-            Settings.Default.Collapsing_KeepSoloProjectExpanded = KeepSoloProjectExpanded;
         }
 
         #endregion Overrides of OptionsPageViewModel

@@ -28,6 +28,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public CleaningRemoveViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes, x => RemoveBlankLinesAfterAttributes),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace, x => RemoveBlankLinesAfterOpeningBraces),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAtBottom, x => RemoveBlankLinesAtBottom),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAtTop, x => RemoveBlankLinesAtTop),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace, x => RemoveBlankLinesBeforeClosingBraces),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags, x => RemoveBlankLinesBeforeClosingTags),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements, x => RemoveBlankLinesBetweenChainedStatements),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets, x => RemoveBlankSpacesBeforeClosingAngleBrackets),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine, x => RemoveEndOfFileTrailingNewLine),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveEndOfLineWhitespace, x => RemoveEndOfLineWhitespace),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines, x => RemoveMultipleConsecutiveBlankLines),
+                new SettingToOptionMapping<int, NoneEmptyAll>(x => Settings.Default.Cleaning_RemoveRegions, x => RemoveRegions)
+            };
         }
 
         #endregion Constructors
@@ -40,44 +55,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Remove"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            RemoveBlankLinesAfterAttributes = Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes;
-            RemoveBlankLinesAfterOpeningBraces = Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace;
-            RemoveBlankLinesAtBottom = Settings.Default.Cleaning_RemoveBlankLinesAtBottom;
-            RemoveBlankLinesAtTop = Settings.Default.Cleaning_RemoveBlankLinesAtTop;
-            RemoveBlankLinesBeforeClosingBraces = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace;
-            RemoveBlankLinesBeforeClosingTags = Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags;
-            RemoveBlankLinesBetweenChainedStatements = Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements;
-            RemoveBlankSpacesBeforeClosingAngleBrackets = Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets;
-            RemoveEndOfFileTrailingNewLine = Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine;
-            RemoveEndOfLineWhitespace = Settings.Default.Cleaning_RemoveEndOfLineWhitespace;
-            RemoveMultipleConsecutiveBlankLines = Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines;
-            RemoveRegions = (NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes = RemoveBlankLinesAfterAttributes;
-            Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace = RemoveBlankLinesAfterOpeningBraces;
-            Settings.Default.Cleaning_RemoveBlankLinesAtBottom = RemoveBlankLinesAtBottom;
-            Settings.Default.Cleaning_RemoveBlankLinesAtTop = RemoveBlankLinesAtTop;
-            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace = RemoveBlankLinesBeforeClosingBraces;
-            Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags = RemoveBlankLinesBeforeClosingTags;
-            Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements = RemoveBlankLinesBetweenChainedStatements;
-            Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets = RemoveBlankSpacesBeforeClosingAngleBrackets;
-            Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine = RemoveEndOfFileTrailingNewLine;
-            Settings.Default.Cleaning_RemoveEndOfLineWhitespace = RemoveEndOfLineWhitespace;
-            Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines = RemoveMultipleConsecutiveBlankLines;
-            Settings.Default.Cleaning_RemoveRegions = (int)RemoveRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel

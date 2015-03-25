@@ -27,6 +27,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public CleaningUpdateViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
+            };
         }
 
         #endregion Constructors
@@ -39,26 +45,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Update"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            UpdateAccessorsToBothBeSingleLineOrMultiLine = Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine;
-            UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
-            UpdateSingleLineMethods = Settings.Default.Cleaning_UpdateSingleLineMethods;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = UpdateAccessorsToBothBeSingleLineOrMultiLine;
-            Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
-            Settings.Default.Cleaning_UpdateSingleLineMethods = UpdateSingleLineMethods;
         }
 
         #endregion Overrides of OptionsPageViewModel

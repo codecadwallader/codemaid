@@ -27,6 +27,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
         public ProgressingViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_HideBuildProgressOnBuildStop, x => HideBuildProgressOnBuildStop),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_ShowBuildProgressOnBuildStart, x => ShowBuildProgressOnBuildStart),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_ShowProgressOnWindowsTaskbar, x => ShowProgressOnWindowsTaskbar)
+            };
         }
 
         #endregion Constructors
@@ -39,26 +45,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
         public override string Header
         {
             get { return "Progressing"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            HideBuildProgressOnBuildStop = Settings.Default.Progressing_HideBuildProgressOnBuildStop;
-            ShowBuildProgressOnBuildStart = Settings.Default.Progressing_ShowBuildProgressOnBuildStart;
-            ShowProgressOnWindowsTaskbar = Settings.Default.Progressing_ShowProgressOnWindowsTaskbar;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Progressing_HideBuildProgressOnBuildStop = HideBuildProgressOnBuildStop;
-            Settings.Default.Progressing_ShowBuildProgressOnBuildStart = ShowBuildProgressOnBuildStart;
-            Settings.Default.Progressing_ShowProgressOnWindowsTaskbar = ShowProgressOnWindowsTaskbar;
         }
 
         #endregion Overrides of OptionsPageViewModel

@@ -27,6 +27,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         public FindingViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Finding_TemporarilyOpenSolutionFolders, x => TemporarilyOpenSolutionFolders)
+            };
         }
 
         #endregion Constructors
@@ -39,22 +43,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         public override string Header
         {
             get { return "Finding"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            TemporarilyOpenSolutionFolders = Settings.Default.Finding_TemporarilyOpenSolutionFolders;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Finding_TemporarilyOpenSolutionFolders = TemporarilyOpenSolutionFolders;
         }
 
         #endregion Overrides of OptionsPageViewModel

@@ -34,6 +34,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         public ThirdPartyViewModel(CodeMaidPackage package)
             : base(package)
         {
+            Mappings = new SettingsToOptionsList(this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup, x => UseJetBrainsReSharperCleanup),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseTelerikJustCodeCleanup, x => UseTelerikJustCodeCleanup),
+                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseXAMLStylerCleanup, x => UseXAMLStylerCleanup),
+                new SettingToOptionMapping<string, string>(x => Settings.Default.ThirdParty_OtherCleaningCommandsExpression, x => OtherCleaningCommandsExpression)
+            };
+
             _commandHelper = CommandHelper.GetInstance(package);
         }
 
@@ -47,28 +55,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         public override string Header
         {
             get { return "Third Party"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            UseJetBrainsReSharperCleanup = Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup;
-            UseTelerikJustCodeCleanup = Settings.Default.ThirdParty_UseTelerikJustCodeCleanup;
-            UseXAMLStylerCleanup = Settings.Default.ThirdParty_UseXAMLStylerCleanup;
-            OtherCleaningCommandsExpression = Settings.Default.ThirdParty_OtherCleaningCommandsExpression;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup = UseJetBrainsReSharperCleanup;
-            Settings.Default.ThirdParty_UseTelerikJustCodeCleanup = UseTelerikJustCodeCleanup;
-            Settings.Default.ThirdParty_UseXAMLStylerCleanup = UseXAMLStylerCleanup;
-            Settings.Default.ThirdParty_OtherCleaningCommandsExpression = OtherCleaningCommandsExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel
