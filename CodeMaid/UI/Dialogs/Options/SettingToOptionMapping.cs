@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
@@ -50,10 +51,23 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="optionClass">The class instance for the option property.</param>
         public void CopySettingToOption(object optionClass)
         {
-            var settingValue = (TO)SettingProperty.GetValue(Settings.Default);
+            var settingValue = SettingProperty.GetValue(Settings.Default);
 
-            // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
-            OptionProperty.SetValue(optionClass, settingValue);
+            //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
+            if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
+            {
+                var optionValue = (MemberTypeSetting)(string)settingValue;
+
+                // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
+                OptionProperty.SetValue(optionClass, optionValue);
+            }
+            else
+            {
+                var optionValue = (TO)settingValue;
+
+                // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
+                OptionProperty.SetValue(optionClass, optionValue);
+            }
         }
 
         /// <summary>
@@ -62,12 +76,26 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="optionClass">The class instance for the option property.</param>
         public void CopyOptionToSetting(object optionClass)
         {
-            var optionValue = (TS)OptionProperty.GetValue(optionClass);
-            var settingValue = (TS)SettingProperty.GetValue(Settings.Default);
-
-            if (!EqualityComparer<TS>.Default.Equals(optionValue, settingValue))
+            //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
+            if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
             {
-                SettingProperty.SetValue(Settings.Default, optionValue);
+                var optionValue = (string)(MemberTypeSetting)OptionProperty.GetValue(optionClass);
+                var settingValue = (string)SettingProperty.GetValue(Settings.Default);
+
+                if (!EqualityComparer<string>.Default.Equals(optionValue, settingValue))
+                {
+                    SettingProperty.SetValue(Settings.Default, optionValue);
+                }
+            }
+            else
+            {
+                var optionValue = (TS)OptionProperty.GetValue(optionClass);
+                var settingValue = (TS)SettingProperty.GetValue(Settings.Default);
+
+                if (!EqualityComparer<TS>.Default.Equals(optionValue, settingValue))
+                {
+                    SettingProperty.SetValue(Settings.Default, optionValue);
+                }
             }
         }
 

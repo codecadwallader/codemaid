@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
                x =>
                {
                    _parseCount++;
-                   return MemberTypeSetting.Deserialize(x);
+                   return (MemberTypeSetting)x;
                });
 
             Assert.AreEqual(0, _lookupCount);
@@ -82,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
             Assert.AreEqual(1, _parseCount);
 
             memberTypeSetting.EffectiveName = "Member Variables";
-            Settings.Default.Reorganizing_MemberTypeFields = memberTypeSetting.Serialize();
+            Settings.Default.Reorganizing_MemberTypeFields = (string)memberTypeSetting;
 
             var memberTypeSetting2 = _cachedSetting.Value;
 

@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
             var memberTypeSetting = new MemberTypeSetting("Fields", "Member Variables", 1);
             Assert.IsNotNull(memberTypeSetting);
 
-            var serializedString = memberTypeSetting.Serialize();
+            var serializedString = (string)memberTypeSetting;
             Assert.IsFalse(string.IsNullOrWhiteSpace(serializedString));
         }
 
@@ -32,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         {
             const string serializedString = @"Fields||1||Member Variables";
 
-            var memberTypeSetting = MemberTypeSetting.Deserialize(serializedString);
+            var memberTypeSetting = (MemberTypeSetting)serializedString;
 
             Assert.IsNotNull(memberTypeSetting);
             Assert.AreEqual(memberTypeSetting.DefaultName, "Fields");

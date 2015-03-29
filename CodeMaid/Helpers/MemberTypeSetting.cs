@@ -80,8 +80,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="serializedString">The serialized string to deserialize.</param>
         /// <returns>A new instance of <see cref="MemberTypeSetting" />.</returns>
-        public static MemberTypeSetting Deserialize(string serializedString)
+        public static implicit operator MemberTypeSetting(string serializedString)
         {
+            //TODO: Would prefer an explicit operator, currently implicit to try and resolve generic casting.
             const string pattern = @"^(?<defaultName>\w+)\|\|(?<order>\d+)\|\|(?<effectiveName>.*)$";
 
             try
@@ -102,12 +103,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Serializes this object into a string for persistence to settings.
+        /// Serializes the specified <see cref="MemberTypeSetting"/> into a string (e.g. for persistence to settings).
         /// </summary>
-        /// <returns>A serialized string representing this object.</returns>
-        public string Serialize()
+        /// <returns>A serialized string representing the object.</returns>
+        public static implicit operator string(MemberTypeSetting memberTypeSetting)
         {
-            return string.Format("{0}||{1}||{2}", DefaultName, Order, EffectiveName);
+            //TODO: Would prefer an explicit operator, currently implicit to try and resolve generic casting.
+            return string.Format("{0}||{1}||{2}", memberTypeSetting.DefaultName, memberTypeSetting.Order, memberTypeSetting.EffectiveName);
         }
 
         #endregion Methods
