@@ -256,5 +256,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 XmlSplitSummaryTag = false
             });
         }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_Hyperlink()
+        {
+            var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
+            var expected = input;
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default));
+        }
     }
 }

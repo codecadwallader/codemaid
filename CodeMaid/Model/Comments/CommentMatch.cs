@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             Indent = match.Groups["indent"].Success ? match.Groups["indent"].Value.Length : 0;
-            ListPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value : null;
+            ListPrefix = match.Groups["listprefix"].Success ? match.Groups["listprefix"].Value.TrimEnd() : null;
             Words = match.Groups["words"].Success ? match.Groups["words"].Captures.OfType<Capture>().Select(c => c.Value).ToList() : null;
 
             IsEmpty = string.IsNullOrWhiteSpace(match.Value) || Words == null || Words.Count < 1;
