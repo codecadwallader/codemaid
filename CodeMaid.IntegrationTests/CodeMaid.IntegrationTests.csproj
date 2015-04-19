@@ -671,10 +671,17 @@
     <Content Include="Reorganizing\Data\ReorganizationAvailability.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reorganizing\Data\RegionsNewMemberOutside.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reorganizing\Data\RegionsNewMemberOutside_Reorganized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Reorganizing\RegionsInsertAfterReorderTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyRegionTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyWithEmptyClassTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertEvenIfEmptyTests.cs" />
+    <Compile Include="Reorganizing\RegionsNewMemberOutsideTests.cs" />
     <Compile Include="Reorganizing\ReorganizationAvailabilityTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertWithAccessModifiersTests.cs" />
     <Compile Include="Reorganizing\RegionsInsertStandardTests.cs" />

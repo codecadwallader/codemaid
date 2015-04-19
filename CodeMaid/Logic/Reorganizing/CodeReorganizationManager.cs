@@ -167,8 +167,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             // Refresh them to make sure all positions are updated.
             codeItemElements.ForEach(x => x.RefreshCachedPositionAndName());
 
-            // Pull out the first item in a set if there are items sharing a definition (ex: fields).
-            codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).ToList();
+            // Sort the items, pulling out the first item in a set if there are items sharing a definition (ex: fields).
+            codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).OrderBy(z => z.StartOffset).ToList();
 
             return codeItemElements;
         }
