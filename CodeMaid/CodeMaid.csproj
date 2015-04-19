@@ -265,7 +265,6 @@
     <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
     <Compile Include="Model\CodeTree\CodeSortOrder.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Model\Comments\CodeCommentOptions.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

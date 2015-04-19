@@ -2,7 +2,7 @@
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
-// 
+//
 // CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
@@ -20,28 +20,28 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     internal class CommentFormatHelper
     {
-        public static void AssertEqualAfterFormat(string input, CodeCommentOptions options)
+        public static void AssertEqualAfterFormat(string input)
         {
-            AssertEqualAfterFormat(input, input, options);
+            AssertEqualAfterFormat(input, input);
         }
 
-        public static void AssertEqualAfterFormat(string input, string expected, CodeCommentOptions options)
+        public static void AssertEqualAfterFormat(string input, string expected)
         {
-            var result = Format(input, options);
+            var result = Format(input);
             Assert.AreEqual(expected, result);
         }
 
-        public static string Format(IEnumerable<string> text, CodeCommentOptions options)
+        public static string Format(IEnumerable<string> text)
         {
-            return Format(string.Join(Environment.NewLine, text), options);
+            return Format(string.Join(Environment.NewLine, text));
         }
 
-        public static string Format(string text, CodeCommentOptions options)
+        public static string Format(string text)
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
-            var line = new CommentLineXml(xml, options);
+            var line = new CommentLineXml(xml);
             var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
-            var formatter = new CommentFormatter(line, string.Empty, options, regex);
+            var formatter = new CommentFormatter(line, string.Empty, 4, regex);
             return formatter.ToString();
         }
     }

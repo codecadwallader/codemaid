@@ -10,7 +10,6 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 
@@ -23,6 +22,12 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     [TestClass]
     public class HeaderFormattingTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Settings.Default.Reset();
+        }
+
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void HeaderFormattingTests_IndentsXML()
@@ -37,10 +42,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"    Company copyright tag." + Environment.NewLine +
                 @"</copyright>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
-            {
-                WrapAtColumn = 100
-            });
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
         [TestMethod]
@@ -61,10 +63,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"</copyright>" + Environment.NewLine +
                 @"-----------------------------------------------------------------------";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
-            {
-                WrapAtColumn = 100
-            });
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
         [TestMethod]
@@ -85,10 +84,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"" + Environment.NewLine +
                 @"--------------------------------------------------------------------------------------------------------------------";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default)
-            {
-                WrapAtColumn = 100
-            });
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
     }
 }

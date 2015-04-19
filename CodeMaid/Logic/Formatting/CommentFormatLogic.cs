@@ -67,18 +67,17 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="end">The end point.</param>
         public bool FormatComments(TextDocument textDocument, EditPoint start, EditPoint end)
         {
-            var options = new CodeCommentOptions(Settings.Default, _package, textDocument);
-
             bool foundComments = false;
+            int tabSize = CodeCommentHelper.GetTabSize(_package, textDocument);
 
             while (start.Line <= end.Line)
             {
                 if (CodeCommentHelper.IsCommentLine(start))
                 {
-                    var comment = new CodeComment(start);
+                    var comment = new CodeComment(start, tabSize);
                     if (comment.IsValid)
                     {
-                        comment.Format(options);
+                        comment.Format();
                         foundComments = true;
                     }
 

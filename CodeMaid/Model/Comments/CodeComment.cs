@@ -28,6 +28,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private readonly TextDocument _document;
         private Regex _commentLineRegex;
+        private int _tabSize;
 
         private EditPoint _endPoint;
         private EditPoint _startPoint;
@@ -39,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeComment" /> class.
         /// </summary>
-        public CodeComment(TextPoint point)
+        public CodeComment(TextPoint point, int tabSize)
         {
             if (point == null)
             {
@@ -47,8 +48,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             _document = point.Parent;
-
             _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
+            _tabSize = tabSize;
 
             Expand(point);
         }
@@ -70,12 +71,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Helper function to generate the preview in the options menu.
         /// </summary>
-        public static string FormatXml(string text, CodeCommentOptions options)
+        public static string FormatXml(string text)
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
-            var line = new CommentLineXml(xml, options);
+            var line = new CommentLineXml(xml);
             var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
-            var formatter = new CommentFormatter(line, "///", options, regex);
+            var formatter = new CommentFormatter(line, "///", 4, regex);
 
             return formatter.ToString();
         }
@@ -83,8 +84,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Formats the comment.
         /// </summary>
-        /// <param name="options">The options to be used for formatting.</param>
-        public TextPoint Format(CodeCommentOptions options)
+        public TextPoint Format()
         {
             if (!IsValid)
             {
@@ -105,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 try
                 {
                     var xml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
-                    line = new CommentLineXml(xml, options);
+                    line = new CommentLineXml(xml);
                 }
                 catch (System.Xml.XmlException)
                 {
@@ -121,7 +121,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var formatter = new CommentFormatter(
                 line,
                 commentPrefix,
-                options,
+                _tabSize,
                 CodeCommentHelper.GetCommentRegex(_document.Language, false));
 
             if (!formatter.Equals(originalText))
