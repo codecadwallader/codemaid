@@ -81,15 +81,6 @@ namespace SteveCadwallader.CodeMaid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.7.6.
-        /// </summary>
-        internal static string _114 {
-            get {
-                return ResourceManager.GetString("114", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon _400 {
