@@ -85,6 +85,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                           from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
                           select new { editPoint, text = editPoint.GetLine() }).Reverse().ToList();
 
+            // Shift every captured point one character to the right so they will auto-advance
+            // during new insertions at the start of the line.
+            foreach (var point in points)
+            {
+                point.editPoint.CharRight();
+            }
+
             _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
 
             // Check each using statement point and re-insert it if removed.
