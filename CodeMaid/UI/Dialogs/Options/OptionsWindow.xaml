@@ -53,14 +53,14 @@
                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" />
                     </DockPanel>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="False">
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="False">
                             <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF6595B3" />
                             <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="User Settings" />
-                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to Solution-Only Settings" />
+                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to Solution-Specific Settings" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="True">
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="True">
                             <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF84B0B6" />
-                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="Solution-Only settings" />
+                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="Solution-Specific Settings" />
                             <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to User Settings" />
                         </DataTrigger>
                     </DataTemplate.Triggers>

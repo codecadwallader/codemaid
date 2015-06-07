@@ -37,6 +37,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// </summary>
     public class OptionsViewModel : Bindable
     {
+        #region Fields
+
+        private readonly SettingsContextHelper _settingsContextHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -46,7 +52,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
         public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
-            IsActiveSolutionSettings = SettingsContextHelper.GetSolutionConfigPath(Settings.Default.Context) != null;
+            _settingsContextHelper = SettingsContextHelper.GetInstance(package);
+
+            ActiveSettings = (Settings)SettingsBase.Synchronized(new Settings());
+            IsActiveSolutionSpecificSettings = _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
 
             Package = package;
             Pages = new OptionsPageViewModel[]
@@ -92,6 +101,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         #region Properties
 
         /// <summary>
+        /// Gets the active settings to be used throughout options.
+        /// </summary>
+        public Settings ActiveSettings
+        {
+            get { return GetPropertyValue<Settings>(); }
+            private set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
         /// Gets or sets the dialog result.
         /// </summary>
         public bool? DialogResult
@@ -122,16 +140,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             get
             {
-                return IsActiveSolutionSettings
+                return IsActiveSolutionSpecificSettings
                     ? SettingsContextHelper.GetSolutionConfigPath(Settings.Default.Context)
                     : SettingsContextHelper.GetUserConfigPath();
             }
         }
 
         /// <summary>
-        /// Gets or sets a flag indicating if solution settings are active.
+        /// Gets or sets a flag indicating if solution-specific settings are active.
         /// </summary>
-        public bool IsActiveSolutionSettings
+        public bool IsActiveSolutionSpecificSettings
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
@@ -422,7 +440,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>True if the command can execute, otherwise false.</returns>
         private bool OnSwitchSettingsCommandCanExecute(object parameter)
         {
-            return IsActiveSolutionSettings || Package.IDE.Solution.IsOpen;
+            return IsActiveSolutionSpecificSettings || Package.IDE.Solution.IsOpen;
         }
 
         /// <summary>
@@ -448,9 +466,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 }
             }
 
-            //TODO: Inform SettingsContextHelper to change/load our alternate set.
+            if (IsActiveSolutionSpecificSettings)
+            {
+                _settingsContextHelper.UnloadSolutionSpecificSettings(ActiveSettings);
+                IsActiveSolutionSpecificSettings = false;
+            }
+            else
+            {
+                IsActiveSolutionSpecificSettings = _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
+            }
 
-            IsActiveSolutionSettings = !IsActiveSolutionSettings;
+            ReloadPagesFromSettings();
         }
 
         #endregion SwitchSettings Command

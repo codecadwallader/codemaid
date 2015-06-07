@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the path to the user configuration file.
         /// </summary>
-        public static string GetUserConfigPath()
+        internal static string GetUserConfigPath()
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", ConfigFilename);
         }
@@ -79,7 +79,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// application usage.
         /// </param>
         /// <returns>The path to the solution configuration, otherwise null.</returns>
-        public static string GetSolutionConfigPath(SettingsContext context)
+        internal static string GetSolutionConfigPath(SettingsContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 
@@ -93,16 +93,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void OnSolutionOpened()
         {
-            var solutionPath = Path.GetDirectoryName(_package.IDE.Solution.FullName);
-            var solutionConfig = Path.Combine(solutionPath, ConfigFilename);
-
-            // Determine if there is a solution-specific settings file.
-            if (File.Exists(solutionConfig))
-            {
-                // Reload the solution settings into the default settings (merge on top of user settings).
-                Settings.Default.Context["SolutionPath"] = solutionPath;
-                Settings.Default.Reload();
-            }
+            LoadSolutionSpecificSettings(Settings.Default);
         }
 
         /// <summary>
@@ -110,13 +101,54 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void OnSolutionClosed()
         {
-            // Determine if there is a solution-specific settings file.
-            if (Settings.Default.Context.ContainsKey("SolutionPath"))
+            UnloadSolutionSpecificSettings(Settings.Default);
+        }
+
+        /// <summary>
+        /// Loads the specified settings object with solution-specific settings if they exist.
+        /// </summary>
+        /// <param name="settings">The settings to update.</param>
+        /// <returns>True if solution-specific settings were loaded, otherwise false.</returns>
+        internal bool LoadSolutionSpecificSettings(Settings settings)
+        {
+            if (_package.IDE.Solution.IsOpen)
             {
-                // Unload the solution settings from the default settings (restore to user settings only).
-                Settings.Default.Context.Remove("SolutionPath");
-                Settings.Default.Reload();
+                var solutionPath = Path.GetDirectoryName(_package.IDE.Solution.FullName);
+                if (!string.IsNullOrWhiteSpace(solutionPath))
+                {
+                    var solutionConfig = Path.Combine(solutionPath, ConfigFilename);
+
+                    // Determine if there is a solution-specific settings file.
+                    if (File.Exists(solutionConfig))
+                    {
+                        // Reload the solution settings into the given settings (merge on top of user settings).
+                        settings.Context["SolutionPath"] = solutionPath;
+                        settings.Reload();
+                        return true;
+                    }
+                }
             }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Unloads solution-specific settings from the specified settings object.
+        /// </summary>
+        /// <param name="settings">The settings to update.</param>
+        /// <returns>True if solution-specific settings were unloaded, otherwise false.</returns>
+        internal bool UnloadSolutionSpecificSettings(Settings settings)
+        {
+            // Determine if there is a solution-specific settings file.
+            if (settings.Context.ContainsKey("SolutionPath"))
+            {
+                // Unload the solution settings from the given settings (restore to user settings only).
+                settings.Context.Remove("SolutionPath");
+                settings.Reload();
+                return true;
+            }
+
+            return false;
         }
 
         #endregion Methods
