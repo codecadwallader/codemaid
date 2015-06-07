@@ -297,16 +297,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             foreach (SettingsPropertyValue value in values)
             {
-                var element = settings.Get(value.Name);
-                if (element == null)
+                if (value.IsDirty)
                 {
-                    // Note: We only support string serialization for brevity of implementation.
-                    element = new SettingElement(value.Name, SettingsSerializeAs.String);
-                    settings.Add(element);
-                }
+                    var element = settings.Get(value.Name);
+                    if (element == null)
+                    {
+                        // Note: We only support string serialization for brevity of implementation.
+                        element = new SettingElement(value.Name, SettingsSerializeAs.String);
+                        settings.Add(element);
+                    }
 
-                element.SerializeAs = SettingsSerializeAs.String;
-                element.Value.ValueXml = CreateXmlValue(value.SerializedValue);
+                    element.SerializeAs = SettingsSerializeAs.String;
+                    element.Value.ValueXml = CreateXmlValue(value.SerializedValue);
+                }
             }
         }
 
