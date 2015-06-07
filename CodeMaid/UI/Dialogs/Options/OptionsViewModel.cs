@@ -137,14 +137,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             set { SetPropertyValue(value); }
         }
 
-        /// <summary>
-        /// Gets a flag indicating if the IsActiveSolutionSettings option should be enabled.
-        /// </summary>
-        public bool IsEnabledSolutionSettings
-        {
-            get { return Package.IDE.Solution.IsOpen; }
-        }
-
         private IEnumerable<OptionsPageViewModel> _pages;
 
         /// <summary>
@@ -410,6 +402,40 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         #endregion Cancel Command
+
+        #region SwitchSettings Command
+
+        private DelegateCommand _switchSettingsCommand;
+
+        /// <summary>
+        /// Gets the switch settings command.
+        /// </summary>
+        public DelegateCommand SwitchSettingsCommand
+        {
+            get { return _switchSettingsCommand ?? (_switchSettingsCommand = new DelegateCommand(OnSwitchSettingsCommandExecuted, OnSwitchSettingsCommandCanExecute)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SwitchSettingsCommand" /> needs to determine if it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>True if the command can execute, otherwise false.</returns>
+        private bool OnSwitchSettingsCommandCanExecute(object parameter)
+        {
+            return IsActiveSolutionSettings || Package.IDE.Solution.IsOpen;
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SwitchSettingsCommand" /> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnSwitchSettingsCommandExecuted(object parameter)
+        {
+            //TODO: Enact a meaningful change.
+            IsActiveSolutionSettings = !IsActiveSolutionSettings;
+        }
+
+        #endregion SwitchSettings Command
 
         #region Methods
 
