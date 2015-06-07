@@ -189,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the language for the specified document is included by configuration.
+        /// Determines whether the language for the specified document is included by options.
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>True if the document language is included, otherwise false.</returns>
@@ -229,7 +229,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the specified project item has a filename which is excluded by configuration.
+        /// Determines whether the specified project item has a filename which is excluded by options.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>True if the project item has a filename which is excluded, otherwise false.</returns>
@@ -247,7 +247,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the specified filename is excluded by configuration.
+        /// Determines whether the specified filename is excluded by options.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <returns>True if the filename is excluded, otherwise false.</returns>
@@ -303,7 +303,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines whether the language for the specified project item is included by configuration.
+        /// Determines whether the language for the specified project item is included by options.
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>True if the document language is included, otherwise false.</returns>

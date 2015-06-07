@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Constants
 
-        private const string ConfigFilename = "CodeMaid.config";
+        private const string SettingsFilename = "CodeMaid.settings";
 
         #endregion Constants
 
@@ -64,28 +64,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Methods
 
         /// <summary>
-        /// Gets the path to the user configuration file.
+        /// Gets the path to the user settings file.
         /// </summary>
-        internal static string GetUserConfigPath()
+        internal static string GetUserSettingsPath()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", ConfigFilename);
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", SettingsFilename);
         }
 
         /// <summary>
-        /// Gets the path to the solution configuration file based on the specified <see cref="SettingsContext"/>.
+        /// Gets the path to the solution settings file based on the specified <see cref="SettingsContext"/>.
         /// </summary>
         /// <param name="context">
         /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
         /// application usage.
         /// </param>
-        /// <returns>The path to the solution configuration, otherwise null.</returns>
-        internal static string GetSolutionConfigPath(SettingsContext context)
+        /// <returns>The path to the solution settings, otherwise null.</returns>
+        internal static string GetSolutionSettingsPath(SettingsContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 
             var solutionPath = context["SolutionPath"];
 
-            return solutionPath != null ? Path.Combine(solutionPath.ToString(), ConfigFilename) : null;
+            return solutionPath != null ? Path.Combine(solutionPath.ToString(), SettingsFilename) : null;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 var solutionPath = Path.GetDirectoryName(_package.IDE.Solution.FullName);
                 if (!string.IsNullOrWhiteSpace(solutionPath))
                 {
-                    var solutionConfig = Path.Combine(solutionPath, ConfigFilename);
+                    var solutionConfig = Path.Combine(solutionPath, SettingsFilename);
 
                     // Determine if there is a solution-specific settings file.
                     if (File.Exists(solutionConfig))

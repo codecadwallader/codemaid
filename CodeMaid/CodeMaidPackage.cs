@@ -383,22 +383,22 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
                 _commands.Add(new CommentFormatCommand(this));
-                _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
+                _commands.Add(new OptionsCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new RemoveRegionCommand(this));
                 _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SettingCleanupOnSaveCommand(this));
                 _commands.Add(new SortLinesCommand(this));
-                _commands.Add(new SpadeConfigurationCommand(this));
                 _commands.Add(new SpadeContextDeleteCommand(this));
                 _commands.Add(new SpadeContextFindReferencesCommand(this));
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
+                _commands.Add(new SpadeOptionsCommand(this));
+                _commands.Add(new SpadeRefreshCommand(this));
                 _commands.Add(new SpadeSortOrderAlphaCommand(this));
                 _commands.Add(new SpadeSortOrderFileCommand(this));
                 _commands.Add(new SpadeSortOrderTypeCommand(this));
-                _commands.Add(new SpadeRefreshCommand(this));
                 _commands.Add(new SpadeToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
 

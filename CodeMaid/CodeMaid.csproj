@@ -195,13 +195,13 @@
     <Compile Include="Integration\Commands\CloseAllReadOnlyCommand.cs" />
     <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\ConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\OptionsCommand.cs" />
     <Compile Include="Integration\Commands\CommentFormatCommand.cs" />
     <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
     <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeOptionsCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
@@ -561,7 +561,7 @@
     <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
     <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
     <Resource Include="Integration\Images\IDE\collapse.bmp" />
-    <Resource Include="Integration\Images\IDE\config.bmp" />
+    <Resource Include="Integration\Images\IDE\options.bmp" />
     <Resource Include="Integration\Images\IDE\find.bmp" />
     <Resource Include="Integration\Images\IDE\info.bmp" />
     <Resource Include="Integration\Images\IDE\join.bmp" />

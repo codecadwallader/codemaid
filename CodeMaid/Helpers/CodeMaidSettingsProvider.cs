@@ -42,12 +42,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             try
             {
-                var solutionConfigPath = SettingsContextHelper.GetSolutionConfigPath(context);
-                var userConfigPath = SettingsContextHelper.GetUserConfigPath();
+                var solutionSettingsPath = SettingsContextHelper.GetSolutionSettingsPath(context);
+                var userSettingsPath = SettingsContextHelper.GetUserSettingsPath();
                 var sectionName = GetSectionName(context);
 
-                var userSettings = ReadSettingsFromFile(userConfigPath, sectionName);
-                var solutionSettings = ReadSettingsFromFile(solutionConfigPath, sectionName);
+                var userSettings = ReadSettingsFromFile(userSettingsPath, sectionName);
+                var solutionSettings = ReadSettingsFromFile(solutionSettingsPath, sectionName);
 
                 var propertyValues = MergeSettingsIntoPropertyValues(userSettings, solutionSettings, properties);
 
@@ -75,10 +75,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             try
             {
-                var configPath = SettingsContextHelper.GetSolutionConfigPath(context) ?? SettingsContextHelper.GetUserConfigPath();
+                var settingsPath = SettingsContextHelper.GetSolutionSettingsPath(context) ?? SettingsContextHelper.GetUserSettingsPath();
                 var sectionName = GetSectionName(context);
 
-                WriteSettingsToFile(configPath, sectionName, values);
+                WriteSettingsToFile(settingsPath, sectionName, values);
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the <see cref="Configuration"/> at the specified path.
         /// </summary>
-        /// <param name="path">The path to the configuration file.</param>
+        /// <param name="path">The path to the settings file.</param>
         /// <returns>The <see cref="Configuration"/> object.</returns>
         private static Configuration GetConfiguration(string path)
         {
@@ -152,9 +152,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Read Methods
 
         /// <summary>
-        /// Reads settings from a configuration file at the specified path.
+        /// Reads settings from a settings file at the specified path.
         /// </summary>
-        /// <param name="path">The configuration file path.</param>
+        /// <param name="path">The settings file path.</param>
         /// <param name="sectionName">The name of the settings section.</param>
         /// <returns>A collection representing the settings, otherwise an empty collection.</returns>
         private static SettingElementCollection ReadSettingsFromFile(string path, string sectionName)
@@ -225,9 +225,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Write Methods
 
         /// <summary>
-        /// Writes settings to a configuration file at the specified path.
+        /// Writes settings to a settings file at the specified path.
         /// </summary>
-        /// <param name="path">The configuration file path.</param>
+        /// <param name="path">The settings file path.</param>
         /// <param name="sectionName">The name of the settings section.</param>
         /// <param name="values">
         /// A <see cref="T:System.Configuration.SettingsPropertyValueCollection"/> representing the

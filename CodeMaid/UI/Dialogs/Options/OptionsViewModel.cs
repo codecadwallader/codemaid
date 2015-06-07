@@ -141,8 +141,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             get
             {
                 return IsActiveSolutionSpecificSettings
-                    ? SettingsContextHelper.GetSolutionConfigPath(ActiveSettings.Context)
-                    : SettingsContextHelper.GetUserConfigPath();
+                    ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
+                    : SettingsContextHelper.GetUserSettingsPath();
             }
         }
 
@@ -217,7 +217,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnExportCommandExecuted(object parameter)
         {
-            // Always save first, forcing the configuration file to be created if it does not exist yet.
+            // Always save first, forcing the settings file to be created if it does not exist yet.
             Save();
 
             // Prompt the user for the settings file name and location.
@@ -225,8 +225,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                              {
                                  Title = "CodeMaid: Export Settings",
                                  FileName = "CodeMaid",
-                                 DefaultExt = ".config",
-                                 Filter = "Settings files (*.config)|*.config|All Files (*.*)|*.*"
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
                              };
 
             if (dialog.ShowDialog() == true)
@@ -272,8 +272,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var dialog = new Microsoft.Win32.OpenFileDialog
                              {
                                  Title = "CodeMaid: Import Settings",
-                                 DefaultExt = ".config",
-                                 Filter = "Settings files (*.config)|*.config|All Files (*.*)|*.*",
+                                 DefaultExt = ".settings",
+                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
                                  CheckFileExists = true
                              };
 
@@ -281,8 +281,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
-                    // Always save first, forcing the configuration file to be created if it does
-                    // not exist yet.
+                    // Always save first, forcing the settings file to be created if it does not
+                    // exist yet.
                     Save();
 
                     var sectionName = ActiveSettings.Context["GroupName"].ToString();
@@ -478,7 +478,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
             else
             {
-                IsActiveSolutionSpecificSettings = _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
+                _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
+                IsActiveSolutionSpecificSettings = true;
             }
 
             ReloadPagesFromSettings();
