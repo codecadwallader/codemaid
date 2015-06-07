@@ -431,7 +431,25 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSwitchSettingsCommandExecuted(object parameter)
         {
-            //TODO: Enact a meaningful change.
+            if (HasChanges)
+            {
+                var result = MessageBox.Show(@"You have pending changes.  Do you want to save them before continuing?",
+                                             @"CodeMaid: Confirmation For Switch Settings",
+                                             MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Save();
+                        break;
+
+                    case MessageBoxResult.Cancel:
+                        return;
+                }
+            }
+
+            //TODO: Inform SettingsContextHelper to change/load our alternate set.
+
             IsActiveSolutionSettings = !IsActiveSolutionSettings;
         }
 

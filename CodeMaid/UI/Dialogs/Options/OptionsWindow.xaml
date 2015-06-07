@@ -34,37 +34,39 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}">
-            <ContentControl Content="{Binding}" Focusable="False">
-                <ContentControl.ContentTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <Button x:Name="SwitchSettingsButton"
-                                    DockPanel.Dock="Right"
-                                    Command="{Binding SwitchSettingsCommand}"
-                                    Style="{StaticResource ButtonDialog}"
-                                    Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+        <ContentControl Grid.ColumnSpan="2" Content="{Binding}" Focusable="False">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <DockPanel x:Name="ActiveSettingsDockPanel">
+                        <Button x:Name="SwitchSettingsButton"
+                                DockPanel.Dock="Right"
+                                Command="{Binding SwitchSettingsCommand}"
+                                Style="{StaticResource ButtonDialog}"
+                                Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
-                            <TextBlock x:Name="ActiveSettingsTextBlock"
-                                       Foreground="White"
-                                       Margin="5"
-                                       TextTrimming="CharacterEllipsis"
-                                       ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" />
-                        </DockPanel>
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="False">
-                                <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="You are editing user settings that apply to all solutions, unless overridden by a solution." />
-                                <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to solution settings" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="True">
-                                <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="You are editing solution settings that apply only to the current solution." />
-                                <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to user settings" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ContentControl.ContentTemplate>
-            </ContentControl>
-        </Border>
+                        <TextBlock x:Name="ActiveSettingsTextBlock"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Margin="5"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="False">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF6595B3" />
+                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="User Settings" />
+                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to Solution-Only Settings" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="True">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF84B0B6" />
+                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="Solution-Only settings" />
+                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to User Settings" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
 
         <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
             <i:Interaction.Behaviors>
@@ -176,7 +178,7 @@
 
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="2" Grid.Column="0" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+        <Button Grid.Row="2" Grid.Column="0" Content="Reset to Defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
