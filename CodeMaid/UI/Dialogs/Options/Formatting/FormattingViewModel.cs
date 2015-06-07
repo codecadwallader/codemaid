@@ -40,22 +40,23 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// Initializes a new instance of the <see cref="FormattingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public FormattingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public FormattingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentRunDuringCleanup, x => CommentRunDuringCleanup),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentSkipWrapOnLastWord, x => CommentSkipWrapOnLastWord),
-                new SettingToOptionMapping<int, int>(x => Settings.Default.Formatting_CommentWrapColumn, x => CommentWrapColumn),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlAlignParamTags, x => CommentXmlAlignParamTags),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlKeepTagsTogether, x => CommentXmlKeepTagsTogether),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlSpaceSingleTags, x => CommentXmlSpaceSingleTags),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlSpaceTags, x => CommentXmlSpaceTags),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlSplitAllTags, x => CommentXmlSplitAllTags),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines, x => CommentXmlSplitSummaryTagToMultipleLines),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Formatting_CommentXmlTagsToLowerCase, x => CommentXmlTagsToLowerCase),
-                new SettingToOptionMapping<int, int>(x => Settings.Default.Formatting_CommentXmlValueIndent, x => CommentXmlValueIndent)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentRunDuringCleanup, x => CommentRunDuringCleanup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentSkipWrapOnLastWord, x => CommentSkipWrapOnLastWord),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Formatting_CommentWrapColumn, x => CommentWrapColumn),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlAlignParamTags, x => CommentXmlAlignParamTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlKeepTagsTogether, x => CommentXmlKeepTagsTogether),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSpaceSingleTags, x => CommentXmlSpaceSingleTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSpaceTags, x => CommentXmlSpaceTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSplitAllTags, x => CommentXmlSplitAllTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSplitSummaryTagToMultipleLines, x => CommentXmlSplitSummaryTagToMultipleLines),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlTagsToLowerCase, x => CommentXmlTagsToLowerCase),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Formatting_CommentXmlValueIndent, x => CommentXmlValueIndent)
             };
 
             _editorProperties = Package.IDE.Properties["FontsAndColors", "TextEditor"];

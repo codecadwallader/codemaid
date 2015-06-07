@@ -24,15 +24,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingGeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingGeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingGeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup, x => AlphabetizeMembersOfTheSameGroup),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_AlphabetizeMembersOfTheSameGroup, x => AlphabetizeMembersOfTheSameGroup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup)
             };
         }
 

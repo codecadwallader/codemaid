@@ -48,10 +48,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Copies the value within the setting property onto the option property.
         /// </summary>
+        /// <param name="settingsClass">The class instance for the settings property.</param>
         /// <param name="optionClass">The class instance for the option property.</param>
-        public void CopySettingToOption(object optionClass)
+        public void CopySettingToOption(Settings settingsClass, object optionClass)
         {
-            var settingValue = SettingProperty.GetValue(Settings.Default);
+            var settingValue = SettingProperty.GetValue(settingsClass);
 
             //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
             if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
@@ -73,28 +74,29 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Copies the value within the option property onto the setting property.
         /// </summary>
+        /// <param name="settingsClass">The class instance for the settings property.</param>
         /// <param name="optionClass">The class instance for the option property.</param>
-        public void CopyOptionToSetting(object optionClass)
+        public void CopyOptionToSetting(Settings settingsClass, object optionClass)
         {
             //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
             if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
             {
                 var optionValue = (string)(MemberTypeSetting)OptionProperty.GetValue(optionClass);
-                var settingValue = (string)SettingProperty.GetValue(Settings.Default);
+                var settingValue = (string)SettingProperty.GetValue(settingsClass);
 
                 if (!EqualityComparer<string>.Default.Equals(optionValue, settingValue))
                 {
-                    SettingProperty.SetValue(Settings.Default, optionValue);
+                    SettingProperty.SetValue(settingsClass, optionValue);
                 }
             }
             else
             {
                 var optionValue = (TS)OptionProperty.GetValue(optionClass);
-                var settingValue = (TS)SettingProperty.GetValue(Settings.Default);
+                var settingValue = (TS)SettingProperty.GetValue(settingsClass);
 
                 if (!EqualityComparer<TS>.Default.Equals(optionValue, settingValue))
                 {
-                    SettingProperty.SetValue(Settings.Default, optionValue);
+                    SettingProperty.SetValue(settingsClass, optionValue);
                 }
             }
         }

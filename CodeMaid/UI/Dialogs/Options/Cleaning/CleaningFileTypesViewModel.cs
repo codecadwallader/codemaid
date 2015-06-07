@@ -24,27 +24,28 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningFileTypesViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningFileTypesViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningFileTypesViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_ExcludeT4GeneratedCode, x => ExcludeT4GeneratedCode),
-                new SettingToOptionMapping<string, string>(x => Settings.Default.Cleaning_ExclusionExpression, x => ExclusionExpression),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeCPlusPlus, x => IncludeCPlusPlus),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeCSharp, x => IncludeCSharp),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeCSS, x => IncludeCSS),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeFSharp, x => IncludeFSharp),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeHTML, x => IncludeHTML),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeJavaScript, x => IncludeJavaScript),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeJSON, x => IncludeJSON),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeLESS, x => IncludeLESS),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludePHP, x => IncludePHP),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeSCSS, x => IncludeSCSS),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeTypeScript, x => IncludeTypeScript),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeVB, x => IncludeVisualBasic),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeXAML, x => IncludeXAML),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_IncludeXML, x => IncludeXML)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_ExcludeT4GeneratedCode, x => ExcludeT4GeneratedCode),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_ExclusionExpression, x => ExclusionExpression),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCPlusPlus, x => IncludeCPlusPlus),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSharp, x => IncludeCSharp),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSS, x => IncludeCSS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeFSharp, x => IncludeFSharp),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeHTML, x => IncludeHTML),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeJavaScript, x => IncludeJavaScript),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeJSON, x => IncludeJSON),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeLESS, x => IncludeLESS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludePHP, x => IncludePHP),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeSCSS, x => IncludeSCSS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeTypeScript, x => IncludeTypeScript),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeVB, x => IncludeVisualBasic),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeXAML, x => IncludeXAML),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeXML, x => IncludeXML)
             };
         }
 

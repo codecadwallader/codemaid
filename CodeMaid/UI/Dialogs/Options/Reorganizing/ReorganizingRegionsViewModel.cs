@@ -24,15 +24,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingRegionsViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingRegionsViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingRegionsViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsIncludeAccessLevel, x => IncludeAccessLevel),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty, x => InsertKeepEvenIfEmpty),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsInsertNewRegions, x => InsertNewRegions),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Reorganizing_RegionsRemoveExistingRegions, x => RemoveExistingRegions)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsIncludeAccessLevel, x => IncludeAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertKeepEvenIfEmpty, x => InsertKeepEvenIfEmpty),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertNewRegions, x => InsertNewRegions),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsRemoveExistingRegions, x => RemoveExistingRegions)
             };
         }
 

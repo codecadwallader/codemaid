@@ -31,15 +31,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// Initializes a new instance of the <see cref="ThirdPartyViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ThirdPartyViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ThirdPartyViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup, x => UseJetBrainsReSharperCleanup),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseTelerikJustCodeCleanup, x => UseTelerikJustCodeCleanup),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.ThirdParty_UseXAMLStylerCleanup, x => UseXAMLStylerCleanup),
-                new SettingToOptionMapping<string, string>(x => Settings.Default.ThirdParty_OtherCleaningCommandsExpression, x => OtherCleaningCommandsExpression)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.ThirdParty_UseJetBrainsReSharperCleanup, x => UseJetBrainsReSharperCleanup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.ThirdParty_UseTelerikJustCodeCleanup, x => UseTelerikJustCodeCleanup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.ThirdParty_UseXAMLStylerCleanup, x => UseXAMLStylerCleanup),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.ThirdParty_OtherCleaningCommandsExpression, x => OtherCleaningCommandsExpression)
             };
 
             _commandHelper = CommandHelper.GetInstance(package);

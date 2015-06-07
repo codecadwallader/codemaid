@@ -25,14 +25,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningGeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningGeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningGeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_AutoCleanupOnFileSave, x => AutoCleanupOnFileSave),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup, x => AutoSaveAndCloseIfOpenedByCleanup),
-                new SettingToOptionMapping<int, AskYesNo>(x => Settings.Default.Cleaning_PerformPartialCleanupOnExternal, x => PerformPartialCleanupOnExternal)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_AutoCleanupOnFileSave, x => AutoCleanupOnFileSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_AutoSaveAndCloseIfOpenedByCleanup, x => AutoSaveAndCloseIfOpenedByCleanup),
+                new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Cleaning_PerformPartialCleanupOnExternal, x => PerformPartialCleanupOnExternal)
             };
         }
 

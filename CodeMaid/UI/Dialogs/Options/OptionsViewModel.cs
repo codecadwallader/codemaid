@@ -60,35 +60,35 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             Package = package;
             Pages = new OptionsPageViewModel[]
                         {
-                            new GeneralViewModel(package),
-                            new CleaningParentViewModel(package)
+                            new GeneralViewModel(package, ActiveSettings),
+                            new CleaningParentViewModel(package, ActiveSettings)
                                 {
                                     Children = new OptionsPageViewModel[]
                                     {
-                                        new CleaningGeneralViewModel(package),
-                                        new CleaningFileTypesViewModel(package),
-                                        new CleaningVisualStudioViewModel(package),
-                                        new CleaningInsertViewModel(package),
-                                        new CleaningRemoveViewModel(package),
-                                        new CleaningUpdateViewModel(package)
+                                        new CleaningGeneralViewModel(package, ActiveSettings),
+                                        new CleaningFileTypesViewModel(package, ActiveSettings),
+                                        new CleaningVisualStudioViewModel(package, ActiveSettings),
+                                        new CleaningInsertViewModel(package, ActiveSettings),
+                                        new CleaningRemoveViewModel(package, ActiveSettings),
+                                        new CleaningUpdateViewModel(package, ActiveSettings)
                                     }
                                 },
-                            new CollapsingViewModel(package),
-                            new DiggingViewModel(package),
-                            new FindingViewModel(package),
-                            new FormattingViewModel(package),
-                            new ProgressingViewModel(package),
-                            new ReorganizingParentViewModel(package)
+                            new CollapsingViewModel(package, ActiveSettings),
+                            new DiggingViewModel(package, ActiveSettings),
+                            new FindingViewModel(package, ActiveSettings),
+                            new FormattingViewModel(package, ActiveSettings),
+                            new ProgressingViewModel(package, ActiveSettings),
+                            new ReorganizingParentViewModel(package, ActiveSettings)
                             {
                                 Children = new OptionsPageViewModel[]
                                 {
-                                    new ReorganizingGeneralViewModel(package),
-                                    new ReorganizingTypesViewModel(package),
-                                    new ReorganizingRegionsViewModel(package)
+                                    new ReorganizingGeneralViewModel(package, ActiveSettings),
+                                    new ReorganizingTypesViewModel(package, ActiveSettings),
+                                    new ReorganizingRegionsViewModel(package, ActiveSettings)
                                 }
                             },
-                            new SwitchingViewModel(package),
-                            new ThirdPartyViewModel(package)
+                            new SwitchingViewModel(package, ActiveSettings),
+                            new ThirdPartyViewModel(package, ActiveSettings)
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
@@ -141,7 +141,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             get
             {
                 return IsActiveSolutionSpecificSettings
-                    ? SettingsContextHelper.GetSolutionConfigPath(Settings.Default.Context)
+                    ? SettingsContextHelper.GetSolutionConfigPath(ActiveSettings.Context)
                     : SettingsContextHelper.GetUserConfigPath();
             }
         }
@@ -285,7 +285,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     // not exist yet.
                     Save();
 
-                    var sectionName = Settings.Default.Context["GroupName"].ToString();
+                    var sectionName = ActiveSettings.Context["GroupName"].ToString();
                     var xDocument = XDocument.Load(dialog.FileName);
                     var settings = xDocument.XPathSelectElements("//" + sectionName);
 
@@ -297,7 +297,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     config.Save(ConfigurationSaveMode.Modified);
                     ConfigurationManager.RefreshSection("userSettings");
 
-                    Settings.Default.Reload();
+                    ActiveSettings.Reload();
                     ReloadPagesFromSettings();
 
                     MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
@@ -339,10 +339,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
             if (result == MessageBoxResult.Yes)
             {
-                Settings.Default.Reset();
+                ActiveSettings.Reset();
 
                 // Save is redundant, but used to trigger external events.
-                Settings.Default.Save();
+                ActiveSettings.Save();
 
                 ReloadPagesFromSettings();
             }
@@ -392,7 +392,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 optionsPageViewModel.SaveSettings();
             }
 
-            Settings.Default.Save();
+            ActiveSettings.Save();
             HasChanges = false;
         }
 

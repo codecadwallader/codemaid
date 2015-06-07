@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
@@ -24,9 +25,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Initializes a new instance of the <see cref="OptionsPageViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        protected OptionsPageViewModel(CodeMaidPackage package)
+        /// <param name="activeSettings">The active settings.</param>
+        protected OptionsPageViewModel(CodeMaidPackage package, Settings activeSettings)
         {
             Package = package;
+            ActiveSettings = activeSettings;
         }
 
         #endregion Constructors
@@ -42,6 +45,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Gets the hosting package.
         /// </summary>
         public CodeMaidPackage Package { get; private set; }
+
+        /// <summary>
+        /// Gets the active settings.
+        /// </summary>
+        public Settings ActiveSettings { get; private set; }
 
         private IEnumerable<OptionsPageViewModel> _children;
 

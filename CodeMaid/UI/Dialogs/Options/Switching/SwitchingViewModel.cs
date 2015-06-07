@@ -24,12 +24,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
         /// Initializes a new instance of the <see cref="SwitchingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public SwitchingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public SwitchingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<string, string>(x => Settings.Default.Switching_RelatedFileExtensionsExpression, x => RelatedFileExtensionsExpression)
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Switching_RelatedFileExtensionsExpression, x => RelatedFileExtensionsExpression)
             };
         }
 

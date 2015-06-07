@@ -24,17 +24,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningVisualStudioViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningVisualStudioViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningVisualStudioViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand, x => RunVisualStudioFormatDocument),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements, x => RunVisualStudioRemoveUnusedUsingStatements),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RunVisualStudioSortUsingStatements, x => RunVisualStudioSortUsingStatements),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave, x => SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave, x => SkipSortUsingStatementsDuringAutoCleanupOnSave),
-                new SettingToOptionMapping<string, string>(x => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression, x => UsingStatementsToReinsertWhenRemovedExpression)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioFormatDocumentCommand, x => RunVisualStudioFormatDocument),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioRemoveUnusedUsingStatements, x => RunVisualStudioRemoveUnusedUsingStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioSortUsingStatements, x => RunVisualStudioSortUsingStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave, x => SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave, x => SkipSortUsingStatementsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UsingStatementsToReinsertWhenRemovedExpression, x => UsingStatementsToReinsertWhenRemovedExpression)
             };
         }
 

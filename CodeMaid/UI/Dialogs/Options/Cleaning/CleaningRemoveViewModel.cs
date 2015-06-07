@@ -25,23 +25,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningRemoveViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningRemoveViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningRemoveViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes, x => RemoveBlankLinesAfterAttributes),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace, x => RemoveBlankLinesAfterOpeningBraces),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAtBottom, x => RemoveBlankLinesAtBottom),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesAtTop, x => RemoveBlankLinesAtTop),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace, x => RemoveBlankLinesBeforeClosingBraces),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags, x => RemoveBlankLinesBeforeClosingTags),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements, x => RemoveBlankLinesBetweenChainedStatements),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets, x => RemoveBlankSpacesBeforeClosingAngleBrackets),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine, x => RemoveEndOfFileTrailingNewLine),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveEndOfLineWhitespace, x => RemoveEndOfLineWhitespace),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines, x => RemoveMultipleConsecutiveBlankLines),
-                new SettingToOptionMapping<int, NoneEmptyAll>(x => Settings.Default.Cleaning_RemoveRegions, x => RemoveRegions)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesAfterAttributes, x => RemoveBlankLinesAfterAttributes),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesAfterOpeningBrace, x => RemoveBlankLinesAfterOpeningBraces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesAtBottom, x => RemoveBlankLinesAtBottom),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesAtTop, x => RemoveBlankLinesAtTop),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesBeforeClosingBrace, x => RemoveBlankLinesBeforeClosingBraces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesBeforeClosingTags, x => RemoveBlankLinesBeforeClosingTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankLinesBetweenChainedStatements, x => RemoveBlankLinesBetweenChainedStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets, x => RemoveBlankSpacesBeforeClosingAngleBrackets),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveEndOfFileTrailingNewLine, x => RemoveEndOfFileTrailingNewLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveEndOfLineWhitespace, x => RemoveEndOfLineWhitespace),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RemoveMultipleConsecutiveBlankLines, x => RemoveMultipleConsecutiveBlankLines),
+                new SettingToOptionMapping<int, NoneEmptyAll>(x => ActiveSettings.Cleaning_RemoveRegions, x => RemoveRegions)
             };
         }
 

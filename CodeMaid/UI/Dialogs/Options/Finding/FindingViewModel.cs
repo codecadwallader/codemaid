@@ -24,12 +24,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         /// Initializes a new instance of the <see cref="FindingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public FindingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public FindingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Finding_TemporarilyOpenSolutionFolders, x => TemporarilyOpenSolutionFolders)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Finding_TemporarilyOpenSolutionFolders, x => TemporarilyOpenSolutionFolders)
             };
         }
 

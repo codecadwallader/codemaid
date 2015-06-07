@@ -24,14 +24,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningUpdateViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningUpdateViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningUpdateViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
             };
         }
 

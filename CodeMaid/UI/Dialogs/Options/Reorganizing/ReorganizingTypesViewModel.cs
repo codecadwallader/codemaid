@@ -30,23 +30,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingTypesViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingTypesViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingTypesViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeClasses, x => Classes),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeConstructors, x => Constructors),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeDelegates, x => Delegates),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeDestructors, x => Destructors),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeEnums, x => Enums),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeEvents, x => Events),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeFields, x => Fields),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeIndexers, x => Indexers),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeInterfaces, x => Interfaces),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeMethods, x => Methods),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeProperties, x => Properties),
-                new SettingToOptionMapping<string, MemberTypeSetting>(x => Settings.Default.Reorganizing_MemberTypeStructs, x => Structs)
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeClasses, x => Classes),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeConstructors, x => Constructors),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeDelegates, x => Delegates),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeDestructors, x => Destructors),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeEnums, x => Enums),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeEvents, x => Events),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeFields, x => Fields),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeIndexers, x => Indexers),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeInterfaces, x => Interfaces),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeMethods, x => Methods),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeProperties, x => Properties),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeStructs, x => Structs)
             };
         }
 

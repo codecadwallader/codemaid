@@ -25,20 +25,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// Initializes a new instance of the <see cref="GeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public GeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public GeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_CacheFiles, x => CacheFiles),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_DiagnosticsMode, x => DiagnosticsMode),
-                new SettingToOptionMapping<string, string>(x => Settings.Default.General_Font, x => Font),
-                new SettingToOptionMapping<int, IconSetMode>(x => Settings.Default.General_IconSet, x => IconSetMode),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_LoadModelsAsynchronously, x => LoadModelsAsynchronously),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_Multithread, x => Multithread),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.General_UseUndoTransactions, x => UseUndoTransactions)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_CacheFiles, x => CacheFiles),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_DiagnosticsMode, x => DiagnosticsMode),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.General_Font, x => Font),
+                new SettingToOptionMapping<int, IconSetMode>(x => ActiveSettings.General_IconSet, x => IconSetMode),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_LoadModelsAsynchronously, x => LoadModelsAsynchronously),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_Multithread, x => Multithread),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_UseUndoTransactions, x => UseUndoTransactions)
             };
         }
 

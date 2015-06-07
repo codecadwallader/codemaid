@@ -24,14 +24,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
         /// Initializes a new instance of the <see cref="ProgressingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ProgressingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ProgressingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_HideBuildProgressOnBuildStop, x => HideBuildProgressOnBuildStop),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_ShowBuildProgressOnBuildStart, x => ShowBuildProgressOnBuildStart),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Progressing_ShowProgressOnWindowsTaskbar, x => ShowProgressOnWindowsTaskbar)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Progressing_HideBuildProgressOnBuildStop, x => HideBuildProgressOnBuildStop),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Progressing_ShowBuildProgressOnBuildStart, x => ShowBuildProgressOnBuildStart),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Progressing_ShowProgressOnWindowsTaskbar, x => ShowProgressOnWindowsTaskbar)
             };
         }
 

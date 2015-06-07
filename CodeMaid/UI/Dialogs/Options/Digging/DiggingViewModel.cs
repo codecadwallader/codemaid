@@ -25,21 +25,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// Initializes a new instance of the <see cref="DiggingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public DiggingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public DiggingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
-            Mappings = new SettingsToOptionsList(this)
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_CenterOnWhole, x => CenterOnWhole),
-                new SettingToOptionMapping<int, int>(x => Settings.Default.Digging_ComplexityAlertThreshold, x => ComplexityAlertThreshold),
-                new SettingToOptionMapping<int, int>(x => Settings.Default.Digging_ComplexityWarningThreshold, x => ComplexityWarningThreshold),
-                new SettingToOptionMapping<int, int>(x => Settings.Default.Digging_IndentationMargin, x => IndentationMargin),
-                new SettingToOptionMapping<int, CodeSortOrder>(x => Settings.Default.Digging_PrimarySortOrder, x => PrimarySortOrder),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_SecondarySortTypeByName, x => SecondarySortTypeByName),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_ShowItemComplexity, x => ShowItemComplexity),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_ShowItemMetadata, x => ShowItemMetadata),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_ShowMethodParameters, x => ShowMethodParameters),
-                new SettingToOptionMapping<bool, bool>(x => Settings.Default.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_CenterOnWhole, x => CenterOnWhole),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_ComplexityAlertThreshold, x => ComplexityAlertThreshold),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_ComplexityWarningThreshold, x => ComplexityWarningThreshold),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_IndentationMargin, x => IndentationMargin),
+                new SettingToOptionMapping<int, CodeSortOrder>(x => ActiveSettings.Digging_PrimarySortOrder, x => PrimarySortOrder),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SecondarySortTypeByName, x => SecondarySortTypeByName),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemComplexity, x => ShowItemComplexity),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemMetadata, x => ShowItemMetadata),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
             };
         }
 

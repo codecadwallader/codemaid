@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
@@ -21,11 +22,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsToOptionsList"/> class.
         /// </summary>
+        /// <param name="activeSettings">The active settings.</param>
         /// <param name="optionsPageViewModel">The options page view model.</param>
-        public SettingsToOptionsList(OptionsPageViewModel optionsPageViewModel)
+        public SettingsToOptionsList(Settings activeSettings, OptionsPageViewModel optionsPageViewModel)
         {
+            ActiveSettings = activeSettings;
             OptionsPageViewModel = optionsPageViewModel;
         }
+
+        /// <summary>
+        /// Gets the active settings.
+        /// </summary>
+        public Settings ActiveSettings { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="OptionsPageViewModel"/> that owns this list.
@@ -39,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             foreach (var mapping in this)
             {
-                mapping.CopySettingToOption(OptionsPageViewModel);
+                mapping.CopySettingToOption(ActiveSettings, OptionsPageViewModel);
             }
         }
 
@@ -50,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             foreach (var mapping in this)
             {
-                mapping.CopyOptionToSetting(OptionsPageViewModel);
+                mapping.CopyOptionToSetting(ActiveSettings, OptionsPageViewModel);
             }
         }
     }
