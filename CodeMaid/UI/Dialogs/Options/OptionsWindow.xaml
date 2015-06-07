@@ -24,6 +24,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -32,7 +33,15 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
+        <Border Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}"
+                ToolTip="User options will be saved to C:\Users\Steve\AppData\Local\CodeMaid\CodeMaid.config">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <RadioButton Foreground="White" Margin="20,5">USER</RadioButton>
+                <RadioButton Foreground="White" Margin="20,5">SOLUTION</RadioButton>
+            </StackPanel>
+        </Border>
+
+        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
             <i:Interaction.Behaviors>
                 <ui:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
             </i:Interaction.Behaviors>
@@ -43,7 +52,7 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <DockPanel Grid.Column="1" Margin="0,10,10,10">
+        <DockPanel Grid.Row="1" Grid.Column="1" Margin="0,10,10,10">
             <Border DockPanel.Dock="Top" Background="{DynamicResource FItemHighlight}"
                     BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
                 <TextBlock Text="{Binding SelectedPage.Header}" />
@@ -140,16 +149,16 @@
             </ScrollViewer>
         </DockPanel>
 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+        <Button Grid.Row="2" Grid.Column="0" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
             <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
         </StackPanel>
 
-        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
+        <ContentControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
