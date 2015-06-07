@@ -35,25 +35,50 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}">
-            <Border.ToolTip>
+            <!--<Border.ToolTip>
                 <ToolTip Content="{Binding ActiveSettingsPath}" ContentStringFormat="Options will be saved to {0}" />
-            </Border.ToolTip>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type RadioButton}">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Margin" Value="20,5" />
-                        <Style.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.3" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Resources>
+            </Border.ToolTip>-->
+            <DockPanel>
+                <Button DockPanel.Dock="Right">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDialog}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="False">
+                                    <Setter Property="Command" Value="{Binding ExportCommand}" />
+                                    <Setter Property="Content" Value="Switch to solution settings" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="True">
+                                    <Setter Property="Command" Value="{Binding ImportCommand}" />
+                                    <Setter Property="Content" Value="Switch to user settings" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEnabledSolutionSettings}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-                <RadioButton IsChecked="{Binding IsActiveSolutionSettings, Converter={x:Static cnv:BooleanInverseConverter.Default}}">USER</RadioButton>
-                <RadioButton IsChecked="{Binding IsActiveSolutionSettings}" IsEnabled="{Binding IsEnabledSolutionSettings}">SOLUTION</RadioButton>
-            </StackPanel>
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                            <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="False">
+                                    <Setter Property="Text" Value="You are editing user options that apply to all solutions, unless overridden by a solution." />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsActiveSolutionSettings}" Value="True">
+                                    <Setter Property="Text" Value="You are editing solution options that apply only to the current solution." />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DockPanel>
         </Border>
 
         <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
