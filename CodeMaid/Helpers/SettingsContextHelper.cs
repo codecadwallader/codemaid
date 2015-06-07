@@ -10,6 +10,8 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Properties;
+using System;
+using System.Configuration;
 using System.IO;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -60,6 +62,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Gets the path to the user configuration file.
+        /// </summary>
+        public static string GetUserConfigPath()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", ConfigFilename);
+        }
+
+        /// <summary>
+        /// Gets the path to the solution configuration file based on the specified <see cref="SettingsContext"/>.
+        /// </summary>
+        /// <param name="context">
+        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
+        /// application usage.
+        /// </param>
+        /// <returns>The path to the solution configuration, otherwise null.</returns>
+        public static string GetSolutionConfigPath(SettingsContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+
+            var solutionPath = context["SolutionPath"];
+
+            return solutionPath != null ? Path.Combine(solutionPath.ToString(), ConfigFilename) : null;
+        }
 
         /// <summary>
         /// Called when a solution is opened.

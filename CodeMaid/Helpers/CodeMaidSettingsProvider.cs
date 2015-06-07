@@ -11,7 +11,6 @@
 
 using System;
 using System.Configuration;
-using System.IO;
 using System.Xml;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -21,12 +20,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class CodeMaidSettingsProvider : LocalFileSettingsProvider
     {
-        #region Constants
-
-        private const string ConfigFilename = "CodeMaid.config";
-
-        #endregion Constants
-
         #region Overridden Members
 
         /// <summary>
@@ -49,8 +42,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             try
             {
-                var solutionConfigPath = GetSolutionConfigPath(context);
-                var userConfigPath = GetUserConfigPath();
+                var solutionConfigPath = SettingsContextHelper.GetSolutionConfigPath(context);
+                var userConfigPath = SettingsContextHelper.GetUserConfigPath();
                 var sectionName = GetSectionName(context);
 
                 var userSettings = ReadSettingsFromFile(userConfigPath, sectionName);
@@ -82,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             try
             {
-                var configPath = GetSolutionConfigPath(context) ?? GetUserConfigPath();
+                var configPath = SettingsContextHelper.GetSolutionConfigPath(context) ?? SettingsContextHelper.GetUserConfigPath();
                 var sectionName = GetSectionName(context);
 
                 WriteSettingsToFile(configPath, sectionName, values);
@@ -97,31 +90,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #endregion Overridden Members
 
         #region Shared Methods
-
-        /// <summary>
-        /// Gets the path to the user configuration file.
-        /// </summary>
-        private static string GetUserConfigPath()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", ConfigFilename);
-        }
-
-        /// <summary>
-        /// Gets the path to the solution configuration file based on the specified <see cref="SettingsContext"/>.
-        /// </summary>
-        /// <param name="context">
-        /// A <see cref="T:System.Configuration.SettingsContext"/> describing the current
-        /// application usage.
-        /// </param>
-        /// <returns>The path to the solution configuration, otherwise null.</returns>
-        private static string GetSolutionConfigPath(SettingsContext context)
-        {
-            if (context == null) throw new ArgumentNullException("context");
-
-            var solutionPath = context["SolutionPath"];
-
-            return solutionPath != null ? Path.Combine(solutionPath.ToString(), ConfigFilename) : null;
-        }
 
         /// <summary>
         /// Gets the name of the section where settings will be located based on the specified <see cref="SettingsContext"/>.

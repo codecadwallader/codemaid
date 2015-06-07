@@ -46,6 +46,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
         public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
+            IsActiveSolutionSettings = SettingsContextHelper.GetSolutionConfigPath(Settings.Default.Context) != null;
+
             Package = package;
             Pages = new OptionsPageViewModel[]
                         {
@@ -111,6 +113,36 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     SaveCommand.RaiseCanExecuteChanged();
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the path to the active settings file.
+        /// </summary>
+        public string ActiveSettingsPath
+        {
+            get
+            {
+                return IsActiveSolutionSettings
+                    ? SettingsContextHelper.GetSolutionConfigPath(Settings.Default.Context)
+                    : SettingsContextHelper.GetUserConfigPath();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if solution settings are active.
+        /// </summary>
+        public bool IsActiveSolutionSettings
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the IsActiveSolutionSettings option should be enabled.
+        /// </summary>
+        public bool IsEnabledSolutionSettings
+        {
+            get { return Package.IDE.Solution.IsOpen; }
         }
 
         private IEnumerable<OptionsPageViewModel> _pages;

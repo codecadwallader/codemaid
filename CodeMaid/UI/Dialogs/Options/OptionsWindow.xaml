@@ -7,6 +7,7 @@
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
         Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
@@ -33,11 +34,25 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}"
-                ToolTip="User options will be saved to C:\Users\Steve\AppData\Local\CodeMaid\CodeMaid.config">
+        <Border Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}">
+            <Border.ToolTip>
+                <ToolTip Content="{Binding ActiveSettingsPath}" ContentStringFormat="Options will be saved to {0}" />
+            </Border.ToolTip>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                <RadioButton Foreground="White" Margin="20,5">USER</RadioButton>
-                <RadioButton Foreground="White" Margin="20,5">SOLUTION</RadioButton>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type RadioButton}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Margin" Value="20,5" />
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.3" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+
+                <RadioButton IsChecked="{Binding IsActiveSolutionSettings, Converter={x:Static cnv:BooleanInverseConverter.Default}}">USER</RadioButton>
+                <RadioButton IsChecked="{Binding IsActiveSolutionSettings}" IsEnabled="{Binding IsEnabledSolutionSettings}">SOLUTION</RadioButton>
             </StackPanel>
         </Border>
 
