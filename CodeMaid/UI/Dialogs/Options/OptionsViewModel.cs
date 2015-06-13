@@ -245,8 +245,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                              {
                                  Title = "CodeMaid: Export " + activeSettingsName,
                                  FileName = "CodeMaid",
-                                 DefaultExt = ".settings",
-                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
+                                 DefaultExt = ".config",
+                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*"
                              };
 
             if (dialog.ShowDialog() == true)
@@ -296,8 +296,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var dialog = new Microsoft.Win32.OpenFileDialog
                              {
                                  Title = "CodeMaid: Import " + activeSettingsName,
-                                 DefaultExt = ".settings",
-                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
+                                 DefaultExt = ".config",
+                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*",
                                  CheckFileExists = true
                              };
 

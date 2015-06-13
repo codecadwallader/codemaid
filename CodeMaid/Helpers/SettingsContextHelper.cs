@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Constants
 
-        private const string SettingsFilename = "CodeMaid.settings";
+        private const string SettingsFilename = "CodeMaid.config";
 
         #endregion Constants
 
