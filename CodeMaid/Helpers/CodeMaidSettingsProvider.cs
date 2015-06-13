@@ -135,16 +135,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
         private static SettingElementCollection GetSettingElementCollection(Configuration config, string sectionName)
         {
             var userSettings = config.GetSectionGroup("userSettings");
-            if (userSettings != null)
+            if (userSettings == null)
             {
-                var section = userSettings.Sections[sectionName] as ClientSettingsSection;
-                if (section != null)
-                {
-                    return section.Settings;
-                }
+                userSettings = new UserSettingsGroup();
+                config.SectionGroups.Add("userSettings", userSettings);
             }
 
-            return new SettingElementCollection();
+            var section = userSettings.Sections.Get(sectionName) as ClientSettingsSection;
+            if (section == null)
+            {
+                section = new ClientSettingsSection();
+                userSettings.Sections.Add(sectionName, section);
+            }
+
+            return section.Settings;
         }
 
         #endregion Shared Methods
