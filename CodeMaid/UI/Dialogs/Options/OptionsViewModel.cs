@@ -240,10 +240,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 return;
             }
 
-            // Prompt the user for the settings file name and location.
+            var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
                              {
-                                 Title = "CodeMaid: Export Settings",
+                                 Title = "CodeMaid: Export " + activeSettingsName,
                                  FileName = "CodeMaid",
                                  DefaultExt = ".settings",
                                  Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
@@ -255,14 +255,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 {
                     File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
-                                    "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format("CodeMaid has successfully exported " + activeSettingsName + " to '{0}'.", dialog.FileName),
+                                    "CodeMaid: Export " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to export settings", ex);
-                    MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
-                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to export " + activeSettingsName, ex);
+                    MessageBox.Show("CodeMaid was unable to export " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Export " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -292,10 +292,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 return;
             }
 
-            // Prompt the user for the settings file to import.
+            var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
                              {
-                                 Title = "CodeMaid: Import Settings",
+                                 Title = "CodeMaid: Import " + activeSettingsName,
                                  DefaultExt = ".settings",
                                  Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
                                  CheckFileExists = true
@@ -312,14 +312,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     ActiveSettings.Reload();
                     ReloadPagesFromSettings();
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
-                                    "CodeMaid: Import Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format("CodeMaid has successfully imported " + activeSettingsName + " from '{0}'.", dialog.FileName),
+                                    "CodeMaid: Import " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to import settings", ex);
-                    MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
-                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to import " + activeSettingsName, ex);
+                    MessageBox.Show("CodeMaid was unable to import " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Import " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -366,7 +366,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to reset settings", ex);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to reset " + ActiveSettingsName, ex);
                     MessageBox.Show("CodeMaid was unable to reset " + activeSettingsName + ".  See output window for more details.",
                                     "CodeMaid: Reset " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
