@@ -41,6 +41,8 @@
                         <Button x:Name="SwitchSettingsButton"
                                 DockPanel.Dock="Right"
                                 Command="{Binding SwitchSettingsCommand}"
+                                Content="{Binding InactiveSettingsName}"
+                                ContentStringFormat="Switch to {0}"
                                 Style="{StaticResource ButtonDialog}"
                                 Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
@@ -49,19 +51,16 @@
                                    FontWeight="Bold"
                                    Foreground="White"
                                    Margin="5"
+                                   Text="{Binding ActiveSettingsName}"
                                    TextTrimming="CharacterEllipsis"
                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" />
                     </DockPanel>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="False">
                             <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF6595B3" />
-                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="User Settings" />
-                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to Solution-Specific Settings" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="True">
                             <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF84B0B6" />
-                            <Setter TargetName="ActiveSettingsTextBlock" Property="Text" Value="Solution-Specific Settings" />
-                            <Setter TargetName="SwitchSettingsButton" Property="Content" Value="Switch to User Settings" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

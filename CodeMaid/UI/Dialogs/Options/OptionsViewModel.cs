@@ -109,6 +109,29 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
+        /// Gets a name describing the active settings.
+        /// </summary>
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string ActiveSettingsName
+        {
+            get { return GetSettingsName(false); }
+        }
+
+        /// <summary>
+        /// Gets the path to the active settings file.
+        /// </summary>
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string ActiveSettingsPath
+        {
+            get
+            {
+                return IsActiveSolutionSpecificSettings
+                    ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
+                    : SettingsContextHelper.GetUserSettingsPath();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the dialog result.
         /// </summary>
         public bool? DialogResult
@@ -133,16 +156,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         }
 
         /// <summary>
-        /// Gets the path to the active settings file.
+        /// Gets a name describing the inactive settings.
         /// </summary>
-        public string ActiveSettingsPath
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string InactiveSettingsName
         {
-            get
-            {
-                return IsActiveSolutionSpecificSettings
-                    ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
-                    : SettingsContextHelper.GetUserSettingsPath();
-            }
+            get { return GetSettingsName(true); }
         }
 
         /// <summary>
@@ -325,19 +344,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
-            var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
+            var activeSettingsName = ActiveSettingsName;
+            var result = MessageBox.Show(@"Are you sure you want all " + activeSettingsName + " to be reset to their defaults?" + Environment.NewLine +
                                          @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation for Reset All Settings",
+                                         @"CodeMaid: Confirmation for Reset " + activeSettingsName,
                                          MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
             if (result == MessageBoxResult.Yes)
             {
-                ActiveSettings.Reset();
+                try
+                {
+                    File.Delete(ActiveSettingsPath);
 
-                // Save is redundant, but used to trigger external events.
-                ActiveSettings.Save();
+                    RefreshPackageSettings();
 
-                ReloadPagesFromSettings();
+                    ActiveSettings.Reload();
+                    ReloadPagesFromSettings();
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully reset " + activeSettingsName + "."),
+                                    "CodeMaid: Reset " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.ExceptionWriteLine("Unable to reset settings", ex);
+                    MessageBox.Show("CodeMaid was unable to reset " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Reset " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -493,6 +525,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Gets the active or inactive settings name depending on the specified inactive flag.
+        /// </summary>
+        /// <param name="inactive">A flag indicating if the inactive settings name is desired.</param>
+        /// <returns>The active or inactive settings name.</returns>
+        private string GetSettingsName(bool inactive)
+        {
+            return IsActiveSolutionSpecificSettings ^ inactive ? "Solution-Specific Settings" : "User Settings";
         }
 
         /// <summary>
