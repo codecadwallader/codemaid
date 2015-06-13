@@ -25,10 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 {
@@ -217,8 +216,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnExportCommandExecuted(object parameter)
         {
-            // Always save first, forcing the settings file to be created if it does not exist yet.
-            Save();
+            if (CheckToSavePendingChangesShouldCancelOperation())
+            {
+                return;
+            }
 
             // Prompt the user for the settings file name and location.
             var dialog = new Microsoft.Win32.SaveFileDialog
@@ -233,8 +234,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
-                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                    config.SaveAs(dialog.FileName, ConfigurationSaveMode.Full, true);
+                    File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
                     MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
                                     "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -268,6 +268,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnImportCommandExecuted(object parameter)
         {
+            if (CheckToSavePendingChangesShouldCancelOperation())
+            {
+                return;
+            }
+
             // Prompt the user for the settings file to import.
             var dialog = new Microsoft.Win32.OpenFileDialog
                              {
@@ -281,21 +286,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
-                    // Always save first, forcing the settings file to be created if it does not
-                    // exist yet.
-                    Save();
+                    File.Copy(dialog.FileName, ActiveSettingsPath, true);
 
-                    var sectionName = ActiveSettings.Context["GroupName"].ToString();
-                    var xDocument = XDocument.Load(dialog.FileName);
-                    var settings = xDocument.XPathSelectElements("//" + sectionName);
-
-                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                    config.GetSectionGroup("userSettings")
-                          .Sections[sectionName]
-                          .SectionInformation
-                          .SetRawXml(settings.Single().ToString());
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("userSettings");
+                    RefreshPackageSettings();
 
                     ActiveSettings.Reload();
                     ReloadPagesFromSettings();
@@ -334,7 +327,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
                                          @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation For Reset All Settings",
+                                         @"CodeMaid: Confirmation for Reset All Settings",
                                          MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
             if (result == MessageBoxResult.Yes)
@@ -394,9 +387,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
             ActiveSettings.Save();
 
-            // Reload and Save the default settings which are used through CodeMaid.  This also triggers external events.
-            Settings.Default.Reload();
-            Settings.Default.Save();
+            RefreshPackageSettings();
 
             HasChanges = false;
         }
@@ -454,21 +445,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSwitchSettingsCommandExecuted(object parameter)
         {
-            if (HasChanges)
+            if (CheckToSavePendingChangesShouldCancelOperation())
             {
-                var result = MessageBox.Show(@"You have pending changes.  Do you want to save them before continuing?",
-                                             @"CodeMaid: Confirmation For Switch Settings",
-                                             MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
-                        Save();
-                        break;
-
-                    case MessageBoxResult.Cancel:
-                        return;
-                }
+                return;
             }
 
             if (IsActiveSolutionSpecificSettings)
@@ -490,6 +469,33 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         #region Methods
 
         /// <summary>
+        /// Checks if there are pending changes to be saved, conditionally prompts the user, saves
+        /// if requested and returns if the user asked to cancel the operation.
+        /// </summary>
+        /// <returns>True if the operation should be canceled, otherwise false.</returns>
+        private bool CheckToSavePendingChangesShouldCancelOperation()
+        {
+            if (HasChanges)
+            {
+                var result = MessageBox.Show(@"You have pending changes.  Do you want to save them before continuing?",
+                    @"CodeMaid: Confirmation to Save Pending Changes",
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Save();
+                        break;
+
+                    case MessageBoxResult.Cancel:
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Called when a page has raised a PropertyChanged event.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -500,6 +506,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             HasChanges = true;
+        }
+
+        /// <summary>
+        /// Refreshes the default/package settings which are used throughout CodeMaid.
+        /// </summary>
+        /// <remarks>
+        /// Reload is followed by a Save to trigger external event listeners.
+        /// </remarks>
+        private void RefreshPackageSettings()
+        {
+            Settings.Default.Reload();
+            Settings.Default.Save();
         }
 
         /// <summary>
