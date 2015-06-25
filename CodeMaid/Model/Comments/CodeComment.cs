@@ -18,220 +18,220 @@ using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
-	/// <summary>
-	/// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see> which
-	/// represent all the content of a comment.
-	/// </summary>
-	internal class CodeComment
-	{
-		#region Fields
+    /// <summary>
+    /// A <c>CodeComment</c> contains one or more <see cref="CodeCommentPhrase">phrases</see> which
+    /// represent all the content of a comment.
+    /// </summary>
+    internal class CodeComment
+    {
+        #region Fields
 
-		private readonly TextDocument _document;
-		private Regex _commentLineRegex;
+        private readonly TextDocument _document;
+        private Regex _commentLineRegex;
 
-		private EditPoint _endPoint;
-		private EditPoint _startPoint;
+        private EditPoint _endPoint;
+        private EditPoint _startPoint;
 
-		#endregion Fields
+        #endregion Fields
 
-		#region Constructors
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CodeComment" /> class.
-		/// </summary>
-		public CodeComment(TextPoint point)
-		{
-			if (point == null)
-			{
-				throw new ArgumentNullException("point");
-			}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeComment" /> class.
+        /// </summary>
+        public CodeComment(TextPoint point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException("point");
+            }
 
-			_document = point.Parent;
+            _document = point.Parent;
 
-			_commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
 
-			Expand(point);
-		}
+            Expand(point);
+        }
 
-		#endregion Constructors
+        #endregion Constructors
 
-		#region Properties
+        #region Properties
 
-		public TextPoint EndPoint { get { return _endPoint; } }
+        public TextPoint EndPoint { get { return _endPoint; } }
 
-		public bool IsValid { get; private set; }
+        public bool IsValid { get; private set; }
 
-		public TextPoint StartPoint { get { return _startPoint; } }
+        public TextPoint StartPoint { get { return _startPoint; } }
 
-		#endregion Properties
+        #endregion Properties
 
-		#region Methods
+        #region Methods
 
-		/// <summary>
-		/// Helper function to generate the preview in the options menu.
-		/// </summary>
-		public static string FormatXml(string text, CodeCommentOptions options)
-		{
-			var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
-			var line = new CommentLineXml(xml, options);
-			var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
-			var formatter = new CommentFormatter(line, "///", options, regex);
+        /// <summary>
+        /// Helper function to generate the preview in the options menu.
+        /// </summary>
+        public static string FormatXml(string text, CodeCommentOptions options)
+        {
+            var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
+            var line = new CommentLineXml(xml, options);
+            var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
+            var formatter = new CommentFormatter(line, "///", options, regex);
 
-			return formatter.ToString();
-		}
+            return formatter.ToString();
+        }
 
-		/// <summary>
-		/// Formats the comment.
-		/// </summary>
-		/// <param name="options">The options to be used for formatting.</param>
-		public TextPoint Format(CodeCommentOptions options)
-		{
-			if (!IsValid)
-			{
-				throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
-			}
+        /// <summary>
+        /// Formats the comment.
+        /// </summary>
+        /// <param name="options">The options to be used for formatting.</param>
+        public TextPoint Format(CodeCommentOptions options)
+        {
+            if (!IsValid)
+            {
+                throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
+            }
 
-			var originalText = _startPoint.GetText(_endPoint);
-			var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
-			var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
+            var originalText = _startPoint.GetText(_endPoint);
+            var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
+            var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
 
-			// Concatenate the comment lines without comment prefixes and see if the resulting bit
-			// can be parsed as XML.
-			ICommentLine line = null;
-			var lineTexts = matches.Select(m => m.Groups["line"].Value).ToArray();
-			var commentText = string.Join(Environment.NewLine, lineTexts);
-			if (commentText.Contains('<'))
-			{
-				try
-				{
-					var xml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
-					line = new CommentLineXml(xml, options);
-				}
-				catch (System.Xml.XmlException)
-				{
-					// If XML cannot be parsed, comment will be handled as a normal text comment.
-				}
-			}
+            // Concatenate the comment lines without comment prefixes and see if the resulting bit
+            // can be parsed as XML.
+            ICommentLine line = null;
+            var lineTexts = matches.Select(m => m.Groups["line"].Value).ToArray();
+            var commentText = string.Join(Environment.NewLine, lineTexts);
+            if (commentText.Contains('<'))
+            {
+                try
+                {
+                    var xml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
+                    line = new CommentLineXml(xml, options);
+                }
+                catch (System.Xml.XmlException)
+                {
+                    // If XML cannot be parsed, comment will be handled as a normal text comment.
+                }
+            }
 
-			if (line == null)
-			{
-				line = new CommentLine(commentText);
-			}
+            if (line == null)
+            {
+                line = new CommentLine(commentText);
+            }
 
-			var formatter = new CommentFormatter(
-				line,
-				commentPrefix,
-				options,
-				CodeCommentHelper.GetCommentRegex(_document.Language, false));
+            var formatter = new CommentFormatter(
+                line,
+                commentPrefix,
+                options,
+                CodeCommentHelper.GetCommentRegex(_document.Language, false));
 
-			if (!formatter.Equals(originalText))
-			{
-				var cursor = StartPoint.CreateEditPoint();
-				cursor.Delete(EndPoint);
-				cursor.Insert(formatter.ToString());
-				_endPoint = cursor.CreateEditPoint();
-			}
+            if (!formatter.Equals(originalText))
+            {
+                var cursor = StartPoint.CreateEditPoint();
+                cursor.Delete(EndPoint);
+                cursor.Insert(formatter.ToString());
+                _endPoint = cursor.CreateEditPoint();
+            }
 
-			return EndPoint;
-		}
+            return EndPoint;
+        }
 
-		/// <summary>
-		/// Expands a text point to the full comment.
-		/// </summary>
-		/// <param name="point">The original text point to expand from.</param>
-		private void Expand(TextPoint point)
-		{
-			var i = point.CreateEditPoint();
+        /// <summary>
+        /// Expands a text point to the full comment.
+        /// </summary>
+        /// <param name="point">The original text point to expand from.</param>
+        private void Expand(TextPoint point)
+        {
+            var i = point.CreateEditPoint();
 
-			// Look up to find the start of the comment.
-			_startPoint = Expand(point, p => p.LineUp());
+            // Look up to find the start of the comment.
+            _startPoint = Expand(point, p => p.LineUp());
 
-			// If a valid start is found, look down to find the end of the comment.
-			if (_startPoint != null)
-			{
-				_endPoint = Expand(point, p => p.LineDown());
-			}
+            // If a valid start is found, look down to find the end of the comment.
+            if (_startPoint != null)
+            {
+                _endPoint = Expand(point, p => p.LineDown());
+            }
 
-			// If both start and endpoint are valid, the comment is valid.
-			if (_startPoint != null && _endPoint != null)
-			{
-				_startPoint.StartOfLine();
-				_endPoint.EndOfLine();
-				IsValid = true;
-			}
-			else
-			{
-				IsValid = false;
-			}
-		}
+            // If both start and endpoint are valid, the comment is valid.
+            if (_startPoint != null && _endPoint != null)
+            {
+                _startPoint.StartOfLine();
+                _endPoint.EndOfLine();
+                IsValid = true;
+            }
+            else
+            {
+                IsValid = false;
+            }
+        }
 
-		/// <summary>
-		/// Expand a textpoint to the full comment, in the direction specified by the <paramref name="foundAction"/>.
-		/// </summary>
-		/// <param name="point">The initial starting point for the expansion.</param>
-		/// <param name="foundAction">An action which advances the search either up or down.</param>
-		/// <returns>
-		/// The endpoint of the comment, or <c>null</c> if the expansion did not find a valid comment.
-		/// </returns>
-		private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
-		{
-			EditPoint current = point.CreateEditPoint();
-			EditPoint result = null;
-			string prefix = null;
+        /// <summary>
+        /// Expand a textpoint to the full comment, in the direction specified by the <paramref name="foundAction"/>.
+        /// </summary>
+        /// <param name="point">The initial starting point for the expansion.</param>
+        /// <param name="foundAction">An action which advances the search either up or down.</param>
+        /// <returns>
+        /// The endpoint of the comment, or <c>null</c> if the expansion did not find a valid comment.
+        /// </returns>
+        private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
+        {
+            EditPoint current = point.CreateEditPoint();
+            EditPoint result = null;
+            string prefix = null;
 
-			do
-			{
-				var line = current.Line;
-				var text = current.GetLine();
+            do
+            {
+                var line = current.Line;
+                var text = current.GetLine();
 
-				var match = _commentLineRegex.Match(text);
-				if (match.Success)
-				{
-					// Cancel the expansion if the prefix does not match. This takes priority over
-					// the initial spacer check to allow formatting comments adjacent to Stylecop
-					// SA1626 style commented code.
-					var currentPrefix = match.Groups["prefix"].Value.TrimStart();
-					if (prefix != null && !string.Equals(prefix, currentPrefix))
-					{
-						break;
-					}
-					else
-					{
-						prefix = currentPrefix;
-					}
+                var match = _commentLineRegex.Match(text);
+                if (match.Success)
+                {
+                    // Cancel the expansion if the prefix does not match. This takes priority over
+                    // the initial spacer check to allow formatting comments adjacent to Stylecop
+                    // SA1626 style commented code.
+                    var currentPrefix = match.Groups["prefix"].Value.TrimStart();
+                    if (prefix != null && !string.Equals(prefix, currentPrefix))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        prefix = currentPrefix;
+                    }
 
-					// The initial spacer is required, otherwise we assume this is commented out
-					// code and do not format.
-					if (match.Groups["initialspacer"].Success)
-					{
-						result = current.CreateEditPoint();
-						foundAction(current);
+                    // The initial spacer is required, otherwise we assume this is commented out
+                    // code and do not format.
+                    if (match.Groups["initialspacer"].Success)
+                    {
+                        result = current.CreateEditPoint();
+                        foundAction(current);
 
-						// If result and iterator line are the same, the found action (move line up or
-						// down) did nothing. This means we're at the start or end of the file, and
-						// there is no point to keep searching, it would create an infinite loop.
-						if (result.Line == current.Line)
-						{
-							break;
-						}
-					}
-					else
-					{
-						// Did not succesfully match the intial spacer, we have to assume this is
-						// code and cancel all formatting.
-						result = null;
-						current = null;
-					}
-				}
-				else
-				{
-					current = null;
-				}
-			} while (current != null);
+                        // If result and iterator line are the same, the found action (move line up or
+                        // down) did nothing. This means we're at the start or end of the file, and
+                        // there is no point to keep searching, it would create an infinite loop.
+                        if (result.Line == current.Line)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // Did not succesfully match the intial spacer, we have to assume this is
+                        // code and cancel all formatting.
+                        result = null;
+                        current = null;
+                    }
+                }
+                else
+                {
+                    current = null;
+                }
+            } while (current != null);
 
-			return result;
-		}
+            return result;
+        }
 
-		#endregion Methods
-	}
+        #endregion Methods
+    }
 }

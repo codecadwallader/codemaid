@@ -16,74 +16,74 @@ using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
-	/// <summary>
-	/// Class with simple unit tests for formatting. This calls the formatter directly, rather than
-	/// invoking it through the UI as with the integration tests.
-	/// </summary>
-	[TestClass]
-	public class ListFormattingTests
-	{
-		[TestMethod]
-		[TestCategory("Formatting UnitTests")]
-		public void ListFormattingTests_DashedList()
-		{
-			var input =
-				@"Some text before." + Environment.NewLine +
-				@"- The first item with enough words to require wrapping." + Environment.NewLine +
-				@"- The second item with enough words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+    /// <summary>
+    /// Class with simple unit tests for formatting. This calls the formatter directly, rather than
+    /// invoking it through the UI as with the integration tests.
+    /// </summary>
+    [TestClass]
+    public class ListFormattingTests
+    {
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void ListFormattingTests_DashedList()
+        {
+            var input =
+                @"Some text before." + Environment.NewLine +
+                @"- The first item with enough words to require wrapping." + Environment.NewLine +
+                @"- The second item with enough words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			var expected =
-				@"Some text before." + Environment.NewLine +
-				@"- The first item with enough" + Environment.NewLine +
-				@"  words to require wrapping." + Environment.NewLine +
-				@"- The second item with enough" + Environment.NewLine +
-				@"  words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+            var expected =
+                @"Some text before." + Environment.NewLine +
+                @"- The first item with enough" + Environment.NewLine +
+                @"  words to require wrapping." + Environment.NewLine +
+                @"- The second item with enough" + Environment.NewLine +
+                @"  words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
-		}
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
+        }
 
-		[TestMethod]
-		[TestCategory("Formatting UnitTests")]
-		public void ListFormattingTests_NumberedList()
-		{
-			var input =
-				@"Some text before." + Environment.NewLine +
-				@"1) The first item with enough words to require wrapping." + Environment.NewLine +
-				@"2) The second item with enough words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void ListFormattingTests_NumberedList()
+        {
+            var input =
+                @"Some text before." + Environment.NewLine +
+                @"1) The first item with enough words to require wrapping." + Environment.NewLine +
+                @"2) The second item with enough words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			var expected =
-				@"Some text before." + Environment.NewLine +
-				@"1) The first item with enough" + Environment.NewLine +
-				@"   words to require wrapping." + Environment.NewLine +
-				@"2) The second item with enough" + Environment.NewLine +
-				@"   words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+            var expected =
+                @"Some text before." + Environment.NewLine +
+                @"1) The first item with enough" + Environment.NewLine +
+                @"   words to require wrapping." + Environment.NewLine +
+                @"2) The second item with enough" + Environment.NewLine +
+                @"   words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
-		}
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
+        }
 
-		[TestMethod]
-		[TestCategory("Formatting UnitTests")]
-		public void ListFormattingTests_WordList()
-		{
-			var input =
-				@"Some text before." + Environment.NewLine +
-				@"item) The first item with enough words to require wrapping." + Environment.NewLine +
-				@"meti) The second item with enough words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void ListFormattingTests_WordList()
+        {
+            var input =
+                @"Some text before." + Environment.NewLine +
+                @"item) The first item with enough words to require wrapping." + Environment.NewLine +
+                @"meti) The second item with enough words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			var expected =
-				@"Some text before." + Environment.NewLine +
-				@"item) The first item with enough" + Environment.NewLine +
-				@"      words to require wrapping." + Environment.NewLine +
-				@"meti) The second item with enough" + Environment.NewLine +
-				@"      words to require wrapping." + Environment.NewLine +
-				@"Some trialing text.";
+            var expected =
+                @"Some text before." + Environment.NewLine +
+                @"item) The first item with enough" + Environment.NewLine +
+                @"      words to require wrapping." + Environment.NewLine +
+                @"meti) The second item with enough" + Environment.NewLine +
+                @"      words to require wrapping." + Environment.NewLine +
+                @"Some trialing text.";
 
-			CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 35 });
-		}
-	}
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 35 });
+        }
+    }
 }
