@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -148,7 +148,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 prefix = string.Format(@"(?<prefix>[\t ]*{0})(?<initialspacer>( |\t|\r|\n|$))?", prefix);
             }
 
-            var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+|\w+[\):]|\d+\.)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
+            var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+[ \t]*|\w+[\):][ \t]+|\d+\.[ \t]+)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
             return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline);
         }
 
