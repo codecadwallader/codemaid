@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
         Width="878" Height="264"
-        MouseLeftButtonDown="OnMouseLeftButtonDown" HasDialogFrame="False" ResizeMode="NoResize" ShowInTaskbar="False"
-        WindowStartupLocation="CenterScreen" WindowStyle="None">
+        HasDialogFrame="False" ResizeMode="NoResize" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        KeyDown="OnKeyDown" MouseLeftButtonDown="OnMouseLeftButtonDown">
     <platformUI:DialogWindow.Background>
         <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Integration/Images/about.png" />
     </platformUI:DialogWindow.Background>
