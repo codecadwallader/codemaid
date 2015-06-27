@@ -116,7 +116,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void XmlFormattingTests_HyperlinkOnNewLine()
         {
             var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+            CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
         [TestMethod]
@@ -124,7 +124,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void XmlFormattingTests_HyperlinkBetweenWords()
         {
             var input = "<summary>" + Environment.NewLine + "Look at this http://foo pretty link." + Environment.NewLine + "</summary>";
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+            CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
         /// <summary>

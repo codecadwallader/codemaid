@@ -123,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void SimpleFormattingTests_HyperlinkOnNewLine()
         {
             var input = "http://foo";
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+            CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void SimpleFormattingTests_HyperlinkBetweenWords()
         {
             var input = "Look at this http://foo pretty link.";
-            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+            CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
         [TestMethod]
