@@ -105,11 +105,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Loads the specified settings object with solution-specific settings if they exist.
+        /// Loads the specified settings object with solution-specific settings if they exist or can
+        /// be created.
         /// </summary>
         /// <param name="settings">The settings to update.</param>
+        /// <param name="canCreate">A flag indicating if solution-specific settings can be created.</param>
         /// <returns>True if solution-specific settings were loaded, otherwise false.</returns>
-        internal bool LoadSolutionSpecificSettings(Settings settings)
+        internal bool LoadSolutionSpecificSettings(Settings settings, bool canCreate = false)
         {
             if (_package.IDE.Solution.IsOpen)
             {
@@ -118,8 +120,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     var solutionConfig = Path.Combine(solutionPath, SettingsFilename);
 
-                    // Determine if there is a solution-specific settings file.
-                    if (File.Exists(solutionConfig))
+                    // Determine if there is a solution-specific settings file or one can be created.
+                    if (File.Exists(solutionConfig) || canCreate)
                     {
                         // Reload the solution settings into the given settings (merge on top of user settings).
                         settings.Context["SolutionPath"] = solutionPath;

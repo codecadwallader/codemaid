@@ -345,7 +345,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
             var activeSettingsName = ActiveSettingsName;
-            var result = MessageBox.Show(@"Are you sure you want all " + activeSettingsName + " to be reset to their defaults?" + Environment.NewLine +
+            var result = MessageBox.Show(@"Are you sure you want all " + activeSettingsName + " to be reset to their defaults?" + Environment.NewLine + Environment.NewLine +
                                          @"This action cannot be undone.",
                                          @"CodeMaid: Confirmation for Reset " + activeSettingsName,
                                          MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -489,7 +489,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
             else
             {
-                _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
+                _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings, true);
                 IsActiveSolutionSpecificSettings = true;
             }
 
