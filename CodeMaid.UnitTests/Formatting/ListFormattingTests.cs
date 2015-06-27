@@ -9,16 +9,16 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     /// <summary>
-    /// Class with simple unit tests for formatting. This calls the formatter directly, rather than
-    /// invoking it through the UI as with the integration tests.
+    /// Class with list oriented unit tests for formatting. This calls the formatter directly,
+    /// rather than invoking it through the UI as with the integration tests.
     /// </summary>
     [TestClass]
     public class ListFormattingTests

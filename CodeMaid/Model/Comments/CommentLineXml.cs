@@ -123,7 +123,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                                 _innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
                             }
-
                         }
                     }
                     else
