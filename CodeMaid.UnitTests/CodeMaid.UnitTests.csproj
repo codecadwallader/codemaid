@@ -88,8 +88,9 @@
     <Compile Include="CachedSettingTests.cs" />
     <Compile Include="Formatting\CommentFormatHelper.cs" />
     <Compile Include="Formatting\HeaderFormattingTests.cs" />
-    <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\SimpleFormattingTests.cs" />
+    <Compile Include="Formatting\XmlFormattingTests.cs" />
+    <Compile Include="Formatting\ListFormattingTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
     <Compile Include="Helpers\UIShellServiceMock.cs" />
     <Compile Include="Helpers\WindowFrameMock.cs" />

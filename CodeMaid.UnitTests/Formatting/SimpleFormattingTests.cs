@@ -120,6 +120,22 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
+        public void SimpleFormattingTests_HyperlinkOnNewLine()
+        {
+            var input = "http://foo";
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void SimpleFormattingTests_HyperlinkBetweenWords()
+        {
+            var input = "Look at this http://foo pretty link.";
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
         public void SimpleFormattingTests_WrapsLinesAsExpected()
         {
             var input = "Lorem ipsum dolor sit.";

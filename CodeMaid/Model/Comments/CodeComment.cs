@@ -152,7 +152,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 _endPoint = Expand(point, p => p.LineDown());
             }
 
-            if (StartPoint != null && EndPoint != null)
+            // If both start and endpoint are valid, the comment is valid.
+            if (_startPoint != null && _endPoint != null)
             {
                 _startPoint.StartOfLine();
                 _endPoint.EndOfLine();
@@ -164,6 +165,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
+        /// <summary>
+        /// Expand a textpoint to the full comment, in the direction specified by the <paramref name="foundAction"/>.
+        /// </summary>
+        /// <param name="point">The initial starting point for the expansion.</param>
+        /// <param name="foundAction">An action which advances the search either up or down.</param>
+        /// <returns>
+        /// The endpoint of the comment, or <c>null</c> if the expansion did not find a valid comment.
+        /// </returns>
         private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
         {
             EditPoint current = point.CreateEditPoint();
@@ -178,20 +187,23 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var match = _commentLineRegex.Match(text);
                 if (match.Success)
                 {
+                    // Cancel the expansion if the prefix does not match. This takes priority over
+                    // the initial spacer check to allow formatting comments adjacent to Stylecop
+                    // SA1626 style commented code.
+                    var currentPrefix = match.Groups["prefix"].Value.TrimStart();
+                    if (prefix != null && !string.Equals(prefix, currentPrefix))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        prefix = currentPrefix;
+                    }
+
                     // The initial spacer is required, otherwise we assume this is commented out
                     // code and do not format.
                     if (match.Groups["initialspacer"].Success)
                     {
-                        // Get the comment prefix for the current line.
-                        var currentPrefix = match.Groups["prefix"].Value.TrimStart();
-                        if (prefix == null) { prefix = currentPrefix; }
-
-                        // Cancel the expanding if the prefix does not match.
-                        if (prefix != currentPrefix)
-                        {
-                            break;
-                        }
-
                         result = current.CreateEditPoint();
                         foundAction(current);
 
@@ -205,7 +217,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     }
                     else
                     {
-                        // This is code! Set to null to abandon loop.
+                        // Did not succesfully match the intial spacer, we have to assume this is
+                        // code and cancel all formatting.
                         result = null;
                         current = null;
                     }

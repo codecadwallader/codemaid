@@ -235,6 +235,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         }
 
                         Append(match.ListPrefix);
+                        // List items include their spacing and do not require additional space,
+                        // thus we are logically still on the first word.
+                        _isFirstWord = true;
                     }
 
                     if (match.Words != null)
@@ -267,9 +270,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             {
                                 NewLine(indentLevel);
 
+                                // If linewrap is on a list item, add spacing to align the text.
                                 if (match.IsList)
                                 {
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
+                                    // This is just padding and not a word.
+                                    _isFirstWord = true;
                                 }
                             }
 

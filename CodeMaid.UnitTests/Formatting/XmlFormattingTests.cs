@@ -111,6 +111,22 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_HyperlinkOnNewLine()
+        {
+            var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_HyperlinkBetweenWords()
+        {
+            var input = "<summary>" + Environment.NewLine + "Look at this http://foo pretty link." + Environment.NewLine + "</summary>";
+            CommentFormatHelper.AssertEqualAfterFormat(input, new CodeCommentOptions(Settings.Default));
+        }
+
         /// <summary>
         /// Test to make sure there is no spacing is added between an inline XML tag directly
         /// followed by interpunction.
