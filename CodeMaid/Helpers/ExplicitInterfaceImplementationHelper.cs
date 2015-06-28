@@ -11,29 +11,31 @@
 
 using EnvDTE;
 using EnvDTE80;
+using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
     /// <summary>
     /// A helper class for identifying explicit interface implementations.
     /// </summary>
+    /// <remarks>
+    /// These regular expression based matches may cause false positives, but that is considered
+    /// preferable to false negatives. A future implementation built against Roslyn will hopefully
+    /// be more precise.
+    /// </remarks>
     public static class ExplicitInterfaceImplementationHelper
     {
         /// <summary>
         /// Determines if the specified code event is an explicit interface implementation.
         /// </summary>
-        /// <remarks>
-        /// CodeEvent does not report the interface name as usual, but it can be identified by
-        /// looking at the FullName and comparing it to the expected concatenation of parent name +
-        /// event name.
-        /// </remarks>
         /// <param name="codeEvent">The code event.</param>
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeEvent codeEvent)
         {
-            return codeEvent != null &&
-                   codeEvent.Parent is CodeElement &&
-                   codeEvent.FullName != (((CodeElement)codeEvent.Parent).FullName + "." + codeEvent.Name);
+            var declaration = CodeElementHelper.GetEventDeclaration(codeEvent);
+            var matchString = @"\." + codeEvent.Name;
+
+            return Regex.IsMatch(declaration, matchString);
         }
 
         /// <summary>
@@ -43,8 +45,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeFunction2 codeFunction)
         {
-            return codeFunction != null &&
-                   codeFunction.Name.Contains(".");
+            // In VS2013 and earlier, the name was reported including the interface name.
+            if (codeFunction.Name.Contains("."))
+            {
+                return true;
+            }
+
+            var declaration = CodeElementHelper.GetMethodDeclaration(codeFunction);
+            var matchString = @"\." + codeFunction.Name;
+
+            return Regex.IsMatch(declaration, matchString);
         }
 
         /// <summary>
@@ -54,8 +64,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeProperty codeProperty)
         {
-            return codeProperty != null &&
-                   codeProperty.Name.Contains(".");
+            // In VS2013 and earlier, the name was reported including the interface name.
+            if (codeProperty.Name.Contains("."))
+            {
+                return true;
+            }
+
+            var declaration = CodeElementHelper.GetPropertyDeclaration(codeProperty);
+            var matchString = @"\." + codeProperty.Name;
+
+            return Regex.IsMatch(declaration, matchString);
         }
     }
 }
