@@ -54,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             var settingValue = SettingProperty.GetValue(settingsClass);
 
-            //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
+            // Special case handling for MemberTypeSetting as operator casts for generics don't work as expected.
             if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
             {
                 var optionValue = (MemberTypeSetting)(string)settingValue;
@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="optionClass">The class instance for the option property.</param>
         public void CopyOptionToSetting(Settings settingsClass, object optionClass)
         {
-            //TODO: This technically works around the string/MemberTypeSetting casting issue.. but the implicit operators should(tm) have done it.
+            // Special case handling for MemberTypeSetting as operator casts for generics don't work as expected.
             if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
             {
                 var optionValue = (string)(MemberTypeSetting)OptionProperty.GetValue(optionClass);
