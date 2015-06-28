@@ -39,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_Multithread, x => Multithread),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<int, ThemeMode>(x => ActiveSettings.General_Theme, x => ThemeMode),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_UseUndoTransactions, x => UseUndoTransactions)
             };
         }
