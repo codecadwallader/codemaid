@@ -24,9 +24,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingRegionsViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingRegionsViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingRegionsViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsIncludeAccessLevel, x => IncludeAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertKeepEvenIfEmpty, x => InsertKeepEvenIfEmpty),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertNewRegions, x => InsertNewRegions),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsRemoveExistingRegions, x => RemoveExistingRegions)
+            };
         }
 
         #endregion Constructors
@@ -39,28 +47,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public override string Header
         {
             get { return "Regions"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            IncludeAccessLevel = Settings.Default.Reorganizing_RegionsIncludeAccessLevel;
-            InsertKeepEvenIfEmpty = Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty;
-            InsertNewRegions = Settings.Default.Reorganizing_RegionsInsertNewRegions;
-            RemoveExistingRegions = Settings.Default.Reorganizing_RegionsRemoveExistingRegions;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Reorganizing_RegionsIncludeAccessLevel = IncludeAccessLevel;
-            Settings.Default.Reorganizing_RegionsInsertKeepEvenIfEmpty = InsertKeepEvenIfEmpty;
-            Settings.Default.Reorganizing_RegionsInsertNewRegions = InsertNewRegions;
-            Settings.Default.Reorganizing_RegionsRemoveExistingRegions = RemoveExistingRegions;
         }
 
         #endregion Overrides of OptionsPageViewModel

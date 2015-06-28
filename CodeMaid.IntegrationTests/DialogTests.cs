@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 {
                     dialogBoxPurger.Start();
 
-                    var configurationCommand = new CommandID(GuidList.GuidCodeMaidCommandConfiguration, (int)PkgCmdIDList.CmdIDCodeMaidConfiguration);
+                    var configurationCommand = new CommandID(GuidList.GuidCodeMaidCommandOptions, (int)PkgCmdIDList.CmdIDCodeMaidOptions);
                     TestUtils.ExecuteCommand(configurationCommand);
                 }
                 finally

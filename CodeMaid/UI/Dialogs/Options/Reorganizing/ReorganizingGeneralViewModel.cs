@@ -24,9 +24,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingGeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingGeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingGeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_AlphabetizeMembersOfTheSameGroup, x => AlphabetizeMembersOfTheSameGroup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup)
+            };
         }
 
         #endregion Constructors
@@ -39,28 +47,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public override string Header
         {
             get { return "General"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            AlphabetizeMembersOfTheSameGroup = Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup;
-            KeepMembersWithinRegions = Settings.Default.Reorganizing_KeepMembersWithinRegions;
-            PrimaryOrderByAccessLevel = Settings.Default.Reorganizing_PrimaryOrderByAccessLevel;
-            RunAtStartOfCleanup = Settings.Default.Reorganizing_RunAtStartOfCleanup;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup = AlphabetizeMembersOfTheSameGroup;
-            Settings.Default.Reorganizing_KeepMembersWithinRegions = KeepMembersWithinRegions;
-            Settings.Default.Reorganizing_PrimaryOrderByAccessLevel = PrimaryOrderByAccessLevel;
-            Settings.Default.Reorganizing_RunAtStartOfCleanup = RunAtStartOfCleanup;
         }
 
         #endregion Overrides of OptionsPageViewModel

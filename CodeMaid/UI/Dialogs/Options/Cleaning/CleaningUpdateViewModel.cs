@@ -24,9 +24,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningUpdateViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningUpdateViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningUpdateViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
+            };
         }
 
         #endregion Constructors
@@ -39,26 +46,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Update"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            UpdateAccessorsToBothBeSingleLineOrMultiLine = Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine;
-            UpdateEndRegionDirectives = Settings.Default.Cleaning_UpdateEndRegionDirectives;
-            UpdateSingleLineMethods = Settings.Default.Cleaning_UpdateSingleLineMethods;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine = UpdateAccessorsToBothBeSingleLineOrMultiLine;
-            Settings.Default.Cleaning_UpdateEndRegionDirectives = UpdateEndRegionDirectives;
-            Settings.Default.Cleaning_UpdateSingleLineMethods = UpdateSingleLineMethods;
         }
 
         #endregion Overrides of OptionsPageViewModel

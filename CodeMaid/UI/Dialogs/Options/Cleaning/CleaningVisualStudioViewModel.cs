@@ -24,9 +24,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningVisualStudioViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningVisualStudioViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningVisualStudioViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioFormatDocumentCommand, x => RunVisualStudioFormatDocument),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioRemoveUnusedUsingStatements, x => RunVisualStudioRemoveUnusedUsingStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioSortUsingStatements, x => RunVisualStudioSortUsingStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave, x => SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave, x => SkipSortUsingStatementsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UsingStatementsToReinsertWhenRemovedExpression, x => UsingStatementsToReinsertWhenRemovedExpression)
+            };
         }
 
         #endregion Constructors
@@ -39,32 +49,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Visual Studio"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            RunVisualStudioFormatDocument = Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand;
-            RunVisualStudioRemoveUnusedUsingStatements = Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements;
-            RunVisualStudioSortUsingStatements = Settings.Default.Cleaning_RunVisualStudioSortUsingStatements;
-            SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
-            SkipSortUsingStatementsDuringAutoCleanupOnSave = Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave;
-            UsingStatementsToReinsertWhenRemovedExpression = Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand = RunVisualStudioFormatDocument;
-            Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements = RunVisualStudioRemoveUnusedUsingStatements;
-            Settings.Default.Cleaning_RunVisualStudioSortUsingStatements = RunVisualStudioSortUsingStatements;
-            Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave = SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave;
-            Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave = SkipSortUsingStatementsDuringAutoCleanupOnSave;
-            Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = UsingStatementsToReinsertWhenRemovedExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel

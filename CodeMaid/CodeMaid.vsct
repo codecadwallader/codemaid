@@ -269,7 +269,7 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <ButtonText>About CodeMaid &amp;v0.7.6.1 beta...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.7.8 alpha...</ButtonText>
         </Strings>
       </Button>
 
@@ -353,13 +353,6 @@
         </Strings>
       </Button>
 
-      <Button guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0100" type="Button">
-        <Icon guid="GuidImageConfig" id="IconConfig" />
-        <Strings>
-          <ButtonText>C&amp;onfiguration...</ButtonText>
-        </Strings>
-      </Button>
-
       <Button guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0100" type="Button">
         <Icon guid="GuidImageFind" id="IconFind" />
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -375,6 +368,13 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>&amp;Join Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" priority="0x0100" type="Button">
+        <Icon guid="GuidImageOptions" id="IconOptions" />
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
         </Strings>
       </Button>
 
@@ -408,7 +408,7 @@
       </Button>
 
       <Button guid="GuidCodeMaidCommandSettingCleanupOnSave" id="CmdIDCodeMaidSettingCleanupOnSave" priority="0x0100" type="Button">
-        <Icon guid="GuidImageConfig" id="IconConfig" />
+        <Icon guid="GuidImageOptions" id="IconOptions" />
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Automatic Cleanup On Save</ButtonText>
@@ -421,13 +421,6 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>&amp;Sort Lines</ButtonText>
-        </Strings>
-      </Button>
-
-      <Button guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100" type="Button">
-        <Icon guid="GuidImageConfig" id="IconConfig" />
-        <Strings>
-          <ButtonText>C&amp;onfiguration...</ButtonText>
         </Strings>
       </Button>
 
@@ -452,6 +445,20 @@
         </Strings>
       </Button>
 
+      <Button guid="GuidCodeMaidCommandSpadeOptions" id="CmdIDCodeMaidSpadeOptions" priority="0x0100" type="Button">
+        <Icon guid="GuidImageOptions" id="IconOptions" />
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
+        <Icon guid="GuidImageRefresh" id="IconRefresh" />
+        <Strings>
+          <ButtonText>Refresh Spade</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <Strings>
@@ -470,13 +477,6 @@
         <Icon guid="GuidImageSortType" id="IconSortType" />
         <Strings>
           <ButtonText>Sort by type</ButtonText>
-        </Strings>
-      </Button>
-
-      <Button guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
-        <Icon guid="GuidImageRefresh" id="IconRefresh" />
-        <Strings>
-          <ButtonText>Refresh Spade</ButtonText>
         </Strings>
       </Button>
 
@@ -510,11 +510,11 @@
       <Bitmap guid="GuidImageCloseLocked" href="Integration\Images\IDE\closeLocked.bmp" usedList="IconCloseLocked" />
       <Bitmap guid="GuidImageCollapse" href="Integration\Images\IDE\collapse.bmp" usedList="IconCollapse" />
       <Bitmap guid="GuidImageCommentFormat" href="Integration\Images\IDE\commentformat.bmp" usedList="IconCommentFormat" />
-      <Bitmap guid="GuidImageConfig" href="Integration\Images\IDE\config.bmp" usedList="IconConfig" />
       <Bitmap guid="GuidImageFind" href="Integration\Images\IDE\find.bmp" usedList="IconFind" />
       <Bitmap guid="GuidImageInfo" href="Integration\Images\IDE\info.bmp" usedList="IconInfo" />
       <Bitmap guid="GuidImageJoin" href="Integration\Images\IDE\join.bmp" usedList="IconJoin" />
       <Bitmap guid="GuidImageLock" href="Integration\Images\IDE\lock.bmp" usedList="IconLock" />
+      <Bitmap guid="GuidImageOptions" href="Integration\Images\IDE\options.bmp" usedList="IconOptions" />
       <Bitmap guid="GuidImageProgress" href="Integration\Images\IDE\progress.bmp" usedList="IconProgress" />
       <Bitmap guid="GuidImageRefresh" href="Integration\Images\IDE\refresh.bmp" usedList="IconRefresh" />
       <Bitmap guid="GuidImageRemoveRegion" href="Integration\Images\IDE\removeRegion.bmp" usedList="IconRemoveRegion" />
@@ -638,10 +638,6 @@
       <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" priority="0x0200">
-      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
-    </CommandPlacement>
-
     <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
     </CommandPlacement>
@@ -713,6 +709,10 @@
       <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
     </CommandPlacement>
@@ -772,10 +772,6 @@
       <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeConfiguration" id="CmdIDCodeMaidSpadeConfiguration" priority="0x0100">
-      <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
-    </CommandPlacement>
-
     <CommandPlacement guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0200">
       <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
@@ -788,6 +784,14 @@
       <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeOptions" id="CmdIDCodeMaidSpadeOptions" priority="0x0100">
+      <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" />
+    </CommandPlacement>
+
     <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0600">
       <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
     </CommandPlacement>
@@ -798,10 +802,6 @@
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0400">
       <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0400">
@@ -853,14 +853,14 @@
     <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" />
 
-    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandConfiguration" id="CmdIDCodeMaidConfiguration" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
-
     <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" />
 
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
+
+    <KeyBinding guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
 
     <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
@@ -1139,16 +1139,16 @@
       <IDSymbol name="CmdIDCodeMaidCommentFormat" value="0x1900" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandConfiguration" value="{56718f89-01d2-4405-99b5-4aa665af5947}">
-      <IDSymbol name="CmdIDCodeMaidConfiguration" value="0x2000" />
-    </GuidSymbol>
-
     <GuidSymbol name="GuidCodeMaidCommandFindInSolutionExplorer" value="{9e7a4c5b-5de4-418c-8ede-71fcfa4e811f}">
-      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2100" />
+      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2000" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandJoinLines" value="{7912f0a2-ada9-4888-9d2f-cde09cd310c6}">
-      <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2200" />
+      <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandOptions" value="{56718f89-01d2-4405-99b5-4aa665af5947}">
+      <IDSymbol name="CmdIDCodeMaidOptions" value="0x2200" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
@@ -1171,36 +1171,36 @@
       <IDSymbol name="CmdIDCodeMaidSortLines" value="0x2700" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSpadeConfiguration" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
-      <IDSymbol name="CmdIDCodeMaidSpadeConfiguration" value="0x2800" />
-    </GuidSymbol>
-
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextDelete" value="{d8312056-c902-4d26-9f12-b4bb60db0365}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2900" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextFindReferences" value="{9ed89f6a-ab37-487a-8beb-d3c586d76a47}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x3000" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2900" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextRemoveRegion" value="{502c000f-9afa-4c6a-af01-4d64d756733e}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3100" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3000" />
     </GuidSymbol>
 
-    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3200" />
-    </GuidSymbol>
-
-    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3300" />
-    </GuidSymbol>
-
-    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3400" />
+    <GuidSymbol name="GuidCodeMaidCommandSpadeOptions" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
+      <IDSymbol name="CmdIDCodeMaidSpadeOptions" value="0x3100" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3300" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
@@ -1227,9 +1227,6 @@
     <GuidSymbol name="GuidImageCommentFormat" value="{512526cf-2bb2-47fc-88af-dbd3678fe428}">
       <IDSymbol name="IconCommentFormat" value="1" />
     </GuidSymbol>
-    <GuidSymbol name="GuidImageConfig" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
-      <IDSymbol name="IconConfig" value="1" />
-    </GuidSymbol>
     <GuidSymbol name="GuidImageFind" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
       <IDSymbol name="IconFind" value="1" />
     </GuidSymbol>
@@ -1241,6 +1238,9 @@
     </GuidSymbol>
     <GuidSymbol name="GuidImageLock" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
       <IDSymbol name="IconLock" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageOptions" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
+      <IDSymbol name="IconOptions" value="1" />
     </GuidSymbol>
     <GuidSymbol name="GuidImageProgress" value="{57d334e8-69fb-4554-8632-3fd5be77e45e}">
       <IDSymbol name="IconProgress" value="1" />

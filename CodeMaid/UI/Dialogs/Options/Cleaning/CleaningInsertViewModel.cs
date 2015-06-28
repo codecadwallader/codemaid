@@ -24,9 +24,53 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningInsertViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningInsertViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningInsertViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterClasses, x => InsertBlankLinePaddingAfterClasses),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterDelegates, x => InsertBlankLinePaddingAfterDelegates),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterEndRegionTags, x => InsertBlankLinePaddingAfterEndRegionTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterEnumerations, x => InsertBlankLinePaddingAfterEnumerations),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterEvents, x => InsertBlankLinePaddingAfterEvents),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine, x => InsertBlankLinePaddingAfterFieldsMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterInterfaces, x => InsertBlankLinePaddingAfterInterfaces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterMethods, x => InsertBlankLinePaddingAfterMethods),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterNamespaces, x => InsertBlankLinePaddingAfterNamespaces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterProperties, x => InsertBlankLinePaddingAfterProperties),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterRegionTags, x => InsertBlankLinePaddingAfterRegionTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterStructs, x => InsertBlankLinePaddingAfterStructs),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks, x => InsertBlankLinePaddingAfterUsingStatementBlocks),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeCaseStatements, x => InsertBlankLinePaddingBeforeCaseStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeClasses, x => InsertBlankLinePaddingBeforeClasses),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeDelegates, x => InsertBlankLinePaddingBeforeDelegates),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags, x => InsertBlankLinePaddingBeforeEndRegionTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeEnumerations, x => InsertBlankLinePaddingBeforeEnumerations),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeEvents, x => InsertBlankLinePaddingBeforeEvents),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine, x => InsertBlankLinePaddingBeforeFieldsMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeInterfaces, x => InsertBlankLinePaddingBeforeInterfaces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeMethods, x => InsertBlankLinePaddingBeforeMethods),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeNamespaces, x => InsertBlankLinePaddingBeforeNamespaces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeProperties, x => InsertBlankLinePaddingBeforeProperties),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeRegionTags, x => InsertBlankLinePaddingBeforeRegionTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments, x => InsertBlankLinePaddingBeforeSingleLineComments),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeStructs, x => InsertBlankLinePaddingBeforeStructs),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks, x => InsertBlankLinePaddingBeforeUsingStatementBlocks),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors, x => InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets, x => InsertBlankSpaceBeforeSelfClosingAngleBrackets),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertEndOfFileTrailingNewLine, x => InsertEndOfFileTrailingNewLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnClasses, x => InsertExplicitAccessModifiersOnClasses),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnDelegates, x => InsertExplicitAccessModifiersOnDelegates),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnEnumerations, x => InsertExplicitAccessModifiersOnEnumerations),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnEvents, x => InsertExplicitAccessModifiersOnEvents),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnFields, x => InsertExplicitAccessModifiersOnFields),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnInterfaces, x => InsertExplicitAccessModifiersOnInterfaces),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnMethods, x => InsertExplicitAccessModifiersOnMethods),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnProperties, x => InsertExplicitAccessModifiersOnProperties),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertExplicitAccessModifiersOnStructs, x => InsertExplicitAccessModifiersOnStructs)
+            };
         }
 
         #endregion Constructors
@@ -39,100 +83,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Insert"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            InsertBlankLinePaddingAfterClasses = Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses;
-            InsertBlankLinePaddingAfterDelegates = Settings.Default.Cleaning_InsertBlankLinePaddingAfterDelegates;
-            InsertBlankLinePaddingAfterEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags;
-            InsertBlankLinePaddingAfterEnumerations = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations;
-            InsertBlankLinePaddingAfterEvents = Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
-            InsertBlankLinePaddingAfterFieldsMultiLine = Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
-            InsertBlankLinePaddingAfterInterfaces = Settings.Default.Cleaning_InsertBlankLinePaddingAfterInterfaces;
-            InsertBlankLinePaddingAfterMethods = Settings.Default.Cleaning_InsertBlankLinePaddingAfterMethods;
-            InsertBlankLinePaddingAfterNamespaces = Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces;
-            InsertBlankLinePaddingAfterProperties = Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties;
-            InsertBlankLinePaddingAfterRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags;
-            InsertBlankLinePaddingAfterStructs = Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs;
-            InsertBlankLinePaddingAfterUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks;
-            InsertBlankLinePaddingBeforeCaseStatements = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements;
-            InsertBlankLinePaddingBeforeClasses = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
-            InsertBlankLinePaddingBeforeDelegates = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates;
-            InsertBlankLinePaddingBeforeEndRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags;
-            InsertBlankLinePaddingBeforeEnumerations = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations;
-            InsertBlankLinePaddingBeforeEvents = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
-            InsertBlankLinePaddingBeforeFieldsMultiLine = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
-            InsertBlankLinePaddingBeforeInterfaces = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeInterfaces;
-            InsertBlankLinePaddingBeforeMethods = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeMethods;
-            InsertBlankLinePaddingBeforeNamespaces = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeNamespaces;
-            InsertBlankLinePaddingBeforeProperties = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
-            InsertBlankLinePaddingBeforeRegionTags = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
-            InsertBlankLinePaddingBeforeSingleLineComments = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments;
-            InsertBlankLinePaddingBeforeStructs = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs;
-            InsertBlankLinePaddingBeforeUsingStatementBlocks = Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks;
-            InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
-            InsertBlankSpaceBeforeSelfClosingAngleBrackets = Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets;
-            InsertEndOfFileTrailingNewLine = Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine;
-            InsertExplicitAccessModifiersOnClasses = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses;
-            InsertExplicitAccessModifiersOnDelegates = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates;
-            InsertExplicitAccessModifiersOnEnumerations = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations;
-            InsertExplicitAccessModifiersOnEvents = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents;
-            InsertExplicitAccessModifiersOnFields = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields;
-            InsertExplicitAccessModifiersOnInterfaces = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces;
-            InsertExplicitAccessModifiersOnMethods = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods;
-            InsertExplicitAccessModifiersOnProperties = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties;
-            InsertExplicitAccessModifiersOnStructs = Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses = InsertBlankLinePaddingAfterClasses;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterDelegates = InsertBlankLinePaddingAfterDelegates;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags = InsertBlankLinePaddingAfterEndRegionTags;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterEnumerations = InsertBlankLinePaddingAfterEnumerations;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents = InsertBlankLinePaddingAfterEvents;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine = InsertBlankLinePaddingAfterFieldsMultiLine;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterInterfaces = InsertBlankLinePaddingAfterInterfaces;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterMethods = InsertBlankLinePaddingAfterMethods;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterNamespaces = InsertBlankLinePaddingAfterNamespaces;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties = InsertBlankLinePaddingAfterProperties;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags = InsertBlankLinePaddingAfterRegionTags;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterStructs = InsertBlankLinePaddingAfterStructs;
-            Settings.Default.Cleaning_InsertBlankLinePaddingAfterUsingStatementBlocks = InsertBlankLinePaddingAfterUsingStatementBlocks;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements = InsertBlankLinePaddingBeforeCaseStatements;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses = InsertBlankLinePaddingBeforeClasses;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeDelegates = InsertBlankLinePaddingBeforeDelegates;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags = InsertBlankLinePaddingBeforeEndRegionTags;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEnumerations = InsertBlankLinePaddingBeforeEnumerations;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents = InsertBlankLinePaddingBeforeEvents;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine = InsertBlankLinePaddingBeforeFieldsMultiLine;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeInterfaces = InsertBlankLinePaddingBeforeInterfaces;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeMethods = InsertBlankLinePaddingBeforeMethods;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeNamespaces = InsertBlankLinePaddingBeforeNamespaces;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties = InsertBlankLinePaddingBeforeProperties;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags = InsertBlankLinePaddingBeforeRegionTags;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments = InsertBlankLinePaddingBeforeSingleLineComments;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeStructs = InsertBlankLinePaddingBeforeStructs;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBeforeUsingStatementBlocks = InsertBlankLinePaddingBeforeUsingStatementBlocks;
-            Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors = InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors;
-            Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets = InsertBlankSpaceBeforeSelfClosingAngleBrackets;
-            Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine = InsertEndOfFileTrailingNewLine;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses = InsertExplicitAccessModifiersOnClasses;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates = InsertExplicitAccessModifiersOnDelegates;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations = InsertExplicitAccessModifiersOnEnumerations;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents = InsertExplicitAccessModifiersOnEvents;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields = InsertExplicitAccessModifiersOnFields;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces = InsertExplicitAccessModifiersOnInterfaces;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods = InsertExplicitAccessModifiersOnMethods;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties = InsertExplicitAccessModifiersOnProperties;
-            Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs = InsertExplicitAccessModifiersOnStructs;
         }
 
         #endregion Overrides of OptionsPageViewModel

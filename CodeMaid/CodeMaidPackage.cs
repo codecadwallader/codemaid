@@ -47,7 +47,7 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.7.6.1 beta", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "v0.7.8 alpha", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
@@ -355,9 +355,9 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Called when a solution is closed.
+        /// Called when a solution is closed to conditionally show the start page.
         /// </summary>
-        private void OnSolutionClosed()
+        private void OnSolutionClosedShowStartPage()
         {
             if (!Settings.Default.General_ShowStartPageOnSolutionClose) return;
 
@@ -383,22 +383,22 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
                 _commands.Add(new CommentFormatCommand(this));
-                _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
+                _commands.Add(new OptionsCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new RemoveRegionCommand(this));
                 _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SettingCleanupOnSaveCommand(this));
                 _commands.Add(new SortLinesCommand(this));
-                _commands.Add(new SpadeConfigurationCommand(this));
                 _commands.Add(new SpadeContextDeleteCommand(this));
                 _commands.Add(new SpadeContextFindReferencesCommand(this));
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
+                _commands.Add(new SpadeOptionsCommand(this));
+                _commands.Add(new SpadeRefreshCommand(this));
                 _commands.Add(new SpadeSortOrderAlphaCommand(this));
                 _commands.Add(new SpadeSortOrderFileCommand(this));
                 _commands.Add(new SpadeSortOrderTypeCommand(this));
-                _commands.Add(new SpadeRefreshCommand(this));
                 _commands.Add(new SpadeToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
 
@@ -443,6 +443,7 @@ namespace SteveCadwallader.CodeMaid
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
                 var codeModelManager = CodeModelManager.GetInstance(this);
+                var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
@@ -459,7 +460,9 @@ namespace SteveCadwallader.CodeMaid
 
                 SolutionEventListener = new SolutionEventListener(this);
                 SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
-                SolutionEventListener.OnSolutionClosed += OnSolutionClosed;
+                SolutionEventListener.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
+                SolutionEventListener.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
+                SolutionEventListener.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
                 // Check if a solution has already been opened before CodeMaid was initialized.
                 if (IDE.Solution != null && IDE.Solution.IsOpen)

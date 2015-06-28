@@ -146,6 +146,7 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSetting.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
+    <Compile Include="Helpers\SettingsContextHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
@@ -193,13 +195,13 @@
     <Compile Include="Integration\Commands\CloseAllReadOnlyCommand.cs" />
     <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\ConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\OptionsCommand.cs" />
     <Compile Include="Integration\Commands\CommentFormatCommand.cs" />
     <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
     <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeOptionsCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
@@ -263,13 +265,15 @@
     <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
     <Compile Include="Model\CodeTree\CodeSortOrder.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Model\Comments\CodeCommentOptions.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
@@ -307,6 +311,9 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
     <Compile Include="UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
@@ -554,7 +561,7 @@
     <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
     <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
     <Resource Include="Integration\Images\IDE\collapse.bmp" />
-    <Resource Include="Integration\Images\IDE\config.bmp" />
+    <Resource Include="Integration\Images\IDE\options.bmp" />
     <Resource Include="Integration\Images\IDE\find.bmp" />
     <Resource Include="Integration\Images\IDE\info.bmp" />
     <Resource Include="Integration\Images\IDE\join.bmp" />

@@ -25,9 +25,23 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// Initializes a new instance of the <see cref="DiggingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public DiggingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public DiggingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_CenterOnWhole, x => CenterOnWhole),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_ComplexityAlertThreshold, x => ComplexityAlertThreshold),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_ComplexityWarningThreshold, x => ComplexityWarningThreshold),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Digging_IndentationMargin, x => IndentationMargin),
+                new SettingToOptionMapping<int, CodeSortOrder>(x => ActiveSettings.Digging_PrimarySortOrder, x => PrimarySortOrder),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SecondarySortTypeByName, x => SecondarySortTypeByName),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemComplexity, x => ShowItemComplexity),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemMetadata, x => ShowItemMetadata),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
+            };
         }
 
         #endregion Constructors
@@ -40,40 +54,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         public override string Header
         {
             get { return "Digging (Spade)"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            CenterOnWhole = Settings.Default.Digging_CenterOnWhole;
-            ComplexityAlertThreshold = Settings.Default.Digging_ComplexityAlertThreshold;
-            ComplexityWarningThreshold = Settings.Default.Digging_ComplexityWarningThreshold;
-            IndentationMargin = Settings.Default.Digging_IndentationMargin;
-            PrimarySortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
-            SecondarySortTypeByName = Settings.Default.Digging_SecondarySortTypeByName;
-            ShowItemComplexity = Settings.Default.Digging_ShowItemComplexity;
-            ShowItemMetadata = Settings.Default.Digging_ShowItemMetadata;
-            ShowMethodParameters = Settings.Default.Digging_ShowMethodParameters;
-            SynchronizeOutlining = Settings.Default.Digging_SynchronizeOutlining;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Digging_CenterOnWhole = CenterOnWhole;
-            Settings.Default.Digging_ComplexityAlertThreshold = ComplexityAlertThreshold;
-            Settings.Default.Digging_ComplexityWarningThreshold = ComplexityWarningThreshold;
-            Settings.Default.Digging_IndentationMargin = IndentationMargin;
-            Settings.Default.Digging_PrimarySortOrder = (int)PrimarySortOrder;
-            Settings.Default.Digging_SecondarySortTypeByName = SecondarySortTypeByName;
-            Settings.Default.Digging_ShowItemComplexity = ShowItemComplexity;
-            Settings.Default.Digging_ShowItemMetadata = ShowItemMetadata;
-            Settings.Default.Digging_ShowMethodParameters = ShowMethodParameters;
-            Settings.Default.Digging_SynchronizeOutlining = SynchronizeOutlining;
         }
 
         #endregion Overrides of OptionsPageViewModel

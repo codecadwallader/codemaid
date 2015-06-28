@@ -24,9 +24,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
         /// Initializes a new instance of the <see cref="SwitchingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public SwitchingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public SwitchingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Switching_RelatedFileExtensionsExpression, x => RelatedFileExtensionsExpression)
+            };
         }
 
         #endregion Constructors
@@ -39,22 +44,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
         public override string Header
         {
             get { return "Switching"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            RelatedFileExtensionsExpression = Settings.Default.Switching_RelatedFileExtensionsExpression;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Switching_RelatedFileExtensionsExpression = RelatedFileExtensionsExpression;
         }
 
         #endregion Overrides of OptionsPageViewModel

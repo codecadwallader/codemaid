@@ -25,9 +25,23 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// Initializes a new instance of the <see cref="GeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public GeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public GeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_CacheFiles, x => CacheFiles),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_DiagnosticsMode, x => DiagnosticsMode),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.General_Font, x => Font),
+                new SettingToOptionMapping<int, IconSetMode>(x => ActiveSettings.General_IconSet, x => IconSetMode),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_LoadModelsAsynchronously, x => LoadModelsAsynchronously),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_Multithread, x => Multithread),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<int, ThemeMode>(x => ActiveSettings.General_Theme, x => ThemeMode),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_UseUndoTransactions, x => UseUndoTransactions)
+            };
         }
 
         #endregion Constructors
@@ -40,40 +54,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public override string Header
         {
             get { return "General"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            CacheFiles = Settings.Default.General_CacheFiles;
-            DiagnosticsMode = Settings.Default.General_DiagnosticsMode;
-            Font = Settings.Default.General_Font;
-            IconSetMode = (IconSetMode)Settings.Default.General_IconSet;
-            LoadModelsAsynchronously = Settings.Default.General_LoadModelsAsynchronously;
-            Multithread = Settings.Default.General_Multithread;
-            ShowStartPageOnSolutionClose = Settings.Default.General_ShowStartPageOnSolutionClose;
-            SkipUndoTransactionsDuringAutoCleanupOnSave = Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave;
-            ThemeMode = (ThemeMode)Settings.Default.General_Theme;
-            UseUndoTransactions = Settings.Default.General_UseUndoTransactions;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.General_CacheFiles = CacheFiles;
-            Settings.Default.General_DiagnosticsMode = DiagnosticsMode;
-            Settings.Default.General_Font = Font;
-            Settings.Default.General_IconSet = (int)IconSetMode;
-            Settings.Default.General_LoadModelsAsynchronously = LoadModelsAsynchronously;
-            Settings.Default.General_Multithread = Multithread;
-            Settings.Default.General_ShowStartPageOnSolutionClose = ShowStartPageOnSolutionClose;
-            Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave = SkipUndoTransactionsDuringAutoCleanupOnSave;
-            Settings.Default.General_Theme = (int)ThemeMode;
-            Settings.Default.General_UseUndoTransactions = UseUndoTransactions;
         }
 
         #endregion Overrides of OptionsPageViewModel

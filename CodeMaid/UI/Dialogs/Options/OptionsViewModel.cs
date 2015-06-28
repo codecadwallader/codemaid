@@ -25,10 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 {
@@ -37,6 +36,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
     /// </summary>
     public class OptionsViewModel : Bindable
     {
+        #region Fields
+
+        private readonly SettingsContextHelper _settingsContextHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -46,46 +51,85 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
         public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
+            _settingsContextHelper = SettingsContextHelper.GetInstance(package);
+
+            ActiveSettings = (Settings)SettingsBase.Synchronized(new Settings());
+            IsActiveSolutionSpecificSettings = _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings);
+
             Package = package;
             Pages = new OptionsPageViewModel[]
                         {
-                            new GeneralViewModel(package),
-                            new CleaningParentViewModel(package)
+                            new GeneralViewModel(package, ActiveSettings),
+                            new CleaningParentViewModel(package, ActiveSettings)
                                 {
                                     Children = new OptionsPageViewModel[]
                                     {
-                                        new CleaningGeneralViewModel(package),
-                                        new CleaningFileTypesViewModel(package),
-                                        new CleaningVisualStudioViewModel(package),
-                                        new CleaningInsertViewModel(package),
-                                        new CleaningRemoveViewModel(package),
-                                        new CleaningUpdateViewModel(package)
+                                        new CleaningGeneralViewModel(package, ActiveSettings),
+                                        new CleaningFileTypesViewModel(package, ActiveSettings),
+                                        new CleaningVisualStudioViewModel(package, ActiveSettings),
+                                        new CleaningInsertViewModel(package, ActiveSettings),
+                                        new CleaningRemoveViewModel(package, ActiveSettings),
+                                        new CleaningUpdateViewModel(package, ActiveSettings)
                                     }
                                 },
-                            new CollapsingViewModel(package),
-                            new DiggingViewModel(package),
-                            new FindingViewModel(package),
-                            new FormattingViewModel(package),
-                            new ProgressingViewModel(package),
-                            new ReorganizingParentViewModel(package)
+                            new CollapsingViewModel(package, ActiveSettings),
+                            new DiggingViewModel(package, ActiveSettings),
+                            new FindingViewModel(package, ActiveSettings),
+                            new FormattingViewModel(package, ActiveSettings),
+                            new ProgressingViewModel(package, ActiveSettings),
+                            new ReorganizingParentViewModel(package, ActiveSettings)
                             {
                                 Children = new OptionsPageViewModel[]
                                 {
-                                    new ReorganizingGeneralViewModel(package),
-                                    new ReorganizingTypesViewModel(package),
-                                    new ReorganizingRegionsViewModel(package)
+                                    new ReorganizingGeneralViewModel(package, ActiveSettings),
+                                    new ReorganizingTypesViewModel(package, ActiveSettings),
+                                    new ReorganizingRegionsViewModel(package, ActiveSettings)
                                 }
                             },
-                            new SwitchingViewModel(package),
-                            new ThirdPartyViewModel(package)
+                            new SwitchingViewModel(package, ActiveSettings),
+                            new ThirdPartyViewModel(package, ActiveSettings)
                         };
 
             SelectedPage = Pages.Flatten().FirstOrDefault(x => x.GetType() == (initiallySelectedPageType ?? typeof(GeneralViewModel)));
+
+            ReloadPagesFromSettings();
         }
 
         #endregion Constructors
 
         #region Properties
+
+        /// <summary>
+        /// Gets the active settings to be used throughout options.
+        /// </summary>
+        public Settings ActiveSettings
+        {
+            get { return GetPropertyValue<Settings>(); }
+            private set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets a name describing the active settings.
+        /// </summary>
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string ActiveSettingsName
+        {
+            get { return GetSettingsName(false); }
+        }
+
+        /// <summary>
+        /// Gets the path to the active settings file.
+        /// </summary>
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string ActiveSettingsPath
+        {
+            get
+            {
+                return IsActiveSolutionSpecificSettings
+                    ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
+                    : SettingsContextHelper.GetUserSettingsPath();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the dialog result.
@@ -109,6 +153,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     SaveCommand.RaiseCanExecuteChanged();
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets a name describing the inactive settings.
+        /// </summary>
+        [NotifiesOn("IsActiveSolutionSpecificSettings")]
+        public string InactiveSettingsName
+        {
+            get { return GetSettingsName(true); }
+        }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if solution-specific settings are active.
+        /// </summary>
+        public bool IsActiveSolutionSpecificSettings
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         private IEnumerable<OptionsPageViewModel> _pages;
@@ -173,33 +235,34 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnExportCommandExecuted(object parameter)
         {
-            // Always save first, forcing the configuration file to be created if it does not exist yet.
-            Save();
+            if (CheckToSavePendingChangesShouldCancelOperation())
+            {
+                return;
+            }
 
-            // Prompt the user for the settings file name and location.
+            var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
                              {
-                                 Title = "CodeMaid: Export Settings",
+                                 Title = "CodeMaid: Export " + activeSettingsName,
                                  FileName = "CodeMaid",
-                                 DefaultExt = ".settings",
-                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*"
+                                 DefaultExt = ".config",
+                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*"
                              };
 
             if (dialog.ShowDialog() == true)
             {
                 try
                 {
-                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                    config.SaveAs(dialog.FileName, ConfigurationSaveMode.Full, true);
+                    File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully exported settings to '{0}'.", dialog.FileName),
-                                    "CodeMaid: Export Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format("CodeMaid has successfully exported " + activeSettingsName + " to '{0}'.", dialog.FileName),
+                                    "CodeMaid: Export " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to export settings", ex);
-                    MessageBox.Show("CodeMaid was unable to export settings.  See output window for more details.",
-                                    "CodeMaid: Export Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to export " + activeSettingsName, ex);
+                    MessageBox.Show("CodeMaid was unable to export " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Export " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -224,12 +287,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnImportCommandExecuted(object parameter)
         {
-            // Prompt the user for the settings file to import.
+            if (CheckToSavePendingChangesShouldCancelOperation())
+            {
+                return;
+            }
+
+            var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
                              {
-                                 Title = "CodeMaid: Import Settings",
-                                 DefaultExt = ".settings",
-                                 Filter = "Settings files (*.settings)|*.settings|All Files (*.*)|*.*",
+                                 Title = "CodeMaid: Import " + activeSettingsName,
+                                 DefaultExt = ".config",
+                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*",
                                  CheckFileExists = true
                              };
 
@@ -237,33 +305,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             {
                 try
                 {
-                    // Always save first, forcing the configuration file to be created if it does
-                    // not exist yet.
-                    Save();
+                    File.Copy(dialog.FileName, ActiveSettingsPath, true);
 
-                    var sectionName = Settings.Default.Context["GroupName"].ToString();
-                    var xDocument = XDocument.Load(dialog.FileName);
-                    var settings = xDocument.XPathSelectElements("//" + sectionName);
+                    RefreshPackageSettings();
 
-                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                    config.GetSectionGroup("userSettings")
-                          .Sections[sectionName]
-                          .SectionInformation
-                          .SetRawXml(settings.Single().ToString());
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("userSettings");
-
-                    Settings.Default.Reload();
+                    ActiveSettings.Reload();
                     ReloadPagesFromSettings();
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully imported settings from '{0}'.", dialog.FileName),
-                                    "CodeMaid: Import Settings Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format("CodeMaid has successfully imported " + activeSettingsName + " from '{0}'.", dialog.FileName),
+                                    "CodeMaid: Import " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to import settings", ex);
-                    MessageBox.Show("CodeMaid was unable to import settings.  See output window for more details.",
-                                    "CodeMaid: Import Settings Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine("Unable to import " + activeSettingsName, ex);
+                    MessageBox.Show("CodeMaid was unable to import " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Import " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -288,19 +344,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
-            var result = MessageBox.Show(@"Are you sure you want all settings to be reset to their defaults?" + Environment.NewLine +
+            var activeSettingsName = ActiveSettingsName;
+            var result = MessageBox.Show(@"Are you sure you want all " + activeSettingsName + " to be reset to their defaults?" + Environment.NewLine + Environment.NewLine +
                                          @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation For Reset All Settings",
+                                         @"CodeMaid: Confirmation for Reset " + activeSettingsName,
                                          MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
             if (result == MessageBoxResult.Yes)
             {
-                Settings.Default.Reset();
+                try
+                {
+                    File.Delete(ActiveSettingsPath);
 
-                // Save is redundant, but used to trigger external events.
-                Settings.Default.Save();
+                    RefreshPackageSettings();
 
-                ReloadPagesFromSettings();
+                    ActiveSettings.Reload();
+                    ReloadPagesFromSettings();
+
+                    MessageBox.Show(string.Format("CodeMaid has successfully reset " + activeSettingsName + "."),
+                                    "CodeMaid: Reset " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    OutputWindowHelper.ExceptionWriteLine("Unable to reset " + ActiveSettingsName, ex);
+                    MessageBox.Show("CodeMaid was unable to reset " + activeSettingsName + ".  See output window for more details.",
+                                    "CodeMaid: Reset " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -348,7 +417,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 optionsPageViewModel.SaveSettings();
             }
 
-            Settings.Default.Save();
+            ActiveSettings.Save();
+
+            RefreshPackageSettings();
+
             HasChanges = false;
         }
 
@@ -377,7 +449,93 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
         #endregion Cancel Command
 
+        #region SwitchSettings Command
+
+        private DelegateCommand _switchSettingsCommand;
+
+        /// <summary>
+        /// Gets the switch settings command.
+        /// </summary>
+        public DelegateCommand SwitchSettingsCommand
+        {
+            get { return _switchSettingsCommand ?? (_switchSettingsCommand = new DelegateCommand(OnSwitchSettingsCommandExecuted, OnSwitchSettingsCommandCanExecute)); }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SwitchSettingsCommand" /> needs to determine if it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>True if the command can execute, otherwise false.</returns>
+        private bool OnSwitchSettingsCommandCanExecute(object parameter)
+        {
+            return IsActiveSolutionSpecificSettings || Package.IDE.Solution.IsOpen;
+        }
+
+        /// <summary>
+        /// Called when the <see cref="SwitchSettingsCommand" /> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnSwitchSettingsCommandExecuted(object parameter)
+        {
+            if (CheckToSavePendingChangesShouldCancelOperation())
+            {
+                return;
+            }
+
+            if (IsActiveSolutionSpecificSettings)
+            {
+                _settingsContextHelper.UnloadSolutionSpecificSettings(ActiveSettings);
+                IsActiveSolutionSpecificSettings = false;
+            }
+            else
+            {
+                _settingsContextHelper.LoadSolutionSpecificSettings(ActiveSettings, true);
+                IsActiveSolutionSpecificSettings = true;
+            }
+
+            ReloadPagesFromSettings();
+        }
+
+        #endregion SwitchSettings Command
+
         #region Methods
+
+        /// <summary>
+        /// Checks if there are pending changes to be saved, conditionally prompts the user, saves
+        /// if requested and returns if the user asked to cancel the operation.
+        /// </summary>
+        /// <returns>True if the operation should be canceled, otherwise false.</returns>
+        private bool CheckToSavePendingChangesShouldCancelOperation()
+        {
+            if (HasChanges)
+            {
+                var result = MessageBox.Show(@"You have pending changes.  Do you want to save them before continuing?",
+                    @"CodeMaid: Confirmation to Save Pending Changes",
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Save();
+                        break;
+
+                    case MessageBoxResult.Cancel:
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the active or inactive settings name depending on the specified inactive flag.
+        /// </summary>
+        /// <param name="inactive">A flag indicating if the inactive settings name is desired.</param>
+        /// <returns>The active or inactive settings name.</returns>
+        private string GetSettingsName(bool inactive)
+        {
+            return IsActiveSolutionSpecificSettings ^ inactive ? "Solution-Specific Settings" : "User Settings";
+        }
 
         /// <summary>
         /// Called when a page has raised a PropertyChanged event.
@@ -390,6 +548,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             HasChanges = true;
+        }
+
+        /// <summary>
+        /// Refreshes the default/package settings which are used throughout CodeMaid.
+        /// </summary>
+        /// <remarks>
+        /// Reload is followed by a Save to trigger external event listeners.
+        /// </remarks>
+        private void RefreshPackageSettings()
+        {
+            Settings.Default.Reload();
+            Settings.Default.Save();
         }
 
         /// <summary>

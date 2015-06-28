@@ -9,6 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 {
     /// <summary>
@@ -22,8 +24,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingParentViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingParentViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingParentViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
         }
 
@@ -37,20 +40,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public override string Header
         {
             get { return "Reorganizing"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
         }
 
         #endregion Overrides of OptionsPageViewModel
