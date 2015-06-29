@@ -38,16 +38,14 @@
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <DockPanel x:Name="ActiveSettingsDockPanel">
-                        <Button x:Name="SwitchSettingsButton"
-                                DockPanel.Dock="Right"
+                        <Button DockPanel.Dock="Right"
                                 Command="{Binding SwitchSettingsCommand}"
                                 Content="{Binding InactiveSettingsName}"
                                 ContentStringFormat="Switch to {0}"
                                 Style="{StaticResource ButtonDialog}"
                                 Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
 
-                        <TextBlock x:Name="ActiveSettingsTextBlock"
-                                   FontSize="18"
+                        <TextBlock FontSize="18"
                                    FontWeight="Bold"
                                    Foreground="White"
                                    Margin="5"
