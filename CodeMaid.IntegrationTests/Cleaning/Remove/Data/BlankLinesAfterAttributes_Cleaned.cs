@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
 {
@@ -18,6 +19,21 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Remove.Data
         [Category("Some category")]
         public void MultipleAttributeMethod()
         {
+            // Oddly formatted, but legal arrays should be left intact.
+            int[]
+
+                intArray =
+                    new int[5]
+
+                ;
+
+            // Multi-line strings with right brackets should be left intact.
+            Console.Write(@"
+Line 1]
+
+Line 2]
+
+");
         }
     }
 }
