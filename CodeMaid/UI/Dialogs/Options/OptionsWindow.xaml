@@ -51,9 +51,7 @@
                                    FontWeight="Bold"
                                    Foreground="White"
                                    Margin="5"
-                                   Text="{Binding ActiveSettingsName}"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" />
+                                   Text="{Binding ActiveSettingsName}" />
                     </DockPanel>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="False">
