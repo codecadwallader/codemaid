@@ -558,7 +558,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </remarks>
         private void RefreshPackageSettings()
         {
-            Settings.Default.Reload();
+            // Explicitly try to reload solution-specific settings in case they were newly created.
+            if (!_settingsContextHelper.LoadSolutionSpecificSettings(Settings.Default))
+            {
+                Settings.Default.Reload();
+            }
+
             Settings.Default.Save();
         }
 
