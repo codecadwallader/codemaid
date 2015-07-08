@@ -216,6 +216,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "JScript":
                 case "JSON":
                 case "LESS":
+                case "Node.js":
                 case "PHP":
                 case "SCSS":
                 case "TypeScript":

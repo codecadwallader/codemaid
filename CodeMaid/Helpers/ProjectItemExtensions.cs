@@ -21,6 +21,30 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class ProjectItemExtensions
     {
         /// <summary>
+        /// Attempts to retrieve the parent project item for the specified project item.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>The parent project item, otherwise null.</returns>
+        internal static ProjectItem GetParentProjectItem(this ProjectItem projectItem)
+        {
+            try
+            {
+                if (projectItem.Collection == null)
+                {
+                    return null;
+                }
+
+                var parentProjectItem = projectItem.Collection.Parent as ProjectItem;
+                return parentProjectItem;
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.ExceptionWriteLine("Unable to retrieve parent ProjectItem", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Determines if the specified project item is external to the solution.
         /// </summary>
         /// <param name="projectItem">The project item.</param>

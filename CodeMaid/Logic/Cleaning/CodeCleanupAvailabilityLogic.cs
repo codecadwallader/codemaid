@@ -214,7 +214,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "HTML":
                 case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
                 case "JavaScript":
-                case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "JScript":
+                case "Node.js": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "JSON": return Settings.Default.Cleaning_IncludeJSON;
                 case "LESS": return Settings.Default.Cleaning_IncludeLESS;
                 case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
@@ -288,9 +289,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
-            if (projectItem == null || projectItem.Collection == null) return false;
+            if (projectItem == null) return false;
 
-            var parentProjectItem = projectItem.Collection.Parent as ProjectItem;
+            var parentProjectItem = projectItem.GetParentProjectItem();
             if (parentProjectItem == null) return false;
 
             var extension = GetProjectItemExtension(parentProjectItem);
