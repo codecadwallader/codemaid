@@ -48,7 +48,7 @@
                         <TextBlock FontSize="18"
                                    FontWeight="Bold"
                                    Foreground="White"
-                                   Margin="5"
+                                   Margin="10"
                                    Text="{Binding ActiveSettingsName}" />
                     </DockPanel>
                     <DataTemplate.Triggers>

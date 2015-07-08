@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -106,6 +107,13 @@ namespace SteveCadwallader.CodeMaid
             if (Application.Current != null)
             {
                 Application.Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            }
+
+            // If an existing user settings file cannot be found, perform a one-time settings upgrade.
+            if (!File.Exists(SettingsContextHelper.GetUserSettingsPath()))
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.Save();
             }
         }
 
