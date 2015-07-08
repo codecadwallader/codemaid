@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             base.Content = new SpadeView { DataContext = _viewModel };
 
             // Register for changes to settings.
-            Settings.Default.SettingsSaving += (sender, args) => OnSettingsSave();
+            Settings.Default.SettingsLoaded += (sender, args) => OnSettingsLoad();
         }
 
         #endregion Constructors
@@ -277,9 +277,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// An event handler called when settings are saved.
+        /// An event handler called when settings are loaded.
         /// </summary>
-        private void OnSettingsSave()
+        private void OnSettingsLoad()
         {
             _viewModel.SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
             Refresh();

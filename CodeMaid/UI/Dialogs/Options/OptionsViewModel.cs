@@ -554,7 +554,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Refreshes the default/package settings which are used throughout CodeMaid.
         /// </summary>
         /// <remarks>
-        /// Reload is followed by a Save to trigger external event listeners.
+        /// Reload is followed by a Save to maintain the presence of a file even when empty.
         /// </remarks>
         private void RefreshPackageSettings()
         {
