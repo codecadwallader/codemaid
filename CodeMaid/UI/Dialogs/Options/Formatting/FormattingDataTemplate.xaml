@@ -30,7 +30,7 @@
                 <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="Preview" VerticalAlignment="Stretch">
+            <GroupBox Header="Preview (reopen to refresh)">
                 <TextBox FontFamily="{Binding CommentPreviewTextFont}"
                          Foreground="{Binding CommentPreviewTextForeground}"
                          Background="{Binding CommentPreviewTextBackground}"
