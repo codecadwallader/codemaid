@@ -216,8 +216,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
         private bool ShouldBeSeparatedByNewLine(BaseCodeItem firstItem, BaseCodeItem secondItem)
         {
-            return _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
-                   _insertBlankLinePaddingLogic.ShouldInstanceBePrecededByBlankLine(secondItem);
+            return _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(firstItem) ||
+                   _insertBlankLinePaddingLogic.ShouldBePrecededByBlankLine(secondItem);
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (itemToMove == baseItem) return;
 
-            bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(itemToMove);
+            bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(itemToMove);
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 
