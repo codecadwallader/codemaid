@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public const uint CmdIDCodeMaidSpadeOptions = 0x3100;
         public const uint CmdIDCodeMaidSpadeRefresh = 0x3200;
         public const uint CmdIDCodeMaidSpadeSortOrderAlpha = 0x3300;
-        public const uint CmdIDCodeMaidSpadeSortOrderFile = 0x3500;
+        public const uint CmdIDCodeMaidSpadeSortOrderFile = 0x3400;
         public const uint CmdIDCodeMaidSpadeSortOrderType = 0x3500;
         public const uint CmdIDCodeMaidSpadeToolWindow = 0x3600;
         public const uint CmdIDCodeMaidSwitchFile = 0x3700;
