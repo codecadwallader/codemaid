@@ -275,7 +275,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
             var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
             var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
-            var fieldsWithComments = fields.Where(x => x.StartPoint.Line < x.EndPoint.Line).ToList();
 
             // Perform removal cleanup.
             _removeRegionLogic.RemoveRegionsPerSettings(regions);
@@ -314,8 +313,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fieldsWithComments);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fieldsWithComments);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fields);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fields);
 
             _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
             _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);

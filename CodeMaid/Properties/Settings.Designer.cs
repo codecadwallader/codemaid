@@ -178,7 +178,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_IncludePHP"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -350,12 +350,27 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingAfterProperties {
+        public bool Cleaning_InsertBlankLinePaddingAfterPropertiesMultiLine {
             get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterProperties"]));
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterPropertiesMultiLine"]));
             }
             set {
-                this["Cleaning_InsertBlankLinePaddingAfterProperties"] = value;
+                this["Cleaning_InsertBlankLinePaddingAfterPropertiesMultiLine"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingAfterPropertiesSingleLine
+        {
+            get
+            {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterPropertiesSingleLine"]));
+            }
+            set
+            {
+                this["Cleaning_InsertBlankLinePaddingAfterPropertiesSingleLine"] = value;
             }
         }
         
@@ -518,12 +533,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_InsertBlankLinePaddingBeforeProperties {
+        public bool Cleaning_InsertBlankLinePaddingBeforePropertiesMultiLine {
             get {
-                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeProperties"]));
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforePropertiesMultiLine"]));
             }
             set {
-                this["Cleaning_InsertBlankLinePaddingBeforeProperties"] = value;
+                this["Cleaning_InsertBlankLinePaddingBeforePropertiesMultiLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingBeforePropertiesSingleLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforePropertiesSingleLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforePropertiesSingleLine"] = value;
             }
         }
         

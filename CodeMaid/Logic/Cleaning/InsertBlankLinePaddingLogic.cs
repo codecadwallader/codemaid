@@ -66,63 +66,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="codeItem">The code item.</param>
         /// <returns>True if code item should be preceded by a blank line, otherwise false.</returns>
-        internal bool ShouldInstanceBePrecededByBlankLine(BaseCodeItem codeItem)
+        internal bool ShouldBePrecededByBlankLine(BaseCodeItem codeItem)
         {
             if (codeItem == null)
             {
                 return false;
             }
 
-            bool shouldKindBePrecededByBlankLine = ShouldKindBePrecededByBlankLine(codeItem.Kind);
-
-            if (shouldKindBePrecededByBlankLine)
-            {
-                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
-                {
-                    return false;
-                }
-            }
-
-            return shouldKindBePrecededByBlankLine;
-        }
-
-        /// <summary>
-        /// Determines if the specified code item instance should be followed by a blank line.
-        /// Defaults to false for unknown kinds or null objects.
-        /// </summary>
-        /// <param name="codeItem">The code item.</param>
-        /// <returns>True if code item should be followed by a blank line, otherwise false.</returns>
-        internal bool ShouldInstanceBeFollowedByBlankLine(BaseCodeItem codeItem)
-        {
-            if (codeItem == null)
-            {
-                return false;
-            }
-
-            bool shouldKindBeFollowedByBlankLine = ShouldKindBeFollowedByBlankLine(codeItem.Kind);
-
-            if (shouldKindBeFollowedByBlankLine)
-            {
-                if (codeItem.Kind == KindCodeItem.Field && codeItem.StartPoint.Line == codeItem.EndPoint.Line)
-                {
-                    return false;
-                }
-            }
-
-            return shouldKindBeFollowedByBlankLine;
-        }
-
-        /// <summary>
-        /// Determines if the specified kind of code item should generally be preceded by a blank
-        /// line. Exceptions may apply at the instance level. Defaults to false for unknown kinds.
-        /// </summary>
-        /// <param name="kindCodeItem">The kind of code item.</param>
-        /// <returns>
-        /// True if kind of code item should be preceded by a blank line, otherwise false.
-        /// </returns>
-        internal bool ShouldKindBePrecededByBlankLine(KindCodeItem kindCodeItem)
-        {
-            switch (kindCodeItem)
+            switch (codeItem.Kind)
             {
                 case KindCodeItem.Class:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeClasses;
@@ -137,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
 
                 case KindCodeItem.Field:
-                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
+                    return codeItem.IsMultiLine && Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
 
                 case KindCodeItem.Interface:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeInterfaces;
@@ -152,7 +103,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
                 case KindCodeItem.Indexer:
                 case KindCodeItem.Property:
-                    return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeProperties;
+                    return codeItem.IsMultiLine
+                        ? Settings.Default.Cleaning_InsertBlankLinePaddingBeforePropertiesMultiLine
+                        : Settings.Default.Cleaning_InsertBlankLinePaddingBeforePropertiesSingleLine;
 
                 case KindCodeItem.Region:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags;
@@ -169,16 +122,19 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         }
 
         /// <summary>
-        /// Determines if the specified kind of code item should generally be followed by a blank
-        /// line. Exceptions may apply at the instance level. Defaults to false for unknown kinds.
+        /// Determines if the specified code item instance should be followed by a blank line.
+        /// Defaults to false for unknown kinds or null objects.
         /// </summary>
-        /// <param name="kindCodeItem">The kind of code item.</param>
-        /// <returns>
-        /// True if kind of code item should be followed by a blank line, otherwise false.
-        /// </returns>
-        internal bool ShouldKindBeFollowedByBlankLine(KindCodeItem kindCodeItem)
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>True if code item should be followed by a blank line, otherwise false.</returns>
+        internal bool ShouldBeFollowedByBlankLine(BaseCodeItem codeItem)
         {
-            switch (kindCodeItem)
+            if (codeItem == null)
+            {
+                return false;
+            }
+
+            switch (codeItem.Kind)
             {
                 case KindCodeItem.Class:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterClasses;
@@ -193,7 +149,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
 
                 case KindCodeItem.Field:
-                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
+                    return codeItem.IsMultiLine && Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
 
                 case KindCodeItem.Interface:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterInterfaces;
@@ -208,7 +164,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
                 case KindCodeItem.Indexer:
                 case KindCodeItem.Property:
-                    return Settings.Default.Cleaning_InsertBlankLinePaddingAfterProperties;
+                    return codeItem.IsMultiLine
+                        ? Settings.Default.Cleaning_InsertBlankLinePaddingAfterPropertiesMultiLine
+                        : Settings.Default.Cleaning_InsertBlankLinePaddingAfterPropertiesSingleLine;
 
                 case KindCodeItem.Region:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags;
@@ -300,7 +258,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingBeforeCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
-            foreach (T codeElement in codeElements.Where(ShouldInstanceBePrecededByBlankLine))
+            foreach (T codeElement in codeElements.Where(ShouldBePrecededByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineBeforePoint(codeElement.StartPoint);
             }
@@ -314,7 +272,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingAfterCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
-            foreach (T codeElement in codeElements.Where(ShouldInstanceBeFollowedByBlankLine))
+            foreach (T codeElement in codeElements.Where(ShouldBeFollowedByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineAfterPoint(codeElement.EndPoint);
             }

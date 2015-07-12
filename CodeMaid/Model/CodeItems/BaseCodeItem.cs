@@ -64,6 +64,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public virtual EditPoint EndPoint { get; set; }
 
+        /// <summary>
+        /// Gets a flag indicating if this is a code item that spans multiple lines.
+        /// </summary>
+        public bool IsMultiLine
+        {
+            get { return StartPoint != null && EndPoint != null && StartPoint.Line != EndPoint.Line; }
+        }
+
         #endregion Properties
 
         #region Methods
