@@ -39,6 +39,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// </summary>
         public static NameParametersToTextBlockConverter WithParameters = new NameParametersToTextBlockConverter { IncludeParameters = true };
 
+        /// <summary>
+        /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items.
+        /// </summary>
         public static NameParametersToTextBlockConverter Parent = new NameParametersToTextBlockConverter
         {
             FontSize = 14,
@@ -46,6 +49,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             FontWeight = FontWeights.SemiBold
         };
 
+        /// <summary>
+        /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items with parameters.
+        /// </summary>
         public static NameParametersToTextBlockConverter ParentWithParams = new NameParametersToTextBlockConverter
         {
             FontSize = 14,
@@ -68,14 +74,35 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// </summary>
         public bool IncludeParameters { get; set; }
 
+        /// <summary>
+        /// Gets or sets the size of the font.
+        /// </summary>
+        /// <value>
+        /// The size of the font.
+        /// </value>
         public int FontSize { get; set; }
 
+        /// <summary>
+        /// Gets or sets the font weight.
+        /// </summary>
+        /// <value>
+        /// The font weight.
+        /// </value>
         public FontWeight FontWeight { get; set; }
 
+        /// <summary>
+        /// Gets or sets the font style.
+        /// </summary>
+        /// <value>
+        /// The font style.
+        /// </value>
         public FontStyle FontStyle { get; set; }
 
         #endregion Properties
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NameParametersToTextBlockConverter"/> class.
+        /// </summary>
         public NameParametersToTextBlockConverter()
         {
             FontWeight = FontWeights.Normal;
@@ -101,6 +128,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var highlightedText = values[1] as string;
 
             var textBlock = new TextBlock {FontSize = FontSize};
+            // if we have a filter perform searching of it for highlighting.
             if (!string.IsNullOrEmpty(highlightedText))
             {
                 var lastIndexOf = 0;
@@ -128,12 +156,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 }
 
             }
+            // else just display the name of the item
             else
             {
                 textBlock.Inlines.Add(codeItem.Name);
             }
 
             var codeItemWithParams = codeItem as ICodeItemParameters;
+            // if our item has parameters display them with italic font style
             if (codeItemWithParams != null && IncludeParameters)
             {
                 var opener = GetOpeningString(codeItemWithParams);
@@ -183,11 +213,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             return textBlock;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            return new[] {Binding.DoNothing, Binding.DoNothing};
-        }
-
         ///// <summary>
         ///// Converts a value.
         ///// </summary>
@@ -196,10 +221,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         ///// <param name="parameter">The converter parameter to use.</param>
         ///// <param name="culture">The culture to use in the converter.</param>
         ///// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        //public object[] ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            return new[] {Binding.DoNothing, Binding.DoNothing};
+        }
 
         #endregion Implementation of IValueConverter
 
