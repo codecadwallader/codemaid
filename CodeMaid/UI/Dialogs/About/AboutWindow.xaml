@@ -1,15 +1,15 @@
-<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.About.AboutWindow"
+<platformUi:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.About.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
+        xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.12.0"
         Width="878" Height="264"
         HasDialogFrame="False" ResizeMode="NoResize" ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         KeyDown="OnKeyDown" MouseLeftButtonDown="OnMouseLeftButtonDown">
-    <platformUI:DialogWindow.Background>
+    <platformUi:DialogWindow.Background>
         <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Integration/Images/about.png" />
-    </platformUI:DialogWindow.Background>
-    <platformUI:DialogWindow.Resources>
+    </platformUi:DialogWindow.Background>
+    <platformUi:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
@@ -60,7 +60,7 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-    </platformUI:DialogWindow.Resources>
+    </platformUi:DialogWindow.Resources>
 
     <Canvas>
         <Button Canvas.Left="456" Canvas.Top="142" Height="16" Width="229" Style="{StaticResource underlineLinkButton}"
@@ -87,4 +87,4 @@
         <Button Canvas.Left="790" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnEmailLinkClick" ToolTip="E-mail" />
     </Canvas>
-</platformUI:DialogWindow>
+</platformUi:DialogWindow>

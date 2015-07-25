@@ -21,9 +21,12 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using Microsoft.Internal.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.PlatformUI;
 using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
@@ -42,6 +45,16 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private Document _document;
         private bool _isVisible;
+
+        public override bool SearchEnabled
+        {
+            get { return true; }
+        }
+
+        public override IVsEnumWindowSearchOptions SearchOptionsEnum
+        {
+            get { return base.SearchOptionsEnum; }
+        }
 
         #endregion Fields
 
@@ -342,6 +355,58 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             return VSConstants.S_OK;
         }
 
+        public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+        {
+            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, this);
+        }
+
+        public override void ClearSearch()
+        {
+            _viewModel.NameFilter = null;
+            ConditionallyUpdateCodeModel(false);
+        }
+
+        public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+        {
+            //__VSSEARCHPLACEMENT.SP_STRETCH
+            base.ProvideSearchSettings(pSearchSettings);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, VSPackage.Watermark_Search);
+        }
+
         #endregion IVsWindowFrameNotify3 Members
+
+        /// <summary>
+        /// Represents class for performing search tasks by members
+        /// </summary>
+        internal class MemberSearchTask: VsSearchTask
+        {
+            private readonly SpadeToolWindow _toolWindow;
+
+            public MemberSearchTask(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback, SpadeToolWindow toolWindow) 
+                : base(dwCookie, pSearchQuery, pSearchCallback)
+            {
+                _toolWindow = toolWindow;
+            }
+
+            protected override void OnStartSearch()
+            {
+                ErrorCode = VSConstants.S_OK;
+
+                try
+                {
+                    _toolWindow._viewModel.NameFilter = SearchQuery.SearchString;
+                    _toolWindow.ConditionallyUpdateCodeModel(false);
+                }
+                catch (Exception e)
+                {
+                    ErrorCode = VSConstants.E_FAIL;
+                }
+
+                base.OnStartSearch();
+            }
+        }
+
     }
 }

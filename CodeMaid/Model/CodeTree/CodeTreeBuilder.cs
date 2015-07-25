@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using System;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                     codeItems = OrganizeCodeItemsByTypeSortOrder(request.RawCodeItems);
                     break;
             }
+
+            if (!string.IsNullOrEmpty(request.NameFilter)) RecursivelyFilter(codeItems, request.NameFilter);
 
             return codeItems;
         }
@@ -218,6 +221,27 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             {
                 RecursivelySort(codeItem.Children, sortComparer);
             }
+        }
+
+        /// <summary>
+        /// Recursively filter specified code items by the name.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <param name="nameFilter">The name filter.</param>
+        private static void RecursivelyFilter(SetCodeItems codeItems, string nameFilter)
+        {
+            codeItems.RemoveAll(codeItem =>
+            {
+                var codeItemParent = codeItem as ICodeItemParent;
+                if (codeItemParent != null)
+                {
+                    RecursivelyFilter(codeItemParent.Children, nameFilter);
+                    if (codeItemParent.Children.Any()) return false;
+                }
+
+                return (codeItem is CodeItemRegion) || codeItem.Name.IndexOf(nameFilter, StringComparison.InvariantCultureIgnoreCase) < 0;
+
+            });
         }
 
         #endregion Private Methods

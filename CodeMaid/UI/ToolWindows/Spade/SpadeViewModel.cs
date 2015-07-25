@@ -146,6 +146,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             set { SetPropertyValue(value); }
         }
 
+        /// <summary>
+        /// Gets or sets the name filter.
+        /// </summary>
+        /// <value>
+        /// The name filter.
+        /// </value>
+        public string NameFilter { get; set; }
+
         #endregion Properties
 
         #region Methods
@@ -166,7 +174,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder));
+            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder, NameFilter));
         }
 
         /// <summary>
