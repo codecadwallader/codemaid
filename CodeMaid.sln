@@ -1,22 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests", "CodeMaid.IntegrationTests\CodeMaid.IntegrationTests.csproj", "{756CCDA3-D5E9-44B8-8049-1317B1826776}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
-EndProject
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69127706-88D9-4314-B801-4FB2E615B700}"
 	ProjectSection(SolutionItems) = preProject
 		CodeMaid.vsmdi = CodeMaid.vsmdi
 		IntegrationTests.testsettings = IntegrationTests.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests", "CodeMaid.IntegrationTests\CodeMaid.IntegrationTests.csproj", "{756CCDA3-D5E9-44B8-8049-1317B1826776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = CodeMaid.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -59,5 +58,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = CodeMaid.vsmdi
 	EndGlobalSection
 EndGlobal
