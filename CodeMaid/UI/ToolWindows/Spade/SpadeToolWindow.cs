@@ -10,7 +10,9 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using EnvDTE;
+using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
@@ -21,12 +23,9 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.Internal.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.PlatformUI;
 using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
@@ -55,6 +54,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             get { return base.SearchOptionsEnum; }
         }
+
+        internal SpadeViewModel ViewModel { get { return _viewModel; } }
 
         #endregion Fields
 
@@ -243,7 +244,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Conditionally updates the code model.
         /// </summary>
         /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
-        private void ConditionallyUpdateCodeModel(bool isRefresh)
+        internal void ConditionallyUpdateCodeModel(bool isRefresh)
         {
             if (!IsVisible) return;
 
@@ -368,7 +369,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
         {
-            //__VSSEARCHPLACEMENT.SP_STRETCH
             base.ProvideSearchSettings(pSearchSettings);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
@@ -376,37 +376,5 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         #endregion IVsWindowFrameNotify3 Members
-
-        /// <summary>
-        /// Represents class for performing search tasks by members
-        /// </summary>
-        internal class MemberSearchTask: VsSearchTask
-        {
-            private readonly SpadeToolWindow _toolWindow;
-
-            public MemberSearchTask(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback, SpadeToolWindow toolWindow) 
-                : base(dwCookie, pSearchQuery, pSearchCallback)
-            {
-                _toolWindow = toolWindow;
-            }
-
-            protected override void OnStartSearch()
-            {
-                ErrorCode = VSConstants.S_OK;
-
-                try
-                {
-                    _toolWindow._viewModel.NameFilter = SearchQuery.SearchString;
-                    _toolWindow.ConditionallyUpdateCodeModel(false);
-                }
-                catch (Exception e)
-                {
-                    ErrorCode = VSConstants.E_FAIL;
-                }
-
-                base.OnStartSearch();
-            }
-        }
-
     }
 }

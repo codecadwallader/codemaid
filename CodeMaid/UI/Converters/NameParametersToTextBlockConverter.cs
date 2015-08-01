@@ -9,11 +9,11 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using Microsoft.VisualStudio.PlatformUI;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -60,9 +60,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             IncludeParameters = true
         };
 
-        private static readonly SolidColorBrush BrushRun = new SolidColorBrush(Color.FromRgb(0xAA, 0xAA, 0xAA));
-        private static readonly SolidColorBrush HighlightedBrushRun = new SolidColorBrush(Colors.BlanchedAlmond);
-        private static readonly SolidColorBrush HighlightedBackgroundRun = new SolidColorBrush(Colors.CornflowerBlue);
         private static readonly SolidColorBrush BrushTypeRun = new SolidColorBrush(Color.FromRgb(0x77, 0x77, 0x77));
 
         #endregion Fields
@@ -115,19 +112,19 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// Converts a value.
         /// </summary>
-        /// <param name="values"></param>
+        /// <param name="values">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var codeItem = values[0] as ICodeItem;
             if (codeItem == null) return null;
 
             var highlightedText = values[1] as string;
 
-            var textBlock = new TextBlock {FontSize = FontSize};
+            var textBlock = new TextBlock { FontSize = FontSize };
             // if we have a filter perform searching of it for highlighting.
             if (!string.IsNullOrEmpty(highlightedText))
             {
@@ -154,7 +151,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
                     lastIndexOf = indexOf >= 0 ? indexOf + highlightedText.Length : -1;
                 }
-
             }
             // else just display the name of the item
             else
@@ -223,7 +219,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         ///// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return new[] {Binding.DoNothing, Binding.DoNothing};
+            throw new NotImplementedException();
         }
 
         #endregion Implementation of IValueConverter
@@ -237,14 +233,20 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The created run.</returns>
         private Run CreateRun(string text)
         {
-            return new Run(text)
+            // Get VS theme color to make runs look well on all themes
+            var foreground = VSColorTheme
+                .GetThemedColor(TreeViewColors.BackgroundTextBrushKey);
+
+            var run = new Run(text)
             {
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                Foreground = BrushRun,
-                BaselineAlignment = BaselineAlignment.Baseline
+                BaselineAlignment = BaselineAlignment.Baseline,
+                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R })
             };
+
+            return run;
         }
 
         /// <summary>
@@ -254,15 +256,23 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>Highlighted inline run.</returns>
         private Run CreateHighlightedRun(string text)
         {
-            return new Run(text)
+            // Get VS theme color to make runs look well on all themes
+            var foreground = VSColorTheme
+                .GetThemedColor(TreeViewColors.HighlightedSpanTextBrushKey);
+            var background = VSColorTheme
+                .GetThemedColor(TreeViewColors.HighlightedSpanBrushKey);
+
+            var run = new Run(text)
             {
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                Foreground = HighlightedBrushRun,
-                Background = HighlightedBackgroundRun,
+                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R }),
+                Background = new SolidColorBrush(new Color { A = background.A, B = background.B, G = background.G, R = background.R }),
                 BaselineAlignment = BaselineAlignment.Baseline
             };
+
+            return run;
         }
 
         /// <summary>
