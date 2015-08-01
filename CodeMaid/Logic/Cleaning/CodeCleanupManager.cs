@@ -186,7 +186,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                             string.Format("CodeCleanupManager.Cleanup completed for '{0}'", document.FullName));
                     }
                 },
-                delegate(Exception ex)
+                delegate (Exception ex)
                 {
                     OutputWindowHelper.ExceptionWriteLine(
                         string.Format("Stopped cleaning '{0}'", document.Name), ex);
@@ -376,7 +376,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveBlankLinesBeforeClosingBrace(textDocument);
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
-            // Perform insertion cleanup.
+            // Perform insertion of blank line padding cleanup.
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
+
+            // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
         }
 
