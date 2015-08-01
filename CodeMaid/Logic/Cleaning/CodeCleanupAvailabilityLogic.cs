@@ -335,6 +335,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{5fa499f6-2cec-435b-bfce-53bbe29f37f6}": return Settings.Default.Cleaning_IncludeSCSS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;
+                case "{cd53c9a1-6bc2-412b-be36-cc715ed8dd41}":
                 case "{c9164055-039b-4669-832d-f257bd5554d4}": return Settings.Default.Cleaning_IncludeXAML;
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default:
@@ -352,14 +353,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private static bool PromptUserAboutCleaningExternalFiles(Document document)
         {
             var viewModel = new YesNoPromptViewModel
-                                {
-                                    Title = @"CodeMaid: Cleanup External File",
-                                    Message =
-                                        document.Name + " is not in the solution so some cleanup actions may be unavailable." +
-                                        Environment.NewLine + Environment.NewLine +
-                                        "Do you want to perform a partial cleanup?",
-                                    CanRemember = true
-                                };
+            {
+                Title = @"CodeMaid: Cleanup External File",
+                Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
+                          Environment.NewLine + Environment.NewLine +
+                          "Do you want to perform a partial cleanup?",
+                CanRemember = true
+            };
 
             var window = new YesNoPromptWindow { DataContext = viewModel };
             var response = window.ShowModal();
