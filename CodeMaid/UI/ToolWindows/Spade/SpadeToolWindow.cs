@@ -163,6 +163,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 var spadeContent = Content as FrameworkElement;
                 if (spadeContent != null)
                 {
+                    _viewModel.Dispatcher = spadeContent.Dispatcher;
+
                     spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => Package.ThemeManager.ApplyTheme()));
                 }
             }

@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Windows.Threading;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -55,6 +56,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #endregion Events
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the dispatcher.
+        /// </summary>
+        public Dispatcher Dispatcher { get; set; }
 
         /// <summary>
         /// Gets or sets the document.
@@ -177,7 +183,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             if (Document == snapshot.Document)
             {
-                OrganizedCodeItems = snapshot.CodeItems;
+                Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => OrganizedCodeItems = snapshot.CodeItems));
             }
         }
 
