@@ -239,7 +239,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             return new Run(text)
             {
-                //FontSize = 11,
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
@@ -248,11 +247,15 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             };
         }
 
+        /// <summary>
+        /// Creates a highlighted inline run based on the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>Highlighted inline run.</returns>
         private Run CreateHighlightedRun(string text)
         {
             return new Run(text)
             {
-                //FontSize = 11,
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
@@ -276,6 +279,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             return run;
         }
 
+        /// <summary>
+        /// Creates an italic inline run based on the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>Italic run.</returns>
         private Run CreateItalicRun(string text)
         {
             var run = CreateRun(text);
