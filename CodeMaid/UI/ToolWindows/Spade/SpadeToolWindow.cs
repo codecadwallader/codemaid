@@ -82,6 +82,22 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Public Properties
 
         /// <summary>
+        /// Gets or sets the current document.
+        /// </summary>
+        public Document Document
+        {
+            get { return _document; }
+            private set
+            {
+                if (_document != value)
+                {
+                    _document = value;
+                    ConditionallyUpdateCodeModel(false);
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sort order.
         /// </summary>
         public CodeSortOrder SortOrder
@@ -186,22 +202,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #endregion Public Methods
 
         #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the current document.
-        /// </summary>
-        private Document Document
-        {
-            get { return _document; }
-            set
-            {
-                if (_document != value)
-                {
-                    _document = value;
-                    ConditionallyUpdateCodeModel(false);
-                }
-            }
-        }
 
         /// <summary>
         /// Gets or sets a flag indicating if this tool window is visible.
