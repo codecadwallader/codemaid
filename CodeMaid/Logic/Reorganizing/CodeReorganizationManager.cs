@@ -142,7 +142,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     OutputWindowHelper.DiagnosticWriteLine(
                         string.Format("CodeReorganizationManager.Reorganize completed for '{0}'", document.FullName));
                 },
-                delegate(Exception ex)
+                delegate (Exception ex)
                 {
                     OutputWindowHelper.ExceptionWriteLine(
                         string.Format("Stopped reorganizing '{0}'", document.Name), ex);

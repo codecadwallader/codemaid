@@ -34,10 +34,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// and Visible for false.
         /// </summary>
         public static BooleanToVisibilityConverter Inverse = new BooleanToVisibilityConverter
-                                                                 {
-                                                                     TrueResult = Visibility.Collapsed,
-                                                                     FalseResult = Visibility.Visible
-                                                                 };
+        {
+            TrueResult = Visibility.Collapsed,
+            FalseResult = Visibility.Visible
+        };
 
         #endregion Fields
 
