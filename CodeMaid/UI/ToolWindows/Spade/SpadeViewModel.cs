@@ -90,6 +90,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
+        /// Gets or sets the name filter.
+        /// </summary>
+        public string NameFilter { get; set; }
+
+        /// <summary>
         /// Gets the organized code items.
         /// </summary>
         public SetCodeItems OrganizedCodeItems
@@ -151,14 +156,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             get { return GetPropertyValue<CodeSortOrder>(); }
             set { SetPropertyValue(value); }
         }
-
-        /// <summary>
-        /// Gets or sets the name filter.
-        /// </summary>
-        /// <value>
-        /// The name filter.
-        /// </value>
-        public string NameFilter { get; set; }
 
         #endregion Properties
 

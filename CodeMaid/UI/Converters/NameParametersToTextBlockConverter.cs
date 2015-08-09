@@ -13,6 +13,8 @@ using Microsoft.VisualStudio.PlatformUI;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,7 +39,10 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// An instance of the <see cref="NameParametersToTextBlockConverter" /> that includes parameters.
         /// </summary>
-        public static NameParametersToTextBlockConverter WithParameters = new NameParametersToTextBlockConverter { IncludeParameters = true };
+        public static NameParametersToTextBlockConverter WithParameters = new NameParametersToTextBlockConverter
+        {
+            IncludeParameters = true
+        };
 
         /// <summary>
         /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items.
@@ -52,11 +57,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items with parameters.
         /// </summary>
-        public static NameParametersToTextBlockConverter ParentWithParams = new NameParametersToTextBlockConverter
+        public static NameParametersToTextBlockConverter ParentWithParameters = new NameParametersToTextBlockConverter
         {
             FontSize = 14,
-            FontWeight = FontWeights.SemiBold,
             FontStyle = FontStyles.Normal,
+            FontWeight = FontWeights.SemiBold,
             IncludeParameters = true
         };
 
@@ -74,45 +79,40 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// Gets or sets the size of the font.
         /// </summary>
-        /// <value>
-        /// The size of the font.
-        /// </value>
         public int FontSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the font weight.
-        /// </summary>
-        /// <value>
-        /// The font weight.
-        /// </value>
-        public FontWeight FontWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the font style.
         /// </summary>
-        /// <value>
-        /// The font style.
-        /// </value>
         public FontStyle FontStyle { get; set; }
 
+        /// <summary>
+        /// Gets or sets the font weight.
+        /// </summary>
+        public FontWeight FontWeight { get; set; }
+
         #endregion Properties
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NameParametersToTextBlockConverter"/> class.
         /// </summary>
         public NameParametersToTextBlockConverter()
         {
-            FontWeight = FontWeights.Normal;
             FontSize = 12;
             FontStyle = FontStyles.Normal;
+            FontWeight = FontWeights.Normal;
         }
 
-        #region Implementation of IValueConverter
+        #endregion Constructors
+
+        #region Implementation of IMultiValueConverter
 
         /// <summary>
-        /// Converts a value.
+        /// Converts a set of values.
         /// </summary>
-        /// <param name="values">The value produced by the binding source.</param>
+        /// <param name="values">The values produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
@@ -120,111 +120,141 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var codeItem = values[0] as ICodeItem;
-            if (codeItem == null) return null;
-
-            var highlightedText = values[1] as string;
-
-            var textBlock = new TextBlock { FontSize = FontSize };
-            // if we have a filter perform searching of it for highlighting.
-            if (!string.IsNullOrEmpty(highlightedText))
+            var textToHighlight = values[1] as string;
+            if (codeItem == null)
             {
-                var lastIndexOf = 0;
-
-                while (lastIndexOf >= 0)
-                {
-                    var indexOf = codeItem.Name.IndexOf(highlightedText, lastIndexOf, StringComparison.InvariantCultureIgnoreCase);
-                    var commonPart = codeItem.Name.Substring(lastIndexOf,
-                        indexOf >= 0 ? indexOf - lastIndexOf : codeItem.Name.Length - lastIndexOf);
-
-                    if (commonPart.Length > 0)
-                    {
-                        var run = CreateRun(commonPart);
-                        textBlock.Inlines.Add(run);
-                    }
-
-                    if (indexOf >= 0)
-                    {
-                        var highlightedPart = codeItem.Name.Substring(indexOf, highlightedText.Length);
-                        var highlightedRun = CreateHighlightedRun(highlightedPart);
-                        textBlock.Inlines.Add(highlightedRun);
-                    }
-
-                    lastIndexOf = indexOf >= 0 ? indexOf + highlightedText.Length : -1;
-                }
-            }
-            // else just display the name of the item
-            else
-            {
-                textBlock.Inlines.Add(codeItem.Name);
+                return null;
             }
 
-            var codeItemWithParams = codeItem as ICodeItemParameters;
-            // if our item has parameters display them with italic font style
-            if (codeItemWithParams != null && IncludeParameters)
+            var textBlock = new TextBlock();
+
+            textBlock.Inlines.AddRange(CreateInlinesForName(codeItem.Name, textToHighlight));
+
+            if (IncludeParameters)
             {
-                var opener = GetOpeningString(codeItemWithParams);
-                if (opener != null)
+                var codeItemParameters = codeItem as ICodeItemParameters;
+                if (codeItemParameters != null)
                 {
-                    textBlock.Inlines.Add(CreateItalicRun(opener));
-                }
-
-                bool isFirst = true;
-
-                try
-                {
-                    foreach (var param in codeItemWithParams.Parameters)
-                    {
-                        if (isFirst)
-                        {
-                            isFirst = false;
-                        }
-                        else
-                        {
-                            textBlock.Inlines.Add(CreateItalicRun(", "));
-                        }
-
-                        try
-                        {
-                            textBlock.Inlines.Add(CreateTypeRun(TypeFormatHelper.Format(param.Type.AsString) + " "));
-                            textBlock.Inlines.Add(CreateItalicRun(param.Name));
-                        }
-                        catch (Exception)
-                        {
-                            textBlock.Inlines.Add(CreateItalicRun("?"));
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    textBlock.Inlines.Add(CreateItalicRun("?"));
-                }
-
-                var closer = GetClosingString(codeItemWithParams);
-                if (closer != null)
-                {
-                    textBlock.Inlines.Add(CreateItalicRun(closer));
+                    textBlock.Inlines.AddRange(CreateInlinesForParameters(codeItemParameters));
                 }
             }
 
             return textBlock;
         }
 
-        ///// <summary>
-        ///// Converts a value.
-        ///// </summary>
-        ///// <param name="value">The value that is produced by the binding target.</param>
-        ///// <param name="targetType">The type to convert to.</param>
-        ///// <param name="parameter">The converter parameter to use.</param>
-        ///// <param name="culture">The culture to use in the converter.</param>
-        ///// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetTypes">The types to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
 
-        #endregion Implementation of IValueConverter
+        #endregion Implementation of IMultiValueConverter
 
         #region Methods
+
+        /// <summary>
+        /// Creates the inlines for the name, including highlighted sections.
+        /// </summary>
+        /// <param name="text">The text for the name.</param>
+        /// <param name="textToHighlight">The text to highlight, may be null.</param>
+        /// <returns>The inlines representing the name.</returns>
+        private IEnumerable<Inline> CreateInlinesForName(string text, string textToHighlight)
+        {
+            var inlines = new List<Inline>();
+
+            if (!string.IsNullOrWhiteSpace(textToHighlight))
+            {
+                var lastIndexOf = 0;
+
+                while (lastIndexOf >= 0)
+                {
+                    var indexOf = text.IndexOf(textToHighlight, lastIndexOf, StringComparison.InvariantCultureIgnoreCase);
+                    var commonPart = text.Substring(lastIndexOf, indexOf >= 0 ? indexOf - lastIndexOf : text.Length - lastIndexOf);
+
+                    if (commonPart.Length > 0)
+                    {
+                        inlines.Add(CreateRun(commonPart));
+                    }
+
+                    if (indexOf >= 0)
+                    {
+                        var highlightedPart = text.Substring(indexOf, textToHighlight.Length);
+                        var highlightedRun = CreateHighlightedRun(highlightedPart);
+                        inlines.Add(highlightedRun);
+                    }
+
+                    lastIndexOf = indexOf >= 0 ? indexOf + textToHighlight.Length : -1;
+                }
+            }
+            else
+            {
+                inlines.Add(CreateRun(text));
+            }
+
+            return inlines;
+        }
+
+        /// <summary>
+        /// Creates the inlines for the specified code item's parameters.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>The inlines representing the parameters.</returns>
+        private IEnumerable<Inline> CreateInlinesForParameters(ICodeItemParameters codeItem)
+        {
+            var inlines = new List<Inline>();
+
+            var opener = GetOpeningString(codeItem);
+            if (opener != null)
+            {
+                inlines.Add(CreateItalicRun(opener));
+            }
+
+            bool isFirst = true;
+
+            try
+            {
+                foreach (var param in codeItem.Parameters)
+                {
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        inlines.Add(CreateItalicRun(", "));
+                    }
+
+                    try
+                    {
+                        inlines.Add(CreateTypeRun(TypeFormatHelper.Format(param.Type.AsString) + " "));
+                        inlines.Add(CreateItalicRun(param.Name));
+                    }
+                    catch (Exception)
+                    {
+                        inlines.Add(CreateItalicRun("?"));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                inlines.Add(CreateItalicRun("?"));
+            }
+
+            var closer = GetClosingString(codeItem);
+            if (closer != null)
+            {
+                inlines.Add(CreateItalicRun(closer));
+            }
+
+            return inlines;
+        }
 
         /// <summary>
         /// Creates an inline run based on the specified text.
@@ -233,17 +263,16 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The created run.</returns>
         private Run CreateRun(string text)
         {
-            // Get VS theme color to make runs look well on all themes
-            var foreground = VSColorTheme
-                .GetThemedColor(TreeViewColors.BackgroundTextBrushKey);
+            // Get VS theme color to make runs look well on all themes.
+            var foreground = VSColorTheme.GetThemedColor(TreeViewColors.BackgroundTextBrushKey);
 
             var run = new Run(text)
             {
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                BaselineAlignment = BaselineAlignment.Baseline,
-                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R })
+                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R }),
+                BaselineAlignment = BaselineAlignment.Baseline
             };
 
             return run;
@@ -256,35 +285,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>Highlighted inline run.</returns>
         private Run CreateHighlightedRun(string text)
         {
-            // Get VS theme color to make runs look well on all themes
-            var foreground = VSColorTheme
-                .GetThemedColor(TreeViewColors.HighlightedSpanTextBrushKey);
-            var background = VSColorTheme
-                .GetThemedColor(TreeViewColors.HighlightedSpanBrushKey);
+            var run = CreateRun(text);
 
-            var run = new Run(text)
-            {
-                FontSize = FontSize,
-                FontStyle = FontStyle,
-                FontWeight = FontWeight,
-                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R }),
-                Background = new SolidColorBrush(new Color { A = background.A, B = background.B, G = background.G, R = background.R }),
-                BaselineAlignment = BaselineAlignment.Baseline
-            };
+            // Get VS theme color to make runs look well on all themes.
+            var foreground = VSColorTheme.GetThemedColor(TreeViewColors.HighlightedSpanTextBrushKey);
+            var background = VSColorTheme.GetThemedColor(TreeViewColors.HighlightedSpanBrushKey);
 
-            return run;
-        }
-
-        /// <summary>
-        /// Creates an inline run based on the specified text with special styling for types.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>The created run.</returns>
-        private Run CreateTypeRun(string text)
-        {
-            var run = CreateItalicRun(text);
-
-            run.Foreground = BrushTypeRun;
+            run.Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R });
+            run.Background = new SolidColorBrush(new Color { A = background.A, B = background.B, G = background.G, R = background.R });
 
             return run;
         }
@@ -299,6 +307,20 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             var run = CreateRun(text);
 
             run.FontStyle = FontStyles.Italic;
+
+            return run;
+        }
+
+        /// <summary>
+        /// Creates an inline run based on the specified text with special styling for types.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The created run.</returns>
+        private Run CreateTypeRun(string text)
+        {
+            var run = CreateItalicRun(text);
+
+            run.Foreground = BrushTypeRun;
 
             return run;
         }

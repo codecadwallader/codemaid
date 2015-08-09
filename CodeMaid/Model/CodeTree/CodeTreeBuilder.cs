@@ -9,9 +9,9 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using System;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,7 +50,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                     break;
             }
 
-            if (!string.IsNullOrEmpty(request.NameFilter)) RecursivelyFilter(codeItems, request.NameFilter);
+            if (!string.IsNullOrWhiteSpace(request.NameFilter))
+            {
+                RecursivelyFilter(codeItems, request.NameFilter);
+            }
 
             return codeItems;
         }
@@ -236,11 +239,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                 if (codeItemParent != null)
                 {
                     RecursivelyFilter(codeItemParent.Children, nameFilter);
-                    if (codeItemParent.Children.Any()) return false;
+                    if (codeItemParent.Children.Any())
+                    {
+                        return false;
+                    }
                 }
 
-                return (codeItem is CodeItemRegion) || codeItem.Name.IndexOf(nameFilter, StringComparison.InvariantCultureIgnoreCase) < 0;
-
+                return codeItem.Name.IndexOf(nameFilter, StringComparison.InvariantCultureIgnoreCase) < 0;
             });
         }
 

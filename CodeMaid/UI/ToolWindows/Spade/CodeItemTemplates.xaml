@@ -92,12 +92,10 @@
 
     <DataTemplate x:Key="NameParametersDataTemplate">
         <ContentControl x:Name="name" Focusable="False">
-            <ContentControl.Content>
-                <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Default}">
-                    <Binding />
-                    <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}" FallbackValue="{x:Null}" />
-                </MultiBinding>
-            </ContentControl.Content>
+            <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Default}">
+                <Binding />
+                <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
+            </MultiBinding>
         </ContentControl>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
@@ -105,7 +103,7 @@
                     <Setter.Value>
                         <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.WithParameters}">
                             <Binding />
-                            <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}" FallbackValue="{x:Null}" />
+                            <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
@@ -113,12 +111,12 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <DataTemplate x:Key="ParentNameParameterlessDataTemplate">
+    <DataTemplate x:Key="ParentNameDataTemplate">
         <ContentControl x:Name="name" Focusable="False">
             <ContentControl.Content>
                 <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Parent}">
                     <Binding />
-                    <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}" FallbackValue="{x:Null}" />
+                    <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
                 </MultiBinding>
             </ContentControl.Content>
         </ContentControl>
@@ -132,7 +130,7 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
 
-            <ContentControl x:Name="nameParameters" Content="{Binding}" ContentTemplate="{StaticResource ParentNameParameterlessDataTemplate}" Focusable="False" />
+            <ContentControl x:Name="nameParameters" Content="{Binding}" ContentTemplate="{StaticResource ParentNameDataTemplate}" Focusable="False" />
 
             <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
         </DockPanel>
@@ -166,7 +164,7 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
 
-            <ContentControl x:Name="name" Content="{Binding}" ContentTemplate="{StaticResource ParentNameParameterlessDataTemplate}" Focusable="False" />
+            <ContentControl x:Name="name" Content="{Binding}" ContentTemplate="{StaticResource ParentNameDataTemplate}" Focusable="False" />
 
             <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
         </DockPanel>

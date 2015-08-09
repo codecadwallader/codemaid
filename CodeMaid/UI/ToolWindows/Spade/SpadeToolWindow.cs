@@ -45,18 +45,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private Document _document;
         private bool _isVisible;
 
-        public override bool SearchEnabled
-        {
-            get { return true; }
-        }
-
-        public override IVsEnumWindowSearchOptions SearchOptionsEnum
-        {
-            get { return base.SearchOptionsEnum; }
-        }
-
-        internal SpadeViewModel ViewModel { get { return _viewModel; } }
-
         #endregion Fields
 
         #region Constructors
@@ -112,6 +100,27 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
+        /// Gets or sets the name filter.
+        /// </summary>
+        public string NameFilter
+        {
+            get { return _viewModel.NameFilter; }
+            set
+            {
+                if (_viewModel.NameFilter != value)
+                {
+                    _viewModel.NameFilter = value;
+                    ConditionallyUpdateCodeModel(false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected item.
+        /// </summary>
+        public BaseCodeItem SelectedItem => _viewModel.SelectedItem;
+
+        /// <summary>
         /// Gets or sets the sort order.
         /// </summary>
         public CodeSortOrder SortOrder
@@ -125,14 +134,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     Settings.Default.Save();
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the selected item.
-        /// </summary>
-        public BaseCodeItem SelectedItem
-        {
-            get { return _viewModel.SelectedItem; }
         }
 
         #endregion Public Properties
@@ -246,7 +247,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Conditionally updates the code model.
         /// </summary>
         /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
-        internal void ConditionallyUpdateCodeModel(bool isRefresh)
+        private void ConditionallyUpdateCodeModel(bool isRefresh)
         {
             if (!IsVisible) return;
 
@@ -358,25 +359,31 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             return VSConstants.S_OK;
         }
 
+        #endregion IVsWindowFrameNotify3 Members
+
+        #region IVsWindowSearch Members
+
+        public override bool SearchEnabled => true;
+
         public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
         {
-            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, this);
+            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
         }
 
         public override void ClearSearch()
         {
-            _viewModel.NameFilter = null;
-            ConditionallyUpdateCodeModel(false);
+            NameFilter = null;
         }
 
         public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
         {
             base.ProvideSearchSettings(pSearchSettings);
+
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, VSPackage.Watermark_Search);
         }
 
-        #endregion IVsWindowFrameNotify3 Members
+        #endregion IVsWindowSearch Members
     }
 }

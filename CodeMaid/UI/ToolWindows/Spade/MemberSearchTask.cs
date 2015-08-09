@@ -1,4 +1,15 @@
-﻿using Microsoft.VisualStudio;
+﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+
+// CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
+// Lesser General Public License version 3 as published by the Free Software Foundation.
+//
+// CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+// even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details <http://www.gnu.org/licenses/>.
+
+#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -6,19 +17,19 @@ using System;
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
     /// <summary>
-    /// Represents class for performing search tasks by members
+    /// A class implementing <see cref="VsSearchTask"/> in order to search code members.
     /// </summary>
     internal class MemberSearchTask : VsSearchTask
     {
-        private readonly SpadeToolWindow _toolWindow;
+        private readonly Action<string> _callback;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberSearchTask" /> class.
         /// </summary>
-        public MemberSearchTask(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback, SpadeToolWindow toolWindow)
+        public MemberSearchTask(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback, Action<string> callback)
             : base(dwCookie, pSearchQuery, pSearchCallback)
         {
-            _toolWindow = toolWindow;
+            _callback = callback;
         }
 
         /// <summary>
@@ -30,10 +41,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             try
             {
-                _toolWindow.ViewModel.NameFilter = SearchQuery.SearchString;
-                _toolWindow.ConditionallyUpdateCodeModel(false);
+                _callback(SearchQuery.SearchString);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ErrorCode = VSConstants.E_FAIL;
             }

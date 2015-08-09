@@ -25,19 +25,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// <param name="document">The document.</param>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="sortOrder">The sort order.</param>
-        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder)
-            : this(document, rawCodeItems, sortOrder, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CodeTreeRequest" /> class.
-        /// </summary>
-        /// <param name="document">The document.</param>
-        /// <param name="rawCodeItems">The raw code items.</param>
-        /// <param name="sortOrder">The sort order.</param>
         /// <param name="nameFilter">The name filter.</param>
-        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder, string nameFilter)
+        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder, string nameFilter = null)
         {
             Document = document;
             RawCodeItems = rawCodeItems;
@@ -61,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         internal CodeSortOrder SortOrder { get; private set; }
 
         /// <summary>
-        /// Gets the string that should contain filtered members.
+        /// Gets the name filter.
         /// </summary>
         internal string NameFilter { get; private set; }
     }
