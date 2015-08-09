@@ -118,7 +118,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets the selected item.
         /// </summary>
-        public BaseCodeItem SelectedItem => _viewModel.SelectedItem;
+        public BaseCodeItem SelectedItem
+        {
+            get { return _viewModel.SelectedItem; }
+        }
 
         /// <summary>
         /// Gets or sets the sort order.
