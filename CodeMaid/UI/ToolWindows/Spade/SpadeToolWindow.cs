@@ -10,7 +10,9 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using EnvDTE;
+using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
@@ -42,6 +44,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private Document _document;
         private bool _isVisible;
+
+        public override bool SearchEnabled
+        {
+            get { return true; }
+        }
+
+        public override IVsEnumWindowSearchOptions SearchOptionsEnum
+        {
+            get { return base.SearchOptionsEnum; }
+        }
+
+        internal SpadeViewModel ViewModel { get { return _viewModel; } }
 
         #endregion Fields
 
@@ -232,7 +246,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Conditionally updates the code model.
         /// </summary>
         /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
-        private void ConditionallyUpdateCodeModel(bool isRefresh)
+        internal void ConditionallyUpdateCodeModel(bool isRefresh)
         {
             if (!IsVisible) return;
 
@@ -342,6 +356,25 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public int OnSize(int x, int y, int w, int h)
         {
             return VSConstants.S_OK;
+        }
+
+        public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+        {
+            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, this);
+        }
+
+        public override void ClearSearch()
+        {
+            _viewModel.NameFilter = null;
+            ConditionallyUpdateCodeModel(false);
+        }
+
+        public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+        {
+            base.ProvideSearchSettings(pSearchSettings);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, VSPackage.Watermark_Search);
         }
 
         #endregion IVsWindowFrameNotify3 Members
