@@ -109,14 +109,5 @@ namespace SteveCadwallader.CodeMaid {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search members.
-        /// </summary>
-        internal static string Watermark_Search {
-            get {
-                return ResourceManager.GetString("Watermark_Search", resourceCulture);
-            }
-        }
     }
 }

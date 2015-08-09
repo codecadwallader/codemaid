@@ -363,7 +363,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         #region IVsWindowSearch Members
 
-        public override bool SearchEnabled => true;
+        public override bool SearchEnabled
+        {
+            get { return true; }
+        }
 
         public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
         {
@@ -379,9 +382,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             base.ProvideSearchSettings(pSearchSettings);
 
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
+            // Set minimum and maximum width to the highest possible value to force the toolbar onto the next line like the Solution Explorer.
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, uint.MaxValue);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, VSPackage.Watermark_Search);
+
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search CodeMaid Spade");//" (Ctrl+M, ;)");
         }
 
         #endregion IVsWindowSearch Members
