@@ -92,7 +92,17 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets or sets the name filter.
         /// </summary>
-        public string NameFilter { get; set; }
+        public string NameFilter
+        {
+            get { return GetPropertyValue<string>(); }
+            set
+            {
+                if (SetPropertyValue(value))
+                {
+                    RequestUpdatedOrganizedCodeItems();
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the organized code items.

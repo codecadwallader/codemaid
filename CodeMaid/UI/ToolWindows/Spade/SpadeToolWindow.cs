@@ -105,14 +105,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public string NameFilter
         {
             get { return _viewModel.NameFilter; }
-            set
-            {
-                if (_viewModel.NameFilter != value)
-                {
-                    _viewModel.NameFilter = value;
-                    ConditionallyUpdateCodeModel(false);
-                }
-            }
+            set { _viewModel.NameFilter = value; }
         }
 
         /// <summary>
