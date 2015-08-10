@@ -404,6 +404,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
                 _commands.Add(new SpadeOptionsCommand(this));
                 _commands.Add(new SpadeRefreshCommand(this));
+                _commands.Add(new SpadeSearchCommand(this));
                 _commands.Add(new SpadeSortOrderAlphaCommand(this));
                 _commands.Add(new SpadeSortOrderFileCommand(this));
                 _commands.Add(new SpadeSortOrderTypeCommand(this));

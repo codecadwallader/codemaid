@@ -385,11 +385,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             base.ProvideSearchSettings(pSearchSettings);
 
-            // Set minimum and maximum width to the highest possible value to force the toolbar onto the next line like the Solution Explorer.
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, uint.MaxValue);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
-
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search CodeMaid Spade");//" (Ctrl+M, ;)");
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search CodeMaid Spade (Ctrl+M, ;)");
         }
 
         #endregion IVsWindowSearch Members
