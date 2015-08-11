@@ -9,18 +9,15 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using Microsoft.VisualStudio.PlatformUI;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Media;
 
 namespace SteveCadwallader.CodeMaid.UI.Converters
 {
@@ -64,8 +61,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             FontWeight = FontWeights.SemiBold,
             IncludeParameters = true
         };
-
-        private static readonly SolidColorBrush BrushTypeRun = new SolidColorBrush(Color.FromRgb(0x77, 0x77, 0x77));
 
         #endregion Fields
 
@@ -263,15 +258,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The created run.</returns>
         private Run CreateRun(string text)
         {
-            // Get VS theme color to make runs look well on all themes.
-            var foreground = VSColorTheme.GetThemedColor(TreeViewColors.BackgroundTextBrushKey);
-
             var run = new Run(text)
             {
                 FontSize = FontSize,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R }),
                 BaselineAlignment = BaselineAlignment.Baseline
             };
 
@@ -287,12 +278,8 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             var run = CreateRun(text);
 
-            // Get VS theme color to make runs look well on all themes.
-            var foreground = VSColorTheme.GetThemedColor(TreeViewColors.HighlightedSpanTextBrushKey);
-            var background = VSColorTheme.GetThemedColor(TreeViewColors.HighlightedSpanBrushKey);
-
-            run.Foreground = new SolidColorBrush(new Color { A = foreground.A, B = foreground.B, G = foreground.G, R = foreground.R });
-            run.Background = new SolidColorBrush(new Color { A = background.A, B = background.B, G = background.G, R = background.R });
+            run.SetResourceReference(TextElement.BackgroundProperty, "BGItemHighlight");
+            run.SetResourceReference(TextElement.ForegroundProperty, "FGItemHighlight");
 
             return run;
         }
@@ -320,7 +307,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             var run = CreateItalicRun(text);
 
-            run.Foreground = BrushTypeRun;
+            run.SetResourceReference(TextElement.ForegroundProperty, "FGType");
 
             return run;
         }
