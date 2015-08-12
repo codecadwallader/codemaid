@@ -65,12 +65,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"{[^:b]}/\>"
-                                 : @"([^ \t])/>";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1 />"
-                                     : @"$1 />";
+            const string pattern = @"([^ \t])/>";
+            const string replacement = @"$1 />";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }

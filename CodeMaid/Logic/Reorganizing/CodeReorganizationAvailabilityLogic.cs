@@ -92,9 +92,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var textDocument = document.GetTextDocument();
             if (textDocument != null)
             {
-                var pattern = _package.UsePOSIXRegEx
-                    ? @"^\#(if|else|elif|endif)"
-                    : @"^#(if|else|elif|endif)";
+                const string pattern = @"^#(if|else|elif|endif)";
 
                 var editPoint = TextDocumentHelper.FirstOrDefaultMatch(textDocument, pattern);
                 if (editPoint != null)

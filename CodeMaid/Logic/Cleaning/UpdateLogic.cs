@@ -78,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
-            string pattern = _package.UsePOSIXRegEx ? @"^:b*\#" : @"^[ \t]*#";
+            const string pattern = @"^[ \t]*#";
 
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
@@ -185,7 +185,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var start = method.StartPoint.CreateEditPoint();
             var end = method.EndPoint.CreateEditPoint();
 
-            string pattern = _package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
+            const string pattern = @"[ \t]*\r?\n[ \t]*";
             const string replacement = @" ";
 
             // Substitute all new lines (and optional surrounding whitespace) with a single space.

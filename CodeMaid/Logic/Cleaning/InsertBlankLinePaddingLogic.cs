@@ -286,13 +286,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"{^:b*}{break;|return;}\n{:b*}{case|default}"
-                                 : @"(^[ \t]*)(break;|return([ \t][^;]*)?;)\r?\n([ \t]*)(case|default)";
-
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1\2" + Environment.NewLine + Environment.NewLine + @"\3\4"
-                                     : @"$1$2" + Environment.NewLine + Environment.NewLine + @"$4$5";
+            const string pattern = @"(^[ \t]*)(break;|return([ \t][^;]*)?;)\r?\n([ \t]*)(case|default)";
+            string replacement = @"$1$2" + Environment.NewLine + Environment.NewLine + @"$4$5";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -306,12 +301,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"{^:b*~(//)[^:b\r\n\{].*\n}{:b*//}~(//)"
-                                 : @"(^[ \t]*(?!//)[^ \t\r\n\{].*\r?\n)([ \t]*//)(?!//)";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\1" + Environment.NewLine + @"\2"
-                                     : @"$1" + Environment.NewLine + @"$2";
+            const string pattern = @"(^[ \t]*(?!//)[^ \t\r\n\{].*\r?\n)([ \t]*//)(?!//)";
+            string replacement = @"$1" + Environment.NewLine + @"$2";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }

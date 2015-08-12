@@ -213,15 +213,6 @@ namespace SteveCadwallader.CodeMaid
             get { return _themeManager ?? (_themeManager = ThemeManager.GetInstance(this)); }
         }
 
-        /// <summary>
-        /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument
-        /// Find/Replace actions. Applies to pre-Visual Studio 11 versions.
-        /// </summary>
-        public bool UsePOSIXRegEx
-        {
-            get { return IDEVersion < 11; }
-        }
-
         #endregion Public Integration Properties
 
         #region Private Event Listener Properties
