@@ -250,7 +250,6 @@
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
     <Compile Include="Integration\PkgCmdIDList.cs" />
-    <Compile Include="Integration\ProvideBindingPathAttribute.cs" />
     <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
