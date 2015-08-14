@@ -773,6 +773,7 @@
     <Content Include="Cleaning\FileTypes\Data\JSON.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\FileTypes\Data\XAML.xaml">

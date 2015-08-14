@@ -114,6 +114,7 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <None Include="app.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
