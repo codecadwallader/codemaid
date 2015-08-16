@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Collections.Generic;
 using System.Windows.Threading;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
@@ -157,6 +158,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// Gets or sets the selected item.
         /// </summary>
         public BaseCodeItem SelectedItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected items.
+        /// </summary>
+        public IEnumerable<BaseCodeItem> SelectedItems
+        {
+            get { return GetPropertyValue<IEnumerable<BaseCodeItem>>(); }
+            set { SetPropertyValue(value); }
+        }
 
         /// <summary>
         /// Gets or sets the current sort order.

@@ -21,6 +21,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -111,10 +112,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets the selected item.
         /// </summary>
-        public BaseCodeItem SelectedItem
-        {
-            get { return _viewModel.SelectedItem; }
-        }
+        public BaseCodeItem SelectedItem => _viewModel.SelectedItem;
+
+        /// <summary>
+        /// Gets the selected items.
+        /// </summary>
+        public IEnumerable<BaseCodeItem> SelectedItems => _viewModel.SelectedItems;
 
         /// <summary>
         /// Gets or sets the sort order.
@@ -202,10 +205,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void Refresh()
         {
-            if (Package != null)
-            {
-                Package.ThemeManager.ApplyTheme();
-            }
+            Package?.ThemeManager.ApplyTheme();
 
             ConditionallyUpdateCodeModel(true);
         }
@@ -233,7 +233,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets or sets the package that owns the tool window.
         /// </summary>
-        private new CodeMaidPackage Package { get { return base.Package as CodeMaidPackage; } }
+        private new CodeMaidPackage Package => base.Package as CodeMaidPackage;
 
         #endregion Private Properties
 
@@ -359,10 +359,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         #region IVsWindowSearch Members
 
-        public override bool SearchEnabled
-        {
-            get { return true; }
-        }
+        public override bool SearchEnabled => true;
 
         public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
         {
