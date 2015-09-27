@@ -163,6 +163,11 @@ namespace SteveCadwallader.CodeMaid
         public double IDEVersion => Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture);
 
         /// <summary>
+        /// Gets or sets a flag indicating if CodeMaid is running inside an AutoSave context.
+        /// </summary>
+        public bool IsAutoSaveContext { get; set; }
+
+        /// <summary>
         /// Gets the menu command service.
         /// </summary>
         public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;

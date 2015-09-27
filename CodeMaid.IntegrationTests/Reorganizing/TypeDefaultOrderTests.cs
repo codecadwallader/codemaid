@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing
 
         private static void RunReorganize(Document document)
         {
-            _codeReorganizationManager.Reorganize(document, false);
+            _codeReorganizationManager.Reorganize(document);
         }
 
         #endregion Helpers

@@ -113,13 +113,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Reorganizes the specified document.
         /// </summary>
         /// <param name="document">The document for reorganizing.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        internal void Reorganize(Document document, bool isAutoSave)
+        internal void Reorganize(Document document)
         {
             if (!_codeReorganizationAvailabilityLogic.CanReorganize(document)) return;
 
             _undoTransactionHelper.Run(
-                () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
                     OutputWindowHelper.DiagnosticWriteLine(

@@ -144,8 +144,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Attempts to run code cleanup on the specified document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        internal void Cleanup(Document document, bool isAutoSave = false)
+        internal void Cleanup(Document document)
         {
             if (!_codeCleanupAvailabilityLogic.CanCleanup(document, true)) return;
 
@@ -162,11 +161,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Conditionally start cleanup with reorganization.
             if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
             {
-                _codeReorganizationManager.Reorganize(document, isAutoSave);
+                _codeReorganizationManager.Reorganize(document);
             }
 
             _undoTransactionHelper.Run(
-                () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);
@@ -178,7 +176,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                         _package.IDE.StatusBar.Text = string.Format("CodeMaid is cleaning '{0}'...", document.Name);
 
                         // Perform the set of configured cleanups based on the language.
-                        cleanupMethod(document, isAutoSave);
+                        cleanupMethod(document);
 
                         _package.IDE.StatusBar.Text = string.Format("CodeMaid cleaned '{0}'.", document.Name);
 
@@ -203,7 +201,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns>The code cleanup method, otherwise null.</returns>
-        private Action<Document, bool> FindCodeCleanupMethod(Document document)
+        private Action<Document> FindCodeCleanupMethod(Document document)
         {
             switch (document.Language)
             {
@@ -242,8 +240,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Attempts to run code cleanup on the specified CSharp document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupCSharp(Document document, bool isAutoSave)
+        private void RunCodeCleanupCSharp(Document document)
         {
             var textDocument = document.GetTextDocument();
 
@@ -251,8 +248,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             RunExternalFormatting(textDocument);
             if (!document.IsExternal())
             {
-                _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument, isAutoSave);
-                _usingStatementCleanupLogic.SortUsingStatements(isAutoSave);
+                _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument);
+                _usingStatementCleanupLogic.SortUsingStatements();
             }
 
             // Interpret the document into a collection of elements.
@@ -360,8 +357,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Attempts to run code cleanup on the specified C/C++ document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupC(Document document, bool isAutoSave)
+        private void RunCodeCleanupC(Document document)
         {
             var textDocument = document.GetTextDocument();
 
@@ -387,8 +383,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Attempts to run code cleanup on the specified markup document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupMarkup(Document document, bool isAutoSave)
+        private void RunCodeCleanupMarkup(Document document)
         {
             var textDocument = document.GetTextDocument();
 
@@ -412,8 +407,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Attempts to run code cleanup on the specified generic document.
         /// </summary>
         /// <param name="document">The document for cleanup.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        private void RunCodeCleanupGeneric(Document document, bool isAutoSave)
+        private void RunCodeCleanupGeneric(Document document)
         {
             var textDocument = document.GetTextDocument();
 
@@ -519,7 +513,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 {
                     using (new CursorPositionRestorer(textDocument))
                     {
-                        _package.IDE.ExecuteCommand(command.Name, String.Empty);
+                        _package.IDE.ExecuteCommand(command.Name, string.Empty);
                     }
                 }
             }

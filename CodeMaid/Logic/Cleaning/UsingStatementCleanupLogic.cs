@@ -70,11 +70,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Run the visual studio built-in remove unused using statements command.
         /// </summary>
         /// <param name="textDocument">The text document to update.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        public void RemoveUnusedUsingStatements(TextDocument textDocument, bool isAutoSave)
+        public void RemoveUnusedUsingStatements(TextDocument textDocument)
         {
             if (!Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements) return;
-            if (isAutoSave && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
+            if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
 
             // Capture all existing using statements that should be re-inserted if removed.
             const string patternFormat = @"^[ \t]*{0}[ \t]*\r?\n";
@@ -90,7 +89,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 point.editPoint.CharRight();
             }
 
-            _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", String.Empty);
+            _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", string.Empty);
 
             // Check each using statement point and re-insert it if removed.
             foreach (var point in points)
@@ -108,13 +107,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Run the visual studio built-in sort using statements command.
         /// </summary>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        public void SortUsingStatements(bool isAutoSave)
+        public void SortUsingStatements()
         {
             if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
-            if (isAutoSave && Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave) return;
+            if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave) return;
 
-            _package.IDE.ExecuteCommand("Edit.SortUsings", String.Empty);
+            _package.IDE.ExecuteCommand("Edit.SortUsings", string.Empty);
         }
 
         #endregion Methods
