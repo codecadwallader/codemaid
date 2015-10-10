@@ -215,6 +215,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "JSON":
                 case "LESS":
                 case "PHP":
+                case "PowerShell":
                 case "SCSS":
                 case "TypeScript":
                     return RunCodeCleanupC;
