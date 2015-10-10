@@ -283,7 +283,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
-            var parentProjectItem = projectItem?.Collection?.Parent as ProjectItem;
+            var parentProjectItem = projectItem?.GetParentProjectItem();
             if (parentProjectItem == null) return false;
 
             var extension = GetProjectItemExtension(parentProjectItem);
@@ -346,32 +346,40 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if external files should be cleaned, otherwise false.</returns>
         private static bool PromptUserAboutCleaningExternalFiles(Document document)
         {
-            var viewModel = new YesNoPromptViewModel
+            try
             {
-                Title = @"CodeMaid: Cleanup External File",
-                Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
-                          Environment.NewLine + Environment.NewLine +
-                          "Do you want to perform a partial cleanup?",
-                CanRemember = true
-            };
+                var viewModel = new YesNoPromptViewModel
+                {
+                    Title = @"CodeMaid: Cleanup External File",
+                    Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
+                              Environment.NewLine + Environment.NewLine +
+                              "Do you want to perform a partial cleanup?",
+                    CanRemember = true
+                };
 
-            var window = new YesNoPromptWindow { DataContext = viewModel };
-            var response = window.ShowModal();
+                var window = new YesNoPromptWindow { DataContext = viewModel };
+                var response = window.ShowModal();
 
-            if (!response.HasValue)
+                if (!response.HasValue)
+                {
+                    return false;
+                }
+
+                if (viewModel.Remember)
+                {
+                    var preference = (int)(response.Value ? AskYesNo.Yes : AskYesNo.No);
+
+                    Settings.Default.Cleaning_PerformPartialCleanupOnExternal = preference;
+                    Settings.Default.Save();
+                }
+
+                return response.Value;
+            }
+            catch (Exception ex)
             {
+                OutputWindowHelper.ExceptionWriteLine("Unable to prompt user about cleaning external files", ex);
                 return false;
             }
-
-            if (viewModel.Remember)
-            {
-                var preference = (int)(response.Value ? AskYesNo.Yes : AskYesNo.No);
-
-                Settings.Default.Cleaning_PerformPartialCleanupOnExternal = preference;
-                Settings.Default.Save();
-            }
-
-            return response.Value;
         }
 
         #endregion Private Methods
