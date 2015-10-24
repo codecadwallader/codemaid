@@ -14,8 +14,27 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
-    <OldToolsVersion>4.0</OldToolsVersion>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,13 +79,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VisualStudio.Package.LanguageService.10.0.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.VisualStudio.Shell.10.0.dll</HintPath>
+      <HintPath>..\lib\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.VisualStudio.Shell.Immutable.11.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
@@ -76,6 +99,11 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
@@ -107,8 +135,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\lib\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -146,6 +175,7 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSetting.cs" />
     <Compile Include="Helpers\CachedSettingSet.cs" />
@@ -154,10 +184,12 @@
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
+    <Compile Include="Helpers\SettingsContextHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
@@ -193,13 +225,13 @@
     <Compile Include="Integration\Commands\CloseAllReadOnlyCommand.cs" />
     <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\ConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\OptionsCommand.cs" />
     <Compile Include="Integration\Commands\CommentFormatCommand.cs" />
     <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
     <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
     <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
     <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeConfigurationCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeOptionsCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
@@ -219,7 +251,6 @@
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
     <Compile Include="Integration\PkgCmdIDList.cs" />
-    <Compile Include="Integration\ProvideBindingPathAttribute.cs" />
     <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
@@ -263,13 +294,15 @@
     <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
     <Compile Include="Model\CodeTree\CodeSortOrder.cs" />
     <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Model\Comments\CodeCommentOptions.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
@@ -307,6 +340,9 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
+    <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
     <Compile Include="UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
@@ -345,6 +381,7 @@
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressViewModel.cs" />
     <Compile Include="UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
+    <Compile Include="UI\ToolWindows\Spade\MemberSearchTask.cs" />
     <Compile Include="UI\ToolWindows\Spade\SpadeToolWindow.cs" />
     <Compile Include="UI\ToolWindows\Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
@@ -374,7 +411,9 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class.png" />
@@ -554,7 +593,7 @@
     <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
     <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
     <Resource Include="Integration\Images\IDE\collapse.bmp" />
-    <Resource Include="Integration\Images\IDE\config.bmp" />
+    <Resource Include="Integration\Images\IDE\options.bmp" />
     <Resource Include="Integration\Images\IDE\find.bmp" />
     <Resource Include="Integration\Images\IDE\info.bmp" />
     <Resource Include="Integration\Images\IDE\join.bmp" />
@@ -576,6 +615,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -723,6 +763,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

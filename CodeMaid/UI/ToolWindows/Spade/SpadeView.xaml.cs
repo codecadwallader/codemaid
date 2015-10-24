@@ -232,7 +232,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             var delta = _startPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
-                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
+                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
+            {
+                return;
+            }
 
             var codeItem = _dragCandidate.DataContext as BaseCodeItem;
             if (codeItem == null) return;

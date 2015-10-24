@@ -10,7 +10,9 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using EnvDTE;
+using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Integration;
@@ -73,12 +75,46 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             base.Content = new SpadeView { DataContext = _viewModel };
 
             // Register for changes to settings.
-            Settings.Default.SettingsSaving += (sender, args) => OnSettingsSave();
+            Settings.Default.SettingsLoaded += (sender, args) => OnSettingsChange();
+            Settings.Default.SettingsSaving += (sender, args) => OnSettingsChange();
         }
 
         #endregion Constructors
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the current document.
+        /// </summary>
+        public Document Document
+        {
+            get { return _document; }
+            private set
+            {
+                if (_document != value)
+                {
+                    _document = value;
+                    ConditionallyUpdateCodeModel(false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name filter.
+        /// </summary>
+        public string NameFilter
+        {
+            get { return _viewModel.NameFilter; }
+            set { _viewModel.NameFilter = value; }
+        }
+
+        /// <summary>
+        /// Gets the selected item.
+        /// </summary>
+        public BaseCodeItem SelectedItem
+        {
+            get { return _viewModel.SelectedItem; }
+        }
 
         /// <summary>
         /// Gets or sets the sort order.
@@ -94,14 +130,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     Settings.Default.Save();
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the selected item.
-        /// </summary>
-        public BaseCodeItem SelectedItem
-        {
-            get { return _viewModel.SelectedItem; }
         }
 
         #endregion Public Properties
@@ -162,6 +190,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 var spadeContent = Content as FrameworkElement;
                 if (spadeContent != null)
                 {
+                    _viewModel.Dispatcher = spadeContent.Dispatcher;
+
                     spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => Package.ThemeManager.ApplyTheme()));
                 }
             }
@@ -183,22 +213,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #endregion Public Methods
 
         #region Private Properties
-
-        /// <summary>
-        /// Gets or sets the current document.
-        /// </summary>
-        private Document Document
-        {
-            get { return _document; }
-            set
-            {
-                if (_document != value)
-                {
-                    _document = value;
-                    ConditionallyUpdateCodeModel(false);
-                }
-            }
-        }
 
         /// <summary>
         /// Gets or sets a flag indicating if this tool window is visible.
@@ -277,9 +291,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// An event handler called when settings are saved.
+        /// An event handler called when settings are changed.
         /// </summary>
-        private void OnSettingsSave()
+        private void OnSettingsChange()
         {
             _viewModel.SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
             Refresh();
@@ -342,5 +356,33 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         #endregion IVsWindowFrameNotify3 Members
+
+        #region IVsWindowSearch Members
+
+        public override bool SearchEnabled
+        {
+            get { return true; }
+        }
+
+        public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+        {
+            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
+        }
+
+        public override void ClearSearch()
+        {
+            NameFilter = null;
+        }
+
+        public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+        {
+            base.ProvideSearchSettings(pSearchSettings);
+
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search CodeMaid Spade (Ctrl+M, ;)");
+        }
+
+        #endregion IVsWindowSearch Members
     }
 }

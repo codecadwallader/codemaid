@@ -4,12 +4,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options"
-        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.10.0"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Configuration"
+        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Options"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
         Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
         ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
@@ -24,6 +25,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -32,7 +34,36 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
+        <ContentControl Grid.ColumnSpan="2" Content="{Binding}" Focusable="False">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <DockPanel x:Name="ActiveSettingsDockPanel">
+                        <Button DockPanel.Dock="Right"
+                                Command="{Binding SwitchSettingsCommand}"
+                                Content="{Binding InactiveSettingsName}"
+                                ContentStringFormat="Switch to {0}"
+                                Style="{StaticResource ButtonDialog}"
+                                Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+                        <TextBlock FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Margin="10"
+                                   Text="{Binding ActiveSettingsName}" />
+                    </DockPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="False">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF6595B3" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="True">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF84B0B6" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
             <i:Interaction.Behaviors>
                 <ui:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
             </i:Interaction.Behaviors>
@@ -43,7 +74,7 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <DockPanel Grid.Column="1" Margin="0,10,10,10">
+        <DockPanel Grid.Row="1" Grid.Column="1" Margin="0,10,10,10">
             <Border DockPanel.Dock="Top" Background="{DynamicResource FItemHighlight}"
                     BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
                 <TextBlock Text="{Binding SelectedPage.Header}" />
@@ -140,20 +171,25 @@
             </ScrollViewer>
         </DockPanel>
 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="1" Content="Reset to defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+        <Button Grid.Row="2" Grid.Column="0" Content="Reset to Defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
             <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
         </StackPanel>
 
-        <ContentControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
+        <ContentControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="save" Content="Save" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}" />
+                        <Button x:Name="save" Content="Save" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}">
+                            <Button.ToolTip>
+                                <ToolTip Content="{Binding ActiveSettingsPath}" ContentStringFormat="Options will be saved to '{0}'." />
+                            </Button.ToolTip>
+                        </Button>
+
                         <Button x:Name="cancel" Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
                     </StackPanel>
                     <DataTemplate.Triggers>

@@ -50,9 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.VisualStudio.Shell.10.0.dll</HintPath>
+      <HintPath>..\lib\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
@@ -63,6 +63,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
@@ -71,7 +76,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VSSDK.TestHostFramework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.VSSDK.TestHostFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.VSSDK.TestHostFramework.dll</HintPath>
     </Reference>
@@ -164,6 +169,20 @@
     <Content Include="Cleaning\Insert\Data\InsertEndOfFileTrailingNewLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterPropertiesSingleLine.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterPropertiesSingleLine_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforePropertiesSingleLine.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforePropertiesSingleLine_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterPropertiesSingleLineTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforePropertiesSingleLineTests.cs" />
     <Compile Include="Cleaning\Insert\InsertEndOfFileTrailingNewLineTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveAllRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveCurrentRegionTests.cs" />
@@ -335,10 +354,10 @@
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeDelegatesTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeEnumerationsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeEventsTests.cs" />
-    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeFieldsWithCommentsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeFieldsMultiLineTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeInterfacesTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeMethodsTests.cs" />
-    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforePropertiesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingBeforePropertiesMultiLineTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeStructsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeNamespacesTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingBeforeUsingStatementBlocksTests.cs" />
@@ -378,10 +397,10 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeEvents_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeFieldsWithComments.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeFieldsMultiLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeFieldsWithComments_Cleaned.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeFieldsMultiLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeMethods.cs">
@@ -390,10 +409,10 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeMethods_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeProperties.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforePropertiesMultiLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeProperties_Cleaned.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforePropertiesMultiLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingBeforeNamespaces.cs">
@@ -412,11 +431,11 @@
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterDelegatesTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterEnumerationsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterEventsTests.cs" />
-    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterFieldsWithCommentsTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterFieldsMultiLineTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterInterfacesTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterMethodsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterNamespacesTests.cs" />
-    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterPropertiesTests.cs" />
+    <Compile Include="Cleaning\Insert\BlankLinePaddingAfterPropertiesMultiLineTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterStructsTests.cs" />
     <Compile Include="Cleaning\Insert\BlankLinePaddingAfterUsingStatementBlocksTests.cs" />
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterClasses.cs">
@@ -431,7 +450,7 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEvents.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsWithComments.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsMultiLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterInterfaces.cs">
@@ -443,7 +462,7 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterNamespaces.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterProperties.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterPropertiesMultiLine.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterStructs.cs">
@@ -467,7 +486,7 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterEvents_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsWithComments_Cleaned.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterFieldsMultiLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterInterfaces_Cleaned.cs">
@@ -482,7 +501,7 @@
     <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterStructs_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterProperties_Cleaned.cs">
+    <Content Include="Cleaning\Insert\Data\BlankLinePaddingAfterPropertiesMultiLine_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Cleaning\Insert\BlankLinePaddingBetweenMultiLinePropertyAccessorsTests.cs" />
@@ -754,6 +773,7 @@
     <Content Include="Cleaning\FileTypes\Data\JSON.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\FileTypes\Data\XAML.xaml">

@@ -123,7 +123,10 @@ namespace SteveCadwallader.CodeMaid.UI
 
             var delta = _dragStartPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
-                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance) return;
+                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
+            {
+                return;
+            }
 
             _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
 

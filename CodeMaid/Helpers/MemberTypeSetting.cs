@@ -80,7 +80,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         /// <param name="serializedString">The serialized string to deserialize.</param>
         /// <returns>A new instance of <see cref="MemberTypeSetting" />.</returns>
-        public static MemberTypeSetting Deserialize(string serializedString)
+        public static explicit operator MemberTypeSetting(string serializedString)
         {
             const string pattern = @"^(?<defaultName>\w+)\|\|(?<order>\d+)\|\|(?<effectiveName>.*)$";
 
@@ -102,12 +102,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Serializes this object into a string for persistence to settings.
+        /// Serializes the specified <see cref="MemberTypeSetting"/> into a string (e.g. for persistence to settings).
         /// </summary>
-        /// <returns>A serialized string representing this object.</returns>
-        public string Serialize()
+        /// <returns>A serialized string representing the object.</returns>
+        public static explicit operator string (MemberTypeSetting memberTypeSetting)
         {
-            return string.Format("{0}||{1}||{2}", DefaultName, Order, EffectiveName);
+            return string.Format("{0}||{1}||{2}", memberTypeSetting.DefaultName, memberTypeSetting.Order, memberTypeSetting.EffectiveName);
         }
 
         #endregion Methods

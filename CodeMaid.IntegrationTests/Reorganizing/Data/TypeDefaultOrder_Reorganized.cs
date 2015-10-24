@@ -92,15 +92,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         }
 
         public static string PublicStaticProperty { get; set; }
-
         public string PublicProperty { get; set; }
-
         internal static string InternalStaticProperty { get; }
-
         internal string InternalProperty { get; }
-
         protected static string ProtectedStaticProperty { set; }
-
         protected string ProtectedProperty { set; }
         private static string PrivateStaticProperty { get; set; }
 

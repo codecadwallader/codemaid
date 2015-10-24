@@ -30,9 +30,25 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Initializes a new instance of the <see cref="ReorganizingTypesViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public ReorganizingTypesViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public ReorganizingTypesViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeClasses, x => Classes),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeConstructors, x => Constructors),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeDelegates, x => Delegates),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeDestructors, x => Destructors),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeEnums, x => Enums),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeEvents, x => Events),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeFields, x => Fields),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeIndexers, x => Indexers),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeInterfaces, x => Interfaces),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeMethods, x => Methods),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeProperties, x => Properties),
+                new SettingToOptionMapping<string, MemberTypeSetting>(x => ActiveSettings.Reorganizing_MemberTypeStructs, x => Structs)
+            };
         }
 
         #endregion Constructors
@@ -52,39 +68,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// </summary>
         public override void LoadSettings()
         {
-            Classes = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeClasses);
-            Constructors = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeConstructors);
-            Delegates = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDelegates);
-            Destructors = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeDestructors);
-            Enums = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEnums);
-            Events = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeEvents);
-            Fields = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeFields);
-            Indexers = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeIndexers);
-            Interfaces = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeInterfaces);
-            Methods = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeMethods);
-            Properties = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeProperties);
-            Structs = MemberTypeSetting.Deserialize(Settings.Default.Reorganizing_MemberTypeStructs);
+            base.LoadSettings();
 
             CreateMemberTypesFromCurrentState();
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Reorganizing_MemberTypeClasses = Classes.Serialize();
-            Settings.Default.Reorganizing_MemberTypeConstructors = Constructors.Serialize();
-            Settings.Default.Reorganizing_MemberTypeDelegates = Delegates.Serialize();
-            Settings.Default.Reorganizing_MemberTypeDestructors = Destructors.Serialize();
-            Settings.Default.Reorganizing_MemberTypeEnums = Enums.Serialize();
-            Settings.Default.Reorganizing_MemberTypeEvents = Events.Serialize();
-            Settings.Default.Reorganizing_MemberTypeFields = Fields.Serialize();
-            Settings.Default.Reorganizing_MemberTypeIndexers = Indexers.Serialize();
-            Settings.Default.Reorganizing_MemberTypeInterfaces = Interfaces.Serialize();
-            Settings.Default.Reorganizing_MemberTypeMethods = Methods.Serialize();
-            Settings.Default.Reorganizing_MemberTypeProperties = Properties.Serialize();
-            Settings.Default.Reorganizing_MemberTypeStructs = Structs.Serialize();
         }
 
         #endregion Overrides of OptionsPageViewModel

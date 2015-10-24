@@ -11,7 +11,6 @@
 
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
 using System.Windows.Media;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
@@ -32,7 +31,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private readonly EnvDTE.Properties _editorProperties;
         private readonly EnvDTE.ColorableItems _commentColors;
-        private CodeCommentOptions _options;
 
         #endregion Fields
 
@@ -42,9 +40,25 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// Initializes a new instance of the <see cref="FormattingViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public FormattingViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public FormattingViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentRunDuringCleanup, x => CommentRunDuringCleanup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentSkipWrapOnLastWord, x => CommentSkipWrapOnLastWord),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Formatting_CommentWrapColumn, x => CommentWrapColumn),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlAlignParamTags, x => CommentXmlAlignParamTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlKeepTagsTogether, x => CommentXmlKeepTagsTogether),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSpaceSingleTags, x => CommentXmlSpaceSingleTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSpaceTags, x => CommentXmlSpaceTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSplitAllTags, x => CommentXmlSplitAllTags),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlSplitSummaryTagToMultipleLines, x => CommentXmlSplitSummaryTagToMultipleLines),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentXmlTagsToLowerCase, x => CommentXmlTagsToLowerCase),
+                new SettingToOptionMapping<int, int>(x => ActiveSettings.Formatting_CommentXmlValueIndent, x => CommentXmlValueIndent)
+            };
+
             _editorProperties = Package.IDE.Properties["FontsAndColors", "TextEditor"];
             var property = _editorProperties.Item("FontsAndColorsItems");
             var fontsAndColorsItems = (EnvDTE.FontsAndColorsItems)property.Object;
@@ -70,18 +84,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// </summary>
         public override void LoadSettings()
         {
-            _options = new CodeCommentOptions(Settings.Default, 4);
+            base.LoadSettings();
 
-            RaisePropertyChangedForAllOptionsProperties();
             UpdatePreviewText();
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            _options.Save(Settings.Default);
         }
 
         #endregion Overrides of OptionsPageViewModel
@@ -91,48 +96,32 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting will run during cleanup.
         /// </summary>
-        public bool FormatDuringCleanup
+        public bool CommentRunDuringCleanup
         {
-            get { return _options.FormatDuringCleanup; }
-            set
-            {
-                if (_options.FormatDuringCleanup != value)
-                {
-                    _options.FormatDuringCleanup = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
         /// Gets or sets the flag indicating if comment formatting should skip wrapping the last word.
         /// </summary>
-        public bool SkipWrapOnLastWord
+        public bool CommentSkipWrapOnLastWord
         {
-            get { return _options.SkipWrapOnLastWord; }
-            set
-            {
-                if (_options.SkipWrapOnLastWord != value)
-                {
-                    _options.SkipWrapOnLastWord = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
         /// Gets or sets the column where comments will attempt to wrap.
         /// </summary>
-        public int WrapAtColumn
+        public int CommentWrapColumn
         {
-            get { return _options.WrapAtColumn; }
+            get { return GetPropertyValue<int>(); }
             set
             {
-                value = Math.Max(value, 0);
-                if (_options.WrapAtColumn != value)
+                if (value >= 0)
                 {
-                    _options.WrapAtColumn = value;
-                    RaisePropertyChanged();
+                    SetPropertyValue(value);
                 }
             }
         }
@@ -140,135 +129,66 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets or sets the flag indicating if the content of param tags should be aligned.
         /// </summary>
-        public bool XmlAlignParamTags
+        public bool CommentXmlAlignParamTags
         {
-            get { return _options.XmlAlignParamTags; }
-            set
-            {
-                if (_options.XmlAlignParamTags != value)
-                {
-                    _options.XmlAlignParamTags = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool CommentXmlKeepTagsTogether
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool CommentXmlSpaceSingleTags
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
         /// Gets or sets the flag indicating if an extra space should be added inside XML tags.
         /// </summary>
-        public bool XmlSpaceTagContent
+        public bool CommentXmlSpaceTags
         {
-            get { return _options.XmlSpaceTagContent; }
-            set
-            {
-                if (_options.XmlSpaceTagContent != value)
-                {
-                    _options.XmlSpaceTagContent = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool CommentXmlSplitAllTags
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
         /// Gets or sets the flag indicating if summary tags should always be split to multiple lines.
         /// </summary>
-        public bool XmlSplitSummaryTag
+        public bool CommentXmlSplitSummaryTagToMultipleLines
         {
-            get { return _options.XmlSplitSummaryTag; }
-            set
-            {
-                if (_options.XmlSplitSummaryTag != value)
-                {
-                    _options.XmlSplitSummaryTag = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool CommentXmlTagsToLowerCase
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         /// <summary>
         /// Gets or sets the amount of extra spacing to add before XML values.
         /// </summary>
-        public int XmlValueIndent
+        public int CommentXmlValueIndent
         {
-            get { return _options.XmlValueIndent; }
+            get { return GetPropertyValue<int>(); }
             set
             {
-                value = Math.Max(value, 0);
-                if (_options.XmlValueIndent != value)
+                if (value >= 0)
                 {
-                    _options.XmlValueIndent = value;
-                    RaisePropertyChanged();
+                    SetPropertyValue(value);
                 }
-            }
-        }
-
-        public bool XmlTagsToLowerCase
-        {
-            get { return _options.XmlTagsToLowerCase; }
-            set
-            {
-                if (_options.XmlTagsToLowerCase != value)
-                {
-                    _options.XmlTagsToLowerCase = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public bool XmlSpaceSingleTags
-        {
-            get { return _options.XmlSpaceSingleTags; }
-            set
-            {
-                if (_options.XmlSpaceSingleTags != value)
-                {
-                    _options.XmlSpaceSingleTags = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public bool XmlKeepTagsTogether
-        {
-            get { return _options.XmlKeepTagsTogether; }
-            set
-            {
-                if (_options.XmlKeepTagsTogether != value)
-                {
-                    _options.XmlKeepTagsTogether = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public bool XmlSplitAllTags
-        {
-            get { return _options.XmlSplitAllTags; }
-            set
-            {
-                if (_options.XmlSplitAllTags != value)
-                {
-                    _options.XmlSplitAllTags = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Calls <see cref="Bindable.RaisePropertyChanged"/> for every public property exposed on
-        /// the <see cref="CodeCommentOptions"/> class. This ensures that changes to that class
-        /// (which do not raise events) will be bubbled up to the UI correctly.
-        /// </summary>
-        /// <remarks>
-        /// Note: For this to work properly, the wrapping property on this view model must match the
-        ///       name of the underlying property within the options class.
-        /// </remarks>
-        private void RaisePropertyChangedForAllOptionsProperties()
-        {
-            var optionsProperties = _options.GetType().GetProperties();
-            foreach (var optionsProperty in optionsProperties)
-            {
-                RaisePropertyChanged(optionsProperty.Name);
             }
         }
 
@@ -309,32 +229,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private void UpdatePreviewText()
         {
-            var temp = _options.WrapAtColumn;
-            _options.WrapAtColumn = 75; // Override to fit preview text better
-
-            CommentPreviewText = CodeComment.FormatXml(
-                UnformattedPreviewText,
-                _options);
-
-            _options.WrapAtColumn = temp;
+            //TODO: Preview functionality used to work against CodeCommentOptions, but now is
+            // working directly against the Settings object which is not updated until save.
+            // Utilize an alternate Settings object to show settings on the fly?
+            CommentPreviewText = CodeComment.FormatXml(UnformattedPreviewText);
         }
 
         #endregion Preview Text and Helpers
-
-        #region Enables
-
-        /// <summary>
-        /// Gets a flag indicating if this page should be enabled.
-        /// </summary>
-        /// <remarks>
-        /// Disable comment formatting if using POSIX Regular Expressions (i.e. pre-Visual Studio 11
-        /// versions) since not supported.
-        /// </remarks>
-        public bool IsEnabled
-        {
-            get { return !Package.UsePOSIXRegEx; }
-        }
-
-        #endregion Enables
     }
 }

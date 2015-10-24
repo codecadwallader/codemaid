@@ -12,6 +12,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
 {
@@ -33,6 +34,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         #endregion Constructors
 
         #region Event Handlers
+
+        /// <summary>
+        /// Called when a key is pressed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            DialogResult = false;
+        }
 
         /// <summary>
         /// Called when an uncaptured left mouse button down event is received on the background.

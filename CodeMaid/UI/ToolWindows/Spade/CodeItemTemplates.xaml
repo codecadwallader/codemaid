@@ -91,15 +91,35 @@
     </DataTemplate>
 
     <DataTemplate x:Key="NameParametersDataTemplate">
-        <ContentControl x:Name="name"
-                Content="{Binding Converter={x:Static cnv:NameParametersToTextBlockConverter.Default}}"
-                Focusable="False" />
+        <ContentControl x:Name="name" Focusable="False">
+            <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Default}">
+                <Binding />
+                <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
+            </MultiBinding>
+        </ContentControl>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
-                <Setter TargetName="name" Property="Content"
-                        Value="{Binding Converter={x:Static cnv:NameParametersToTextBlockConverter.WithParameters}}" />
+                <Setter TargetName="name" Property="Content">
+                    <Setter.Value>
+                        <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.WithParameters}">
+                            <Binding />
+                            <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ParentNameDataTemplate">
+        <ContentControl x:Name="name" Focusable="False">
+            <ContentControl.Content>
+                <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Parent}">
+                    <Binding />
+                    <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
+                </MultiBinding>
+            </ContentControl.Content>
+        </ContentControl>
     </DataTemplate>
 
     <!-- CodeItem templates -->
@@ -110,17 +130,14 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
 
-            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource ParentNameStyle}" />
-
-            <ContentControl x:Name="nameParameters" Content="{Binding}" ContentTemplate="{StaticResource NameParametersDataTemplate}" Focusable="False" Visibility="Collapsed" />
+            <ContentControl x:Name="nameParameters" Content="{Binding}" ContentTemplate="{StaticResource ParentNameDataTemplate}" Focusable="False" />
 
             <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
         </DockPanel>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
                 <Setter TargetName="dockPanel" Property="Margin" Value="0" />
-                <Setter TargetName="name" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="nameParameters" Property="Visibility" Value="Visible" />
+                <Setter TargetName="nameParameters" Property="ContentTemplate" Value="{StaticResource NameParametersDataTemplate}" />
                 <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
         </DataTemplate.Triggers>
@@ -147,14 +164,14 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
 
-            <TextBlock x:Name="name" Text="{Binding Name}" Style="{StaticResource ParentNameStyle}" />
+            <ContentControl x:Name="name" Content="{Binding}" ContentTemplate="{StaticResource ParentNameDataTemplate}" Focusable="False" />
 
             <TextBlock x:Name="namespace" Text="{Binding Namespace, StringFormat=' of {0}', FallbackValue='', TargetNullValue=''}" Style="{StaticResource NamespaceStyle}" />
         </DockPanel>
         <HierarchicalDataTemplate.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}, FallbackValue={x:Null}, Converter={x:Static cnv:NullToBooleanConverter.NotNull}}" Value="True">
                 <Setter TargetName="dockPanel" Property="Margin" Value="0" />
-                <Setter TargetName="name" Property="Style" Value="{StaticResource DefaultNameStyle}" />
+                <Setter TargetName="name" Property="ContentTemplate" Value="{StaticResource NameParametersDataTemplate}" />
                 <Setter TargetName="namespace" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
         </HierarchicalDataTemplate.Triggers>
@@ -189,7 +206,7 @@
 
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ImageDataTemplate}" Focusable="False" />
 
-            <TextBlock Text="{Binding Name}" Style="{StaticResource DefaultNameStyle}" />
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource NameParametersDataTemplate}" Focusable="False" />
         </DockPanel>
     </DataTemplate>
 </ResourceDictionary>

@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -47,7 +48,7 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.7.6.1 beta", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "v0.8.1", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
@@ -72,7 +73,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// The IComponentModel service.
         /// </summary>
-        private IComponentModel _iComponentModel;
+        private IComponentModel _componentModel;
 
         /// <summary>
         /// The top level application instance of the VS IDE that is executing this package.
@@ -107,6 +108,13 @@ namespace SteveCadwallader.CodeMaid
             {
                 Application.Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
             }
+
+            // If an existing user settings file cannot be found, perform a one-time settings upgrade.
+            if (!File.Exists(SettingsContextHelper.GetUserSettingsPath()))
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.Save();
+            }
         }
 
         #endregion Constructors
@@ -135,84 +143,51 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the build progress tool window, creating it if necessary.
         /// </summary>
-        public BuildProgressToolWindow BuildProgress
-        {
-            get
-            {
-                return _buildProgress ??
-                    (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
-            }
-        }
+        public BuildProgressToolWindow BuildProgress =>
+            _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
 
         /// <summary>
         /// Gets the IComponentModel service.
         /// </summary>
-        public IComponentModel IComponentModel
-        {
-            get { return _iComponentModel ?? (_iComponentModel = GetGlobalService(typeof(SComponentModel)) as IComponentModel); }
-        }
+        public IComponentModel ComponentModel =>
+            _componentModel ?? (_componentModel = GetGlobalService(typeof(SComponentModel)) as IComponentModel);
 
         /// <summary>
         /// Gets the top level application instance of the VS IDE that is executing this package.
         /// </summary>
-        public DTE2 IDE
-        {
-            get { return _ide ?? (_ide = (DTE2)GetService(typeof(DTE))); }
-        }
+        public DTE2 IDE => _ide ?? (_ide = (DTE2)GetService(typeof(DTE)));
 
         /// <summary>
         /// Gets the version of the running IDE instance.
         /// </summary>
-        public double IDEVersion { get { return Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture); } }
+        public double IDEVersion => Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Gets or sets a flag indicating if CodeMaid is running inside an AutoSave context.
+        /// </summary>
+        public bool IsAutoSaveContext { get; set; }
 
         /// <summary>
         /// Gets the menu command service.
         /// </summary>
-        public OleMenuCommandService MenuCommandService
-        {
-            get { return GetService(typeof(IMenuCommandService)) as OleMenuCommandService; }
-        }
+        public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
         /// <summary>
         /// Gets the Spade tool window, iff it already exists.
         /// </summary>
-        public SpadeToolWindow Spade
-        {
-            get
-            {
-                return _spade ??
-                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
-            }
-        }
+        public SpadeToolWindow Spade =>
+            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
 
         /// <summary>
         /// Gets the Spade tool window, creating it if necessary.
         /// </summary>
-        public SpadeToolWindow SpadeForceLoad
-        {
-            get
-            {
-                return _spade ??
-                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
-            }
-        }
+        public SpadeToolWindow SpadeForceLoad =>
+            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
 
         /// <summary>
         /// Gets the theme manager.
         /// </summary>
-        public ThemeManager ThemeManager
-        {
-            get { return _themeManager ?? (_themeManager = ThemeManager.GetInstance(this)); }
-        }
-
-        /// <summary>
-        /// Gets a flag indicating if POSIX regular expressions should be used for TextDocument
-        /// Find/Replace actions. Applies to pre-Visual Studio 11 versions.
-        /// </summary>
-        public bool UsePOSIXRegEx
-        {
-            get { return IDEVersion < 11; }
-        }
+        public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
         #endregion Public Integration Properties
 
@@ -260,10 +235,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the shell service.
         /// </summary>
-        private IVsShell ShellService
-        {
-            get { return GetService(typeof(SVsShell)) as IVsShell; }
-        }
+        private IVsShell ShellService => GetService(typeof(SVsShell)) as IVsShell;
 
         #endregion Private Service Properties
 
@@ -355,9 +327,9 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Called when a solution is closed.
+        /// Called when a solution is closed to conditionally show the start page.
         /// </summary>
-        private void OnSolutionClosed()
+        private void OnSolutionClosedShowStartPage()
         {
             if (!Settings.Default.General_ShowStartPageOnSolutionClose) return;
 
@@ -383,22 +355,23 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new CollapseAllSolutionExplorerCommand(this));
                 _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
                 _commands.Add(new CommentFormatCommand(this));
-                _commands.Add(new ConfigurationCommand(this));
                 _commands.Add(new FindInSolutionExplorerCommand(this));
                 _commands.Add(new JoinLinesCommand(this));
+                _commands.Add(new OptionsCommand(this));
                 _commands.Add(new ReadOnlyToggleCommand(this));
                 _commands.Add(new RemoveRegionCommand(this));
                 _commands.Add(new ReorganizeActiveCodeCommand(this));
                 _commands.Add(new SettingCleanupOnSaveCommand(this));
                 _commands.Add(new SortLinesCommand(this));
-                _commands.Add(new SpadeConfigurationCommand(this));
                 _commands.Add(new SpadeContextDeleteCommand(this));
                 _commands.Add(new SpadeContextFindReferencesCommand(this));
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
+                _commands.Add(new SpadeOptionsCommand(this));
+                _commands.Add(new SpadeRefreshCommand(this));
+                _commands.Add(new SpadeSearchCommand(this));
                 _commands.Add(new SpadeSortOrderAlphaCommand(this));
                 _commands.Add(new SpadeSortOrderFileCommand(this));
                 _commands.Add(new SpadeSortOrderTypeCommand(this));
-                _commands.Add(new SpadeRefreshCommand(this));
                 _commands.Add(new SpadeToolWindowCommand(this));
                 _commands.Add(new SwitchFileCommand(this));
 
@@ -443,6 +416,7 @@ namespace SteveCadwallader.CodeMaid
                 var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
 
                 var codeModelManager = CodeModelManager.GetInstance(this);
+                var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 
                 BuildProgressEventListener = new BuildProgressEventListener(this);
                 BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
@@ -459,7 +433,9 @@ namespace SteveCadwallader.CodeMaid
 
                 SolutionEventListener = new SolutionEventListener(this);
                 SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
-                SolutionEventListener.OnSolutionClosed += OnSolutionClosed;
+                SolutionEventListener.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
+                SolutionEventListener.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
+                SolutionEventListener.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
                 // Check if a solution has already been opened before CodeMaid was initialized.
                 if (IDE.Solution != null && IDE.Solution.IsOpen)
@@ -491,40 +467,13 @@ namespace SteveCadwallader.CodeMaid
             base.Dispose(disposing);
 
             // Dispose of any event listeners.
-            if (BuildProgressEventListener != null)
-            {
-                BuildProgressEventListener.Dispose();
-            }
-
-            if (DocumentEventListener != null)
-            {
-                DocumentEventListener.Dispose();
-            }
-
-            if (RunningDocumentTableEventListener != null)
-            {
-                RunningDocumentTableEventListener.Dispose();
-            }
-
-            if (ShellEventListener != null)
-            {
-                ShellEventListener.Dispose();
-            }
-
-            if (SolutionEventListener != null)
-            {
-                SolutionEventListener.Dispose();
-            }
-
-            if (TextEditorEventListener != null)
-            {
-                TextEditorEventListener.Dispose();
-            }
-
-            if (WindowEventListener != null)
-            {
-                WindowEventListener.Dispose();
-            }
+            BuildProgressEventListener?.Dispose();
+            DocumentEventListener?.Dispose();
+            RunningDocumentTableEventListener?.Dispose();
+            ShellEventListener?.Dispose();
+            SolutionEventListener?.Dispose();
+            TextEditorEventListener?.Dispose();
+            WindowEventListener?.Dispose();
         }
 
         #endregion IDisposable Members

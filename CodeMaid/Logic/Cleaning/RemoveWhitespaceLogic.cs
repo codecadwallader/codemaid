@@ -89,12 +89,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"\]{:b*(//.*)*}\n\n~(:b*//)"
-                                 : @"\]([ \t]*(//[^\r\n]*)*)(\r?\n){2}(?![ \t]*//)";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\]\1" + Environment.NewLine
-                                     : @"]$1" + Environment.NewLine;
+            const string pattern = @"(^[ \t]*\[[^\]]+\][ \t]*(//[^\r\n]*)*)(\r?\n){2}(?![ \t]*//)";
+            string replacement = @"$1" + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -107,12 +103,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"\{{:b*(//.*)*}\n\n"
-                                 : @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? @"\{\1" + Environment.NewLine
-                                     : @"{$1" + Environment.NewLine;
+            const string pattern = @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
+            string replacement = @"{$1" + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -125,12 +117,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}\}"
-                                 : @"(\r?\n){2,}([ \t]*)\}";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? Environment.NewLine + @"\1\}"
-                                     : Environment.NewLine + @"$2}";
+            const string pattern = @"(\r?\n){2,}([ \t]*)\}";
+            string replacement = Environment.NewLine + @"$2}";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -143,12 +131,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}\</"
-                                 : @"(\r?\n){2,}([ \t]*)</";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? Environment.NewLine + @"\1</"
-                                     : Environment.NewLine + @"$2</";
+            const string pattern = @"(\r?\n){2,}([ \t]*)</";
+            string replacement = Environment.NewLine + @"$2</";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -161,12 +145,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements) return;
 
-            string pattern = _package.UsePOSIXRegEx
-                                 ? @"\n\n{:b*}{else|catch|finally}{:b|\n}"
-                                 : @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
-            string replacement = _package.UsePOSIXRegEx
-                                     ? Environment.NewLine + @"\1\2\3"
-                                     : Environment.NewLine + @"$2$3$4";
+            const string pattern = @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
+            string replacement = Environment.NewLine + @"$2$3$4";
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
         }
@@ -180,7 +160,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets) return;
 
             // Remove blank spaces before regular closing angle brackets.
-            string pattern = _package.UsePOSIXRegEx ? @"\n*:b+\>\n" : @"(\r?\n)*[ \t]+>\r?\n";
+            const string pattern = @"(\r?\n)*[ \t]+>\r?\n";
             string replacement = @">" + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
@@ -188,14 +168,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Handle blank spaces before self closing angle brackets based on insert blank space setting.
             if (Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets)
             {
-                string oneSpacePattern = _package.UsePOSIXRegEx ? @"\n*:b:b+/\>\n" : @"(\r?\n)*[ \t]{2,}/>\r?\n";
+                const string oneSpacePattern = @"(\r?\n)*[ \t]{2,}/>\r?\n";
                 string oneSpaceReplacement = @" />" + Environment.NewLine;
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, oneSpacePattern, oneSpaceReplacement);
             }
             else
             {
-                string noSpacePattern = _package.UsePOSIXRegEx ? @"\n*:b+/\>\n" : @"(\r?\n)*[ \t]+/>\r?\n";
+                const string noSpacePattern = @"(\r?\n)*[ \t]+/>\r?\n";
                 string noSpaceReplacement = @"/>" + Environment.NewLine;
 
                 TextDocumentHelper.SubstituteAllStringMatches(textDocument, noSpacePattern, noSpaceReplacement);
@@ -215,7 +195,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
             {
                 // Make an exception for C++ resource files to work-around known EOF issue: http://connect.microsoft.com/VisualStudio/feedback/details/173903/resource-compiler-returns-a-rc1004-unexpected-eof-found-error#details
-                if (textDocument.Language == "C/C++" && 
+                if (textDocument.Language == "C/C++" &&
                     (textDocument.Parent.FullName.EndsWith(".h") || textDocument.Parent.FullName.EndsWith(".rc2")))
                 {
                     return;
@@ -235,7 +215,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveEndOfLineWhitespace) return;
 
-            string pattern = _package.UsePOSIXRegEx ? @":b+\n" : @"[ \t]+\r?\n";
+            const string pattern = @"[ \t]+\r?\n";
             string replacement = Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
@@ -249,7 +229,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines) return;
 
-            string pattern = _package.UsePOSIXRegEx ? @"\n\n\n+" : @"(\r?\n){3,}";
+            const string pattern = @"(\r?\n){3,}";
             string replacement = Environment.NewLine + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);

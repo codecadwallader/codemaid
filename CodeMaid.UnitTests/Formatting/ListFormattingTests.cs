@@ -9,20 +9,25 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     /// <summary>
-    /// Class with simple unit tests for formatting. This calls the formatter directly, rather than
-    /// invoking it through the UI as with the integration tests.
+    /// Class with list oriented unit tests for formatting. This calls the formatter directly,
+    /// rather than invoking it through the UI as with the integration tests.
     /// </summary>
     [TestClass]
     public class ListFormattingTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Settings.Default.Reset();
+        }
+
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void ListFormattingTests_DashedList()
@@ -31,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"Some text before." + Environment.NewLine +
                 @"- The first item with enough words to require wrapping." + Environment.NewLine +
                 @"- The second item with enough words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
             var expected =
                 @"Some text before." + Environment.NewLine +
@@ -39,9 +44,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"  words to require wrapping." + Environment.NewLine +
                 @"- The second item with enough" + Environment.NewLine +
                 @"  words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
+            Settings.Default.Formatting_CommentWrapColumn = 30;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
         [TestMethod]
@@ -52,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"Some text before." + Environment.NewLine +
                 @"1) The first item with enough words to require wrapping." + Environment.NewLine +
                 @"2) The second item with enough words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
             var expected =
                 @"Some text before." + Environment.NewLine +
@@ -60,9 +67,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"   words to require wrapping." + Environment.NewLine +
                 @"2) The second item with enough" + Environment.NewLine +
                 @"   words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 30 });
+            Settings.Default.Formatting_CommentWrapColumn = 30;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
         [TestMethod]
@@ -73,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"Some text before." + Environment.NewLine +
                 @"item) The first item with enough words to require wrapping." + Environment.NewLine +
                 @"meti) The second item with enough words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
             var expected =
                 @"Some text before." + Environment.NewLine +
@@ -81,9 +90,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"      words to require wrapping." + Environment.NewLine +
                 @"meti) The second item with enough" + Environment.NewLine +
                 @"      words to require wrapping." + Environment.NewLine +
-                @"Some trialing text.";
+                @"Some trailing text.";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, new CodeCommentOptions(Settings.Default) { WrapAtColumn = 35 });
+            Settings.Default.Formatting_CommentWrapColumn = 35;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
     }
 }

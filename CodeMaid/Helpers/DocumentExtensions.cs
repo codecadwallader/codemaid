@@ -36,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static bool IsExternal(this Document document)
         {
             var projectItem = document.ProjectItem;
-            
+
             return projectItem == null || projectItem.IsExternal();
         }
     }

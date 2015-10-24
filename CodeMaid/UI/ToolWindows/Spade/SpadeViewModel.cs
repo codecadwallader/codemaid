@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Windows.Threading;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -57,6 +58,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Properties
 
         /// <summary>
+        /// Gets or sets the dispatcher.
+        /// </summary>
+        public Dispatcher Dispatcher { get; set; }
+
+        /// <summary>
         /// Gets or sets the document.
         /// </summary>
         public Document Document
@@ -81,6 +87,21 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the name filter.
+        /// </summary>
+        public string NameFilter
+        {
+            get { return GetPropertyValue<string>(); }
+            set
+            {
+                if (SetPropertyValue(value))
+                {
+                    RequestUpdatedOrganizedCodeItems();
+                }
+            }
         }
 
         /// <summary>
@@ -166,7 +187,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder));
+            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder, NameFilter));
         }
 
         /// <summary>
@@ -177,7 +198,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             if (Document == snapshot.Document)
             {
-                OrganizedCodeItems = snapshot.CodeItems;
+                Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => OrganizedCodeItems = snapshot.CodeItems));
             }
         }
 

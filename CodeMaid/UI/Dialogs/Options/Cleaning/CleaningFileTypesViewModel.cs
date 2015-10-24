@@ -24,9 +24,29 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningFileTypesViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningFileTypesViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningFileTypesViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_ExcludeT4GeneratedCode, x => ExcludeT4GeneratedCode),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_ExclusionExpression, x => ExclusionExpression),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCPlusPlus, x => IncludeCPlusPlus),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSharp, x => IncludeCSharp),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSS, x => IncludeCSS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeFSharp, x => IncludeFSharp),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeHTML, x => IncludeHTML),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeJavaScript, x => IncludeJavaScript),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeJSON, x => IncludeJSON),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeLESS, x => IncludeLESS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludePHP, x => IncludePHP),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeSCSS, x => IncludeSCSS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeTypeScript, x => IncludeTypeScript),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeVB, x => IncludeVisualBasic),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeXAML, x => IncludeXAML),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeXML, x => IncludeXML)
+            };
         }
 
         #endregion Constructors
@@ -39,52 +59,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "File Types"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            ExcludeT4GeneratedCode = Settings.Default.Cleaning_ExcludeT4GeneratedCode;
-            ExclusionExpression = Settings.Default.Cleaning_ExclusionExpression;
-            IncludeCPlusPlus = Settings.Default.Cleaning_IncludeCPlusPlus;
-            IncludeCSharp = Settings.Default.Cleaning_IncludeCSharp;
-            IncludeCSS = Settings.Default.Cleaning_IncludeCSS;
-            IncludeFSharp = Settings.Default.Cleaning_IncludeFSharp;
-            IncludeHTML = Settings.Default.Cleaning_IncludeHTML;
-            IncludeJavaScript = Settings.Default.Cleaning_IncludeJavaScript;
-            IncludeJSON = Settings.Default.Cleaning_IncludeJSON;
-            IncludeLESS = Settings.Default.Cleaning_IncludeLESS;
-            IncludePHP = Settings.Default.Cleaning_IncludePHP;
-            IncludeSCSS = Settings.Default.Cleaning_IncludeSCSS;
-            IncludeTypeScript = Settings.Default.Cleaning_IncludeTypeScript;
-            IncludeVisualBasic = Settings.Default.Cleaning_IncludeVB;
-            IncludeXAML = Settings.Default.Cleaning_IncludeXAML;
-            IncludeXML = Settings.Default.Cleaning_IncludeXML;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_ExcludeT4GeneratedCode = ExcludeT4GeneratedCode;
-            Settings.Default.Cleaning_ExclusionExpression = ExclusionExpression;
-            Settings.Default.Cleaning_IncludeCPlusPlus = IncludeCPlusPlus;
-            Settings.Default.Cleaning_IncludeCSharp = IncludeCSharp;
-            Settings.Default.Cleaning_IncludeCSS = IncludeCSS;
-            Settings.Default.Cleaning_IncludeFSharp = IncludeFSharp;
-            Settings.Default.Cleaning_IncludeHTML = IncludeHTML;
-            Settings.Default.Cleaning_IncludeJavaScript = IncludeJavaScript;
-            Settings.Default.Cleaning_IncludeJSON = IncludeJSON;
-            Settings.Default.Cleaning_IncludeLESS = IncludeLESS;
-            Settings.Default.Cleaning_IncludePHP = IncludePHP;
-            Settings.Default.Cleaning_IncludeSCSS = IncludeSCSS;
-            Settings.Default.Cleaning_IncludeTypeScript = IncludeTypeScript;
-            Settings.Default.Cleaning_IncludeVB = IncludeVisualBasic;
-            Settings.Default.Cleaning_IncludeXAML = IncludeXAML;
-            Settings.Default.Cleaning_IncludeXML = IncludeXML;
         }
 
         #endregion Overrides of OptionsPageViewModel

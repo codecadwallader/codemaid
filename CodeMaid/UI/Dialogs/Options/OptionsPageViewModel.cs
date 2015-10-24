@@ -9,6 +9,7 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
@@ -24,10 +25,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Initializes a new instance of the <see cref="OptionsPageViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        protected OptionsPageViewModel(CodeMaidPackage package)
+        /// <param name="activeSettings">The active settings.</param>
+        protected OptionsPageViewModel(CodeMaidPackage package, Settings activeSettings)
         {
             Package = package;
-            LoadSettings();
+            ActiveSettings = activeSettings;
         }
 
         #endregion Constructors
@@ -43,6 +45,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Gets the hosting package.
         /// </summary>
         public CodeMaidPackage Package { get; private set; }
+
+        /// <summary>
+        /// Gets the active settings.
+        /// </summary>
+        public Settings ActiveSettings { get; private set; }
 
         private IEnumerable<OptionsPageViewModel> _children;
 
@@ -62,6 +69,11 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             }
         }
 
+        /// <summary>
+        /// Gets or sets the list of settings to options mappings.
+        /// </summary>
+        protected SettingsToOptionsList Mappings { get; set; }
+
         #endregion Properties
 
         #region Methods
@@ -69,12 +81,24 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Loads the settings.
         /// </summary>
-        public abstract void LoadSettings();
+        public virtual void LoadSettings()
+        {
+            if (Mappings != null)
+            {
+                Mappings.CopySettingsToOptions();
+            }
+        }
 
         /// <summary>
         /// Saves the settings.
         /// </summary>
-        public abstract void SaveSettings();
+        public virtual void SaveSettings()
+        {
+            if (Mappings != null)
+            {
+                Mappings.CopyOptionsToSettings();
+            }
+        }
 
         #endregion Methods
     }

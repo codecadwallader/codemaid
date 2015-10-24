@@ -25,9 +25,16 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningGeneralViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningGeneralViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningGeneralViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
+            Mappings = new SettingsToOptionsList(ActiveSettings, this)
+            {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_AutoCleanupOnFileSave, x => AutoCleanupOnFileSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_AutoSaveAndCloseIfOpenedByCleanup, x => AutoSaveAndCloseIfOpenedByCleanup),
+                new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Cleaning_PerformPartialCleanupOnExternal, x => PerformPartialCleanupOnExternal)
+            };
         }
 
         #endregion Constructors
@@ -40,26 +47,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "General"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-            AutoCleanupOnFileSave = Settings.Default.Cleaning_AutoCleanupOnFileSave;
-            AutoSaveAndCloseIfOpenedByCleanup = Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup;
-            PerformPartialCleanupOnExternal = (AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal;
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
-            Settings.Default.Cleaning_AutoCleanupOnFileSave = AutoCleanupOnFileSave;
-            Settings.Default.Cleaning_AutoSaveAndCloseIfOpenedByCleanup = AutoSaveAndCloseIfOpenedByCleanup;
-            Settings.Default.Cleaning_PerformPartialCleanupOnExternal = (int)PerformPartialCleanupOnExternal;
         }
 
         #endregion Overrides of OptionsPageViewModel

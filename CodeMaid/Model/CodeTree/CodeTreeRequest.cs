@@ -25,11 +25,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// <param name="document">The document.</param>
         /// <param name="rawCodeItems">The raw code items.</param>
         /// <param name="sortOrder">The sort order.</param>
-        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder)
+        /// <param name="nameFilter">The name filter.</param>
+        internal CodeTreeRequest(Document document, SetCodeItems rawCodeItems, CodeSortOrder sortOrder, string nameFilter = null)
         {
             Document = document;
             RawCodeItems = rawCodeItems;
             SortOrder = sortOrder;
+            NameFilter = nameFilter;
         }
 
         /// <summary>
@@ -46,5 +48,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// Gets the sort order.
         /// </summary>
         internal CodeSortOrder SortOrder { get; private set; }
+
+        /// <summary>
+        /// Gets the name filter.
+        /// </summary>
+        internal string NameFilter { get; private set; }
     }
 }

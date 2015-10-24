@@ -44,18 +44,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         static MemberTypeSettingHelper()
         {
-            CachedClassSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeClasses, MemberTypeSetting.Deserialize);
-            CachedConstructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeConstructors, MemberTypeSetting.Deserialize);
-            CachedDelegateSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDelegates, MemberTypeSetting.Deserialize);
-            CachedDestructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDestructors, MemberTypeSetting.Deserialize);
-            CachedEnumSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEnums, MemberTypeSetting.Deserialize);
-            CachedEventSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEvents, MemberTypeSetting.Deserialize);
-            CachedFieldSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeFields, MemberTypeSetting.Deserialize);
-            CachedIndexerSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeIndexers, MemberTypeSetting.Deserialize);
-            CachedInterfaceSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeInterfaces, MemberTypeSetting.Deserialize);
-            CachedMethodSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeMethods, MemberTypeSetting.Deserialize);
-            CachedPropertySettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeProperties, MemberTypeSetting.Deserialize);
-            CachedStructSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeStructs, MemberTypeSetting.Deserialize);
+            CachedClassSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeClasses, x => (MemberTypeSetting)x);
+            CachedConstructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeConstructors, x => (MemberTypeSetting)x);
+            CachedDelegateSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDelegates, x => (MemberTypeSetting)x);
+            CachedDestructorSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeDestructors, x => (MemberTypeSetting)x);
+            CachedEnumSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEnums, x => (MemberTypeSetting)x);
+            CachedEventSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeEvents, x => (MemberTypeSetting)x);
+            CachedFieldSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeFields, x => (MemberTypeSetting)x);
+            CachedIndexerSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeIndexers, x => (MemberTypeSetting)x);
+            CachedInterfaceSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeInterfaces, x => (MemberTypeSetting)x);
+            CachedMethodSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeMethods, x => (MemberTypeSetting)x);
+            CachedPropertySettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeProperties, x => (MemberTypeSetting)x);
+            CachedStructSettings = new CachedSetting<MemberTypeSetting>(() => Settings.Default.Reorganizing_MemberTypeStructs, x => (MemberTypeSetting)x);
         }
 
         #endregion Constructors

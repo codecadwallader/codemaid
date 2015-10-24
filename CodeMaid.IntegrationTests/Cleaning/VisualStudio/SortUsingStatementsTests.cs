@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio
 
         private static void RunSortUsingStatements(Document document)
         {
-            _usingStatementCleanupLogic.SortUsingStatements(false);
+            _usingStatementCleanupLogic.SortUsingStatements();
         }
 
         #endregion Helpers

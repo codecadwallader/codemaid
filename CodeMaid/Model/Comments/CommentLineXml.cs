@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,20 +33,20 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         #region Constructors
 
-        public CommentLineXml(XElement xml, CodeCommentOptions options)
+        public CommentLineXml(XElement xml)
             : base(null)
         {
             TagName = xml.Name.LocalName;
 
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
-            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml, options);
-            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml, options);
+            OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml);
+            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml);
 
             Lines = new List<ICommentLine>();
 
             _innerText = new StringBuilder();
-            ParseChildNodes(xml, options);
+            ParseChildNodes(xml);
             CloseInnerText();
         }
 
@@ -77,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
-        private void ParseChildNodes(XElement xml, CodeCommentOptions options)
+        private void ParseChildNodes(XElement xml)
         {
             if (string.Equals(TagName, "code", StringComparison.OrdinalIgnoreCase))
             {
@@ -104,26 +105,25 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         if (e.Parent == null || e.Parent.Parent == null || NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
                         {
                             CloseInnerText();
-                            Lines.Add(new CommentLineXml(e, options));
+                            Lines.Add(new CommentLineXml(e));
                         }
                         else
                         {
                             // If the tag is not forced to be on it's own line, append it to the
                             // current content as string.
-                            _innerText.Append(CodeCommentHelper.CreateXmlOpenTag(e, options));
+                            _innerText.Append(CodeCommentHelper.CreateXmlOpenTag(e));
 
                             if (!e.IsEmpty)
                             {
-                                if (options.XmlSpaceTagContent)
+                                if (Settings.Default.Formatting_CommentXmlSpaceTags)
                                 {
                                     _innerText.Append(CodeCommentHelper.Spacer);
                                 }
 
-                                ParseChildNodes(e, options);
+                                ParseChildNodes(e);
 
-                                _innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e, options));
+                                _innerText.Append(CodeCommentHelper.CreateXmlCloseTag(e));
                             }
-
                         }
                     }
                     else
@@ -132,7 +132,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         var value = node.ToString().TrimEnd(CodeCommentHelper.Spacer);
 
                         // If the parent is an element, trim the starting spaces.
-                        if (node.PreviousNode == null && node.Parent.NodeType == XmlNodeType.Element && !options.XmlSpaceTagContent)
+                        if (node.PreviousNode == null && node.Parent.NodeType == XmlNodeType.Element && !Settings.Default.Formatting_CommentXmlSpaceTags)
                         {
                             value = value.TrimStart(CodeCommentHelper.Spacer);
                         }
@@ -150,7 +150,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         _innerText.Append(value);
 
                         // Add spacing after (almost) each word.
-                        if (node.NextNode != null || node.Parent.NodeType != XmlNodeType.Element || options.XmlSpaceTagContent)
+                        if (node.NextNode != null || node.Parent.NodeType != XmlNodeType.Element || Settings.Default.Formatting_CommentXmlSpaceTags)
                         {
                             _innerText.Append(CodeCommentHelper.Spacer);
                         }

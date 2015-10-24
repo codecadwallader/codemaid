@@ -9,10 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using EnvDTE;
+using SteveCadwallader.CodeMaid.Properties;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -29,11 +29,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Creates the XML close tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <param name="options">The comment options used to contruct the tag.</param>
         /// <returns>
         /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
         /// </returns>
-        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
+        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element)
         {
             if (element.IsEmpty)
             {
@@ -42,38 +41,37 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var name = element.Name.LocalName;
 
-            var result = string.Format("</{0}>", options.XmlTagsToLowerCase ? name.ToLowerInvariant() : name);
+            var result = string.Format("</{0}>", Settings.Default.Formatting_CommentXmlTagsToLowerCase ? name.ToLowerInvariant() : name);
 
-            return options.XmlKeepTagsTogether ? SpaceToFake(result) : result;
+            return Settings.Default.Formatting_CommentXmlKeepTagsTogether ? SpaceToFake(result) : result;
         }
 
         /// <summary>
         /// Creates the XML open tag string for an XElement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <param name="options">The comment options used to contruct the tag.</param>
         /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
-        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element, CodeCommentOptions options)
+        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element)
         {
             var builder = new System.Text.StringBuilder();
             builder.Append("<");
             var name = element.Name.LocalName;
-            builder.Append(options.XmlTagsToLowerCase ? name.ToLowerInvariant() : name);
+            builder.Append(Settings.Default.Formatting_CommentXmlTagsToLowerCase ? name.ToLowerInvariant() : name);
 
             if (element.HasAttributes)
             {
                 foreach (var attr in element.Attributes())
                 {
-                    builder.Append(CodeCommentHelper.Spacer);
-                    builder.Append(attr.ToString());
+                    builder.Append(Spacer);
+                    builder.Append(attr);
                 }
             }
 
             if (element.IsEmpty)
             {
-                if (options.XmlSpaceSingleTags)
+                if (Settings.Default.Formatting_CommentXmlSpaceSingleTags)
                 {
-                    builder.Append(CodeCommentHelper.Spacer);
+                    builder.Append(Spacer);
                 }
 
                 builder.Append("/");
@@ -83,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var result = builder.ToString();
 
-            return options.XmlKeepTagsTogether ? SpaceToFake(result) : result;
+            return Settings.Default.Formatting_CommentXmlKeepTagsTogether ? SpaceToFake(result) : result;
         }
 
         internal static string FakeToSpace(string value)

@@ -9,6 +9,8 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Properties;
+
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 {
     /// <summary>
@@ -22,8 +24,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Initializes a new instance of the <see cref="CleaningParentViewModel" /> class.
         /// </summary>
         /// <param name="package">The hosting package.</param>
-        public CleaningParentViewModel(CodeMaidPackage package)
-            : base(package)
+        /// <param name="activeSettings">The active settings.</param>
+        public CleaningParentViewModel(CodeMaidPackage package, Settings activeSettings)
+            : base(package, activeSettings)
         {
         }
 
@@ -37,20 +40,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public override string Header
         {
             get { return "Cleaning"; }
-        }
-
-        /// <summary>
-        /// Loads the settings.
-        /// </summary>
-        public override void LoadSettings()
-        {
-        }
-
-        /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public override void SaveSettings()
-        {
         }
 
         #endregion Overrides of OptionsPageViewModel

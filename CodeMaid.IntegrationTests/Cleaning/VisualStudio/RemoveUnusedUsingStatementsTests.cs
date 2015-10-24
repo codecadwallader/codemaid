@@ -85,7 +85,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio
 
         private static void RunRemoveUnusedUsingStatements(Document document)
         {
-            _usingStatementCleanupLogic.RemoveUnusedUsingStatements(document.GetTextDocument(), false);
+            _usingStatementCleanupLogic.RemoveUnusedUsingStatements(document.GetTextDocument());
         }
 
         #endregion Helpers
