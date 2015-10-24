@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             catch (Exception ex)
             {
                 OutputWindowHelper.ExceptionWriteLine("Unable to determine if ProjectItem is external", ex);
-                return true;
+                return false;
             }
         }
 
