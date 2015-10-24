@@ -1,4 +1,3 @@
-﻿
-namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio.Data
+﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio.Data
 {
 }

@@ -57,8 +57,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             _package = package;
 
             // Retrieve services needed for outlining from the package.
-            _editorAdaptersFactoryService = _package.IComponentModel.GetService<IVsEditorAdaptersFactoryService>();
-            _outliningManagerService = _package.IComponentModel.GetService<IOutliningManagerService>();
+            _editorAdaptersFactoryService = _package.ComponentModel.GetService<IVsEditorAdaptersFactoryService>();
+            _outliningManagerService = _package.ComponentModel.GetService<IOutliningManagerService>();
             _serviceProvider = new ServiceProvider((IServiceProvider)_package.IDE);
         }
 

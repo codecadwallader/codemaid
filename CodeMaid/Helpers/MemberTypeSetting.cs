@@ -105,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Serializes the specified <see cref="MemberTypeSetting"/> into a string (e.g. for persistence to settings).
         /// </summary>
         /// <returns>A serialized string representing the object.</returns>
-        public static explicit operator string(MemberTypeSetting memberTypeSetting)
+        public static explicit operator string (MemberTypeSetting memberTypeSetting)
         {
             return string.Format("{0}||{1}||{2}", memberTypeSetting.DefaultName, memberTypeSetting.Order, memberTypeSetting.EffectiveName);
         }

@@ -10,7 +10,6 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 
@@ -71,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"Some trailing text.";
 
             Settings.Default.Formatting_CommentWrapColumn = 30;
-            
+
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 

@@ -160,12 +160,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </summary>
         private string RegionPattern
         {
-            get
-            {
-                return _package.UsePOSIXRegEx
-                    ? @"^:b*\#(region|endregion)"
-                    : @"^[ \t]*#(region|endregion)";
-            }
+            get { return @"^[ \t]*#(region|endregion)"; }
         }
 
         #endregion Private Properties

@@ -113,13 +113,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// Reorganizes the specified document.
         /// </summary>
         /// <param name="document">The document for reorganizing.</param>
-        /// <param name="isAutoSave">A flag indicating if occurring due to auto-save.</param>
-        internal void Reorganize(Document document, bool isAutoSave)
+        internal void Reorganize(Document document)
         {
             if (!_codeReorganizationAvailabilityLogic.CanReorganize(document)) return;
 
             _undoTransactionHelper.Run(
-                () => !(isAutoSave && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave),
                 delegate
                 {
                     OutputWindowHelper.DiagnosticWriteLine(
@@ -142,7 +140,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     OutputWindowHelper.DiagnosticWriteLine(
                         string.Format("CodeReorganizationManager.Reorganize completed for '{0}'", document.FullName));
                 },
-                delegate(Exception ex)
+                delegate (Exception ex)
                 {
                     OutputWindowHelper.ExceptionWriteLine(
                         string.Format("Stopped reorganizing '{0}'", document.Name), ex);
@@ -216,8 +214,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
         private bool ShouldBeSeparatedByNewLine(BaseCodeItem firstItem, BaseCodeItem secondItem)
         {
-            return _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(firstItem) ||
-                   _insertBlankLinePaddingLogic.ShouldInstanceBePrecededByBlankLine(secondItem);
+            return _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(firstItem) ||
+                   _insertBlankLinePaddingLogic.ShouldBePrecededByBlankLine(secondItem);
         }
 
         /// <summary>
@@ -337,7 +335,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (itemToMove == baseItem) return;
 
-            bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldInstanceBeFollowedByBlankLine(itemToMove);
+            bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(itemToMove);
             int cursorOffset;
             var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
 

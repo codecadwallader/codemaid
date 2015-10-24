@@ -269,7 +269,7 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <ButtonText>About CodeMaid &amp;v0.7.8 alpha...</ButtonText>
+          <ButtonText>About CodeMaid &amp;v0.8.1...</ButtonText>
         </Strings>
       </Button>
 
@@ -456,6 +456,12 @@
         <Icon guid="GuidImageRefresh" id="IconRefresh" />
         <Strings>
           <ButtonText>Refresh Spade</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Search Spade</ButtonText>
         </Strings>
       </Button>
 
@@ -874,8 +880,10 @@
     <KeyBinding guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_F9" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_F9" />
 
-    <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Control" />
-    <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" />
+    <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Shift" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" />
 
     <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
     <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
@@ -1191,24 +1199,28 @@
       <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3200" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSearch" value="{d2586ad7-b0c0-4421-a42c-1b95d943cfa4}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSearch" value="0x3300" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3300" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3400" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3700" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3800" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->

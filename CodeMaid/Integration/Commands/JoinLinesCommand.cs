@@ -103,7 +103,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 textSelection.EndOfLine(true);
             }
 
-            string pattern = Package.UsePOSIXRegEx ? @":b*\n:b*" : @"[ \t]*\r?\n[ \t]*";
+            const string pattern = @"[ \t]*\r?\n[ \t]*";
             const string replacement = @" ";
 
             // Substitute all new lines (and optional surrounding whitespace) with a single space.

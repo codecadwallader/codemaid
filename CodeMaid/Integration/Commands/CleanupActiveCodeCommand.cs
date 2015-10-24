@@ -64,7 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            CodeCleanupManager.Cleanup(Package.ActiveDocument, false);
+            CodeCleanupManager.Cleanup(Package.ActiveDocument);
         }
 
         #endregion BaseCommand Members
@@ -80,9 +80,18 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
             if (!CodeCleanupAvailabilityLogic.CanCleanup(document)) return;
 
-            using (new ActiveDocumentRestorer(Package))
+            try
             {
-                CodeCleanupManager.Cleanup(document, true);
+                Package.IsAutoSaveContext = true;
+
+                using (new ActiveDocumentRestorer(Package))
+                {
+                    CodeCleanupManager.Cleanup(document);
+                }
+            }
+            finally
+            {
+                Package.IsAutoSaveContext = false;
             }
         }
 
@@ -91,14 +100,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the code cleanup availability logic.
+        /// Gets the code cleanup availability logic.
         /// </summary>
-        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; set; }
+        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; }
 
         /// <summary>
-        /// Gets or sets the code cleanup manager.
+        /// Gets the code cleanup manager.
         /// </summary>
-        private CodeCleanupManager CodeCleanupManager { get; set; }
+        private CodeCleanupManager CodeCleanupManager { get; }
 
         #endregion Private Properties
     }

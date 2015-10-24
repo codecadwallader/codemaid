@@ -11,6 +11,7 @@
 
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -47,6 +48,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                 case CodeSortOrder.Type:
                     codeItems = OrganizeCodeItemsByTypeSortOrder(request.RawCodeItems);
                     break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.NameFilter))
+            {
+                RecursivelyFilter(codeItems, request.NameFilter);
             }
 
             return codeItems;
@@ -218,6 +224,29 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             {
                 RecursivelySort(codeItem.Children, sortComparer);
             }
+        }
+
+        /// <summary>
+        /// Recursively filter specified code items by the name.
+        /// </summary>
+        /// <param name="codeItems">The code items.</param>
+        /// <param name="nameFilter">The name filter.</param>
+        private static void RecursivelyFilter(SetCodeItems codeItems, string nameFilter)
+        {
+            codeItems.RemoveAll(codeItem =>
+            {
+                var codeItemParent = codeItem as ICodeItemParent;
+                if (codeItemParent != null)
+                {
+                    RecursivelyFilter(codeItemParent.Children, nameFilter);
+                    if (codeItemParent.Children.Any())
+                    {
+                        return false;
+                    }
+                }
+
+                return codeItem.Name.IndexOf(nameFilter, StringComparison.InvariantCultureIgnoreCase) < 0;
+            });
         }
 
         #endregion Private Methods

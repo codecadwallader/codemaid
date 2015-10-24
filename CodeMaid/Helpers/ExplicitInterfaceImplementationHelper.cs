@@ -32,6 +32,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeEvent codeEvent)
         {
+            // In some VS editions, the name may be reported including the interface name.
+            if (codeEvent.Name.Contains("."))
+            {
+                return true;
+            }
+
+            // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetEventDeclaration(codeEvent);
             var matchString = @"\." + codeEvent.Name;
 
@@ -45,12 +52,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeFunction2 codeFunction)
         {
-            // In VS2013 and earlier, the name was reported including the interface name.
+            // In some VS editions, the name may be reported including the interface name.
             if (codeFunction.Name.Contains("."))
             {
                 return true;
             }
 
+            // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetMethodDeclaration(codeFunction);
             var matchString = @"\." + codeFunction.Name;
 
@@ -64,12 +72,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeProperty codeProperty)
         {
-            // In VS2013 and earlier, the name was reported including the interface name.
+            // In some VS editions, the name may be reported including the interface name.
             if (codeProperty.Name.Contains("."))
             {
                 return true;
             }
 
+            // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetPropertyDeclaration(codeProperty);
             var matchString = @"\." + codeProperty.Name;
 
