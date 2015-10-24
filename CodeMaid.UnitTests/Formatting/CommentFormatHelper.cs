@@ -9,26 +9,27 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Model.Comments;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model.Comments;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     internal class CommentFormatHelper
     {
-        public static void AssertEqualAfterFormat(string input)
+        public static string AssertEqualAfterFormat(string input)
         {
-            AssertEqualAfterFormat(input, input);
+            return AssertEqualAfterFormat(input, input);
         }
 
-        public static void AssertEqualAfterFormat(string input, string expected)
+        public static string AssertEqualAfterFormat(string input, string expected)
         {
             var result = Format(input);
             Assert.AreEqual(expected, result);
+            return result;
         }
 
         public static string Format(IEnumerable<string> text)
