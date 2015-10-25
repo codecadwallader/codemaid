@@ -56,26 +56,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets the lazy-initialized code reorganization manager.
         /// </summary>
-        private CodeReorganizationManager CodeReorganizationManager
-        {
-            get { return _codeReorganizationManager ?? (_codeReorganizationManager = CodeReorganizationManager.GetInstance(ViewModel.Package)); }
-        }
+        private CodeReorganizationManager CodeReorganizationManager =>
+            _codeReorganizationManager ?? (_codeReorganizationManager = CodeReorganizationManager.GetInstance(ViewModel.Package));
 
         /// <summary>
         /// Gets the lazy-initialized scroll viewer.
         /// </summary>
-        private ScrollViewer ScrollViewer
-        {
-            get { return _scrollViewer ?? (_scrollViewer = this.FindVisualChild<ScrollViewer>()); }
-        }
+        private ScrollViewer ScrollViewer => _scrollViewer ?? (_scrollViewer = this.FindVisualChild<ScrollViewer>());
 
         /// <summary>
         /// Gets the view model.
         /// </summary>
-        private SpadeViewModel ViewModel
-        {
-            get { return DataContext as SpadeViewModel; }
-        }
+        private SpadeViewModel ViewModel => DataContext as SpadeViewModel;
 
         #endregion Properties
 
@@ -413,9 +405,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private static TreeViewItem FindParentTreeViewItem(object eventSource)
         {
             var source = eventSource as DependencyObject;
-            if (source == null) return null;
 
-            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            var treeViewItem = source?.FindVisualAncestor<TreeViewItem>();
 
             return treeViewItem;
         }
@@ -432,7 +423,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, TreeViewItem targetElement)
         {
             var header = targetElement.Template.FindName("PART_HeaderBorder", targetElement) as FrameworkElement;
-            var targetHeight = header != null ? header.ActualHeight : targetElement.ActualHeight;
+            var targetHeight = header?.ActualHeight ?? targetElement.ActualHeight;
             var dropPoint = e.GetPosition(targetElement);
             bool canDropOn = targetItem is ICodeItemParent;
 

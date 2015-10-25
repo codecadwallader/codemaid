@@ -186,10 +186,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void RequestRefresh()
         {
-            if (RequestingRefresh != null)
-            {
-                RequestingRefresh(this, EventArgs.Empty);
-            }
+            RequestingRefresh?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
