@@ -11,6 +11,7 @@
 
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace SteveCadwallader.CodeMaid.UI
 {
@@ -28,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.UI
         public static T FindVisualAncestor<T>(this DependencyObject obj)
             where T : DependencyObject
         {
-            var parent = VisualTreeHelper.GetParent(obj);
+            var parent = VisualTreeHelper.GetParent(obj.FindVisualTreeRoot());
 
             while (parent != null)
             {
@@ -68,6 +69,31 @@ namespace SteveCadwallader.CodeMaid.UI
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Attempts to find the closest visual tree root, working with the logical tree hierarchy.
+        /// </summary>
+        /// <param name="obj">The object to search.</param>
+        /// <returns>A matching visual ancestor, otherwise null.</returns>
+        public static DependencyObject FindVisualTreeRoot(this DependencyObject obj)
+        {
+            var current = obj;
+            var result = obj;
+
+            while (current != null)
+            {
+                result = current;
+                if (current is Visual || current is Visual3D)
+                {
+                    break;
+                }
+
+                // If the current item is not a visual, try to walk up the logical tree.
+                current = LogicalTreeHelper.GetParent(current);
+            }
+
+            return result;
         }
     }
 }

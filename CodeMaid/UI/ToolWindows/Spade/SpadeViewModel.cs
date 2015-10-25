@@ -43,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public SpadeViewModel()
         {
             _codeTreeBuilderAsync = new CodeTreeBuilderAsync(UpdateOrganizedCodeItems);
+            SelectedItems = new List<BaseCodeItem>();
         }
 
         #endregion Constructors
@@ -160,12 +161,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public BaseCodeItem SelectedItem { get; set; }
 
         /// <summary>
-        /// Gets or sets the selected items.
+        /// Gets the selected items.
         /// </summary>
-        public IEnumerable<BaseCodeItem> SelectedItems
+        public IList<BaseCodeItem> SelectedItems
         {
-            get { return GetPropertyValue<IEnumerable<BaseCodeItem>>(); }
-            set { SetPropertyValue(value); }
+            get { return GetPropertyValue<IList<BaseCodeItem>>(); }
+            private set { SetPropertyValue(value); }
         }
 
         /// <summary>
