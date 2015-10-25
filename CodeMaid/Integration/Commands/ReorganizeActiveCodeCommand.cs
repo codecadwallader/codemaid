@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
-            CodeReorganizationManager.Reorganize(Package.ActiveDocument, false);
+            CodeReorganizationManager.Reorganize(Package.ActiveDocument);
         }
 
         #endregion BaseCommand Methods
@@ -76,9 +76,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the code reorganization manager.
+        /// Gets the code reorganization manager.
         /// </summary>
-        private CodeReorganizationManager CodeReorganizationManager { get; set; }
+        private CodeReorganizationManager CodeReorganizationManager { get; }
 
         #endregion Private Properties
     }

@@ -113,7 +113,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private void Append(string value)
         {
-            if (String.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 return;
             }
@@ -339,24 +339,26 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Increase the indent level.
             indentLevel++;
 
-            bool tagOnOwnLine = TagsOnOwnLine(line, indentLevel);
+            bool isLiteralContent = line.Content != null;
+            bool tagOnOwnLine = isLiteralContent || TagsOnOwnLine(line, indentLevel);
 
             if (tagOnOwnLine)
             {
-                NewLine(indentLevel);
+                // Literals are output without indenting.
+                NewLine(isLiteralContent ? 0 : indentLevel);
             }
 
             // If the literal content of an XML tag is set, output that content without formatting.
-            if (line.Content != null)
+            if (isLiteralContent)
             {
-                var codeLines = Regex.Split(line.Content.Trim('\r', '\n'), "\n");
-                for (int i = 0; i < codeLines.Length; i++)
+                var literals = line.Content.Trim('\r', '\n').TrimEnd('\r', '\n', '\t', ' ').Split('\n');
+                for (int i = 0; i < literals.Length; i++)
                 {
-                    Append(codeLines[i].TrimEnd());
+                    Append(literals[i].TrimEnd());
 
-                    // Append newline for all except the last line.
-                    if (i + 1 < codeLines.Length)
-                        NewLine(indentLevel);
+                    // Append newline for all except the last line. Literals are output without indenting.
+                    if (i + 1 < literals.Length)
+                        NewLine(0, true);
                 }
             }
             else

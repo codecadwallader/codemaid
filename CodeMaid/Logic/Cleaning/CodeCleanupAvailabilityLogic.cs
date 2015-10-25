@@ -77,18 +77,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Gets a set of cleanup exclusion filters.
         /// </summary>
-        private IEnumerable<string> CleanupExclusions
-        {
-            get { return _cleanupExclusions.Value; }
-        }
+        private IEnumerable<string> CleanupExclusions => _cleanupExclusions.Value;
 
         /// <summary>
         /// A default editor factory, used for its knowledge of language service-extension mappings.
         /// </summary>
-        private EditorFactory EditorFactory
-        {
-            get { return _editorFactory ?? (_editorFactory = new EditorFactory()); }
-        }
+        private EditorFactory EditorFactory => _editorFactory ?? (_editorFactory = new EditorFactory());
 
         #endregion Properties
 
@@ -288,9 +282,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
-            if (projectItem == null || projectItem.Collection == null) return false;
-
-            var parentProjectItem = projectItem.Collection.Parent as ProjectItem;
+            var parentProjectItem = projectItem?.Collection?.Parent as ProjectItem;
             if (parentProjectItem == null) return false;
 
             var extension = GetProjectItemExtension(parentProjectItem);
@@ -318,7 +310,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             var languageService = EditorFactory.GetLanguageService(extension);
-            var languageServiceGuid = languageService != null ? languageService.ToLowerInvariant() : null;
+            var languageServiceGuid = languageService?.ToLowerInvariant();
             switch (languageServiceGuid)
             {
                 case "{694dd9b6-b865-4c5b-ad85-86356e9c88dc}": return Settings.Default.Cleaning_IncludeCSharp;

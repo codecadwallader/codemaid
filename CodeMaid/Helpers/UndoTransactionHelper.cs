@@ -44,39 +44,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         #region Methods
 
         /// <summary>
-        /// Runs the specified try action within a try block.
-        /// </summary>
-        /// <param name="tryAction">The action to be performed within a try block.</param>
-        public void Run(Action tryAction)
-        {
-            Run(() => true, tryAction, ex => { });
-        }
-
-        /// <summary>
-        /// Runs the specified try action within a try block, and conditionally the catch action
-        /// within a catch block.
-        /// </summary>
-        /// <param name="tryAction">The action to be performed within a try block.</param>
-        /// <param name="catchAction">The action to be performed wihin a catch block.</param>
-        public void Run(Action tryAction, Action<Exception> catchAction)
-        {
-            Run(() => true, tryAction, catchAction);
-        }
-
-        /// <summary>
         /// Runs the specified try action within a try block, and conditionally the catch action
         /// within a catch block all conditionally within the context of an undo transaction.
         /// </summary>
-        /// <param name="undoConditions">
-        /// A set of additional conditions for wrapping in an undo context.
-        /// </param>
         /// <param name="tryAction">The action to be performed within a try block.</param>
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
-        public void Run(Func<bool> undoConditions, Action tryAction, Action<Exception> catchAction)
+        public void Run(Action tryAction, Action<Exception> catchAction = null)
         {
-            // Start an undo transaction (unless inside one already or other undo conditions are not met).
             bool shouldCloseUndoContext = false;
-            if (!_package.IDE.UndoContext.IsOpen && undoConditions() && Settings.Default.General_UseUndoTransactions)
+
+            // Start an undo transaction (unless inside one already or within an auto save context).
+            if (Settings.Default.General_UseUndoTransactions && !_package.IDE.UndoContext.IsOpen &&
+                !(_package.IsAutoSaveContext && Settings.Default.General_SkipUndoTransactionsDuringAutoCleanupOnSave))
             {
                 _package.IDE.UndoContext.Open(_transactionName);
                 shouldCloseUndoContext = true;
@@ -88,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
             catch (Exception ex)
             {
-                catchAction(ex);
+                catchAction?.Invoke(ex);
 
                 if (shouldCloseUndoContext)
                 {

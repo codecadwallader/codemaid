@@ -50,6 +50,7 @@ namespace SteveCadwallader.CodeMaid
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
     [InstalledProductRegistration("#110", "#112", "v0.8.1", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
+    [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
@@ -72,7 +73,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// The IComponentModel service.
         /// </summary>
-        private IComponentModel _iComponentModel;
+        private IComponentModel _componentModel;
 
         /// <summary>
         /// The top level application instance of the VS IDE that is executing this package.
@@ -142,75 +143,51 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the build progress tool window, creating it if necessary.
         /// </summary>
-        public BuildProgressToolWindow BuildProgress
-        {
-            get
-            {
-                return _buildProgress ??
-                    (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
-            }
-        }
+        public BuildProgressToolWindow BuildProgress =>
+            _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
 
         /// <summary>
         /// Gets the IComponentModel service.
         /// </summary>
-        public IComponentModel IComponentModel
-        {
-            get { return _iComponentModel ?? (_iComponentModel = GetGlobalService(typeof(SComponentModel)) as IComponentModel); }
-        }
+        public IComponentModel ComponentModel =>
+            _componentModel ?? (_componentModel = GetGlobalService(typeof(SComponentModel)) as IComponentModel);
 
         /// <summary>
         /// Gets the top level application instance of the VS IDE that is executing this package.
         /// </summary>
-        public DTE2 IDE
-        {
-            get { return _ide ?? (_ide = (DTE2)GetService(typeof(DTE))); }
-        }
+        public DTE2 IDE => _ide ?? (_ide = (DTE2)GetService(typeof(DTE)));
 
         /// <summary>
         /// Gets the version of the running IDE instance.
         /// </summary>
-        public double IDEVersion { get { return Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture); } }
+        public double IDEVersion => Convert.ToDouble(IDE.Version, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Gets or sets a flag indicating if CodeMaid is running inside an AutoSave context.
+        /// </summary>
+        public bool IsAutoSaveContext { get; set; }
 
         /// <summary>
         /// Gets the menu command service.
         /// </summary>
-        public OleMenuCommandService MenuCommandService
-        {
-            get { return GetService(typeof(IMenuCommandService)) as OleMenuCommandService; }
-        }
+        public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
         /// <summary>
         /// Gets the Spade tool window, iff it already exists.
         /// </summary>
-        public SpadeToolWindow Spade
-        {
-            get
-            {
-                return _spade ??
-                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
-            }
-        }
+        public SpadeToolWindow Spade =>
+            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
 
         /// <summary>
         /// Gets the Spade tool window, creating it if necessary.
         /// </summary>
-        public SpadeToolWindow SpadeForceLoad
-        {
-            get
-            {
-                return _spade ??
-                    (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
-            }
-        }
+        public SpadeToolWindow SpadeForceLoad =>
+            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
 
         /// <summary>
         /// Gets the theme manager.
         /// </summary>
-        public ThemeManager ThemeManager
-        {
-            get { return _themeManager ?? (_themeManager = ThemeManager.GetInstance(this)); }
-        }
+        public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
         #endregion Public Integration Properties
 
@@ -258,10 +235,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the shell service.
         /// </summary>
-        private IVsShell ShellService
-        {
-            get { return GetService(typeof(SVsShell)) as IVsShell; }
-        }
+        private IVsShell ShellService => GetService(typeof(SVsShell)) as IVsShell;
 
         #endregion Private Service Properties
 
@@ -493,40 +467,13 @@ namespace SteveCadwallader.CodeMaid
             base.Dispose(disposing);
 
             // Dispose of any event listeners.
-            if (BuildProgressEventListener != null)
-            {
-                BuildProgressEventListener.Dispose();
-            }
-
-            if (DocumentEventListener != null)
-            {
-                DocumentEventListener.Dispose();
-            }
-
-            if (RunningDocumentTableEventListener != null)
-            {
-                RunningDocumentTableEventListener.Dispose();
-            }
-
-            if (ShellEventListener != null)
-            {
-                ShellEventListener.Dispose();
-            }
-
-            if (SolutionEventListener != null)
-            {
-                SolutionEventListener.Dispose();
-            }
-
-            if (TextEditorEventListener != null)
-            {
-                TextEditorEventListener.Dispose();
-            }
-
-            if (WindowEventListener != null)
-            {
-                WindowEventListener.Dispose();
-            }
+            BuildProgressEventListener?.Dispose();
+            DocumentEventListener?.Dispose();
+            RunningDocumentTableEventListener?.Dispose();
+            ShellEventListener?.Dispose();
+            SolutionEventListener?.Dispose();
+            TextEditorEventListener?.Dispose();
+            WindowEventListener?.Dispose();
         }
 
         #endregion IDisposable Members

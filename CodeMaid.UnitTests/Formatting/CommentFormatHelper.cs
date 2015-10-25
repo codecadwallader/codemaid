@@ -20,15 +20,16 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     internal class CommentFormatHelper
     {
-        public static void AssertEqualAfterFormat(string input)
+        public static string AssertEqualAfterFormat(string input)
         {
-            AssertEqualAfterFormat(input, input);
+            return AssertEqualAfterFormat(input, input);
         }
 
-        public static void AssertEqualAfterFormat(string input, string expected)
+        public static string AssertEqualAfterFormat(string input, string expected)
         {
             var result = Format(input);
             Assert.AreEqual(expected, result);
+            return result;
         }
 
         public static string Format(IEnumerable<string> text)
