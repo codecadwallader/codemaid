@@ -122,7 +122,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnAttached();
 
-            AssociatedObject.AddHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemClicked), true);
+            AssociatedObject.AddHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemMouseUp), true);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnDetaching();
 
-            AssociatedObject.RemoveHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemClicked));
+            AssociatedObject.RemoveHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemMouseUp));
         }
 
         #endregion Behavior
@@ -141,14 +141,14 @@ namespace SteveCadwallader.CodeMaid.UI
         #region Methods
 
         /// <summary>
-        /// Called when a TreeViewItem receives a mouse down event.
+        /// Called when a TreeViewItem receives a mouse up event.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">
         /// The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the
         /// event data.
         /// </param>
-        private void OnTreeViewItemClicked(object sender, MouseButtonEventArgs e)
+        private void OnTreeViewItemMouseUp(object sender, MouseButtonEventArgs e)
         {
             var treeViewItem = FindParentTreeViewItem(e.OriginalSource);
             if (treeViewItem != null)
