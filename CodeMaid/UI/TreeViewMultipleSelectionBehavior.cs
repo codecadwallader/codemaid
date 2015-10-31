@@ -122,7 +122,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnAttached();
 
-            AssociatedObject.AddHandler(UIElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(OnTreeViewItemClicked), true);
+            AssociatedObject.AddHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemClicked), true);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnDetaching();
 
-            AssociatedObject.RemoveHandler(UIElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(OnTreeViewItemClicked));
+            AssociatedObject.RemoveHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemClicked));
         }
 
         #endregion Behavior
