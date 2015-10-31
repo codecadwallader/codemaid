@@ -114,6 +114,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "JavaScript":
                 case "JScript":
                 case "LESS":
+                case "Node.js":
                 case "SCSS":
                 case "TypeScript":
                 case "PHP":
