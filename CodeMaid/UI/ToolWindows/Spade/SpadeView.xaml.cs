@@ -237,7 +237,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
             }
 
-            DragDrop.DoDragDrop(treeView, new DataObject(typeof(IEnumerable<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
+            DragDrop.DoDragDrop(treeView, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
 
             foreach (var selectedTreeViewItem in selectedTreeViewItems)
             {
@@ -291,7 +291,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">
-        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.
         /// </param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
@@ -300,12 +300,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var targetTreeViewItem = FindParentTreeViewItem(sender);
 
             if (targetTreeViewItem != null &&
-                e.Data.GetDataPresent(typeof(BaseCodeItem)))
+                e.Data.GetDataPresent(typeof(IList<BaseCodeItem>)))
             {
                 var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItem;
-                var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
+                var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
 
-                if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !IsItemAncestorOfBase(codeItemToMove, baseCodeItem))
+                if (baseCodeItem != null && codeItemsToMove != null &&
+                    !codeItemsToMove.Contains(baseCodeItem) &&
+                    !codeItemsToMove.Any(x => IsItemAncestorOfBase(x, baseCodeItem)))
                 {
                     switch (GetDropPosition(e, baseCodeItem, targetTreeViewItem))
                     {
