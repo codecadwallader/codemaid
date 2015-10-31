@@ -388,7 +388,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
+            if (!e.Data.GetDataPresent(typeof(IList<BaseCodeItem>))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
             if (treeViewItem == null || e.Source == treeViewItem) return;
@@ -396,21 +396,32 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
             if (baseCodeItem == null) return;
 
-            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
-            if (codeItemToMove == null) return;
+            var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
+            if (codeItemsToMove == null) return;
+
+            var bottomUpCodeItemsToMove = codeItemsToMove.OrderByDescending(x => x.StartLine);
 
             switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
                 case DropPosition.Above:
-                    CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    {
+                        CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    }
                     break;
 
                 case DropPosition.Below:
-                    CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    {
+                        CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    }
                     break;
 
                 case DropPosition.On:
-                    CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    {
+                        CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    }
                     break;
             }
 
