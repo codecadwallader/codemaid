@@ -71,10 +71,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (spade != null)
             {
                 var regions = spade.SelectedItems.OfType<CodeItemRegion>().Where(IsRemoveableRegion);
-                foreach (var region in regions)
-                {
-                    _removeRegionLogic.RemoveRegion(region);
-                }
+                _removeRegionLogic.RemoveRegions(regions);
 
                 spade.Refresh();
             }
