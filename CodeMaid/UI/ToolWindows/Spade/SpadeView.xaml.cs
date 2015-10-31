@@ -230,24 +230,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 return;
             }
 
-            // Get the currently selected tree view items.
-            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
-                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
-                .ToList();
-
-            // If the drag candidate is not selected, change the current selection to it.
-            if (!selectedTreeViewItems.Contains(_dragCandidate))
-            {
-                foreach (var selectedTreeViewItem in selectedTreeViewItems)
-                {
-                    TreeViewMultipleSelectionBehavior.SetIsItemSelected(selectedTreeViewItem, false);
-                }
-
-                selectedTreeViewItems.Clear();
-
-                TreeViewMultipleSelectionBehavior.SetIsItemSelected(_dragCandidate, true);
-                selectedTreeViewItems.Add(_dragCandidate);
-            }
+            var selectedTreeViewItems = GetSelectedTreeViewItemsIncluding(_dragCandidate);
 
             foreach (var selectedTreeViewItem in selectedTreeViewItems)
             {
@@ -298,8 +281,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     break;
 
                 case MouseButton.Right:
-                    treeViewItem.IsSelected = true;
-                    ShowContextMenu(baseCodeItem, PointToScreen(e.GetPosition(this)));
+                    GetSelectedTreeViewItemsIncluding(treeViewItem);
+                    ShowContextMenu(PointToScreen(e.GetPosition(this)));
                     break;
             }
         }
@@ -391,7 +374,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             if (!e.Data.GetDataPresent(typeof(IList<BaseCodeItem>))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
-            if (treeViewItem == null || e.Source == treeViewItem) return;
+            if (treeViewItem == null || ReferenceEquals(e.Source, treeViewItem)) return;
 
             var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
             if (baseCodeItem == null) return;
@@ -430,6 +413,36 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #endregion Event Handlers
 
         #region Methods
+
+        /// <summary>
+        /// Gets the selected tree view items, ensuring the specified item is one of them. If it is
+        /// not, all other selections are cleared and it is the only item selected.
+        /// </summary>
+        /// <param name="treeViewItem">The tree view item that must be selected.</param>
+        /// <returns>The set of selected tree view items, guaranteed to include the specified one.</returns>
+        private IList<TreeViewItem> GetSelectedTreeViewItemsIncluding(TreeViewItem treeViewItem)
+        {
+            // Get the currently selected tree view items.
+            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
+                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
+                .ToList();
+
+            // If the specified tree view item is not selected, change the current selection to it.
+            if (!selectedTreeViewItems.Contains(treeViewItem))
+            {
+                foreach (var selectedTreeViewItem in selectedTreeViewItems)
+                {
+                    TreeViewMultipleSelectionBehavior.SetIsItemSelected(selectedTreeViewItem, false);
+                }
+
+                selectedTreeViewItems.Clear();
+
+                TreeViewMultipleSelectionBehavior.SetIsItemSelected(treeViewItem, true);
+                selectedTreeViewItems.Add(treeViewItem);
+            }
+
+            return selectedTreeViewItems;
+        }
 
         /// <summary>
         /// Attempts to find the parent TreeViewItem from the specified event source.
@@ -552,23 +565,17 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Shows a context menu for the specified code item.
+        /// Shows a context menu at the specified point.
         /// </summary>
-        /// <param name="codeItem">The code item.</param>
         /// <param name="point">The point where the context menu should be shown.</param>
-        private void ShowContextMenu(BaseCodeItem codeItem, Point point)
+        private void ShowContextMenu(Point point)
         {
-            var viewModel = ViewModel;
-            if (codeItem == null || viewModel == null) return;
-
-            var menuCommandService = viewModel.Package.MenuCommandService;
+            var menuCommandService = ViewModel?.Package.MenuCommandService;
             if (menuCommandService != null)
             {
                 var contextMenuCommandID = new CommandID(GuidList.GuidCodeMaidContextSpadeBaseGroup, PkgCmdIDList.MenuIDCodeMaidContextSpade);
 
-                viewModel.SelectedItem = codeItem;
                 menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
-                viewModel.SelectedItem = null;
             }
         }
 

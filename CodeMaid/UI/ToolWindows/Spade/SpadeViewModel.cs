@@ -157,11 +157,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Gets or sets the selected item.
-        /// </summary>
-        public BaseCodeItem SelectedItem { get; set; }
-
-        /// <summary>
         /// Gets the selected items.
         /// </summary>
         public IList<BaseCodeItem> SelectedItems

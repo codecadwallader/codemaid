@@ -12,6 +12,7 @@
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -53,11 +54,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var region = spade.SelectedItem as CodeItemRegion;
-                if (region != null)
-                {
-                    visible = !region.IsPseudoGroup;
-                }
+                visible = spade.SelectedItems.OfType<CodeItemRegion>().Any(IsRemoveableRegion);
             }
 
             Visible = visible;
@@ -73,16 +70,30 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var region = spade.SelectedItem as CodeItemRegion;
-                if (region != null && region.StartLine > 0 && region.EndLine > 0)
+                var regions = spade.SelectedItems.OfType<CodeItemRegion>().Where(IsRemoveableRegion);
+                foreach (var region in regions)
                 {
                     _removeRegionLogic.RemoveRegion(region);
-
-                    spade.Refresh();
                 }
+
+                spade.Refresh();
             }
         }
 
         #endregion BaseCommand Methods
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if the specified region is a candidate for removal.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        /// <returns>True if the region can be removed, otherwise false.</returns>
+        private static bool IsRemoveableRegion(CodeItemRegion region)
+        {
+            return !region.IsPseudoGroup && region.StartLine > 0 && region.EndLine > 0;
+        }
+
+        #endregion Methods
     }
 }

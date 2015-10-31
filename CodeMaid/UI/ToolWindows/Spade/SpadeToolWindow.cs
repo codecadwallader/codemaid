@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     /// The Spade tool window pane.
     /// </summary>
     [Guid(GuidList.GuidCodeMaidToolWindowSpadeString)]
-    public class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
+    public sealed class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
         #region Fields
 
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _viewModel.RequestingRefresh += (sender, args) => Refresh();
 
             // Create and set the view.
-            base.Content = new SpadeView { DataContext = _viewModel };
+            Content = new SpadeView { DataContext = _viewModel };
 
             // Register for changes to settings.
             Settings.Default.SettingsLoaded += (sender, args) => OnSettingsChange();
@@ -108,11 +108,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             get { return _viewModel.NameFilter; }
             set { _viewModel.NameFilter = value; }
         }
-
-        /// <summary>
-        /// Gets the selected item.
-        /// </summary>
-        public BaseCodeItem SelectedItem => _viewModel.SelectedItem;
 
         /// <summary>
         /// Gets the selected items.

@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -48,11 +49,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var item = spade.SelectedItem;
-                if (item != null)
-                {
-                    visible = !(item is CodeItemRegion) || !((CodeItemRegion)item).IsPseudoGroup;
-                }
+                visible = spade.SelectedItems.Any(IsDeletable);
             }
 
             Visible = visible;
@@ -68,8 +65,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var item = spade.SelectedItem;
-                if (item != null && item.StartPoint != null && item.EndPoint != null)
+                var items = spade.SelectedItems.Where(IsDeletable);
+                foreach (var item in items)
                 {
                     new UndoTransactionHelper(Package, "CodeMaid Delete " + item.Name).Run(() =>
                     {
@@ -86,5 +83,25 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         #endregion BaseCommand Methods
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if the specified item is a candidate for deletion.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>True if the code item can be deleted, otherwise false.</returns>
+        private static bool IsDeletable(BaseCodeItem codeItem)
+        {
+            var region = codeItem as CodeItemRegion;
+            if (region != null && region.IsPseudoGroup)
+            {
+                return false;
+            }
+
+            return codeItem.StartPoint != null && codeItem.EndPoint != null;
+        }
+
+        #endregion Methods
     }
 }
