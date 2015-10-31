@@ -33,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Fields
 
         private CodeReorganizationManager _codeReorganizationManager;
+        private TreeViewItem _dragCandidate;
         private Point? _dragStartPoint;
         private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
@@ -199,6 +200,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     }
                     else if (treeViewItem.DataContext is BaseCodeItem)
                     {
+                        _dragCandidate = treeViewItem;
                         _dragStartPoint = e.GetPosition(null);
                     }
                     break;
@@ -219,7 +221,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_dragStartPoint.HasValue || !ViewModel.SelectedItems.Any()) return;
+            if (_dragCandidate == null || !_dragStartPoint.HasValue) return;
 
             var delta = _dragStartPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
@@ -228,22 +230,38 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 return;
             }
 
+            // Get the currently selected tree view items.
             var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
                 .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
                 .ToList();
+
+            // If the drag candidate is not selected, change the current selection to it.
+            if (!selectedTreeViewItems.Contains(_dragCandidate))
+            {
+                foreach (var selectedTreeViewItem in selectedTreeViewItems)
+                {
+                    TreeViewMultipleSelectionBehavior.SetIsItemSelected(selectedTreeViewItem, false);
+                }
+
+                selectedTreeViewItems.Clear();
+
+                TreeViewMultipleSelectionBehavior.SetIsItemSelected(_dragCandidate, true);
+                selectedTreeViewItems.Add(_dragCandidate);
+            }
 
             foreach (var selectedTreeViewItem in selectedTreeViewItems)
             {
                 selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
             }
 
-            DragDrop.DoDragDrop(treeView, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
+            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
 
             foreach (var selectedTreeViewItem in selectedTreeViewItems)
             {
                 selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
             }
 
+            _dragCandidate = null;
             _dragStartPoint = null;
         }
 
@@ -258,6 +276,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
+            _dragCandidate = null;
             _dragStartPoint = null;
 
             var treeViewItem = FindParentTreeViewItem(e.Source);
