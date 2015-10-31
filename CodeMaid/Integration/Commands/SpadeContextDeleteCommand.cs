@@ -66,19 +66,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if (spade != null)
             {
                 var items = spade.SelectedItems.Where(IsDeletable);
-                foreach (var item in items)
+
+                new UndoTransactionHelper(Package, "CodeMaid Delete Items").Run(() =>
                 {
-                    new UndoTransactionHelper(Package, "CodeMaid Delete " + item.Name).Run(() =>
+                    // Iterate through items in reverse order (reduces line number updates during removal).
+                    foreach (var item in items.OrderByDescending(x => x.StartLine))
                     {
                         var start = item.StartPoint.CreateEditPoint();
 
                         start.Delete(item.EndPoint);
                         start.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
                         start.Insert(Environment.NewLine);
-                    });
+                    }
+                });
 
-                    spade.Refresh();
-                }
+                spade.Refresh();
             }
         }
 
