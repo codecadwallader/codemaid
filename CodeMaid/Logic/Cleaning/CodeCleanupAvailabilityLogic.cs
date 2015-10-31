@@ -208,7 +208,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "HTML":
                 case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
                 case "JavaScript":
-                case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "JScript":
+                case "Node.js": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "JSON": return Settings.Default.Cleaning_IncludeJSON;
                 case "LESS": return Settings.Default.Cleaning_IncludeLESS;
                 case "PowerShell": return Settings.Default.Cleaning_IncludePowerShell;
