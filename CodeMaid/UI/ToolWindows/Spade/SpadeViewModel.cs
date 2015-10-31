@@ -118,6 +118,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _organizedCodeItems = value;
 
+                    SelectedItems.Clear();
                     UpdateOutliningSynchronization();
                     RaisePropertyChanged();
                 }
