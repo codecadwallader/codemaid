@@ -16,6 +16,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Windows;
@@ -32,10 +33,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Fields
 
         private CodeReorganizationManager _codeReorganizationManager;
-        private TreeViewItem _dragCandidate;
+        private Point? _dragStartPoint;
         private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
-        private Point? _startPoint;
 
         #endregion Fields
 
@@ -199,8 +199,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     }
                     else if (treeViewItem.DataContext is BaseCodeItem)
                     {
-                        _dragCandidate = treeViewItem;
-                        _startPoint = e.GetPosition(null);
+                        _dragStartPoint = e.GetPosition(null);
                     }
                     break;
 
@@ -220,26 +219,32 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (_dragCandidate == null || !_startPoint.HasValue) return;
+            if (!_dragStartPoint.HasValue || !ViewModel.SelectedItems.Any()) return;
 
-            var delta = _startPoint.Value - e.GetPosition(null);
+            var delta = _dragStartPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
             {
                 return;
             }
 
-            var codeItem = _dragCandidate.DataContext as BaseCodeItem;
-            if (codeItem == null) return;
+            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
+                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
+                .ToList();
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
+            {
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            }
 
-            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(BaseCodeItem), codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(treeView, new DataObject(typeof(IEnumerable<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
+            {
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            }
 
-            _dragCandidate = null;
-            _startPoint = null;
+            _dragStartPoint = null;
         }
 
         /// <summary>
@@ -253,8 +258,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
-            _dragCandidate = null;
-            _startPoint = null;
+            _dragStartPoint = null;
 
             var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;

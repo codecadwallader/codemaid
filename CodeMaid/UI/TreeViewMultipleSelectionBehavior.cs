@@ -101,11 +101,11 @@ namespace SteveCadwallader.CodeMaid.UI
                 {
                     if (GetIsItemSelected(treeViewItem))
                     {
-                        selectedItems.Add(treeViewItem.Header);
+                        selectedItems.Add(treeViewItem.DataContext);
                     }
                     else
                     {
-                        selectedItems.Remove(treeViewItem.Header);
+                        selectedItems.Remove(treeViewItem.DataContext);
                     }
                 }
             }
