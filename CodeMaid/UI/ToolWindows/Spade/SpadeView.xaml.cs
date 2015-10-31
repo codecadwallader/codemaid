@@ -399,26 +399,24 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
             if (codeItemsToMove == null) return;
 
-            var bottomUpCodeItemsToMove = codeItemsToMove.OrderByDescending(x => x.StartLine);
-
             switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
                 case DropPosition.Above:
-                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    foreach (var codeItemToMove in codeItemsToMove.OrderBy(x => x.StartLine))
                     {
                         CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
                     }
                     break;
 
                 case DropPosition.Below:
-                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    foreach (var codeItemToMove in codeItemsToMove.OrderByDescending(x => x.StartLine))
                     {
                         CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
                     }
                     break;
 
                 case DropPosition.On:
-                    foreach (var codeItemToMove in bottomUpCodeItemsToMove)
+                    foreach (var codeItemToMove in codeItemsToMove.OrderByDescending(x => x.StartLine))
                     {
                         CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
                     }
