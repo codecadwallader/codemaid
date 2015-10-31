@@ -161,6 +161,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Cleaning\FileTypes\JSONTests.cs" />
+    <Compile Include="Cleaning\FileTypes\PowerShellTests.cs" />
     <Compile Include="Cleaning\FileTypes\PHPTests.cs" />
     <Compile Include="Cleaning\FileTypes\SCSSTests.cs" />
     <Content Include="Cleaning\Insert\Data\InsertEndOfFileTrailingNewLine.cs">
@@ -774,6 +775,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />
+    <Content Include="Cleaning\FileTypes\Data\PowerShell.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\FileTypes\Data\XAML.xaml">

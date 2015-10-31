@@ -29,12 +29,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             try
             {
-                if (projectItem.Collection == null)
-                {
-                    return null;
-                }
-
-                var parentProjectItem = projectItem.Collection.Parent as ProjectItem;
+                var parentProjectItem = projectItem.Collection?.Parent as ProjectItem;
                 return parentProjectItem;
             }
             catch (Exception ex)
@@ -63,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             catch (Exception ex)
             {
                 OutputWindowHelper.ExceptionWriteLine("Unable to determine if ProjectItem is external", ex);
-                return true;
+                return false;
             }
         }
 

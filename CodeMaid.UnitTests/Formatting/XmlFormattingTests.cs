@@ -89,6 +89,45 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
+        /// <summary>
+        /// If XML tag indenting is set, this should not affect any literal content. Since
+        /// whitespace is preserved on literals, this would increase the indenting with every pass.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_DoesNotIndentLiteralContent()
+        {
+            var input =
+               "<test>" + Environment.NewLine +
+               "<code>" + Environment.NewLine +
+               "    Some code with." + Environment.NewLine +
+               "   funny indenting" + Environment.NewLine +
+               "" + Environment.NewLine +
+               "  and a white line" + Environment.NewLine +
+               "that should not change." + Environment.NewLine +
+               "</code>" + Environment.NewLine +
+               "</test>";
+
+            var expected =
+               "<test>" + Environment.NewLine +
+               "    <code>" + Environment.NewLine +
+               "    Some code with." + Environment.NewLine +
+               "   funny indenting" + Environment.NewLine +
+               "" + Environment.NewLine +
+               "  and a white line" + Environment.NewLine +
+               "that should not change." + Environment.NewLine +
+               "    </code>" + Environment.NewLine +
+               "</test>";
+
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+
+            // First pass.
+            var result = CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+
+            // Second pass.
+            CommentFormatHelper.AssertEqualAfterFormat(result, expected);
+        }
+
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_DoNotAutoCollapseTags()
@@ -113,17 +152,17 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_HyperlinkOnNewLine()
+        public void XmlFormattingTests_HyperlinkBetweenWords()
         {
-            var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
+            var input = "<summary>" + Environment.NewLine + "Look at this http://foo pretty link." + Environment.NewLine + "</summary>";
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_HyperlinkBetweenWords()
+        public void XmlFormattingTests_HyperlinkOnNewLine()
         {
-            var input = "<summary>" + Environment.NewLine + "Look at this http://foo pretty link." + Environment.NewLine + "</summary>";
+            var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
