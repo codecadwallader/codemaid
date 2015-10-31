@@ -65,7 +65,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var items = spade.SelectedItems.Where(IsDeletable);
+                // Delay the check of start/end points until execution time, to avoid an intermediate state issue.
+                var items = spade.SelectedItems.Where(IsDeletable).Where(x => x.StartPoint != null && x.EndPoint != null);
 
                 new UndoTransactionHelper(Package, "CodeMaid Delete Items").Run(() =>
                 {
@@ -95,13 +96,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>True if the code item can be deleted, otherwise false.</returns>
         private static bool IsDeletable(BaseCodeItem codeItem)
         {
-            var region = codeItem as CodeItemRegion;
-            if (region != null && region.IsPseudoGroup)
-            {
-                return false;
-            }
-
-            return codeItem.StartPoint != null && codeItem.EndPoint != null;
+            return !(codeItem is CodeItemRegion) || !((CodeItemRegion)codeItem).IsPseudoGroup;
         }
 
         #endregion Methods
