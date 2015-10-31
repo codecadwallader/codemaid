@@ -11,6 +11,7 @@
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
@@ -108,20 +109,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             switch (language)
             {
-                case "CSharp":
                 case "C/C++":
+                case "CSharp":
                 case "CSS":
+                case "F#":
                 case "JavaScript":
                 case "JScript":
                 case "LESS":
                 case "Node.js":
+                case "PHP":
                 case "SCSS":
                 case "TypeScript":
-                case "PHP":
                     return "///?";
 
                 case "Basic":
                     return "'+";
+
+                case "PowerShell":
+                    return "#+";
 
                 default:
                     return null;
@@ -153,9 +158,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static int GetTabSize(CodeMaidPackage package, TextDocument document)
         {
-            var settings = package.IDE.Properties["TextEditor", document.Language];
-            var tabsize = settings.Item("TabSize").Value as int? ?? 4;
-            return tabsize;
+            const int fallbackTabSize = 4;
+
+            try
+            {
+                var settings = package.IDE.Properties["TextEditor", document.Language];
+                var tabsize = settings.Item("TabSize").Value as int? ?? fallbackTabSize;
+                return tabsize;
+            }
+            catch (Exception)
+            {
+                // Some languages (e.g. F#, PowerShell) may not correctly resolve tab settings.
+                return fallbackTabSize;
+            }
         }
 
         internal static bool IsCommentLine(EditPoint point)
