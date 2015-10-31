@@ -115,7 +115,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!_codeCleanupAvailabilityLogic.CanCleanup(projectItem)) return;
 
             // Attempt to open the document if not already opened.
-            bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView];
+            bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView] || projectItem.IsOpen[Constants.vsViewKindCode];
             if (!wasOpen)
             {
                 try
