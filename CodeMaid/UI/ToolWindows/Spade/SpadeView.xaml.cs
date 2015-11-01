@@ -160,7 +160,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
             var treeViewItem = e.Source as TreeViewItem;
-            if (treeViewItem == null) return;
+            if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
 
             switch (e.Key)
             {
