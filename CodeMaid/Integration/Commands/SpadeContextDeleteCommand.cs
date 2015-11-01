@@ -14,6 +14,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -48,11 +49,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var item = spade.SelectedItem;
-                if (item != null)
-                {
-                    visible = !(item is CodeItemRegion) || !((CodeItemRegion)item).IsPseudoGroup;
-                }
+                visible = spade.SelectedItems.Any(IsDeletable);
             }
 
             Visible = visible;
@@ -68,23 +65,40 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var item = spade.SelectedItem;
-                if (item != null && item.StartPoint != null && item.EndPoint != null)
+                // Delay the check of start/end points until execution time, to avoid an intermediate state issue.
+                var items = spade.SelectedItems.Where(IsDeletable).Where(x => x.StartPoint != null && x.EndPoint != null);
+
+                new UndoTransactionHelper(Package, "CodeMaid Delete Items").Run(() =>
                 {
-                    new UndoTransactionHelper(Package, "CodeMaid Delete " + item.Name).Run(() =>
+                    // Iterate through items in reverse order (reduces line number updates during removal).
+                    foreach (var item in items.OrderByDescending(x => x.StartLine))
                     {
                         var start = item.StartPoint.CreateEditPoint();
 
                         start.Delete(item.EndPoint);
                         start.DeleteWhitespace(vsWhitespaceOptions.vsWhitespaceOptionsVertical);
                         start.Insert(Environment.NewLine);
-                    });
+                    }
+                });
 
-                    spade.Refresh();
-                }
+                spade.Refresh();
             }
         }
 
         #endregion BaseCommand Methods
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if the specified item is a candidate for deletion.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        /// <returns>True if the code item can be deleted, otherwise false.</returns>
+        private static bool IsDeletable(BaseCodeItem codeItem)
+        {
+            return !(codeItem is CodeItemRegion) || !((CodeItemRegion)codeItem).IsPseudoGroup;
+        }
+
+        #endregion Methods
     }
 }

@@ -15,6 +15,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Collections.Generic;
 using System.Windows.Threading;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
@@ -42,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public SpadeViewModel()
         {
             _codeTreeBuilderAsync = new CodeTreeBuilderAsync(UpdateOrganizedCodeItems);
+            SelectedItems = new List<BaseCodeItem>();
         }
 
         #endregion Constructors
@@ -116,6 +118,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _organizedCodeItems = value;
 
+                    SelectedItems.Clear();
                     UpdateOutliningSynchronization();
                     RaisePropertyChanged();
                 }
@@ -154,9 +157,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Gets or sets the selected item.
+        /// Gets the selected items.
         /// </summary>
-        public BaseCodeItem SelectedItem { get; set; }
+        public IList<BaseCodeItem> SelectedItems
+        {
+            get { return GetPropertyValue<IList<BaseCodeItem>>(); }
+            private set { SetPropertyValue(value); }
+        }
 
         /// <summary>
         /// Gets or sets the current sort order.
@@ -176,10 +183,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void RequestRefresh()
         {
-            if (RequestingRefresh != null)
-            {
-                RequestingRefresh(this, EventArgs.Empty);
-            }
+            RequestingRefresh?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

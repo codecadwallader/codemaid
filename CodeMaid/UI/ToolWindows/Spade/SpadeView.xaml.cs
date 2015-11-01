@@ -16,6 +16,7 @@ using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Windows;
@@ -33,9 +34,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         private CodeReorganizationManager _codeReorganizationManager;
         private TreeViewItem _dragCandidate;
+        private Point? _dragStartPoint;
         private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
-        private Point? _startPoint;
 
         #endregion Fields
 
@@ -56,26 +57,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <summary>
         /// Gets the lazy-initialized code reorganization manager.
         /// </summary>
-        private CodeReorganizationManager CodeReorganizationManager
-        {
-            get { return _codeReorganizationManager ?? (_codeReorganizationManager = CodeReorganizationManager.GetInstance(ViewModel.Package)); }
-        }
+        private CodeReorganizationManager CodeReorganizationManager =>
+            _codeReorganizationManager ?? (_codeReorganizationManager = CodeReorganizationManager.GetInstance(ViewModel.Package));
 
         /// <summary>
         /// Gets the lazy-initialized scroll viewer.
         /// </summary>
-        private ScrollViewer ScrollViewer
-        {
-            get { return _scrollViewer ?? (_scrollViewer = this.FindVisualChild<ScrollViewer>()); }
-        }
+        private ScrollViewer ScrollViewer => _scrollViewer ?? (_scrollViewer = this.FindVisualChild<ScrollViewer>());
 
         /// <summary>
         /// Gets the view model.
         /// </summary>
-        private SpadeViewModel ViewModel
-        {
-            get { return DataContext as SpadeViewModel; }
-        }
+        private SpadeViewModel ViewModel => DataContext as SpadeViewModel;
 
         #endregion Properties
 
@@ -167,7 +160,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
             var treeViewItem = e.Source as TreeViewItem;
-            if (treeViewItem == null) return;
+            if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
 
             switch (e.Key)
             {
@@ -208,7 +201,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     else if (treeViewItem.DataContext is BaseCodeItem)
                     {
                         _dragCandidate = treeViewItem;
-                        _startPoint = e.GetPosition(null);
+                        _dragStartPoint = e.GetPosition(null);
                     }
                     break;
 
@@ -228,26 +221,31 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            if (_dragCandidate == null || !_startPoint.HasValue) return;
+            if (_dragCandidate == null || !_dragStartPoint.HasValue) return;
 
-            var delta = _startPoint.Value - e.GetPosition(null);
+            var delta = _dragStartPoint.Value - e.GetPosition(null);
             if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
                 Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
             {
                 return;
             }
 
-            var codeItem = _dragCandidate.DataContext as BaseCodeItem;
-            if (codeItem == null) return;
+            var selectedTreeViewItems = GetSelectedTreeViewItemsIncluding(_dragCandidate);
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
+            {
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            }
 
-            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(BaseCodeItem), codeItem), DragDropEffects.Move);
+            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
+            {
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            }
 
             _dragCandidate = null;
-            _startPoint = null;
+            _dragStartPoint = null;
         }
 
         /// <summary>
@@ -262,7 +260,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
             _dragCandidate = null;
-            _startPoint = null;
+            _dragStartPoint = null;
 
             var treeViewItem = FindParentTreeViewItem(e.Source);
             if (treeViewItem == null) return;
@@ -283,8 +281,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     break;
 
                 case MouseButton.Right:
-                    treeViewItem.IsSelected = true;
-                    ShowContextMenu(baseCodeItem, PointToScreen(e.GetPosition(this)));
+                    GetSelectedTreeViewItemsIncluding(treeViewItem);
+                    ShowContextMenu(PointToScreen(e.GetPosition(this)));
                     break;
             }
         }
@@ -295,7 +293,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">
-        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.
         /// </param>
         private void OnTreeViewItemHeaderDragEvent(object sender, DragEventArgs e)
         {
@@ -304,12 +302,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var targetTreeViewItem = FindParentTreeViewItem(sender);
 
             if (targetTreeViewItem != null &&
-                e.Data.GetDataPresent(typeof(BaseCodeItem)))
+                e.Data.GetDataPresent(typeof(IList<BaseCodeItem>)))
             {
                 var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItem;
-                var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
+                var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
 
-                if (baseCodeItem != null && codeItemToMove != null && baseCodeItem != codeItemToMove && !IsItemAncestorOfBase(codeItemToMove, baseCodeItem))
+                if (baseCodeItem != null && codeItemsToMove != null &&
+                    !codeItemsToMove.Contains(baseCodeItem) &&
+                    !codeItemsToMove.Any(x => IsItemAncestorOfBase(x, baseCodeItem)))
                 {
                     switch (GetDropPosition(e, baseCodeItem, targetTreeViewItem))
                     {
@@ -371,29 +371,38 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof(BaseCodeItem))) return;
+            if (!e.Data.GetDataPresent(typeof(IList<BaseCodeItem>))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
-            if (treeViewItem == null || e.Source == treeViewItem) return;
+            if (treeViewItem == null || ReferenceEquals(e.Source, treeViewItem)) return;
 
             var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
             if (baseCodeItem == null) return;
 
-            var codeItemToMove = e.Data.GetData(typeof(BaseCodeItem)) as BaseCodeItem;
-            if (codeItemToMove == null) return;
+            var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
+            if (codeItemsToMove == null) return;
 
             switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
                 case DropPosition.Above:
-                    CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    foreach (var codeItemToMove in codeItemsToMove.OrderBy(x => x.StartLine))
+                    {
+                        CodeReorganizationManager.MoveItemAboveBase(codeItemToMove, baseCodeItem);
+                    }
                     break;
 
                 case DropPosition.Below:
-                    CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    foreach (var codeItemToMove in codeItemsToMove.OrderByDescending(x => x.StartLine))
+                    {
+                        CodeReorganizationManager.MoveItemBelowBase(codeItemToMove, baseCodeItem);
+                    }
                     break;
 
                 case DropPosition.On:
-                    CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    foreach (var codeItemToMove in codeItemsToMove.OrderByDescending(x => x.StartLine))
+                    {
+                        CodeReorganizationManager.MoveItemIntoBase(codeItemToMove, baseCodeItem as ICodeItemParent);
+                    }
                     break;
             }
 
@@ -406,6 +415,36 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         #region Methods
 
         /// <summary>
+        /// Gets the selected tree view items, ensuring the specified item is one of them. If it is
+        /// not, all other selections are cleared and it is the only item selected.
+        /// </summary>
+        /// <param name="treeViewItem">The tree view item that must be selected.</param>
+        /// <returns>The set of selected tree view items, guaranteed to include the specified one.</returns>
+        private IList<TreeViewItem> GetSelectedTreeViewItemsIncluding(TreeViewItem treeViewItem)
+        {
+            // Get the currently selected tree view items.
+            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
+                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
+                .ToList();
+
+            // If the specified tree view item is not selected, change the current selection to it.
+            if (!selectedTreeViewItems.Contains(treeViewItem))
+            {
+                foreach (var selectedTreeViewItem in selectedTreeViewItems)
+                {
+                    TreeViewMultipleSelectionBehavior.SetIsItemSelected(selectedTreeViewItem, false);
+                }
+
+                selectedTreeViewItems.Clear();
+
+                TreeViewMultipleSelectionBehavior.SetIsItemSelected(treeViewItem, true);
+                selectedTreeViewItems.Add(treeViewItem);
+            }
+
+            return selectedTreeViewItems;
+        }
+
+        /// <summary>
         /// Attempts to find the parent TreeViewItem from the specified event source.
         /// </summary>
         /// <param name="eventSource">The event source.</param>
@@ -413,9 +452,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private static TreeViewItem FindParentTreeViewItem(object eventSource)
         {
             var source = eventSource as DependencyObject;
-            if (source == null) return null;
 
-            var treeViewItem = source.FindVisualAncestor<TreeViewItem>();
+            var treeViewItem = source?.FindVisualAncestor<TreeViewItem>();
 
             return treeViewItem;
         }
@@ -432,7 +470,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, TreeViewItem targetElement)
         {
             var header = targetElement.Template.FindName("PART_HeaderBorder", targetElement) as FrameworkElement;
-            var targetHeight = header != null ? header.ActualHeight : targetElement.ActualHeight;
+            var targetHeight = header?.ActualHeight ?? targetElement.ActualHeight;
             var dropPoint = e.GetPosition(targetElement);
             bool canDropOn = targetItem is ICodeItemParent;
 
@@ -527,23 +565,17 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
-        /// Shows a context menu for the specified code item.
+        /// Shows a context menu at the specified point.
         /// </summary>
-        /// <param name="codeItem">The code item.</param>
         /// <param name="point">The point where the context menu should be shown.</param>
-        private void ShowContextMenu(BaseCodeItem codeItem, Point point)
+        private void ShowContextMenu(Point point)
         {
-            var viewModel = ViewModel;
-            if (codeItem == null || viewModel == null) return;
-
-            var menuCommandService = viewModel.Package.MenuCommandService;
+            var menuCommandService = ViewModel?.Package.MenuCommandService;
             if (menuCommandService != null)
             {
                 var contextMenuCommandID = new CommandID(GuidList.GuidCodeMaidContextSpadeBaseGroup, PkgCmdIDList.MenuIDCodeMaidContextSpade);
 
-                viewModel.SelectedItem = codeItem;
                 menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
-                viewModel.SelectedItem = null;
             }
         }
 

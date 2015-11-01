@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.ToolWindows.Spade"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
@@ -72,6 +73,10 @@
                                                 <ContentPresenter x:Name="PART_Header" ContentSource="Header" />
                                             </DockPanel>
 
+                                            <Border x:Name="focusCue" SnapsToDevicePixels="True" Visibility="Collapsed">
+                                                <Rectangle Stroke="{StaticResource FCodeMaidGreen}" StrokeThickness="1" StrokeDashArray="4 4" />
+                                            </Border>
+
                                             <Border x:Name="dropTargetCue" BorderBrush="{StaticResource FCodeMaidGreen}"
                                                     SnapsToDevicePixels="True" Visibility="Collapsed" />
                                         </Grid>
@@ -91,7 +96,10 @@
                                     <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="BorderThickness" Value="0" />
                                 </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="focusCue" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger Property="ui:TreeViewMultipleSelectionBehavior.IsItemSelected" Value="True">
                                     <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />
                                 </Trigger>
                                 <Trigger SourceName="PART_HeaderBorder" Property="IsMouseOver" Value="True">
@@ -127,7 +135,7 @@
     </UserControl.Resources>
 
     <Grid TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}">
-        <TreeView BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
+        <TreeView x:Name="treeView" BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
                   ItemContainerStyle="{StaticResource SpadeTreeViewItemContainerStyle}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.CanContentScroll="True"
@@ -135,6 +143,9 @@
                   VirtualizingStackPanel.IsVirtualizingWhenGrouping="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
                   FocusManager.IsFocusScope="True">
+            <i:Interaction.Behaviors>
+                <ui:TreeViewMultipleSelectionBehavior SelectedItems="{Binding SelectedItems}" />
+            </i:Interaction.Behaviors>
             <TreeView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel IsVirtualizing="True" IsVirtualizingWhenGrouping="True" VirtualizationMode="Recycling">

@@ -389,6 +389,7 @@
     <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\Bindable.cs" />
+    <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
