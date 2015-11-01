@@ -73,6 +73,10 @@
                                                 <ContentPresenter x:Name="PART_Header" ContentSource="Header" />
                                             </DockPanel>
 
+                                            <Border x:Name="focusCue" SnapsToDevicePixels="True" Visibility="Collapsed">
+                                                <Rectangle Stroke="{StaticResource FCodeMaidGreen}" StrokeThickness="1" StrokeDashArray="4 4" />
+                                            </Border>
+
                                             <Border x:Name="dropTargetCue" BorderBrush="{StaticResource FCodeMaidGreen}"
                                                     SnapsToDevicePixels="True" Visibility="Collapsed" />
                                         </Grid>
@@ -91,6 +95,9 @@
                                     <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                                     <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="BorderThickness" Value="0" />
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="focusCue" Property="Visibility" Value="Visible" />
                                 </Trigger>
                                 <Trigger Property="ui:TreeViewMultipleSelectionBehavior.IsItemSelected" Value="True">
                                     <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />

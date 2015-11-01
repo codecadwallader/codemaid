@@ -122,6 +122,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnAttached();
 
+            AssociatedObject.AddHandler(UIElement.KeyDownEvent, new KeyEventHandler(OnTreeViewItemKeyDown), true);
             AssociatedObject.AddHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemMouseUp), true);
         }
 
@@ -133,12 +134,65 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             base.OnDetaching();
 
+            AssociatedObject.RemoveHandler(UIElement.KeyDownEvent, new KeyEventHandler(OnTreeViewItemKeyDown));
             AssociatedObject.RemoveHandler(UIElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(OnTreeViewItemMouseUp));
         }
 
         #endregion Behavior
 
         #region Methods
+
+        /// <summary>
+        /// Called when a TreeViewItem receives a key down event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.
+        /// </param>
+        private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
+        {
+            var treeViewItem = e.OriginalSource as TreeViewItem;
+            if (treeViewItem != null)
+            {
+                TreeViewItem targetItem = null;
+
+                switch (e.Key)
+                {
+                    case Key.Down:
+                        targetItem = GetRelativeItem(treeViewItem, 1);
+                        break;
+
+                    case Key.Space:
+                        if (Keyboard.Modifiers == ModifierKeys.Control)
+                        {
+                            ToggleSingleItem(treeViewItem);
+                        }
+                        break;
+
+                    case Key.Up:
+                        targetItem = GetRelativeItem(treeViewItem, -1);
+                        break;
+                }
+
+                if (targetItem != null)
+                {
+                    switch (Keyboard.Modifiers)
+                    {
+                        case ModifierKeys.Control:
+                            Keyboard.Focus(targetItem);
+                            break;
+
+                        case ModifierKeys.Shift:
+                            SelectMultipleItemsContinuously(targetItem);
+                            break;
+
+                        case ModifierKeys.None:
+                            SelectSingleItem(targetItem);
+                            break;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Called when a TreeViewItem receives a mouse up event.
@@ -279,7 +333,7 @@ namespace SteveCadwallader.CodeMaid.UI
         {
             if (parentItem == null)
             {
-                throw new ArgumentNullException("parentItem");
+                throw new ArgumentNullException(nameof(parentItem));
             }
 
             var items = new List<T>();
@@ -295,6 +349,36 @@ namespace SteveCadwallader.CodeMaid.UI
             }
 
             return items;
+        }
+
+        /// <summary>
+        /// Gets an item with a relative position (e.g. +1, -1) to the specified item.
+        /// </summary>
+        /// <remarks>This deliberately works against a flattened collection (i.e. no hierarchy).</remarks>
+        /// <typeparam name="T">The type of item to retrieve.</typeparam>
+        /// <param name="item">The item.</param>
+        /// <param name="relativePosition">The relative position offset (e.g. +1, -1).</param>
+        /// <returns>The item in the relative position, otherwise null.</returns>
+        private T GetRelativeItem<T>(T item, int relativePosition)
+            where T : ItemsControl
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var items = GetItemsRecursively<T>(AssociatedObject);
+            int index = items.IndexOf(item);
+            if (index >= 0)
+            {
+                var relativeIndex = index + relativePosition;
+                if (relativeIndex >= 0 && relativeIndex < items.Count)
+                {
+                    return items[relativeIndex];
+                }
+            }
+
+            return null;
         }
 
         #endregion Methods
