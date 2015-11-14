@@ -50,6 +50,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidContextSpadeBaseGroup = new Guid("a8c6d617-bb41-4357-b0a1-175e7a04cc5a");
         public static readonly Guid GuidCodeMaidContextSpadeFindGroup = new Guid("4e3fd2e6-4cde-497c-a899-eee7e53c8852");
         public static readonly Guid GuidCodeMaidContextSpadeDeleteGroup = new Guid("e4abf3d9-e332-4c5d-97a9-4ac09395c28f");
+        public static readonly Guid GuidCodeMaidContextSpadeInsertGroup = new Guid("707d9532-5392-4b5f-a36d-b88c583eb732");
 
         // Solution explorer context menu group guids.
 
@@ -85,6 +86,7 @@ namespace SteveCadwallader.CodeMaid.Integration
         public static readonly Guid GuidCodeMaidCommandSortLines = new Guid("e74645b3-7248-4001-ac8c-085b24908fee");
         public static readonly Guid GuidCodeMaidCommandSpadeContextDelete = new Guid("d8312056-c902-4d26-9f12-b4bb60db0365");
         public static readonly Guid GuidCodeMaidCommandSpadeContextFindReferences = new Guid("9ed89f6a-ab37-487a-8beb-d3c586d76a47");
+        public static readonly Guid GuidCodeMaidCommandSpadeContextInsertRegion = new Guid("bc52d3da-030d-4d4b-b2c6-4c86b6805b2e");
         public static readonly Guid GuidCodeMaidCommandSpadeContextRemoveRegion = new Guid("502c000f-9afa-4c6a-af01-4d64d756733e");
         public static readonly Guid GuidCodeMaidCommandSpadeOptions = new Guid("d068f0d3-267c-45b5-a02f-14f3422b8540");
         public static readonly Guid GuidCodeMaidCommandSpadeRefresh = new Guid("6e26b076-d635-4a6e-82a8-ba10483f5414");

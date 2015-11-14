@@ -33,15 +33,16 @@ namespace SteveCadwallader.CodeMaid.Integration
         public const uint CmdIDCodeMaidSortLines = 0x2700;
         public const uint CmdIDCodeMaidSpadeContextDelete = 0x2800;
         public const uint CmdIDCodeMaidSpadeContextFindReferences = 0x2900;
-        public const uint CmdIDCodeMaidSpadeContextRemoveRegion = 0x3000;
-        public const uint CmdIDCodeMaidSpadeOptions = 0x3100;
-        public const uint CmdIDCodeMaidSpadeRefresh = 0x3200;
-        public const uint CmdIDCodeMaidSpadeSearch = 0x3300;
-        public const uint CmdIDCodeMaidSpadeSortOrderAlpha = 0x3400;
-        public const uint CmdIDCodeMaidSpadeSortOrderFile = 0x3500;
-        public const uint CmdIDCodeMaidSpadeSortOrderType = 0x3600;
-        public const uint CmdIDCodeMaidSpadeToolWindow = 0x3700;
-        public const uint CmdIDCodeMaidSwitchFile = 0x3800;
+        public const uint CmdIDCodeMaidSpadeContextInsertRegion = 0x3000;
+        public const uint CmdIDCodeMaidSpadeContextRemoveRegion = 0x3100;
+        public const uint CmdIDCodeMaidSpadeOptions = 0x3200;
+        public const uint CmdIDCodeMaidSpadeRefresh = 0x3300;
+        public const uint CmdIDCodeMaidSpadeSearch = 0x3400;
+        public const uint CmdIDCodeMaidSpadeSortOrderAlpha = 0x3500;
+        public const uint CmdIDCodeMaidSpadeSortOrderFile = 0x3600;
+        public const uint CmdIDCodeMaidSpadeSortOrderType = 0x3700;
+        public const uint CmdIDCodeMaidSpadeToolWindow = 0x3800;
+        public const uint CmdIDCodeMaidSwitchFile = 0x3900;
 
         public const int ToolbarIDCodeMaidToolbarSpade = 0x1040;
 

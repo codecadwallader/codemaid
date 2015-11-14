@@ -190,6 +190,7 @@
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
