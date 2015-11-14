@@ -181,7 +181,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             // Get the start point after the attributes.
             var startPoint = codeFunction.GetStartPoint(vsCMPart.vsCMPartHeader);
 
-            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[\{;]");
+            return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"[\(\{;]");
         }
 
         /// <summary>
