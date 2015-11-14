@@ -13,7 +13,6 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -140,7 +139,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             point.StartOfLine();
 
             string text = point.GetLine();
-            if (Regex.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
+            if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
             {
                 point.EndOfLine();
                 point.Insert(Environment.NewLine);
@@ -159,7 +158,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             point.StartOfLine();
 
             string text = point.GetLine();
-            if (Regex.IsMatch(text, @"^\s*[^\s\}]"))
+            if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\}]"))
             {
                 point.Insert(Environment.NewLine);
             }
