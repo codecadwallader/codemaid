@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.ComponentModel.Design;
 using System.Linq;
 
@@ -69,6 +70,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
+                var startPoint = spade.SelectedItems.OrderBy(x => x.StartOffset).First().StartPoint;
+                var endPoint = spade.SelectedItems.OrderBy(x => x.EndOffset).Last().EndPoint;
+
+                var region = new CodeItemRegion();
+
+                _generateRegionLogic.InsertEndRegionTag(region, endPoint);
+                _generateRegionLogic.InsertRegionTag(region, startPoint);
+
                 spade.Refresh();
             }
         }
