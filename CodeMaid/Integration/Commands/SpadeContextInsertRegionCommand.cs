@@ -9,8 +9,10 @@
 
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 using System.ComponentModel.Design;
 using System.Linq;
 
@@ -70,13 +72,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
+                var region = new CodeItemRegion { Name = "New Region" };
                 var startPoint = spade.SelectedItems.OrderBy(x => x.StartOffset).First().StartPoint;
                 var endPoint = spade.SelectedItems.OrderBy(x => x.EndOffset).Last().EndPoint;
 
-                var region = new CodeItemRegion();
-
+                // Create the new region.
                 _generateRegionLogic.InsertEndRegionTag(region, endPoint);
                 _generateRegionLogic.InsertRegionTag(region, startPoint);
+
+                // Move to that element.
+                TextDocumentHelper.MoveToCodeItem(spade.Document, region, Settings.Default.Digging_CenterOnWhole);
+
+                // Highlight the line of text for renaming.
+                var textDocument = spade.Document.GetTextDocument();
+                textDocument.Selection.EndOfLine(true);
+                textDocument.Selection.SwapAnchor();
 
                 spade.Refresh();
             }
