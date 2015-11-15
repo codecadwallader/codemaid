@@ -365,6 +365,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new SortLinesCommand(this));
                 _commands.Add(new SpadeContextDeleteCommand(this));
                 _commands.Add(new SpadeContextFindReferencesCommand(this));
+                _commands.Add(new SpadeContextInsertRegionCommand(this));
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
                 _commands.Add(new SpadeOptionsCommand(this));
                 _commands.Add(new SpadeRefreshCommand(this));

@@ -168,6 +168,9 @@
       <Group guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" priority="0x0400">
         <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
       </Group>
+      <Group guid="GuidCodeMaidContextSpadeInsertGroup" id="GroupIDCodeMaidContextSpadeInsertGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
 
       <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
@@ -435,6 +438,13 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>&amp;Find References</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextInsertRegion" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Insert Region</ButtonText>
         </Strings>
       </Button>
 
@@ -786,7 +796,11 @@
       <Parent guid="GuidCodeMaidContextSpadeFindGroup" id="GroupIDCodeMaidContextSpadeFindGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0400">
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextInsertRegion" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSpadeInsertGroup" id="GroupIDCodeMaidContextSpadeInsertGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0600">
       <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
     </CommandPlacement>
 
@@ -981,6 +995,10 @@
 
     <GuidSymbol name="GuidCodeMaidContextSpadeDeleteGroup" value="{e4abf3d9-e332-4c5d-97a9-4ac09395c28f}">
       <IDSymbol name="GroupIDCodeMaidContextSpadeDeleteGroup" value="0x1063" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidContextSpadeInsertGroup" value="{707d9532-5392-4b5f-a36d-b88c583eb732}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeInsertGroup" value="0x1064" />
     </GuidSymbol>
 
     <!-- These are the command sets for extending toolbars -->
@@ -1187,40 +1205,44 @@
       <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2900" />
     </GuidSymbol>
 
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextInsertRegion" value="{bc52d3da-030d-4d4b-b2c6-4c86b6805b2e}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextInsertRegion" value="0x3000" />
+    </GuidSymbol>
+
     <GuidSymbol name="GuidCodeMaidCommandSpadeContextRemoveRegion" value="{502c000f-9afa-4c6a-af01-4d64d756733e}">
-      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3000" />
+      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3100" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeOptions" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
-      <IDSymbol name="CmdIDCodeMaidSpadeOptions" value="0x3100" />
+      <IDSymbol name="CmdIDCodeMaidSpadeOptions" value="0x3200" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
-      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3200" />
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3300" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSearch" value="{d2586ad7-b0c0-4421-a42c-1b95d943cfa4}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSearch" value="0x3300" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSearch" value="0x3400" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3400" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3500" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3500" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3600" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
-      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3600" />
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3700" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
-      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3700" />
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3800" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
-      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3800" />
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3900" />
     </GuidSymbol>
 
     <!-- These are the guids for images -->
