@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (input == null || pattern == null)
             {
+                OutputWindowHelper.WarningWriteLine("Returned false due to a null input or pattern passed to RegexNullSafe's IsMatch.");
                 return false;
             }
 
