@@ -22,6 +22,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interactivity;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -430,14 +431,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // If the specified tree view item is not selected, change the current selection to it.
             if (!selectedTreeViewItems.Contains(treeViewItem))
             {
-                foreach (var selectedTreeViewItem in selectedTreeViewItems)
-                {
-                    TreeViewMultipleSelectionBehavior.SetIsItemSelected(selectedTreeViewItem, false);
-                }
+                var behavior = Interaction.GetBehaviors(treeView).OfType<TreeViewMultipleSelectionBehavior>().FirstOrDefault();
+                behavior?.SelectSingleItem(treeViewItem);
 
                 selectedTreeViewItems.Clear();
-
-                TreeViewMultipleSelectionBehavior.SetIsItemSelected(treeViewItem, true);
                 selectedTreeViewItems.Add(treeViewItem);
             }
 

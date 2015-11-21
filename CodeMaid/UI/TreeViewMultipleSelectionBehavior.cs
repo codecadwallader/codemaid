@@ -140,7 +140,7 @@ namespace SteveCadwallader.CodeMaid.UI
 
         #endregion Behavior
 
-        #region Methods
+        #region Event Handlers
 
         /// <summary>
         /// Called when a TreeViewItem receives a key down event.
@@ -224,11 +224,15 @@ namespace SteveCadwallader.CodeMaid.UI
             }
         }
 
+        #endregion Event Handlers
+
+        #region Methods
+
         /// <summary>
         /// Selects a range of consecutive items from the specified tree view item to the anchor (if exists).
         /// </summary>
         /// <param name="treeViewItem">The triggering tree view item.</param>
-        private void SelectMultipleItemsContinuously(TreeViewItem treeViewItem)
+        public void SelectMultipleItemsContinuously(TreeViewItem treeViewItem)
         {
             if (AnchorItem != null)
             {
@@ -262,7 +266,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Selects the specified tree view item, removing any other selections.
         /// </summary>
         /// <param name="treeViewItem">The triggering tree view item.</param>
-        private void SelectSingleItem(TreeViewItem treeViewItem)
+        public void SelectSingleItem(TreeViewItem treeViewItem)
         {
             DeSelectAll();
             SetIsItemSelected(treeViewItem, true);
@@ -273,7 +277,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// Toggles the selection state of the specified tree view item.
         /// </summary>
         /// <param name="treeViewItem">The triggering tree view item.</param>
-        private void ToggleSingleItem(TreeViewItem treeViewItem)
+        public void ToggleSingleItem(TreeViewItem treeViewItem)
         {
             SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
 
