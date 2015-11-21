@@ -54,9 +54,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             bool visible = false;
 
             var spade = Package.Spade;
-            if (spade != null)
+            if (spade?.Document != null)
             {
-                visible = spade.SelectedItems.Count() >= 2;
+                visible = spade.Document.Language == "CSharp" &&
+                          spade.SelectedItems.Count() >= 2;
             }
 
             Visible = visible;
