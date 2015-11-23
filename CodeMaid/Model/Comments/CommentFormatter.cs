@@ -156,7 +156,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             var xml = line as CommentLineXml;
             if (xml != null)
             {
-                return ParseXml(xml, indentLevel);
+                ParseXml(xml, indentLevel);
+
+                // XML lines always introduce a line wrap.
+                return true;
             }
             else
             {
@@ -315,8 +318,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             return false;
         }
 
-        /// <returns><c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.</returns>
-        private bool ParseXml(CommentLineXml line, int indentLevel = 0)
+        private void ParseXml(CommentLineXml line, int indentLevel = 0)
         {
             // All XML lines start on a new line.
             if (!_isFirstWord)
@@ -390,8 +392,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             Append(line.Closetag);
-
-            return tagOnOwnLine;
         }
 
         /// <summary>

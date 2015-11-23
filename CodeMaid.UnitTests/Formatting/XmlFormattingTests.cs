@@ -244,6 +244,19 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_SplitsTagsWhenItContainsElementOnSeparateLine()
+        {
+            var input = "<test><para>Lorem ipsum.</para></test>";
+            var expected =
+                "<test>" + Environment.NewLine +
+                "<para>Lorem ipsum.</para>" + Environment.NewLine +
+                "</test>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_TagNameKeepCase()
         {
             var input = "<Summary></Summary>";
