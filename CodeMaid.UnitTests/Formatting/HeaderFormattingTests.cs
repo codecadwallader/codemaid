@@ -22,12 +22,6 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     [TestClass]
     public class HeaderFormattingTests
     {
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            Settings.Default.Reset();
-        }
-
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void HeaderFormattingTests_IndentsXML()
@@ -41,6 +35,27 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
                 @"    Company copyright tag." + Environment.NewLine +
                 @"</copyright>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void HeaderFormattingTests_PreservesHyphenLinesWithoutXML()
+        {
+            var input =
+                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"--------------------------------------------------------------------------------------------------------------------";
+
+            var expected =
+                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
+                @"" + Environment.NewLine +
+                @"--------------------------------------------------------------------------------------------------------------------";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
@@ -66,25 +81,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
-        public void HeaderFormattingTests_PreservesHyphenLinesWithoutXML()
+        [TestInitialize]
+        public void TestInitialize()
         {
-            var input =
-                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
-                @"" + Environment.NewLine +
-                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
-                @"" + Environment.NewLine +
-                @"--------------------------------------------------------------------------------------------------------------------";
-
-            var expected =
-                @"--------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
-                @"" + Environment.NewLine +
-                @"Copyright (c) 2012 - 2013 . All rights reserved." + Environment.NewLine +
-                @"" + Environment.NewLine +
-                @"--------------------------------------------------------------------------------------------------------------------";
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            Settings.Default.Reset();
         }
     }
 }
