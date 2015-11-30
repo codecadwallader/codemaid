@@ -91,6 +91,21 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_BreakTagsWhenContainsXml()
+        {
+            var input = "<example><para>test</para></example>";
+            var expected =
+                "<example>" + Environment.NewLine +
+                "<para>" + Environment.NewLine +
+                "test" + Environment.NewLine +
+                "</para>" + Environment.NewLine +
+                "</example>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
         /// <summary>
         /// If XML tag indenting is set, this should not affect any literal content. however,
         /// content after the literal should be indented as normal.
@@ -220,12 +235,32 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_IndentsXML()
+        public void XmlFormattingTests_IndentsXml()
         {
             var input = "<summary>Lorem ipsum dolor sit amet.</summary>";
             var expected =
                 "<summary>" + Environment.NewLine +
                 "    Lorem ipsum dolor sit amet." + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_IndentsXmlMultiLevel()
+        {
+            var input = "<summary>Lorem ipsum dolor <para>Lorem ipsum dolor sit amet.</para> sit amet.</summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "    Lorem ipsum dolor" + Environment.NewLine +
+                "    <para>" + Environment.NewLine +
+                "        Lorem ipsum dolor sit amet." + Environment.NewLine +
+                "    </para>" + Environment.NewLine +
+                "    sit amet." + Environment.NewLine +
                 "</summary>";
 
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
