@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        private static string[] NewLineElementNames = { "p", "para", "code" };
+        internal static string[] NewLineElementNames = { "p", "para", "code" };
         private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
 
@@ -41,7 +41,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
             OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml);
-            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml);
+            CloseTag = CodeCommentHelper.CreateXmlCloseTag(xml);
+            IsSelfClosing = CloseTag == null;
 
             Lines = new List<ICommentLine>();
 
@@ -54,7 +55,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         #region Properties
 
-        public string Closetag { get; set; }
+        public string CloseTag { get; private set; }
+
+        public bool IsSelfClosing { get; private set; }
 
         public ICollection<ICommentLine> Lines { get; private set; }
 
@@ -65,6 +68,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #endregion Properties
 
         #region Methods
+
+        private static bool StartsWithInterpunction(string value)
+        {
+            return InterpunctionRegex.IsMatch(value);
+        }
 
         /// <summary>
         /// If there is text left in the buffer, parse and append it as a comment line.
@@ -159,11 +167,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     node = node.NextNode;
                 }
             }
-        }
-
-        private static bool StartsWithInterpunction(string value)
-        {
-            return InterpunctionRegex.IsMatch(value);
         }
 
         #endregion Methods

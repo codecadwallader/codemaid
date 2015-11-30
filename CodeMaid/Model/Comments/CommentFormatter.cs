@@ -30,6 +30,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         private int _commentPrefixLength;
         private int _currentPosition;
         private bool _isFirstWord;
+        private bool _isIndented;
         private Regex _regex;
         private int _tabSize;
 
@@ -44,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _regex = regex;
             _tabSize = tabSize;
             _isFirstWord = true;
+            _isIndented = false;
 
             // Handle optionally empty prefix.
             if (!string.IsNullOrWhiteSpace(commentPrefix))
@@ -101,9 +103,22 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             return string.Equals(ToString(), other);
         }
 
+        public void Indent(int indentLevel)
+        {
+            if (!_isIndented)
+            {
+                if (indentLevel > 0 && Settings.Default.Formatting_CommentXmlValueIndent > 0)
+                {
+                    Append(string.Empty.PadLeft(indentLevel * Settings.Default.Formatting_CommentXmlValueIndent));
+                }
+                _isIndented = true;
+                _isFirstWord = true;
+            }
+        }
+
         public override string ToString()
         {
-            return _builder.ToString();
+            return _builder.ToString().Trim();
         }
 
         private void Append(char value)
@@ -122,8 +137,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _isFirstWord = false;
         }
 
-        private void NewLine(int indentLevel = 0, bool force = false)
+        private void NewLine(bool force = false)
         {
+            // TODO: Maybe this should just check isFirstWord?
             if (_currentPosition > 0 || force)
             {
                 _builder.AppendLine();
@@ -132,13 +148,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             _builder.Append(_commentPrefix);
             _currentPosition += _commentPrefixLength;
-
-            if (indentLevel > 0 && Settings.Default.Formatting_CommentXmlValueIndent > 0)
-            {
-                Append(string.Empty.PadLeft(indentLevel * Settings.Default.Formatting_CommentXmlValueIndent));
-            }
-
             _isFirstWord = true;
+            _isIndented = false;
         }
 
         /// <summary>
@@ -214,7 +225,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                 if (_currentPosition == 0 || !_isFirstWord && forceBreak)
                 {
-                    NewLine(indentLevel);
+                    NewLine();
                 }
                 else if (!_isFirstWord && Settings.Default.Formatting_CommentXmlSpaceTags)
                 {
@@ -231,10 +242,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     {
                         if (!_isFirstWord)
                         {
-                            NewLine(indentLevel);
+                            NewLine();
                         }
 
+                        Indent(indentLevel);
                         Append(match.ListPrefix);
+
                         // List items include their spacing and do not require additional space,
                         // thus we are logically still on the first word.
                         _isFirstWord = true;
@@ -268,12 +281,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                             if (wrap)
                             {
-                                NewLine(indentLevel);
+                                NewLine();
 
                                 // If linewrap is on a list item, add spacing to align the text.
                                 if (match.IsList)
                                 {
+                                    Indent(indentLevel);
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
+
                                     // This is just padding and not a word.
                                     _isFirstWord = true;
                                 }
@@ -284,6 +299,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                                 Append(CodeCommentHelper.Spacer);
                             }
 
+                            Indent(indentLevel);
                             Append(word);
                         }
                     }
@@ -292,10 +308,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         // Line without words, create a blank line.
                         if (!_isFirstWord)
                         {
-                            NewLine(0);
+                            NewLine();
                         }
 
-                        NewLine(indentLevel, true);
+                        NewLine(true);
                     }
                 }
 
@@ -321,10 +337,22 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // All XML lines start on a new line.
             if (!_isFirstWord)
             {
-                NewLine(indentLevel);
+                NewLine();
             }
 
+            Indent(indentLevel);
             Append(line.OpenTag);
+
+            // Self closing tags have no content, skip all further logic.
+            if (line.IsSelfClosing)
+            {
+                if (TagsOnOwnLine(line, indentLevel))
+                {
+                    NewLine();
+                    return true;
+                }
+                return false;
+            }
 
             // If this is the StyleCop SA1633 header <copyright> tag, the content should ALWAYS be
             // indented. So if no indenting is set, fake it. This is done by adding the indenting to
@@ -339,14 +367,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Increase the indent level.
             indentLevel++;
 
-            bool isLiteralContent = line.Content != null;
+            bool isLiteralContent = !string.IsNullOrEmpty(line.Content);
             bool tagOnOwnLine = isLiteralContent || TagsOnOwnLine(line, indentLevel);
 
-            if (tagOnOwnLine)
-            {
-                // Literals are output without indenting.
-                NewLine(isLiteralContent ? 0 : indentLevel);
-            }
+            //if (tagOnOwnLine)
+            //{
+            //    // Literals are output without indenting.
+            //    NewLine(isLiteralContent ? 0 : indentLevel);
+            //}
 
             // If the literal content of an XML tag is set, output that content without formatting.
             if (isLiteralContent)
@@ -354,18 +382,21 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var literals = line.Content.Trim('\r', '\n').TrimEnd('\r', '\n', '\t', ' ').Split('\n');
                 for (int i = 0; i < literals.Length; i++)
                 {
+                    NewLine(true);
                     Append(literals[i].TrimEnd());
-
-                    // Append newline for all except the last line. Literals are output without indenting.
-                    if (i + 1 < literals.Length)
-                        NewLine(0, true);
                 }
             }
             else
             {
+                // If the tag has content, start it on a newline when required.
+                if (tagOnOwnLine && line.Lines.Count > 0)
+                {
+                    NewLine();
+                }
+
                 // Loop and parse all content lines, with a little hacky solution for allowing
                 // the parser to know the XML tag length.
-                var xmlTagLength = tagOnOwnLine ? 0 : WordLength(line.OpenTag) + WordLength(line.Closetag);
+                var xmlTagLength = tagOnOwnLine ? 0 : WordLength(line.OpenTag) + WordLength(line.CloseTag);
                 foreach (var l in line.Lines)
                 {
                     // Parse function returns true if it had to wrap lines. If so, we need to
@@ -386,12 +417,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // If opening tag was on own line, do the same for the closing tag.
             if (tagOnOwnLine && !_isFirstWord)
             {
-                NewLine(indentLevel);
+                NewLine();
             }
 
-            Append(line.Closetag);
+            Indent(indentLevel);
+            Append(line.CloseTag);
 
-            return tagOnOwnLine;
+            if (tagOnOwnLine)
+            {
+                NewLine();
+            }
+
+            return !tagOnOwnLine;
         }
 
         /// <summary>
@@ -411,7 +448,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 return true;
 
             // Split if there is literal content (eg. a code tag).
-            if (line.Content != null)
+            if (!string.IsNullOrEmpty(line.Content))
                 return true;
 
             // Split if this is a summary tag and option to split is set.
@@ -420,6 +457,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             // Always split on StyleCop SA1633 copyright tag.
             if (Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines && string.Equals(line.TagName, "copyright", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            if (CommentLineXml.NewLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase))
                 return true;
 
             return false;
