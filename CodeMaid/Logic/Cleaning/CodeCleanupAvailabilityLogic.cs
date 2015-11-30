@@ -208,9 +208,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "HTML":
                 case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
                 case "JavaScript":
-                case "JScript": return Settings.Default.Cleaning_IncludeJavaScript;
+                case "JScript":
+                case "Node.js": return Settings.Default.Cleaning_IncludeJavaScript;
                 case "JSON": return Settings.Default.Cleaning_IncludeJSON;
                 case "LESS": return Settings.Default.Cleaning_IncludeLESS;
+                case "PowerShell": return Settings.Default.Cleaning_IncludePowerShell;
                 case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
                 case "TypeScript": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "XAML": return Settings.Default.Cleaning_IncludeXAML;
@@ -282,7 +284,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
-            var parentProjectItem = projectItem?.Collection?.Parent as ProjectItem;
+            var parentProjectItem = projectItem?.GetParentProjectItem();
             if (parentProjectItem == null) return false;
 
             var extension = GetProjectItemExtension(parentProjectItem);
@@ -324,6 +326,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{18588c2a-9945-44ad-9894-b271babc0582}": return Settings.Default.Cleaning_IncludeJSON;
                 case "{7b22909e-1b53-4cc7-8c2b-1f5c5039693a}": return Settings.Default.Cleaning_IncludeLESS;
                 case "{16b0638d-251a-4705-98d2-5251112c4139}": return Settings.Default.Cleaning_IncludePHP;
+                case "{1c4711f1-3766-4f84-9516-43fa4169cc36}": return Settings.Default.Cleaning_IncludePowerShell;
                 case "{5fa499f6-2cec-435b-bfce-53bbe29f37f6}": return Settings.Default.Cleaning_IncludeSCSS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;
@@ -344,32 +347,40 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if external files should be cleaned, otherwise false.</returns>
         private static bool PromptUserAboutCleaningExternalFiles(Document document)
         {
-            var viewModel = new YesNoPromptViewModel
+            try
             {
-                Title = @"CodeMaid: Cleanup External File",
-                Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
-                          Environment.NewLine + Environment.NewLine +
-                          "Do you want to perform a partial cleanup?",
-                CanRemember = true
-            };
+                var viewModel = new YesNoPromptViewModel
+                {
+                    Title = @"CodeMaid: Cleanup External File",
+                    Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
+                              Environment.NewLine + Environment.NewLine +
+                              "Do you want to perform a partial cleanup?",
+                    CanRemember = true
+                };
 
-            var window = new YesNoPromptWindow { DataContext = viewModel };
-            var response = window.ShowModal();
+                var window = new YesNoPromptWindow { DataContext = viewModel };
+                var response = window.ShowModal();
 
-            if (!response.HasValue)
+                if (!response.HasValue)
+                {
+                    return false;
+                }
+
+                if (viewModel.Remember)
+                {
+                    var preference = (int)(response.Value ? AskYesNo.Yes : AskYesNo.No);
+
+                    Settings.Default.Cleaning_PerformPartialCleanupOnExternal = preference;
+                    Settings.Default.Save();
+                }
+
+                return response.Value;
+            }
+            catch (Exception ex)
             {
+                OutputWindowHelper.ExceptionWriteLine("Unable to prompt user about cleaning external files", ex);
                 return false;
             }
-
-            if (viewModel.Remember)
-            {
-                var preference = (int)(response.Value ? AskYesNo.Yes : AskYesNo.No);
-
-                Settings.Default.Cleaning_PerformPartialCleanupOnExternal = preference;
-                Settings.Default.Save();
-            }
-
-            return response.Value;
         }
 
         #endregion Private Methods

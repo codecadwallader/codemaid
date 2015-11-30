@@ -12,7 +12,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -175,7 +174,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             {
                 string text = point.GetLines(point.Line - 1, point.Line);
 
-                if (Regex.IsMatch(text, @"^\s*//"))
+                if (RegexNullSafe.IsMatch(text, @"^\s*//"))
                 {
                     point.LineUp();
                     point.StartOfLine();

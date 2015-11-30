@@ -11,7 +11,6 @@
 
 using EnvDTE;
 using EnvDTE80;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -42,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var declaration = CodeElementHelper.GetEventDeclaration(codeEvent);
             var matchString = @"\." + codeEvent.Name;
 
-            return Regex.IsMatch(declaration, matchString);
+            return RegexNullSafe.IsMatch(declaration, matchString);
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var declaration = CodeElementHelper.GetMethodDeclaration(codeFunction);
             var matchString = @"\." + codeFunction.Name;
 
-            return Regex.IsMatch(declaration, matchString);
+            return RegexNullSafe.IsMatch(declaration, matchString);
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var declaration = CodeElementHelper.GetPropertyDeclaration(codeProperty);
             var matchString = @"\." + codeProperty.Name;
 
-            return Regex.IsMatch(declaration, matchString);
+            return RegexNullSafe.IsMatch(declaration, matchString);
         }
     }
 }

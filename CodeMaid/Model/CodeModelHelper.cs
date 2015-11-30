@@ -14,7 +14,6 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -103,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 var cursor = textDocument.GetEditPointAtCursor();
                 var currentLineText = cursor.GetLine();
 
-                return Regex.IsMatch(currentLineText, RegionPattern);
+                return RegexNullSafe.IsMatch(currentLineText, RegionPattern);
             }
 
             return false;

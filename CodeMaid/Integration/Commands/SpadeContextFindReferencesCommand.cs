@@ -12,6 +12,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -43,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             var spade = Package.Spade;
 
-            Visible = spade != null && spade.SelectedItem is BaseCodeItemElement;
+            Visible = spade != null && spade.SelectedItems.OfType<BaseCodeItemElement>().Count() == 1;
         }
 
         /// <summary>
@@ -54,9 +55,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             base.OnExecute();
 
             var spade = Package.Spade;
-            if (spade == null) return;
 
-            var item = spade.SelectedItem as BaseCodeItemElement;
+            var item = spade?.SelectedItems.OfType<BaseCodeItemElement>().FirstOrDefault();
             if (item == null) return;
 
             var document = spade.Document;

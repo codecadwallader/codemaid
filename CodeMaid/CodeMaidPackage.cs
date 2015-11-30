@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.8.1", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "v0.8.9 BETA", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
@@ -365,6 +365,7 @@ namespace SteveCadwallader.CodeMaid
                 _commands.Add(new SortLinesCommand(this));
                 _commands.Add(new SpadeContextDeleteCommand(this));
                 _commands.Add(new SpadeContextFindReferencesCommand(this));
+                _commands.Add(new SpadeContextInsertRegionCommand(this));
                 _commands.Add(new SpadeContextRemoveRegionCommand(this));
                 _commands.Add(new SpadeOptionsCommand(this));
                 _commands.Add(new SpadeRefreshCommand(this));

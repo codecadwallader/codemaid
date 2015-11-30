@@ -184,11 +184,13 @@
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
+    <Compile Include="Helpers\RegexNullSafe.cs" />
     <Compile Include="Helpers\SettingsContextHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
+    <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
@@ -389,6 +391,7 @@
     <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\Bindable.cs" />
+    <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -16,7 +16,6 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -363,7 +362,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             string matchString = @"(^|\s)" + keyword + @"\s";
 
-            return Regex.IsMatch(codeElementDeclaration, matchString);
+            return RegexNullSafe.IsMatch(codeElementDeclaration, matchString);
         }
 
         #endregion Helper Methods

@@ -69,10 +69,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <summary>
         /// A list of possible access modifiers.
         /// </summary>
-        private static IEnumerable<string> AccessModifiers
-        {
-            get { return new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" }; }
-        }
+        private static IEnumerable<string> AccessModifiers => new[] { "Public", "Internal", "Protected Internal", "Protected", "Private" };
 
         #endregion Properties
 
@@ -180,7 +177,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="region">The region to start.</param>
         /// <param name="startPoint">The starting point.</param>
         /// <returns>The updated cursor.</returns>
-        private EditPoint InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
+        public EditPoint InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
         {
             var cursor = startPoint.CreateEditPoint();
 
@@ -191,7 +188,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 cursor.Insert(Environment.NewLine);
             }
 
-            cursor.Insert(string.Format("#region {0}{1}", region.Name, Environment.NewLine));
+            cursor.Insert($"#region {region.Name}{Environment.NewLine}");
 
             startPoint.SmartFormat(cursor);
 
@@ -212,7 +209,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="region">The region to end.</param>
         /// <param name="endPoint">The end point.</param>
         /// <returns>The updated cursor.</returns>
-        private EditPoint InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
+        public EditPoint InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
         {
             var cursor = endPoint.CreateEditPoint();
 
