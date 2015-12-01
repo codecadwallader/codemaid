@@ -25,7 +25,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        internal static string[] NewLineElementNames = { "p", "para", "code" };
+        // Elements with these names are always alone on their own line.
+        internal static string[] NewLineElementNames = { "code" };
+
+        // Elements with these names always start and end on their own line, and are only split
+        // based on content.
+        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description" };
+
         private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
 
@@ -108,9 +114,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     {
                         var e = (XElement)node;
 
-                        // All root level elements and certain special sub elements always need to
-                        // be on their own line.
-                        if (e.Parent == null || e.Parent.Parent == null || NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                        if (ShouldBeNewLine(e))
                         {
                             CloseInnerText();
                             Lines.Add(new CommentLineXml(e));
@@ -167,6 +171,22 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     node = node.NextNode;
                 }
             }
+        }
+
+        private bool ShouldBeNewLine(XElement e)
+        {
+            // All root level elements are always on their own line.
+            if (e.Parent == null || e.Parent.Parent == null)
+                return true;
+
+            // Some special tags should also always be their own line.
+            if (NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                return true;
+
+            if (SingleLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                return true;
+
+            return false;
         }
 
         #endregion Methods

@@ -139,8 +139,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private void NewLine(bool force = false)
         {
-            // TODO: Maybe this should just check isFirstWord?
-            if (_currentPosition > 0 || force)
+            if (!_isFirstWord || force)
             {
                 _builder.AppendLine();
                 _currentPosition = 0;
@@ -343,7 +342,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             Indent(indentLevel);
             Append(line.OpenTag);
 
-            // Self closing tags have no content, skip all further logic.
+            // Self closing tags have no content, skip all further logic and just output.
             if (line.IsSelfClosing)
             {
                 if (TagsOnOwnLine(line, indentLevel))
@@ -368,13 +367,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             indentLevel++;
 
             bool isLiteralContent = !string.IsNullOrEmpty(line.Content);
-            bool tagOnOwnLine = isLiteralContent || TagsOnOwnLine(line, indentLevel);
 
-            //if (tagOnOwnLine)
-            //{
-            //    // Literals are output without indenting.
-            //    NewLine(isLiteralContent ? 0 : indentLevel);
-            //}
+            // If true the tag should be alone on it's own line.
+            bool tagOnOwnLine = isLiteralContent || TagsOnOwnLine(line, indentLevel);
 
             // If the literal content of an XML tag is set, output that content without formatting.
             if (isLiteralContent)
@@ -388,7 +383,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
             else
             {
-                // If the tag has content, start it on a newline when required.
+                // If the tag has any child lines and should be on it's own line, put another break.
                 if (tagOnOwnLine && line.Lines.Count > 0)
                 {
                     NewLine();
@@ -422,6 +417,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             Indent(indentLevel);
             Append(line.CloseTag);
+
+            tagOnOwnLine = tagOnOwnLine || CommentLineXml.SingleLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase);
 
             if (tagOnOwnLine)
             {
