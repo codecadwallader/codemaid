@@ -22,6 +22,12 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     [TestClass]
     public class ListFormattingTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Settings.Default.Reset();
+        }
+
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void ListFormattingTests_DashedList()
@@ -160,12 +166,6 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             Settings.Default.Formatting_CommentXmlValueIndent = 2;
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            Settings.Default.Reset();
         }
     }
 }

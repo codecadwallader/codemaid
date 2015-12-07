@@ -22,6 +22,12 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     [TestClass]
     public class HeaderFormattingTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Settings.Default.Reset();
+        }
+
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void HeaderFormattingTests_IndentsXML()
@@ -79,12 +85,6 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"-----------------------------------------------------------------------";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            Settings.Default.Reset();
         }
     }
 }
