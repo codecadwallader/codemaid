@@ -96,5 +96,76 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void ListFormattingTests_XmlListWithHeader()
+        {
+            var input =
+                "Some text before." + Environment.NewLine +
+                "<list type=\"bullet\">" + Environment.NewLine +
+                "   <listheader>" + Environment.NewLine +
+                "       <term>header term</term>" + Environment.NewLine +
+                "       <description>description</description>" + Environment.NewLine +
+                "   </listheader>" + Environment.NewLine +
+                "   <item>" + Environment.NewLine +
+                "       <term>item term</term>" + Environment.NewLine +
+                "       <description>description</description>" + Environment.NewLine +
+                "   </item>" + Environment.NewLine +
+                "</list>" + Environment.NewLine +
+                "Some trailing text.";
+
+            var expected =
+                "Some text before." + Environment.NewLine +
+                "<list type=\"bullet\">" + Environment.NewLine +
+                "<listheader>" + Environment.NewLine +
+                "<term>header term</term>" + Environment.NewLine +
+                "<description>description</description>" + Environment.NewLine +
+                "</listheader>" + Environment.NewLine +
+                "<item>" + Environment.NewLine +
+                "<term>item term</term>" + Environment.NewLine +
+                "<description>description</description>" + Environment.NewLine +
+                "</item>" + Environment.NewLine +
+                "</list>" + Environment.NewLine +
+                "Some trailing text.";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void ListFormattingTests_XmlListWithHeaderAndIndent()
+        {
+            var input =
+                "Some text before." + Environment.NewLine +
+                "<list type=\"bullet\">" + Environment.NewLine +
+                "<listheader>" + Environment.NewLine +
+                "<term>header term</term>" + Environment.NewLine +
+                "<description>description</description>" + Environment.NewLine +
+                "</listheader>" + Environment.NewLine +
+                "<item>" + Environment.NewLine +
+                "<term>item term</term>" + Environment.NewLine +
+                "<description>description</description>" + Environment.NewLine +
+                "</item>" + Environment.NewLine +
+                "</list>" + Environment.NewLine +
+                "Some trailing text.";
+
+            var expected =
+                "Some text before." + Environment.NewLine +
+                "<list type=\"bullet\">" + Environment.NewLine +
+                "  <listheader>" + Environment.NewLine +
+                "    <term>header term</term>" + Environment.NewLine +
+                "    <description>description</description>" + Environment.NewLine +
+                "  </listheader>" + Environment.NewLine +
+                "  <item>" + Environment.NewLine +
+                "    <term>item term</term>" + Environment.NewLine +
+                "    <description>description</description>" + Environment.NewLine +
+                "  </item>" + Environment.NewLine +
+                "</list>" + Environment.NewLine +
+                "Some trailing text.";
+
+            Settings.Default.Formatting_CommentXmlValueIndent = 2;
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
     }
 }

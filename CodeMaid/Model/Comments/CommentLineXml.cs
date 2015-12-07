@@ -25,7 +25,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        private static string[] NewLineElementNames = { "p", "para", "code" };
+        // Elements with these names are always alone on their own line.
+        internal static string[] NewLineElementNames = { "code" };
+
+        // Elements with these names always start and end on their own line, and are only split
+        // based on content.
+        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description" };
+
         private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
 
@@ -41,7 +47,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Tags that are forced to be their own line should never be self closing. This prevents
             // empty tags from getting collapsed.
             OpenTag = CodeCommentHelper.CreateXmlOpenTag(xml);
-            Closetag = CodeCommentHelper.CreateXmlCloseTag(xml);
+            CloseTag = CodeCommentHelper.CreateXmlCloseTag(xml);
+            IsSelfClosing = CloseTag == null;
 
             Lines = new List<ICommentLine>();
 
@@ -54,7 +61,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         #region Properties
 
-        public string Closetag { get; set; }
+        public string CloseTag { get; private set; }
+
+        public bool IsSelfClosing { get; private set; }
 
         public ICollection<ICommentLine> Lines { get; private set; }
 
@@ -65,6 +74,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #endregion Properties
 
         #region Methods
+
+        private static bool StartsWithInterpunction(string value)
+        {
+            return InterpunctionRegex.IsMatch(value);
+        }
 
         /// <summary>
         /// If there is text left in the buffer, parse and append it as a comment line.
@@ -100,9 +114,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     {
                         var e = (XElement)node;
 
-                        // All root level elements and certain special sub elements always need to
-                        // be on their own line.
-                        if (e.Parent == null || e.Parent.Parent == null || NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                        if (ShouldBeNewLine(e))
                         {
                             CloseInnerText();
                             Lines.Add(new CommentLineXml(e));
@@ -161,9 +173,20 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
-        private static bool StartsWithInterpunction(string value)
+        private bool ShouldBeNewLine(XElement e)
         {
-            return InterpunctionRegex.IsMatch(value);
+            // All root level elements are always on their own line.
+            if (e.Parent == null || e.Parent.Parent == null)
+                return true;
+
+            // Some special tags should also always be their own line.
+            if (NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                return true;
+
+            if (SingleLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
+                return true;
+
+            return false;
         }
 
         #endregion Methods

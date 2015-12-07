@@ -73,9 +73,27 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "<summary></summary><returns></returns>";
             var expected = "<summary>" + Environment.NewLine + "</summary>" + Environment.NewLine + "<returns>" + Environment.NewLine + "</returns>";
 
+            Settings.Default.Formatting_CommentXmlValueIndent = 0;
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = false;
             Settings.Default.Formatting_CommentXmlSplitAllTags = true;
 
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_BreakLongParagraphs()
+        {
+            var input = "<example><para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</para></example>";
+            var expected =
+                "<example>" + Environment.NewLine +
+                "<para>" + Environment.NewLine +
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit." + Environment.NewLine +
+                "Vivamus nisi neque, placerat sed neque vitae." + Environment.NewLine +
+                "</para>" + Environment.NewLine +
+                "</example>";
+
+            Settings.Default.Formatting_CommentWrapColumn = 60;
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
@@ -85,6 +103,70 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "<summary></summary><returns></returns>";
             var expected = "<summary>" + Environment.NewLine + "</summary>" + Environment.NewLine + "<returns></returns>";
+
+            Settings.Default.Formatting_CommentXmlValueIndent = 0;
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_BreakTagsWhenContainsParagraphs()
+        {
+            var input = "<example><para>test</para></example>";
+            var expected =
+                "<example>" + Environment.NewLine +
+                "<para>test</para>" + Environment.NewLine +
+                "</example>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        /// <summary>
+        /// If XML tag indenting is set, this should not affect any literal content. however,
+        /// content after the literal should be indented as normal.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_DoesIndentAfterLiteralContent()
+        {
+            var input =
+               "<example>" + Environment.NewLine +
+               "Example usage :" + Environment.NewLine +
+               "<code source=\"..\\MyExamples\\Examples.cs\" region=\"Example1\" language=\"cs\"/>" + Environment.NewLine +
+               "Example usage with a location parameter and a location function:" + Environment.NewLine +
+               "<code source=\"..\\MyExamples\\Examples.cs\" region=\"Example2\" language=\"cs\"/>" + Environment.NewLine +
+               "And some final text that should also be formatted." + Environment.NewLine +
+               "</example>";
+
+            var expected =
+               "<example>" + Environment.NewLine +
+               "    Example usage :" + Environment.NewLine +
+               "    <code source=\"..\\MyExamples\\Examples.cs\" region=\"Example1\" language=\"cs\"/>" + Environment.NewLine +
+               "    Example usage with a location parameter and a location function:" + Environment.NewLine +
+               "    <code source=\"..\\MyExamples\\Examples.cs\" region=\"Example2\" language=\"cs\"/>" + Environment.NewLine +
+               "    And some final text that should also be formatted." + Environment.NewLine +
+               "</example>";
+
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+            Settings.Default.Formatting_CommentXmlKeepTagsTogether = true;
+
+            // First pass.
+            var result = CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+
+            // Second pass.
+            CommentFormatHelper.AssertEqualAfterFormat(result, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_DoesNotIndentCloseTag()
+        {
+            var input = "<summary></summary><returns></returns>";
+            var expected = "<summary>" + Environment.NewLine + "</summary>" + Environment.NewLine + "<returns></returns>";
+
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlSplitAllTags = false;
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
@@ -166,6 +248,62 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_IndentsXml()
+        {
+            var input = "<summary>Lorem ipsum dolor sit amet.</summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "    Lorem ipsum dolor sit amet." + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_IndentsXmlMultiLevel()
+        {
+            var input = "<summary>Lorem ipsum dolor <para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</para> sit amet.</summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "    Lorem ipsum dolor" + Environment.NewLine +
+                "    <para>" + Environment.NewLine +
+                "        Lorem ipsum dolor sit amet, consectetur adipiscing" + Environment.NewLine +
+                "        elit. Vivamus nisi neque, placerat sed neque vitae." + Environment.NewLine +
+                "    </para>" + Environment.NewLine +
+                "    sit amet." + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentWrapColumn = 60;
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_IndentsXmlSingleLevel()
+        {
+            var input = "<summary>Lorem ipsum dolor <para>Lorem ipsum dolor sit amet.</para> sit amet.</summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "    Lorem ipsum dolor" + Environment.NewLine +
+                "    <para>Lorem ipsum dolor sit amet.</para>" + Environment.NewLine +
+                "    sit amet." + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
         /// <summary>
         /// Test to make sure there is no spacing is added between an inline XML tag directly
         /// followed by interpunction.
@@ -184,19 +322,40 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         public void XmlFormattingTests_KeepCodeFormatting()
         {
             var input =
-                "<test><code>" + Environment.NewLine +
+                "<test>before <code>" + Environment.NewLine +
                 "some" + Environment.NewLine +
                 "  code" + Environment.NewLine +
                 "stuff" + Environment.NewLine +
-                "</code></test>";
+                "</code> after</test>";
 
             var expected =
                 "<test>" + Environment.NewLine +
+                "before" + Environment.NewLine +
                 "<code>" + Environment.NewLine +
                 "some" + Environment.NewLine +
                 "  code" + Environment.NewLine +
                 "stuff" + Environment.NewLine +
                 "</code>" + Environment.NewLine +
+                "after" + Environment.NewLine +
+                "</test>";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_KeepShortParagraphs()
+        {
+            var input =
+                "<test>" + Environment.NewLine +
+                "<para>" + Environment.NewLine +
+                "Lorem ipsum dolor sit amet." + Environment.NewLine +
+                "</para>" + Environment.NewLine +
+                "</test>";
+
+            var expected =
+                "<test>" + Environment.NewLine +
+                "<para>Lorem ipsum dolor sit amet.</para>" + Environment.NewLine +
                 "</test>";
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
