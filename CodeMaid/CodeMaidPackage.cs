@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
-    public sealed class CodeMaidPackage : Package, IVsInstalledProduct
+    public sealed class CodeMaidPackage : Package, IVsInstalledProduct, IVsPackageDynamicToolOwner
     {
         #region Fields
 
@@ -308,6 +308,29 @@ namespace SteveCadwallader.CodeMaid
         }
 
         #endregion IVsInstalledProduct Members
+
+        #region IVsPackageDynamicToolOwner members
+
+        public int QueryShowTool(ref Guid rguidPersistenceSlot, out int pfShowTool)
+        {
+            pfShowTool = 1;
+            if (rguidPersistenceSlot == GuidList.GuidCodeMaidToolWindowSpade)
+            {
+                IVsMonitorSelection monitorSelection = this.GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
+                Guid guidCmdUI = VSConstants.UICONTEXT_FullScreenMode;
+                uint dwCmdUICookie;
+                monitorSelection.GetCmdUIContextCookie(ref guidCmdUI, out dwCmdUICookie);
+                int fActive;
+                monitorSelection.IsCmdUIContextActive(dwCmdUICookie, out fActive);
+                if (fActive == 1)
+                {
+                    pfShowTool = 0;
+                }
+            }
+            return VSConstants.S_OK;
+        }
+
+        #endregion IVsPackageDynamicToolOwner members
 
         #region Private Methods
 
