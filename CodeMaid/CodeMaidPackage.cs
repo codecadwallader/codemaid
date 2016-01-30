@@ -311,22 +311,39 @@ namespace SteveCadwallader.CodeMaid
 
         #region IVsPackageDynamicToolOwner members
 
+        /// <summary>
+        /// Allows the package to control whether the tool window should be shown or hidden. This
+        /// method is called by the shell when the user switches to a different window view or
+        /// context, for example Design, Debugging, Full Screen, etc.
+        /// </summary>
+        /// <returns>
+        /// If the method succeeds, it returns <see
+        /// cref="F:Microsoft.VisualStudio.VSConstants.S_OK"/>. If it fails, it returns an error code.
+        /// </returns>
+        /// <param name="rguidPersistenceSlot">[in] The GUID of the window.</param>
+        /// <param name="pfShowTool">[out] true to show the window, otherwise false.</param>
         public int QueryShowTool(ref Guid rguidPersistenceSlot, out int pfShowTool)
         {
             pfShowTool = 1;
+
             if (rguidPersistenceSlot == GuidList.GuidCodeMaidToolWindowSpade)
             {
-                IVsMonitorSelection monitorSelection = this.GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
-                Guid guidCmdUI = VSConstants.UICONTEXT_FullScreenMode;
-                uint dwCmdUICookie;
-                monitorSelection.GetCmdUIContextCookie(ref guidCmdUI, out dwCmdUICookie);
-                int fActive;
-                monitorSelection.IsCmdUIContextActive(dwCmdUICookie, out fActive);
-                if (fActive == 1)
+                var monitorSelection = GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
+                if (monitorSelection != null)
                 {
-                    pfShowTool = 0;
+                    var guidCmdUI = VSConstants.UICONTEXT_FullScreenMode;
+                    uint dwCmdUICookie;
+                    monitorSelection.GetCmdUIContextCookie(ref guidCmdUI, out dwCmdUICookie);
+
+                    int fActive;
+                    monitorSelection.IsCmdUIContextActive(dwCmdUICookie, out fActive);
+                    if (fActive == 1)
+                    {
+                        pfShowTool = 0;
+                    }
                 }
             }
+
             return VSConstants.S_OK;
         }
 
