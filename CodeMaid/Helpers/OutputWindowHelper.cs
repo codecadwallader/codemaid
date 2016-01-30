@@ -30,10 +30,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         #region Properties
 
-        private static IVsOutputWindowPane CodeMaidOutputWindowPane
-        {
-            get { return _codeMaidOutputWindowPane ?? (_codeMaidOutputWindowPane = GetCodeMaidOutputWindowPane()); }
-        }
+        private static IVsOutputWindowPane CodeMaidOutputWindowPane =>
+            _codeMaidOutputWindowPane ?? (_codeMaidOutputWindowPane = GetCodeMaidOutputWindowPane());
 
         #endregion Properties
 
@@ -57,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="ex">The exception that was handled.</param>
         internal static void ExceptionWriteLine(string message, Exception ex)
         {
-            var exceptionMessage = string.Format("{0}: {1}", message, ex);
+            var exceptionMessage = $"{message}: {ex}";
 
             WriteLine("Handled Exception", exceptionMessage);
         }
@@ -99,8 +97,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var outputWindowPane = CodeMaidOutputWindowPane;
             if (outputWindowPane != null)
             {
-                string outputMessage = string.Format("[CodeMaid {0} {1}] {2}{3}",
-                    category, DateTime.Now.ToString("hh:mm:ss tt"), message, Environment.NewLine);
+                string outputMessage = $"[CodeMaid {category} {DateTime.Now.ToString("hh:mm:ss tt")}] {message}{Environment.NewLine}";
 
                 outputWindowPane.OutputString(outputMessage);
             }
