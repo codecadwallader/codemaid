@@ -202,7 +202,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             if (Document == snapshot.Document)
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => OrganizedCodeItems = snapshot.CodeItems));
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => OrganizedCodeItems = snapshot.CodeItems));
             }
         }
 
