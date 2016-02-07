@@ -138,16 +138,9 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeElements">The CodeElements to walk.</param>
         private static void RetrieveCodeItemsFromElements(SetCodeItems codeItems, CodeElements codeElements)
         {
-            if (Settings.Default.General_Multithread)
+            foreach (CodeElement child in codeElements)
             {
-                Parallel.ForEach(codeElements.OfType<CodeElement>(), child => RetrieveCodeItemsRecursively(codeItems, child));
-            }
-            else
-            {
-                foreach (CodeElement child in codeElements)
-                {
-                    RetrieveCodeItemsRecursively(codeItems, child);
-                }
+                RetrieveCodeItemsRecursively(codeItems, child);
             }
         }
 

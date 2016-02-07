@@ -36,7 +36,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.General_Font, x => Font),
                 new SettingToOptionMapping<int, IconSetMode>(x => ActiveSettings.General_IconSet, x => IconSetMode),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_LoadModelsAsynchronously, x => LoadModelsAsynchronously),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_Multithread, x => Multithread),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
                 new SettingToOptionMapping<int, ThemeMode>(x => ActiveSettings.General_Theme, x => ThemeMode),
@@ -100,15 +99,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// Gets or sets the flag indicating if models can be loaded asynchronously.
         /// </summary>
         public bool LoadModelsAsynchronously
-        {
-            get { return GetPropertyValue<bool>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the flag indicating if multithreading should be utilized.
-        /// </summary>
-        public bool Multithread
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

@@ -254,16 +254,9 @@ namespace SteveCadwallader.CodeMaid.Model
                 OutputWindowHelper.DiagnosticWriteLine(
                     $"CodeModelManager.LoadLazyInitializedValues for '{codeModel.Document.FullName}'");
 
-                if (Settings.Default.General_Multithread)
+                foreach (var codeItem in codeModel.CodeItems)
                 {
-                    Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
-                }
-                else
-                {
-                    foreach (var codeItem in codeModel.CodeItems)
-                    {
-                        codeItem.LoadLazyInitializedValues();
-                    }
+                    codeItem.LoadLazyInitializedValues();
                 }
             }
             catch (Exception ex)
