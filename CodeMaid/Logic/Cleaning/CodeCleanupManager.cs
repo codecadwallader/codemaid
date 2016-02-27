@@ -148,9 +148,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!_codeCleanupAvailabilityLogic.CanCleanup(document, true)) return;
 
-            // Make sure the document to be cleaned up is active, required for some commands like
-            // format document.
+            // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();
+
+            // Check for designer windows being active, which should not proceed with cleanup as the code isn't truly active.
+            if (document.ActiveWindow.Caption.EndsWith(" [Design]"))
+            {
+                return;
+            }
 
             if (_package.ActiveDocument != document)
             {
