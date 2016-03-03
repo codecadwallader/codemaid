@@ -23,6 +23,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class SpadeContextDeleteCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -33,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandSpadeContextDelete, (int)PkgCmdIDList.CmdIDCodeMaidSpadeContextDelete))
         {
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Delete Items");
         }
 
         #endregion Constructors
@@ -68,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 // Delay the check of start/end points until execution time, to avoid an intermediate state issue.
                 var items = spade.SelectedItems.Where(IsDeletable).Where(x => x.StartPoint != null && x.EndPoint != null);
 
-                new UndoTransactionHelper(Package, "CodeMaid Delete Items").Run(() =>
+                _undoTransactionHelper.Run(() =>
                 {
                     // Iterate through items in reverse order (reduces line number updates during removal).
                     foreach (var item in items.OrderByDescending(x => x.StartLine))

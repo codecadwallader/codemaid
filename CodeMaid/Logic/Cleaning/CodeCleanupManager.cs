@@ -39,7 +39,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CodeModelManager _codeModelManager;
         private readonly CodeReorganizationManager _codeReorganizationManager;
         private readonly CommandHelper _commandHelper;
-        private readonly UndoTransactionHelper _undoTransactionHelper;
 
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
         private readonly CommentFormatLogic _commentFormatLogic;
@@ -89,7 +88,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _codeModelManager = CodeModelManager.GetInstance(_package);
             _codeReorganizationManager = CodeReorganizationManager.GetInstance(_package);
             _commandHelper = CommandHelper.GetInstance(_package);
-            _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Cleanup");
 
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
             _commentFormatLogic = CommentFormatLogic.GetInstance(_package);
@@ -159,8 +157,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (_package.ActiveDocument != document)
             {
-                OutputWindowHelper.WarningWriteLine(
-                    string.Format("Activation was not completed before cleaning began for '{0}'", document.Name));
+                OutputWindowHelper.WarningWriteLine($"Activation was not completed before cleaning began for '{document.Name}'");
             }
 
             // Conditionally start cleanup with reorganization.
@@ -169,31 +166,21 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 _codeReorganizationManager.Reorganize(document);
             }
 
-            _undoTransactionHelper.Run(
+            new UndoTransactionHelper(_package, $"CodeMaid Cleanup for '{document.Name}'").Run(
                 delegate
                 {
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
-                        OutputWindowHelper.DiagnosticWriteLine(
-                            string.Format("CodeCleanupManager.Cleanup started for '{0}'", document.FullName));
-
-                        _package.IDE.StatusBar.Text = string.Format("CodeMaid is cleaning '{0}'...", document.Name);
+                        OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupManager.Cleanup started for '{document.FullName}'");
+                        _package.IDE.StatusBar.Text = $"CodeMaid is cleaning '{document.Name}'...";
 
                         // Perform the set of configured cleanups based on the language.
                         cleanupMethod(document);
 
-                        _package.IDE.StatusBar.Text = string.Format("CodeMaid cleaned '{0}'.", document.Name);
-
-                        OutputWindowHelper.DiagnosticWriteLine(
-                            string.Format("CodeCleanupManager.Cleanup completed for '{0}'", document.FullName));
+                        _package.IDE.StatusBar.Text = $"CodeMaid cleaned '{document.Name}'.";
+                        OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupManager.Cleanup completed for '{document.FullName}'");
                     }
-                },
-                delegate (Exception ex)
-                {
-                    OutputWindowHelper.ExceptionWriteLine(
-                        string.Format("Stopped cleaning '{0}'", document.Name), ex);
-                    _package.IDE.StatusBar.Text = string.Format("CodeMaid stopped cleaning '{0}'.  See output window for more details.", document.Name);
                 });
         }
 
@@ -238,8 +225,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupGeneric;
 
                 default:
-                    OutputWindowHelper.WarningWriteLine(
-                        string.Format("FindCodeCleanupMethod does not recognize document language '{0}'", document.Language));
+                    OutputWindowHelper.WarningWriteLine($"FindCodeCleanupMethod does not recognize document language '{document.Language}'");
                     return null;
             }
         }

@@ -32,7 +32,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         private readonly CodeMaidPackage _package;
 
         private readonly CodeModelManager _codeModelManager;
-        private readonly UndoTransactionHelper _undoTransactionHelper;
 
         private readonly CodeReorganizationAvailabilityLogic _codeReorganizationAvailabilityLogic;
         private readonly GenerateRegionLogic _generateRegionLogic;
@@ -67,7 +66,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             _package = package;
 
             _codeModelManager = CodeModelManager.GetInstance(_package);
-            _undoTransactionHelper = new UndoTransactionHelper(_package, "CodeMaid Reorganize");
 
             _codeReorganizationAvailabilityLogic = CodeReorganizationAvailabilityLogic.GetInstance(_package);
             _generateRegionLogic = GenerateRegionLogic.GetInstance(_package);
@@ -86,7 +84,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            _undoTransactionHelper.Run(() => RepositionItemAboveBase(itemToMove, baseItem));
+            new UndoTransactionHelper(_package, "CodeMaid Move Item Above").Run(
+                () => RepositionItemAboveBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -96,7 +95,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            _undoTransactionHelper.Run(() => RepositionItemBelowBase(itemToMove, baseItem));
+            new UndoTransactionHelper(_package, "CodeMaid Move Item Below").Run(
+                () => RepositionItemBelowBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -106,7 +106,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
-            _undoTransactionHelper.Run(() => RepositionItemIntoBase(itemToMove, baseItem));
+            new UndoTransactionHelper(_package, "CodeMaid Move Item Into").Run(
+                () => RepositionItemIntoBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -117,13 +118,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (!_codeReorganizationAvailabilityLogic.CanReorganize(document)) return;
 
-            _undoTransactionHelper.Run(
+            new UndoTransactionHelper(_package, $"CodeMaid Reorganize for '{document.Name}'").Run(
                 delegate
                 {
-                    OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeReorganizationManager.Reorganize started for '{0}'", document.FullName));
-
-                    _package.IDE.StatusBar.Text = string.Format("CodeMaid is reorganizing '{0}'...", document.Name);
+                    OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationManager.Reorganize started for '{document.FullName}'");
+                    _package.IDE.StatusBar.Text = $"CodeMaid is reorganizing '{document.Name}'...";
 
                     // Retrieve all relevant code items (excluding using statements).
                     var rawCodeItems = _codeModelManager.RetrieveAllCodeItems(document).Where(x => !(x is CodeItemUsingStatement));
@@ -135,16 +134,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     // Recursively reorganize the code tree.
                     RecursivelyReorganize(codeTree);
 
-                    _package.IDE.StatusBar.Text = string.Format("CodeMaid reorganized '{0}'.", document.Name);
-
-                    OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeReorganizationManager.Reorganize completed for '{0}'", document.FullName));
-                },
-                delegate (Exception ex)
-                {
-                    OutputWindowHelper.ExceptionWriteLine(
-                        string.Format("Stopped reorganizing '{0}'", document.Name), ex);
-                    _package.IDE.StatusBar.Text = string.Format("CodeMaid stopped reorganizing '{0}'.  See output window for more details.", document.Name);
+                    _package.IDE.StatusBar.Text = $"CodeMaid reorganized '{document.Name}'.";
+                    OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationManager.Reorganize completed for '{document.FullName}'");
                 });
         }
 

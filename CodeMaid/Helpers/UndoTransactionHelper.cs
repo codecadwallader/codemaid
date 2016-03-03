@@ -67,6 +67,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
             catch (Exception ex)
             {
+                var message = $"{_transactionName} was stopped";
+                OutputWindowHelper.ExceptionWriteLine(message, ex);
+                _package.IDE.StatusBar.Text = $"{message}.  See output window for more details.";
+
                 catchAction?.Invoke(ex);
 
                 if (shouldCloseUndoContext)

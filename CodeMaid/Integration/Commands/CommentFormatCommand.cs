@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandCommentFormat, (int)PkgCmdIDList.CmdIDCodeMaidCommentFormat))
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "Format Comment");
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Format Comment");
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
