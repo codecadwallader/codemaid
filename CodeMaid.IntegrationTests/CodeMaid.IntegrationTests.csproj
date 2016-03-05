@@ -244,6 +244,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderLESSTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderJSONTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderJavaScriptTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderHTMLTests.cs" />
@@ -825,6 +826,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Update\Data\FileHeaderJSON_Cleaned.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderLESS.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderLESS_Cleaned.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
