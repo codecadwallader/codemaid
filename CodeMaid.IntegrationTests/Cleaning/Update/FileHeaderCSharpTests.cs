@@ -18,9 +18,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Update\Data\FileHeader.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Update\Data\FileHeader_Cleaned.cs", "Data")]
-    public class FileHeaderTests
+    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCSharp.cs", "Data")]
+    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs", "Data")]
+    public class FileHeaderCSharpTests
     {
         #region Setup
 
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\FileHeader.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\FileHeaderCSharp.cs");
         }
 
         [TestCleanup]
@@ -57,12 +57,12 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateFileHeaderCSharp =
 @"//-----------------------------------------------------------------------
-// <copyright file=""FileHeader.cs"" company=""CodeMaid"">
+// <copyright file=""FileHeaderCSharp.cs"" company=""CodeMaid"">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------";
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateFileHeader, _projectItem, @"Data\FileHeader_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateFileHeader, _projectItem, @"Data\FileHeaderCSharp_Cleaned.cs");
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateFileHeaderCSharp =
 @"//-----------------------------------------------------------------------
-// <copyright file=""FileHeader.cs"" company=""CodeMaid"">
+// <copyright file=""FileHeaderCSharp.cs"" company=""CodeMaid"">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------";
