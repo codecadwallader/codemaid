@@ -208,6 +208,13 @@
     <Content Include="Cleaning\VisualStudio\Data\ReinsertAfterRemoveUnusedUsingStatements_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeader.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeader_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Update\FileHeaderTests.cs" />
     <Compile Include="Cleaning\VisualStudio\ReinsertAfterRemoveUnusedUsingStatementsTests.cs" />
     <Compile Include="Cleaning\VisualStudio\RemoveUnusedUsingStatementsTests.cs" />
     <Compile Include="Cleaning\VisualStudio\SortUsingStatementsTests.cs" />
