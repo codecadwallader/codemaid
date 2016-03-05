@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
@@ -53,10 +53,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Third Party"; }
-        }
+        public override string Header => "Third Party";
 
         #endregion Overrides of OptionsPageViewModel
 
@@ -105,26 +102,17 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets a flag indicating if the UseJetBrainsReSharperCleanup option should be enabled.
         /// </summary>
-        public bool IsEnabledUseJetBrainsReSharperCleanup
-        {
-            get { return _commandHelper.FindCommand("ReSharper_SilentCleanupCode") != null; }
-        }
+        public bool IsEnabledUseJetBrainsReSharperCleanup => _commandHelper.FindCommand("ReSharper_SilentCleanupCode") != null;
 
         /// <summary>
         /// Gets a flag indicating if the UseTelerikJustCodeCleanup option should be enabled.
         /// </summary>
-        public bool IsEnabledUseTelerikJustCodeCleanup
-        {
-            get { return _commandHelper.FindCommand("JustCode.JustCode_CleanCodeWithDefaultProfile") != null; }
-        }
+        public bool IsEnabledUseTelerikJustCodeCleanup => _commandHelper.FindCommand("JustCode.JustCode_CleanCodeWithDefaultProfile") != null;
 
         /// <summary>
         /// Gets a flag indicating if the UseXAMLStylerCleanup option should be enabled.
         /// </summary>
-        public bool IsEnabledUseXAMLStylerCleanup
-        {
-            get { return _commandHelper.FindCommand("EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML") != null; }
-        }
+        public bool IsEnabledUseXAMLStylerCleanup => _commandHelper.FindCommand("EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML") != null;
 
         #endregion Enables
     }

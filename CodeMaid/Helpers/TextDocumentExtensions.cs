@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 
@@ -18,6 +18,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class TextDocumentExtensions
     {
+        /// <summary>
+        /// Gets the <see cref="CodeLanguage"/> for this text document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>A <see cref="CodeLanguage"/>.</returns>
+        internal static CodeLanguage GetCodeLanguage(this TextDocument document)
+        {
+            return CodeLanguageHelper.GetCodeLanguage(document.Language);
+        }
+
         /// <summary>
         /// Gets an edit point at the cursor for the specified text document.
         /// </summary>

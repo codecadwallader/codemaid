@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
@@ -242,12 +242,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
-                             {
-                                 Title = "CodeMaid: Export " + activeSettingsName,
-                                 FileName = "CodeMaid",
-                                 DefaultExt = ".config",
-                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*"
-                             };
+            {
+                Title = "CodeMaid: Export " + activeSettingsName,
+                FileName = "CodeMaid",
+                DefaultExt = ".config",
+                Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*"
+            };
 
             if (dialog.ShowDialog() == true)
             {
@@ -294,12 +294,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
-                             {
-                                 Title = "CodeMaid: Import " + activeSettingsName,
-                                 DefaultExt = ".config",
-                                 Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*",
-                                 CheckFileExists = true
-                             };
+            {
+                Title = "CodeMaid: Import " + activeSettingsName,
+                DefaultExt = ".config",
+                Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*",
+                CheckFileExists = true
+            };
 
             if (dialog.ShowDialog() == true)
             {

@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -195,7 +195,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (cursor.AtEndOfDocument && cursor.AtStartOfLine && cursor.AtEndOfLine)
             {
                 // Make an exception for C++ resource files to work-around known EOF issue: http://connect.microsoft.com/VisualStudio/feedback/details/173903/resource-compiler-returns-a-rc1004-unexpected-eof-found-error#details
-                if ((textDocument.Language == "C/C++" || textDocument.Language == "C/C++ (VisualGDB)") &&
+                if (textDocument.GetCodeLanguage() == CodeLanguage.CPlusPlus &&
                     (textDocument.Parent.FullName.EndsWith(".h") || textDocument.Parent.FullName.EndsWith(".rc2")))
                 {
                     return;

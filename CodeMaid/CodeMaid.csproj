@@ -175,6 +175,8 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Compile Include="Helpers\CodeLanguageHelper.cs" />
+    <Compile Include="Helpers\CodeLanguage.cs" />
     <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
     <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
     <Compile Include="Helpers\CachedSetting.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
+    <Compile Include="Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />

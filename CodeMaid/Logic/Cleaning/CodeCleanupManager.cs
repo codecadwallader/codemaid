@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
         private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
+        private readonly FileHeaderLogic _fileHeaderLogic;
         private readonly RemoveRegionLogic _removeRegionLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UpdateLogic _updateLogic;
@@ -94,6 +95,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
             _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
+            _fileHeaderLogic = FileHeaderLogic.GetInstance(_package);
             _removeRegionLogic = RemoveRegionLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _updateLogic = UpdateLogic.GetInstance(_package);
@@ -195,33 +197,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The code cleanup method, otherwise null.</returns>
         private Action<Document> FindCodeCleanupMethod(Document document)
         {
-            switch (document.Language)
+            switch (document.GetCodeLanguage())
             {
-                case "CSharp":
+                case CodeLanguage.CSharp:
                     return RunCodeCleanupCSharp;
 
-                case "C/C++":
-                case "C/C++ (VisualGDB)":
-                case "CSS":
-                case "JavaScript":
-                case "JScript":
-                case "JSON":
-                case "LESS":
-                case "Node.js":
-                case "PHP":
-                case "PowerShell":
-                case "SCSS":
-                case "TypeScript":
+                case CodeLanguage.CPlusPlus:
+                case CodeLanguage.CSS:
+                case CodeLanguage.JavaScript:
+                case CodeLanguage.JSON:
+                case CodeLanguage.LESS:
+                case CodeLanguage.PHP:
+                case CodeLanguage.PowerShell:
+                case CodeLanguage.SCSS:
+                case CodeLanguage.TypeScript:
                     return RunCodeCleanupC;
 
-                case "HTML":
-                case "HTMLX":
-                case "XAML":
-                case "XML":
+                case CodeLanguage.HTML:
+                case CodeLanguage.XAML:
+                case CodeLanguage.XML:
                     return RunCodeCleanupMarkup;
 
-                case "Basic":
-                case "F#":
+                case CodeLanguage.FSharp:
+                case CodeLanguage.VisualBasic:
                     return RunCodeCleanupGeneric;
 
                 default:
@@ -266,6 +264,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
             var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
             var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
 
             // Perform removal cleanup.
             _removeRegionLogic.RemoveRegionsPerSettings(regions);
@@ -357,6 +358,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunExternalFormatting(textDocument);
 
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
@@ -383,6 +387,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunExternalFormatting(textDocument);
 
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
@@ -406,6 +413,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
