@@ -245,6 +245,9 @@
     <Setting Name="Cleaning_UpdateEndRegionDirectives" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_UpdateFileHeader" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
     <Setting Name="Cleaning_UpdateSingleLineMethods" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

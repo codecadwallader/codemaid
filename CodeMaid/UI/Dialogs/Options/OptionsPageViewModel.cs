@@ -83,10 +83,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </summary>
         public virtual void LoadSettings()
         {
-            if (Mappings != null)
-            {
-                Mappings.CopySettingsToOptions();
-            }
+            Mappings?.CopySettingsToOptions();
         }
 
         /// <summary>
@@ -94,10 +91,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </summary>
         public virtual void SaveSettings()
         {
-            if (Mappings != null)
-            {
-                Mappings.CopyOptionsToSettings();
-            }
+            Mappings?.CopyOptionsToSettings();
         }
 
         #endregion Methods

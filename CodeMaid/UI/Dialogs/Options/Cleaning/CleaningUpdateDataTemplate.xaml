@@ -3,10 +3,20 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
-            <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
-            <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
-            <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
-            <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
+            <GroupBox Header="General">
+                <StackPanel>
+                    <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
+                    <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
+                    <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
+                    <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Header">
+                <StackPanel>
+                    <TextBlock Text="Text that should be at the top of files" Margin="5,5,5,0" />
+                    <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeader, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

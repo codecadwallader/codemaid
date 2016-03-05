@@ -58,10 +58,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Types"; }
-        }
+        public override string Header => "Types";
 
         /// <summary>
         /// Loads the settings.
@@ -146,10 +143,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets the split command.
         /// </summary>
-        public DelegateCommand SplitCommand
-        {
-            get { return _splitCommand ?? (_splitCommand = new DelegateCommand(OnSplitCommandExecuted)); }
-        }
+        public DelegateCommand SplitCommand => _splitCommand ?? (_splitCommand = new DelegateCommand(OnSplitCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="SplitCommand" /> is executed.
@@ -257,7 +251,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                         // If merged member types have distinct names, create a new effective name from joining their names together.
                         string newEffectiveName = null;
                         var distinctNames = types.Select(x => x.EffectiveName).Distinct().ToList();
-                        if (distinctNames.Count() > 1)
+                        if (distinctNames.Count > 1)
                         {
                             newEffectiveName = string.Join(" + ", distinctNames);
                         }

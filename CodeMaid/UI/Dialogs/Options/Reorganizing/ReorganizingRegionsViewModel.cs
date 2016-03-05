@@ -44,10 +44,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Regions"; }
-        }
+        public override string Header => "Regions";
 
         #endregion Overrides of OptionsPageViewModel
 

@@ -51,10 +51,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Digging (Spade)"; }
-        }
+        public override string Header => "Digging (Spade)";
 
         #endregion Overrides of OptionsPageViewModel
 

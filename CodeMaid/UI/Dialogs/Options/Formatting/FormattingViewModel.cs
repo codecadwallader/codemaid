@@ -74,10 +74,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Formatting"; }
-        }
+        public override string Header => "Formatting";
 
         /// <summary>
         /// Loads the settings.
@@ -202,10 +199,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             private set { SetPropertyValue(value); }
         }
 
-        public FontFamily CommentPreviewTextFont
-        {
-            get { return new FontFamily(_editorProperties.Item("FontFamily").Value.ToString()); }
-        }
+        public FontFamily CommentPreviewTextFont => new FontFamily(_editorProperties.Item("FontFamily").Value.ToString());
 
         public Brush CommentPreviewTextForeground
         {

@@ -46,10 +46,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Visual Studio"; }
-        }
+        public override string Header => "Visual Studio";
 
         #endregion Overrides of OptionsPageViewModel
 

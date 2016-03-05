@@ -53,10 +53,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Remove"; }
-        }
+        public override string Header => "Remove";
 
         #endregion Overrides of OptionsPageViewModel
 

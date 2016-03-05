@@ -42,10 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Collapsing"; }
-        }
+        public override string Header => "Collapsing";
 
         #endregion Overrides of OptionsPageViewModel
 

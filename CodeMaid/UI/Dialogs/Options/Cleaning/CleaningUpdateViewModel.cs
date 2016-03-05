@@ -32,6 +32,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeader, x => UpdateFileHeader),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
             };
         }
@@ -43,10 +44,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header
-        {
-            get { return "Update"; }
-        }
+        public override string Header => "Update";
 
         #endregion Overrides of OptionsPageViewModel
 
@@ -68,6 +66,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public bool UpdateEndRegionDirectives
         {
             get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the file header that should be at the top of files.
+        /// </summary>
+        public string UpdateFileHeader
+        {
+            get { return GetPropertyValue<string>(); }
             set { SetPropertyValue(value); }
         }
 
