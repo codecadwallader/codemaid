@@ -136,6 +136,12 @@
     <Content Include="Cleaning\Update\Data\FileHeaderHTML.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJavaScript_Cleaned.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJavaScript.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Formatting\Data\StandardCommentFormat.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -238,6 +244,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderJavaScriptTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderHTMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderFSharpTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCSSTests.cs" />
