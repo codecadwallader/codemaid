@@ -250,6 +250,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderTypeScriptTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderSCSSTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderPowerShellTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderPHPTests.cs" />
@@ -863,7 +864,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderTypeScript.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderTypeScript_Cleaned.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
