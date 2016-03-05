@@ -10,6 +10,7 @@
 #endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
 
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 
@@ -62,20 +63,47 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void UpdateFileHeader(TextDocument textDocument)
         {
-            var standardFileHeader = Settings.Default.Cleaning_UpdateFileHeaderCSharp;
-
-            if (string.IsNullOrWhiteSpace(standardFileHeader))
+            var settingsFileHeader = GetFileHeaderFromSettings(textDocument);
+            if (string.IsNullOrWhiteSpace(settingsFileHeader))
             {
                 return;
             }
 
             var cursor = textDocument.StartPoint.CreateEditPoint();
-            var existingFileHeader = cursor.GetText(standardFileHeader.Length);
+            var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
-            if (!existingFileHeader.StartsWith(standardFileHeader))
+            if (!existingFileHeader.StartsWith(settingsFileHeader))
             {
-                cursor.Insert(standardFileHeader);
+                cursor.Insert(settingsFileHeader);
                 cursor.Insert(Environment.NewLine);
+            }
+        }
+
+        /// <summary>
+        /// Gets the file header from settings based on the language of the specified document.
+        /// </summary>
+        /// <param name="textDocument">The text document.</param>
+        /// <returns>A file header from settings.</returns>
+        private static string GetFileHeaderFromSettings(TextDocument textDocument)
+        {
+            switch (textDocument.GetCodeLanguage())
+            {
+                case CodeLanguage.CPlusPlus: return Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus;
+                case CodeLanguage.CSharp: return Settings.Default.Cleaning_UpdateFileHeaderCSharp;
+                case CodeLanguage.CSS: return Settings.Default.Cleaning_UpdateFileHeaderCSS;
+                case CodeLanguage.FSharp: return Settings.Default.Cleaning_UpdateFileHeaderFSharp;
+                case CodeLanguage.HTML: return Settings.Default.Cleaning_UpdateFileHeaderHTML;
+                case CodeLanguage.JavaScript: return Settings.Default.Cleaning_UpdateFileHeaderJavaScript;
+                case CodeLanguage.JSON: return Settings.Default.Cleaning_UpdateFileHeaderJSON;
+                case CodeLanguage.LESS: return Settings.Default.Cleaning_UpdateFileHeaderLESS;
+                case CodeLanguage.PHP: return Settings.Default.Cleaning_UpdateFileHeaderPHP;
+                case CodeLanguage.PowerShell: return Settings.Default.Cleaning_UpdateFileHeaderPowerShell;
+                case CodeLanguage.SCSS: return Settings.Default.Cleaning_UpdateFileHeaderSCSS;
+                case CodeLanguage.TypeScript: return Settings.Default.Cleaning_UpdateFileHeaderTypeScript;
+                case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_UpdateFileHeaderVB;
+                case CodeLanguage.XAML: return Settings.Default.Cleaning_UpdateFileHeaderXAML;
+                case CodeLanguage.XML: return Settings.Default.Cleaning_UpdateFileHeaderXML;
+                default: return null;
             }
         }
 
