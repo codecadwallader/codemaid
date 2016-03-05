@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         [HostType("VS IDE")]
         public void CleaningUpdateFileHeader_CleansAsExpected()
         {
-            Settings.Default.Cleaning_UpdateFileHeader =
+            Settings.Default.Cleaning_UpdateFileHeaderCSharp =
 @"//-----------------------------------------------------------------------
 // <copyright file=""FileHeader.cs"" company=""CodeMaid"">
 //     Sample copyright.
@@ -69,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         [HostType("VS IDE")]
         public void CleaningUpdateFileHeader_DoesNothingOnSecondPass()
         {
-            Settings.Default.Cleaning_UpdateFileHeader =
+            Settings.Default.Cleaning_UpdateFileHeaderCSharp =
 @"//-----------------------------------------------------------------------
 // <copyright file=""FileHeader.cs"" company=""CodeMaid"">
 //     Sample copyright.
@@ -83,7 +83,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         [HostType("VS IDE")]
         public void CleaningUpdateFileHeader_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_UpdateFileHeader = null;
+            Settings.Default.Cleaning_UpdateFileHeaderCSharp = null;
 
             TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateFileHeader, _projectItem);
         }

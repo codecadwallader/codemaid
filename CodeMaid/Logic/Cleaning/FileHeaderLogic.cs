@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void UpdateFileHeader(TextDocument textDocument)
         {
-            var standardFileHeader = Settings.Default.Cleaning_UpdateFileHeader;
+            var standardFileHeader = Settings.Default.Cleaning_UpdateFileHeaderCSharp;
 
             if (string.IsNullOrWhiteSpace(standardFileHeader))
             {

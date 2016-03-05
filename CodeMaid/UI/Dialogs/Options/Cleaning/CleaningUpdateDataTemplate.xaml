@@ -13,8 +13,53 @@
             </GroupBox>
             <GroupBox Header="File Header">
                 <StackPanel>
-                    <TextBlock Text="Header text that should be at the top of files" Margin="5,5,5,0" />
-                    <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeader, UpdateSourceTrigger=PropertyChanged}" />
+                    <TabControl>
+                        <TabItem Header="C#">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="C++">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="F#">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderFSharp, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="VB">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderVisualBasic, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PHP">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPHP, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PowerShell">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JSON">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XAML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXAML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="HTML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderHTML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="CSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="LESS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderLESS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="SCSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderSCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JavaScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJavaScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="TypeScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                    </TabControl>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
