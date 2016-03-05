@@ -124,6 +124,12 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCPlusPlus.cpp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderFSharp.fs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderFSharp_Cleaned.fs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Formatting\Data\StandardCommentFormat.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -226,6 +232,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderFSharpTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCSSTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCPlusPlusTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCSharpTests.cs" />
