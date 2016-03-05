@@ -112,6 +112,12 @@
     <Content Include="Cleaning\FileTypes\Data\PHP.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSS_Cleaned.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSS.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Cleaning\Update\Data\FileHeaderCPlusPlus_Cleaned.cpp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -220,6 +226,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderCSSTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCPlusPlusTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCSharpTests.cs" />
     <Compile Include="Cleaning\VisualStudio\ReinsertAfterRemoveUnusedUsingStatementsTests.cs" />
