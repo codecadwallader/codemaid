@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
             var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
+            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
             var formatter = new CommentFormatter(line, string.Empty, 4, regex);
             return formatter.ToString();
         }

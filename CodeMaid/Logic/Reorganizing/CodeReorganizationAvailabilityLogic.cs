@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             return IsReorganizationEnvironmentAvailable() &&
                    document != null &&
-                   document.Language == "CSharp" &&
+                   document.GetCodeLanguage() == CodeLanguage.CSharp &&
                    !document.IsExternal() &&
                    !HasPreprocessorConditionalCompilationDirectives(document);
         }

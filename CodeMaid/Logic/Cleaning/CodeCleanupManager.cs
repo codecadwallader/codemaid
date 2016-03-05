@@ -197,33 +197,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The code cleanup method, otherwise null.</returns>
         private Action<Document> FindCodeCleanupMethod(Document document)
         {
-            switch (document.Language)
+            switch (document.GetCodeLanguage())
             {
-                case "CSharp":
+                case CodeLanguage.CSharp:
                     return RunCodeCleanupCSharp;
 
-                case "C/C++":
-                case "C/C++ (VisualGDB)":
-                case "CSS":
-                case "JavaScript":
-                case "JScript":
-                case "JSON":
-                case "LESS":
-                case "Node.js":
-                case "PHP":
-                case "PowerShell":
-                case "SCSS":
-                case "TypeScript":
+                case CodeLanguage.CPlusPlus:
+                case CodeLanguage.CSS:
+                case CodeLanguage.JavaScript:
+                case CodeLanguage.JSON:
+                case CodeLanguage.LESS:
+                case CodeLanguage.PHP:
+                case CodeLanguage.PowerShell:
+                case CodeLanguage.SCSS:
+                case CodeLanguage.TypeScript:
                     return RunCodeCleanupC;
 
-                case "HTML":
-                case "HTMLX":
-                case "XAML":
-                case "XML":
+                case CodeLanguage.HTML:
+                case CodeLanguage.XAML:
+                case CodeLanguage.XML:
                     return RunCodeCleanupMarkup;
 
-                case "Basic":
-                case "F#":
+                case CodeLanguage.FSharp:
+                case CodeLanguage.VisualBasic:
                     return RunCodeCleanupGeneric;
 
                 default:

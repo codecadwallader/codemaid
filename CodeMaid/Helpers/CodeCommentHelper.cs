@@ -97,37 +97,34 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The comment prefix regex, without trailing spaces.</returns>
         internal static string GetCommentPrefix(TextDocument document)
         {
-            return GetCommentPrefixForLanguage(document.Language);
+            return GetCommentPrefixForLanguage(document.GetCodeLanguage());
         }
 
         /// <summary>
-        /// Get the comment prefix (regex) for the given document's language.
+        /// Get the comment prefix (regex) for the specified code language.
         /// </summary>
-        /// <param name="language">The language.</param>
+        /// <param name="codeLanguage">The code language.</param>
         /// <returns>The comment prefix regex, without trailing spaces.</returns>
-        internal static string GetCommentPrefixForLanguage(string language)
+        internal static string GetCommentPrefixForLanguage(CodeLanguage codeLanguage)
         {
-            switch (language)
+            switch (codeLanguage)
             {
-                case "C/C++":
-                case "C/C++ (VisualGDB)":
-                case "CSharp":
-                case "CSS":
-                case "F#":
-                case "JavaScript":
-                case "JScript":
-                case "LESS":
-                case "Node.js":
-                case "PHP":
-                case "SCSS":
-                case "TypeScript":
+                case CodeLanguage.CPlusPlus:
+                case CodeLanguage.CSharp:
+                case CodeLanguage.CSS:
+                case CodeLanguage.FSharp:
+                case CodeLanguage.JavaScript:
+                case CodeLanguage.LESS:
+                case CodeLanguage.PHP:
+                case CodeLanguage.SCSS:
+                case CodeLanguage.TypeScript:
                     return "///?";
 
-                case "Basic":
-                    return "'+";
-
-                case "PowerShell":
+                case CodeLanguage.PowerShell:
                     return "#+";
+
+                case CodeLanguage.VisualBasic:
+                    return "'+";
 
                 default:
                     return null;
@@ -137,12 +134,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the regex for matching a complete comment line.
         /// </summary>
-        internal static Regex GetCommentRegex(string language, bool includePrefix = true)
+        internal static Regex GetCommentRegex(CodeLanguage codeLanguage, bool includePrefix = true)
         {
             string prefix = null;
             if (includePrefix)
             {
-                prefix = GetCommentPrefixForLanguage(language);
+                prefix = GetCommentPrefixForLanguage(codeLanguage);
                 if (prefix == null)
                 {
                     Debug.Fail("Attempting to create a comment regex for a document that has no comment prefix specified.");
@@ -176,7 +173,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static bool IsCommentLine(EditPoint point)
         {
-            return LineMatchesRegex(point, GetCommentRegex(point.Parent.Language)).Success;
+            return LineMatchesRegex(point, GetCommentRegex(point.Parent.GetCodeLanguage())).Success;
         }
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)

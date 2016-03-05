@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             _document = point.Parent;
-            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), true);
             _tabSize = tabSize;
 
             Expand(point);
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
             var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
+            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
             var formatter = new CommentFormatter(line, "///", 4, regex);
 
             return formatter.ToString();
@@ -122,7 +122,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 line,
                 commentPrefix,
                 _tabSize,
-                CodeCommentHelper.GetCommentRegex(_document.Language, false));
+                CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), false));
 
             if (!formatter.Equals(originalText))
             {

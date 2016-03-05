@@ -198,29 +198,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return Settings.Default.Cleaning_IncludePHP;
             }
 
-            switch (document.Language)
+            switch (document.GetCodeLanguage())
             {
-                case "Basic": return Settings.Default.Cleaning_IncludeVB;
-                case "CSharp": return Settings.Default.Cleaning_IncludeCSharp;
-                case "C/C++":
-                case "C/C++ (VisualGDB)": return Settings.Default.Cleaning_IncludeCPlusPlus;
-                case "CSS": return Settings.Default.Cleaning_IncludeCSS;
-                case "F#": return Settings.Default.Cleaning_IncludeFSharp;
-                case "HTML":
-                case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
-                case "JavaScript":
-                case "JScript":
-                case "Node.js": return Settings.Default.Cleaning_IncludeJavaScript;
-                case "JSON": return Settings.Default.Cleaning_IncludeJSON;
-                case "LESS": return Settings.Default.Cleaning_IncludeLESS;
-                case "PowerShell": return Settings.Default.Cleaning_IncludePowerShell;
-                case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
-                case "TypeScript": return Settings.Default.Cleaning_IncludeTypeScript;
-                case "XAML": return Settings.Default.Cleaning_IncludeXAML;
-                case "XML": return Settings.Default.Cleaning_IncludeXML;
+                case CodeLanguage.CPlusPlus: return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case CodeLanguage.CSharp: return Settings.Default.Cleaning_IncludeCSharp;
+                case CodeLanguage.CSS: return Settings.Default.Cleaning_IncludeCSS;
+                case CodeLanguage.FSharp: return Settings.Default.Cleaning_IncludeFSharp;
+                case CodeLanguage.HTML: return Settings.Default.Cleaning_IncludeHTML;
+                case CodeLanguage.JavaScript: return Settings.Default.Cleaning_IncludeJavaScript;
+                case CodeLanguage.JSON: return Settings.Default.Cleaning_IncludeJSON;
+                case CodeLanguage.LESS: return Settings.Default.Cleaning_IncludeLESS;
+                case CodeLanguage.PHP: return Settings.Default.Cleaning_IncludePHP;
+                case CodeLanguage.PowerShell: return Settings.Default.Cleaning_IncludePowerShell;
+                case CodeLanguage.SCSS: return Settings.Default.Cleaning_IncludeSCSS;
+                case CodeLanguage.TypeScript: return Settings.Default.Cleaning_IncludeTypeScript;
+                case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_IncludeVB;
+                case CodeLanguage.XAML: return Settings.Default.Cleaning_IncludeXAML;
+                case CodeLanguage.XML: return Settings.Default.Cleaning_IncludeXML;
+
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{0}'", document.Language));
+                        $"CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{document.Language}'");
                     return false;
             }
         }

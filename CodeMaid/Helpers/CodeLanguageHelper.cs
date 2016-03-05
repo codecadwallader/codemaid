@@ -38,15 +38,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 case "Node.js": return CodeLanguage.JavaScript;
                 case "JSON": return CodeLanguage.JSON;
                 case "LESS": return CodeLanguage.LESS;
+                case "PHP": return CodeLanguage.PHP;
                 case "PowerShell": return CodeLanguage.PowerShell;
                 case "SCSS": return CodeLanguage.SCSS;
                 case "TypeScript": return CodeLanguage.TypeScript;
                 case "XAML": return CodeLanguage.XAML;
                 case "XML": return CodeLanguage.XML;
-
-                default:
-                    OutputWindowHelper.DiagnosticWriteLine($"CodeLanguageHelper.GetCodeLanguage picked up an unrecognized language '{language}'");
-                    return CodeLanguage.Unknown;
+                default: return CodeLanguage.Unknown;
             }
         }
     }
