@@ -250,6 +250,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderSCSSTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderPowerShellTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderPHPTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderLESSTests.cs" />
@@ -846,6 +847,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Update\Data\FileHeaderPowerShell_Cleaned.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderSCSS.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderSCSS_Cleaned.scss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
