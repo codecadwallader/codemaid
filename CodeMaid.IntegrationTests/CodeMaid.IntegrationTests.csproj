@@ -256,6 +256,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderXAMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderVisualBasicTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderTypeScriptTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderSCSSTests.cs" />
@@ -878,6 +879,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\Update\Data\FileHeaderTypeScript_Cleaned.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderXAML.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderXAML_Cleaned.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
