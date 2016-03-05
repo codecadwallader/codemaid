@@ -11,9 +11,9 @@
                     <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Header">
+            <GroupBox Header="File Header">
                 <StackPanel>
-                    <TextBlock Text="Text that should be at the top of files" Margin="5,5,5,0" />
+                    <TextBlock Text="Header text that should be at the top of files" Margin="5,5,5,0" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeader, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </GroupBox>

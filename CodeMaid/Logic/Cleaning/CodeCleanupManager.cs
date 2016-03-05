@@ -269,6 +269,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
             var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
 
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
             // Perform removal cleanup.
             _removeRegionLogic.RemoveRegionsPerSettings(regions);
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -345,9 +348,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _updateLogic.UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(properties);
             _updateLogic.UpdateSingleLineMethods(methods);
 
-            // Perform file header cleanup.
-            _fileHeaderLogic.UpdateFileHeader(textDocument);
-
             // Perform comment cleaning.
             _commentFormatLogic.FormatComments(textDocument);
         }
@@ -361,6 +361,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -376,9 +379,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
-
-            // Perform file header cleanup.
-            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         /// <summary>
@@ -390,6 +390,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
 
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
@@ -403,9 +406,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
-
-            // Perform file header cleanup.
-            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         /// <summary>
@@ -418,6 +418,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             RunExternalFormatting(textDocument);
 
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
             // Perform removal cleanup.
             _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
             _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
@@ -427,9 +430,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
-
-            // Perform file header cleanup.
-            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         #endregion Private Language Methods
