@@ -45,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly InsertBlankLinePaddingLogic _insertBlankLinePaddingLogic;
         private readonly InsertExplicitAccessModifierLogic _insertExplicitAccessModifierLogic;
         private readonly InsertWhitespaceLogic _insertWhitespaceLogic;
+        private readonly FileHeaderLogic _fileHeaderLogic;
         private readonly RemoveRegionLogic _removeRegionLogic;
         private readonly RemoveWhitespaceLogic _removeWhitespaceLogic;
         private readonly UpdateLogic _updateLogic;
@@ -94,6 +95,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
             _insertExplicitAccessModifierLogic = InsertExplicitAccessModifierLogic.GetInstance();
             _insertWhitespaceLogic = InsertWhitespaceLogic.GetInstance(_package);
+            _fileHeaderLogic = FileHeaderLogic.GetInstance(_package);
             _removeRegionLogic = RemoveRegionLogic.GetInstance(_package);
             _removeWhitespaceLogic = RemoveWhitespaceLogic.GetInstance(_package);
             _updateLogic = UpdateLogic.GetInstance(_package);
@@ -343,6 +345,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _updateLogic.UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(properties);
             _updateLogic.UpdateSingleLineMethods(methods);
 
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
             // Perform comment cleaning.
             _commentFormatLogic.FormatComments(textDocument);
         }
@@ -371,6 +376,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         /// <summary>
@@ -395,6 +403,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertBlankSpaceBeforeSelfClosingAngleBracket(textDocument);
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         /// <summary>
@@ -416,6 +427,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
         }
 
         #endregion Private Language Methods
