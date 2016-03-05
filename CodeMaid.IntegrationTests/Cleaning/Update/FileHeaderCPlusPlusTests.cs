@@ -18,9 +18,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCSharp.cs", "Data")]
-    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs", "Data")]
-    public class FileHeaderCSharpTests
+    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCPlusPlus.cpp", "Data")]
+    [DeploymentItem(@"Cleaning\Update\Data\FileHeaderCPlusPlus_Cleaned.cpp", "Data")]
+    public class FileHeaderCPlusPlusTests
     {
         #region Setup
 
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\FileHeaderCSharp.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\FileHeaderCPlusPlus.cpp");
         }
 
         [TestCleanup]
@@ -53,25 +53,25 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningUpdateFileHeaderCSharp_CleansAsExpected()
+        public void CleaningUpdateFileHeaderCPlusPlus_CleansAsExpected()
         {
-            Settings.Default.Cleaning_UpdateFileHeaderCSharp =
+            Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus =
 @"//-----------------------------------------------------------------------
-// <copyright file=""FileHeaderCSharp.cs"" company=""CodeMaid"">
+// <copyright file=""FileHeaderCPlusPlus.cpp"" company=""CodeMaid"">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------";
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateFileHeader, _projectItem, @"Data\FileHeaderCSharp_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateFileHeader, _projectItem, @"Data\FileHeaderCPlusPlus_Cleaned.cpp");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningUpdateFileHeaderCSharp_DoesNothingOnSecondPass()
+        public void CleaningUpdateFileHeaderCPlusPlus_DoesNothingOnSecondPass()
         {
-            Settings.Default.Cleaning_UpdateFileHeaderCSharp =
+            Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus =
 @"//-----------------------------------------------------------------------
-// <copyright file=""FileHeaderCSharp.cs"" company=""CodeMaid"">
+// <copyright file=""FileHeaderCPlusPlus.cpp"" company=""CodeMaid"">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------";
@@ -81,9 +81,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningUpdateFileHeaderCSharp_DoesNothingWhenSettingIsDisabled()
+        public void CleaningUpdateFileHeaderCPlusPlus_DoesNothingWhenSettingIsDisabled()
         {
-            Settings.Default.Cleaning_UpdateFileHeaderCSharp = null;
+            Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus = null;
 
             TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateFileHeader, _projectItem);
         }
