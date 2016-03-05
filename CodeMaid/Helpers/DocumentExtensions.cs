@@ -19,6 +19,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class DocumentExtensions
     {
         /// <summary>
+        /// Gets the <see cref="CodeLanguage"/> for this document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>A <see cref="CodeLanguage"/>.</returns>
+        internal static CodeLanguage GetCodeLanguage(this Document document)
+        {
+            return CodeLanguageHelper.GetCodeLanguage(document.Language);
+        }
+
+        /// <summary>
         /// Attempts to get the TextDocument associated with the specified document.
         /// </summary>
         /// <param name="document">The document.</param>

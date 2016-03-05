@@ -19,6 +19,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class TextDocumentExtensions
     {
         /// <summary>
+        /// Gets the <see cref="CodeLanguage"/> for this text document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>A <see cref="CodeLanguage"/>.</returns>
+        internal static CodeLanguage GetCodeLanguage(this TextDocument document)
+        {
+            return CodeLanguageHelper.GetCodeLanguage(document.Language);
+        }
+
+        /// <summary>
         /// Gets an edit point at the cursor for the specified text document.
         /// </summary>
         /// <param name="textDocument">The text document.</param>
