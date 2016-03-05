@@ -244,6 +244,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderJSONTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderJavaScriptTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderHTMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderFSharpTests.cs" />
@@ -818,6 +819,12 @@
     </Content>
     <None Include="app.config" />
     <Content Include="Cleaning\FileTypes\Data\PowerShell.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJSON.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJSON_Cleaned.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
