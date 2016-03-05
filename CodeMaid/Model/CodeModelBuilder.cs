@@ -12,9 +12,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
-using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
