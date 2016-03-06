@@ -10,6 +10,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -42,6 +43,8 @@
                     <CheckBox Grid.Row="2" Grid.Column="6" Content="SCSS" IsChecked="{Binding IncludeSCSS}" />
                     <CheckBox Grid.Row="2" Grid.Column="8" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
                     <CheckBox Grid.Row="2" Grid.Column="10" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
+
+                    <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="11" Content="Everything else (ex: .txt, README)" IsChecked="{Binding IncludeEverythingElse}" />
                 </Grid>
             </GroupBox>
 
