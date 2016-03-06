@@ -109,6 +109,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_IncludeEverythingElse {
+            get {
+                return ((bool)(this["Cleaning_IncludeEverythingElse"]));
+            }
+            set {
+                this["Cleaning_IncludeEverythingElse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_IncludeFSharp {
             get {
