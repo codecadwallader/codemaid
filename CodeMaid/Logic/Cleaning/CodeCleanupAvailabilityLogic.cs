@@ -219,7 +219,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
                         $"CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{document.Language}'");
-                    return false;
+                    return Settings.Default.Cleaning_IncludeEverythingElse;
             }
         }
 
@@ -334,8 +334,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeCleanupAvailabilityLogic.IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid '{0}'", languageServiceGuid));
-                    return false;
+                        $"CodeCleanupAvailabilityLogic.IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid '{languageServiceGuid}'");
+                    return Settings.Default.Cleaning_IncludeEverythingElse;
             }
         }
 

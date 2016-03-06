@@ -220,6 +220,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
                 case CodeLanguage.FSharp:
                 case CodeLanguage.VisualBasic:
+                case CodeLanguage.Unknown:
                     return RunCodeCleanupGeneric;
 
                 default:
