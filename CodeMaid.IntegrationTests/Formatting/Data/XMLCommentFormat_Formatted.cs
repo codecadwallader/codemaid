@@ -4,8 +4,8 @@
     {
         /// <summary>
         /// Firsts the method. This method has a really long description that will cover over
-        /// multiple lines without any regard for the duration expected of a traditional comment
-        /// that has more respect for being at a reasonable length instead of an exceedingly long length.
+        /// multiple lines without any regard for the duration expected of a traditional comment that
+        /// has more respect for being at a reasonable length instead of an exceedingly long length.
         /// </summary>
         /// <param name="param1">The first parameter.</param>
         /// <param name="param2">The second parameter.</param>
@@ -20,8 +20,8 @@
         /// that will exceed the line boundary.
         /// </summary>
         /// <remarks>
-        /// A remarks section that has a very long description that just goes on for a long period
-        /// of time that will exceed the line boundary.
+        /// A remarks section that has a very long description that just goes on for a long period of
+        /// time that will exceed the line boundary.
         /// </remarks>
         /// <example>
         /// An example that has a very long description that just goes on for a long period of time
@@ -36,8 +36,8 @@
         /// of time that will exceed the line boundary.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// An exception that has a very long description that just goes on for a long period of
-        /// time that will exceed the line boundary.
+        /// An exception that has a very long description that just goes on for a long period of time
+        /// that will exceed the line boundary.
         /// </exception>
         public bool SecondMethod(bool isParam)
         {
