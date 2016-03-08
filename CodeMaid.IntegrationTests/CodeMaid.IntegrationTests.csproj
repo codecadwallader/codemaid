@@ -109,7 +109,58 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Content Include="Cleaning\FileTypes\Data\EverythingElse.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Cleaning\FileTypes\Data\PHP.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSS_Cleaned.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSS.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCPlusPlus_Cleaned.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCPlusPlus.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderFSharp.fs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderFSharp_Cleaned.fs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderHTML_Cleaned.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderHTML.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJavaScript_Cleaned.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJavaScript.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderPHP_Cleaned.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderPHP.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderVisualBasic_Cleaned.vb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderVisualBasic.vb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderXML_Cleaned.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Formatting\Data\StandardCommentFormat.cs">
@@ -160,6 +211,7 @@
     <Content Include="Cleaning\Remove\Data\RemoveSetOfRegions_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\FileTypes\EverythingElseTests.cs" />
     <Compile Include="Cleaning\FileTypes\JSONTests.cs" />
     <Compile Include="Cleaning\FileTypes\PowerShellTests.cs" />
     <Compile Include="Cleaning\FileTypes\PHPTests.cs" />
@@ -208,6 +260,27 @@
     <Content Include="Cleaning\VisualStudio\Data\ReinsertAfterRemoveUnusedUsingStatements_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSharp.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Cleaning\Update\FileHeaderXMLTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderXAMLTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderVisualBasicTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderTypeScriptTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderSCSSTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderPowerShellTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderPHPTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderLESSTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderJSONTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderJavaScriptTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderHTMLTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderFSharpTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderCSSTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderCPlusPlusTests.cs" />
+    <Compile Include="Cleaning\Update\FileHeaderCSharpTests.cs" />
     <Compile Include="Cleaning\VisualStudio\ReinsertAfterRemoveUnusedUsingStatementsTests.cs" />
     <Compile Include="Cleaning\VisualStudio\RemoveUnusedUsingStatementsTests.cs" />
     <Compile Include="Cleaning\VisualStudio\SortUsingStatementsTests.cs" />
@@ -778,6 +851,30 @@
     <Content Include="Cleaning\FileTypes\Data\PowerShell.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJSON.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderJSON_Cleaned.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderLESS.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderLESS_Cleaned.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderPowerShell.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderPowerShell_Cleaned.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderSCSS.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderSCSS_Cleaned.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\FileTypes\Data\XAML.xaml">
@@ -786,7 +883,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderTypeScript.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderTypeScript_Cleaned.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderXAML.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cleaning\Update\Data\FileHeaderXAML_Cleaned.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

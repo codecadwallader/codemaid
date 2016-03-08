@@ -109,6 +109,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_IncludeEverythingElse {
+            get {
+                return ((bool)(this["Cleaning_IncludeEverythingElse"]));
+            }
+            set {
+                this["Cleaning_IncludeEverythingElse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_IncludeFSharp {
             get {
@@ -992,6 +1004,186 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_UpdateEndRegionDirectives"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderCPlusPlus {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderCPlusPlus"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderCPlusPlus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderCSharp {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderCSharp"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderCSharp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderCSS {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderCSS"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderCSS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderFSharp {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderFSharp"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderFSharp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderHTML {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderHTML"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderHTML"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderJavaScript {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderJavaScript"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderJavaScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderJSON {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderJSON"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderJSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderLESS {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderLESS"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderLESS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderPHP {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderPHP"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderPHP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderPowerShell {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderPowerShell"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderPowerShell"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderSCSS {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderSCSS"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderSCSS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderTypeScript {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderTypeScript"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderTypeScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderVB {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderVB"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderVB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderXAML {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderXAML"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderXAML"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderXML {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderXML"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderXML"] = value;
             }
         }
         

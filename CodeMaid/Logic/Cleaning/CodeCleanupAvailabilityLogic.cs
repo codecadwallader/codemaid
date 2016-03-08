@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using Microsoft.VisualStudio.Package;
@@ -198,30 +198,28 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return Settings.Default.Cleaning_IncludePHP;
             }
 
-            switch (document.Language)
+            switch (document.GetCodeLanguage())
             {
-                case "Basic": return Settings.Default.Cleaning_IncludeVB;
-                case "CSharp": return Settings.Default.Cleaning_IncludeCSharp;
-                case "C/C++":
-                case "C/C++ (VisualGDB)": return Settings.Default.Cleaning_IncludeCPlusPlus;
-                case "CSS": return Settings.Default.Cleaning_IncludeCSS;
-                case "F#": return Settings.Default.Cleaning_IncludeFSharp;
-                case "HTML":
-                case "HTMLX": return Settings.Default.Cleaning_IncludeHTML;
-                case "JavaScript":
-                case "JScript":
-                case "Node.js": return Settings.Default.Cleaning_IncludeJavaScript;
-                case "JSON": return Settings.Default.Cleaning_IncludeJSON;
-                case "LESS": return Settings.Default.Cleaning_IncludeLESS;
-                case "PowerShell": return Settings.Default.Cleaning_IncludePowerShell;
-                case "SCSS": return Settings.Default.Cleaning_IncludeSCSS;
-                case "TypeScript": return Settings.Default.Cleaning_IncludeTypeScript;
-                case "XAML": return Settings.Default.Cleaning_IncludeXAML;
-                case "XML": return Settings.Default.Cleaning_IncludeXML;
+                case CodeLanguage.CPlusPlus: return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case CodeLanguage.CSharp: return Settings.Default.Cleaning_IncludeCSharp;
+                case CodeLanguage.CSS: return Settings.Default.Cleaning_IncludeCSS;
+                case CodeLanguage.FSharp: return Settings.Default.Cleaning_IncludeFSharp;
+                case CodeLanguage.HTML: return Settings.Default.Cleaning_IncludeHTML;
+                case CodeLanguage.JavaScript: return Settings.Default.Cleaning_IncludeJavaScript;
+                case CodeLanguage.JSON: return Settings.Default.Cleaning_IncludeJSON;
+                case CodeLanguage.LESS: return Settings.Default.Cleaning_IncludeLESS;
+                case CodeLanguage.PHP: return Settings.Default.Cleaning_IncludePHP;
+                case CodeLanguage.PowerShell: return Settings.Default.Cleaning_IncludePowerShell;
+                case CodeLanguage.SCSS: return Settings.Default.Cleaning_IncludeSCSS;
+                case CodeLanguage.TypeScript: return Settings.Default.Cleaning_IncludeTypeScript;
+                case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_IncludeVB;
+                case CodeLanguage.XAML: return Settings.Default.Cleaning_IncludeXAML;
+                case CodeLanguage.XML: return Settings.Default.Cleaning_IncludeXML;
+
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{0}'", document.Language));
-                    return false;
+                        $"CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{document.Language}'");
+                    return Settings.Default.Cleaning_IncludeEverythingElse;
             }
         }
 
@@ -336,8 +334,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{f6819a78-a205-47b5-be1c-675b3c7f0b8e}": return Settings.Default.Cleaning_IncludeXML;
                 default:
                     OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeCleanupAvailabilityLogic.IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid '{0}'", languageServiceGuid));
-                    return false;
+                        $"CodeCleanupAvailabilityLogic.IsProjectItemLanguageIncludedByOptions picked up an unrecognized language service guid '{languageServiceGuid}'");
+                    return Settings.Default.Cleaning_IncludeEverythingElse;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             _document = point.Parent;
-            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.Language, true);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), true);
             _tabSize = tabSize;
 
             Expand(point);
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
             var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex("CSharp", false);
+            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
             var formatter = new CommentFormatter(line, "///", 4, regex);
 
             return formatter.ToString();
@@ -122,7 +122,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 line,
                 commentPrefix,
                 _tabSize,
-                CodeCommentHelper.GetCommentRegex(_document.Language, false));
+                CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), false));
 
             if (!formatter.Equals(originalText))
             {

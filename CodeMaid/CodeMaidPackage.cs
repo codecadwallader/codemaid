@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using EnvDTE80;
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.9.0.1 BETA", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "v0.9.0.2 BETA", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.

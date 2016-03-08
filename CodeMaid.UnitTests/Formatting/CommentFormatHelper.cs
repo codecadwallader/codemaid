@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
             var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex("CSharp", !string.IsNullOrEmpty(prefix));
+            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrEmpty(prefix));
             var formatter = new CommentFormatter(line, prefix, 4, regex);
             return formatter.ToString();
         }

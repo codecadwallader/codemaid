@@ -3,10 +3,65 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
-            <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
-            <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
-            <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
-            <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
+            <GroupBox Header="General">
+                <StackPanel>
+                    <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
+                    <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
+                    <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
+                    <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="File Header">
+                <StackPanel>
+                    <TabControl>
+                        <TabItem Header="C#">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="C++">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="F#">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderFSharp, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="VB">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderVisualBasic, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PHP">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPHP, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PowerShell">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JSON">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XAML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXAML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="HTML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderHTML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="CSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="LESS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderLESS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="SCSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderSCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JavaScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJavaScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="TypeScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

@@ -23,6 +23,9 @@
     <Setting Name="Cleaning_IncludeCSS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_IncludeEverythingElse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="Cleaning_IncludeFSharp" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -244,6 +247,51 @@
     </Setting>
     <Setting Name="Cleaning_UpdateEndRegionDirectives" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderCPlusPlus" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderCSharp" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderCSS" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderFSharp" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderHTML" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderJavaScript" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderJSON" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderLESS" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderPHP" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderPowerShell" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderSCSS" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderTypeScript" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderVB" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderXAML" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderXML" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Cleaning_UpdateSingleLineMethods" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

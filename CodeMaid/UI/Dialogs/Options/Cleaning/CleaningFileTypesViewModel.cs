@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Properties;
 
@@ -35,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCPlusPlus, x => IncludeCPlusPlus),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSharp, x => IncludeCSharp),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSS, x => IncludeCSS),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeEverythingElse, x => IncludeEverythingElse),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeFSharp, x => IncludeFSharp),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeHTML, x => IncludeHTML),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeJavaScript, x => IncludeJavaScript),
@@ -103,6 +104,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if CSS files should be included.
         /// </summary>
         public bool IncludeCSS
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if everything else (ex: .txt, README) should be included.
+        /// </summary>
+        public bool IncludeEverythingElse
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

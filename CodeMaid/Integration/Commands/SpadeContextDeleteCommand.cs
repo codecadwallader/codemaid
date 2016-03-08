@@ -1,4 +1,4 @@
-﻿#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+﻿#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -23,6 +23,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class SpadeContextDeleteCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly UndoTransactionHelper _undoTransactionHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -33,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandSpadeContextDelete, (int)PkgCmdIDList.CmdIDCodeMaidSpadeContextDelete))
         {
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Delete Items");
         }
 
         #endregion Constructors
@@ -68,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 // Delay the check of start/end points until execution time, to avoid an intermediate state issue.
                 var items = spade.SelectedItems.Where(IsDeletable).Where(x => x.StartPoint != null && x.EndPoint != null);
 
-                new UndoTransactionHelper(Package, "CodeMaid Delete Items").Run(() =>
+                _undoTransactionHelper.Run(() =>
                 {
                     // Iterate through items in reverse order (reduces line number updates during removal).
                     foreach (var item in items.OrderByDescending(x => x.StartLine))

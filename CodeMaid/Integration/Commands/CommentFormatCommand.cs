@@ -1,4 +1,4 @@
-#region CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#region CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
@@ -7,7 +7,7 @@
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
 
-#endregion CodeMaid is Copyright 2007-2015 Steve Cadwallader.
+#endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(GuidList.GuidCodeMaidCommandCommentFormat, (int)PkgCmdIDList.CmdIDCodeMaidCommentFormat))
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "Format Comment");
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Format Comment");
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
