@@ -2,7 +2,7 @@
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
-//
+// 
 // CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
@@ -25,12 +25,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        // Elements with these names are always alone on their own line.
-        internal static string[] NewLineElementNames = { "code" };
-
         // Elements with these names always start and end on their own line, and are only split
         // based on content.
-        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description" };
+        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description", "code" };
 
         private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
@@ -180,9 +177,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 return true;
 
             // Some special tags should also always be their own line.
-            if (NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
-                return true;
-
             if (SingleLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
                 return true;
 
