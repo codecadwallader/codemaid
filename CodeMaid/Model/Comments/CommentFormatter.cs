@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         private string _commentPrefix;
         private int _commentPrefixLength;
         private int _currentPosition;
+        private bool _isAfterCommentPrefix;
         private bool _isFirstWord;
         private bool _isIndented;
         private Regex _regex;
@@ -46,26 +47,16 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _tabSize = tabSize;
             _isFirstWord = true;
             _isIndented = false;
-
-            // Handle optionally empty prefix.
-            if (!string.IsNullOrWhiteSpace(commentPrefix))
-            {
-                _commentPrefix = commentPrefix + CodeCommentHelper.Spacer;
-                _commentPrefixLength = WordLength(_commentPrefix);
-            }
-            else
-            {
-                _commentPrefix = string.Empty;
-                _commentPrefixLength = 0;
-            }
+            _commentPrefix = commentPrefix ?? string.Empty;
+            _commentPrefixLength = WordLength(_commentPrefix);
 
             // Special handling for the root XML line, it should not output it's surrounding xml
             // tags, only it's child lines.
             var xml = line as CommentLineXml;
             if (xml != null)
             {
-                // On the content of the root, fix the optional alignment of param tags. This is
-                // not important if all tags will be broken onto seperate lines anyway.
+                // On the content of the root, fix the optional alignment of param tags. This is not
+                // important if all tags will be broken onto seperate lines anyway.
                 if (!Settings.Default.Formatting_CommentXmlSplitAllTags && Settings.Default.Formatting_CommentXmlAlignParamTags)
                 {
                     var paramPhrases = xml.Lines.OfType<CommentLineXml>().Where(p => string.Equals(p.TagName, "param", StringComparison.OrdinalIgnoreCase));
@@ -118,7 +109,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         public override string ToString()
         {
-            return _builder.ToString().Trim();
+            return _builder.ToString().TrimEnd();
         }
 
         private void Append(char value)
@@ -131,6 +122,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (string.IsNullOrEmpty(value))
             {
                 return;
+            }
+            if (_isAfterCommentPrefix)
+            {
+                _builder.Append(CodeCommentHelper.Spacer);
+                _isAfterCommentPrefix = false;
             }
             _builder.Append(Settings.Default.Formatting_CommentXmlKeepTagsTogether ? CodeCommentHelper.FakeToSpace(value) : value);
             _currentPosition += WordLength(value);
@@ -149,6 +145,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _currentPosition += _commentPrefixLength;
             _isFirstWord = true;
             _isIndented = false;
+
+            // Cannot simply be true, because an empty prefix also means no initial spacing.
+            _isAfterCommentPrefix = _commentPrefixLength > 0;
         }
 
         /// <summary>
@@ -160,7 +159,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// The length of the enclosing XML tags, this is needed to calculate the line length for
         /// single line XML comments.
         /// </param>
-        /// <returns><c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.</returns>
+        /// <returns>
+        /// <c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.
+        /// </returns>
         private bool Parse(ICommentLine line, int indentLevel = 0, int xmlTagLength = 0)
         {
             var xml = line as CommentLineXml;
@@ -168,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 return ParseXml(xml, indentLevel);
             }
-            else
+            else if (line.Content != null)
             {
                 var matches = _regex.Matches(line.Content).OfType<Match>().Select(x => new CodeCommentMatch(x)).ToList();
 
@@ -254,6 +255,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                     if (match.Words != null)
                     {
+                        Indent(indentLevel);
                         var wordCount = match.Words.Count - 1;
 
                         for (int i = 0; i <= wordCount; i++)
@@ -262,17 +264,17 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             var length = WordLength(word);
                             var wrap = false;
 
-                            // If current position plus word length exceeds the maximum
-                            // comment length, wrap to the next line. Take care not to wrap
-                            // on the first word, otherwise a word that never fits a line
-                            // (ie. too long) would cause endless linewrapping.
+                            // If current position plus word length exceeds the maximum comment
+                            // length, wrap to the next line. Take care not to wrap on the first
+                            // word, otherwise a word that never fits a line (ie. too long) would
+                            // cause endless linewrapping.
                             if (!_isFirstWord && _currentPosition + length + 1 > Settings.Default.Formatting_CommentWrapColumn)
                             {
                                 wrap = true;
                             }
 
-                            // If this is the last word and user selected to not wrap on the
-                            // last word, don't wrap.
+                            // If this is the last word and user selected to not wrap on the last
+                            // word, don't wrap.
                             if (wrap && i == wordCount && Settings.Default.Formatting_CommentSkipWrapOnLastWord)
                             {
                                 wrap = false;
@@ -281,24 +283,24 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             if (wrap)
                             {
                                 NewLine();
+                                Indent(indentLevel);
 
-                                // If linewrap is on a list item, add spacing to align the text.
+                                // If linewrap is on a list item, add extra spacing to align the
+                                // text with the previous line.
                                 if (match.IsList)
                                 {
-                                    Indent(indentLevel);
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
 
-                                    // This is just padding and not a word.
+                                    // Unset the first-word flag, because this is just padding and
+                                    // not a proper word.
                                     _isFirstWord = true;
                                 }
                             }
-
-                            if (!_isFirstWord)
+                            else if (!_isFirstWord)
                             {
                                 Append(CodeCommentHelper.Spacer);
                             }
 
-                            Indent(indentLevel);
                             Append(word);
                         }
                     }
@@ -330,7 +332,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             return false;
         }
 
-        /// <returns><c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.</returns>
+        /// <returns>
+        /// Returns <c>true</c> if the line requests a break afterwards (did not fit on a single
+        /// line), otherwise <c>false</c>.
+        /// </returns>
         private bool ParseXml(CommentLineXml line, int indentLevel = 0)
         {
             // All XML lines start on a new line.
@@ -343,14 +348,15 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             Append(line.OpenTag);
 
             // Self closing tags have no content, skip all further logic and just output.
+            var tagOnOwnLine = TagsOnOwnLine(line, indentLevel);
             if (line.IsSelfClosing)
             {
-                if (TagsOnOwnLine(line, indentLevel))
+                if (tagOnOwnLine)
                 {
                     NewLine();
-                    return true;
+                    return false;
                 }
-                return false;
+                return true;
             }
 
             // If this is the StyleCop SA1633 header <copyright> tag, the content should ALWAYS be
@@ -366,10 +372,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // Increase the indent level.
             indentLevel++;
 
-            bool isLiteralContent = !string.IsNullOrEmpty(line.Content);
+            var isLiteralContent = !string.IsNullOrEmpty(line.Content);
 
             // If true the tag should be alone on it's own line.
-            bool tagOnOwnLine = isLiteralContent || TagsOnOwnLine(line, indentLevel);
+            tagOnOwnLine |= isLiteralContent;
 
             // If the literal content of an XML tag is set, output that content without formatting.
             if (isLiteralContent)
@@ -389,14 +395,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     NewLine();
                 }
 
-                // Loop and parse all content lines, with a little hacky solution for allowing
-                // the parser to know the XML tag length.
+                // Loop and parse all content lines, with a little hacky solution for allowing the
+                // parser to know the XML tag length.
                 var xmlTagLength = tagOnOwnLine ? 0 : WordLength(line.OpenTag) + WordLength(line.CloseTag);
+                var needBreakBefore = false;
                 foreach (var l in line.Lines)
                 {
-                    // Parse function returns true if it had to wrap lines. If so, we need to
-                    // force a newline before the closing tag.
-                    tagOnOwnLine |= Parse(l, indentLevel, xmlTagLength);
+                    if (needBreakBefore) NewLine();
+
+                    // Parse function returns true if it had to wrap lines. If so, we need to force
+                    // a newline before the closing tag.
+                    needBreakBefore = Parse(l, indentLevel, xmlTagLength);
+                    tagOnOwnLine |= needBreakBefore;
                 }
             }
 
@@ -418,14 +428,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             Indent(indentLevel);
             Append(line.CloseTag);
 
-            tagOnOwnLine = tagOnOwnLine || CommentLineXml.SingleLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase);
-
-            if (tagOnOwnLine)
-            {
-                NewLine();
-            }
-
-            return !tagOnOwnLine;
+            return tagOnOwnLine || CommentLineXml.SingleLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -454,9 +457,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             // Always split on StyleCop SA1633 copyright tag.
             if (Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines && string.Equals(line.TagName, "copyright", StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            if (CommentLineXml.NewLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase))
                 return true;
 
             return false;

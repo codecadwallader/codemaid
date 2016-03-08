@@ -64,6 +64,23 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
+        public void SimpleFormattingTests_NoTrailingWhitespace()
+        {
+            var input =
+                "Lorem ipsum " + Environment.NewLine + " " +
+                Environment.NewLine + " " +
+                "dolor sit amet. ";
+
+            var expected =
+                "Lorem ipsum" + Environment.NewLine +
+                Environment.NewLine +
+                "dolor sit amet.";
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
         public void SimpleFormattingTests_RemoveBlankLinesAfter()
         {
             var input = "Lorem ipsum dolor sit amet.\r\n\r\n";

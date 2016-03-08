@@ -2,7 +2,7 @@
 
 // CodeMaid is free software: you can redistribute it and/or modify it under the terms of the GNU
 // Lesser General Public License version 3 as published by the Free Software Foundation.
-//
+// 
 // CodeMaid is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
 // even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details <http://www.gnu.org/licenses/>.
@@ -27,7 +27,12 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         public static string AssertEqualAfterFormat(string input, string expected)
         {
-            var result = Format(input);
+            return AssertEqualAfterFormat(input, expected, null);
+        }
+
+        public static string AssertEqualAfterFormat(string input, string expected, string prefix)
+        {
+            var result = Format(input, prefix);
             Assert.AreEqual(expected, result);
             return result;
         }
@@ -39,10 +44,15 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         public static string Format(string text)
         {
+            return Format(text, null);
+        }
+
+        public static string Format(string text, string prefix)
+        {
             var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
             var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
-            var formatter = new CommentFormatter(line, string.Empty, 4, regex);
+            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrEmpty(prefix));
+            var formatter = new CommentFormatter(line, prefix, 4, regex);
             return formatter.ToString();
         }
     }

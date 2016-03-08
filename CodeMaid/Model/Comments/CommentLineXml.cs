@@ -25,12 +25,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        // Elements with these names are always alone on their own line.
-        internal static string[] NewLineElementNames = { "code" };
-
         // Elements with these names always start and end on their own line, and are only split
         // based on content.
-        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description" };
+        internal static string[] SingleLineElementNames = { "p", "para", "list", "listheader", "item", "term", "description", "code" };
 
         private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
         private StringBuilder _innerText;
@@ -180,9 +177,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 return true;
 
             // Some special tags should also always be their own line.
-            if (NewLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
-                return true;
-
             if (SingleLineElementNames.Contains(e.Name.LocalName, StringComparer.OrdinalIgnoreCase))
                 return true;
 
