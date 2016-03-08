@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             functionText = Regex.Replace(functionText, @"//.*" + Environment.NewLine, Environment.NewLine);
 
             // Rip out multi-line comments.
-            functionText = Regex.Replace(functionText, @"/\*.*\*/", String.Empty, RegexOptions.Singleline);
+            functionText = Regex.Replace(functionText, @"/\*.*?\*/", String.Empty, RegexOptions.Singleline);
 
             // Rip out strings.
             functionText = Regex.Replace(functionText, @"""[^""]*""", String.Empty);

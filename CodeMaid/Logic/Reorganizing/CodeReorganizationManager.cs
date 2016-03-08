@@ -437,16 +437,31 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
             while (true)
             {
-                var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(codeItems);
+                var regionsToRemove = _generateRegionLogic.GetRegionsToRemove(codeItems).ToList();
+                var regionsToRemoveChildren = regionsToRemove.SelectMany(x => x.Children).ToList();
+                var regionsToRemoveChildrenRegions = regionsToRemoveChildren.OfType<CodeItemRegion>().ToList();
+
+                // Nested regions do not track points well, so offset cursor position by 1 as a workaround.
+                foreach (var nestedRegion in regionsToRemoveChildrenRegions)
+                {
+                    nestedRegion.StartPoint.CharRight();
+                    nestedRegion.EndPoint.CharRight();
+                }
+
                 _removeRegionLogic.RemoveRegions(regionsToRemove);
 
-                var removedRegionsChildren = regionsToRemove.SelectMany(x => x.Children);
+                // Reverse offset of cursor position for nested regions.
+                foreach (var nestedRegion in regionsToRemoveChildrenRegions)
+                {
+                    nestedRegion.StartPoint.CharLeft();
+                    nestedRegion.EndPoint.CharLeft();
+                }
 
                 // Update the code items collection by excluding the removed regions and including those region's direct children.
-                codeItems = codeItems.Except(regionsToRemove).Union(removedRegionsChildren);
+                codeItems = codeItems.Except(regionsToRemove).Union(regionsToRemoveChildren);
 
                 // If there were any nested regions in those regions that were removed, loop back over again.
-                if (removedRegionsChildren.Any(x => x is CodeItemRegion))
+                if (regionsToRemoveChildrenRegions.Any())
                 {
                     continue;
                 }

@@ -110,6 +110,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             switch (language)
             {
                 case "C/C++":
+                case "C/C++ (VisualGDB)":
                 case "CSharp":
                 case "CSS":
                 case "F#":

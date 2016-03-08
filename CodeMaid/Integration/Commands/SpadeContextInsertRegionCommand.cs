@@ -26,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Fields
 
         private readonly GenerateRegionLogic _generateRegionLogic;
+        private readonly UndoTransactionHelper _undoTransactionHelper;
 
         #endregion Fields
 
@@ -40,6 +41,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                    new CommandID(GuidList.GuidCodeMaidCommandSpadeContextInsertRegion, (int)PkgCmdIDList.CmdIDCodeMaidSpadeContextInsertRegion))
         {
             _generateRegionLogic = GenerateRegionLogic.GetInstance(package);
+            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Insert Region");
         }
 
         #endregion Constructors
@@ -77,17 +79,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 var startPoint = spade.SelectedItems.OrderBy(x => x.StartOffset).First().StartPoint;
                 var endPoint = spade.SelectedItems.OrderBy(x => x.EndOffset).Last().EndPoint;
 
-                // Create the new region.
-                _generateRegionLogic.InsertEndRegionTag(region, endPoint);
-                _generateRegionLogic.InsertRegionTag(region, startPoint);
+                _undoTransactionHelper.Run(() =>
+                {
+                    // Create the new region.
+                    _generateRegionLogic.InsertEndRegionTag(region, endPoint);
+                    _generateRegionLogic.InsertRegionTag(region, startPoint);
 
-                // Move to that element.
-                TextDocumentHelper.MoveToCodeItem(spade.Document, region, Settings.Default.Digging_CenterOnWhole);
+                    // Move to that element.
+                    TextDocumentHelper.MoveToCodeItem(spade.Document, region, Settings.Default.Digging_CenterOnWhole);
 
-                // Highlight the line of text for renaming.
-                var textDocument = spade.Document.GetTextDocument();
-                textDocument.Selection.EndOfLine(true);
-                textDocument.Selection.SwapAnchor();
+                    // Highlight the line of text for renaming.
+                    var textDocument = spade.Document.GetTextDocument();
+                    textDocument.Selection.EndOfLine(true);
+                    textDocument.Selection.SwapAnchor();
+                });
 
                 spade.Refresh();
             }

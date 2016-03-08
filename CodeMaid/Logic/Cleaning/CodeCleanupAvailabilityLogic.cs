@@ -202,7 +202,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 case "Basic": return Settings.Default.Cleaning_IncludeVB;
                 case "CSharp": return Settings.Default.Cleaning_IncludeCSharp;
-                case "C/C++": return Settings.Default.Cleaning_IncludeCPlusPlus;
+                case "C/C++":
+                case "C/C++ (VisualGDB)": return Settings.Default.Cleaning_IncludeCPlusPlus;
                 case "CSS": return Settings.Default.Cleaning_IncludeCSS;
                 case "F#": return Settings.Default.Cleaning_IncludeFSharp;
                 case "HTML":

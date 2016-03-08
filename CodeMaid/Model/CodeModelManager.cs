@@ -114,11 +114,11 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             if (document == null)
             {
-                throw new ArgumentNullException("document");
+                throw new ArgumentNullException(nameof(document));
             }
 
             OutputWindowHelper.DiagnosticWriteLine(
-                string.Format("CodeModelManager.RetrieveAllCodeItems for '{0}'", document.FullName));
+                $"CodeModelManager.RetrieveAllCodeItems for '{document.FullName}'");
 
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
@@ -126,7 +126,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 if (!codeModel.IsBuiltWaitHandle.WaitOne(TimeSpan.FromSeconds(30)))
                 {
                     OutputWindowHelper.WarningWriteLine(
-                        string.Format("Timed out waiting for code model to be built for '{0}'", codeModel.Document.FullName));
+                        $"Timed out waiting for code model to be built for '{codeModel.Document.FullName}'");
                     return null;
                 }
             }
@@ -159,7 +159,7 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             if (document == null)
             {
-                throw new ArgumentNullException("document");
+                throw new ArgumentNullException(nameof(document));
             }
 
             // If asynchronous loading has been disabled, redirect to the synchronous version.
@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Model
             }
 
             OutputWindowHelper.DiagnosticWriteLine(
-                string.Format("CodeModelManager.RetrieveAllCodeItemsAsync for '{0}'", document.FullName));
+                $"CodeModelManager.RetrieveAllCodeItemsAsync for '{document.FullName}'");
 
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
@@ -214,7 +214,7 @@ namespace SteveCadwallader.CodeMaid.Model
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("CodeModelManager.BuildCodeItems started for '{0}'", codeModel.Document.FullName));
+                    $"CodeModelManager.BuildCodeItems started for '{codeModel.Document.FullName}'");
 
                 codeModel.IsBuilding = true;
                 codeModel.IsStale = false;
@@ -231,12 +231,12 @@ namespace SteveCadwallader.CodeMaid.Model
                 codeModel.IsBuilding = false;
 
                 OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("CodeModelManager.BuildCodeItems completed for '{0}'", codeModel.Document.FullName));
+                    $"CodeModelManager.BuildCodeItems completed for '{codeModel.Document.FullName}'");
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.ExceptionWriteLine(
-                    string.Format("Unable to build code model for '{0}'", codeModel.Document.FullName), ex);
+                OutputWindowHelper.DiagnosticWriteLine(
+                    $"Unable to build code model for '{codeModel.Document.FullName}': {ex}");
 
                 codeModel.CodeItems = new SetCodeItems();
                 codeModel.IsBuilding = false;
@@ -252,24 +252,17 @@ namespace SteveCadwallader.CodeMaid.Model
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("CodeModelManager.LoadLazyInitializedValues for '{0}'", codeModel.Document.FullName));
+                    $"CodeModelManager.LoadLazyInitializedValues for '{codeModel.Document.FullName}'");
 
-                if (Settings.Default.General_Multithread)
+                foreach (var codeItem in codeModel.CodeItems)
                 {
-                    Parallel.ForEach(codeModel.CodeItems, x => x.LoadLazyInitializedValues());
-                }
-                else
-                {
-                    foreach (var codeItem in codeModel.CodeItems)
-                    {
-                        codeItem.LoadLazyInitializedValues();
-                    }
+                    codeItem.LoadLazyInitializedValues();
                 }
             }
             catch (Exception ex)
             {
                 OutputWindowHelper.ExceptionWriteLine(
-                    string.Format("Unable to load lazy initialized values for '{0}'", codeModel.Document.FullName), ex);
+                    $"Unable to load lazy initialized values for '{codeModel.Document.FullName}'", ex);
             }
         }
 
@@ -283,7 +276,7 @@ namespace SteveCadwallader.CodeMaid.Model
             if (codeModelBuilt != null)
             {
                 OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("CodeModelManager.CodeModelBuilt raised for '{0}'", codeModel.Document.FullName));
+                    $"CodeModelManager.CodeModelBuilt raised for '{codeModel.Document.FullName}'");
 
                 codeModelBuilt(codeModel);
             }

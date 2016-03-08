@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.9.0", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", "v0.9.0.1 BETA", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
     [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
-    public sealed class CodeMaidPackage : Package, IVsInstalledProduct
+    public sealed class CodeMaidPackage : Package, IVsInstalledProduct, IVsPackageDynamicToolOwner
     {
         #region Fields
 
@@ -308,6 +308,46 @@ namespace SteveCadwallader.CodeMaid
         }
 
         #endregion IVsInstalledProduct Members
+
+        #region IVsPackageDynamicToolOwner members
+
+        /// <summary>
+        /// Allows the package to control whether the tool window should be shown or hidden. This
+        /// method is called by the shell when the user switches to a different window view or
+        /// context, for example Design, Debugging, Full Screen, etc.
+        /// </summary>
+        /// <returns>
+        /// If the method succeeds, it returns <see
+        /// cref="F:Microsoft.VisualStudio.VSConstants.S_OK"/>. If it fails, it returns an error code.
+        /// </returns>
+        /// <param name="rguidPersistenceSlot">[in] The GUID of the window.</param>
+        /// <param name="pfShowTool">[out] true to show the window, otherwise false.</param>
+        public int QueryShowTool(ref Guid rguidPersistenceSlot, out int pfShowTool)
+        {
+            pfShowTool = 1;
+
+            if (rguidPersistenceSlot == GuidList.GuidCodeMaidToolWindowSpade)
+            {
+                var monitorSelection = GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
+                if (monitorSelection != null)
+                {
+                    var guidCmdUI = VSConstants.UICONTEXT_FullScreenMode;
+                    uint dwCmdUICookie;
+                    monitorSelection.GetCmdUIContextCookie(ref guidCmdUI, out dwCmdUICookie);
+
+                    int fActive;
+                    monitorSelection.IsCmdUIContextActive(dwCmdUICookie, out fActive);
+                    if (fActive == 1)
+                    {
+                        pfShowTool = 0;
+                    }
+                }
+            }
+
+            return VSConstants.S_OK;
+        }
+
+        #endregion IVsPackageDynamicToolOwner members
 
         #region Private Methods
 
