@@ -1,6 +1,8 @@
 # Roadmap
 
 - [X] Automate deploys through AppVeyor to create a CI channel
+- [ ] Consolidate support sites
+- [ ] Create a demo video
 - [ ] Support R
 
 Features that have a checkmark are complete and available for download in the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
