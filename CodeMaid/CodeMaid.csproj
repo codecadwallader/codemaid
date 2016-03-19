@@ -584,6 +584,9 @@
     <Resource Include="UI\Themes\Images\ExpandedDark.png" />
     <Resource Include="UI\Themes\Images\ExpandedLight.png" />
     <Resource Include="UI\Themes\Images\CollapsedLight.png" />
+    <Resource Include="..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+    </Resource>
     <Content Include="CodeMaid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -615,10 +618,6 @@
     <Resource Include="Integration\Images\IDE\unlock.bmp" />
     <Resource Include="Integration\Images\IDE\commentformat.bmp" />
     <Resource Include="Integration\Images\IDE\removeRegion.bmp" />
-    <Content Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
