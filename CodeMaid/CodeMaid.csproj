@@ -602,7 +602,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Integration\Images\about.png" />
-    <Resource Include="Integration\Images\CodeMaid.ico" />
     <Resource Include="Integration\Images\IDE\cleanup.bmp" />
     <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
     <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
