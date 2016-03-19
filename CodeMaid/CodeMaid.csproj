@@ -405,15 +405,6 @@
     <Compile Include="UI\WindowAttachedProperties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="source.extension.resx">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <VSCTCompile Include="CodeMaid.vsct">
       <ResourceName>1000</ResourceName>
       <SubType>Designer</SubType>
@@ -791,6 +782,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="source.extension.resx">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
