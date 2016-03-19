@@ -11,7 +11,6 @@
 
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using SteveCadwallader.CodeMaid.Integration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     /// <summary>
     /// This class implements the build progress tool window and hosts a user control.
     /// </summary>
-    [Guid(GuidList.GuidCodeMaidToolWindowBuildProgressString)]
+    [Guid(PackageGuids.GuidCodeMaidToolWindowBuildProgressString)]
     public class BuildProgressToolWindow : ToolWindowPane
     {
         #region Fields

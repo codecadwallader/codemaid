@@ -20,7 +20,7 @@
         Dim varAge As Object
         If Not IsDate(varBirthDate) Then Exit Function
         varAge = DateDiff("yyyy", varBirthDate, Now)
-   If Date < DateSerial(Year(Now), Month(varBirthDate), _
+        If Date < DateSerial(Year(Now), Month(varBirthDate), _
                         Day(varBirthDate)) Then
             varAge = varAge - 1
         End If

@@ -11,7 +11,6 @@
 
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 
@@ -78,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             if (outputWindow == null) return null;
 
-            Guid outputPaneGuid = new Guid(GuidList.GuidCodeMaidOutputPane.ToByteArray());
+            Guid outputPaneGuid = new Guid(PackageGuids.GuidCodeMaidOutputPane.ToByteArray());
             IVsOutputWindowPane windowPane;
 
             outputWindow.CreatePane(ref outputPaneGuid, "CodeMaid", 1, 1);

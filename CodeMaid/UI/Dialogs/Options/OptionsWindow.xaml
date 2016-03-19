@@ -10,7 +10,7 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="CodeMaid Options"
+        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="CodeMaid Options"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
         Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
         ShowInTaskbar="False" WindowStartupLocation="CenterScreen"

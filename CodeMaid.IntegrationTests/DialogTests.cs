@@ -11,7 +11,6 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using System;
 using System.ComponentModel.Design;
@@ -33,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 {
                     dialogBoxPurger.Start();
 
-                    var aboutCommand = new CommandID(GuidList.GuidCodeMaidCommandAbout, (int)PkgCmdIDList.CmdIDCodeMaidAbout);
+                    var aboutCommand = new CommandID(PackageGuids.GuidCodeMaidCommandAbout, PackageIds.CmdIDCodeMaidAbout);
                     TestUtils.ExecuteCommand(aboutCommand);
                 }
                 finally
@@ -55,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
                 {
                     dialogBoxPurger.Start();
 
-                    var configurationCommand = new CommandID(GuidList.GuidCodeMaidCommandOptions, (int)PkgCmdIDList.CmdIDCodeMaidOptions);
+                    var configurationCommand = new CommandID(PackageGuids.GuidCodeMaidCommandOptions, PackageIds.CmdIDCodeMaidOptions);
                     TestUtils.ExecuteCommand(configurationCommand);
                 }
                 finally

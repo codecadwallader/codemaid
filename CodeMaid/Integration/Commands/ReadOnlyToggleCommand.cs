@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal ReadOnlyToggleCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandReadOnlyToggle, (int)PkgCmdIDList.CmdIDCodeMaidReadOnlyToggle))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandReadOnlyToggle, PackageIds.CmdIDCodeMaidReadOnlyToggle))
         {
         }
 

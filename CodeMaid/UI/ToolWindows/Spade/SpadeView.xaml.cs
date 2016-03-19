@@ -10,7 +10,6 @@
 #endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
@@ -570,7 +569,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var menuCommandService = ViewModel?.Package.MenuCommandService;
             if (menuCommandService != null)
             {
-                var contextMenuCommandID = new CommandID(GuidList.GuidCodeMaidContextSpadeBaseGroup, PkgCmdIDList.MenuIDCodeMaidContextSpade);
+                var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidContextSpadeBaseGroup, PackageIds.MenuIDCodeMaidContextSpade);
 
                 menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
             }

@@ -10,7 +10,6 @@
 #endregion CodeMaid is Copyright 2007-2016 Steve Cadwallader.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using SteveCadwallader.CodeMaid.UnitTests.Helpers;
 using System.ComponentModel.Design;
@@ -33,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
             var package = CodeMaidPackageHelper.CreateInitializedPackage();
 
             // Retrieve the command.
-            var command = package.MenuCommandService.FindCommand(new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSpadeToolWindow));
+            var command = package.MenuCommandService.FindCommand(new CommandID(PackageGuids.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow));
 
             // Invoke the command.
             command.Invoke();

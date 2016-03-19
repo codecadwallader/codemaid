@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Prompts"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:YesNoPromptViewModel, IsDesignTimeCreatable=False}"
-        Icon="/SteveCadwallader.CodeMaid;component/Integration/Images/CodeMaid.ico" Title="{Binding Title}"
+        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="{Binding Title}"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
         Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}"

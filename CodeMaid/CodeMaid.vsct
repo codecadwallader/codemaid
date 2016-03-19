@@ -272,7 +272,7 @@
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
         <Strings>
-          <ButtonText>About CodeMaid &amp;v0.9.1...</ButtonText>
+          <ButtonText>About CodeMaid...</ButtonText>
         </Strings>
       </Button>
 
@@ -932,6 +932,16 @@
 
     <!-- This is the package guid. -->
     <GuidSymbol name="GuidCodeMaidPackage" value="{4c82e17d-927e-42d2-8460-b473ac7df316}" />
+
+    <!-- These are the tool window guids -->
+    <GuidSymbol name="GuidCodeMaidToolWindowBuildProgress" value="{260978c3-582c-487d-ab12-c1fdde07c578}">
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidToolWindowSpade" value="{75d09b86-471e-4b30-8720-362d13ad0a45}">
+    </GuidSymbol>
+
+    <!-- This is the output pane guid -->
+    <GuidSymbol name="GuidCodeMaidOutputPane" value="{4e7ba904-9311-4dd0-abe5-a61c1739780f}">
+    </GuidSymbol>
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="GuidCodeMaidMenuBaseGroup" value="{186512ff-6c4e-42c9-b9a1-032f35109993}">

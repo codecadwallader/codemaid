@@ -1,12 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69127706-88D9-4314-B801-4FB2E615B700}"
 	ProjectSection(SolutionItems) = preProject
-		CodeMaid.vsmdi = CodeMaid.vsmdi
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		CHANGELOG.md = CHANGELOG.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		IntegrationTests.testsettings = IntegrationTests.testsettings
+		ISSUE_TEMPLATE.md = ISSUE_TEMPLATE.md
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"

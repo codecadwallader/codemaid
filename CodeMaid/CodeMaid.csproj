@@ -45,6 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -175,6 +176,11 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Compile Include="CodeMaid.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CodeLanguageHelper.cs" />
     <Compile Include="Helpers\CodeLanguage.cs" />
     <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
@@ -254,8 +260,6 @@
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
     <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
-    <Compile Include="Integration\GuidList.cs" />
-    <Compile Include="Integration\PkgCmdIDList.cs" />
     <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
@@ -309,6 +313,9 @@
     </Compile>
     <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="source.extension.cs">
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
@@ -396,24 +403,13 @@
     <Compile Include="UI\Bindable.cs" />
     <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
-    <Compile Include="VSPackage.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VSPackage.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="CodeMaid.vsct">
       <ResourceName>1000</ResourceName>
       <SubType>Designer</SubType>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>CodeMaid.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +418,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="source.extension.ico">
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Resource>
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class_Friend.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class_Private.png" />
@@ -585,6 +584,11 @@
     <Resource Include="UI\Themes\Images\ExpandedDark.png" />
     <Resource Include="UI\Themes\Images\ExpandedLight.png" />
     <Resource Include="UI\Themes\Images\CollapsedLight.png" />
+    <Content Include="..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="CodeMaid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -594,7 +598,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Integration\Images\about.png" />
-    <Resource Include="Integration\Images\CodeMaid.ico" />
     <Resource Include="Integration\Images\IDE\cleanup.bmp" />
     <Resource Include="Integration\Images\IDE\cleanupAll.bmp" />
     <Resource Include="Integration\Images\IDE\closeLocked.bmp" />
@@ -617,16 +620,15 @@
     <Resource Include="Integration\Images\IDE\unlock.bmp" />
     <Resource Include="Integration\Images\IDE\commentformat.bmp" />
     <Resource Include="Integration\Images\IDE\removeRegion.bmp" />
-    <Content Include="lgpl-3.0.rtf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="source.extension.vsixmanifest" />
+    <None Include="source.extension.vsixmanifest">
+      <Generator>VsixManifestGenerator</Generator>
+      <LastGenOutput>source.extension.resx</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Dialogs\About\AboutWindow.xaml">
@@ -781,6 +783,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="source.extension.resx">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

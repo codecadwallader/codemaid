@@ -34,7 +34,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal JoinLinesCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandJoinLines, (int)PkgCmdIDList.CmdIDCodeMaidJoinLines))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandJoinLines, PackageIds.CmdIDCodeMaidJoinLines))
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Join");
         }

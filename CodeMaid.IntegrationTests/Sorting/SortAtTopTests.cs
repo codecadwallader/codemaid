@@ -11,7 +11,6 @@
 
 using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using System.ComponentModel.Design;
 
@@ -67,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Sorting
             textDocument.Selection.StartOfDocument();
             textDocument.Selection.LineDown(true, 4);
 
-            var sortCommand = new CommandID(GuidList.GuidCodeMaidCommandSortLines, (int)PkgCmdIDList.CmdIDCodeMaidSortLines);
+            var sortCommand = new CommandID(PackageGuids.GuidCodeMaidCommandSortLines, PackageIds.CmdIDCodeMaidSortLines);
             TestUtils.ExecuteCommand(sortCommand);
         }
 

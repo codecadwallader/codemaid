@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
 using SteveCadwallader.CodeMaid.Model;
@@ -48,14 +47,14 @@ namespace SteveCadwallader.CodeMaid
     /// the shell.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
-    [InstalledProductRegistration("#110", "#112", "v0.9.1", IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
+    [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
-    [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
+    [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct, IVsPackageDynamicToolOwner
     {
         #region Fields
@@ -326,7 +325,7 @@ namespace SteveCadwallader.CodeMaid
         {
             pfShowTool = 1;
 
-            if (rguidPersistenceSlot == GuidList.GuidCodeMaidToolWindowSpade)
+            if (rguidPersistenceSlot == PackageGuids.GuidCodeMaidToolWindowSpade)
             {
                 var monitorSelection = GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
                 if (monitorSelection != null)

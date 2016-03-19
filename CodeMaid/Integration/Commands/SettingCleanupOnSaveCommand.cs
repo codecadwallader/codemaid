@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SettingCleanupOnSaveCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSettingCleanupOnSave, (int)PkgCmdIDList.CmdIDCodeMaidSettingCleanupOnSave))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSettingCleanupOnSave, PackageIds.CmdIDCodeMaidSettingCleanupOnSave))
         {
         }
 

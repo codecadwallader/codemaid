@@ -13,7 +13,6 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
@@ -48,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
             {
                 // Load the package into the shell.
                 IVsShell shellService = (IVsShell)VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell));
-                Guid packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
+                Guid packageGuid = new Guid(PackageGuids.GuidCodeMaidPackageString);
                 IVsPackage package;
 
                 shellService.IsPackageLoaded(ref packageGuid, out package);

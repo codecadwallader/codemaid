@@ -1,0 +1,25 @@
+version: 10.0.{build}
+os: Visual Studio 2015
+
+install:
+  - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+before_build:
+  - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+  - ps: Vsix-TokenReplacement CodeMaid\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
+
+build_script:
+  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+
+test:
+  assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
+
+after_test:
+  - ps: Vsix-PushArtifacts | Vsix-PublishToGallery

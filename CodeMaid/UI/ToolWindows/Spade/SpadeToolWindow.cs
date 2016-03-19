@@ -15,7 +15,6 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
@@ -34,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     /// <summary>
     /// The Spade tool window pane.
     /// </summary>
-    [Guid(GuidList.GuidCodeMaidToolWindowSpadeString)]
+    [Guid(PackageGuids.GuidCodeMaidToolWindowSpadeString)]
     public sealed class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
         #region Fields
@@ -64,7 +63,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.
-            ToolBar = new CommandID(GuidList.GuidCodeMaidToolbarSpadeBaseGroup, PkgCmdIDList.ToolbarIDCodeMaidToolbarSpade);
+            ToolBar = new CommandID(PackageGuids.GuidCodeMaidToolbarSpadeBaseGroup, PackageIds.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
             _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };

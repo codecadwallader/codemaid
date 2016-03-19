@@ -1,6 +1,6 @@
 ﻿namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 {
-    public static class GuidList
+    public static class PackageGuids
     {
         #region Fields
 

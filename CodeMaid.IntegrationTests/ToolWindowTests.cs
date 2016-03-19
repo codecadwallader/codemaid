@@ -11,7 +11,6 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.IntegrationTests.Helpers;
 using System;
 using System.ComponentModel.Design;
@@ -27,10 +26,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var buildProgressToolWindowCommand = new CommandID(GuidList.GuidCodeMaidCommandBuildProgressToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidBuildProgressToolWindow);
+                var buildProgressToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidCommandBuildProgressToolWindow, PackageIds.CmdIDCodeMaidBuildProgressToolWindow);
                 TestUtils.ExecuteCommand(buildProgressToolWindowCommand);
 
-                Assert.IsTrue(TestUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowBuildProgress));
+                Assert.IsTrue(TestUtils.CanFindToolwindow(PackageGuids.GuidCodeMaidToolWindowBuildProgress));
             }));
         }
 
@@ -40,10 +39,10 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var spadeToolWindowCommand = new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSpadeToolWindow);
+                var spadeToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow);
                 TestUtils.ExecuteCommand(spadeToolWindowCommand);
 
-                Assert.IsTrue(TestUtils.CanFindToolwindow(GuidList.GuidCodeMaidToolWindowSpade));
+                Assert.IsTrue(TestUtils.CanFindToolwindow(PackageGuids.GuidCodeMaidToolWindowSpade));
             }));
         }
     }
