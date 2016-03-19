@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
 		CHANGELOG.md = CHANGELOG.md
-		CodeMaid.vsmdi = CodeMaid.vsmdi
 		CONTRIBUTING.md = CONTRIBUTING.md
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		IntegrationTests.testsettings = IntegrationTests.testsettings
