@@ -2,8 +2,7 @@
 
 Looking to contribute something? **Here's how you can help.**
 
-Please take a moment to review this document in order to make the contribution
-process easy and effective for everyone involved.
+Please read http://www.codemaid.net/contribute/ for setup and a quick code overview
 
 Following these guidelines helps to communicate that you respect the time of
 the developers managing and developing this open source project. In return,
@@ -104,11 +103,11 @@ included in the project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/<this-repro-name>.git
+   git clone https://github.com/codecadwallader/codemaid.git
    # Navigate to the newly cloned directory
    cd <folder-name>
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/madskristensen/<this-repro-name>.git
+   git remote add upstream https://github.com/codecadwallader/codemaid.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
@@ -150,11 +149,6 @@ included in the project:
 
 ## Code guidelines
 
-- Always use proper indentation.
 - In Visual Studio under `Tools > Options > Text Editor > C# > Advanced`, make sure
-  `Place 'System' directives first when sorting usings` option is enabled (checked).
-- Before committing, organize usings for each updated C# source file. Either you can
-  right-click editor and select `Organize Usings > Remove and sort` OR use extension
-  like [BatchFormat](http://visualstudiogallery.msdn.microsoft.com/a7f75c34-82b4-4357-9c66-c18e32b9393e).
-- Before committing, run Code Analysis in `Debug` configuration and follow the guidelines
-  to fix CA issues. Code Analysis commits can be made separately.
+  `Place 'System' directives first when sorting usings` option is disabled (unchecked).
+- Dog food your code changes back through CodeMaid
