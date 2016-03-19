@@ -5,7 +5,7 @@
     <DisplayName>CodeMaid</DisplayName>
     <Description xml:space="preserve">CodeMaid is an open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.</Description>
     <MoreInfo>http://www.codemaid.net/</MoreInfo>
-    <License>lgpl-3.0.rtf</License>
+    <License>LICENSE.txt</License>
     <Icon>CodeMaid.png</Icon>
     <PreviewImage>CodeMaid_Large.png</PreviewImage>
     <Tags>build, code, c#, beautify, cleanup, cleaning, digging, reorganizing, formatting</Tags>
