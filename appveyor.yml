@@ -11,5 +11,4 @@ build:
   verbosity: minimal
 test:
   assemblies:
-    - SteveCadwallader.CodeMaid.UnitTests.dll
     - SteveCadwallader.CodeMaid.IntegrationTests.dll
