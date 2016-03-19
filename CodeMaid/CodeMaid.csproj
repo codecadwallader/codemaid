@@ -584,9 +584,11 @@
     <Resource Include="UI\Themes\Images\ExpandedDark.png" />
     <Resource Include="UI\Themes\Images\ExpandedLight.png" />
     <Resource Include="UI\Themes\Images\CollapsedLight.png" />
-    <Resource Include="..\LICENSE.txt">
+    <Content Include="..\LICENSE.txt">
       <Link>LICENSE.txt</Link>
-    </Resource>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="CodeMaid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
