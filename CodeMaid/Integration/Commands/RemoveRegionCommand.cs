@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal RemoveRegionCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandRemoveRegion, (int)PkgCmdIDList.CmdIDCodeMaidRemoveRegion))
+                   new CommandID(GuidList.GuidCodeMaidCommandRemoveRegion, PackageIds.CmdIDCodeMaidRemoveRegion))
         {
             _codeModelHelper = CodeModelHelper.GetInstance(package);
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);

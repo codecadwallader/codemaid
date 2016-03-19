@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeOptionsCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSpadeOptions, (int)PkgCmdIDList.CmdIDCodeMaidSpadeOptions))
+                   new CommandID(GuidList.GuidCodeMaidCommandSpadeOptions, PackageIds.CmdIDCodeMaidSpadeOptions))
         {
         }
 

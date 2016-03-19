@@ -176,6 +176,11 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
+    <Compile Include="CodeMaid.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CodeLanguageHelper.cs" />
     <Compile Include="Helpers\CodeLanguage.cs" />
     <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
@@ -256,7 +261,6 @@
     <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
     <Compile Include="Integration\GuidList.cs" />
-    <Compile Include="Integration\PkgCmdIDList.cs" />
     <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
@@ -414,6 +418,8 @@
     <VSCTCompile Include="CodeMaid.vsct">
       <ResourceName>1000</ResourceName>
       <SubType>Designer</SubType>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>CodeMaid.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>

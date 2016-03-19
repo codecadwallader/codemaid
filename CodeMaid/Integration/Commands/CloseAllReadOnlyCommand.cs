@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal CloseAllReadOnlyCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandCloseAllReadOnly, (int)PkgCmdIDList.CmdIDCodeMaidCloseAllReadOnly))
+                   new CommandID(GuidList.GuidCodeMaidCommandCloseAllReadOnly, PackageIds.CmdIDCodeMaidCloseAllReadOnly))
         {
         }
 

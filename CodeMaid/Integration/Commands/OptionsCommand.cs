@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal OptionsCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandOptions, (int)PkgCmdIDList.CmdIDCodeMaidOptions))
+                   new CommandID(GuidList.GuidCodeMaidCommandOptions, PackageIds.CmdIDCodeMaidOptions))
         {
         }
 

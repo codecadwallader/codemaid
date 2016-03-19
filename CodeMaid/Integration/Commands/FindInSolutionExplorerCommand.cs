@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal FindInSolutionExplorerCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandFindInSolutionExplorer, (int)PkgCmdIDList.CmdIDCodeMaidFindInSolutionExplorer))
+                   new CommandID(GuidList.GuidCodeMaidCommandFindInSolutionExplorer, PackageIds.CmdIDCodeMaidFindInSolutionExplorer))
         {
         }
 

@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal CollapseSelectedSolutionExplorerCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandCollapseSelectedSolutionExplorer, (int)PkgCmdIDList.CmdIDCodeMaidCollapseSelectedSolutionExplorer))
+                   new CommandID(GuidList.GuidCodeMaidCommandCollapseSelectedSolutionExplorer, PackageIds.CmdIDCodeMaidCollapseSelectedSolutionExplorer))
         {
         }
 

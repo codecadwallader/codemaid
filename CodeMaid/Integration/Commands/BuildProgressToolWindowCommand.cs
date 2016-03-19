@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal BuildProgressToolWindowCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandBuildProgressToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidBuildProgressToolWindow))
+                   new CommandID(GuidList.GuidCodeMaidCommandBuildProgressToolWindow, PackageIds.CmdIDCodeMaidBuildProgressToolWindow))
         {
         }
 

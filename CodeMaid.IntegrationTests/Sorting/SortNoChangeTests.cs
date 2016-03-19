@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Sorting
             var textDocument = TestUtils.GetTextDocument(document);
             textDocument.Selection.SelectAll();
 
-            var sortCommand = new CommandID(GuidList.GuidCodeMaidCommandSortLines, (int)PkgCmdIDList.CmdIDCodeMaidSortLines);
+            var sortCommand = new CommandID(GuidList.GuidCodeMaidCommandSortLines, PackageIds.CmdIDCodeMaidSortLines);
             TestUtils.ExecuteCommand(sortCommand);
         }
 

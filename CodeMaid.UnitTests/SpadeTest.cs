@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
             var package = CodeMaidPackageHelper.CreateInitializedPackage();
 
             // Retrieve the command.
-            var command = package.MenuCommandService.FindCommand(new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, (int)PkgCmdIDList.CmdIDCodeMaidSpadeToolWindow));
+            var command = package.MenuCommandService.FindCommand(new CommandID(GuidList.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow));
 
             // Invoke the command.
             command.Invoke();
