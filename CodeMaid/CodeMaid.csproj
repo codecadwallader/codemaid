@@ -311,6 +311,9 @@
     <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="source.extension.cs">
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Compile>
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
@@ -404,6 +407,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="source.extension.resx">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -423,6 +433,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="source.extension.ico">
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Resource>
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class_Friend.png" />
     <Resource Include="UI\ToolWindows\Spade\Images\VS2012_Dark\Class_Private.png" />
@@ -627,7 +640,10 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="source.extension.vsixmanifest" />
+    <None Include="source.extension.vsixmanifest">
+      <Generator>VsixManifestGenerator</Generator>
+      <LastGenOutput>source.extension.resx</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Dialogs\About\AboutWindow.xaml">
