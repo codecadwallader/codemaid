@@ -17,5 +17,8 @@ before_build:
 build_script:
   - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
+test:
+  assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
+
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
