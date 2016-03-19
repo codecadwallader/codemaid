@@ -9,15 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
 		CHANGELOG.md = CHANGELOG.md
-		CodeMaid.config = CodeMaid.config
-		CodeMaid.snk = CodeMaid.snk
 		CodeMaid.vsmdi = CodeMaid.vsmdi
 		CONTRIBUTING.md = CONTRIBUTING.md
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		IntegrationTests.testsettings = IntegrationTests.testsettings
 		ISSUE_TEMPLATE.md = ISSUE_TEMPLATE.md
 		LICENSE.txt = LICENSE.txt
-		README.md = README.md
+		README = README
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"
