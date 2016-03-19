@@ -1,14 +1,20 @@
-version: 0.9.1.{build}
+version: '0.9.1.{build}'
 os: Visual Studio 2015
 configuration: Release
+
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+
 build:
   project: CodeMaid.sln
   verbosity: minimal
+
 test:
   assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
+
+artifacts:
+  - path: bin\Release\*.vsix
