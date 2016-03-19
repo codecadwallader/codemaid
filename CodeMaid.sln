@@ -5,14 +5,17 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69127706-88D9-4314-B801-4FB2E615B700}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
 		CHANGELOG.md = CHANGELOG.md
 		CodeMaid.config = CodeMaid.config
 		CodeMaid.snk = CodeMaid.snk
 		CodeMaid.vsmdi = CodeMaid.vsmdi
+		CONTRIBUTING.md = CONTRIBUTING.md
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		IntegrationTests.testsettings = IntegrationTests.testsettings
+		ISSUE_TEMPLATE.md = ISSUE_TEMPLATE.md
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
