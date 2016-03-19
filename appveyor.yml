@@ -17,4 +17,4 @@ test:
   assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
 
 artifacts:
-  - path: bin\Release\*.vsix
+  - path: '**\*.vsix'
