@@ -895,15 +895,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\Update\Data\FileHeaderXAML.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cleaning\Update\Data\FileHeaderXAML_Cleaned.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
