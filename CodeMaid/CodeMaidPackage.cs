@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Integration;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
 using SteveCadwallader.CodeMaid.Model;
@@ -55,7 +54,7 @@ namespace SteveCadwallader.CodeMaid
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
-    [Guid(GuidList.GuidCodeMaidPackageString)] // Package unique GUID.
+    [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct, IVsPackageDynamicToolOwner
     {
         #region Fields
@@ -326,7 +325,7 @@ namespace SteveCadwallader.CodeMaid
         {
             pfShowTool = 1;
 
-            if (rguidPersistenceSlot == GuidList.GuidCodeMaidToolWindowSpade)
+            if (rguidPersistenceSlot == PackageGuids.GuidCodeMaidToolWindowSpade)
             {
                 var monitorSelection = GetService(typeof(IVsMonitorSelection)) as IVsMonitorSelection;
                 if (monitorSelection != null)

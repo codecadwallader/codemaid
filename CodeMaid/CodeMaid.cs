@@ -14,6 +14,9 @@ namespace SteveCadwallader.CodeMaid
         public const string GuidVisualStudioJSONDocumentContextMenuString = "f718ca06-cf4f-4a0c-9106-e79e9ee5e7cd";
         public const string GuidVisualStudioXAMLWindowContextMenuString = "4c87b692-1202-46aa-b64c-ef01faec53da";
         public const string GuidCodeMaidPackageString = "4c82e17d-927e-42d2-8460-b473ac7df316";
+        public const string GuidCodeMaidToolWindowBuildProgressString = "260978c3-582c-487d-ab12-c1fdde07c578";
+        public const string GuidCodeMaidToolWindowSpadeString = "75d09b86-471e-4b30-8720-362d13ad0a45";
+        public const string GuidCodeMaidOutputPaneString = "4e7ba904-9311-4dd0-abe5-a61c1739780f";
         public const string GuidCodeMaidMenuBaseGroupString = "186512ff-6c4e-42c9-b9a1-032f35109993";
         public const string GuidCodeMaidMenuCleanupGroupString = "eb1c95fd-1b99-47ab-913a-62e7f69a0319";
         public const string GuidCodeMaidMenuDocumentGroupString = "5c29c8d8-681c-4cf3-8481-cc3ee484639a";
@@ -123,6 +126,9 @@ namespace SteveCadwallader.CodeMaid
         public static Guid GuidVisualStudioJSONDocumentContextMenu = new Guid(GuidVisualStudioJSONDocumentContextMenuString);
         public static Guid GuidVisualStudioXAMLWindowContextMenu = new Guid(GuidVisualStudioXAMLWindowContextMenuString);
         public static Guid GuidCodeMaidPackage = new Guid(GuidCodeMaidPackageString);
+        public static Guid GuidCodeMaidToolWindowBuildProgress = new Guid(GuidCodeMaidToolWindowBuildProgressString);
+        public static Guid GuidCodeMaidToolWindowSpade = new Guid(GuidCodeMaidToolWindowSpadeString);
+        public static Guid GuidCodeMaidOutputPane = new Guid(GuidCodeMaidOutputPaneString);
         public static Guid GuidCodeMaidMenuBaseGroup = new Guid(GuidCodeMaidMenuBaseGroupString);
         public static Guid GuidCodeMaidMenuCleanupGroup = new Guid(GuidCodeMaidMenuCleanupGroupString);
         public static Guid GuidCodeMaidMenuDocumentGroup = new Guid(GuidCodeMaidMenuDocumentGroupString);

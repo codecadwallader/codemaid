@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeContextRemoveRegionCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSpadeContextRemoveRegion, PackageIds.CmdIDCodeMaidSpadeContextRemoveRegion))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeContextRemoveRegion, PackageIds.CmdIDCodeMaidSpadeContextRemoveRegion))
         {
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }

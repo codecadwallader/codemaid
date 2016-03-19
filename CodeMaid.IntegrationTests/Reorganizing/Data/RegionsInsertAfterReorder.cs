@@ -7,7 +7,7 @@
         public const int MenuIDCodeMaidContextSpade = 0x1060;
     }
 
-    public static class GuidList
+    public static class PackageGuids
     {
         public const string GuidCodeMaidToolWindowBuildProgressString = "260978c3-582c-487d-ab12-c1fdde07c578";
         public static readonly Guid GuidCodeMaidToolWindowBuildProgress = new Guid(GuidCodeMaidToolWindowBuildProgressString);

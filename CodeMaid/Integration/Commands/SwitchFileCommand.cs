@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SwitchFileCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSwitchFile, PackageIds.CmdIDCodeMaidSwitchFile))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSwitchFile, PackageIds.CmdIDCodeMaidSwitchFile))
         {
         }
 

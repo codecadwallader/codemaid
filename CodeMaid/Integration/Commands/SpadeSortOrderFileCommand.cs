@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeSortOrderFileCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSpadeSortOrderFile, PackageIds.CmdIDCodeMaidSpadeSortOrderFile))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeSortOrderFile, PackageIds.CmdIDCodeMaidSpadeSortOrderFile))
         {
         }
 

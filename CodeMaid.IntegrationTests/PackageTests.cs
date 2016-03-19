@@ -12,7 +12,6 @@
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
-using SteveCadwallader.CodeMaid.Integration;
 using System;
 
 namespace SteveCadwallader.CodeMaid.IntegrationTests
@@ -32,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
 
                 // Validate package load
                 IVsPackage package;
-                var packageGuid = new Guid(GuidList.GuidCodeMaidPackageString);
+                var packageGuid = new Guid(PackageGuids.GuidCodeMaidPackageString);
 
                 Assert.IsTrue(0 == shellService.LoadPackage(ref packageGuid, out package));
                 Assert.IsNotNull(package, "Package failed to load");

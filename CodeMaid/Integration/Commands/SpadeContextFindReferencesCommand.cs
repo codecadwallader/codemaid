@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeContextFindReferencesCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSpadeContextFindReferences, PackageIds.CmdIDCodeMaidSpadeContextFindReferences))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeContextFindReferences, PackageIds.CmdIDCodeMaidSpadeContextFindReferences))
         {
         }
 

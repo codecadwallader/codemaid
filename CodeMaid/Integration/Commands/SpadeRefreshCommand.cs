@@ -26,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeRefreshCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(GuidList.GuidCodeMaidCommandSpadeRefresh, PackageIds.CmdIDCodeMaidSpadeRefresh))
+                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeRefresh, PackageIds.CmdIDCodeMaidSpadeRefresh))
         {
         }
 
