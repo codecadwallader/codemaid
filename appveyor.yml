@@ -10,4 +10,6 @@ build:
   project: CodeMaid.sln
   verbosity: minimal
 test:
-  assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
+  assemblies:
+    - SteveCadwallader.CodeMaid.UnitTests.dll
+    - SteveCadwallader.CodeMaid.IntegrationTests.dll
