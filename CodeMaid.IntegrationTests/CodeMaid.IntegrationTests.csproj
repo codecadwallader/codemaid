@@ -213,6 +213,7 @@
     </Content>
     <Compile Include="Cleaning\FileTypes\EverythingElseTests.cs" />
     <Compile Include="Cleaning\FileTypes\JSONTests.cs" />
+    <Compile Include="Cleaning\FileTypes\RTests.cs" />
     <Compile Include="Cleaning\FileTypes\PowerShellTests.cs" />
     <Compile Include="Cleaning\FileTypes\PHPTests.cs" />
     <Compile Include="Cleaning\FileTypes\SCSSTests.cs" />
@@ -266,6 +267,7 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Cleaning\Update\FileHeaderRTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderXMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderXAMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderVisualBasicTests.cs" />
@@ -873,6 +875,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\Update\Data\FileHeaderSCSS_Cleaned.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\FileTypes\Data\R.R">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderR_Cleaned.R">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderR.R">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

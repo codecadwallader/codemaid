@@ -206,6 +206,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Cleaning_IncludeR {
+            get {
+                return ((bool)(this["Cleaning_IncludeR"]));
+            }
+            set {
+                this["Cleaning_IncludeR"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Cleaning_IncludeSCSS {
             get {
                 return ((bool)(this["Cleaning_IncludeSCSS"]));
@@ -1124,6 +1136,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_UpdateFileHeaderPowerShell"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderR {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderR"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderR"] = value;
             }
         }
         

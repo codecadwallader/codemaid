@@ -47,6 +47,9 @@
     <Setting Name="Cleaning_IncludePowerShell" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Cleaning_IncludeR" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="Cleaning_IncludeSCSS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -276,6 +279,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Cleaning_UpdateFileHeaderPowerShell" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderR" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Cleaning_UpdateFileHeaderSCSS" Type="System.String" Scope="User">

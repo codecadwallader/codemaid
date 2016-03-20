@@ -198,6 +198,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case CodeLanguage.LESS:
                 case CodeLanguage.PHP:
                 case CodeLanguage.PowerShell:
+                case CodeLanguage.R:
                 case CodeLanguage.SCSS:
                 case CodeLanguage.TypeScript:
                     return RunCodeCleanupC;
