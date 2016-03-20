@@ -199,6 +199,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case CodeLanguage.LESS: return Settings.Default.Cleaning_IncludeLESS;
                 case CodeLanguage.PHP: return Settings.Default.Cleaning_IncludePHP;
                 case CodeLanguage.PowerShell: return Settings.Default.Cleaning_IncludePowerShell;
+                case CodeLanguage.R: return Settings.Default.Cleaning_IncludeR;
                 case CodeLanguage.SCSS: return Settings.Default.Cleaning_IncludeSCSS;
                 case CodeLanguage.TypeScript: return Settings.Default.Cleaning_IncludeTypeScript;
                 case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_IncludeVB;
@@ -315,6 +316,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case "{7b22909e-1b53-4cc7-8c2b-1f5c5039693a}": return Settings.Default.Cleaning_IncludeLESS;
                 case "{16b0638d-251a-4705-98d2-5251112c4139}": return Settings.Default.Cleaning_IncludePHP;
                 case "{1c4711f1-3766-4f84-9516-43fa4169cc36}": return Settings.Default.Cleaning_IncludePowerShell;
+                case "{29c0d8e0-c01c-412b-bee8-7a7a253a31e6}": return Settings.Default.Cleaning_IncludeR;
                 case "{5fa499f6-2cec-435b-bfce-53bbe29f37f6}": return Settings.Default.Cleaning_IncludeSCSS;
                 case "{4a0dddb5-7a95-4fbf-97cc-616d07737a77}": return Settings.Default.Cleaning_IncludeTypeScript;
                 case "{e34acdc0-baae-11d0-88bf-00a0c9110049}": return Settings.Default.Cleaning_IncludeVB;

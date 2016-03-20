@@ -29,6 +29,7 @@
                 case "LESS": return CodeLanguage.LESS;
                 case "PHP": return CodeLanguage.PHP;
                 case "PowerShell": return CodeLanguage.PowerShell;
+                case "R": return CodeLanguage.PowerShell;
                 case "SCSS": return CodeLanguage.SCSS;
                 case "TypeScript": return CodeLanguage.TypeScript;
                 case "XAML": return CodeLanguage.XAML;

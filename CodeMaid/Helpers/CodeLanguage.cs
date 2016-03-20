@@ -20,6 +20,7 @@
         LESS,
         PHP,
         PowerShell,
+        R,
         SCSS,
         TypeScript,
         VisualBasic,
