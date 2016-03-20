@@ -31,13 +31,13 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                 var document = GetActivatedDocument(projectItem);
 
                 // Run command and assert it is not saved afterwards.
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandAndVerifyResults was not initially saved");
                 command(document);
-                Assert.IsFalse(document.Saved);
+                Assert.IsFalse(document.Saved, "ExecuteCommandAndVerifyResults did not change save state as expected");
 
                 // Save the document.
                 document.Save();
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandAndVerifyResults was not finally saved");
 
                 // Read the file contents of the baseline and cleaned content and assert they match.
                 var baselineContent = File.ReadAllText(baselinePath);
@@ -60,17 +60,17 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                 var document = GetActivatedDocument(projectItem);
 
                 // Run command a first time and assert it is not saved afterwards.
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass was not initially saved");
                 command(document);
-                Assert.IsFalse(document.Saved);
+                Assert.IsFalse(document.Saved, "ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass did not change save state as expected");
 
                 // Save the document.
                 document.Save();
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass was not secondarily saved");
 
                 // Run command a second time and assert it is still in a saved state (i.e. no changes).
                 command(document);
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass was not finally saved");
             }));
         }
 
@@ -89,9 +89,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
                 var document = GetActivatedDocument(projectItem);
 
                 // Run command and assert it is still in a saved state (i.e. no changes).
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandAndVerifyNoChanges was not initially saved");
                 command(document);
-                Assert.IsTrue(document.Saved);
+                Assert.IsTrue(document.Saved, "ExecuteCommandAndVerifyNoChanges changed save state");
             }));
         }
 
