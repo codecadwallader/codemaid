@@ -150,13 +150,14 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <returns>The adjusted starting point.</returns>
         private static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
         {
+            var commentPrefix = CodeCommentHelper.GetCommentPrefix(originalPoint.Parent);
             var point = originalPoint.CreateEditPoint();
 
             while (point.Line > 1)
             {
                 string text = point.GetLines(point.Line - 1, point.Line);
 
-                if (RegexNullSafe.IsMatch(text, @"^\s*//"))
+                if (RegexNullSafe.IsMatch(text, @"^\s*" + commentPrefix))
                 {
                     point.LineUp();
                     point.StartOfLine();
