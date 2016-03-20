@@ -92,9 +92,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (context == null) throw new ArgumentNullException("context");
 
-            var groupName = context["GroupName"];
-
-            return groupName != null ? groupName.ToString() : null;
+            return context["GroupName"]?.ToString();
         }
 
         /// <summary>

@@ -16,16 +16,16 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemEnum()
         {
             _Access = LazyTryDefault(
-                () => CodeEnum != null ? CodeEnum.Access : vsCMAccess.vsCMAccessPublic);
+                () => CodeEnum?.Access ?? vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeEnum != null ? CodeEnum.Attributes : null);
+                () => CodeEnum?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeEnum != null ? CodeEnum.DocComment : null);
+                () => CodeEnum?.DocComment);
 
             _Namespace = LazyTryDefault(
-                () => CodeEnum != null && CodeEnum.Namespace != null ? CodeEnum.Namespace.Name : null);
+                () => CodeEnum?.Namespace?.Name);
 
             _TypeString = new Lazy<string>(
                 () => "enum");

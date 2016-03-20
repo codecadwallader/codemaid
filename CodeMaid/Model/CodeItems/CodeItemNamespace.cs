@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemNamespace()
         {
             _DocComment = LazyTryDefault(
-                () => CodeNamespace != null ? CodeNamespace.DocComment : null);
+                () => CodeNamespace?.DocComment);
 
             _TypeString = new Lazy<string>(
                 () => "namespace");

@@ -26,19 +26,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemDelegate()
         {
             _Access = LazyTryDefault(
-                () => CodeDelegate != null ? CodeDelegate.Access : vsCMAccess.vsCMAccessPublic);
+                () => CodeDelegate?.Access ?? vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeDelegate != null ? CodeDelegate.Attributes : null);
+                () => CodeDelegate?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeDelegate != null ? CodeDelegate.DocComment : null);
+                () => CodeDelegate?.DocComment);
 
             _namespace = LazyTryDefault(
-                () => CodeDelegate != null && CodeDelegate.Namespace != null ? CodeDelegate.Namespace.Name : null);
+                () => CodeDelegate?.Namespace?.Name);
 
             _parameters = LazyTryDefault(
-                () => CodeDelegate != null && CodeDelegate.Parameters != null ? CodeDelegate.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+                () => CodeDelegate?.Parameters?.Cast<CodeParameter>().ToList() ?? Enumerable.Empty<CodeParameter>());
 
             _TypeString = new Lazy<string>(
                 () => "delegate");

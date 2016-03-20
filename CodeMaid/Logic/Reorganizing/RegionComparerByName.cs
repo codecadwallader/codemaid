@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 throw new ArgumentNullException("region");
             }
 
-            return region.Name == null ? 0 : region.Name.GetHashCode();
+            return region.Name?.GetHashCode() ?? 0;
         }
     }
 }

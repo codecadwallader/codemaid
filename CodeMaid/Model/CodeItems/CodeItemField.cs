@@ -25,19 +25,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemField()
         {
             _Access = LazyTryDefault(
-                () => CodeVariable != null ? CodeVariable.Access : vsCMAccess.vsCMAccessPublic);
+                () => CodeVariable?.Access ?? vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeVariable != null ? CodeVariable.Attributes : null);
+                () => CodeVariable?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeVariable != null ? CodeVariable.DocComment : null);
+                () => CodeVariable?.DocComment);
 
             _isConstant = LazyTryDefault(
                 () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
 
             _isEnumItem = LazyTryDefault(
-                () => CodeVariable != null && CodeVariable.Parent != null && CodeVariable.Parent is CodeEnum);
+                () => CodeVariable?.Parent is CodeEnum);
 
             _isReadOnly = LazyTryDefault(
                 () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);
@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeVariable != null && CodeVariable.IsShared);
 
             _TypeString = LazyTryDefault(
-                () => CodeVariable != null && CodeVariable.Type != null ? CodeVariable.Type.AsString : null);
+                () => CodeVariable?.Type?.AsString);
         }
 
         #endregion Constructors

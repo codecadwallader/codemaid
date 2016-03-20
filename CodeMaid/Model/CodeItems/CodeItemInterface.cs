@@ -17,16 +17,16 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemInterface()
         {
             _Access = LazyTryDefault(
-                () => CodeInterface != null ? CodeInterface.Access : vsCMAccess.vsCMAccessPublic);
+                () => CodeInterface?.Access ?? vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeInterface != null ? CodeInterface.Attributes : null);
+                () => CodeInterface?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeInterface != null ? CodeInterface.DocComment : null);
+                () => CodeInterface?.DocComment);
 
             _Namespace = LazyTryDefault(
-                () => CodeInterface != null && CodeInterface.Namespace != null ? CodeInterface.Namespace.Name : null);
+                () => CodeInterface?.Namespace?.Name);
 
             _TypeString = new Lazy<string>(
                 () => "interface");

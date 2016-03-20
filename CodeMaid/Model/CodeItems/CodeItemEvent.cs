@@ -29,10 +29,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeEvent != null && !IsExplicitInterfaceImplementation ? CodeEvent.Access : vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeEvent != null ? CodeEvent.Attributes : null);
+                () => CodeEvent?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeEvent != null ? CodeEvent.DocComment : null);
+                () => CodeEvent?.DocComment);
 
             _isExplicitInterfaceImplementation = LazyTryDefault(
                 () => CodeEvent != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeEvent));
@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeEvent != null && CodeEvent.IsShared);
 
             _TypeString = LazyTryDefault(
-                () => CodeEvent != null && CodeEvent.Type != null ? CodeEvent.Type.AsString : null);
+                () => CodeEvent?.Type?.AsString);
         }
 
         #endregion Constructors

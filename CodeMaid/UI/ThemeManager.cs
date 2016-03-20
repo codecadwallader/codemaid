@@ -2,6 +2,7 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
+using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,15 +90,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// Gets the Spade content as a FrameworkElement, may be null.
         /// </summary>
-        private FrameworkElement SpadeContent
-        {
-            get
-            {
-                var spade = _package.Spade;
-
-                return spade != null ? spade.Content as FrameworkElement : null;
-            }
-        }
+        private FrameworkElement SpadeContent => _package.Spade?.Content as FrameworkElement;
 
         #endregion Properties
 

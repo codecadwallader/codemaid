@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the insert point, may be null.
         /// </summary>
-        public EditPoint InsertPoint => CodeElement != null ? CodeElement.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() : null;
+        public EditPoint InsertPoint => CodeElement?.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
 
         /// <summary>
         /// Gets or sets the flag indicating if this parent item is expanded.

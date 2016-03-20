@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         {
             var enumValue = value as Enum;
 
-            return enumValue != null ? enumValue.GetDescription() : null;
+            return enumValue?.GetDescription();
         }
 
         /// <summary>

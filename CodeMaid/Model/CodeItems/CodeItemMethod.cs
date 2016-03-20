@@ -36,13 +36,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeFunction != null && !(IsStatic && IsConstructor) && !IsExplicitInterfaceImplementation ? CodeFunction.Access : vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeFunction != null ? CodeFunction.Attributes : null);
+                () => CodeFunction?.Attributes);
 
             _complexity = LazyTryDefault(
                 () => CodeElementHelper.CalculateComplexity(CodeElement));
 
             _DocComment = LazyTryDefault(
-                () => CodeFunction != null ? CodeFunction.DocComment : null);
+                () => CodeFunction?.DocComment);
 
             _isConstructor = LazyTryDefault(
                 () => CodeFunction != null && CodeFunction.FunctionKind == vsCMFunction.vsCMFunctionConstructor);
@@ -57,13 +57,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeFunction != null && CodeFunction.IsShared);
 
             _overrideKind = LazyTryDefault(
-                () => CodeFunction != null ? CodeFunction.OverrideKind : vsCMOverrideKind.vsCMOverrideKindNone);
+                () => CodeFunction?.OverrideKind ?? vsCMOverrideKind.vsCMOverrideKindNone);
 
             _parameters = LazyTryDefault(
-                () => CodeFunction != null && CodeFunction.Parameters != null ? CodeFunction.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+                () => CodeFunction?.Parameters?.Cast<CodeParameter>().ToList() ?? Enumerable.Empty<CodeParameter>());
 
             _TypeString = LazyTryDefault(
-                () => CodeFunction != null && CodeFunction.Type != null ? CodeFunction.Type.AsString : null);
+                () => CodeFunction?.Type?.AsString);
         }
 
         #endregion Constructors

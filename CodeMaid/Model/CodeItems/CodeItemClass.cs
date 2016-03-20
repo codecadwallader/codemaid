@@ -17,19 +17,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         public CodeItemClass()
         {
             _Access = LazyTryDefault(
-                () => CodeClass != null ? CodeClass.Access : vsCMAccess.vsCMAccessPublic);
+                () => CodeClass?.Access ?? vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeClass != null ? CodeClass.Attributes : null);
+                () => CodeClass?.Attributes);
 
             _DocComment = LazyTryDefault(
-                () => CodeClass != null ? CodeClass.DocComment : null);
+                () => CodeClass?.DocComment);
 
             _IsStatic = LazyTryDefault(
                 () => CodeClass != null && CodeClass.IsShared);
 
             _Namespace = LazyTryDefault(
-                () => CodeClass != null && CodeClass.Namespace != null ? CodeClass.Namespace.Name : null);
+                () => CodeClass?.Namespace?.Name);
 
             _TypeString = new Lazy<string>(
                 () => "class");

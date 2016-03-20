@@ -107,15 +107,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets the active text document, otherwise null.
         /// </summary>
-        private TextDocument ActiveTextDocument
-        {
-            get
-            {
-                var document = Package.ActiveDocument;
-
-                return document != null ? document.GetTextDocument() : null;
-            }
-        }
+        private TextDocument ActiveTextDocument => Package.ActiveDocument?.GetTextDocument();
 
         #endregion Private Properties
 

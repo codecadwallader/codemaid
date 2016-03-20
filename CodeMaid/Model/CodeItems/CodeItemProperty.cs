@@ -34,19 +34,19 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeProperty != null && !IsExplicitInterfaceImplementation ? CodeProperty.Access : vsCMAccess.vsCMAccessPublic);
 
             _Attributes = LazyTryDefault(
-                () => CodeProperty != null ? CodeProperty.Attributes : null);
+                () => CodeProperty?.Attributes);
 
             _complexity = LazyTryDefault(
                 () => CodeElementHelper.CalculateComplexity(CodeElement));
 
             _DocComment = LazyTryDefault(
-                () => CodeProperty != null ? CodeProperty.DocComment : null);
+                () => CodeProperty?.DocComment);
 
             _isExplicitInterfaceImplementation = LazyTryDefault(
                 () => CodeProperty != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeProperty));
 
             _isIndexer = LazyTryDefault(
-                () => CodeProperty != null && CodeProperty.Parameters != null && CodeProperty.Parameters.Count > 0);
+                () => CodeProperty?.Parameters != null && CodeProperty.Parameters.Count > 0);
 
             _IsStatic = LazyTryDefault(
                 () => CodeProperty != null &&
@@ -54,10 +54,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                        (CodeProperty.Setter != null && CodeProperty.Setter.IsShared)));
 
             _parameters = LazyTryDefault(
-                () => CodeProperty != null && CodeProperty.Parameters != null ? CodeProperty.Parameters.Cast<CodeParameter>().ToList() : Enumerable.Empty<CodeParameter>());
+                () => CodeProperty?.Parameters?.Cast<CodeParameter>().ToList() ?? Enumerable.Empty<CodeParameter>());
 
             _TypeString = LazyTryDefault(
-                () => CodeProperty != null && CodeProperty.Type != null ? CodeProperty.Type.AsString : null);
+                () => CodeProperty?.Type?.AsString);
         }
 
         #endregion Constructors

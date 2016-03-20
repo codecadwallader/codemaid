@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the end point, may be null.
         /// </summary>
-        public override EditPoint EndPoint => CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null;
+        public override EditPoint EndPoint => CodeElement?.EndPoint.CreateEditPoint();
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
