@@ -110,6 +110,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     return "///?";
 
                 case CodeLanguage.PowerShell:
+                case CodeLanguage.R:
                     return "#+";
 
                 case CodeLanguage.VisualBasic:
