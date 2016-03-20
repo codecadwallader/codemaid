@@ -40,8 +40,7 @@ namespace SteveCadwallader.CodeMaid.Model
         {
             CodeModel codeModel;
 
-            OutputWindowHelper.DiagnosticWriteLine(
-                string.Format("CodeModelCache.GetCodeModel for '{0}'", document.FullName));
+            OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.GetCodeModel for '{document.FullName}'");
 
             lock (_cache)
             {
@@ -76,8 +75,7 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (_cache.Remove(document.FullName))
                 {
-                    OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeModelCache.RemoveCodeModel from cache for '{0}'", document.FullName));
+                    OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.RemoveCodeModel from cache for '{document.FullName}'");
                 }
             }
         }
@@ -92,8 +90,7 @@ namespace SteveCadwallader.CodeMaid.Model
             if (_cache.TryGetValue(document.FullName, out codeModel))
             {
                 codeModel.IsStale = true;
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("CodeModelCache.StaleCodeModel in cache for '{0}'", document.FullName));
+                OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.StaleCodeModel in cache for '{document.FullName}'");
             }
         }
 

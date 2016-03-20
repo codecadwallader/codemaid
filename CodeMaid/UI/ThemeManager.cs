@@ -2,7 +2,6 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
-using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.UI
 
                     foreach (ThemeMode theme in Enum.GetValues(typeof(ThemeMode)))
                     {
-                        var uriString = string.Format(@"/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaid{0}Theme.xaml", theme);
+                        var uriString = $@"/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaid{theme}Theme.xaml";
                         var uri = new Uri(uriString, UriKind.Relative);
 
                         _themeUris.Add(theme, uri);
@@ -194,9 +193,8 @@ namespace SteveCadwallader.CodeMaid.UI
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.ExceptionWriteLine(
-                    string.Format("Unable to load theme '{0}'", themeUri), ex);
-                _package.IDE.StatusBar.Text = string.Format("CodeMaid failed to load theme '{0}'.  See output window for more details.", themeUri);
+                OutputWindowHelper.ExceptionWriteLine($"Unable to load theme '{themeUri}'", ex);
+                _package.IDE.StatusBar.Text = $"CodeMaid failed to load theme '{themeUri}'.  See output window for more details.";
 
                 return null;
             }

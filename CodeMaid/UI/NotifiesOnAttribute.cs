@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
         public NotifiesOnAttribute(string name)
         {
-            if (name == null) throw new ArgumentNullException("name");
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
             Name = name;
         }

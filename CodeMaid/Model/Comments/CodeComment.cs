@@ -16,8 +16,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         #region Fields
 
         private readonly TextDocument _document;
-        private Regex _commentLineRegex;
-        private int _tabSize;
+        private readonly Regex _commentLineRegex;
+        private readonly int _tabSize;
 
         private EditPoint _endPoint;
         private EditPoint _startPoint;
@@ -33,11 +33,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         {
             if (point == null)
             {
-                throw new ArgumentNullException("point");
+                throw new ArgumentNullException(nameof(point));
             }
 
             _document = point.Parent;
-            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), true);
+            _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage());
             _tabSize = tabSize;
 
             Expand(point);
@@ -62,7 +62,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public static string FormatXml(string text)
         {
-            var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
+            var xml = XElement.Parse($"<doc>{text}</doc>");
             var line = new CommentLineXml(xml);
             var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
             var formatter = new CommentFormatter(line, "///", 4, regex);
@@ -93,7 +93,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 try
                 {
-                    var xml = XElement.Parse(string.Format("<doc>{0}</doc>", commentText));
+                    var xml = XElement.Parse($"<doc>{commentText}</doc>");
                     line = new CommentLineXml(xml);
                 }
                 catch (System.Xml.XmlException)

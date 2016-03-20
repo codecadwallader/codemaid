@@ -90,7 +90,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The section name, otherwise null.</returns>
         private static string GetSectionName(SettingsContext context)
         {
-            if (context == null) throw new ArgumentNullException("context");
+            if (context == null) throw new ArgumentNullException(nameof(context));
 
             return context["GroupName"]?.ToString();
         }
@@ -102,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The <see cref="Configuration"/> object.</returns>
         private static Configuration GetConfiguration(string path)
         {
-            if (path == null) throw new ArgumentNullException("path");
+            if (path == null) throw new ArgumentNullException(nameof(path));
 
             var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = path };
             var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);

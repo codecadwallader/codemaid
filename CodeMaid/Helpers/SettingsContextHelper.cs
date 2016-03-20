@@ -70,7 +70,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The path to the solution settings, otherwise null.</returns>
         internal static string GetSolutionSettingsPath(SettingsContext context)
         {
-            if (context == null) throw new ArgumentNullException("context");
+            if (context == null) throw new ArgumentNullException(nameof(context));
 
             var solutionPath = context["SolutionPath"];
 

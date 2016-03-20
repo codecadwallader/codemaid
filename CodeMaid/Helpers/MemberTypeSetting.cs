@@ -9,12 +9,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class MemberTypeSetting : Bindable
     {
-        #region Fields
-
-        private readonly string _defaultName;
-
-        #endregion Fields
-
         #region Constructors
 
         /// <summary>
@@ -25,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="order">The order.</param>
         public MemberTypeSetting(string defaultName, string effectiveName, int order)
         {
-            _defaultName = defaultName;
+            DefaultName = defaultName;
             EffectiveName = effectiveName;
             Order = order;
         }
@@ -37,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the default name associated with this member type.
         /// </summary>
-        public string DefaultName => _defaultName;
+        public string DefaultName { get; }
 
         /// <summary>
         /// Gets or sets the effective name associated with this member type.
@@ -93,7 +87,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A serialized string representing the object.</returns>
         public static explicit operator string(MemberTypeSetting memberTypeSetting)
         {
-            return string.Format("{0}||{1}||{2}", memberTypeSetting.DefaultName, memberTypeSetting.Order, memberTypeSetting.EffectiveName);
+            return $"{memberTypeSetting.DefaultName}||{memberTypeSetting.Order}||{memberTypeSetting.EffectiveName}";
         }
 
         #endregion Methods

@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets the document.
         /// </summary>
-        internal Document Document { get; private set; }
+        internal Document Document { get; }
 
         /// <summary>
         /// Gets or sets the code items.
@@ -55,8 +55,7 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (_isBuilding != value)
                 {
-                    OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeModel.IsBuilding changing to '{0}' for '{1}'", value, Document.FullName));
+                    OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsBuilding changing to '{value}' for '{Document.FullName}'");
 
                     _isBuilding = value;
                     if (_isBuilding)
@@ -74,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets a wait handle that will be signaled when building is complete.
         /// </summary>
-        internal ManualResetEvent IsBuiltWaitHandle { get; private set; }
+        internal ManualResetEvent IsBuiltWaitHandle { get; }
 
         /// <summary>
         /// Gets or sets a flag indicating if this model is stale.
@@ -86,8 +85,7 @@ namespace SteveCadwallader.CodeMaid.Model
             {
                 if (_isStale != value)
                 {
-                    OutputWindowHelper.DiagnosticWriteLine(
-                        string.Format("CodeModel.IsStale changing to '{0}' for '{1}'", value, Document.FullName));
+                    OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsStale changing to '{value}' for '{Document.FullName}'");
 
                     _isStale = value;
                 }

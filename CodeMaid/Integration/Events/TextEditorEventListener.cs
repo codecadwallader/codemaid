@@ -54,9 +54,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="hint">A hint as to the type of change that has occurred.</param>
         private void TextEditorEvents_LineChanged(TextPoint startPoint, TextPoint endPoint, int hint)
         {
-            if (startPoint == null) return;
-
-            var textDocument = startPoint.Parent;
+            var textDocument = startPoint?.Parent;
             if (textDocument == null) return;
 
             var document = startPoint.Parent.Parent;
@@ -64,8 +62,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             var onLineChanged = OnLineChanged;
             if (onLineChanged != null && document != null)
             {
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("TextEditorEventListener.OnLineChanged raised for '{0}'", document.FullName));
+                OutputWindowHelper.DiagnosticWriteLine($"TextEditorEventListener.OnLineChanged raised for '{document.FullName}'");
 
                 onLineChanged(document);
             }

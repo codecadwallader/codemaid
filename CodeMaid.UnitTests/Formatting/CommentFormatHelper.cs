@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         public static string Format(string text, string prefix)
         {
-            var xml = XElement.Parse(string.Format("<doc>{0}</doc>", text));
+            var xml = XElement.Parse($"<doc>{text}</doc>");
             var line = new CommentLineXml(xml);
             var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrEmpty(prefix));
             var formatter = new CommentFormatter(line, prefix, 4, regex);

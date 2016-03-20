@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
         public virtual void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(string.Format(@"Data\{0}.cs", TestBaseFileName));
+            _projectItem = TestEnvironment.LoadFileIntoProject($@"Data\{TestBaseFileName}.cs");
         }
 
         public virtual void TestCleanup()
@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
         {
             Settings.Default.Formatting_CommentRunDuringCleanup = true;
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, string.Format(@"Data\{0}_Formatted.cs", TestBaseFileName));
+            TestOperations.ExecuteCommandAndVerifyResults(RunFormatComments, _projectItem, $@"Data\{TestBaseFileName}_Formatted.cs");
         }
 
         protected void DoesNothingOnSecondPass()

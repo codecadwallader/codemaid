@@ -72,7 +72,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             if (parentItem == null)
             {
-                throw new ArgumentNullException("parentItem");
+                throw new ArgumentNullException(nameof(parentItem));
             }
 
             const string solutionFolderGuid = "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";
@@ -83,8 +83,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             // Expand the solution folder temporarily.
             if (isCollapsedSolutionFolder)
             {
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily expanding '{0}'", parentItem.Name));
+                OutputWindowHelper.DiagnosticWriteLine($"FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily expanding '{parentItem.Name}'");
 
                 parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
                 Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();
@@ -99,8 +98,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             // Collapse the solution folder.
             if (isCollapsedSolutionFolder)
             {
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily collapsing '{0}'", parentItem.Name));
+                OutputWindowHelper.DiagnosticWriteLine($"FindInSolutionExplorerCommand.ToggleSolutionFoldersOpenTemporarily collapsing '{parentItem.Name}'");
 
                 parentItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
                 Package.IDE.ToolWindows.SolutionExplorer.DoDefaultAction();

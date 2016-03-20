@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         internal static BaseMock GetUiShellInstanceCreateToolWin()
         {
             BaseMock uiShell = GetUiShellInstance();
-            string name = string.Format("{0}.{1}", typeof(IVsUIShell).FullName, "CreateToolWindow");
+            string name = $"{typeof(IVsUIShell).FullName}.{"CreateToolWindow"}";
             uiShell.AddMethodCallback(name, CreateToolWindowCallBack);
 
             return uiShell;
@@ -59,7 +59,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         internal static BaseMock GetUiShellInstanceCreateToolWinReturnsNull()
         {
             BaseMock uiShell = GetUiShellInstance();
-            string name = string.Format("{0}.{1}", typeof(IVsUIShell).FullName, "CreateToolWindow");
+            string name = $"{typeof(IVsUIShell).FullName}.{"CreateToolWindow"}";
             uiShell.AddMethodCallback(name, CreateToolWindowNegativeTestCallBack);
 
             return uiShell;

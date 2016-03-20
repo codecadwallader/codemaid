@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (parentItem == null)
             {
-                throw new ArgumentNullException("parentItem");
+                throw new ArgumentNullException(nameof(parentItem));
             }
 
             // Create a collection.
@@ -112,14 +112,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             // First check if the item is a solution.
             var solution = parentItem as Solution;
-            if (solution != null && solution.Projects != null)
+            if (solution?.Projects != null)
             {
                 return solution.Projects.Cast<Project>().Cast<object>().ToList();
             }
 
             // Next check if the item is a project.
             var project = parentItem as Project;
-            if (project != null && project.ProjectItems != null)
+            if (project?.ProjectItems != null)
             {
                 return project.ProjectItems.Cast<ProjectItem>().Cast<object>().ToList();
             }

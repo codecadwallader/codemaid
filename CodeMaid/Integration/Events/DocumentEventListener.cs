@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Gets or sets a pointer to the IDE document events.
         /// </summary>
-        private DocumentEvents DocumentEvents { get; set; }
+        private DocumentEvents DocumentEvents { get; }
 
         #endregion Private Properties
 
@@ -54,8 +54,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             var onDocumentClosing = OnDocumentClosing;
             if (onDocumentClosing != null)
             {
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("DocumentEventListener.OnDocumentClosing raised for '{0}'", document != null ? document.FullName : "(null)"));
+                OutputWindowHelper.DiagnosticWriteLine($"DocumentEventListener.OnDocumentClosing raised for '{(document != null ? document.FullName : "(null)")}'");
 
                 onDocumentClosing(document);
             }

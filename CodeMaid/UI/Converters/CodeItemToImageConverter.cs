@@ -83,7 +83,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             if (typeComponent == null) return null;
 
-            string uriString = string.Format("/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/{0}/{1}{2}.png", ImagePath, typeComponent, accessComponent);
+            string uriString = $"/SteveCadwallader.CodeMaid;component/UI/ToolWindows/Spade/Images/{ImagePath}/{typeComponent}{accessComponent}.png";
 
             return uriString;
         }

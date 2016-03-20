@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             CleanupOnSave = !CleanupOnSave;
             Settings.Default.Save();
 
-            Package.IDE.StatusBar.Text = string.Format("CodeMaid turned automatic cleanup on save {0}.", CleanupOnSaveStateText);
+            Package.IDE.StatusBar.Text = $"CodeMaid turned automatic cleanup on save {CleanupOnSaveStateText}.";
         }
 
         #endregion BaseCommand Methods

@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         {
             if (region == null)
             {
-                throw new ArgumentNullException("region");
+                throw new ArgumentNullException(nameof(region));
             }
 
             return region.Name?.GetHashCode() ?? 0;

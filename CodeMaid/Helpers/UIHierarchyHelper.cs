@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (parentItem == null)
             {
-                throw new ArgumentNullException("parentItem");
+                throw new ArgumentNullException(nameof(parentItem));
             }
 
             if (!parentItem.UIHierarchyItems.Expanded) return;
@@ -93,7 +93,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (parentItem == null)
             {
-                throw new ArgumentNullException("parentItem");
+                throw new ArgumentNullException(nameof(parentItem));
             }
 
             return parentItem.UIHierarchyItems.Cast<UIHierarchyItem>().Any(

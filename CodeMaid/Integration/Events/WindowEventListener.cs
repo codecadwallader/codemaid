@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Gets or sets a pointer to the IDE window events.
         /// </summary>
-        private WindowEvents WindowEvents { get; set; }
+        private WindowEvents WindowEvents { get; }
 
         #endregion Private Properties
 
@@ -75,8 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             var onWindowChange = OnWindowChange;
             if (onWindowChange != null)
             {
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("WindowEventListener.OnWindowChange raised for '{0}'", document != null ? document.FullName : "(null)"));
+                OutputWindowHelper.DiagnosticWriteLine($"WindowEventListener.OnWindowChange raised for '{(document != null ? document.FullName : "(null)")}'");
 
                 onWindowChange(document);
             }

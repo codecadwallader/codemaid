@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Gets or sets a reference to the running document table.
         /// </summary>
-        private RunningDocumentTable RunningDocumentTable { get; set; }
+        private RunningDocumentTable RunningDocumentTable { get; }
 
         #endregion Private Properties
 
@@ -116,8 +116,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             {
                 Document document = GetDocumentFromCookie(docCookie);
 
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("RunningDocumentTableEventListener.AfterSave raised for '{0}'", document != null ? document.FullName : "(null)"));
+                OutputWindowHelper.DiagnosticWriteLine($"RunningDocumentTableEventListener.AfterSave raised for '{(document != null ? document.FullName : "(null)")}'");
 
                 afterSave(document);
             }
@@ -147,8 +146,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             {
                 Document document = GetDocumentFromCookie(docCookie);
 
-                OutputWindowHelper.DiagnosticWriteLine(
-                    string.Format("RunningDocumentTableEventListener.BeforeSave raised for '{0}'", document != null ? document.FullName : "(null)"));
+                OutputWindowHelper.DiagnosticWriteLine($"RunningDocumentTableEventListener.BeforeSave raised for '{(document != null ? document.FullName : "(null)")}'");
 
                 beforeSave(document);
             }

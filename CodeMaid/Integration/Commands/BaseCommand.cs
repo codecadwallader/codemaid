@@ -46,10 +46,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;
-            if (command != null)
-            {
-                command.OnBeforeQueryStatus();
-            }
+            command?.OnBeforeQueryStatus();
         }
 
         /// <summary>
@@ -60,10 +57,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         private static void BaseCommand_Execute(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;
-            if (command != null)
-            {
-                command.OnExecute();
-            }
+            command?.OnExecute();
         }
 
         #endregion Event Handlers
@@ -84,8 +78,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected virtual void OnExecute()
         {
-            OutputWindowHelper.DiagnosticWriteLine(
-                string.Format("{0}.OnExecute invoked", GetType().Name));
+            OutputWindowHelper.DiagnosticWriteLine($"{GetType().Name}.OnExecute invoked");
         }
 
         #endregion Methods

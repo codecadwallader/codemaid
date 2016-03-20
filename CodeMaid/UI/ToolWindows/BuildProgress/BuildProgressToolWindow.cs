@@ -275,7 +275,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <returns>The string to be displayed as the tool window caption.</returns>
         private string GetToolWindowCaption()
         {
-            var projectNames = BuildingProjects.Select(x => string.Format("\"{0}\"", ExtractProjectName(x))).ToList();
+            var projectNames = BuildingProjects.Select(x => $"\"{ExtractProjectName(x)}\"").ToList();
             string buildString = GetBuildTypeString(BuildScope, BuildAction);
 
             string progressString = string.Empty;
@@ -284,11 +284,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
                 string projectsString = NumberOfProjectsToBeBuilt.ToString(CultureInfo.CurrentUICulture);
                 string completeString = NumberOfProjectsBuilt.ToString(CultureInfo.CurrentUICulture).PadLeft(projectsString.Length);
 
-                progressString = string.Format(" {0} of {1}", completeString, projectsString);
+                progressString = $" {completeString} of {projectsString}";
             }
 
-            return string.Format("{0}{1}: {2} {3}...",
-                                 DefaultCaption, progressString, buildString, string.Join(", ", projectNames));
+            return $"{DefaultCaption}{progressString}: {buildString} {string.Join(", ", projectNames)}...";
         }
 
         #endregion Methods
