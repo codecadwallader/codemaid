@@ -51,10 +51,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Event; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Event;
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -78,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this property is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
+        public bool IsExplicitInterfaceImplementation => _isExplicitInterfaceImplementation.Value;
 
         #endregion Properties
     }

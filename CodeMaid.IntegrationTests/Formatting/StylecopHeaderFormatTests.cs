@@ -9,10 +9,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Formatting
     {
         #region Setup
 
-        protected override string TestBaseFileName
-        {
-            get { return "StyleCopHeaderFormat"; }
-        }
+        protected override string TestBaseFileName => "StyleCopHeaderFormat";
 
         [ClassInitialize]
         public new static void ClassInitialize(TestContext testContext)

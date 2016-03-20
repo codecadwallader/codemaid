@@ -39,10 +39,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Interface; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Interface;
 
         #endregion BaseCodeItem Overrides
 

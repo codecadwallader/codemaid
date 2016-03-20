@@ -101,24 +101,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Gets a name describing the active settings.
         /// </summary>
         [NotifiesOn("IsActiveSolutionSpecificSettings")]
-        public string ActiveSettingsName
-        {
-            get { return GetSettingsName(false); }
-        }
+        public string ActiveSettingsName => GetSettingsName(false);
 
         /// <summary>
         /// Gets the path to the active settings file.
         /// </summary>
         [NotifiesOn("IsActiveSolutionSpecificSettings")]
-        public string ActiveSettingsPath
-        {
-            get
-            {
-                return IsActiveSolutionSpecificSettings
-                    ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
-                    : SettingsContextHelper.GetUserSettingsPath();
-            }
-        }
+        public string ActiveSettingsPath => IsActiveSolutionSpecificSettings
+            ? SettingsContextHelper.GetSolutionSettingsPath(ActiveSettings.Context)
+            : SettingsContextHelper.GetUserSettingsPath();
 
         /// <summary>
         /// Gets or sets the dialog result.
@@ -148,10 +139,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// Gets a name describing the inactive settings.
         /// </summary>
         [NotifiesOn("IsActiveSolutionSpecificSettings")]
-        public string InactiveSettingsName
-        {
-            get { return GetSettingsName(true); }
-        }
+        public string InactiveSettingsName => GetSettingsName(true);
 
         /// <summary>
         /// Gets or sets a flag indicating if solution-specific settings are active.
@@ -213,10 +201,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the export command.
         /// </summary>
-        public DelegateCommand ExportCommand
-        {
-            get { return _exportCommand ?? (_exportCommand = new DelegateCommand(OnExportCommandExecuted)); }
-        }
+        public DelegateCommand ExportCommand => _exportCommand ?? (_exportCommand = new DelegateCommand(OnExportCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="ExportCommand" /> is executed.
@@ -265,10 +250,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the import command.
         /// </summary>
-        public DelegateCommand ImportCommand
-        {
-            get { return _importCommand ?? (_importCommand = new DelegateCommand(OnImportCommandExecuted)); }
-        }
+        public DelegateCommand ImportCommand => _importCommand ?? (_importCommand = new DelegateCommand(OnImportCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="ImportCommand" /> is executed.
@@ -322,10 +304,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the reset to defaults command.
         /// </summary>
-        public DelegateCommand ResetToDefaultsCommand
-        {
-            get { return _resetToDefaultsCommand ?? (_resetToDefaultsCommand = new DelegateCommand(OnResetToDefaultsCommandExecuted)); }
-        }
+        public DelegateCommand ResetToDefaultsCommand => _resetToDefaultsCommand ?? (_resetToDefaultsCommand = new DelegateCommand(OnResetToDefaultsCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="ResetToDefaultsCommand" /> is executed.
@@ -371,10 +350,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the save command.
         /// </summary>
-        public DelegateCommand SaveCommand
-        {
-            get { return _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted, OnSaveCommandCanExecute)); }
-        }
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(OnSaveCommandExecuted, OnSaveCommandCanExecute));
 
         /// <summary>
         /// Called when the <see cref="SaveCommand" /> needs to determine if it can execute.
@@ -422,10 +398,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the cancel command.
         /// </summary>
-        public DelegateCommand CancelCommand
-        {
-            get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(OnCancelCommandExecuted)); }
-        }
+        public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(OnCancelCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="CancelCommand" /> is executed.
@@ -445,10 +418,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <summary>
         /// Gets the switch settings command.
         /// </summary>
-        public DelegateCommand SwitchSettingsCommand
-        {
-            get { return _switchSettingsCommand ?? (_switchSettingsCommand = new DelegateCommand(OnSwitchSettingsCommandExecuted, OnSwitchSettingsCommandCanExecute)); }
-        }
+        public DelegateCommand SwitchSettingsCommand => _switchSettingsCommand ?? (_switchSettingsCommand = new DelegateCommand(OnSwitchSettingsCommandExecuted, OnSwitchSettingsCommandCanExecute));
 
         /// <summary>
         /// Called when the <see cref="SwitchSettingsCommand" /> needs to determine if it can execute.

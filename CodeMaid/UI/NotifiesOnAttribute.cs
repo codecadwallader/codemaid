@@ -29,9 +29,6 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// A unique identifier for this attribute.
         /// </summary>
-        public override object TypeId
-        {
-            get { return this; }
-        }
+        public override object TypeId => this;
     }
 }

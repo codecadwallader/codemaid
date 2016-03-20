@@ -35,10 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
         /// <summary>
         /// Gets the icon source.
         /// </summary>
-        public BitmapSource IconSource
-        {
-            get { return _iconSource ?? (_iconSource = Imaging.CreateBitmapSourceFromHIcon(SystemIcons.Question.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())); }
-        }
+        public BitmapSource IconSource => _iconSource ?? (_iconSource = Imaging.CreateBitmapSourceFromHIcon(SystemIcons.Question.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
 
         /// <summary>
         /// Gets or sets a flag indicating if the result can be remembered.
@@ -88,10 +85,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
         /// <summary>
         /// Gets the set dialog result command.
         /// </summary>
-        public DelegateCommand SetDialogResultCommand
-        {
-            get { return _setDialogResultCommand ?? (_setDialogResultCommand = new DelegateCommand(OnSetDialogResultCommandExecuted)); }
-        }
+        public DelegateCommand SetDialogResultCommand => _setDialogResultCommand ?? (_setDialogResultCommand = new DelegateCommand(OnSetDialogResultCommandExecuted));
 
         /// <summary>
         /// Called when the <see cref="SetDialogResultCommand" /> is executed.

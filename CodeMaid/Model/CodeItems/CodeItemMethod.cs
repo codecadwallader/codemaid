@@ -118,32 +118,32 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the complexity.
         /// </summary>
-        public int Complexity { get { return _complexity.Value; } }
+        public int Complexity => _complexity.Value;
 
         /// <summary>
         /// Gets a flag indicating if this method is a constructor.
         /// </summary>
-        public bool IsConstructor { get { return _isConstructor.Value; } }
+        public bool IsConstructor => _isConstructor.Value;
 
         /// <summary>
         /// Gets a flag indicating if this method is a destructor.
         /// </summary>
-        public bool IsDestructor { get { return _isDestructor.Value; } }
+        public bool IsDestructor => _isDestructor.Value;
 
         /// <summary>
         /// Gets a flag indicating if this method is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
+        public bool IsExplicitInterfaceImplementation => _isExplicitInterfaceImplementation.Value;
 
         /// <summary>
         /// Gets the override kind (abstract, virtual, override, new), defaulting to none.
         /// </summary>
-        public vsCMOverrideKind OverrideKind { get { return _overrideKind.Value; } }
+        public vsCMOverrideKind OverrideKind => _overrideKind.Value;
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
+        public IEnumerable<CodeParameter> Parameters => _parameters.Value;
 
         #endregion Properties
     }

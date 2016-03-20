@@ -25,10 +25,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Using; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Using;
 
         /// <summary>
         /// Refreshes the cached position and name fields on this item.

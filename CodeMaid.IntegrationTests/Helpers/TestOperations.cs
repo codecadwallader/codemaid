@@ -15,10 +15,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <summary>
         /// Gets the <see cref="CodeModelManager" />.
         /// </summary>
-        internal static CodeModelManager CodeModelManager
-        {
-            get { return CodeModelManager.GetInstance(TestEnvironment.Package); }
-        }
+        internal static CodeModelManager CodeModelManager => CodeModelManager.GetInstance(TestEnvironment.Package);
 
         /// <summary>
         /// Executes the specified command on the specified project item and verifies the results

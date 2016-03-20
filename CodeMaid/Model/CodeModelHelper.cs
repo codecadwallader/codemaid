@@ -146,10 +146,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets the regular expression pattern for region matching.
         /// </summary>
-        private string RegionPattern
-        {
-            get { return @"^[ \t]*#(region|endregion)"; }
-        }
+        private string RegionPattern => @"^[ \t]*#(region|endregion)";
 
         #endregion Private Properties
 

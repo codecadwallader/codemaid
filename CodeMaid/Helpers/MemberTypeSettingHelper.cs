@@ -54,114 +54,72 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets an enumerable set of all of the settings.
         /// </summary>
-        public static IEnumerable<MemberTypeSetting> AllSettings
+        public static IEnumerable<MemberTypeSetting> AllSettings => new[]
         {
-            get
-            {
-                return new[]
-                {
-                    ClassSettings, ConstructorSettings, DelegateSettings, DestructorSettings,
-                    EnumSettings, EventSettings, FieldSettings, IndexerSettings,
-                    InterfaceSettings, MethodSettings, PropertySettings, StructSettings
-                };
-            }
-        }
+            ClassSettings, ConstructorSettings, DelegateSettings, DestructorSettings,
+            EnumSettings, EventSettings, FieldSettings, IndexerSettings,
+            InterfaceSettings, MethodSettings, PropertySettings, StructSettings
+        };
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Class"/> type.
         /// </summary>
-        public static MemberTypeSetting ClassSettings
-        {
-            get { return CachedClassSettings.Value; }
-        }
+        public static MemberTypeSetting ClassSettings => CachedClassSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Constructor"/> type.
         /// </summary>
-        public static MemberTypeSetting ConstructorSettings
-        {
-            get { return CachedConstructorSettings.Value; }
-        }
+        public static MemberTypeSetting ConstructorSettings => CachedConstructorSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Delegate"/> type.
         /// </summary>
-        public static MemberTypeSetting DelegateSettings
-        {
-            get { return CachedDelegateSettings.Value; }
-        }
+        public static MemberTypeSetting DelegateSettings => CachedDelegateSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Destructor"/> type.
         /// </summary>
-        public static MemberTypeSetting DestructorSettings
-        {
-            get { return CachedDestructorSettings.Value; }
-        }
+        public static MemberTypeSetting DestructorSettings => CachedDestructorSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Enum"/> type.
         /// </summary>
-        public static MemberTypeSetting EnumSettings
-        {
-            get { return CachedEnumSettings.Value; }
-        }
+        public static MemberTypeSetting EnumSettings => CachedEnumSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Event"/> type.
         /// </summary>
-        public static MemberTypeSetting EventSettings
-        {
-            get { return CachedEventSettings.Value; }
-        }
+        public static MemberTypeSetting EventSettings => CachedEventSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Field"/> type.
         /// </summary>
-        public static MemberTypeSetting FieldSettings
-        {
-            get { return CachedFieldSettings.Value; }
-        }
+        public static MemberTypeSetting FieldSettings => CachedFieldSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Indexer"/> type.
         /// </summary>
-        public static MemberTypeSetting IndexerSettings
-        {
-            get { return CachedIndexerSettings.Value; }
-        }
+        public static MemberTypeSetting IndexerSettings => CachedIndexerSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Interface"/> type.
         /// </summary>
-        public static MemberTypeSetting InterfaceSettings
-        {
-            get { return CachedInterfaceSettings.Value; }
-        }
+        public static MemberTypeSetting InterfaceSettings => CachedInterfaceSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Method"/> type.
         /// </summary>
-        public static MemberTypeSetting MethodSettings
-        {
-            get { return CachedMethodSettings.Value; }
-        }
+        public static MemberTypeSetting MethodSettings => CachedMethodSettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Property"/> type.
         /// </summary>
-        public static MemberTypeSetting PropertySettings
-        {
-            get { return CachedPropertySettings.Value; }
-        }
+        public static MemberTypeSetting PropertySettings => CachedPropertySettings.Value;
 
         /// <summary>
         /// Gets the settings associated with the <see cref="KindCodeItem.Struct"/> type.
         /// </summary>
-        public static MemberTypeSetting StructSettings
-        {
-            get { return CachedStructSettings.Value; }
-        }
+        public static MemberTypeSetting StructSettings => CachedStructSettings.Value;
 
         #endregion Properties
 

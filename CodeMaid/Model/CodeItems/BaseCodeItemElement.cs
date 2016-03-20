@@ -40,18 +40,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the start point adjusted for leading comments, may be null.
         /// </summary>
-        public override EditPoint StartPoint
-        {
-            get { return CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.StartPoint) : null; }
-        }
+        public override EditPoint StartPoint => CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.StartPoint) : null;
 
         /// <summary>
         /// Gets the end point, may be null.
         /// </summary>
-        public override EditPoint EndPoint
-        {
-            get { return CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null; }
-        }
+        public override EditPoint EndPoint => CodeElement != null ? CodeElement.EndPoint.CreateEditPoint() : null;
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -91,27 +85,27 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the access level.
         /// </summary>
-        public vsCMAccess Access { get { return _Access.Value; } }
+        public vsCMAccess Access => _Access.Value;
 
         /// <summary>
         /// Gets the attributes.
         /// </summary>
-        public CodeElements Attributes { get { return _Attributes.Value; } }
+        public CodeElements Attributes => _Attributes.Value;
 
         /// <summary>
         /// Gets the doc comment.
         /// </summary>
-        public string DocComment { get { return _DocComment.Value; } }
+        public string DocComment => _DocComment.Value;
 
         /// <summary>
         /// Gets a flag indicating if this instance is static.
         /// </summary>
-        public bool IsStatic { get { return _IsStatic.Value; } }
+        public bool IsStatic => _IsStatic.Value;
 
         /// <summary>
         /// Gets the type string.
         /// </summary>
-        public string TypeString { get { return _TypeString.Value; } }
+        public string TypeString => _TypeString.Value;
 
         #endregion Properties
 

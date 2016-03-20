@@ -38,10 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets the top level (solution) UI hierarchy item.
         /// </summary>
-        private UIHierarchyItem TopUIHierarchyItem
-        {
-            get { return UIHierarchyHelper.GetTopUIHierarchyItem(Package); }
-        }
+        private UIHierarchyItem TopUIHierarchyItem => UIHierarchyHelper.GetTopUIHierarchyItem(Package);
 
         #endregion Properties
 

@@ -51,10 +51,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Delegate; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Delegate;
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -79,12 +76,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace { get { return _namespace.Value; } }
+        public string Namespace => _namespace.Value;
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
+        public IEnumerable<CodeParameter> Parameters => _parameters.Value;
 
         #endregion Properties
     }

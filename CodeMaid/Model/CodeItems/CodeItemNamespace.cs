@@ -29,10 +29,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Namespace; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Namespace;
 
         #endregion BaseCodeItem Overrides
 

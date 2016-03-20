@@ -77,7 +77,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <summary>
         /// Gets or sets the package that owns the tool window.
         /// </summary>
-        private new CodeMaidPackage Package { get { return base.Package as CodeMaidPackage; } }
+        private new CodeMaidPackage Package => base.Package as CodeMaidPackage;
 
         /// <summary>
         /// Gets the progress percentage, otherwise zero if cannot be determined.

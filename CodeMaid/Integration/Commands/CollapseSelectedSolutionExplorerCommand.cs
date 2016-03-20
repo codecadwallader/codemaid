@@ -55,10 +55,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets an enumerable collection of the selected UI hierarchy items.
         /// </summary>
-        private IEnumerable<UIHierarchyItem> SelectedUIHierarchyItems
-        {
-            get { return UIHierarchyHelper.GetSelectedUIHierarchyItems(Package); }
-        }
+        private IEnumerable<UIHierarchyItem> SelectedUIHierarchyItems => UIHierarchyHelper.GetSelectedUIHierarchyItems(Package);
 
         #endregion Private Properties
     }

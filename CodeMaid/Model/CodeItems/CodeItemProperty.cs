@@ -67,10 +67,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return IsIndexer ? KindCodeItem.Indexer : KindCodeItem.Property; }
-        }
+        public override KindCodeItem Kind => IsIndexer ? KindCodeItem.Indexer : KindCodeItem.Property;
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -97,22 +94,22 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the complexity.
         /// </summary>
-        public int Complexity { get { return _complexity.Value; } }
+        public int Complexity => _complexity.Value;
 
         /// <summary>
         /// Gets a flag indicating if this property is an explicit interface implementation.
         /// </summary>
-        public bool IsExplicitInterfaceImplementation { get { return _isExplicitInterfaceImplementation.Value; } }
+        public bool IsExplicitInterfaceImplementation => _isExplicitInterfaceImplementation.Value;
 
         /// <summary>
         /// Gets a flag indicating if this property is an indexer.
         /// </summary>
-        public bool IsIndexer { get { return _isIndexer.Value; } }
+        public bool IsIndexer => _isIndexer.Value;
 
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        public IEnumerable<CodeParameter> Parameters { get { return _parameters.Value; } }
+        public IEnumerable<CodeParameter> Parameters => _parameters.Value;
 
         #endregion Properties
     }

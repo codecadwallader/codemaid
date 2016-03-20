@@ -47,11 +47,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         #region Properties
 
-        public TextPoint EndPoint { get { return _endPoint; } }
+        public TextPoint EndPoint => _endPoint;
 
         public bool IsValid { get; private set; }
 
-        public TextPoint StartPoint { get { return _startPoint; } }
+        public TextPoint StartPoint => _startPoint;
 
         #endregion Properties
 

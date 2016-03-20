@@ -36,10 +36,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets an ON/OFF string based on the <see cref="CleanupOnSave"/> state.
         /// </summary>
-        public string CleanupOnSaveStateText
-        {
-            get { return CleanupOnSave ? "ON" : "OFF"; }
-        }
+        public string CleanupOnSaveStateText => CleanupOnSave ? "ON" : "OFF";
 
         #endregion Properties
 

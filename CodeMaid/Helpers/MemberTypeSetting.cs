@@ -37,10 +37,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <summary>
         /// Gets the default name associated with this member type.
         /// </summary>
-        public string DefaultName
-        {
-            get { return _defaultName; }
-        }
+        public string DefaultName => _defaultName;
 
         /// <summary>
         /// Gets or sets the effective name associated with this member type.

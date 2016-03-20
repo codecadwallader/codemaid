@@ -89,10 +89,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         [NotifiesOn("IsBuildActive")]
         [NotifiesOn("IsProgressIndeterminate")]
-        public bool ShowProgressPercentage
-        {
-            get { return IsBuildActive && !IsProgressIndeterminate; }
-        }
+        public bool ShowProgressPercentage => IsBuildActive && !IsProgressIndeterminate;
 
         /// <summary>
         /// Gets the taskbar interface for the Visual Studio application instance.
@@ -123,10 +120,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <summary>
         /// Gets the cancel build command.
         /// </summary>
-        public DelegateCommand CancelBuildCommand
-        {
-            get { return _cancelBuildCommand ?? (_cancelBuildCommand = new DelegateCommand(OnCancelBuildCommandExecuted, OnCancelBuildCommandCanExecute)); }
-        }
+        public DelegateCommand CancelBuildCommand => _cancelBuildCommand ?? (_cancelBuildCommand = new DelegateCommand(OnCancelBuildCommandExecuted, OnCancelBuildCommandCanExecute));
 
         /// <summary>
         /// Called when the <see cref="CancelBuildCommand" /> needs to determine if it can execute.

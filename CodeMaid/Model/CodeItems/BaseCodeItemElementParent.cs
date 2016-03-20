@@ -60,10 +60,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the insert point, may be null.
         /// </summary>
-        public EditPoint InsertPoint
-        {
-            get { return CodeElement != null ? CodeElement.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() : null; }
-        }
+        public EditPoint InsertPoint => CodeElement != null ? CodeElement.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() : null;
 
         /// <summary>
         /// Gets or sets the flag indicating if this parent item is expanded.
@@ -93,7 +90,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the namespace.
         /// </summary>
-        public string Namespace { get { return _Namespace.Value; } }
+        public string Namespace => _Namespace.Value;
 
         #endregion Properties
     }

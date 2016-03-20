@@ -107,10 +107,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
         /// <summary>
         /// Gets the cancel command.
         /// </summary>
-        public DelegateCommand CancelCommand
-        {
-            get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(OnCancelCommandExecuted, OnCancelCommandCanExecute)); }
-        }
+        public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(OnCancelCommandExecuted, OnCancelCommandCanExecute));
 
         /// <summary>
         /// Called when the <see cref="CancelCommand" /> needs to determine if it can execute.

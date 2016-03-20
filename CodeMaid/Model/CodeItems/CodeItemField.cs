@@ -56,10 +56,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the kind.
         /// </summary>
-        public override KindCodeItem Kind
-        {
-            get { return KindCodeItem.Field; }
-        }
+        public override KindCodeItem Kind => KindCodeItem.Field;
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -85,17 +82,17 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this field is a constant.
         /// </summary>
-        public bool IsConstant { get { return _isConstant.Value; } }
+        public bool IsConstant => _isConstant.Value;
 
         /// <summary>
         /// Gets a flag indicating if this field is an enumeration item.
         /// </summary>
-        public bool IsEnumItem { get { return _isEnumItem.Value; } }
+        public bool IsEnumItem => _isEnumItem.Value;
 
         /// <summary>
         /// Gets a flag indicating if this field is read-only.
         /// </summary>
-        public bool IsReadOnly { get { return _isReadOnly.Value; } }
+        public bool IsReadOnly => _isReadOnly.Value;
 
         #endregion Properties
     }
