@@ -1,9 +1,10 @@
-### Installed product versions
-- Visual Studio: [example 2015 Professional]
-- This extension: [example 1.1.21]
+### Environment
+- Visual Studio version: [example 2015 Professional]
+- CodeMaid version: [example 0.9.1]
+- Code language: [example C#]
 
 ### Description
-Replace this text with a short description
+Replace this text with a short description and code sample.
 
 ### Steps to recreate
 1. Replace this
