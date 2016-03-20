@@ -87,6 +87,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case CodeLanguage.LESS: return Settings.Default.Cleaning_UpdateFileHeaderLESS;
                 case CodeLanguage.PHP: return Settings.Default.Cleaning_UpdateFileHeaderPHP;
                 case CodeLanguage.PowerShell: return Settings.Default.Cleaning_UpdateFileHeaderPowerShell;
+                case CodeLanguage.R: return Settings.Default.Cleaning_UpdateFileHeaderR;
                 case CodeLanguage.SCSS: return Settings.Default.Cleaning_UpdateFileHeaderSCSS;
                 case CodeLanguage.TypeScript: return Settings.Default.Cleaning_UpdateFileHeaderTypeScript;
                 case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_UpdateFileHeaderVB;

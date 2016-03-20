@@ -1142,6 +1142,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_UpdateFileHeaderR {
+            get {
+                return ((string)(this["Cleaning_UpdateFileHeaderR"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeaderR"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Cleaning_UpdateFileHeaderSCSS {
             get {
                 return ((string)(this["Cleaning_UpdateFileHeaderSCSS"]));

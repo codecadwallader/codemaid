@@ -31,6 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderLESS, x => UpdateFileHeaderLESS),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderPHP, x => UpdateFileHeaderPHP),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderPowerShell, x => UpdateFileHeaderPowerShell),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderR, x => UpdateFileHeaderR),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderSCSS, x => UpdateFileHeaderSCSS),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderTypeScript, x => UpdateFileHeaderTypeScript),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderVB, x => UpdateFileHeaderVisualBasic),
@@ -157,6 +158,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the file header that should be at the top of PowerShell files.
         /// </summary>
         public string UpdateFileHeaderPowerShell
+        {
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the file header that should be at the top of R files.
+        /// </summary>
+        public string UpdateFileHeaderR
         {
             get { return GetPropertyValue<string>(); }
             set { SetPropertyValue(value); }

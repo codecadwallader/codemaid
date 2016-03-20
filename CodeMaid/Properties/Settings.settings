@@ -281,6 +281,9 @@
     <Setting Name="Cleaning_UpdateFileHeaderPowerShell" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Cleaning_UpdateFileHeaderR" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
     <Setting Name="Cleaning_UpdateFileHeaderSCSS" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

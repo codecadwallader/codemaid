@@ -32,6 +32,9 @@
                         <TabItem Header="PowerShell">
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" />
                         </TabItem>
+                        <TabItem Header="R">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderR, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
                         <TabItem Header="JSON">
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" />
                         </TabItem>
