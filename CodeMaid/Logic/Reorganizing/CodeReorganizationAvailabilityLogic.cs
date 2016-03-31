@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var textDocument = document.GetTextDocument();
             if (textDocument != null)
             {
-                const string pattern = @"^#(if|else|elif|endif)";
+                const string pattern = @"^[ \t]*#(if|else|elif|endif|pragma)";
 
                 var editPoint = TextDocumentHelper.FirstOrDefaultMatch(textDocument, pattern);
                 if (editPoint != null)
