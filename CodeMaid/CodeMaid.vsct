@@ -256,6 +256,27 @@
       <Group guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
       </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_SLNPROJ" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_SLNITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_PROJITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIFOLDER" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJFLDR" />
+      </Group>
     </Groups>
 
     <!--Buttons section. -->
@@ -616,6 +637,27 @@
     <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" />
+    </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
@@ -645,6 +687,27 @@
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0200">
@@ -1031,6 +1094,27 @@
     </GuidSymbol>
     <GuidSymbol name="GuidCodeMaidContextItemNodeGroup" value="{36669853-51f0-4da1-828d-d43d67b8450c}">
       <IDSymbol name="GroupIDCodeMaidContextItemNodeGroup" value="0x1054" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectSolutionProjectGroup" value="{3cbd1bde-1874-44c5-83e4-371b0a767d4b}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" value="0x1055" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectSolutionItemGroup" value="{fd769de2-2836-4027-9f8e-dee5690521d9}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" value="0x1056" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectProjectItemGroup" value="{623f520b-6640-432e-b61b-12b6b0be3663}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectProjectItemGroup" value="0x1057" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiProjectGroup" value="{5662bd3b-b933-4c44-b6cc-585688ed31c5}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" value="0x1058" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiItemGroup" value="{adc86bfa-64b0-4d80-b3c8-59ac96a1b81e}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiItemGroup" value="0x1059" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" value="{aab9ce77-df9e-4235-a5fd-27a247b49760}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" value="0x105a" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" value="{d6785fff-23de-4fc1-8e5a-e044ff685f1d}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" value="0x105b" />
     </GuidSymbol>
 
     <!-- This is the command set for the document tab context menu -->
