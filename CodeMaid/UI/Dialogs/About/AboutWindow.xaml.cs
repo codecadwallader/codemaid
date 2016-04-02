@@ -56,7 +56,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </param>
         private void OnWebsiteLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"http://codemaid.net/");
+            LaunchLink(@"http://www.codemaid.net/");
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </param>
         private void OnVisualStudioGalleryLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"http://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496");
+            LaunchLink(@"https://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496");
         }
 
         /// <summary>
@@ -84,30 +84,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         }
 
         /// <summary>
-        /// Called when the Trello link is clicked.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnTrelloLinkClick(object sender, RoutedEventArgs e)
-        {
-            LaunchLink(@"https://trello.com/b/VVxVhbQv/backlog");
-        }
-
-        /// <summary>
-        /// Called when the RSS link is clicked.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnRSSLinkClick(object sender, RoutedEventArgs e)
-        {
-            LaunchLink(@"http://codemaid.net/feed/");
-        }
-
-        /// <summary>
         /// Called when the Twitter link is clicked.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -116,31 +92,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </param>
         private void OnTwitterLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"http://twitter.com/codemaid/");
-        }
-
-        /// <summary>
-        /// Called when the Google+ link is clicked.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnGooglePlusLinkClick(object sender, RoutedEventArgs e)
-        {
-            LaunchLink(@"https://plus.google.com/+CodemaidNet/");
-        }
-
-        /// <summary>
-        /// Called when the Email link is clicked.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnEmailLinkClick(object sender, RoutedEventArgs e)
-        {
-            LaunchLink(@"mailto:codemaid@gmail.com");
+            LaunchLink(@"https://twitter.com/codemaid/");
         }
 
         #endregion Event Handlers
