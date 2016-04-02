@@ -1,6 +1,6 @@
 ### Environment
 - Visual Studio version: [example 2015 Professional]
-- CodeMaid version: [example 0.9.1]
+- CodeMaid version: [example 10.0]
 - Code language: [example C#]
 
 ### Description

@@ -1,15 +1,27 @@
 # Roadmap
 
-- [X] Automate deploys through AppVeyor to create a CI channel
-- [ ] Consolidate support sites
 - [ ] Create a demo video
-- [X] Support R
 
 Features that have a checkmark are complete and available for download in the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 # Changelog
 
 These are the changes to each version that has been released on the official Visual Studio extension gallery.
+
+## 10.0
+
+**2016-04-02**
+
+- [x] Features
+  - [x] Add support for Visual Studio "15" Preview
+  - [x] Add support for R language
+  - [x] Automate deploys through AppVeyor to create a CI channel
+  - [x] Consolidate support sites
+  - [x] #235 - Extended support for CodeMaid integration into solution explorer context menus to cover scenarios like selecting items in separate projects
+
+- [x] Fixes
+  - [x] #231 - VB: Moving functions around in Spade wasn't moving XML comments
+  - [x] #239 - Reorganize was not disabling in the presence of #pragma statements
 
 ## 0.9.1
 
