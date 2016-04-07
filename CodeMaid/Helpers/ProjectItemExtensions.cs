@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.ExceptionWriteLine("Unable to retrieve parent ProjectItem", ex);
+                OutputWindowHelper.DiagnosticWriteLine("Unable to retrieve parent ProjectItem", ex);
                 return null;
             }
         }
@@ -46,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
             catch (Exception ex)
             {
-                OutputWindowHelper.ExceptionWriteLine("Unable to determine if ProjectItem is external", ex);
+                OutputWindowHelper.DiagnosticWriteLine("Unable to determine if ProjectItem is external", ex);
                 return false;
             }
         }
@@ -65,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             catch (Exception ex)
             {
                 // Some ProjectItem types (e.g. WiX) may throw an error when accessing the Kind member.
-                OutputWindowHelper.ExceptionWriteLine("Unable to determine if ProjectItem is a physical file", ex);
+                OutputWindowHelper.DiagnosticWriteLine("Unable to determine if ProjectItem is a physical file", ex);
                 return false;
             }
         }

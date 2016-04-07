@@ -29,9 +29,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// Writes the specified diagnostic line to the CodeMaid output pane, but only if diagnostics are enabled.
         /// </summary>
         /// <param name="message">The message.</param>
-        internal static void DiagnosticWriteLine(string message)
+        /// <param name="ex">An optional exception that was handled.</param>
+        internal static void DiagnosticWriteLine(string message, Exception ex = null)
         {
             if (!Settings.Default.General_DiagnosticsMode) return;
+
+            if (ex != null)
+            {
+                message += $": {ex}";
+            }
 
             WriteLine("Diagnostic", message);
         }
