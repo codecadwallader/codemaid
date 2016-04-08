@@ -64,7 +64,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                    document != null &&
                    document.GetCodeLanguage() == CodeLanguage.CSharp &&
                    !document.IsExternal() &&
-                   !HasPreprocessorConditionalCompilationDirectives(document);
+                   !HasPreprocessorConditionalCompilationDirectives(document) &&
+                   !HasStructLayoutAttribute(document);
         }
 
         #endregion Internal Methods
@@ -90,6 +91,21 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 }
             }
 
+            return false;
+        }
+
+        private bool HasStructLayoutAttribute(Document document)
+        {
+            var textDocument = document.GetTextDocument();
+            if (textDocument != null)
+            {
+                const string pattern = @"^[ \t]*\[[ \t]*StructLayout\(";
+                var editPoint = TextDocumentHelper.FirstOrDefaultMatch(textDocument, pattern);
+                if (editPoint != null)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
