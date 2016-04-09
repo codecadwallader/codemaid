@@ -102,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if solution-specific settings were loaded, otherwise false.</returns>
         internal bool LoadSolutionSpecificSettings(Settings settings, bool canCreate = false)
         {
-            if (_package.IDE.Solution.IsOpen)
+            if (_package.IDE.Solution.IsOpen && !string.IsNullOrWhiteSpace(_package.IDE.Solution.FullName))
             {
                 var solutionPath = Path.GetDirectoryName(_package.IDE.Solution.FullName);
                 if (!string.IsNullOrWhiteSpace(solutionPath))
