@@ -306,7 +306,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>&amp;Cleanup Code</ButtonText>
+          <ButtonText>&amp;Cleanup Active Document</ButtonText>
         </Strings>
       </Button>
 
@@ -423,7 +423,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Reorgani&amp;ze Code</ButtonText>
+          <ButtonText>Reorgani&amp;ze Active Document</ButtonText>
         </Strings>
       </Button>
 

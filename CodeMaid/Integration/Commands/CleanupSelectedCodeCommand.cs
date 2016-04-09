@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = SelectedProjectItems.Any();
+            Enabled = Package.IDE.Solution.IsOpen;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets or sets the code cleanup availability logic.
         /// </summary>
-        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; set; }
+        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; }
 
         /// <summary>
         /// Gets the list of selected project items.

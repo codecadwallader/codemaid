@@ -38,16 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = _codeReorganizationAvailabilityLogic.CanReorganize(Package.ActiveDocument);
-
-            if (Enabled)
-            {
-                Text = "Reorgani&ze " + Package.ActiveDocument.Name;
-            }
-            else
-            {
-                Text = "Reorgani&ze Code";
-            }
+            Enabled = Package.ActiveDocument != null;
         }
 
         /// <summary>

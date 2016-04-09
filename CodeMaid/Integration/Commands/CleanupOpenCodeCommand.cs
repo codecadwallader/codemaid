@@ -24,7 +24,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                    new CommandID(PackageGuids.GuidCodeMaidCommandCleanupOpenCode, PackageIds.CmdIDCodeMaidCleanupOpenCode))
         {
             CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
-            CodeCleanupManager = CodeCleanupManager.GetInstance(Package);
         }
 
         #endregion Constructors
@@ -36,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = OpenCleanableDocuments.Any();
+            Enabled = OpenDocuments.Any();
         }
 
         /// <summary>
@@ -62,19 +61,22 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets or sets the code cleanup availability logic.
         /// </summary>
-        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; set; }
+        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; }
 
         /// <summary>
-        /// Gets or sets the code cleanup manager.
+        /// Gets the list of open documents.
         /// </summary>
-        private CodeCleanupManager CodeCleanupManager { get; set; }
+        private IEnumerable<Document> OpenDocuments
+        {
+            get { return Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null); }
+        }
 
         /// <summary>
         /// Gets the list of open documents that are cleanup candidates.
         /// </summary>
         private IEnumerable<Document> OpenCleanableDocuments
         {
-            get { return Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null && CodeCleanupAvailabilityLogic.CanCleanup(x)); }
+            get { return OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanup(x)); }
         }
 
         #endregion Private Properties

@@ -34,16 +34,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = CodeCleanupAvailabilityLogic.CanCleanup(Package.ActiveDocument);
-
-            if (Enabled)
-            {
-                Text = "&Cleanup " + Package.ActiveDocument.Name;
-            }
-            else
-            {
-                Text = "&Cleanup Code";
-            }
+            Enabled = Package.ActiveDocument != null;
         }
 
         /// <summary>

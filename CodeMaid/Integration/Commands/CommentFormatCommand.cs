@@ -40,16 +40,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            var activeTextDocument = ActiveTextDocument;
-            var enable = false;
-
-            if (activeTextDocument != null)
-            {
-                // Enable formatting if there is a comment pattern defined for this document.
-                enable = CodeCommentHelper.GetCommentPrefix(activeTextDocument) != null;
-            }
-
-            Enabled = enable;
+            Enabled = ActiveTextDocument != null;
         }
 
         /// <summary>
