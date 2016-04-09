@@ -105,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="document">The document for reorganizing.</param>
         internal void Reorganize(Document document)
         {
-            if (!_codeReorganizationAvailabilityLogic.CanReorganize(document)) return;
+            if (!_codeReorganizationAvailabilityLogic.CanReorganize(document, true)) return;
 
             new UndoTransactionHelper(_package, $"CodeMaid Reorganize for '{document.Name}'").Run(
                 delegate

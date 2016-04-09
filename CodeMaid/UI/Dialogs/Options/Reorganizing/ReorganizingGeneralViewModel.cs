@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
 {
@@ -21,6 +22,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_AlphabetizeMembersOfTheSameGroup, x => AlphabetizeMembersOfTheSameGroup),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
+                new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Reorganizing_PerformWhenPreprocessorConditionals, x => PerformWhenPreprocessorConditionals),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup)
             };
@@ -54,6 +56,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         public bool KeepMembersWithinRegions
         {
             get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the options for performing reorganization when preprocessor conditionals are present.
+        /// </summary>
+        public AskYesNo PerformWhenPreprocessorConditionals
+        {
+            get { return GetPropertyValue<AskYesNo>(); }
             set { SetPropertyValue(value); }
         }
 

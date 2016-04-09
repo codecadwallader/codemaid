@@ -1837,6 +1837,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Reorganizing_PerformWhenPreprocessorConditionals {
+            get {
+                return ((int)(this["Reorganizing_PerformWhenPreprocessorConditionals"]));
+            }
+            set {
+                this["Reorganizing_PerformWhenPreprocessorConditionals"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Reorganizing_PrimaryOrderByAccessLevel {
             get {
