@@ -32,7 +32,6 @@ namespace SteveCadwallader.CodeMaid
         public const string GuidCodeMaidContextSpadeFindGroupString = "4e3fd2e6-4cde-497c-a899-eee7e53c8852";
         public const string GuidCodeMaidContextSpadeDeleteGroupString = "e4abf3d9-e332-4c5d-97a9-4ac09395c28f";
         public const string GuidCodeMaidContextSpadeInsertGroupString = "707d9532-5392-4b5f-a36d-b88c583eb732";
-        public const string GuidCodeMaidToolbarSolutionExplorerGroupString = "ed596e0f-d1cb-46e7-8dd3-741758451f27";
         public const string GuidCodeMaidContextSolutionNodeGroupString = "eda37cf1-ff29-46aa-ba07-05abf7ba6596";
         public const string GuidCodeMaidContextSolutionFolderGroupString = "39de3da3-f28c-41fc-85c8-6d0fa801f3f1";
         public const string GuidCodeMaidContextProjectNodeGroupString = "a04159ed-c5ee-4146-954a-4e662b297513";
@@ -151,7 +150,6 @@ namespace SteveCadwallader.CodeMaid
         public static Guid GuidCodeMaidContextSpadeFindGroup = new Guid(GuidCodeMaidContextSpadeFindGroupString);
         public static Guid GuidCodeMaidContextSpadeDeleteGroup = new Guid(GuidCodeMaidContextSpadeDeleteGroupString);
         public static Guid GuidCodeMaidContextSpadeInsertGroup = new Guid(GuidCodeMaidContextSpadeInsertGroupString);
-        public static Guid GuidCodeMaidToolbarSolutionExplorerGroup = new Guid(GuidCodeMaidToolbarSolutionExplorerGroupString);
         public static Guid GuidCodeMaidContextSolutionNodeGroup = new Guid(GuidCodeMaidContextSolutionNodeGroupString);
         public static Guid GuidCodeMaidContextSolutionFolderGroup = new Guid(GuidCodeMaidContextSolutionFolderGroupString);
         public static Guid GuidCodeMaidContextProjectNodeGroup = new Guid(GuidCodeMaidContextProjectNodeGroupString);
@@ -277,7 +275,6 @@ namespace SteveCadwallader.CodeMaid
         public const int GroupIDCodeMaidContextSpadeFindGroup = 0x1062;
         public const int GroupIDCodeMaidContextSpadeDeleteGroup = 0x1063;
         public const int GroupIDCodeMaidContextSpadeInsertGroup = 0x1064;
-        public const int GroupIDCodeMaidToolbarSolutionExplorerGroup = 0x1030;
         public const int GroupIDCodeMaidContextSolutionNodeGroup = 0x1050;
         public const int GroupIDCodeMaidContextSolutionFolderGroup = 0x1051;
         public const int GroupIDCodeMaidContextProjectNodeGroup = 0x1052;

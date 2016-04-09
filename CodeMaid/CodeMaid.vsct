@@ -142,10 +142,6 @@
         <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
       </Group>
 
-      <Group guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN" />
-      </Group>
-
       <Group guid="GuidCodeMaidToolbarSpadeBaseGroup" id="GroupIDCodeMaidToolbarSpadeBaseGroup" priority="0x0000">
         <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
       </Group>
@@ -612,9 +608,6 @@
       <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
-      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
       <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
     </CommandPlacement>
 
@@ -668,9 +661,6 @@
 
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0200">
       <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
-      <Parent guid="GuidCodeMaidToolbarSolutionExplorerGroup" id="GroupIDCodeMaidToolbarSolutionExplorerGroup" />
     </CommandPlacement>
     <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
       <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
@@ -1072,11 +1062,6 @@
 
     <GuidSymbol name="GuidCodeMaidContextSpadeInsertGroup" value="{707d9532-5392-4b5f-a36d-b88c583eb732}">
       <IDSymbol name="GroupIDCodeMaidContextSpadeInsertGroup" value="0x1064" />
-    </GuidSymbol>
-
-    <!-- These are the command sets for extending toolbars -->
-    <GuidSymbol name="GuidCodeMaidToolbarSolutionExplorerGroup" value="{ed596e0f-d1cb-46e7-8dd3-741758451f27}">
-      <IDSymbol name="GroupIDCodeMaidToolbarSolutionExplorerGroup" value="0x1030" />
     </GuidSymbol>
 
     <!-- These are the command sets for the solution explorer context menus -->
