@@ -101,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
-            if (!_codeCleanupAvailabilityLogic.CanCleanup(projectItem)) return;
+            if (!_codeCleanupAvailabilityLogic.CanCleanupProjectItem(projectItem)) return;
 
             // Attempt to open the document if not already opened.
             bool wasOpen = projectItem.IsOpen[Constants.vsViewKindTextView] || projectItem.IsOpen[Constants.vsViewKindCode];
@@ -135,7 +135,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         internal void Cleanup(Document document)
         {
-            if (!_codeCleanupAvailabilityLogic.CanCleanup(document, true)) return;
+            if (!_codeCleanupAvailabilityLogic.CanCleanupDocument(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
             document.Activate();

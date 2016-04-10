@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal void OnBeforeDocumentSave(Document document)
         {
             if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
-            if (!CodeCleanupAvailabilityLogic.CanCleanup(document)) return;
+            if (!CodeCleanupAvailabilityLogic.CanCleanupDocument(document)) return;
 
             try
             {

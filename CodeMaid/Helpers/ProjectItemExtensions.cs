@@ -10,6 +10,24 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class ProjectItemExtensions
     {
         /// <summary>
+        /// Attempts to retrieve the file name for the specified project item.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        /// <returns>The filename of the project item if available, otherwise null.</returns>
+        internal static string GetFileName(this ProjectItem projectItem)
+        {
+            try
+            {
+                return projectItem.FileNames[1];
+            }
+            catch (Exception ex)
+            {
+                OutputWindowHelper.DiagnosticWriteLine("Unable to retrieve ProjectItem file name", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Attempts to retrieve the parent project item for the specified project item.
         /// </summary>
         /// <param name="projectItem">The project item.</param>

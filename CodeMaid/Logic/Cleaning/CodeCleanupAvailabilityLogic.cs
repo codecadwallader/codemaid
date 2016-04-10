@@ -83,14 +83,45 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document.</param>
         /// <param name="allowUserPrompts">A flag indicating if user prompts should be allowed.</param>
         /// <returns>True if item can be cleaned up, otherwise false.</returns>
-        internal bool CanCleanup(Document document, bool allowUserPrompts = false)
+        internal bool CanCleanupDocument(Document document, bool allowUserPrompts = false)
         {
-            return IsCleanupEnvironmentAvailable() &&
-                   document != null &&
-                   IsDocumentLanguageIncludedByOptions(document) &&
-                   !IsDocumentExcludedBecauseExternal(document, allowUserPrompts) &&
-                   !IsFileNameExcludedByOptions(document.FullName) &&
-                   !IsParentCodeGeneratorExcludedByOptions(document);
+            if (!IsCleanupEnvironmentAvailable())
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false due to the cleanup environment not being available.");
+                return false;
+            }
+
+            if (document == null)
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false due to a null document.");
+                return false;
+            }
+
+            if (!IsDocumentLanguageIncludedByOptions(document))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to the document language not being included within CodeMaid Options.");
+                return false;
+            }
+
+            if (IsDocumentExcludedBecauseExternal(document, allowUserPrompts))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to the document being external to the solution.");
+                return false;
+            }
+
+            if (IsFileNameExcludedByOptions(document.FullName))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to the file name being excluded within CodeMaid Options.");
+                return false;
+            }
+
+            if (IsParentCodeGeneratorExcludedByOptions(document))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to a parent code generator.");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -98,14 +129,47 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="projectItem">The project item.</param>
         /// <returns>True if item can be cleaned up, otherwise false.</returns>
-        internal bool CanCleanup(ProjectItem projectItem)
+        internal bool CanCleanupProjectItem(ProjectItem projectItem)
         {
-            return IsCleanupEnvironmentAvailable() &&
-                   projectItem != null &&
-                   projectItem.IsPhysicalFile() &&
-                   IsProjectItemLanguageIncludedByOptions(projectItem) &&
-                   !IsFileNameExcludedByOptions(projectItem) &&
-                   !IsParentCodeGeneratorExcludedByOptions(projectItem);
+            if (!IsCleanupEnvironmentAvailable())
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false due to the cleanup environment not being available.");
+                return false;
+            }
+
+            if (projectItem == null)
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false due to a null project item.");
+                return false;
+            }
+
+            var projectItemFileName = projectItem.GetFileName();
+
+            if (!projectItem.IsPhysicalFile())
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false for '{projectItemFileName}' due to the project item not being a physical file.");
+                return false;
+            }
+
+            if (!IsProjectItemLanguageIncludedByOptions(projectItem))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false for '{projectItemFileName}' due to the project item language not being included within CodeMaid Options.");
+                return false;
+            }
+
+            if (IsFileNameExcludedByOptions(projectItemFileName))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false for '{projectItemFileName}' due to the file name being excluded within CodeMaid Options.");
+                return false;
+            }
+
+            if (IsParentCodeGeneratorExcludedByOptions(projectItem))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false for '{projectItemFileName}' due to a parent code generator.");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -210,24 +274,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     OutputWindowHelper.DiagnosticWriteLine(
                         $"CodeCleanupAvailabilityLogic.IsDocumentLanguageIncludedByOptions picked up an unrecognized document language '{document.Language}'");
                     return Settings.Default.Cleaning_IncludeEverythingElse;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified project item has a filename which is excluded by options.
-        /// </summary>
-        /// <param name="projectItem">The project item.</param>
-        /// <returns>True if the project item has a filename which is excluded, otherwise false.</returns>
-        private bool IsFileNameExcludedByOptions(ProjectItem projectItem)
-        {
-            try
-            {
-                return IsFileNameExcludedByOptions(projectItem.FileNames[1]);
-            }
-            catch (Exception)
-            {
-                // Guard in case FileNames is ever invalid as there isn't a way to test the collection.
-                return false;
             }
         }
 

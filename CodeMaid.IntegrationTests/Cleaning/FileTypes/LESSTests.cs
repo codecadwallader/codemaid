@@ -54,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
                 Assert.AreEqual(document, TestEnvironment.Package.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.
-                Assert.IsTrue(_codeCleanupAvailabilityLogic.CanCleanup(document));
+                Assert.IsTrue(_codeCleanupAvailabilityLogic.CanCleanupDocument(document));
             }));
         }
 
@@ -67,7 +67,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             UIThreadInvoker.Invoke(new Action(() =>
             {
                 // Confirm the code cleanup availability logic is in the expected state.
-                Assert.IsTrue(_codeCleanupAvailabilityLogic.CanCleanup(_projectItem));
+                Assert.IsTrue(_codeCleanupAvailabilityLogic.CanCleanupProjectItem(_projectItem));
             }));
         }
 
@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
                 Assert.AreEqual(document, TestEnvironment.Package.ActiveDocument);
 
                 // Confirm the code cleanup availability logic is in the expected state.
-                Assert.IsFalse(_codeCleanupAvailabilityLogic.CanCleanup(document));
+                Assert.IsFalse(_codeCleanupAvailabilityLogic.CanCleanupDocument(document));
             }));
         }
 
@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.FileTypes
             UIThreadInvoker.Invoke(new Action(() =>
             {
                 // Confirm the code cleanup availability logic is in the expected state.
-                Assert.IsFalse(_codeCleanupAvailabilityLogic.CanCleanup(_projectItem));
+                Assert.IsFalse(_codeCleanupAvailabilityLogic.CanCleanupProjectItem(_projectItem));
             }));
         }
 

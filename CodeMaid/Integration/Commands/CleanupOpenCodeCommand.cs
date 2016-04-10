@@ -76,7 +76,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<Document> OpenCleanableDocuments
         {
-            get { return OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanup(x)); }
+            get { return OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanupDocument(x)); }
         }
 
         #endregion Private Properties
