@@ -49,15 +49,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         #region Internal Methods
 
         /// <summary>
-        /// Determines whether the environment is in a valid state for reorganization.
-        /// </summary>
-        /// <returns>True if reorganization can occur, false otherwise.</returns>
-        internal bool IsReorganizationEnvironmentAvailable()
-        {
-            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
-        }
-
-        /// <summary>
         /// Determines if the specified document can be reorganized.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -65,11 +56,46 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if item can be reorganized, otherwise false.</returns>
         internal bool CanReorganize(Document document, bool allowUserPrompts = false)
         {
-            return IsReorganizationEnvironmentAvailable() &&
-                   document != null &&
-                   document.GetCodeLanguage() == CodeLanguage.CSharp &&
-                   !document.IsExternal() &&
-                   !IsDocumentExcludedBecausePreprocessorConditionals(document, allowUserPrompts);
+            if (!IsReorganizationEnvironmentAvailable())
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false due to the reorganization environment not being available.");
+                return false;
+            }
+
+            if (document == null)
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false due to a null document.");
+                return false;
+            }
+
+            if (document.GetCodeLanguage() != CodeLanguage.CSharp)
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false for '{document.FullName}' due to the document language not being supported.");
+                return false;
+            }
+
+            if (document.IsExternal())
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false for '{document.FullName}' due to the document being external to the solution.");
+                return false;
+            }
+
+            if (IsDocumentExcludedBecausePreprocessorConditionals(document, allowUserPrompts))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false for '{document.FullName}' due to the document containing preprocessor conditionals.");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Determines whether the environment is in a valid state for reorganization.
+        /// </summary>
+        /// <returns>True if reorganization can occur, false otherwise.</returns>
+        internal bool IsReorganizationEnvironmentAvailable()
+        {
+            return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
         }
 
         #endregion Internal Methods
