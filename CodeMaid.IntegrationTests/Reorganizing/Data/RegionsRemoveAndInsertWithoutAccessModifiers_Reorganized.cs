@@ -13,9 +13,13 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
         /// <param name="package">The hosting package.</param>
         internal RegionsRemoveAndInsertWithoutAccessModifiers(CodeMaidPackage package)
         {
+            #region RegionsInMethodsShouldBeIgnored
+
             Package = package;
 
             StartTracking();
+
+            #endregion RegionsInMethodsShouldBeIgnored
         }
 
         #endregion Constructors

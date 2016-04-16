@@ -21,6 +21,9 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Reorganizing.Data
 
         public RegionsRemoveExisting()
         {
+            #region RegionsInMethodsShouldBeIgnored
+
+            #endregion RegionsInMethodsShouldBeIgnored
         }
 
         protected RegionsRemoveExisting(int param)

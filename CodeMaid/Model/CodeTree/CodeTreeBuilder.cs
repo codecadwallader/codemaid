@@ -112,12 +112,22 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                             break;
                         }
 
-                        var top = codeItemStack.Peek() as ICodeItemParent;
-                        if (top != null && codeItem.EndOffset < top.EndOffset)
+                        var top = codeItemStack.Peek();
+                        if (codeItem.EndOffset < top.EndOffset)
                         {
-                            top.Children.Add(codeItem);
-                            codeItemStack.Push(codeItem);
-                            break;
+                            var topParent = top as ICodeItemParent;
+                            if (topParent != null)
+                            {
+                                topParent.Children.Add(codeItem);
+                                codeItemStack.Push(codeItem);
+                                break;
+                            }
+
+                            if (codeItem is CodeItemRegion)
+                            {
+                                // Skip regions within non-parentable items (e.g. in methods).
+                                break;
+                            }
                         }
 
                         codeItemStack.Pop();
