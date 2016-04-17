@@ -68,7 +68,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 return false;
             }
 
-            if (document.GetCodeLanguage() != CodeLanguage.CSharp)
+            if (document.GetCodeLanguage() != CodeLanguage.CSharp && document.GetCodeLanguage() != CodeLanguage.VisualBasic)
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false for '{document.FullName}' due to the document language not being supported.");
                 return false;
