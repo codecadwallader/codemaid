@@ -455,7 +455,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup) return;
 
+            // This command changed to include the leading 'ReSharper.' in version 2016.1.
+            // Execute both commands for backwards compatibility.
             ExecuteCommand(textDocument, "ReSharper_SilentCleanupCode");
+            ExecuteCommand(textDocument, "ReSharper.ReSharper_SilentCleanupCode");
         }
 
         /// <summary>
