@@ -91,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets a flag indicating if the UseJetBrainsReSharperCleanup option should be enabled.
         /// </summary>
-        public bool IsEnabledUseJetBrainsReSharperCleanup => _commandHelper.FindCommand("ReSharper_SilentCleanupCode") != null;
+        public bool IsEnabledUseJetBrainsReSharperCleanup => _commandHelper.FindCommand("ReSharper_SilentCleanupCode") != null || _commandHelper.FindCommand("ReSharper.ReSharper_SilentCleanupCode") != null;
 
         /// <summary>
         /// Gets a flag indicating if the UseTelerikJustCodeCleanup option should be enabled.
