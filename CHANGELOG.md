@@ -1,8 +1,18 @@
 # Changelog
 
-## vNext (10.1)
+## vNext (TBD)
 
 These changes have not been released to the official Visual Studio extension gallery, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
+
+- [ ] TBD
+
+## Previous Releases
+
+These are the changes to each version that has been released to the official Visual Studio extension gallery.
+
+## 10.1
+
+**2016-04-23**
 
 - [x] Features
   - [x] [#241](https://github.com/codecadwallader/codemaid/issues/241) - Create a demo video
@@ -18,10 +28,6 @@ These changes have not been released to the official Visual Studio extension gal
   - [x] [#272](https://github.com/codecadwallader/codemaid/issues/272) - Reorganizing: Remove existing regions affects in-method regions as well
   - [x] [#275](https://github.com/codecadwallader/codemaid/issues/275) - Digging: In-method regions were being shown within Spade
   - [x] [#276](https://github.com/codecadwallader/codemaid/issues/276) - ReSharper 2016.1 changed the name of their cleanup command and needed updates within CodeMaid - thanks [jamiehumphries](https://github.com/jamiehumphries)!
-
-## Previous Releases
-
-These are the changes to each version that has been released to the official Visual Studio extension gallery.
 
 ## 10.0
 
