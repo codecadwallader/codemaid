@@ -56,6 +56,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => commandNames.Contains(x.Name));
         }
 
+        /// <summary>
+        /// Finds a command by the specified guid/id pair.
+        /// </summary>
+        /// <param name="guid">The command guid.</param>
+        /// <param name="id">The command id.</param>
+        /// <returns>The found command, otherwise null.</returns>
+        public Command FindCommand(string guid, int id)
+        {
+            return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => x.Guid == guid && x.ID == id);
+        }
+
         #endregion Methods
     }
 }

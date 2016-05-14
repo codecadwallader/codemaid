@@ -11,6 +11,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal class FindInSolutionExplorerCommand : BaseCommand
     {
+        #region Fields
+
+        private readonly CommandHelper _commandHelper;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
@@ -21,6 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(PackageGuids.GuidCodeMaidCommandFindInSolutionExplorer, PackageIds.CmdIDCodeMaidFindInSolutionExplorer))
         {
+            _commandHelper = CommandHelper.GetInstance(package);
         }
 
         #endregion Constructors
@@ -50,12 +57,23 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
                 }
 
-                //Note: Instead of directly invoking the command by name, we are using the GUID/ID pair.
-                // This is a workaround for the canonical name being undefined in Spanish versions of Visual Studio.
-                object customIn = null;
-                object customOut = null;
-                Package.IDE.Commands.Raise("{D63DB1F0-404E-4B21-9648-CA8D99245EC3}", 36, ref customIn, ref customOut);
-                //Package.IDE.ExecuteCommand("SolutionExplorer.SyncWithActiveDocument", String.Empty);
+                // Instead of directly using "SolutionExplorer.SyncWithActiveDocument" we are using
+                // the GUID/ID pair. This is a workaround for the canonical name being undefined in
+                // Spanish versions of Visual Studio.
+                var command = _commandHelper.FindCommand("{D63DB1F0-404E-4B21-9648-CA8D99245EC3}", 36);
+                if (command != null && command.IsAvailable)
+                {
+                    object customIn = null;
+                    object customOut = null;
+                    Package.IDE.Commands.Raise(command.Guid, command.ID, ref customIn, ref customOut);
+                }
+                else
+                {
+                    // The command will be unavailable if track active item is selected, and in those
+                    // scenarios we just want to activate the solution explorer since the right item
+                    // will already be highlighted.
+                    Package.IDE.ExecuteCommand("View.SolutionExplorer", string.Empty);
+                }
             }
         }
 
