@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             {
                 var xElement = XElement.Parse(str);
 
-                var summaryTag = xElement.Descendants("summary").FirstOrDefault();
+                var summaryTag = xElement.DescendantsAndSelf("summary").FirstOrDefault();
                 if (summaryTag == null) return string.Empty;
 
                 // Get the Inner XML for the summary tag.
