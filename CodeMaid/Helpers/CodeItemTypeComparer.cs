@@ -70,6 +70,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
+            int explicitOffset = CalculateExplicitInterfaceOffset(codeItem);
             int constantOffset = CalculateConstantOffset(codeItem);
             int staticOffset = CalculateStaticOffset(codeItem);
             int readOnlyOffset = CalculateReadOnlyOffset(codeItem);
@@ -78,16 +79,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (!Settings.Default.Reorganizing_PrimaryOrderByAccessLevel)
             {
-                calc += typeOffset * 10000;
-                calc += accessOffset * 1000;
+                calc += typeOffset * 100000;
+                calc += accessOffset * 10000;
             }
             else
             {
-                calc += accessOffset * 10000;
-                calc += typeOffset * 1000;
+                calc += accessOffset * 100000;
+                calc += typeOffset * 10000;
             }
 
-            calc += (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
+            calc += (explicitOffset * 1000) + (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
 
             return calc;
         }
@@ -135,6 +136,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (codeItemField == null) return 0;
 
             return codeItemField.IsConstant ? 0 : 1;
+        }
+
+        private static int CalculateExplicitInterfaceOffset(BaseCodeItem codeItem)
+        {
+            if (Settings.Default.Reorganizing_ExplicitMembersAtEnd)
+            {
+                var interfaceItem = codeItem as IInterfaceItem;
+                if ((interfaceItem != null) && interfaceItem.IsExplicitInterfaceImplementation)
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
         }
 
         private static int CalculateStaticOffset(BaseCodeItem codeItem)
