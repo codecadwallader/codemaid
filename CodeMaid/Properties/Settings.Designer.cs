@@ -1681,6 +1681,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_ExplicitMembersAtEnd {
+            get {
+                return ((bool)(this["Reorganizing_ExplicitMembersAtEnd"]));
+            }
+            set {
+                this["Reorganizing_ExplicitMembersAtEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Reorganizing_KeepMembersWithinRegions {
             get {
