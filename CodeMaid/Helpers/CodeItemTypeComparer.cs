@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
-using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -10,6 +10,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class CodeItemTypeComparer : Comparer<BaseCodeItem>
     {
+        #region Fields
+
+        private readonly bool _sortByName;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemTypeComparer"/> class.
+        /// </summary>
+        /// <param name="sortByName">Determines whether a secondary sort by name is performed or not.</param>
+        public CodeItemTypeComparer(bool sortByName)
+        {
+            _sortByName = sortByName;
+        }
+
+        #endregion Constructors
+
         #region Methods
 
         /// <summary>
@@ -31,9 +50,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (first == second)
             {
                 // Check if secondary sort by name should occur.
-                if (Settings.Default.Digging_SecondarySortTypeByName)
+                if (_sortByName)
                 {
-                    int nameComparison = x.Name.CompareTo(y.Name);
+                    int nameComparison = NormalizeName(x).CompareTo(NormalizeName(y));
                     if (nameComparison != 0)
                     {
                         return nameComparison;
@@ -47,12 +66,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return first.CompareTo(second);
         }
 
-        /// <summary>
-        /// Calculates an ordered numeric representation of the specified code item.
-        /// </summary>
-        /// <param name="codeItem">The code item.</param>
-        /// <returns>A numeric representation.</returns>
-        public static int CalculateNumericRepresentation(BaseCodeItem codeItem)
+        private static int CalculateNumericRepresentation(BaseCodeItem codeItem)
         {
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
@@ -137,6 +151,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (codeItemField == null) return 0;
 
             return codeItemField.IsReadOnly ? 0 : 1;
+        }
+
+        private static string NormalizeName(BaseCodeItem codeItem)
+        {
+            string name = codeItem.Name;
+            var interfaceItem = codeItem as IInterfaceItem;
+            if ((interfaceItem != null) && interfaceItem.IsExplicitInterfaceImplementation)
+            {
+                // Try to find where the interface ends and the method starts
+                int dot = name.LastIndexOf('.') + 1;
+                if ((dot > 0) && (dot < name.Length))
+                {
+                    return name.Substring(dot);
+                }
+            }
+
+            return name;
         }
 
         #endregion Methods

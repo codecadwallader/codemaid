@@ -364,9 +364,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 
             // Get the items in their current order and their desired order.
             var currentOrder = GetReorganizableCodeItemElements(codeItems);
-            var desiredOrder = currentOrder.OrderBy(CodeItemTypeComparer.CalculateNumericRepresentation)
-                                           .ThenBy(x => Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup ? (object)x.Name : (object)x.StartOffset)
-                                           .ToList();
+            var desiredOrder = new List<BaseCodeItemElement>(currentOrder);
+            desiredOrder.Sort(new CodeItemTypeComparer(Settings.Default.Reorganizing_AlphabetizeMembersOfTheSameGroup));
 
             // Iterate across the items in the desired order, moving them when necessary.
             for (int desiredIndex = 0; desiredIndex < desiredOrder.Count; desiredIndex++)
