@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -130,14 +130,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
-        private static int CalculateConstantOffset(BaseCodeItem codeItem)
-        {
-            var codeItemField = codeItem as CodeItemField;
-            if (codeItemField == null) return 0;
-
-            return codeItemField.IsConstant ? 0 : 1;
-        }
-
         private static int CalculateExplicitInterfaceOffset(BaseCodeItem codeItem)
         {
             if (Settings.Default.Reorganizing_ExplicitMembersAtEnd)
@@ -150,6 +142,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             return 0;
+        }
+
+        private static int CalculateConstantOffset(BaseCodeItem codeItem)
+        {
+            var codeItemField = codeItem as CodeItemField;
+            if (codeItemField == null) return 0;
+
+            return codeItemField.IsConstant ? 0 : 1;
         }
 
         private static int CalculateStaticOffset(BaseCodeItem codeItem)
@@ -176,7 +176,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 // Try to find where the interface ends and the method starts
                 int dot = name.LastIndexOf('.') + 1;
-                if ((dot > 0) && (dot < name.Length))
+                if (0 < dot && dot < name.Length)
                 {
                     return name.Substring(dot);
                 }
