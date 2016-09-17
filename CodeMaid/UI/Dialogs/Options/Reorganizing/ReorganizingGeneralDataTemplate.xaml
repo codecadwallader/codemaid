@@ -9,6 +9,7 @@
                 <StackPanel>
                     <CheckBox Content="Alphabetize members of the same group" IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
                     <CheckBox Content="Keep members within regions" IsChecked="{Binding KeepMembersWithinRegions}" />
+                    <CheckBox Content="Place explicit interface members at the end of their group" IsChecked="{Binding ExplicitInterfaceMembersAtTheEnd}" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Primary ordering should be by" VerticalAlignment="Center" />
                         <RadioButton Content="type then access" IsChecked="{Binding PrimaryOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />

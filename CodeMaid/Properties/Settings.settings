@@ -416,6 +416,9 @@
     <Setting Name="Reorganizing_AlphabetizeMembersOfTheSameGroup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Reorganizing_ExplicitMembersAtEnd" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="Reorganizing_KeepMembersWithinRegions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

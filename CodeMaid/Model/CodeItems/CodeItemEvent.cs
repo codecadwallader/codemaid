@@ -8,7 +8,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     /// <summary>
     /// The representation of a code event.
     /// </summary>
-    public class CodeItemEvent : BaseCodeItemElement
+    public class CodeItemEvent : BaseCodeItemElement, IInterfaceItem
     {
         #region Fields
 

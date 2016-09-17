@@ -12,6 +12,7 @@ assembly_info:
   assembly_informational_version: '{version}'
 
 before_build:
+  - nuget restore
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   - ps: Vsix-TokenReplacement CodeMaid\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
