@@ -218,7 +218,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines) return;
 
-            const string pattern = @"(\r?\n){3,}";
+            const string pattern = @"(?<!@""(""""|[^""])*)(\r?\n){3,}";
             string replacement = Environment.NewLine + Environment.NewLine;
 
             TextDocumentHelper.SubstituteAllStringMatches(textDocument, pattern, replacement);
