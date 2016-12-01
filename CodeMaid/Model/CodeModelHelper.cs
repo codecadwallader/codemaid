@@ -146,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets the regular expression pattern for region matching.
         /// </summary>
-        private string RegionPattern => @"^[ \t]*#(region|endregion)";
+        private string RegionPattern => @"^[ \t]*#([Rr]egion|endregion|End Region)";
 
         #endregion Private Properties
 
@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 eolCursor.EndOfLine();
                 string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
 
-                if (regionText.StartsWith("#region ")) // Space required by compiler.
+                if (regionText.StartsWith("#region ") || regionText.StartsWith("#Region ")) // Space required by compiler.
                 {
                     // Get the region name.
                     string regionName = regionText.Substring(8).Trim();
@@ -183,7 +183,7 @@ namespace SteveCadwallader.CodeMaid.Model
                         StartPoint = cursor.CreateEditPoint()
                     });
                 }
-                else if (regionText.StartsWith("#endregion"))
+                else if (regionText.StartsWith("#endregion") || regionText.StartsWith("#End Region"))
                 {
                     if (regionStack.Count > 0)
                     {
