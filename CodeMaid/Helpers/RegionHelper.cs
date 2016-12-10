@@ -10,9 +10,28 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Internal Methods
 
+        internal static string GetRegionName(EditPoint editPoint, string regionText)
+        {
+            var codeLanguage = editPoint.GetCodeLanguage();
+            switch (codeLanguage)
+            {
+                case CodeLanguage.CSharp:
+                    return regionText.Substring(8).Trim();
+
+                case CodeLanguage.VisualBasic:
+                    // Remove the leading/trailing double quote character.
+                    var text = regionText.Substring(8).Trim();
+                    text = text.Substring(1, text.Length - 2);
+                    return text;
+
+                default:
+                    throw new NotImplementedException($"Regions are not supported for '{codeLanguage}'.");
+            }
+        }
+
         internal static string GetRegionTagText(EditPoint editPoint, string name = null)
         {
-            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+            var codeLanguage = editPoint.GetCodeLanguage();
             switch (codeLanguage)
             {
                 case CodeLanguage.CSharp:
@@ -30,7 +49,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static string GetEndRegionTagText(EditPoint editPoint)
         {
-            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+            var codeLanguage = editPoint.GetCodeLanguage();
             switch (codeLanguage)
             {
                 case CodeLanguage.CSharp:
@@ -46,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static bool LanguageSupportsUpdatingEndRegionDirectives(EditPoint editPoint)
         {
-            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+            var codeLanguage = editPoint.GetCodeLanguage();
 
             switch (codeLanguage)
             {

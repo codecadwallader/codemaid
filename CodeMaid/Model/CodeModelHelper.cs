@@ -172,7 +172,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 if (regionText.StartsWith(RegionHelper.GetRegionTagText(cursor)))
                 {
                     // Get the region name.
-                    string regionName = regionText.Substring(8).Trim();
+                    string regionName = RegionHelper.GetRegionName(cursor, regionText);
 
                     // Push the parsed region info onto the top of the stack.
                     regionStack.Push(new CodeItemRegion
