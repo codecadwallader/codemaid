@@ -167,9 +167,9 @@ namespace SteveCadwallader.CodeMaid.Model
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
                 eolCursor.EndOfLine();
-                string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
+                string regionText = cursor.GetText(eolCursor).TrimStart(' ', '\t');
 
-                if (regionText.StartsWith("#region ") || regionText.StartsWith("#Region ")) // Space required by compiler.
+                if (regionText.StartsWith($"{RegionHelper.GetRegionTagText(cursor)} ")) // Space required by compiler.
                 {
                     // Get the region name.
                     string regionName = regionText.Substring(8).Trim();
@@ -183,7 +183,7 @@ namespace SteveCadwallader.CodeMaid.Model
                         StartPoint = cursor.CreateEditPoint()
                     });
                 }
-                else if (regionText.StartsWith("#endregion") || regionText.StartsWith("#End Region"))
+                else if (regionText.StartsWith(RegionHelper.GetEndRegionTagText(cursor)))
                 {
                     if (regionStack.Count > 0)
                     {

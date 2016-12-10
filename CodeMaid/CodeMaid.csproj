@@ -194,6 +194,7 @@
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
     <Compile Include="Helpers\RegexNullSafe.cs" />
     <Compile Include="Helpers\SettingsContextHelper.cs" />
+    <Compile Include="Helpers\RegionHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />

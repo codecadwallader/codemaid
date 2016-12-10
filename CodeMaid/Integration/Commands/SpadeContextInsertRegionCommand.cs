@@ -47,8 +47,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade?.Document != null)
             {
-                visible = spade.Document.GetCodeLanguage() == CodeLanguage.CSharp &&
-                          spade.SelectedItems.Count() >= 2;
+                visible = spade.SelectedItems.Count() >= 2 &&
+                          (spade.Document.GetCodeLanguage() == CodeLanguage.CSharp ||
+                           spade.Document.GetCodeLanguage() == CodeLanguage.VisualBasic);
             }
 
             Visible = visible;
