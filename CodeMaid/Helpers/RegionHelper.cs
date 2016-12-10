@@ -1,7 +1,5 @@
 ﻿using EnvDTE;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -12,27 +10,51 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Internal Methods
 
-        internal static string GetRegionTagText(EditPoint editPoint)
+        internal static string GetRegionTagText(EditPoint editPoint, string name = null)
         {
-            switch (editPoint.Parent.GetCodeLanguage())
+            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+            switch (codeLanguage)
             {
+                case CodeLanguage.CSharp:
+                    return "#region " +
+                           (name ?? string.Empty);
+
                 case CodeLanguage.VisualBasic:
-                    return "#Region";
+                    return "#Region " +
+                           (name != null ? $"\"{name}\"" : string.Empty);
 
                 default:
-                    return "#region";
+                    throw new NotImplementedException($"Regions are not supported for '{codeLanguage}'.");
             }
         }
 
         internal static string GetEndRegionTagText(EditPoint editPoint)
         {
-            switch (editPoint.Parent.GetCodeLanguage())
+            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+            switch (codeLanguage)
             {
+                case CodeLanguage.CSharp:
+                    return "#endregion";
+
                 case CodeLanguage.VisualBasic:
                     return "#End Region";
 
                 default:
-                    return "#endregion";
+                    throw new NotImplementedException($"Regions are not supported for '{codeLanguage}'.");
+            }
+        }
+
+        internal static bool LanguageSupportsUpdatingEndRegionDirectives(EditPoint editPoint)
+        {
+            var codeLanguage = editPoint.Parent.GetCodeLanguage();
+
+            switch (codeLanguage)
+            {
+                case CodeLanguage.CSharp:
+                    return true;
+
+                default:
+                    return false;
             }
         }
 

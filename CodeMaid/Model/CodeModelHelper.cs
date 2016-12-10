@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Model
                 eolCursor.EndOfLine();
                 string regionText = cursor.GetText(eolCursor).TrimStart(' ', '\t');
 
-                if (regionText.StartsWith($"{RegionHelper.GetRegionTagText(cursor)} ")) // Space required by compiler.
+                if (regionText.StartsWith(RegionHelper.GetRegionTagText(cursor)))
                 {
                     // Get the region name.
                     string regionName = regionText.Substring(8).Trim();
