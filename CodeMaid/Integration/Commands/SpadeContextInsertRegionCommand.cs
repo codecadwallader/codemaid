@@ -81,6 +81,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     // Highlight the line of text for renaming.
                     var textDocument = spade.Document.GetTextDocument();
                     textDocument.Selection.EndOfLine(true);
+
+                    // Move back one character for VB to offset the double quote character.
+                    if (textDocument.GetCodeLanguage() == CodeLanguage.VisualBasic)
+                    {
+                        textDocument.Selection.CharLeft(true);
+                    }
+
                     textDocument.Selection.SwapAnchor();
                 });
 
