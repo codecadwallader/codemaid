@@ -231,8 +231,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             RunExternalFormatting(textDocument);
             if (!document.IsExternal())
             {
-                _usingStatementCleanupLogic.RemoveUnusedUsingStatements(textDocument);
-                _usingStatementCleanupLogic.SortUsingStatements();
+                _usingStatementCleanupLogic.RemoveAndSortUsingStatements(textDocument);
             }
 
             // Interpret the document into a collection of elements.

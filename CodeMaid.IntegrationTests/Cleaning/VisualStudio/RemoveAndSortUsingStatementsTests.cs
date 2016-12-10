@@ -8,9 +8,9 @@ using SteveCadwallader.CodeMaid.Properties;
 namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio
 {
     [TestClass]
-    [DeploymentItem(@"Cleaning\VisualStudio\Data\ReinsertAfterRemoveUnusedUsingStatements.cs", "Data")]
-    [DeploymentItem(@"Cleaning\VisualStudio\Data\ReinsertAfterRemoveUnusedUsingStatements_Cleaned.cs", "Data")]
-    public class ReinsertAfterRemoveUnusedUsingStatementsTests
+    [DeploymentItem(@"Cleaning\VisualStudio\Data\RemoveAndSortUsingStatements.cs", "Data")]
+    [DeploymentItem(@"Cleaning\VisualStudio\Data\RemoveAndSortUsingStatements_Cleaned.cs", "Data")]
+    public class RemoveAndSortUsingStatementsTests
     {
         #region Setup
 
@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio
         public void TestInitialize()
         {
             TestEnvironment.CommonTestInitialize();
-            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\ReinsertAfterRemoveUnusedUsingStatements.cs");
+            _projectItem = TestEnvironment.LoadFileIntoProject(@"Data\RemoveAndSortUsingStatements.cs");
         }
 
         [TestCleanup]
@@ -43,29 +43,36 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.VisualStudio
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningVisualStudioReinsertAfterRemoveUnusedUsingStatements_RunsAsExpected()
+        public void CleaningVisualStudioRemoveAndSortUsingStatements_RunsAsExpected()
         {
             Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements = true;
-            Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = "using System;||using System.Linq;";
 
-            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveUnusedUsingStatements, _projectItem, @"Data\ReinsertAfterRemoveUnusedUsingStatements_Cleaned.cs");
+            TestOperations.ExecuteCommandAndVerifyResults(RunRemoveAndSortUsingStatements, _projectItem, @"Data\RemoveAndSortUsingStatements_Cleaned.cs");
         }
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void CleaningVisualStudioReinsertAfterRemoveUnusedUsingStatements_DoesNothingWhenSettingIsDisabled()
+        public void CleaningVisualStudioRemoveAndSortUsingStatements_DoesNothingOnSecondPass()
+        {
+            Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements = true;
+
+            TestOperations.ExecuteCommandTwiceAndVerifyNoChangesOnSecondPass(RunRemoveAndSortUsingStatements, _projectItem);
+        }
+
+        [TestMethod]
+        [HostType("VS IDE")]
+        public void CleaningVisualStudioRemoveAndSortUsingStatements_DoesNothingWhenSettingIsDisabled()
         {
             Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements = false;
-            Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression = "using System;||using System.Linq;";
 
-            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveUnusedUsingStatements, _projectItem);
+            TestOperations.ExecuteCommandAndVerifyNoChanges(RunRemoveAndSortUsingStatements, _projectItem);
         }
 
         #endregion Tests
 
         #region Helpers
 
-        private static void RunRemoveUnusedUsingStatements(Document document)
+        private static void RunRemoveAndSortUsingStatements(Document document)
         {
             _usingStatementCleanupLogic.RemoveAndSortUsingStatements(document.GetTextDocument());
         }

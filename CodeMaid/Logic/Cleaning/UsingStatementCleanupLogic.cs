@@ -56,13 +56,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Methods
 
         /// <summary>
-        /// Run the visual studio built-in remove unused using statements command.
+        /// Run the visual studio built-in remove and sort using statements command.
         /// </summary>
+        /// <remarks>
+        /// Before VS2017 these were two separate commands.  Starting in VS2017 they were merged into one.
+        /// </remarks>
         /// <param name="textDocument">The text document to update.</param>
-        public void RemoveUnusedUsingStatements(TextDocument textDocument)
+        public void RemoveAndSortUsingStatements(TextDocument textDocument)
         {
-            if (!Settings.Default.Cleaning_RunVisualStudioRemoveUnusedUsingStatements) return;
-            if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave) return;
+            if (!Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements) return;
+            if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave) return;
 
             // Capture all existing using statements that should be re-inserted if removed.
             const string patternFormat = @"^[ \t]*{0}[ \t]*\r?\n";
@@ -78,7 +81,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 point.editPoint.CharRight();
             }
 
-            _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", string.Empty);
+            if (_package.IDEVersion >= 15)
+            {
+                _package.IDE.ExecuteCommand("Edit.RemoveAndSort", string.Empty);
+            }
+            else
+            {
+                _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", string.Empty);
+                _package.IDE.ExecuteCommand("Edit.SortUsings", string.Empty);
+            }
 
             // Check each using statement point and re-insert it if removed.
             foreach (var point in points)
@@ -91,17 +102,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     point.editPoint.Insert(Environment.NewLine);
                 }
             }
-        }
-
-        /// <summary>
-        /// Run the visual studio built-in sort using statements command.
-        /// </summary>
-        public void SortUsingStatements()
-        {
-            if (!Settings.Default.Cleaning_RunVisualStudioSortUsingStatements) return;
-            if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave) return;
-
-            _package.IDE.ExecuteCommand("Edit.SortUsings", string.Empty);
         }
 
         #endregion Methods
