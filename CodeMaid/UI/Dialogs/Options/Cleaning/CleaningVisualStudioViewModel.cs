@@ -20,10 +20,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioFormatDocumentCommand, x => RunVisualStudioFormatDocument),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioRemoveUnusedUsingStatements, x => RunVisualStudioRemoveUnusedUsingStatements),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioSortUsingStatements, x => RunVisualStudioSortUsingStatements),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave, x => SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave, x => SkipSortUsingStatementsDuringAutoCleanupOnSave),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_RunVisualStudioRemoveAndSortUsingStatements, x => RunVisualStudioRemoveAndSortUsingStatements),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave, x => SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UsingStatementsToReinsertWhenRemovedExpression, x => UsingStatementsToReinsertWhenRemovedExpression)
             };
         }
@@ -51,38 +49,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         }
 
         /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should be removed.
+        /// Gets or sets the flag indicating if using statements should be removed and sorted.
         /// </summary>
-        public bool RunVisualStudioRemoveUnusedUsingStatements
+        public bool RunVisualStudioRemoveAndSortUsingStatements
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
         }
 
         /// <summary>
-        /// Gets or sets the flag indicating if using statements should be sorted.
+        /// Gets or sets the flag indicating if using statements should not be removed and sorted
+        /// during auto cleanup on save.
         /// </summary>
-        public bool RunVisualStudioSortUsingStatements
-        {
-            get { return GetPropertyValue<bool>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the flag indicating if unused using statements should not be removed during
-        /// auto cleanup on save.
-        /// </summary>
-        public bool SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave
-        {
-            get { return GetPropertyValue<bool>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the flag indicating if using statements should not be sorted during auto
-        /// cleanup on save.
-        /// </summary>
-        public bool SkipSortUsingStatementsDuringAutoCleanupOnSave
+        public bool SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

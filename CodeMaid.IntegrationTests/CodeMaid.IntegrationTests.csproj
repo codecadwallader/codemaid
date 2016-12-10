@@ -243,16 +243,10 @@
     <Compile Include="Cleaning\Remove\RemoveEmptyRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveSetOfRegionsTests.cs" />
     <Compile Include="Cleaning\Remove\RemoveSelectedRegionsTests.cs" />
-    <Content Include="Cleaning\VisualStudio\Data\SortUsingStatements.cs">
+    <Content Include="Cleaning\VisualStudio\Data\RemoveAndSortUsingStatements.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cleaning\VisualStudio\Data\SortUsingStatements_Cleaned.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Cleaning\VisualStudio\Data\RemoveUnusedUsingStatements.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Cleaning\VisualStudio\Data\RemoveUnusedUsingStatements_Cleaned.cs">
+    <Content Include="Cleaning\VisualStudio\Data\RemoveAndSortUsingStatements_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cleaning\VisualStudio\Data\ReinsertAfterRemoveUnusedUsingStatements.cs">
@@ -284,8 +278,7 @@
     <Compile Include="Cleaning\Update\FileHeaderCPlusPlusTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderCSharpTests.cs" />
     <Compile Include="Cleaning\VisualStudio\ReinsertAfterRemoveUnusedUsingStatementsTests.cs" />
-    <Compile Include="Cleaning\VisualStudio\RemoveUnusedUsingStatementsTests.cs" />
-    <Compile Include="Cleaning\VisualStudio\SortUsingStatementsTests.cs" />
+    <Compile Include="Cleaning\VisualStudio\RemoveAndSortUsingStatementsTests.cs" />
     <Compile Include="Formatting\StandardCommentFormatTests.cs" />
     <Compile Include="Formatting\BaseCommentFormatTests.cs" />
     <Compile Include="Formatting\StylecopHeaderFormatTests.cs" />

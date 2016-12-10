@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -950,48 +950,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RunVisualStudioRemoveUnusedUsingStatements {
+        public bool Cleaning_RunVisualStudioRemoveAndSortUsingStatements {
             get {
-                return ((bool)(this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"]));
+                return ((bool)(this["Cleaning_RunVisualStudioRemoveAndSortUsingStatements"]));
             }
             set {
-                this["Cleaning_RunVisualStudioRemoveUnusedUsingStatements"] = value;
+                this["Cleaning_RunVisualStudioRemoveAndSortUsingStatements"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_RunVisualStudioSortUsingStatements {
+        public bool Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave {
             get {
-                return ((bool)(this["Cleaning_RunVisualStudioSortUsingStatements"]));
+                return ((bool)(this["Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave"]));
             }
             set {
-                this["Cleaning_RunVisualStudioSortUsingStatements"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave {
-            get {
-                return ((bool)(this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"]));
-            }
-            set {
-                this["Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave {
-            get {
-                return ((bool)(this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"]));
-            }
-            set {
-                this["Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave"] = value;
+                this["Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave"] = value;
             }
         }
         
