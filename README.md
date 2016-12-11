@@ -1,6 +1,6 @@
 <link href="http://www.codemaid.net/wp-content/uploads/external/ProjectDescription.css" rel="stylesheet"></link>
  
-<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/external/about_v10_1.png" alt="codemaid.net" /></a></div>
+<div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/2016/12/about_v10_2.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank"> http://www.codemaid.net</a></div>
 <p>Currently supports VS2012, VS2013, VS2015 and VS2017.</p>
 <p>For Visual Studio 2010, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.8.1/CodeMaid_v0.8.1.vsix" target="_blank"> v0.8.1</a>.</p>
