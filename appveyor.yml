@@ -1,5 +1,5 @@
 version: 10.1.{build}
-os: Visual Studio 2017 RC
+image: Visual Studio 2015
 
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
