@@ -1,10 +1,20 @@
 # Changelog
 
-## vNext (TBD)
+## vNext (10.2)
 
 These changes have not been released to the official Visual Studio extension gallery, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
-- [ ] TBD
+- [x] Features
+  - [x] [#284](https://github.com/codecadwallader/codemaid/issues/284) - Performance improvements to compiling regular expressions - thanks [flagbug](https://github.com/flagbug)!
+  - [x] [#298](https://github.com/codecadwallader/codemaid/issues/298) - First class support for VB regions (viewing, inserting and removing)
+  - [x] [#337](https://github.com/codecadwallader/codemaid/issues/337) - Reorganizing: Add option to put explicit interface implementations after other members - thanks [samcragg](https://github.com/samcragg)!
+  - [x] [#371](https://github.com/codecadwallader/codemaid/issues/371) - Support for VS2017 RC
+
+- [x] Fixes
+  - [x] [#290](https://github.com/codecadwallader/codemaid/issues/290) - Finding: When track active item is enabled an error can be displayed on invocation
+  - [x] [#315](https://github.com/codecadwallader/codemaid/issues/315) - Reorganizing: Explicit interface implementations may take multiple passes to get in stable order - thanks [samcragg](https://github.com/samcragg)!
+  - [x] [#326](https://github.com/codecadwallader/codemaid/issues/326) - Digging: VB comments were not visible
+  - [x] [#342](https://github.com/codecadwallader/codemaid/issues/342) - Digging: VB regions were not visible - thanks [aeab13](https://github.com/aeab13)!
 
 ## Previous Releases
 
