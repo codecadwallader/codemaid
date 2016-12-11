@@ -443,7 +443,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
-            ExecuteCommand(textDocument, "Edit.FormatDocument");
+            _commandHelper.ExecuteCommand(textDocument, "Edit.FormatDocument");
         }
 
         /// <summary>
@@ -456,8 +456,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // This command changed to include the leading 'ReSharper.' in version 2016.1.
             // Execute both commands for backwards compatibility.
-            ExecuteCommand(textDocument, "ReSharper_SilentCleanupCode");
-            ExecuteCommand(textDocument, "ReSharper.ReSharper_SilentCleanupCode");
+            _commandHelper.ExecuteCommand(textDocument, "ReSharper_SilentCleanupCode", "ReSharper.ReSharper_SilentCleanupCode");
         }
 
         /// <summary>
@@ -468,7 +467,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.ThirdParty_UseTelerikJustCodeCleanup) return;
 
-            ExecuteCommand(textDocument, "JustCode.JustCode_CleanCodeWithDefaultProfile");
+            _commandHelper.ExecuteCommand(textDocument, "JustCode.JustCode_CleanCodeWithDefaultProfile");
         }
 
         /// <summary>
@@ -479,7 +478,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.ThirdParty_UseXAMLStylerCleanup) return;
 
-            ExecuteCommand(textDocument, "EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML");
+            _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML");
         }
 
         /// <summary>
@@ -492,31 +491,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             foreach (var commandName in _otherCleaningCommands.Value)
             {
-                ExecuteCommand(textDocument, commandName);
-            }
-        }
-
-        /// <summary>
-        /// Executes the specified cleanup command when available against the specified text document.
-        /// </summary>
-        /// <param name="textDocument">The text document to cleanup.</param>
-        /// <param name="commandNames">The cleanup command name(s).</param>
-        private void ExecuteCommand(TextDocument textDocument, params string[] commandNames)
-        {
-            try
-            {
-                var command = _commandHelper.FindCommand(commandNames);
-                if (command != null && command.IsAvailable)
-                {
-                    using (new CursorPositionRestorer(textDocument))
-                    {
-                        _package.IDE.ExecuteCommand(command.Name, string.Empty);
-                    }
-                }
-            }
-            catch
-            {
-                // OK if fails, not available for some file types.
+                _commandHelper.ExecuteCommand(textDocument, commandName);
             }
         }
 

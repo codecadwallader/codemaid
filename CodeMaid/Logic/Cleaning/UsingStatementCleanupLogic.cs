@@ -14,6 +14,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Fields
 
         private readonly CodeMaidPackage _package;
+        private readonly CommandHelper _commandHelper;
 
         private readonly CachedSettingSet<string> _usingStatementsToReinsertWhenRemoved =
             new CachedSettingSet<string>(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
@@ -49,6 +50,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private UsingStatementCleanupLogic(CodeMaidPackage package)
         {
             _package = package;
+
+            _commandHelper = CommandHelper.GetInstance(_package);
         }
 
         #endregion Constructors
@@ -83,12 +86,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (_package.IDEVersion >= 15)
             {
-                _package.IDE.ExecuteCommand("Edit.RemoveAndSort", string.Empty);
+                _commandHelper.ExecuteCommand(textDocument, "Edit.RemoveAndSort");
             }
             else
             {
-                _package.IDE.ExecuteCommand("Edit.RemoveUnusedUsings", string.Empty);
-                _package.IDE.ExecuteCommand("Edit.SortUsings", string.Empty);
+                _commandHelper.ExecuteCommand(textDocument, "Edit.RemoveUnusedUsings");
+                _commandHelper.ExecuteCommand(textDocument, "Edit.SortUsings");
             }
 
             // Check each using statement point and re-insert it if removed.

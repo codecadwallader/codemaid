@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+﻿using System;
+using EnvDTE;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -65,6 +66,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public Command FindCommand(string guid, int id)
         {
             return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => x.Guid == guid && x.ID == id);
+        }
+
+        /// <summary>
+        /// Executes the specified command when available against the specified text document.
+        /// </summary>
+        /// <param name="textDocument">The text document to cleanup.</param>
+        /// <param name="commandNames">The cleanup command name(s).</param>
+        public void ExecuteCommand(TextDocument textDocument, params string[] commandNames)
+        {
+            try
+            {
+                var command = FindCommand(commandNames);
+                if (command != null && command.IsAvailable)
+                {
+                    using (new CursorPositionRestorer(textDocument))
+                    {
+                        _package.IDE.ExecuteCommand(command.Name, string.Empty);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // OK if fails, not available for some file types.
+                OutputWindowHelper.DiagnosticWriteLine($"Unable to execute command(s) {string.Join(",", commandNames)} on {textDocument.Parent.FullName}", ex);
+            }
         }
 
         #endregion Methods
