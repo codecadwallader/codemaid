@@ -2,7 +2,19 @@
 
 ## vNext (10.2)
 
-These changes have not been released to the official Visual Studio extension gallery, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
+These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
+
+- [x] Features
+
+- [x] Fixes
+
+## Previous Releases
+
+These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 10.2
+
+**2017-01-01**
 
 - [x] Features
   - [x] [#284](https://github.com/codecadwallader/codemaid/issues/284) - Performance improvements to compiling regular expressions - thanks [flagbug](https://github.com/flagbug)!
@@ -15,10 +27,6 @@ These changes have not been released to the official Visual Studio extension gal
   - [x] [#315](https://github.com/codecadwallader/codemaid/issues/315) - Reorganizing: Explicit interface implementations may take multiple passes to get in stable order - thanks [samcragg](https://github.com/samcragg)!
   - [x] [#326](https://github.com/codecadwallader/codemaid/issues/326) - Digging: VB comments were not visible
   - [x] [#342](https://github.com/codecadwallader/codemaid/issues/342) - Digging: VB regions were not visible - thanks [aeab13](https://github.com/aeab13)!
-
-## Previous Releases
-
-These are the changes to each version that has been released to the official Visual Studio extension gallery.
 
 ## 10.1
 

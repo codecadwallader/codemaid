@@ -67,7 +67,7 @@
                 Click="OnWebsiteLinkClick" ToolTip="Launch CodeMaid's website" />
 
         <Button Canvas.Left="704" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
-                Click="OnVisualStudioGalleryLinkClick" ToolTip="Download, Reviews - Visual Studio Gallery" />
+                Click="OnVisualStudioMarketplaceLinkClick" ToolTip="Download, Reviews - Visual Studio Marketplace" />
 
         <Button Canvas.Left="748" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
                 Click="OnGitHubLinkClick" ToolTip="Code, Issues - GitHub" />
