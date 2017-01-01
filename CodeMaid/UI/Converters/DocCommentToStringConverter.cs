@@ -31,9 +31,16 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             try
             {
+                // In VB .NET the returned XML doesn't have a <doc> tag so we add it to avoid a crash
+                // with multiple documentation tags.
+                if (!str.StartsWith("<doc>"))
+                {
+                    str = "<doc>" + str + "</doc>";
+                }
+
                 var xElement = XElement.Parse(str);
 
-                var summaryTag = xElement.Descendants("summary").FirstOrDefault();
+                var summaryTag = xElement.DescendantsAndSelf("summary").FirstOrDefault();
                 if (summaryTag == null) return string.Empty;
 
                 // Get the Inner XML for the summary tag.

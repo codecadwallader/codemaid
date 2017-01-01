@@ -10,6 +10,25 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     public class CodeItemTypeComparer : Comparer<BaseCodeItem>
     {
+        #region Fields
+
+        private readonly bool _sortByName;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeItemTypeComparer"/> class.
+        /// </summary>
+        /// <param name="sortByName">Determines whether a secondary sort by name is performed or not.</param>
+        public CodeItemTypeComparer(bool sortByName)
+        {
+            _sortByName = sortByName;
+        }
+
+        #endregion Constructors
+
         #region Methods
 
         /// <summary>
@@ -31,9 +50,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (first == second)
             {
                 // Check if secondary sort by name should occur.
-                if (Settings.Default.Digging_SecondarySortTypeByName)
+                if (_sortByName)
                 {
-                    int nameComparison = x.Name.CompareTo(y.Name);
+                    int nameComparison = NormalizeName(x).CompareTo(NormalizeName(y));
                     if (nameComparison != 0)
                     {
                         return nameComparison;
@@ -47,15 +66,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return first.CompareTo(second);
         }
 
-        /// <summary>
-        /// Calculates an ordered numeric representation of the specified code item.
-        /// </summary>
-        /// <param name="codeItem">The code item.</param>
-        /// <returns>A numeric representation.</returns>
-        public static int CalculateNumericRepresentation(BaseCodeItem codeItem)
+        private static int CalculateNumericRepresentation(BaseCodeItem codeItem)
         {
             int typeOffset = CalculateTypeOffset(codeItem);
             int accessOffset = CalculateAccessOffset(codeItem);
+            int explicitOffset = CalculateExplicitInterfaceOffset(codeItem);
             int constantOffset = CalculateConstantOffset(codeItem);
             int staticOffset = CalculateStaticOffset(codeItem);
             int readOnlyOffset = CalculateReadOnlyOffset(codeItem);
@@ -64,16 +79,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             if (!Settings.Default.Reorganizing_PrimaryOrderByAccessLevel)
             {
-                calc += typeOffset * 10000;
-                calc += accessOffset * 1000;
+                calc += typeOffset * 100000;
+                calc += accessOffset * 10000;
             }
             else
             {
-                calc += accessOffset * 10000;
-                calc += typeOffset * 1000;
+                calc += accessOffset * 100000;
+                calc += typeOffset * 10000;
             }
 
-            calc += (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
+            calc += (explicitOffset * 1000) + (constantOffset * 100) + (staticOffset * 10) + readOnlyOffset;
 
             return calc;
         }
@@ -115,6 +130,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        private static int CalculateExplicitInterfaceOffset(BaseCodeItem codeItem)
+        {
+            if (Settings.Default.Reorganizing_ExplicitMembersAtEnd)
+            {
+                var interfaceItem = codeItem as IInterfaceItem;
+                if ((interfaceItem != null) && interfaceItem.IsExplicitInterfaceImplementation)
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
+
         private static int CalculateConstantOffset(BaseCodeItem codeItem)
         {
             var codeItemField = codeItem as CodeItemField;
@@ -137,6 +166,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
             if (codeItemField == null) return 0;
 
             return codeItemField.IsReadOnly ? 0 : 1;
+        }
+
+        private static string NormalizeName(BaseCodeItem codeItem)
+        {
+            string name = codeItem.Name;
+            var interfaceItem = codeItem as IInterfaceItem;
+            if ((interfaceItem != null) && interfaceItem.IsExplicitInterfaceImplementation)
+            {
+                // Try to find where the interface ends and the method starts
+                int dot = name.LastIndexOf('.') + 1;
+                if (0 < dot && dot < name.Length)
+                {
+                    return name.Substring(dot);
+                }
+            }
+
+            return name;
         }
 
         #endregion Methods

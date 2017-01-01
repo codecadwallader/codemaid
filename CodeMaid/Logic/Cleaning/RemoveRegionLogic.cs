@@ -62,7 +62,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
                    document != null &&
-                   document.GetCodeLanguage() == CodeLanguage.CSharp;
+                   (document.GetCodeLanguage() == CodeLanguage.CSharp ||
+                    document.GetCodeLanguage() == CodeLanguage.VisualBasic);
         }
 
         /// <summary>

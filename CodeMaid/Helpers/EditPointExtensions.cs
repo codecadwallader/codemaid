@@ -8,6 +8,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
     internal static class EditPointExtensions
     {
         /// <summary>
+        /// Gets the <see cref="CodeLanguage"/> for this edit point.
+        /// </summary>
+        /// <param name="editPoint">The edit point.</param>
+        /// <returns>A <see cref="CodeLanguage"/>.</returns>
+        internal static CodeLanguage GetCodeLanguage(this EditPoint editPoint)
+        {
+            return editPoint.Parent.GetCodeLanguage();
+        }
+
+        /// <summary>
         /// Gets the text for the line where the edit point is located.
         /// </summary>
         /// <param name="editPoint">The edit point.</param>

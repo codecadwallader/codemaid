@@ -177,7 +177,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 cursor.Insert(Environment.NewLine);
             }
 
-            cursor.Insert($"#region {region.Name}{Environment.NewLine}");
+            cursor.Insert($"{RegionHelper.GetRegionTagText(cursor, region.Name)}{Environment.NewLine}");
 
             startPoint.SmartFormat(cursor);
 
@@ -209,9 +209,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 cursor.Insert(Environment.NewLine);
             }
 
-            cursor.Insert("#endregion");
+            cursor.Insert(RegionHelper.GetEndRegionTagText(cursor));
 
-            if (Settings.Default.Cleaning_UpdateEndRegionDirectives)
+            if (Settings.Default.Cleaning_UpdateEndRegionDirectives &&
+                RegionHelper.LanguageSupportsUpdatingEndRegionDirectives(cursor))
             {
                 cursor.Insert(" " + region.Name);
             }

@@ -141,7 +141,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+[ \t]*|\w+[\):][ \t]+|\d+\.[ \t]+)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
-            return new Regex(pattern, RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline);
+            return new Regex(pattern, RegexOptions.ExplicitCapture | RegexOptions.Multiline);
         }
 
         internal static int GetTabSize(CodeMaidPackage package, TextDocument document)
@@ -163,7 +163,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static bool IsCommentLine(EditPoint point)
         {
-            return LineMatchesRegex(point, GetCommentRegex(point.Parent.GetCodeLanguage())).Success;
+            return LineMatchesRegex(point, GetCommentRegex(point.GetCodeLanguage())).Success;
         }
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)

@@ -233,17 +233,11 @@
     <Setting Name="Cleaning_RunVisualStudioFormatDocumentCommand" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_RunVisualStudioRemoveUnusedUsingStatements" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_RunVisualStudioRemoveAndSortUsingStatements" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Cleaning_RunVisualStudioSortUsingStatements" Type="System.Boolean" Scope="User">
+    <Setting Name="Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Cleaning_SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Cleaning_SkipSortUsingStatementsDuringAutoCleanupOnSave" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -415,6 +409,9 @@
     </Setting>
     <Setting Name="Reorganizing_AlphabetizeMembersOfTheSameGroup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Reorganizing_ExplicitMembersAtEnd" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Reorganizing_KeepMembersWithinRegions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

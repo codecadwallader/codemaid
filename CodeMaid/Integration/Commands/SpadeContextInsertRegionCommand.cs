@@ -47,8 +47,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade?.Document != null)
             {
-                visible = spade.Document.GetCodeLanguage() == CodeLanguage.CSharp &&
-                          spade.SelectedItems.Count() >= 2;
+                visible = spade.SelectedItems.Count() >= 2 &&
+                          (spade.Document.GetCodeLanguage() == CodeLanguage.CSharp ||
+                           spade.Document.GetCodeLanguage() == CodeLanguage.VisualBasic);
             }
 
             Visible = visible;
@@ -80,6 +81,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                     // Highlight the line of text for renaming.
                     var textDocument = spade.Document.GetTextDocument();
                     textDocument.Selection.EndOfLine(true);
+
+                    // Move back one character for VB to offset the double quote character.
+                    if (textDocument.GetCodeLanguage() == CodeLanguage.VisualBasic)
+                    {
+                        textDocument.Selection.CharLeft(true);
+                    }
+
                     textDocument.Selection.SwapAnchor();
                 });
 

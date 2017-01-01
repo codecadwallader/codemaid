@@ -1,5 +1,5 @@
-version: 10.1.{build}
-os: Visual Studio 2015
+version: 10.2.{build}
+image: Visual Studio 2017 RC
 
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
@@ -12,6 +12,7 @@ assembly_info:
   assembly_informational_version: '{version}'
 
 before_build:
+  - nuget restore
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   - ps: Vsix-TokenReplacement CodeMaid\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 

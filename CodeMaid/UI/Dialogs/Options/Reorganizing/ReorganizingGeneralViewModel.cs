@@ -21,6 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_AlphabetizeMembersOfTheSameGroup, x => AlphabetizeMembersOfTheSameGroup),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_ExplicitMembersAtEnd, x => ExplicitInterfaceMembersAtTheEnd),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
                 new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Reorganizing_PerformWhenPreprocessorConditionals, x => PerformWhenPreprocessorConditionals),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
@@ -45,6 +46,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Gets or sets the flag indicating if members of the same group should be alphabetized.
         /// </summary>
         public bool AlphabetizeMembersOfTheSameGroup
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if explicit interface members should be placed at the end of the group.
+        /// </summary>
+        public bool ExplicitInterfaceMembersAtTheEnd
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

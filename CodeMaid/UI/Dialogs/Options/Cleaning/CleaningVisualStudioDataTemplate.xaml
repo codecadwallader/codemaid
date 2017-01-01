@@ -6,11 +6,11 @@
         <StackPanel>
             <CheckBox Content="Run format document" IsChecked="{Binding RunVisualStudioFormatDocument}" />
 
-            <CheckBox Content="Run remove unused using statements"
-                      IsChecked="{Binding RunVisualStudioRemoveUnusedUsingStatements}" />
+            <CheckBox Content="Run remove and sort using statements"
+                      IsChecked="{Binding RunVisualStudioRemoveAndSortUsingStatements}" />
             <CheckBox Content="Skip during automatic cleanup on save"
-                      IsChecked="{Binding SkipRemoveUnusedUsingStatementsDuringAutoCleanupOnSave}"
-                      IsEnabled="{Binding RunVisualStudioRemoveUnusedUsingStatements}" Margin="35,5,5,5" />
+                      IsChecked="{Binding SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave}"
+                      IsEnabled="{Binding RunVisualStudioRemoveAndSortUsingStatements}" Margin="35,5,5,5" />
 
             <StackPanel IsEnabled="{Binding RunVisualStudioRemoveUnusedUsingStatements}" Margin="30,5,5,10">
                 <TextBlock Text="Using statements to re-insert when removed  (ex: using System; )" Margin="5,5,5,0" />
@@ -18,11 +18,6 @@
                          Text="{Binding UsingStatementsToReinsertWhenRemovedExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock FontStyle="Italic" Text="Place each using statement on a separate line" />
             </StackPanel>
-
-            <CheckBox Content="Run sort using statements" IsChecked="{Binding RunVisualStudioSortUsingStatements}" />
-            <CheckBox Content="Skip during automatic cleanup on save"
-                      IsChecked="{Binding SkipSortUsingStatementsDuringAutoCleanupOnSave}"
-                      IsEnabled="{Binding RunVisualStudioSortUsingStatements}" Margin="35,5,5,5" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

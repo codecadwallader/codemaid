@@ -14,12 +14,13 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <OldToolsVersion>12.0</OldToolsVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,7 +33,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -194,6 +194,7 @@
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
     <Compile Include="Helpers\RegexNullSafe.cs" />
     <Compile Include="Helpers\SettingsContextHelper.cs" />
+    <Compile Include="Helpers\RegionHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
     <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
     <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
+    <Compile Include="Model\CodeItems\IInterfaceItem.cs" />
     <Compile Include="Model\Comments\CommentLine.cs" />
     <Compile Include="Model\Comments\CommentLineXml.cs" />
     <Compile Include="Model\Comments\ICommentLine.cs" />
