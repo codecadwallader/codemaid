@@ -3,6 +3,7 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding">
     <DataTemplate DataType="{x:Type local:FindingViewModel}">
         <StackPanel>
+            <CheckBox Content="Clear Solution Explorer search filtering to find filtered items" IsChecked="{Binding ClearSolutionExplorerSearch}" />
             <CheckBox Content="Temporarily open solution folders to find nested items" IsChecked="{Binding TemporarilyOpenSolutionFolders}" />
         </StackPanel>
     </DataTemplate>

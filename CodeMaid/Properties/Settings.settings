@@ -488,5 +488,8 @@
     <Setting Name="ThirdParty_UseXAMLStylerCleanup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Finding_ClearSolutionExplorerSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

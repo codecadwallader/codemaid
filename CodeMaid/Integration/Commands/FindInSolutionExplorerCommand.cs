@@ -3,6 +3,10 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell;
+using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
+using Microsoft.VisualStudio;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -14,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Fields
 
         private readonly CommandHelper _commandHelper;
+        private readonly ServiceProvider _serviceProvider;
 
         #endregion Fields
 
@@ -28,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                    new CommandID(PackageGuids.GuidCodeMaidCommandFindInSolutionExplorer, PackageIds.CmdIDCodeMaidFindInSolutionExplorer))
         {
             _commandHelper = CommandHelper.GetInstance(package);
+            _serviceProvider = new ServiceProvider((IServiceProvider)package.IDE);
         }
 
         #endregion Constructors
@@ -52,6 +58,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Document document = Package.ActiveDocument;
             if (document != null)
             {
+                if (Settings.Default.Finding_ClearSolutionExplorerSearch)
+                {
+                    ClearSolutionExplorerSearchFilter();
+                }
+
                 if (Settings.Default.Finding_TemporarilyOpenSolutionFolders)
                 {
                     ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
@@ -80,6 +91,16 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #endregion BaseCommand Methods
 
         #region Methods
+
+        /// <summary>
+        /// Clears any exising search filtering in the solution explorer so that items not matching the query can be found 
+        /// </summary>
+        private void ClearSolutionExplorerSearchFilter()
+        {
+            var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(_serviceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
+            var ws = solutionExplorer as IVsWindowSearch;
+            ws?.ClearSearch();
+        }
 
         /// <summary>
         /// Toggles all solution folders open temporarily to workaround searches not working inside
