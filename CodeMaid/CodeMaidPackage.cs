@@ -22,7 +22,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
-using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -169,7 +168,7 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Gets the service provider.
         /// </summary>
-        public IServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = new ServiceProvider((IServiceProvider)IDE));
+        public IServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = new ServiceProvider((Microsoft.VisualStudio.OLE.Interop.IServiceProvider)IDE));
 
         /// <summary>
         /// Gets the Spade tool window, iff it already exists.
