@@ -335,6 +335,9 @@
     <Setting Name="Digging_SynchronizeOutlining" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Finding_ClearSolutionExplorerSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="Finding_TemporarilyOpenSolutionFolders" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -486,9 +489,6 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ThirdParty_UseXAMLStylerCleanup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Finding_ClearSolutionExplorerSearch" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

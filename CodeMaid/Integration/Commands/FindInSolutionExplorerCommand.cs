@@ -1,12 +1,12 @@
 using EnvDTE;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Shell;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-using Microsoft.VisualStudio;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -93,7 +93,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Methods
 
         /// <summary>
-        /// Clears any exising search filtering in the solution explorer so that items not matching the query can be found 
+        /// Clears any exising search filtering in the solution explorer so that items not matching
+        /// the query can be found.
         /// </summary>
         private void ClearSolutionExplorerSearchFilter()
         {
