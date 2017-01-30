@@ -22,6 +22,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -67,6 +68,11 @@ namespace SteveCadwallader.CodeMaid
         /// The top level application instance of the VS IDE that is executing this package.
         /// </summary>
         private DTE2 _ide;
+
+        /// <summary>
+        /// The service provider.
+        /// </summary>
+        private IServiceProvider _serviceProvider;
 
         /// <summary>
         /// The Spade tool window.
@@ -159,6 +165,11 @@ namespace SteveCadwallader.CodeMaid
         /// Gets the menu command service.
         /// </summary>
         public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+
+        /// <summary>
+        /// Gets the service provider.
+        /// </summary>
+        public IServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = new ServiceProvider((IServiceProvider)IDE));
 
         /// <summary>
         /// Gets the Spade tool window, iff it already exists.

@@ -18,7 +18,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #region Fields
 
         private readonly CommandHelper _commandHelper;
-        private readonly ServiceProvider _serviceProvider;
 
         #endregion Fields
 
@@ -33,7 +32,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                    new CommandID(PackageGuids.GuidCodeMaidCommandFindInSolutionExplorer, PackageIds.CmdIDCodeMaidFindInSolutionExplorer))
         {
             _commandHelper = CommandHelper.GetInstance(package);
-            _serviceProvider = new ServiceProvider((IServiceProvider)package.IDE);
         }
 
         #endregion Constructors
@@ -98,9 +96,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ClearSolutionExplorerSearchFilter()
         {
-            var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(_serviceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
-            var ws = solutionExplorer as IVsWindowSearch;
-            ws?.ClearSearch();
+            if (Package.ServiceProvider != null)
+            {
+                var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package.ServiceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
+                var ws = solutionExplorer as IVsWindowSearch;
+                ws?.ClearSearch();
+            }
         }
 
         /// <summary>
