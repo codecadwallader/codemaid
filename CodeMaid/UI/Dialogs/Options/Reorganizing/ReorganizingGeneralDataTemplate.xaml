@@ -17,8 +17,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Access levels should be ordered by" VerticalAlignment="Center" />
-                        <RadioButton Content="public to private" IsChecked="{Binding ReverseOrderByAccessLevel}" />
-                        <RadioButton Content="private to public" IsChecked="{Binding ReverseOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
+                        <RadioButton Content="public to private" IsChecked="{Binding ReverseOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
+                        <RadioButton Content="private to public" IsChecked="{Binding ReverseOrderByAccessLevel}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
