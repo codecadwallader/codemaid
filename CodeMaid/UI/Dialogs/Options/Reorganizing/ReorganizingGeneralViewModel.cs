@@ -25,8 +25,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
                 new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Reorganizing_PerformWhenPreprocessorConditionals, x => PerformWhenPreprocessorConditionals),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_ReverseAccessLevel, x => ReverseOrderByAccessLevel),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RevertAccessLevel, x => RevertOrderByAccessLevel)
             };
         }
 
@@ -89,21 +89,21 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         }
 
         /// <summary>
-        /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
+        /// Gets or sets a value indicating whether [revert order by access level].
         /// </summary>
-        public bool RunAtStartOfCleanup
+        /// <value>
+        /// <c>true</c> if [revert order by access level]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ReverseOrderByAccessLevel
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [revert order by access level].
+        /// Gets or sets the flag indicating if reorganizing should be run at the start of cleanup.
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [revert order by access level]; otherwise, <c>false</c>.
-        /// </value>
-        public bool RevertOrderByAccessLevel
+        public bool RunAtStartOfCleanup
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
