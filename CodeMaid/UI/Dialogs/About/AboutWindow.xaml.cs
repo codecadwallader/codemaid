@@ -60,15 +60,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         }
 
         /// <summary>
-        /// Called when the Visual Studio Gallery link is clicked.
+        /// Called when the Visual Studio Marketplace link is clicked.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">
         /// The <see cref="System.Windows.RoutedEventArgs" /> instance containing the event data.
         /// </param>
-        private void OnVisualStudioGalleryLinkClick(object sender, RoutedEventArgs e)
+        private void OnVisualStudioMarketplaceLinkClick(object sender, RoutedEventArgs e)
         {
-            LaunchLink(@"https://visualstudiogallery.msdn.microsoft.com/76293c4d-8c16-4f4a-aee6-21f83a571496");
+            LaunchLink(@"https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid");
         }
 
         /// <summary>

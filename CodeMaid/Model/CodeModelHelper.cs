@@ -146,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <summary>
         /// Gets the regular expression pattern for region matching.
         /// </summary>
-        private string RegionPattern => @"^[ \t]*#(region|endregion)";
+        private string RegionPattern => @"^[ \t]*#([Rr]egion|endregion|End Region)";
 
         #endregion Private Properties
 
@@ -167,12 +167,12 @@ namespace SteveCadwallader.CodeMaid.Model
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
                 eolCursor.EndOfLine();
-                string regionText = cursor.GetText(eolCursor).TrimStart(new[] { ' ', '\t' });
+                string regionText = cursor.GetText(eolCursor).TrimStart(' ', '\t');
 
-                if (regionText.StartsWith("#region ")) // Space required by compiler.
+                if (regionText.StartsWith(RegionHelper.GetRegionTagText(cursor)))
                 {
                     // Get the region name.
-                    string regionName = regionText.Substring(8).Trim();
+                    string regionName = RegionHelper.GetRegionName(cursor, regionText);
 
                     // Push the parsed region info onto the top of the stack.
                     regionStack.Push(new CodeItemRegion
@@ -183,7 +183,7 @@ namespace SteveCadwallader.CodeMaid.Model
                         StartPoint = cursor.CreateEditPoint()
                     });
                 }
-                else if (regionText.StartsWith("#endregion"))
+                else if (regionText.StartsWith(RegionHelper.GetEndRegionTagText(cursor)))
                 {
                     if (regionStack.Count > 0)
                     {

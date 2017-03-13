@@ -163,7 +163,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static bool IsCommentLine(EditPoint point)
         {
-            return LineMatchesRegex(point, GetCommentRegex(point.Parent.GetCodeLanguage())).Success;
+            return LineMatchesRegex(point, GetCommentRegex(point.GetCodeLanguage())).Success;
         }
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)

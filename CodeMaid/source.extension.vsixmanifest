@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Publisher="Steve Cadwallader" Version="10.1" Id="4c82e17d-927e-42d2-8460-b473ac7df316" Language="en-US" />
+    <Identity Publisher="Steve Cadwallader" Version="10.2" Id="4c82e17d-927e-42d2-8460-b473ac7df316" Language="en-US" />
     <DisplayName>CodeMaid</DisplayName>
     <Description xml:space="preserve">CodeMaid is an open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, R, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.</Description>
     <MoreInfo>http://www.codemaid.net/</MoreInfo>
@@ -24,4 +24,7 @@
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0.25904.2,16.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
 </PackageManifest>

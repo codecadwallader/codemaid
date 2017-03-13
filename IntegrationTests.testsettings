@@ -3,7 +3,7 @@
   <Description>These are test settings for using the VS IDE host type.</Description>
   <Execution>
     <Hosts>
-      <VSSDKTestHostRunConfig name="VS IDE" HiveKind="DevEnv" HiveName="14.0Exp" xmlns="http://microsoft.com/schemas/VisualStudio/SDK/Tools/IdeHostAdapter/2006/06" />
+      <VSSDKTestHostRunConfig name="VS IDE" HiveKind="DevEnv" HiveName="15.0Exp" xmlns="http://microsoft.com/schemas/VisualStudio/SDK/Tools/IdeHostAdapter/2006/06" />
     </Hosts>
     <TestTypeSpecific>
       <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
