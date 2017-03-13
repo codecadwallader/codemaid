@@ -119,7 +119,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
 
-            var itemsOrder = new[] {
+            var itemsOrder = new List<vsCMAccess>() {
                 vsCMAccess.vsCMAccessPublic,
                 vsCMAccess.vsCMAccessAssemblyOrFamily,
                 vsCMAccess.vsCMAccessProject,
@@ -127,12 +127,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 vsCMAccess.vsCMAccessProtected,
                 vsCMAccess.vsCMAccessPrivate
                 };
-            if (!Settings.Default.Reorganizing_RevertAccessLevel)
-                itemsOrder = itemsOrder.Reverse().ToArray();
+            if (!Settings.Default.Reorganizing_ReverseAccessLevel)
+                itemsOrder.Reverse();
 
-            return itemsOrder.Contains(codeItemElement.Access)
-                ? itemsOrder.ToList().IndexOf(codeItemElement.Access) + 1
-                : 0;
+            return itemsOrder.IndexOf(codeItemElement.Access) + 1;
         }
 
         private static int CalculateExplicitInterfaceOffset(BaseCodeItem codeItem)

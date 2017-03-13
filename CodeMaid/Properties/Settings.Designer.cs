@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1354,22 +1354,19 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Digging_SynchronizeOutlining"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Finding_ClearSolutionExplorerSearch
-        {
-            get
-            {
+        public bool Finding_ClearSolutionExplorerSearch {
+            get {
                 return ((bool)(this["Finding_ClearSolutionExplorerSearch"]));
             }
-            set
-            {
+            set {
                 this["Finding_ClearSolutionExplorerSearch"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1980,6 +1977,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["ThirdParty_UseXAMLStylerCleanup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_ReverseAccessLevel {
+            get {
+                return ((bool)(this["Reorganizing_ReverseAccessLevel"]));
+            }
+            set {
+                this["Reorganizing_ReverseAccessLevel"] = value;
             }
         }
     }

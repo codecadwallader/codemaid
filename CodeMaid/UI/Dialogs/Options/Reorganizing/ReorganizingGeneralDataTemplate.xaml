@@ -15,17 +15,10 @@
                         <RadioButton Content="type then access" IsChecked="{Binding PrimaryOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                         <RadioButton Content="access then type" IsChecked="{Binding PrimaryOrderByAccessLevel}" />
                     </StackPanel>
-                    <StackPanel
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Text="Access level ordering by..."
-                            VerticalAlignment="Center" />
-                        <RadioButton
-                            Content="private to public"
-                            IsChecked="{Binding RevertOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
-                        <RadioButton
-                            Content="public to private"
-                            IsChecked="{Binding RevertOrderByAccessLevel}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Access levels should be ordered by" VerticalAlignment="Center" />
+                        <RadioButton Content="public to private" IsChecked="{Binding ReverseOrderByAccessLevel}" />
+                        <RadioButton Content="private to public" IsChecked="{Binding ReverseOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
