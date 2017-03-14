@@ -25,7 +25,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
                 new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Reorganizing_PerformWhenPreprocessorConditionals, x => PerformWhenPreprocessorConditionals),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_ReverseAccessLevel, x => ReverseOrderByAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup),
             };
         }
 
@@ -82,6 +83,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Gets or sets the flag indicating if primary ordering should be by access level.
         /// </summary>
         public bool PrimaryOrderByAccessLevel
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [revert order by access level].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [revert order by access level]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ReverseOrderByAccessLevel
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

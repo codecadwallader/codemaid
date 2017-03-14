@@ -2,6 +2,7 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -118,16 +119,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
 
-            switch (codeItemElement.Access)
-            {
-                case vsCMAccess.vsCMAccessPublic: return 1;
-                case vsCMAccess.vsCMAccessAssemblyOrFamily: return 2;
-                case vsCMAccess.vsCMAccessProject: return 3;
-                case vsCMAccess.vsCMAccessProjectOrProtected: return 4;
-                case vsCMAccess.vsCMAccessProtected: return 5;
-                case vsCMAccess.vsCMAccessPrivate: return 6;
-                default: return 0;
-            }
+            var itemsOrder = new List<vsCMAccess>() {
+                vsCMAccess.vsCMAccessPublic,
+                vsCMAccess.vsCMAccessAssemblyOrFamily,
+                vsCMAccess.vsCMAccessProject,
+                vsCMAccess.vsCMAccessProjectOrProtected,
+                vsCMAccess.vsCMAccessProtected,
+                vsCMAccess.vsCMAccessPrivate
+                };
+            if (!Settings.Default.Reorganizing_ReverseAccessLevel)
+                itemsOrder.Reverse();
+
+            return itemsOrder.IndexOf(codeItemElement.Access) + 1;
         }
 
         private static int CalculateExplicitInterfaceOffset(BaseCodeItem codeItem)
