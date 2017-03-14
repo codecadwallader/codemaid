@@ -1910,6 +1910,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_ReverseOrderByAccessLevel {
+            get {
+                return ((bool)(this["Reorganizing_ReverseOrderByAccessLevel"]));
+            }
+            set {
+                this["Reorganizing_ReverseOrderByAccessLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Reorganizing_RunAtStartOfCleanup {
             get {
                 return ((bool)(this["Reorganizing_RunAtStartOfCleanup"]));
@@ -1977,18 +1989,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["ThirdParty_UseXAMLStylerCleanup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Reorganizing_ReverseAccessLevel {
-            get {
-                return ((bool)(this["Reorganizing_ReverseAccessLevel"]));
-            }
-            set {
-                this["Reorganizing_ReverseAccessLevel"] = value;
             }
         }
     }

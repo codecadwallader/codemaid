@@ -119,16 +119,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
 
-            var itemsOrder = new List<vsCMAccess>() {
+            var itemsOrder = new List<vsCMAccess>
+            {
                 vsCMAccess.vsCMAccessPublic,
                 vsCMAccess.vsCMAccessAssemblyOrFamily,
                 vsCMAccess.vsCMAccessProject,
                 vsCMAccess.vsCMAccessProjectOrProtected,
                 vsCMAccess.vsCMAccessProtected,
                 vsCMAccess.vsCMAccessPrivate
-                };
-            if (!Settings.Default.Reorganizing_ReverseAccessLevel)
+            };
+
+            if (!Settings.Default.Reorganizing_ReverseOrderByAccessLevel)
+            {
                 itemsOrder.Reverse();
+            }
 
             return itemsOrder.IndexOf(codeItemElement.Access) + 1;
         }

@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_KeepMembersWithinRegions, x => KeepMembersWithinRegions),
                 new SettingToOptionMapping<int, AskYesNo>(x => ActiveSettings.Reorganizing_PerformWhenPreprocessorConditionals, x => PerformWhenPreprocessorConditionals),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_PrimaryOrderByAccessLevel, x => PrimaryOrderByAccessLevel),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_ReverseAccessLevel, x => ReverseOrderByAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_ReverseOrderByAccessLevel, x => ReverseOrderByAccessLevel),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RunAtStartOfCleanup, x => RunAtStartOfCleanup),
             };
         }
@@ -89,11 +89,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [revert order by access level].
+        /// Gets or sets the flag indicating if the access level ordering should be reversed (i.e. private first).
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [revert order by access level]; otherwise, <c>false</c>.
-        /// </value>
         public bool ReverseOrderByAccessLevel
         {
             get { return GetPropertyValue<bool>(); }
