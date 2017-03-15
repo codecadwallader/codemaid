@@ -129,7 +129,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 vsCMAccess.vsCMAccessPrivate
             };
 
-            if (!Settings.Default.Reorganizing_ReverseOrderByAccessLevel)
+            if (Settings.Default.Reorganizing_ReverseOrderByAccessLevel)
             {
                 itemsOrder.Reverse();
             }
