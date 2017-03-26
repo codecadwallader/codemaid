@@ -19,6 +19,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         {
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Finding_ClearSolutionExplorerSearch, x => ClearSolutionExplorerSearch),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Finding_TemporarilyOpenSolutionFolders, x => TemporarilyOpenSolutionFolders)
             };
         }
@@ -35,6 +36,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        /// <summary>
+        /// Gets or sets a flag indicating if Solution Explorer search should be cleared.
+        /// </summary>
+        public bool ClearSolutionExplorerSearch
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
 
         /// <summary>
         /// Gets or sets a flag indicating if solution folders should be temporarily opened.

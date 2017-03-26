@@ -1,8 +1,12 @@
 using EnvDTE;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.ComponentModel.Design;
+using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -52,6 +56,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Document document = Package.ActiveDocument;
             if (document != null)
             {
+                if (Settings.Default.Finding_ClearSolutionExplorerSearch)
+                {
+                    ClearSolutionExplorerSearchFilter();
+                }
+
                 if (Settings.Default.Finding_TemporarilyOpenSolutionFolders)
                 {
                     ToggleSolutionFoldersOpenTemporarily(UIHierarchyHelper.GetTopUIHierarchyItem(Package));
@@ -80,6 +89,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         #endregion BaseCommand Methods
 
         #region Methods
+
+        /// <summary>
+        /// Clears any exising search filtering in the solution explorer so that items not matching
+        /// the query can be found.
+        /// </summary>
+        private void ClearSolutionExplorerSearchFilter()
+        {
+            if (Package.ServiceProvider != null)
+            {
+                var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package.ServiceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
+                var ws = solutionExplorer as IVsWindowSearch;
+                ws?.ClearSearch();
+            }
+        }
 
         /// <summary>
         /// Toggles all solution folders open temporarily to workaround searches not working inside

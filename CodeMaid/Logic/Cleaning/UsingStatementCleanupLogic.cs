@@ -86,7 +86,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             if (_package.IDEVersion >= 15)
             {
-                _commandHelper.ExecuteCommand(textDocument, "Edit.RemoveAndSort");
+                _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.CodeWindow.RemoveAndSort");
             }
             else
             {

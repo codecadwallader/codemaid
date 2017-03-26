@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1357,6 +1357,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Finding_ClearSolutionExplorerSearch {
+            get {
+                return ((bool)(this["Finding_ClearSolutionExplorerSearch"]));
+            }
+            set {
+                this["Finding_ClearSolutionExplorerSearch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Finding_TemporarilyOpenSolutionFolders {
             get {
@@ -1892,6 +1904,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Reorganizing_RegionsRemoveExistingRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_ReverseOrderByAccessLevel {
+            get {
+                return ((bool)(this["Reorganizing_ReverseOrderByAccessLevel"]));
+            }
+            set {
+                this["Reorganizing_ReverseOrderByAccessLevel"] = value;
             }
         }
         
