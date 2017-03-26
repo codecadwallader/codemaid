@@ -19,10 +19,10 @@ These are the changes to each version that has been released to the Visual Studi
 - [x] Features
   - [x] [#359](https://github.com/codecadwallader/codemaid/pull/359) - Reorganizing: Add option to sort private->public vs. public->private - thanks [ahalassy](https://github.com/ahalassy)!
   - [x] [#394](https://github.com/codecadwallader/codemaid/pull/394) - Finding: Add ability to clear solution explorer search before finding - thanks [joeburdick](https://github.com/joeburdick)!
-  - [x] [#420](https://github.com/codecadwallader/codemaid/issues/420) - Upgraded projects to .NET 4.6.1 and misc. fixes for VS2017 build support
+  - [x] [#420](https://github.com/codecadwallader/codemaid/pull/420) - Upgraded projects to .NET 4.6.1 and misc. fixes for VS2017 build support
 
 - [x] Fixes
-  - [x] [#419](https://github.com/codecadwallader/codemaid/issues/419) - Cleaning: Switched using statement cleanup command to workaround VS2017+ReSharper issue that prevented using statement cleanup from activating - thanks [jlbeard84](https://github.com/jlbeard84)!
+  - [x] [#419](https://github.com/codecadwallader/codemaid/pull/419) - Cleaning: Switched using statement cleanup command to workaround VS2017+ReSharper issue that prevented using statement cleanup from activating - thanks [jlbeard84](https://github.com/jlbeard84)!
 
 ## 10.2
 
