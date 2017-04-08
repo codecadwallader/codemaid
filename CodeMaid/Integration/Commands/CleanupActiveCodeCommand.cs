@@ -1,8 +1,10 @@
 using EnvDTE;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -44,7 +46,19 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             base.OnExecute();
 
+            //RoslynExploration();
+
             CodeCleanupManager.Cleanup(Package.ActiveDocument);
+        }
+
+        private void RoslynExploration()
+        {
+            foreach (var docId in Package.Workspace.GetOpenDocumentIds())
+            {
+                var doc = Package.Workspace.CurrentSolution.GetDocument(docId);
+                var syntaxTree = doc.GetSyntaxTreeAsync().Result;
+                var firstMethod = syntaxTree.GetRoot().DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+            }
         }
 
         #endregion BaseCommand Members
