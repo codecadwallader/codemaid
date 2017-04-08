@@ -2,6 +2,7 @@
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
@@ -82,6 +83,11 @@ namespace SteveCadwallader.CodeMaid
         /// The theme manager.
         /// </summary>
         private ThemeManager _themeManager;
+
+        /// <summary>
+        /// The Visual Studio workspace for Roslyn interaction.
+        /// </summary>
+        private VisualStudioWorkspace _workspace;
 
         #endregion Fields
 
@@ -186,6 +192,11 @@ namespace SteveCadwallader.CodeMaid
         /// Gets the theme manager.
         /// </summary>
         public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
+
+        /// <summary>
+        /// Gets the Visual Studio workspace for Roslyn interaction.
+        /// </summary>
+        public VisualStudioWorkspace Workspace => _workspace ?? (_workspace = ComponentModel.GetService<VisualStudioWorkspace>());
 
         #endregion Public Integration Properties
 
