@@ -237,6 +237,11 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         private WindowEventListener WindowEventListener { get; set; }
 
+        /// <summary>
+        /// Gets or sets the workspace event listener.
+        /// </summary>
+        private WorkspaceEventListener WorkspaceEventListener { get; set; }
+
         #endregion Private Event Listener Properties
 
         #region Private Service Properties
@@ -498,6 +503,8 @@ namespace SteveCadwallader.CodeMaid
 
                 WindowEventListener = new WindowEventListener(this);
                 WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
+
+                WorkspaceEventListener = new WorkspaceEventListener(this);
             }
         }
 
@@ -524,6 +531,7 @@ namespace SteveCadwallader.CodeMaid
             SolutionEventListener?.Dispose();
             TextEditorEventListener?.Dispose();
             WindowEventListener?.Dispose();
+            WorkspaceEventListener?.Dispose();
         }
 
         #endregion IDisposable Members
