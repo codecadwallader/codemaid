@@ -23,5 +23,5 @@ test:
   assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
 
 after_test:
-  - ps: if (['master', 'stable'].contains($env:APPVEYOR_REPO_BRANCH)) { Vsix-PushArtifacts | Vsix-PublishToGallery }
-  - ps: if (!(['master', 'stable'].contains($env:APPVEYOR_REPO_BRANCH))) { Vsix-PushArtifacts }
+  - ps: if ($env:APPVEYOR_REPO_BRANCH -eq 'master' -or $env:APPVEYOR_REPO_BRANCH -eq 'stable') { Vsix-PushArtifacts | Vsix-PublishToGallery }
+  - ps: if ($env:APPVEYOR_REPO_BRANCH -ne 'master' -and $env:APPVEYOR_REPO_BRANCH -ne 'stable') { Vsix-PushArtifacts }
