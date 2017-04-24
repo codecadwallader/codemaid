@@ -7,6 +7,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 - [x] Features
 
 - [x] Fixes
+  - [x] [#440](https://github.com/codecadwallader/codemaid/issues/440) - Cleaning: Exclude *.min.css and *.min.js files by default
 
 ## Previous Releases
 
