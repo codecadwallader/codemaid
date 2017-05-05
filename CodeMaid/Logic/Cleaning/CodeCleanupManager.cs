@@ -435,15 +435,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
 
             // Perform insertion of explicit access modifier cleanup.
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEnumerations(enumerations);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEvents(events);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEnumerations(enumerations);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEvents(events);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
