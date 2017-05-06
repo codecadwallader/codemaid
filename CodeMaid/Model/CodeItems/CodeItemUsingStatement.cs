@@ -36,10 +36,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </remarks>
         public override void RefreshCachedPositionAndName()
         {
-            StartLine = CodeElement.StartPoint.Line;
-            StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
-            EndLine = CodeElement.EndPoint.Line;
-            EndOffset = CodeElement.EndPoint.AbsoluteCharOffset;
+            var startPoint = CodeElement.GetStartPoint();
+            var endPoint = CodeElement.GetEndPoint();
+
+            StartLine = startPoint.Line;
+            StartOffset = startPoint.AbsoluteCharOffset;
+            EndLine = endPoint.Line;
+            EndOffset = endPoint.AbsoluteCharOffset;
         }
 
         #endregion BaseCodeItem Overrides
