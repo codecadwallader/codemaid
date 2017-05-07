@@ -212,7 +212,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupMarkup;
 
                 case CodeLanguage.FSharp:
-                //case CodeLanguage.VisualBasic:
                 case CodeLanguage.Unknown:
                     return RunCodeCleanupGeneric;
 
@@ -436,9 +435,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
-
-            // Perform update cleanup.
-            _updateLogic.UpdateEndRegionDirectives(textDocument);
 
             // Perform comment cleaning.
             _commentFormatLogic.FormatComments(textDocument);
