@@ -191,6 +191,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case CodeLanguage.CSharp:
                     return RunCodeCleanupCSharp;
 
+                case CodeLanguage.VisualBasic:
+                    return RunCodeCleanupVB;
+
                 case CodeLanguage.CPlusPlus:
                 case CodeLanguage.CSS:
                 case CodeLanguage.JavaScript:
@@ -209,7 +212,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return RunCodeCleanupMarkup;
 
                 case CodeLanguage.FSharp:
-                case CodeLanguage.VisualBasic:
                 case CodeLanguage.Unknown:
                     return RunCodeCleanupGeneric;
 
@@ -333,6 +335,106 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _updateLogic.UpdateEventAccessorsToBothBeSingleLineOrMultiLine(events);
             _updateLogic.UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(properties);
             _updateLogic.UpdateSingleLineMethods(methods);
+
+            // Perform comment cleaning.
+            _commentFormatLogic.FormatComments(textDocument);
+        }
+
+        /// <summary>
+        /// Attempts to run code cleanup on the specified VB.Net document.
+        /// </summary>
+        /// <param name="document">The document for cleanup.</param>
+        private void RunCodeCleanupVB(Document document)
+        {
+            var textDocument = document.GetTextDocument();
+
+            // Perform any actions that can modify the file code model first.
+            RunExternalFormatting(textDocument);
+            if (!document.IsExternal())
+            {
+                _usingStatementCleanupLogic.RemoveAndSortUsingStatements(textDocument);
+            }
+
+            // Interpret the document into a collection of elements.
+            var codeItems = _codeModelManager.RetrieveAllCodeItems(document);
+
+            var regions = codeItems.OfType<CodeItemRegion>().ToList();
+            var usingStatements = codeItems.OfType<CodeItemUsingStatement>().ToList();
+            var namespaces = codeItems.OfType<CodeItemNamespace>().ToList();
+            var classes = codeItems.OfType<CodeItemClass>().ToList();
+            var delegates = codeItems.OfType<CodeItemDelegate>().ToList();
+            var enumerations = codeItems.OfType<CodeItemEnum>().ToList();
+            var events = codeItems.OfType<CodeItemEvent>().ToList();
+            var fields = codeItems.OfType<CodeItemField>().ToList();
+            var interfaces = codeItems.OfType<CodeItemInterface>().ToList();
+            var methods = codeItems.OfType<CodeItemMethod>().ToList();
+            var properties = codeItems.OfType<CodeItemProperty>().ToList();
+            var structs = codeItems.OfType<CodeItemStruct>().ToList();
+
+            // Build up more complicated collections.
+            var usingStatementBlocks = CodeModelHelper.GetCodeItemBlocks(usingStatements).ToList();
+            var usingStatementsThatStartBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.First()).ToList();
+            var usingStatementsThatEndBlocks = (from IEnumerable<CodeItemUsingStatement> block in usingStatementBlocks select block.Last()).ToList();
+
+            // Perform file header cleanup.
+            _fileHeaderLogic.UpdateFileHeader(textDocument);
+
+            // Perform removal cleanup.
+            _removeRegionLogic.RemoveRegionsPerSettings(regions);
+            _removeWhitespaceLogic.RemoveEOLWhitespace(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtTop(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAtBottom(textDocument);
+            _removeWhitespaceLogic.RemoveEOFTrailingNewLine(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesAfterAttributes(textDocument);
+            _removeWhitespaceLogic.RemoveBlankLinesBetweenChainedStatements(textDocument);
+            _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
+
+            // Perform insertion of blank line padding cleanup.
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regions);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regions);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(namespaces);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(classes);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(classes);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(delegates);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(delegates);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(enumerations);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(enumerations);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fields);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fields);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(methods);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(methods);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(properties);
+            _insertBlankLinePaddingLogic.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(properties);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(structs);
+            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
+
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
+            _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
+
+            // Perform insertion of whitespace cleanup.
+            _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);
 
             // Perform comment cleaning.
             _commentFormatLogic.FormatComments(textDocument);
