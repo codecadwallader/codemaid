@@ -1,6 +1,6 @@
 # Changelog
 
-## vNext (10.4)
+## vNext (10.5)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
@@ -12,6 +12,18 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 
 These are the changes to each version that has been released to the Visual Studio marketplace.
 
+## 10.4
+
+**2017-03-26**
+
+- [x] Features
+  - [x] [#444](https://github.com/codecadwallader/codemaid/pull/444) - Cleaning: VB now supports many of the same cleanups as C# - thanks [thehutman](https://github.com/thehutman)!
+  - [x] [#449](https://github.com/codecadwallader/codemaid/pull/449) - Undo a previous pull request for hiding Spade during full screen mode (inconsistent with other extensions) - thanks [iouri-s](https://github.com/iouri-s)!
+
+- [x] Fixes
+  - [x] [#333](https://github.com/codecadwallader/codemaid/issues/333) - Reorganizing: VB now moves attributes - thanks [thehutman](https://github.com/thehutman)!
+  - [x] [#440](https://github.com/codecadwallader/codemaid/issues/440) - Cleaning: Exclude *.min.css and *.min.js files by default
+
 ## 10.3
 
 **2017-03-26**
@@ -19,10 +31,10 @@ These are the changes to each version that has been released to the Visual Studi
 - [x] Features
   - [x] [#359](https://github.com/codecadwallader/codemaid/pull/359) - Reorganizing: Add option to sort private->public vs. public->private - thanks [ahalassy](https://github.com/ahalassy)!
   - [x] [#394](https://github.com/codecadwallader/codemaid/pull/394) - Finding: Add ability to clear solution explorer search before finding - thanks [joeburdick](https://github.com/joeburdick)!
-  - [x] [#420](https://github.com/codecadwallader/codemaid/issues/420) - Upgraded projects to .NET 4.6.1 and misc. fixes for VS2017 build support
+  - [x] [#420](https://github.com/codecadwallader/codemaid/pull/420) - Upgraded projects to .NET 4.6.1 and misc. fixes for VS2017 build support
 
 - [x] Fixes
-  - [x] [#419](https://github.com/codecadwallader/codemaid/issues/419) - Cleaning: Switched using statement cleanup command to workaround VS2017+ReSharper issue that prevented using statement cleanup from activating - thanks [jlbeard84](https://github.com/jlbeard84)!
+  - [x] [#419](https://github.com/codecadwallader/codemaid/pull/419) - Cleaning: Switched using statement cleanup command to workaround VS2017+ReSharper issue that prevented using statement cleanup from activating - thanks [jlbeard84](https://github.com/jlbeard84)!
 
 ## 10.2
 

@@ -40,12 +40,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the start point adjusted for leading comments, may be null.
         /// </summary>
-        public override EditPoint StartPoint => CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.StartPoint) : null;
+        public override EditPoint StartPoint => CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.GetStartPoint()) : null;
 
         /// <summary>
         /// Gets the end point, may be null.
         /// </summary>
-        public override EditPoint EndPoint => CodeElement?.EndPoint.CreateEditPoint();
+        public override EditPoint EndPoint => CodeElement?.GetEndPoint().CreateEditPoint();
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -66,10 +66,13 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override void RefreshCachedPositionAndName()
         {
-            StartLine = CodeElement.StartPoint.Line;
-            StartOffset = CodeElement.StartPoint.AbsoluteCharOffset;
-            EndLine = CodeElement.EndPoint.Line;
-            EndOffset = CodeElement.EndPoint.AbsoluteCharOffset;
+            var startPoint = CodeElement.GetStartPoint();
+            var endPoint = CodeElement.GetEndPoint();
+
+            StartLine = startPoint.Line;
+            StartOffset = startPoint.AbsoluteCharOffset;
+            EndLine = endPoint.Line;
+            EndOffset = endPoint.AbsoluteCharOffset;
             Name = CodeElement.Name;
         }
 
