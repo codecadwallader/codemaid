@@ -1,17 +1,28 @@
 # Changelog
 
-## vNext (10.4)
+## vNext (10.5)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 - [x] Features
 
 - [x] Fixes
-  - [x] [#440](https://github.com/codecadwallader/codemaid/issues/440) - Cleaning: Exclude *.min.css and *.min.js files by default
 
 ## Previous Releases
 
 These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 10.4
+
+**2017-03-26**
+
+- [x] Features
+  - [x] [#444](https://github.com/codecadwallader/codemaid/pull/444) - Cleaning: VB now supports many of the same cleanups as C# - thanks [thehutman](https://github.com/thehutman)!
+  - [x] [#449](https://github.com/codecadwallader/codemaid/pull/449) - Undo a previous pull request for hiding Spade during full screen mode (inconsistent with other extensions) - thanks [iouri-s](https://github.com/iouri-s)!
+
+- [x] Fixes
+  - [x] [#333](https://github.com/codecadwallader/codemaid/issues/333) - Reorganizing: VB now moves attributes - thanks [thehutman](https://github.com/thehutman)!
+  - [x] [#440](https://github.com/codecadwallader/codemaid/issues/440) - Cleaning: Exclude *.min.css and *.min.js files by default
 
 ## 10.3
 
