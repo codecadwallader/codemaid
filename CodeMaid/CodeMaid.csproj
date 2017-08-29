@@ -401,6 +401,7 @@
     </Compile>
     <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
     <Compile Include="UI\ToolWindows\Spade\CenterConverter.cs" />
+    <Compile Include="UI\ToolWindows\Spade\WidthConverter.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\Bindable.cs" />
     <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
