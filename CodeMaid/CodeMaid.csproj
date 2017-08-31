@@ -392,11 +392,15 @@
     <Compile Include="UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
     <Compile Include="UI\ToolWindows\Spade\MemberSearchTask.cs" />
+    <Compile Include="UI\ToolWindows\Spade\RadialProgressBar.xaml.cs">
+      <DependentUpon>RadialProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToolWindows\Spade\SpadeToolWindow.cs" />
     <Compile Include="UI\ToolWindows\Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
+    <Compile Include="UI\ToolWindows\Spade\CenterConverter.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\Bindable.cs" />
     <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
@@ -762,6 +766,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ToolWindows\Spade\CodeItemToolTipTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToolWindows\Spade\RadialProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
