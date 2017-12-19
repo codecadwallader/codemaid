@@ -1,17 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
-            <GroupBox Header="General">
+            <GroupBox Header="{x:Static properties:Resources.General}">
                 <StackPanel>
-                    <CheckBox Content="Update accessors to both be single-line or multi-line (SA1504)" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
-                    <CheckBox Content="Update #endregion tags with region name" IsChecked="{Binding UpdateEndRegionDirectives}" />
-                    <TextBlock Text="Ex: #endregion Methods" Margin="35,0,5,10" />
-                    <CheckBox Content="Update single line methods by placing braces on separate lines (SA1502)" IsChecked="{Binding UpdateSingleLineMethods}" />
+                    <CheckBox Content="{x:Static properties:Resources.UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504}" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
+                    <CheckBox Content="{x:Static properties:Resources.UpdateEndregionTagsWithRegionName}" IsChecked="{Binding UpdateEndRegionDirectives}" />
+                    <TextBlock Text="{x:Static properties:Resources.ExEndregionMethods}" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static properties:Resources.UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502}" IsChecked="{Binding UpdateSingleLineMethods}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="File Header">
+            <GroupBox Header="{x:Static properties:Resources.FileHeader}">
                 <StackPanel>
                     <TabControl>
                         <TabItem Header="C#">

@@ -2,14 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:ReorganizingTypesViewModel}">
         <StackPanel>
-            <TextBlock Text="Member type order, grouping and preferred names" Margin="5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.MemberTypeOrderGroupingAndPreferredNames}" Margin="5,5,5,0" />
             <ListBox ItemsSource="{Binding MemberTypes}">
                 <ListBox.Resources>
                     <ContextMenu x:Key="MemberTypeContextMenu" DataContext="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
-                        <MenuItem Header="Split"
+                        <MenuItem Header="{x:Static properties:Resources.Split}"
                                   Command="{Binding SplitCommand}"
                                   CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     </ContextMenu>
@@ -68,7 +69,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <TextBlock FontStyle="Italic" Text="Drag to reorder, drag over to group, right click to split, double-click to rename" />
+            <TextBlock FontStyle="Italic" Text="{x:Static properties:Resources.DragToReorderDragOverToGroupRightClickToSplitDoubleClickToRename}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

@@ -1,23 +1,24 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing">
     <DataTemplate DataType="{x:Type local:ReorganizingRegionsViewModel}">
         <StackPanel>
-            <GroupBox Header="General">
+            <GroupBox Header="{x:Static properties:Resources.General}">
                 <StackPanel>
-                    <CheckBox Content="Include access level in regions" IsChecked="{Binding IncludeAccessLevel}" />
-                    <TextBlock Text="Ex: #region Public Methods, #region Private Methods" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static properties:Resources.IncludeAccessLevelInRegions}" IsChecked="{Binding IncludeAccessLevel}" />
+                    <TextBlock Text="{x:Static properties:Resources.ExRegionPublicMethodsRegionPrivateMethods}" Margin="35,0,5,10" />
 
-                    <CheckBox Content="Insert/keep regions even if they are empty" IsChecked="{Binding InsertKeepEvenIfEmpty}" />
+                    <CheckBox Content="{x:Static properties:Resources.InsertKeepRegionsEvenIfTheyAreEmpty}" IsChecked="{Binding InsertKeepEvenIfEmpty}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Insert">
-                <CheckBox Content="Insert new regions" IsChecked="{Binding InsertNewRegions}" />
+            <GroupBox Header="{x:Static properties:Resources.Insert}">
+                <CheckBox Content="{x:Static properties:Resources.InsertNewRegions}" IsChecked="{Binding InsertNewRegions}" />
             </GroupBox>
 
-            <GroupBox Header="Remove">
-                <CheckBox Content="Remove existing regions" IsChecked="{Binding RemoveExistingRegions}" />
+            <GroupBox Header="{x:Static properties:Resources.Remove}">
+                <CheckBox Content="{x:Static properties:Resources.RemoveExistingRegions}" IsChecked="{Binding RemoveExistingRegions}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

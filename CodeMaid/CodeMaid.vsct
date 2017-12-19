@@ -288,6 +288,7 @@
           If you do not want an image next to your command, remove the Icon node or set it to <Icon guid="guidOfficeIcon" id="msotcidNoIcon" /> -->
       <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
         <Icon guid="GuidImageInfo" id="IconInfo" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>About CodeMaid...</ButtonText>
         </Strings>
@@ -295,6 +296,7 @@
 
       <Button guid="GuidCodeMaidCommandBuildProgressToolWindow" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageProgress" id="IconProgress" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Build Progress</ButtonText>
         </Strings>
@@ -314,6 +316,7 @@
         <Icon guid="GuidImageCleanupAll" id="IconCleanupAll" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Cleanup &amp;All Code...</ButtonText>
         </Strings>
@@ -323,6 +326,7 @@
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Cleanup Open Code</ButtonText>
         </Strings>
@@ -332,6 +336,7 @@
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Cleanup Selected Code</ButtonText>
         </Strings>
@@ -341,6 +346,7 @@
         <Icon guid="GuidImageCloseLocked" id="IconCloseLocked" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Close All &amp;Read-Only</ButtonText>
         </Strings>
@@ -350,6 +356,7 @@
         <Icon guid="GuidImageCollapse" id="IconCollapse" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Co&amp;llapse All Recursively</ButtonText>
         </Strings>
@@ -359,6 +366,7 @@
         <Icon guid="GuidImageCollapse" id="IconCollapse" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Co&amp;llapse Recursively</ButtonText>
         </Strings>
@@ -368,6 +376,7 @@
         <Icon guid="GuidImageCommentFormat" id="IconCommentFormat" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Format Comme&amp;nt</ButtonText>
         </Strings>
@@ -377,6 +386,7 @@
         <Icon guid="GuidImageFind" id="IconFind" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Find In Solution Explorer</ButtonText>
         </Strings>
@@ -386,6 +396,7 @@
         <Icon guid="GuidImageJoin" id="IconJoin" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Join Lines</ButtonText>
         </Strings>
@@ -393,6 +404,7 @@
 
       <Button guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" priority="0x0100" type="Button">
         <Icon guid="GuidImageOptions" id="IconOptions" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Options...</ButtonText>
         </Strings>
@@ -402,6 +414,7 @@
         <Icon guid="GuidImageUnlock" id="IconUnlock" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Read-Only Toggle</ButtonText>
         </Strings>
@@ -439,6 +452,7 @@
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Sort Lines</ButtonText>
         </Strings>
@@ -446,6 +460,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Delete</ButtonText>
         </Strings>
@@ -453,6 +468,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Find References</ButtonText>
         </Strings>
@@ -460,6 +476,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeContextInsertRegion" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Insert Region</ButtonText>
         </Strings>
@@ -467,6 +484,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Remove Region</ButtonText>
         </Strings>
@@ -474,6 +492,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeOptions" id="CmdIDCodeMaidSpadeOptions" priority="0x0100" type="Button">
         <Icon guid="GuidImageOptions" id="IconOptions" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Options...</ButtonText>
         </Strings>
@@ -481,12 +500,14 @@
 
       <Button guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
         <Icon guid="GuidImageRefresh" id="IconRefresh" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Refresh Spade</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" priority="0x0100" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Search Spade</ButtonText>
         </Strings>
@@ -494,6 +515,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Sort alphabetically</ButtonText>
         </Strings>
@@ -501,6 +523,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeSortOrderFile" id="CmdIDCodeMaidSpadeSortOrderFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Sort by file order</ButtonText>
         </Strings>
@@ -508,6 +531,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortType" id="IconSortType" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Sort by type</ButtonText>
         </Strings>
@@ -515,6 +539,7 @@
 
       <Button guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageSpade" id="IconSpade" />
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>&amp;Spade</ButtonText>
         </Strings>

@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:CleaningFileTypesViewModel}">
         <StackPanel>
@@ -47,18 +48,18 @@
                     <CheckBox Grid.Row="2" Grid.Column="8" Content="JavaScript" IsChecked="{Binding IncludeJavaScript}" />
                     <CheckBox Grid.Row="2" Grid.Column="10" Content="TypeScript" IsChecked="{Binding IncludeTypeScript}" />
 
-                    <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="13" Content="Everything else (ex: .txt, README)" IsChecked="{Binding IncludeEverythingElse}" />
+                    <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="13" Content="{x:Static properties:Resources.EverythingElseExTxtREADME}" IsChecked="{Binding IncludeEverythingElse}" />
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Exclude">
+            <GroupBox Header="{x:Static properties:Resources.Exclude}">
                 <StackPanel>
-                    <CheckBox Content="T4 generated code" IsChecked="{Binding ExcludeT4GeneratedCode}" />
+                    <CheckBox Content="{x:Static properties:Resources.T4GeneratedCode}" IsChecked="{Binding ExcludeT4GeneratedCode}" />
 
-                    <TextBlock Text="Regular expressions that match path names to exclude  (ex: \.resx$ or \\lib\\ )" Margin="5,5,5,0" />
+                    <TextBlock Text="{x:Static properties:Resources.RegularExpressionsThatMatchPathNamesToExcludeExResxOrLib}" Margin="5,5,5,0" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding ExclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock FontStyle="Italic" Text="Place each regular expression on a separate line" />
+                    <TextBlock FontStyle="Italic" Text="{x:Static properties:Resources.PlaceEachRegularExpressionOnASeparateLine}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

@@ -1,19 +1,20 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:ThirdPartyViewModel}">
         <StackPanel>
-            <GroupBox Header="While Cleaning">
+            <GroupBox Header="{x:Static properties:Resources.WhileCleaning}">
                 <StackPanel>
-                    <CheckBox Content="Run JetBrains ReSharper cleanup" IsChecked="{Binding UseJetBrainsReSharperCleanup}" IsEnabled="{Binding IsEnabledUseJetBrainsReSharperCleanup}" />
-                    <CheckBox Content="Run Telerik JustCode cleanup" IsChecked="{Binding UseTelerikJustCodeCleanup}" IsEnabled="{Binding IsEnabledUseTelerikJustCodeCleanup}" />
-                    <CheckBox Content="Run XAML Styler cleanup" IsChecked="{Binding UseXAMLStylerCleanup}" IsEnabled="{Binding IsEnabledUseXAMLStylerCleanup}" />
+                    <CheckBox Content="{x:Static properties:Resources.RunJetBrainsReSharperCleanup}" IsChecked="{Binding UseJetBrainsReSharperCleanup}" IsEnabled="{Binding IsEnabledUseJetBrainsReSharperCleanup}" />
+                    <CheckBox Content="{x:Static properties:Resources.RunTelerikJustCodeCleanup}" IsChecked="{Binding UseTelerikJustCodeCleanup}" IsEnabled="{Binding IsEnabledUseTelerikJustCodeCleanup}" />
+                    <CheckBox Content="{x:Static properties:Resources.RunXAMLStylerCleanup}" IsChecked="{Binding UseXAMLStylerCleanup}" IsEnabled="{Binding IsEnabledUseXAMLStylerCleanup}" />
 
-                    <TextBlock Text="Other cleaning commands (ex: ReSharper.ReSharper_SilentCleanupCode)" Margin="5,5,5,0" />
+                    <TextBlock Text="{x:Static properties:Resources.OtherCleaningCommandsExReSharperReSharper_SilentCleanupCode}" Margin="5,5,5,0" />
                     <TextBox Style="{DynamicResource TextBoxMultiLine}"
                              Text="{Binding OtherCleaningCommandsExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock FontStyle="Italic" Text="Place each command on a separate line" />
+                    <TextBlock FontStyle="Italic" Text="{x:Static properties:Resources.PlaceEachCommandOnASeparateLine}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

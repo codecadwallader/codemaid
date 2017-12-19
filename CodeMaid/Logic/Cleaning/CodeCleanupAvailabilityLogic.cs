@@ -415,10 +415,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 var viewModel = new YesNoPromptViewModel
                 {
-                    Title = @"CodeMaid: Cleanup External File",
-                    Message = document.Name + " is not in the solution so some cleanup actions may be unavailable." +
+                    Title = StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanupExternalFile,
+                    Message = document.Name + StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable +
                               Environment.NewLine + Environment.NewLine +
-                              "Do you want to perform a partial cleanup?",
+                              StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerformAPartialCleanup,
                     CanRemember = true
                 };
 

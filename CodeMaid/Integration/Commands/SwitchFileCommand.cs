@@ -41,11 +41,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Enabled = canAlterate;
             if (canAlterate)
             {
-                Text = "S&witch to " + Path.GetFileName(alternatePath);
+                Text = StringResourceKey.SwitchFileCommand_OnBeforeQueryStatus_SWitchTo + Path.GetFileName(alternatePath);
             }
             else
             {
-                Text = "S&witch File";
+                Text = StringResourceKey.SwitchFileCommand_OnBeforeQueryStatus_SWitchFile;
             }
         }
 

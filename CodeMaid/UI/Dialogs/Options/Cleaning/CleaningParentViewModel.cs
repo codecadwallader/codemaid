@@ -26,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Cleaning";
+        public override string Header => StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Cleaning;
 
         #endregion Overrides of OptionsPageViewModel
     }

@@ -1,9 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningInsertViewModel}">
         <StackPanel>
-            <TextBlock Text="Insert blank line padding before" Margin="5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.InsertBlankLinePaddingBefore}" Margin="5,5,5,0" />
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="using statement blocks" IsChecked="{Binding InsertBlankLinePaddingBeforeUsingStatementBlocks}" />
                 <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingBeforeNamespaces}" />
@@ -24,12 +25,12 @@
                 <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingBeforeStructs}" />
             </WrapPanel>
 
-            <TextBlock Text="Insert blank line padding between" Margin="5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.InsertBlankLinePaddingBetween}" Margin="5,5,5,0" />
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="multi-line property accessors" IsChecked="{Binding InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors}" />
             </WrapPanel>
 
-            <TextBlock Text="Insert blank line padding after" Margin="5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.InsertBlankLinePaddingAfter}" Margin="5,5,5,0" />
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="using statement blocks" IsChecked="{Binding InsertBlankLinePaddingAfterUsingStatementBlocks}" />
                 <ToggleButton Content="namespaces" IsChecked="{Binding InsertBlankLinePaddingAfterNamespaces}" />
@@ -48,12 +49,12 @@
                 <ToggleButton Content="structs" IsChecked="{Binding InsertBlankLinePaddingAfterStructs}" />
             </WrapPanel>
 
-            <TextBlock Text="Insert blank space before" Margin= "5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.InsertBlankSpaceBefore}" Margin= "5,5,5,0" />
             <WrapPanel Margin="35,0,5,10">
                 <ToggleButton Content="self-closing angle brackets" IsChecked="{Binding InsertBlankSpaceBeforeSelfClosingAngleBrackets}" />
             </WrapPanel>
 
-            <TextBlock Text="Insert explicit access modifiers on" Margin="5,5,5,0" />
+            <TextBlock Text="{x:Static properties:Resources.InsertExplicitAccessModifiersOn}" Margin="5,5,5,0" />
             <WrapPanel Margin="35,0,5,20">
                 <ToggleButton Content="classes" IsChecked="{Binding InsertExplicitAccessModifiersOnClasses}" />
                 <ToggleButton Content="delegates" IsChecked="{Binding InsertExplicitAccessModifiersOnDelegates}" />
@@ -66,7 +67,7 @@
                 <ToggleButton Content="structs" IsChecked="{Binding InsertExplicitAccessModifiersOnStructs}" />
             </WrapPanel>
 
-            <CheckBox Content="Insert end of file trailing new line" IsChecked="{Binding InsertEndOfFileTrailingNewLine}" />
+            <CheckBox Content="{x:Static properties:Resources.InsertEndOfFileTrailingNewLine}" IsChecked="{Binding InsertEndOfFileTrailingNewLine}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

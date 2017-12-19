@@ -176,7 +176,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
             dynamic currentItem = e.UserState;
 
             CountProgress = currentCount;
-            CurrentFileName = currentItem.Name;
+            CurrentFileName = string.Format(StringResourceKey.Cleaning0, currentItem.Name);
         }
 
         /// <summary>

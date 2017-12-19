@@ -8,7 +8,7 @@
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:CleanupProgressViewModel, IsDesignTimeCreatable=False}"
-        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="CodeMaid: Cleanup Progress"
+        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="{x:Static p:Resources.CodeMaidCleanupProgress}"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
         Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}" Closing="OnClosing"
@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="10">
-            <TextBlock Text="{Binding CurrentFileName, StringFormat='Cleaning {0}...'}" FontSize="14"
+            <TextBlock Text="{Binding CurrentFileName}"  FontSize="14"
                     TextTrimming="CharacterEllipsis" />
             <ProgressBar Height="30" Margin="0,5" Maximum="{Binding CountTotal}" Value="{Binding CountProgress}" />
             <TextBlock HorizontalAlignment="Center" TextTrimming="CharacterEllipsis">
@@ -45,10 +45,10 @@
             <Button x:Name="cancelButton" Command="{Binding CancelCommand}" HorizontalAlignment="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDialog}">
-                        <Setter Property="Content" Value="Cancel" />
+                        <Setter Property="Content" Value="{x:Static p:Resources.Cancel}" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsCanceling}" Value="True">
-                                <Setter Property="Content" Value="Canceling..." />
+                                <Setter Property="Content" Value="{x:Static p:Resources.Canceling}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
