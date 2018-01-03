@@ -1,8 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningParentViewModel}">
-        <TextBlock Text="{x:Static properties:Resources.SelectASubCategoryToSetOptions}" Margin="5" />
+        <TextBlock Text="{x:Static p:Resources.SelectASubCategoryToSetOptions}" Margin="5" />
     </DataTemplate>
 </ResourceDictionary>

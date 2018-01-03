@@ -2,19 +2,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations">
     <DataTemplate DataType="{x:Type local:CleaningGeneralViewModel}">
         <StackPanel>
-            <GroupBox Header="{x:Static properties:Resources.Automatic}">
+            <GroupBox Header="{x:Static p:Resources.Automatic}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static properties:Resources.AutomaticallyRunCleanupOnFileSave}" IsChecked="{Binding AutoCleanupOnFileSave}" />
-                    <CheckBox Content="{x:Static properties:Resources.AutomaticallySaveAndCloseDocumentsOpenedByCleanup}" IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
+                    <CheckBox Content="{x:Static p:Resources.AutomaticallyRunCleanupOnFileSave}" IsChecked="{Binding AutoCleanupOnFileSave}" />
+                    <CheckBox Content="{x:Static p:Resources.AutomaticallySaveAndCloseDocumentsOpenedByCleanup}" IsChecked="{Binding AutoSaveAndCloseIfOpenedByCleanup}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="{x:Static properties:Resources.External}">
+            <GroupBox Header="{x:Static p:Resources.External}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static properties:Resources.PerformPartialCleanupIfFileIsNotInTheSolution}" VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static p:Resources.PerformPartialCleanupIfFileIsNotInTheSolution}" VerticalAlignment="Center" />
                     <RadioButton Content="ask" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Ask}}" />
                     <RadioButton Content="yes" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Yes}}" />
                     <RadioButton Content="no" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.No}}" />

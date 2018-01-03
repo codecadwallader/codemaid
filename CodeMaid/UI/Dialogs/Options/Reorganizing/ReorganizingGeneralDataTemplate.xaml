@@ -2,35 +2,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations">
     <DataTemplate DataType="{x:Type local:ReorganizingGeneralViewModel}">
         <StackPanel>
-            <GroupBox Header="{x:Static properties:Resources.General}">
+            <GroupBox Header="{x:Static p:Resources.General}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static properties:Resources.AlphabetizeMembersOfTheSameGroup}" IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
-                    <CheckBox Content="{x:Static properties:Resources.KeepMembersWithinRegions}" IsChecked="{Binding KeepMembersWithinRegions}" />
-                    <CheckBox Content="{x:Static properties:Resources.PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup}" IsChecked="{Binding ExplicitInterfaceMembersAtTheEnd}" />
+                    <CheckBox Content="{x:Static p:Resources.AlphabetizeMembersOfTheSameGroup}" IsChecked="{Binding AlphabetizeMembersOfTheSameGroup}" />
+                    <CheckBox Content="{x:Static p:Resources.KeepMembersWithinRegions}" IsChecked="{Binding KeepMembersWithinRegions}" />
+                    <CheckBox Content="{x:Static p:Resources.PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup}" IsChecked="{Binding ExplicitInterfaceMembersAtTheEnd}" />
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Static properties:Resources.PrimaryOrderingShouldBeBy}" VerticalAlignment="Center" />
-                        <RadioButton Content="{x:Static properties:Resources.TypeThenAccess}" IsChecked="{Binding PrimaryOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
-                        <RadioButton Content="{x:Static properties:Resources.AccessThenType}" IsChecked="{Binding PrimaryOrderByAccessLevel}" />
+                        <TextBlock Text="{x:Static p:Resources.PrimaryOrderingShouldBeBy}" VerticalAlignment="Center" />
+                        <RadioButton Content="{x:Static p:Resources.TypeThenAccess}" IsChecked="{Binding PrimaryOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
+                        <RadioButton Content="{x:Static p:Resources.AccessThenType}" IsChecked="{Binding PrimaryOrderByAccessLevel}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Static properties:Resources.AccessLevelsShouldBeOrderedBy}" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Static p:Resources.AccessLevelsShouldBeOrderedBy}" VerticalAlignment="Center" />
                         <RadioButton Content="public to private" IsChecked="{Binding ReverseOrderByAccessLevel, Converter={x:Static cnv:BooleanInverseConverter.Default}}" />
                         <RadioButton Content="private to public" IsChecked="{Binding ReverseOrderByAccessLevel}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="{x:Static properties:Resources.Cleanup}">
-                <CheckBox Content="{x:Static properties:Resources.RunReorganizeAtStartOfCleanup}" IsChecked="{Binding RunAtStartOfCleanup}" />
+            <GroupBox Header="{x:Static p:Resources.Cleanup}">
+                <CheckBox Content="{x:Static p:Resources.RunReorganizeAtStartOfCleanup}" IsChecked="{Binding RunAtStartOfCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="{x:Static properties:Resources.Conditions}">
+            <GroupBox Header="{x:Static p:Resources.Conditions}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static properties:Resources.PerformReorganizationWhenPreprocessorConditionalsArePresent}" VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static p:Resources.PerformReorganizationWhenPreprocessorConditionalsArePresent}" VerticalAlignment="Center" />
                     <RadioButton Content="ask" IsChecked="{Binding PerformWhenPreprocessorConditionals, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Ask}}" />
                     <RadioButton Content="yes" IsChecked="{Binding PerformWhenPreprocessorConditionals, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Yes}}" />
                     <RadioButton Content="no" IsChecked="{Binding PerformWhenPreprocessorConditionals, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.No}}" />

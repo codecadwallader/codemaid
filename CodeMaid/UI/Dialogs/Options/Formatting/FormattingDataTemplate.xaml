@@ -1,34 +1,34 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting">
     <DataTemplate DataType="{x:Type local:FormattingViewModel}">
         <StackPanel>
-            <GroupBox Header="{x:Static properties:Resources.General}">
+            <GroupBox Header="{x:Static p:Resources.General}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Static properties:Resources.WrapCommentsAtColumn}" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Static p:Resources.WrapCommentsAtColumn}" VerticalAlignment="Center" />
                         <TextBox Text="{Binding CommentWrapColumn, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="{x:Static properties:Resources.SkipWrappingOnTheLastWord}" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
+                    <CheckBox Content="{x:Static p:Resources.SkipWrappingOnTheLastWord}" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Static properties:Resources.ExtraIndentForValuesInsideXMLComments}" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Static p:Resources.ExtraIndentForValuesInsideXMLComments}" VerticalAlignment="Center" />
                         <TextBox Text="{Binding CommentXmlValueIndent, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="{x:Static properties:Resources.AddSpacingAroundXMLTags}" IsChecked="{Binding CommentXmlSpaceTags}" />
-                    <CheckBox Content="{x:Static properties:Resources.AddSpaceInsideSelfClosingTags}" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
-                    <CheckBox Content="{x:Static properties:Resources.KeepXMLTagsTogether}" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
-                    <CheckBox Content="{x:Static properties:Resources.AlignXMLLtParamGtTags}" IsChecked="{Binding CommentXmlAlignParamTags}" />
-                    <CheckBox Content="{x:Static properties:Resources.AlwaysSplitLtSummaryGtTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
-                    <CheckBox Content="{x:Static properties:Resources.AlwaysSplitAllXMLTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitAllTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AddSpacingAroundXMLTags}" IsChecked="{Binding CommentXmlSpaceTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AddSpaceInsideSelfClosingTags}" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
+                    <CheckBox Content="{x:Static p:Resources.KeepXMLTagsTogether}" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
+                    <CheckBox Content="{x:Static p:Resources.AlignXMLLtParamGtTags}" IsChecked="{Binding CommentXmlAlignParamTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitLtSummaryGtTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
+                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitAllXMLTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitAllTags}" />
                 </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Cleanup">
-                <CheckBox Content="{x:Static properties:Resources.RunFormatCommentsDuringCleanup}" IsChecked="{Binding CommentRunDuringCleanup}" />
+                <CheckBox Content="{x:Static p:Resources.RunFormatCommentsDuringCleanup}" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
             <GroupBox Header="Preview (reopen to refresh)">

@@ -4,11 +4,11 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties">
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties">
 
     <DataTemplate DataType="{x:Type local:GeneralViewModel}">
         <StackPanel>
-            <GroupBox Header="{x:Static properties:Resources.Display}">
+            <GroupBox Header="{x:Static p:Resources.Display}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -37,7 +37,7 @@
                         </CollectionViewSource>
                     </Grid.Resources>
 
-                    <TextBlock Text="{x:Static properties:Resources.Theme}" VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static p:Resources.Theme}" VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.AutoDetect}}" />
@@ -45,7 +45,7 @@
                         <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Light}}" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="1" Text="{x:Static properties:Resources.Icons}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Text="{x:Static p:Resources.Icons}" VerticalAlignment="Center" />
 
                     <RadioButton Grid.Row="1" Grid.Column="1" Content="auto-detect"
                                  IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.AutoDetect}}" />
@@ -112,7 +112,7 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <TextBlock Grid.Row="5" Text="{x:Static properties:Resources.Font}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="5" Text="{x:Static p:Resources.Font}" VerticalAlignment="Center" />
                     <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
                               HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
@@ -124,26 +124,26 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="{x:Static properties:Resources.Miscellaneous}">
+            <GroupBox Header="{x:Static p:Resources.Miscellaneous}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static properties:Resources.ShowStartPageWhenASolutionIsClosed}" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
-                    <CheckBox Content="{x:Static properties:Resources.UseUndoTransactions}" IsChecked="{Binding UseUndoTransactions}" />
-                    <CheckBox Content="{x:Static properties:Resources.SkipDuringAutomaticCleanupOnSave}"
+                    <CheckBox Content="{x:Static p:Resources.ShowStartPageWhenASolutionIsClosed}" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                    <CheckBox Content="{x:Static p:Resources.UseUndoTransactions}" IsChecked="{Binding UseUndoTransactions}" />
+                    <CheckBox Content="{x:Static p:Resources.SkipDuringAutomaticCleanupOnSave}"
                               IsChecked="{Binding SkipUndoTransactionsDuringAutoCleanupOnSave}"
                               IsEnabled="{Binding UseUndoTransactions}"
                               Margin="35,5,5,5" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="{x:Static properties:Resources.Performance}">
+            <GroupBox Header="{x:Static p:Resources.Performance}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static properties:Resources.CacheFileCodeModels}" IsChecked="{Binding CacheFiles}" />
-                    <CheckBox Content="{x:Static properties:Resources.LoadModelsAsynchronously}" IsChecked="{Binding LoadModelsAsynchronously}" />
+                    <CheckBox Content="{x:Static p:Resources.CacheFileCodeModels}" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="{x:Static p:Resources.LoadModelsAsynchronously}" IsChecked="{Binding LoadModelsAsynchronously}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="{x:Static properties:Resources.Diagnostics}">
-                <CheckBox Content="{x:Static properties:Resources.DiagnosticsMode}" IsChecked="{Binding DiagnosticsMode}" />
+            <GroupBox Header="{x:Static p:Resources.Diagnostics}">
+                <CheckBox Content="{x:Static p:Resources.DiagnosticsMode}" IsChecked="{Binding DiagnosticsMode}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

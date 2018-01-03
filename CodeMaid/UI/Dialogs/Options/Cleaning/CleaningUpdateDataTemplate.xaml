@@ -1,18 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:properties="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
-            <GroupBox Header="{x:Static properties:Resources.General}">
+            <GroupBox Header="{x:Static p:Resources.General}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static properties:Resources.UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504}" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
-                    <CheckBox Content="{x:Static properties:Resources.UpdateEndregionTagsWithRegionName}" IsChecked="{Binding UpdateEndRegionDirectives}" />
-                    <TextBlock Text="{x:Static properties:Resources.ExEndregionMethods}" Margin="35,0,5,10" />
-                    <CheckBox Content="{x:Static properties:Resources.UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502}" IsChecked="{Binding UpdateSingleLineMethods}" />
+                    <CheckBox Content="{x:Static p:Resources.UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504}" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
+                    <CheckBox Content="{x:Static p:Resources.UpdateEndregionTagsWithRegionName}" IsChecked="{Binding UpdateEndRegionDirectives}" />
+                    <TextBlock Text="{x:Static p:Resources.ExEndregionMethods}" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static p:Resources.UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502}" IsChecked="{Binding UpdateSingleLineMethods}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="{x:Static properties:Resources.FileHeader}">
+            <GroupBox Header="{x:Static p:Resources.FileHeader}">
                 <StackPanel>
                     <TabControl>
                         <TabItem Header="C#">
