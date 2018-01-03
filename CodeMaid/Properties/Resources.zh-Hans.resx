@@ -117,109 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuildProgressToolWindow_BuildProgress" xml:space="preserve">
+  <data name="BuildProgress" xml:space="preserve">
     <value>生成进度</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="GuidCodeMaidCommandAbout" xml:space="preserve">
-    <value>关于CodeMaid...</value>
-  </data>
-  <data name="GuidCodeMaidCommandBuildProgressToolWindow" xml:space="preserve">
-    <value>生成进度(&amp;B)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupActiveCode" xml:space="preserve">
-    <value>整理当前文档(&amp;C)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupAllCode" xml:space="preserve">
-    <value>整理所有代码(&amp;A)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupOpenCode" xml:space="preserve">
-    <value>整理打开代码(&amp;C)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupSelectedCode" xml:space="preserve">
-    <value>整理已选代码(&amp;C)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCloseAllReadOnly" xml:space="preserve">
-    <value>关闭所有只读(&amp;R)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCollapseAllSolutionExplorer" xml:space="preserve">
-    <value>递归折叠全部(&amp;L)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" xml:space="preserve">
-    <value>递归折叠(&amp;L)</value>
-  </data>
-  <data name="GuidCodeMaidCommandCommentFormat" xml:space="preserve">
-    <value>格式化注释(&amp;N)</value>
-  </data>
-  <data name="GuidCodeMaidCommandFindInSolutionExplorer" xml:space="preserve">
-    <value>在解决方案管理器中查找(&amp;F)</value>
-  </data>
-  <data name="GuidCodeMaidCommandJoinLines" xml:space="preserve">
-    <value>链接多行(&amp;J)</value>
-  </data>
-  <data name="GuidCodeMaidCommandOptions" xml:space="preserve">
-    <value>选项(&amp;O)</value>
-  </data>
-  <data name="GuidCodeMaidCommandReadOnlyToggle" xml:space="preserve">
-    <value>只读切换(&amp;R)</value>
-  </data>
-  <data name="GuidCodeMaidCommandRemoveRegion" xml:space="preserve">
-    <value>删除所有大纲(&amp;R)</value>
-  </data>
-  <data name="GuidCodeMaidCommandReorganizeActiveCode" xml:space="preserve">
-    <value>活动文档大纲(&amp;Z)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSettingCleanupOnSave" xml:space="preserve">
-    <value>保存时自动清理(&amp;A)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSortLines" xml:space="preserve">
-    <value>多行排序(&amp;S)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextDelete" xml:space="preserve">
-    <value>删除(&amp;D)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextFindReferences" xml:space="preserve">
-    <value>查找引用(&amp;F)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextInsertRegion" xml:space="preserve">
-    <value>插入大纲(&amp;I)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextRemoveRegion" xml:space="preserve">
-    <value>移除大纲(&amp;R)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeOptions" xml:space="preserve">
-    <value>选项(&amp;O)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeRefresh" xml:space="preserve">
-    <value>刷新码锹</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSearch" xml:space="preserve">
-    <value>搜索码锹</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderAlpha" xml:space="preserve">
-    <value>按字母排序</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderFile" xml:space="preserve">
-    <value>按顺序排序</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderType" xml:space="preserve">
-    <value>按类型排序</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeToolWindow" xml:space="preserve">
-    <value>码铲(&amp;S)</value>
-  </data>
-  <data name="GuidCodeMaidCommandSwitchFile" xml:space="preserve">
-    <value>切换文件(&amp;S)</value>
-  </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveAllRegions" xml:space="preserve">
+  <data name="RemoveAllRegions" xml:space="preserve">
     <value>移除全部大纲(&amp;R)</value>
   </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveCurrentRegion" xml:space="preserve">
+  <data name="RemoveCurrentRegion" xml:space="preserve">
     <value>移除当前大纲(&amp;R)</value>
   </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveSelectedRegions" xml:space="preserve">
+  <data name="RemoveSelectedRegions" xml:space="preserve">
     <value>移除已选大纲(&amp;R)</value>
   </data>
   <data name="Save" xml:space="preserve">
@@ -231,85 +141,82 @@
   <data name="Import" xml:space="preserve">
     <value>导入</value>
   </data>
-  <data name="OptionsWillBeSavedTo0" xml:space="preserve">
-    <value>选项将保存至'{0}'.</value>
-  </data>
   <data name="ResetToDefaults" xml:space="preserve">
     <value>重置为默认</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Batch" xml:space="preserve">
+  <data name="Batch" xml:space="preserve">
     <value>批量</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Building" xml:space="preserve">
+  <data name="Building" xml:space="preserve">
     <value>正在生成</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Cleaning" xml:space="preserve">
+  <data name="Cleaning" xml:space="preserve">
     <value>正在清理</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Deploying" xml:space="preserve">
+  <data name="Deploying" xml:space="preserve">
     <value>正在部署</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Rebuilding" xml:space="preserve">
+  <data name="Rebuilding" xml:space="preserve">
     <value>正在重新生成</value>
   </data>
-  <data name="SpadeToolWindow_SpadeToolWindow_CodeMaidSpade" xml:space="preserve">
+  <data name="CodeMaidSpade" xml:space="preserve">
     <value>CodeMaid 码锹</value>
   </data>
   <data name="Canceling" xml:space="preserve">
     <value>正在取消...</value>
   </data>
-  <data name="SpadeToolWindow_ProvideSearchSettings_SearchCodeMaidSpadeCtrlM" xml:space="preserve">
+  <data name="SearchCodeMaidSpadeCtrlM" xml:space="preserve">
     <value>搜索码锹</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_UnderTheCursor" xml:space="preserve">
+  <data name="UnderTheCursor" xml:space="preserve">
     <value>在鼠标下方</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_InTheSelection" xml:space="preserve">
+  <data name="InTheSelection" xml:space="preserve">
     <value>所选内容</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
+  <data name="AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
     <value>你准备好使用CodeMaid 整理解决方案中的所有代码了吗？</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CleanupCannotRunWhileDebugging" xml:space="preserve">
+  <data name="CleanupCannotRunWhileDebugging" xml:space="preserve">
     <value>调试时无法运行整理。</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CodeMaidCleanupAllCode" xml:space="preserve">
+  <data name="CodeMaidCleanupAllCode" xml:space="preserve">
     <value>CodeMaid: 整理所有代码</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CodeMaidConfirmationForCleanupAllCode" xml:space="preserve">
+  <data name="CodeMaidConfirmationForCleanupAllCode" xml:space="preserve">
     <value>CodeMaid: 确认整理所有代码</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanupExternalFile" xml:space="preserve">
+  <data name="CodeMaidCleanupExternalFile" xml:space="preserve">
     <value>CodeMaid: 整理外部文件</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerformAPartialCleanup" xml:space="preserve">
+  <data name="DoYouWantToPerformAPartialCleanup" xml:space="preserve">
     <value>是否要执行部分整理？</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable" xml:space="preserve">
+  <data name="IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable" xml:space="preserve">
     <value>不在解决方案中, 因此某些整理操作可能不可用。</value>
   </data>
-  <data name="CommentFormatCommand_CommentFormatCommand_CodeMaidFormatComment" xml:space="preserve">
+  <data name="CodeMaidFormatComment" xml:space="preserve">
     <value>CodeMaid 格式化注释</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidDidNotFindANonCodeComment0ToReformat" xml:space="preserve">
+  <data name="CodeMaidDidNotFindANonCodeComment0ToReformat" xml:space="preserve">
     <value>CodeMaid 未找到非代码注释 {0} 以重新格式化。</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComment" xml:space="preserve">
+  <data name="CodeMaidFinishedFormattingTheComment" xml:space="preserve">
     <value>CodeMaid 完成了此注释的格式化。</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComments0" xml:space="preserve">
+  <data name="CodeMaidFinishedFormattingTheComments0" xml:space="preserve">
     <value>CodeMaid 完成了注释 {0} 的格式化。</value>
   </data>
-  <data name="ReadOnlyToggleCommand_OnExecute_UnableToToggleReadOnlyStateOn" xml:space="preserve">
+  <data name="UnableToToggleReadOnlyStateOn" xml:space="preserve">
     <value>无法切换只读状态</value>
   </data>
-  <data name="OptionsViewModel_OnImportCommandExecuted_CodeMaidImport" xml:space="preserve">
+  <data name="CodeMaidImport" xml:space="preserve">
     <value>CodeMaid: 导入</value>
   </data>
-  <data name="OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles" xml:space="preserve">
+  <data name="ConfigFilesConfigConfigAllFiles" xml:space="preserve">
     <value>配置文件 (*. config)|(*. config |所有文件 (*.*) |*.* *</value>
   </data>
-  <data name="ThemeManager_LoadResourceDictionary_CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails" xml:space="preserve">
+  <data name="CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails" xml:space="preserve">
     <value>CodeMaid 未能加载主题 "{0}"。 有关详细信息, 请参阅输出窗口。</value>
   </data>
   <data name="CodeMaidCleanupProgress" xml:space="preserve">
@@ -318,19 +225,19 @@
   <data name="Cleaning0" xml:space="preserve">
     <value>正在整理{0}..。</value>
   </data>
-  <data name="SwitchFileCommand_OnBeforeQueryStatus_SWitchTo" xml:space="preserve">
+  <data name="SWitchTo" xml:space="preserve">
     <value>切换至(&amp;W)</value>
   </data>
-  <data name="SwitchFileCommand_OnBeforeQueryStatus_SWitchFile" xml:space="preserve">
+  <data name="SWitchFile" xml:space="preserve">
     <value>切换文件(&amp;W)</value>
   </data>
-  <data name="SpadeContextInsertRegionCommand_OnExecute_NewRegion" xml:space="preserve">
+  <data name="NewRegion" xml:space="preserve">
     <value>新建大纲</value>
   </data>
-  <data name="SettingCleanupOnSaveCommand_OnExecute_CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
+  <data name="CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
     <value>CodeMaid 已开启保存时自动整理</value>
   </data>
-  <data name="SettingCleanupOnSaveCommand_OnBeforeQueryStatus_AutomaticCleanupOnSave" xml:space="preserve">
+  <data name="AutomaticCleanupOnSave" xml:space="preserve">
     <value>保存时自动整理 - </value>
   </data>
   <data name="CodeMaidOptions" xml:space="preserve">
@@ -675,25 +582,25 @@
   <data name="PlaceEachCommandOnASeparateLine" xml:space="preserve">
     <value>将每个命令放在单独的行上</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidExport" xml:space="preserve">
+  <data name="CodeMaidExport" xml:space="preserve">
     <value>CodeMaid: 导出</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidHasSuccessfullyExported" xml:space="preserve">
+  <data name="CodeMaidHasSuccessfullyExported" xml:space="preserve">
     <value>CodeMaid 已成功导出</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_To0" xml:space="preserve">
+  <data name="To0" xml:space="preserve">
     <value>到 "{0}"。</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_Successful" xml:space="preserve">
+  <data name="Successful" xml:space="preserve">
     <value>成功</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidWasUnableToExport" xml:space="preserve">
+  <data name="CodeMaidWasUnableToExport" xml:space="preserve">
     <value>CodeMaid 无法导出</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_SeeOutputWindowForMoreDetails" xml:space="preserve">
+  <data name="SeeOutputWindowForMoreDetails" xml:space="preserve">
     <value>. 有关详细信息, 请参阅输出窗口。</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_Unsuccessful" xml:space="preserve">
+  <data name="Unsuccessful" xml:space="preserve">
     <value>未成功</value>
   </data>
   <data name="ThirdPartyViewModel_ThirdParty" xml:space="preserve">
@@ -702,7 +609,7 @@
   <data name="SwitchingViewModel_Switching" xml:space="preserve">
     <value>切换</value>
   </data>
-  <data name="ReorganizingParentViewModel_Reorganizing" xml:space="preserve">
+  <data name="Reorganizing" xml:space="preserve">
     <value>重新组织</value>
   </data>
   <data name="ReorganizingTypesViewModel_Types" xml:space="preserve">
@@ -729,10 +636,10 @@
   <data name="CleaningFileTypesViewModel_FileTypes" xml:space="preserve">
     <value>文件类型</value>
   </data>
-  <data name="OptionsViewModel_GetSettingsName_UserSettings" xml:space="preserve">
+  <data name="UserSettings" xml:space="preserve">
     <value>用户设置</value>
   </data>
-  <data name="OptionsViewModel_GetSettingsName_SolutionSpecificSettings" xml:space="preserve">
+  <data name="SolutionSpecificSettings" xml:space="preserve">
     <value>解决方案特定设置</value>
   </data>
   <data name="Automatic" xml:space="preserve">
@@ -758,5 +665,17 @@
   </data>
   <data name="SettingCleanupOnSaveCommand_OFF" xml:space="preserve">
     <value>关</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>性能</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>杂项</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="WindowsTaskbar" xml:space="preserve">
+    <value>Windows 任务栏</value>
   </data>
 </root>

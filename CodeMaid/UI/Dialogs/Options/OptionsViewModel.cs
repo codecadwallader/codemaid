@@ -217,10 +217,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Title = StringResourceKey.OptionsViewModel_OnExportCommandExecuted_CodeMaidExport + activeSettingsName,
+                Title = StringResourceKey.CodeMaidExport + activeSettingsName,
                 FileName = "CodeMaid",
                 DefaultExt = ".config",
-                Filter = StringResourceKey.OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles
+                Filter = StringResourceKey.ConfigFilesConfigConfigAllFiles
             };
 
             if (dialog.ShowDialog() == true)
@@ -229,14 +229,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 {
                     File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
-                    MessageBox.Show(string.Format(StringResourceKey.OptionsViewModel_OnExportCommandExecuted_CodeMaidHasSuccessfullyExported + activeSettingsName + StringResourceKey.OptionsViewModel_OnExportCommandExecuted_To0, dialog.FileName),
-                                    StringResourceKey.OptionsViewModel_OnExportCommandExecuted_CodeMaidExport + activeSettingsName + StringResourceKey.OptionsViewModel_OnExportCommandExecuted_Successful, MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(StringResourceKey.CodeMaidHasSuccessfullyExported + activeSettingsName + StringResourceKey.To0, dialog.FileName),
+                                    StringResourceKey.CodeMaidExport + activeSettingsName + StringResourceKey.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     OutputWindowHelper.ExceptionWriteLine("Unable to export " + activeSettingsName, ex);
-                    MessageBox.Show(StringResourceKey.OptionsViewModel_OnExportCommandExecuted_CodeMaidWasUnableToExport + activeSettingsName + StringResourceKey.OptionsViewModel_OnExportCommandExecuted_SeeOutputWindowForMoreDetails,
-                                    StringResourceKey.OptionsViewModel_OnExportCommandExecuted_CodeMaidExport + activeSettingsName + StringResourceKey.OptionsViewModel_OnExportCommandExecuted_Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(StringResourceKey.CodeMaidWasUnableToExport + activeSettingsName + StringResourceKey.SeeOutputWindowForMoreDetails,
+                                    StringResourceKey.CodeMaidExport + activeSettingsName + StringResourceKey.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -266,9 +266,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Title = StringResourceKey.OptionsViewModel_OnImportCommandExecuted_CodeMaidImport + activeSettingsName,
+                Title = StringResourceKey.CodeMaidImport + activeSettingsName,
                 DefaultExt = ".config",
-                Filter = StringResourceKey.OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles,
+                Filter = StringResourceKey.ConfigFilesConfigConfigAllFiles,
                 CheckFileExists = true
             };
 
@@ -493,7 +493,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>The active or inactive settings name.</returns>
         private string GetSettingsName(bool inactive)
         {
-            return IsActiveSolutionSpecificSettings ^ inactive ? StringResourceKey.OptionsViewModel_GetSettingsName_SolutionSpecificSettings : StringResourceKey.OptionsViewModel_GetSettingsName_UserSettings;
+            return IsActiveSolutionSpecificSettings ^ inactive ? StringResourceKey.SolutionSpecificSettings : StringResourceKey.UserSettings;
         }
 
         /// <summary>

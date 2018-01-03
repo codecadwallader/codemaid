@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     {
         #region Fields
 
-        private string DefaultCaption = StringResourceKey.BuildProgressToolWindow_BuildProgress;
+        private string DefaultCaption = StringResourceKey.BuildProgress;
 
         private readonly BuildProgressViewModel _viewModel;
 
@@ -216,26 +216,26 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // First append the word 'Batch ' if this is a batch build event.
             if (buildScope == vsBuildScope.vsBuildScopeBatch)
             {
-                stringBuilder.Append(StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Batch);
+                stringBuilder.Append(StringResourceKey.Batch);
             }
 
             // Next append the action-specific build string.
             switch (buildAction)
             {
                 case vsBuildAction.vsBuildActionBuild:
-                    stringBuilder.Append(StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Building);
+                    stringBuilder.Append(StringResourceKey.Building);
                     break;
 
                 case vsBuildAction.vsBuildActionClean:
-                    stringBuilder.Append(StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Cleaning);
+                    stringBuilder.Append(StringResourceKey.Cleaning);
                     break;
 
                 case vsBuildAction.vsBuildActionDeploy:
-                    stringBuilder.Append(StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Deploying);
+                    stringBuilder.Append(StringResourceKey.Deploying);
                     break;
 
                 case vsBuildAction.vsBuildActionRebuildAll:
-                    stringBuilder.Append(StringResourceKey.BuildProgressToolWindow_GetBuildTypeString_Rebuilding);
+                    stringBuilder.Append(StringResourceKey.Rebuilding);
                     break;
             }
 

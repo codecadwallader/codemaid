@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuildProgressToolWindow_BuildProgress" xml:space="preserve">
+  <data name="BuildProgress" xml:space="preserve">
     <value>Build Progress</value>
   </data>
   <data name="Cancel" xml:space="preserve">
@@ -126,160 +126,70 @@
   <data name="Canceling" xml:space="preserve">
     <value>Canceling...</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
+  <data name="AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
     <value>Are you ready for CodeMaid to clean everything in the solution?</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CleanupCannotRunWhileDebugging" xml:space="preserve">
+  <data name="CleanupCannotRunWhileDebugging" xml:space="preserve">
     <value>Cleanup cannot run while debugging.</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CodeMaidCleanupAllCode" xml:space="preserve">
+  <data name="CodeMaidCleanupAllCode" xml:space="preserve">
     <value>CodeMaid: Cleanup All Code</value>
   </data>
-  <data name="CleanupAllCodeCommand_OnExecute_CodeMaidConfirmationForCleanupAllCode" xml:space="preserve">
+  <data name="CodeMaidConfirmationForCleanupAllCode" xml:space="preserve">
     <value>CodeMaid: Confirmation for Cleanup All Code</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanupExternalFile" xml:space="preserve">
+  <data name="CodeMaidCleanupExternalFile" xml:space="preserve">
     <value>CodeMaid: Cleanup External File</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerformAPartialCleanup" xml:space="preserve">
+  <data name="DoYouWantToPerformAPartialCleanup" xml:space="preserve">
     <value>Do you want to perform a partial cleanup?</value>
   </data>
-  <data name="CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable" xml:space="preserve">
+  <data name="IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable" xml:space="preserve">
     <value> is not in the solution so some cleanup actions may be unavailable.</value>
   </data>
-  <data name="CommentFormatCommand_CommentFormatCommand_CodeMaidFormatComment" xml:space="preserve">
+  <data name="CodeMaidFormatComment" xml:space="preserve">
     <value>CodeMaid Format Comment</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidDidNotFindANonCodeComment0ToReformat" xml:space="preserve">
+  <data name="CodeMaidDidNotFindANonCodeComment0ToReformat" xml:space="preserve">
     <value>CodeMaid did not find a non-code comment {0} to reformat.</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComment" xml:space="preserve">
+  <data name="CodeMaidFinishedFormattingTheComment" xml:space="preserve">
     <value>CodeMaid finished formatting the comment.</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComments0" xml:space="preserve">
+  <data name="CodeMaidFinishedFormattingTheComments0" xml:space="preserve">
     <value>CodeMaid finished formatting the comments {0}.</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_InTheSelection" xml:space="preserve">
+  <data name="InTheSelection" xml:space="preserve">
     <value>in the selection</value>
   </data>
-  <data name="CommentFormatCommand_OnExecute_UnderTheCursor" xml:space="preserve">
+  <data name="UnderTheCursor" xml:space="preserve">
     <value>under the cursor</value>
   </data>
-  <data name="GuidCodeMaidCommandAbout" xml:space="preserve">
-    <value>About CodeMaid...</value>
-  </data>
-  <data name="GuidCodeMaidCommandBuildProgressToolWindow" xml:space="preserve">
-    <value>&amp;Build Progress</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupActiveCode" xml:space="preserve">
-    <value>&amp;Cleanup Active Document</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupAllCode" xml:space="preserve">
-    <value>Cleanup &amp;All Code...</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupOpenCode" xml:space="preserve">
-    <value>&amp;Cleanup Open Code</value>
-  </data>
-  <data name="GuidCodeMaidCommandCleanupSelectedCode" xml:space="preserve">
-    <value>&amp;Cleanup Selected Code</value>
-  </data>
-  <data name="GuidCodeMaidCommandCloseAllReadOnly" xml:space="preserve">
-    <value>Close All &amp;Read-Only</value>
-  </data>
-  <data name="GuidCodeMaidCommandCollapseAllSolutionExplorer" xml:space="preserve">
-    <value>Co&amp;llapse All Recursively</value>
-  </data>
-  <data name="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" xml:space="preserve">
-    <value>Co&amp;llapse Recursively</value>
-  </data>
-  <data name="GuidCodeMaidCommandCommentFormat" xml:space="preserve">
-    <value>Format Comme&amp;amp;nt</value>
-  </data>
-  <data name="GuidCodeMaidCommandFindInSolutionExplorer" xml:space="preserve">
-    <value>&amp;Find In Solution Explorer</value>
-  </data>
-  <data name="GuidCodeMaidCommandJoinLines" xml:space="preserve">
-    <value>&amp;Join Lines</value>
-  </data>
-  <data name="GuidCodeMaidCommandOptions" xml:space="preserve">
-    <value>&amp;Options...</value>
-  </data>
-  <data name="GuidCodeMaidCommandReadOnlyToggle" xml:space="preserve">
-    <value>&amp;Read-Only Toggle</value>
-  </data>
-  <data name="GuidCodeMaidCommandRemoveRegion" xml:space="preserve">
-    <value>&amp;Remove All Regions</value>
-  </data>
-  <data name="GuidCodeMaidCommandReorganizeActiveCode" xml:space="preserve">
-    <value>Reorgani&amp;ze Active Document</value>
-  </data>
-  <data name="GuidCodeMaidCommandSettingCleanupOnSave" xml:space="preserve">
-    <value>&amp;Automatic Cleanup On Save</value>
-  </data>
-  <data name="GuidCodeMaidCommandSortLines" xml:space="preserve">
-    <value>&amp;Sort Lines</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextDelete" xml:space="preserve">
-    <value>&amp;Delete</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextFindReferences" xml:space="preserve">
-    <value>&amp;Find References</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextInsertRegion" xml:space="preserve">
-    <value>&amp;Insert Region</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeContextRemoveRegion" xml:space="preserve">
-    <value>&amp;Remove Region</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeOptions" xml:space="preserve">
-    <value>&amp;Options...</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeRefresh" xml:space="preserve">
-    <value>Refresh Spade</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSearch" xml:space="preserve">
-    <value>Search Spade</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderAlpha" xml:space="preserve">
-    <value>Sort alphabetically</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderFile" xml:space="preserve">
-    <value>Sort by file order</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeSortOrderType" xml:space="preserve">
-    <value>Sort by type</value>
-  </data>
-  <data name="GuidCodeMaidCommandSpadeToolWindow" xml:space="preserve">
-    <value>&amp;Spade</value>
-  </data>
-  <data name="GuidCodeMaidCommandSwitchFile" xml:space="preserve">
-    <value>&amp;Switch File</value>
-  </data>
-  <data name="ReadOnlyToggleCommand_OnExecute_UnableToToggleReadOnlyStateOn" xml:space="preserve">
+  <data name="UnableToToggleReadOnlyStateOn" xml:space="preserve">
     <value>Unable to toggle read only state on </value>
   </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveAllRegions" xml:space="preserve">
+  <data name="RemoveAllRegions" xml:space="preserve">
     <value>&amp;Remove All Regions</value>
   </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveCurrentRegion" xml:space="preserve">
+  <data name="RemoveCurrentRegion" xml:space="preserve">
     <value>&amp;Remove Current Region</value>
   </data>
-  <data name="RemoveRegionCommand_OnBeforeQueryStatus_RemoveSelectedRegions" xml:space="preserve">
+  <data name="RemoveSelectedRegions" xml:space="preserve">
     <value>&amp;Remove Selected Regions</value>
   </data>
-  <data name="SettingCleanupOnSaveCommand_OnBeforeQueryStatus_AutomaticCleanupOnSave" xml:space="preserve">
+  <data name="AutomaticCleanupOnSave" xml:space="preserve">
     <value>Automatic Cleanup On Save - </value>
   </data>
-  <data name="SettingCleanupOnSaveCommand_OnExecute_CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
+  <data name="CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
     <value>CodeMaid turned automatic cleanup on save</value>
   </data>
-  <data name="SpadeContextInsertRegionCommand_OnExecute_NewRegion" xml:space="preserve">
+  <data name="NewRegion" xml:space="preserve">
     <value>New Region</value>
   </data>
-  <data name="SwitchFileCommand_OnBeforeQueryStatus_SWitchFile" xml:space="preserve">
+  <data name="SWitchFile" xml:space="preserve">
     <value>S&amp;witch File</value>
   </data>
-  <data name="SwitchFileCommand_OnBeforeQueryStatus_SWitchTo" xml:space="preserve">
+  <data name="SWitchTo" xml:space="preserve">
     <value>S&amp;witch to </value>
   </data>
   <data name="Cleaning0" xml:space="preserve">
@@ -288,28 +198,28 @@
   <data name="CodeMaidCleanupProgress" xml:space="preserve">
     <value>CodeMaid: Cleanup Progress</value>
   </data>
-  <data name="SpadeToolWindow_SpadeToolWindow_CodeMaidSpade" xml:space="preserve">
+  <data name="CodeMaidSpade" xml:space="preserve">
     <value>CodeMaid Spade</value>
   </data>
-  <data name="SpadeToolWindow_ProvideSearchSettings_SearchCodeMaidSpadeCtrlM" xml:space="preserve">
+  <data name="SearchCodeMaidSpadeCtrlM" xml:space="preserve">
     <value>Search CodeMaid Spade (Ctrl+M, ;)</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Rebuilding" xml:space="preserve">
+  <data name="Rebuilding" xml:space="preserve">
     <value>Rebuilding</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Deploying" xml:space="preserve">
+  <data name="Deploying" xml:space="preserve">
     <value>Deploying</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Cleaning" xml:space="preserve">
+  <data name="Cleaning" xml:space="preserve">
     <value>Cleaning</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Building" xml:space="preserve">
+  <data name="Building" xml:space="preserve">
     <value>Building</value>
   </data>
-  <data name="BuildProgressToolWindow_GetBuildTypeString_Batch" xml:space="preserve">
+  <data name="Batch" xml:space="preserve">
     <value>Batch </value>
   </data>
-  <data name="ThemeManager_LoadResourceDictionary_CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails" xml:space="preserve">
+  <data name="CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails" xml:space="preserve">
     <value>CodeMaid failed to load theme '{0}'.  See output window for more details.</value>
   </data>
   <data name="ResetToDefaults" xml:space="preserve">
@@ -321,16 +231,13 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="OptionsWillBeSavedTo0" xml:space="preserve">
-    <value>Options will be saved to '{0}'.</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="OptionsViewModel_OnImportCommandExecuted_CodeMaidImport" xml:space="preserve">
+  <data name="CodeMaidImport" xml:space="preserve">
     <value>CodeMaid: Import </value>
   </data>
-  <data name="OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles" xml:space="preserve">
+  <data name="ConfigFilesConfigConfigAllFiles" xml:space="preserve">
     <value>Config files (*.config)|*.config|All Files (*.*)|*.*</value>
   </data>
   <data name="CodeMaidOptions" xml:space="preserve">
@@ -675,25 +582,25 @@
   <data name="PlaceEachCommandOnASeparateLine" xml:space="preserve">
     <value>Place each command on a separate line</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidExport" xml:space="preserve">
+  <data name="CodeMaidExport" xml:space="preserve">
     <value>CodeMaid: Export </value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidHasSuccessfullyExported" xml:space="preserve">
+  <data name="CodeMaidHasSuccessfullyExported" xml:space="preserve">
     <value>CodeMaid has successfully exported </value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_To0" xml:space="preserve">
+  <data name="To0" xml:space="preserve">
     <value> to '{0}'.</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_Successful" xml:space="preserve">
+  <data name="Successful" xml:space="preserve">
     <value> Successful</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_CodeMaidWasUnableToExport" xml:space="preserve">
+  <data name="CodeMaidWasUnableToExport" xml:space="preserve">
     <value>CodeMaid was unable to export </value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_SeeOutputWindowForMoreDetails" xml:space="preserve">
+  <data name="SeeOutputWindowForMoreDetails" xml:space="preserve">
     <value>.  See output window for more details.</value>
   </data>
-  <data name="OptionsViewModel_OnExportCommandExecuted_Unsuccessful" xml:space="preserve">
+  <data name="Unsuccessful" xml:space="preserve">
     <value> Unsuccessful</value>
   </data>
   <data name="ThirdPartyViewModel_ThirdParty" xml:space="preserve">
@@ -702,7 +609,7 @@
   <data name="SwitchingViewModel_Switching" xml:space="preserve">
     <value>Switching</value>
   </data>
-  <data name="ReorganizingParentViewModel_Reorganizing" xml:space="preserve">
+  <data name="Reorganizing" xml:space="preserve">
     <value>Reorganizing</value>
   </data>
   <data name="ReorganizingTypesViewModel_Types" xml:space="preserve">
@@ -729,10 +636,10 @@
   <data name="CleaningUpdateViewModel_Update" xml:space="preserve">
     <value>Update</value>
   </data>
-  <data name="OptionsViewModel_GetSettingsName_UserSettings" xml:space="preserve">
+  <data name="UserSettings" xml:space="preserve">
     <value>User Settings</value>
   </data>
-  <data name="OptionsViewModel_GetSettingsName_SolutionSpecificSettings" xml:space="preserve">
+  <data name="SolutionSpecificSettings" xml:space="preserve">
     <value>Solution-Specific Settings</value>
   </data>
   <data name="Automatic" xml:space="preserve">
@@ -758,5 +665,17 @@
   </data>
   <data name="SettingCleanupOnSaveCommand_OFF" xml:space="preserve">
     <value>OFF</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>Miscellaneous</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="WindowsTaskbar" xml:space="preserve">
+    <value>Windows taskbar</value>
   </data>
 </root>

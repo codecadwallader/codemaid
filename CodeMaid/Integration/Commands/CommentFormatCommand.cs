@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package,
                    new CommandID(PackageGuids.GuidCodeMaidCommandCommentFormat, PackageIds.CmdIDCodeMaidCommentFormat))
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, StringResourceKey.CommentFormatCommand_CommentFormatCommand_CodeMaidFormatComment);
+            _undoTransactionHelper = new UndoTransactionHelper(package, StringResourceKey.CodeMaidFormatComment);
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
@@ -81,15 +81,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                     if (foundComments)
                     {
-                        Package.IDE.StatusBar.Text = StringResourceKey.CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComment;
+                        Package.IDE.StatusBar.Text = StringResourceKey.CodeMaidFinishedFormattingTheComment;
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = string.Format(
                             foundComments
-                                ? StringResourceKey.CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComments0
-                                : StringResourceKey.CommentFormatCommand_OnExecute_CodeMaidDidNotFindANonCodeComment0ToReformat,
-                            selection.IsEmpty ? StringResourceKey.CommentFormatCommand_OnExecute_UnderTheCursor : StringResourceKey.CommentFormatCommand_OnExecute_InTheSelection
+                                ? StringResourceKey.CodeMaidFinishedFormattingTheComments0
+                                : StringResourceKey.CodeMaidDidNotFindANonCodeComment0ToReformat,
+                            selection.IsEmpty ? StringResourceKey.UnderTheCursor : StringResourceKey.InTheSelection
                         );
                     }
                 }

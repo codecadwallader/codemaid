@@ -169,6 +169,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Are you ready for CodeMaid to clean everything in the solution? 的本地化字符串。
+        /// </summary>
+        public static string AreYouReadyForCodeMaidToCleanEverythingInTheSolution {
+            get {
+                return ResourceManager.GetString("AreYouReadyForCodeMaidToCleanEverythingInTheSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 at bottom of file 的本地化字符串。
         /// </summary>
         public static string AtBottomOfFile {
@@ -214,6 +223,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Automatic Cleanup On Save -  的本地化字符串。
+        /// </summary>
+        public static string AutomaticCleanupOnSave {
+            get {
+                return ResourceManager.GetString("AutomaticCleanupOnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Batch  的本地化字符串。
+        /// </summary>
+        public static string Batch {
+            get {
+                return ResourceManager.GetString("Batch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 before closing angle brackets 的本地化字符串。
         /// </summary>
         public static string BeforeClosingAngleBrackets {
@@ -250,56 +277,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Build Progress 的本地化字符串。
-        /// </summary>
-        public static string BuildProgressToolWindow_BuildProgress {
-            get {
-                return ResourceManager.GetString("BuildProgressToolWindow_BuildProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Batch  的本地化字符串。
-        /// </summary>
-        public static string BuildProgressToolWindow_GetBuildTypeString_Batch {
-            get {
-                return ResourceManager.GetString("BuildProgressToolWindow_GetBuildTypeString_Batch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Building 的本地化字符串。
         /// </summary>
-        public static string BuildProgressToolWindow_GetBuildTypeString_Building {
+        public static string Building {
             get {
-                return ResourceManager.GetString("BuildProgressToolWindow_GetBuildTypeString_Building", resourceCulture);
+                return ResourceManager.GetString("Building", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 Cleaning 的本地化字符串。
+        ///   查找类似 Build Progress 的本地化字符串。
         /// </summary>
-        public static string BuildProgressToolWindow_GetBuildTypeString_Cleaning {
+        public static string BuildProgress {
             get {
-                return ResourceManager.GetString("BuildProgressToolWindow_GetBuildTypeString_Cleaning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Deploying 的本地化字符串。
-        /// </summary>
-        public static string BuildProgressToolWindow_GetBuildTypeString_Deploying {
-            get {
-                return ResourceManager.GetString("BuildProgressToolWindow_GetBuildTypeString_Deploying", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Rebuilding 的本地化字符串。
-        /// </summary>
-        public static string BuildProgressToolWindow_GetBuildTypeString_Rebuilding {
-            get {
-                return ResourceManager.GetString("BuildProgressToolWindow_GetBuildTypeString_Rebuilding", resourceCulture);
+                return ResourceManager.GetString("BuildProgress", resourceCulture);
             }
         }
         
@@ -340,6 +331,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Cleaning 的本地化字符串。
+        /// </summary>
+        public static string Cleaning {
+            get {
+                return ResourceManager.GetString("Cleaning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Cleaning {0}... 的本地化字符串。
         /// </summary>
         public static string Cleaning0 {
@@ -376,39 +376,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Are you ready for CodeMaid to clean everything in the solution? 的本地化字符串。
-        /// </summary>
-        public static string CleanupAllCodeCommand_OnExecute_AreYouReadyForCodeMaidToCleanEverythingInTheSolution {
-            get {
-                return ResourceManager.GetString("CleanupAllCodeCommand_OnExecute_AreYouReadyForCodeMaidToCleanEverythingInTheSolut" +
-                        "ion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Cleanup cannot run while debugging. 的本地化字符串。
         /// </summary>
-        public static string CleanupAllCodeCommand_OnExecute_CleanupCannotRunWhileDebugging {
+        public static string CleanupCannotRunWhileDebugging {
             get {
-                return ResourceManager.GetString("CleanupAllCodeCommand_OnExecute_CleanupCannotRunWhileDebugging", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid: Cleanup All Code 的本地化字符串。
-        /// </summary>
-        public static string CleanupAllCodeCommand_OnExecute_CodeMaidCleanupAllCode {
-            get {
-                return ResourceManager.GetString("CleanupAllCodeCommand_OnExecute_CodeMaidCleanupAllCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid: Confirmation for Cleanup All Code 的本地化字符串。
-        /// </summary>
-        public static string CleanupAllCodeCommand_OnExecute_CodeMaidConfirmationForCleanupAllCode {
-            get {
-                return ResourceManager.GetString("CleanupAllCodeCommand_OnExecute_CodeMaidConfirmationForCleanupAllCode", resourceCulture);
+                return ResourceManager.GetString("CleanupCannotRunWhileDebugging", resourceCulture);
             }
         }
         
@@ -431,32 +403,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 CodeMaid: Cleanup All Code 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidCleanupAllCode {
+            get {
+                return ResourceManager.GetString("CodeMaidCleanupAllCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CodeMaid: Cleanup External File 的本地化字符串。
         /// </summary>
-        public static string CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanupExternalFile {
+        public static string CodeMaidCleanupExternalFile {
             get {
-                return ResourceManager.GetString("CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanup" +
-                        "ExternalFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Do you want to perform a partial cleanup? 的本地化字符串。
-        /// </summary>
-        public static string CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerformAPartialCleanup {
-            get {
-                return ResourceManager.GetString("CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerf" +
-                        "ormAPartialCleanup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  is not in the solution so some cleanup actions may be unavailable. 的本地化字符串。
-        /// </summary>
-        public static string CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable {
-            get {
-                return ResourceManager.GetString("CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolut" +
-                        "ionSoSomeCleanupActionsMayBeUnavailable", resourceCulture);
+                return ResourceManager.GetString("CodeMaidCleanupExternalFile", resourceCulture);
             }
         }
         
@@ -470,11 +430,119 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 CodeMaid: Confirmation for Cleanup All Code 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidConfirmationForCleanupAllCode {
+            get {
+                return ResourceManager.GetString("CodeMaidConfirmationForCleanupAllCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid did not find a non-code comment {0} to reformat. 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidDidNotFindANonCodeComment0ToReformat {
+            get {
+                return ResourceManager.GetString("CodeMaidDidNotFindANonCodeComment0ToReformat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid: Export  的本地化字符串。
+        /// </summary>
+        public static string CodeMaidExport {
+            get {
+                return ResourceManager.GetString("CodeMaidExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid failed to load theme &apos;{0}&apos;.  See output window for more details. 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails {
+            get {
+                return ResourceManager.GetString("CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid finished formatting the comment. 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidFinishedFormattingTheComment {
+            get {
+                return ResourceManager.GetString("CodeMaidFinishedFormattingTheComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid finished formatting the comments {0}. 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidFinishedFormattingTheComments0 {
+            get {
+                return ResourceManager.GetString("CodeMaidFinishedFormattingTheComments0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid Format Comment 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidFormatComment {
+            get {
+                return ResourceManager.GetString("CodeMaidFormatComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid has successfully exported  的本地化字符串。
+        /// </summary>
+        public static string CodeMaidHasSuccessfullyExported {
+            get {
+                return ResourceManager.GetString("CodeMaidHasSuccessfullyExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid: Import  的本地化字符串。
+        /// </summary>
+        public static string CodeMaidImport {
+            get {
+                return ResourceManager.GetString("CodeMaidImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CodeMaid Options 的本地化字符串。
         /// </summary>
         public static string CodeMaidOptions {
             get {
                 return ResourceManager.GetString("CodeMaidOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid Spade 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidSpade {
+            get {
+                return ResourceManager.GetString("CodeMaidSpade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid turned automatic cleanup on save 的本地化字符串。
+        /// </summary>
+        public static string CodeMaidTurnedAutomaticCleanupOnSave {
+            get {
+                return ResourceManager.GetString("CodeMaidTurnedAutomaticCleanupOnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CodeMaid was unable to export  的本地化字符串。
+        /// </summary>
+        public static string CodeMaidWasUnableToExport {
+            get {
+                return ResourceManager.GetString("CodeMaidWasUnableToExport", resourceCulture);
             }
         }
         
@@ -497,65 +565,38 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 CodeMaid Format Comment 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_CommentFormatCommand_CodeMaidFormatComment {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_CommentFormatCommand_CodeMaidFormatComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid did not find a non-code comment {0} to reformat. 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_OnExecute_CodeMaidDidNotFindANonCodeComment0ToReformat {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_OnExecute_CodeMaidDidNotFindANonCodeComment0ToReformat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid finished formatting the comment. 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComment {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid finished formatting the comments {0}. 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComments0 {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_OnExecute_CodeMaidFinishedFormattingTheComments0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 in the selection 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_OnExecute_InTheSelection {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_OnExecute_InTheSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 under the cursor 的本地化字符串。
-        /// </summary>
-        public static string CommentFormatCommand_OnExecute_UnderTheCursor {
-            get {
-                return ResourceManager.GetString("CommentFormatCommand_OnExecute_UnderTheCursor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Conditions 的本地化字符串。
         /// </summary>
         public static string Conditions {
             get {
                 return ResourceManager.GetString("Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Config files (*.config)|*.config|All Files (*.*)|*.* 的本地化字符串。
+        /// </summary>
+        public static string ConfigFilesConfigConfigAllFiles {
+            get {
+                return ResourceManager.GetString("ConfigFilesConfigConfigAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Deploying 的本地化字符串。
+        /// </summary>
+        public static string Deploying {
+            get {
+                return ResourceManager.GetString("Deploying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Diagnostics 的本地化字符串。
+        /// </summary>
+        public static string Diagnostics {
+            get {
+                return ResourceManager.GetString("Diagnostics", resourceCulture);
             }
         }
         
@@ -583,6 +624,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Display {
             get {
                 return ResourceManager.GetString("Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Do you want to perform a partial cleanup? 的本地化字符串。
+        /// </summary>
+        public static string DoYouWantToPerformAPartialCleanup {
+            get {
+                return ResourceManager.GetString("DoYouWantToPerformAPartialCleanup", resourceCulture);
             }
         }
         
@@ -709,276 +759,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 About CodeMaid... 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandAbout {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandAbout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Build Progress 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandBuildProgressToolWindow {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandBuildProgressToolWindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Cleanup Active Document 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCleanupActiveCode {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCleanupActiveCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Cleanup &amp;All Code... 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCleanupAllCode {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCleanupAllCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Cleanup Open Code 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCleanupOpenCode {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCleanupOpenCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Cleanup Selected Code 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCleanupSelectedCode {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCleanupSelectedCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Close All &amp;Read-Only 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCloseAllReadOnly {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCloseAllReadOnly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Co&amp;llapse All Recursively 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCollapseAllSolutionExplorer {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCollapseAllSolutionExplorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Co&amp;llapse Recursively 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCollapseSelectedSolutionExplorer {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCollapseSelectedSolutionExplorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Format Comme&amp;amp;nt 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandCommentFormat {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandCommentFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Find In Solution Explorer 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandFindInSolutionExplorer {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandFindInSolutionExplorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Join Lines 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandJoinLines {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandJoinLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Options... 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandOptions {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Read-Only Toggle 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandReadOnlyToggle {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandReadOnlyToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Remove All Regions 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandRemoveRegion {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandRemoveRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Reorgani&amp;ze Active Document 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandReorganizeActiveCode {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandReorganizeActiveCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Automatic Cleanup On Save 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSettingCleanupOnSave {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSettingCleanupOnSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Sort Lines 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSortLines {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSortLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Delete 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeContextDelete {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeContextDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Find References 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeContextFindReferences {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeContextFindReferences", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Insert Region 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeContextInsertRegion {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeContextInsertRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Remove Region 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeContextRemoveRegion {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeContextRemoveRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Options... 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeOptions {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Refresh Spade 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeRefresh {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeRefresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Search Spade 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeSearch {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeSearch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Sort alphabetically 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeSortOrderAlpha {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeSortOrderAlpha", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Sort by file order 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeSortOrderFile {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeSortOrderFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Sort by type 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeSortOrderType {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeSortOrderType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Spade 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSpadeToolWindow {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSpadeToolWindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Switch File 的本地化字符串。
-        /// </summary>
-        public static string GuidCodeMaidCommandSwitchFile {
-            get {
-                return ResourceManager.GetString("GuidCodeMaidCommandSwitchFile", resourceCulture);
             }
         }
         
@@ -1118,6 +898,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 in the selection 的本地化字符串。
+        /// </summary>
+        public static string InTheSelection {
+            get {
+                return ResourceManager.GetString("InTheSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  is not in the solution so some cleanup actions may be unavailable. 的本地化字符串。
+        /// </summary>
+        public static string IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable {
+            get {
+                return ResourceManager.GetString("IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Keep members within regions 的本地化字符串。
         /// </summary>
         public static string KeepMembersWithinRegions {
@@ -1154,6 +952,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Miscellaneous 的本地化字符串。
+        /// </summary>
+        public static string Miscellaneous {
+            get {
+                return ResourceManager.GetString("Miscellaneous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 name only 的本地化字符串。
         /// </summary>
         public static string NameOnly {
@@ -1172,110 +979,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Solution-Specific Settings 的本地化字符串。
+        ///   查找类似 New Region 的本地化字符串。
         /// </summary>
-        public static string OptionsViewModel_GetSettingsName_SolutionSpecificSettings {
+        public static string NewRegion {
             get {
-                return ResourceManager.GetString("OptionsViewModel_GetSettingsName_SolutionSpecificSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 User Settings 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_GetSettingsName_UserSettings {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_GetSettingsName_UserSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid: Export  的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_CodeMaidExport {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_CodeMaidExport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid has successfully exported  的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_CodeMaidHasSuccessfullyExported {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_CodeMaidHasSuccessfullyExported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid was unable to export  的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_CodeMaidWasUnableToExport {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_CodeMaidWasUnableToExport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 .  See output window for more details. 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_SeeOutputWindowForMoreDetails {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_SeeOutputWindowForMoreDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  Successful 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_Successful {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_Successful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  to &apos;{0}&apos;. 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_To0 {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_To0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  Unsuccessful 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnExportCommandExecuted_Unsuccessful {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnExportCommandExecuted_Unsuccessful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid: Import  的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnImportCommandExecuted_CodeMaidImport {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnImportCommandExecuted_CodeMaidImport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Config files (*.config)|*.config|All Files (*.*)|*.* 的本地化字符串。
-        /// </summary>
-        public static string OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles {
-            get {
-                return ResourceManager.GetString("OptionsViewModel_OnImportCommandExecuted_ConfigFilesConfigConfigAllFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Options will be saved to &apos;{0}&apos;. 的本地化字符串。
-        /// </summary>
-        public static string OptionsWillBeSavedTo0 {
-            get {
-                return ResourceManager.GetString("OptionsWillBeSavedTo0", resourceCulture);
+                return ResourceManager.GetString("NewRegion", resourceCulture);
             }
         }
         
@@ -1285,6 +993,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string OtherCleaningCommandsExReSharperReSharper_SilentCleanupCode {
             get {
                 return ResourceManager.GetString("OtherCleaningCommandsExReSharperReSharper_SilentCleanupCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Performance 的本地化字符串。
+        /// </summary>
+        public static string Performance {
+            get {
+                return ResourceManager.GetString("Performance", resourceCulture);
             }
         }
         
@@ -1379,11 +1096,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Unable to toggle read only state on  的本地化字符串。
+        ///   查找类似 Rebuilding 的本地化字符串。
         /// </summary>
-        public static string ReadOnlyToggleCommand_OnExecute_UnableToToggleReadOnlyStateOn {
+        public static string Rebuilding {
             get {
-                return ResourceManager.GetString("ReadOnlyToggleCommand_OnExecute_UnableToToggleReadOnlyStateOn", resourceCulture);
+                return ResourceManager.GetString("Rebuilding", resourceCulture);
             }
         }
         
@@ -1415,6 +1132,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 &amp;Remove All Regions 的本地化字符串。
+        /// </summary>
+        public static string RemoveAllRegions {
+            get {
+                return ResourceManager.GetString("RemoveAllRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Remove blank lines 的本地化字符串。
         /// </summary>
         public static string RemoveBlankLines {
@@ -1429,6 +1155,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string RemoveBlankSpaces {
             get {
                 return ResourceManager.GetString("RemoveBlankSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &amp;Remove Current Region 的本地化字符串。
+        /// </summary>
+        public static string RemoveCurrentRegion {
+            get {
+                return ResourceManager.GetString("RemoveCurrentRegion", resourceCulture);
             }
         }
         
@@ -1469,33 +1204,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 &amp;Remove All Regions 的本地化字符串。
-        /// </summary>
-        public static string RemoveRegionCommand_OnBeforeQueryStatus_RemoveAllRegions {
-            get {
-                return ResourceManager.GetString("RemoveRegionCommand_OnBeforeQueryStatus_RemoveAllRegions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Remove Current Region 的本地化字符串。
-        /// </summary>
-        public static string RemoveRegionCommand_OnBeforeQueryStatus_RemoveCurrentRegion {
-            get {
-                return ResourceManager.GetString("RemoveRegionCommand_OnBeforeQueryStatus_RemoveCurrentRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &amp;Remove Selected Regions 的本地化字符串。
-        /// </summary>
-        public static string RemoveRegionCommand_OnBeforeQueryStatus_RemoveSelectedRegions {
-            get {
-                return ResourceManager.GetString("RemoveRegionCommand_OnBeforeQueryStatus_RemoveSelectedRegions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Remove regions 的本地化字符串。
         /// </summary>
         public static string RemoveRegions {
@@ -1505,11 +1213,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 &amp;Remove Selected Regions 的本地化字符串。
+        /// </summary>
+        public static string RemoveSelectedRegions {
+            get {
+                return ResourceManager.GetString("RemoveSelectedRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Reorganizing 的本地化字符串。
         /// </summary>
-        public static string ReorganizingParentViewModel_Reorganizing {
+        public static string Reorganizing {
             get {
-                return ResourceManager.GetString("ReorganizingParentViewModel_Reorganizing", resourceCulture);
+                return ResourceManager.GetString("Reorganizing", resourceCulture);
             }
         }
         
@@ -1604,6 +1321,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Search CodeMaid Spade (Ctrl+M, ;) 的本地化字符串。
+        /// </summary>
+        public static string SearchCodeMaidSpadeCtrlM {
+            get {
+                return ResourceManager.GetString("SearchCodeMaidSpadeCtrlM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 .  See output window for more details. 的本地化字符串。
+        /// </summary>
+        public static string SeeOutputWindowForMoreDetails {
+            get {
+                return ResourceManager.GetString("SeeOutputWindowForMoreDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select a sub-category to set options. 的本地化字符串。
         /// </summary>
         public static string SelectASubCategoryToSetOptions {
@@ -1636,24 +1371,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string SettingCleanupOnSaveCommand_ON {
             get {
                 return ResourceManager.GetString("SettingCleanupOnSaveCommand_ON", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Automatic Cleanup On Save -  的本地化字符串。
-        /// </summary>
-        public static string SettingCleanupOnSaveCommand_OnBeforeQueryStatus_AutomaticCleanupOnSave {
-            get {
-                return ResourceManager.GetString("SettingCleanupOnSaveCommand_OnBeforeQueryStatus_AutomaticCleanupOnSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid turned automatic cleanup on save 的本地化字符串。
-        /// </summary>
-        public static string SettingCleanupOnSaveCommand_OnExecute_CodeMaidTurnedAutomaticCleanupOnSave {
-            get {
-                return ResourceManager.GetString("SettingCleanupOnSaveCommand_OnExecute_CodeMaidTurnedAutomaticCleanupOnSave", resourceCulture);
             }
         }
         
@@ -1730,38 +1447,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Solution-Specific Settings 的本地化字符串。
+        /// </summary>
+        public static string SolutionSpecificSettings {
+            get {
+                return ResourceManager.GetString("SolutionSpecificSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Sort 的本地化字符串。
         /// </summary>
         public static string Sort {
             get {
                 return ResourceManager.GetString("Sort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 New Region 的本地化字符串。
-        /// </summary>
-        public static string SpadeContextInsertRegionCommand_OnExecute_NewRegion {
-            get {
-                return ResourceManager.GetString("SpadeContextInsertRegionCommand_OnExecute_NewRegion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Search CodeMaid Spade (Ctrl+M, ;) 的本地化字符串。
-        /// </summary>
-        public static string SpadeToolWindow_ProvideSearchSettings_SearchCodeMaidSpadeCtrlM {
-            get {
-                return ResourceManager.GetString("SpadeToolWindow_ProvideSearchSettings_SearchCodeMaidSpadeCtrlM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 CodeMaid Spade 的本地化字符串。
-        /// </summary>
-        public static string SpadeToolWindow_SpadeToolWindow_CodeMaidSpade {
-            get {
-                return ResourceManager.GetString("SpadeToolWindow_SpadeToolWindow_CodeMaidSpade", resourceCulture);
             }
         }
         
@@ -1775,20 +1474,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 S&amp;witch File 的本地化字符串。
+        ///   查找类似  Successful 的本地化字符串。
         /// </summary>
-        public static string SwitchFileCommand_OnBeforeQueryStatus_SWitchFile {
+        public static string Successful {
             get {
-                return ResourceManager.GetString("SwitchFileCommand_OnBeforeQueryStatus_SWitchFile", resourceCulture);
+                return ResourceManager.GetString("Successful", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 S&amp;witch to  的本地化字符串。
+        ///   查找类似 S&amp;witch File 的本地化字符串。
         /// </summary>
-        public static string SwitchFileCommand_OnBeforeQueryStatus_SWitchTo {
+        public static string SWitchFile {
             get {
-                return ResourceManager.GetString("SwitchFileCommand_OnBeforeQueryStatus_SWitchTo", resourceCulture);
+                return ResourceManager.GetString("SWitchFile", resourceCulture);
             }
         }
         
@@ -1798,6 +1497,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string SwitchingViewModel_Switching {
             get {
                 return ResourceManager.GetString("SwitchingViewModel_Switching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 S&amp;witch to  的本地化字符串。
+        /// </summary>
+        public static string SWitchTo {
+            get {
+                return ResourceManager.GetString("SWitchTo", resourceCulture);
             }
         }
         
@@ -1838,21 +1546,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 CodeMaid failed to load theme &apos;{0}&apos;.  See output window for more details. 的本地化字符串。
-        /// </summary>
-        public static string ThemeManager_LoadResourceDictionary_CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails {
-            get {
-                return ResourceManager.GetString("ThemeManager_LoadResourceDictionary_CodeMaidFailedToLoadTheme0SeeOutputWindowForM" +
-                        "oreDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Third Party 的本地化字符串。
         /// </summary>
         public static string ThirdPartyViewModel_ThirdParty {
             get {
                 return ResourceManager.GetString("ThirdPartyViewModel_ThirdParty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  to &apos;{0}&apos;. 的本地化字符串。
+        /// </summary>
+        public static string To0 {
+            get {
+                return ResourceManager.GetString("To0", resourceCulture);
             }
         }
         
@@ -1871,6 +1578,33 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string TypeThenAccess {
             get {
                 return ResourceManager.GetString("TypeThenAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unable to toggle read only state on  的本地化字符串。
+        /// </summary>
+        public static string UnableToToggleReadOnlyStateOn {
+            get {
+                return ResourceManager.GetString("UnableToToggleReadOnlyStateOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 under the cursor 的本地化字符串。
+        /// </summary>
+        public static string UnderTheCursor {
+            get {
+                return ResourceManager.GetString("UnderTheCursor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  Unsuccessful 的本地化字符串。
+        /// </summary>
+        public static string Unsuccessful {
+            get {
+                return ResourceManager.GetString("Unsuccessful", resourceCulture);
             }
         }
         
@@ -1898,6 +1632,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502 {
             get {
                 return ResourceManager.GetString("UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 User Settings 的本地化字符串。
+        /// </summary>
+        public static string UserSettings {
+            get {
+                return ResourceManager.GetString("UserSettings", resourceCulture);
             }
         }
         
@@ -1979,6 +1722,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string WholeItem {
             get {
                 return ResourceManager.GetString("WholeItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Windows taskbar 的本地化字符串。
+        /// </summary>
+        public static string WindowsTaskbar {
+            get {
+                return ResourceManager.GetString("WindowsTaskbar", resourceCulture);
             }
         }
         

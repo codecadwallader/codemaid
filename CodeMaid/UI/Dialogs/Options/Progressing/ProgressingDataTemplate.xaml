@@ -11,7 +11,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Windows taskbar">
+            <GroupBox Header="{x:Static properties:Resources.WindowsTaskbar}">
                 <CheckBox Content="{x:Static properties:Resources.ShowBuildProgressOnVisualStudioIconInWindowsTaskbar}" IsChecked="{Binding ShowProgressOnWindowsTaskbar}" />
             </GroupBox>
         </StackPanel>

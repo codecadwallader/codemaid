@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnBeforeQueryStatus()
         {
             Checked = CleanupOnSave;
-            Text = StringResourceKey.SettingCleanupOnSaveCommand_OnBeforeQueryStatus_AutomaticCleanupOnSave + CleanupOnSaveStateText;
+            Text = StringResourceKey.AutomaticCleanupOnSave + CleanupOnSaveStateText;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             CleanupOnSave = !CleanupOnSave;
             Settings.Default.Save();
 
-            Package.IDE.StatusBar.Text = $"{StringResourceKey.SettingCleanupOnSaveCommand_OnExecute_CodeMaidTurnedAutomaticCleanupOnSave }{CleanupOnSaveStateText}.";
+            Package.IDE.StatusBar.Text = $"{StringResourceKey.CodeMaidTurnedAutomaticCleanupOnSave }{CleanupOnSaveStateText}.";
         }
 
         #endregion BaseCommand Methods

@@ -65,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var region = new CodeItemRegion { Name = StringResourceKey.SpadeContextInsertRegionCommand_OnExecute_NewRegion };
+                var region = new CodeItemRegion { Name = StringResourceKey.NewRegion };
                 var startPoint = spade.SelectedItems.OrderBy(x => x.StartOffset).First().StartPoint;
                 var endPoint = spade.SelectedItems.OrderBy(x => x.EndOffset).Last().EndPoint;
 

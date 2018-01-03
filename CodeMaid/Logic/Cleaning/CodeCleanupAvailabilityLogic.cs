@@ -415,10 +415,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 var viewModel = new YesNoPromptViewModel
                 {
-                    Title = StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_CodeMaidCleanupExternalFile,
-                    Message = document.Name + StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable +
+                    Title = StringResourceKey.CodeMaidCleanupExternalFile,
+                    Message = document.Name + StringResourceKey.IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable +
                               Environment.NewLine + Environment.NewLine +
-                              StringResourceKey.CodeCleanupAvailabilityLogic_PromptUserAboutCleaningExternalFiles_DoYouWantToPerformAPartialCleanup,
+                              StringResourceKey.DoYouWantToPerformAPartialCleanup,
                     CanRemember = true
                 };
 

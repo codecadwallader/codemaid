@@ -26,7 +26,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => StringResourceKey.ReorganizingParentViewModel_Reorganizing;
+        public override string Header => StringResourceKey.Reorganizing;
 
         #endregion Overrides of OptionsPageViewModel
     }
