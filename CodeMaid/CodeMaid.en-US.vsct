@@ -1,0 +1,1389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--  This is the file that defines the actual layout and type of the commands.
+        It is divided in different sections (e.g. command definition, command
+        placement, ...), with each defining a specific set of properties.
+        See the comment before each section for more details about how to
+        use it. -->
+
+  <!--  The VSCT compiler (the tool that translates this file into the binary
+        format that VisualStudio will consume) has the ability to run a preprocessor
+        on the vsct file; this preprocessor is (usually) the C++ preprocessor, so
+        it is possible to define includes and macros with the same syntax used
+        in C++ files. Using this ability of the compiler here, we include some files
+        defining some of the constants that we will use inside the file. -->
+
+  <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+
+  <!--This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h" />
+
+  <!--Definition of some VSCT specific constants. In this sample we use it for the IDs inside the guidOfficeIcon group. -->
+  <!--<Extern href="msobtnid.h" xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" />-->
+
+  <!--The Commands section is where we the commands, menus and menu groups are defined.
+      This section uses a Guid to identify the package that provides the command defined inside it. -->
+  <Commands package="GuidCodeMaidPackage">
+    <!-- Inside this section we have different sub-sections: one for the menus, another
+    for the menu groups, one for the buttons (the actual commands), one for the combos
+    and the last one for the bitmaps used. Each element is identified by a command id that
+    is a unique pair of guid and numeric identifier; the guid part of the identifier is usually
+    called "command set" and is used to group different command inside a logically related
+    group; your package should define its own command set in order to avoid collisions
+    with command ids defined by other packages. -->
+
+    <!-- Menu section definition -->
+    <Menus>
+      <Menu guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" priority="0x0700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+        <Strings>
+          <ButtonText>&amp;CodeMaid</ButtonText>
+          <CommandName>&amp;CodeMaid</CommandName>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" type="ToolWindowToolbar">
+        <CommandFlag>DefaultDocked</CommandFlag>
+        <Strings>
+          <ButtonText>CodeMaid Spade Toolbar</ButtonText>
+          <CommandName>CodeMaid Spade Toolbar</CommandName>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" type="Context">
+        <Strings>
+          <ButtonText>CodeMaid Spade Context Menu</ButtonText>
+          <CommandName>CodeMaid Spade Context Menu</CommandName>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextASPXWindowMenu" id="MenuIDCodeMaidContextASPXWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextASPXCodeWindowMenu" id="MenuIDCodeMaidContextASPXCodeWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextASPXCodeWindowGroup" id="GroupIDCodeMaidContextASPXCodeWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextCodeWindowMenu" id="MenuIDCodeMaidContextCodeWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextCSSWindowMenu" id="MenuIDCodeMaidContextCSSWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextCSSWindowGroup" id="GroupIDCodeMaidContextCSSWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextCSSDocumentMenu" id="MenuIDCodeMaidContextCSSDocumentMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextCSSDocumentGroup" id="GroupIDCodeMaidContextCSSDocumentGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextHTMLWindowMenu" id="MenuIDCodeMaidContextHTMLWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextHTMLDocumentMenu" id="MenuIDCodeMaidContextHTMLDocumentMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextJSONDocumentMenu" id="MenuIDCodeMaidContextJSONDocumentMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextJSONDocumentGroup" id="GroupIDCodeMaidContextJSONDocumentGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextScriptWindowMenu" id="MenuIDCodeMaidContextScriptWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="GuidCodeMaidContextXAMLWindowMenu" id="MenuIDCodeMaidContextXAMLWindowMenu" priority="0x0100" type="Menu">
+        <Parent guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" />
+        <Strings>
+          <ButtonText>CodeMaid</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <!-- In this section you can define new menu groups. A menu group is a container for
+         other menus or buttons (commands); from a visual point of view you can see the
+         group as the part of a menu contained between two lines. The parent of a group
+         must be a menu. -->
+    <Groups>
+      <Group guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" priority="0x0400">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" priority="0x0300">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+      <Group guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" priority="0x0500">
+        <Parent guid="GuidCodeMaidMenuBaseGroup" id="GroupIDCodeMaidMenuBaseGroup" />
+      </Group>
+
+      <Group guid="GuidCodeMaidToolbarSpadeBaseGroup" id="GroupIDCodeMaidToolbarSpadeBaseGroup" priority="0x0000">
+        <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" priority="0x0400">
+        <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidToolbarSpadeBaseGroup" id="ToolbarIDCodeMaidToolbarSpade" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextSpadeBaseGroup" id="GroupIDCodeMaidContextSpadeBaseGroup" priority="0x0000">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSpadeFindGroup" id="GroupIDCodeMaidContextSpadeFindGroup" priority="0x0200">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" priority="0x0400">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSpadeInsertGroup" id="GroupIDCodeMaidContextSpadeInsertGroup" priority="0x0600">
+        <Parent guid="GuidCodeMaidContextSpadeBaseGroup" id="MenuIDCodeMaidContextSpade" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextASPXWindowGroup" id="GroupIDCodeMaidContextASPXWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioASPXWindowContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextASPXCodeWindowGroup" id="GroupIDCodeMaidContextASPXCodeWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioASPXCodeWindowContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCodeWindowGroup" id="GroupIDCodeMaidContextCodeWindowGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCSSWindowGroup" id="GroupIDCodeMaidContextCSSWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioCSSWindowContextMenu" id="IDVisualStudioCSSWindowContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCSSDocumentGroup" id="GroupIDCodeMaidContextCSSDocumentGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioCSSDocumentContextMenu" id="IDVisualStudioCSSDocumentContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
+      </Group>
+      <Group guid="GuidCodeMaidContextHTMLWindowGroup" id="GroupIDCodeMaidContextHTMLWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioHTMLWindowContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextHTMLDocumentGroup" id="GroupIDCodeMaidContextHTMLDocumentGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLDocumentContextMenu" id="IDVisualStudioHTMLDocumentContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextJSONDocumentGroup" id="GroupIDCodeMaidContextJSONDocumentGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioJSONDocumentContextMenu" id="IDVisualStudioJSONDocumentContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextScriptWindowGroup" id="GroupIDCodeMaidContextScriptWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioHTMLWindowContextMenu" id="IDVisualStudioScriptWindowContextMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextXAMLWindowGroup" id="GroupIDCodeMaidContextXAMLWindowGroup" priority="0x0100">
+        <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextASPXWindowMenu" id="MenuIDCodeMaidContextASPXWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextASPXCodeWindowMenu" id="MenuIDCodeMaidContextASPXCodeWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextCodeWindowMenu" id="MenuIDCodeMaidContextCodeWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextCSSWindowMenu" id="MenuIDCodeMaidContextCSSWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextCSSDocumentMenu" id="MenuIDCodeMaidContextCSSDocumentMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextHTMLWindowMenu" id="MenuIDCodeMaidContextHTMLWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextHTMLDocumentMenu" id="MenuIDCodeMaidContextHTMLDocumentMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextJSONDocumentMenu" id="MenuIDCodeMaidContextJSONDocumentMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextScriptWindowMenu" id="MenuIDCodeMaidContextScriptWindowMenu" />
+      </Group>
+      <Group guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" priority="0x0100">
+        <Parent guid="GuidCodeMaidContextXAMLWindowMenu" id="MenuIDCodeMaidContextXAMLWindowMenu" />
+      </Group>
+
+      <Group guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
+      </Group>
+      <Group guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNFOLDER" />
+      </Group>
+      <Group guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+      </Group>
+      <Group guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
+      </Group>
+      <Group guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_SLNPROJ" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_SLNITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_PROJITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIFOLDER" />
+      </Group>
+      <Group guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJFLDR" />
+      </Group>
+    </Groups>
+
+    <!--Buttons section. -->
+    <!--This section defines the elements the user can interact with, like a menu command or a button
+        or combo box in a toolbar. -->
+    <Buttons>
+      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
+          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
+          the CommandFlag node.
+          You can add more than one CommandFlag node e.g.:
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+          If you do not want an image next to your command, remove the Icon node or set it to <Icon guid="guidOfficeIcon" id="msotcidNoIcon" /> -->
+      <Button guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0100" type="Button">
+        <Icon guid="GuidImageInfo" id="IconInfo" />
+        <Strings>
+          <ButtonText>About CodeMaid...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandBuildProgressToolWindow" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0100" type="Button">
+        <Icon guid="GuidImageProgress" id="IconProgress" />
+        <Strings>
+          <ButtonText>&amp;Build Progress</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCleanup" id="IconCleanup" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Cleanup Active Document</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCleanupAll" id="IconCleanupAll" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Cleanup &amp;All Code...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCleanupOpenCode" id="CmdIDCodeMaidCleanupOpenCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCleanup" id="IconCleanup" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Cleanup Open Code</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCleanup" id="IconCleanup" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Cleanup Selected Code</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCloseLocked" id="IconCloseLocked" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Close All &amp;Read-Only</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCollapse" id="IconCollapse" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Co&amp;llapse All Recursively</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCollapse" id="IconCollapse" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Co&amp;llapse Recursively</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0100" type="Button">
+        <Icon guid="GuidImageCommentFormat" id="IconCommentFormat" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Format Comme&amp;nt</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0100" type="Button">
+        <Icon guid="GuidImageFind" id="IconFind" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Find In Solution Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0100" type="Button">
+        <Icon guid="GuidImageJoin" id="IconJoin" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Join Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" priority="0x0100" type="Button">
+        <Icon guid="GuidImageOptions" id="IconOptions" />
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
+        <Icon guid="GuidImageUnlock" id="IconUnlock" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Read-Only Toggle</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0100" type="Button">
+        <Icon guid="GuidImageRemoveRegion" id="IconRemoveRegion" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Remove All Regions</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0100" type="Button">
+        <Icon guid="GuidImageReorganize" id="IconReorganize" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Reorgani&amp;ze Active Document</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSettingCleanupOnSave" id="CmdIDCodeMaidSettingCleanupOnSave" priority="0x0100" type="Button">
+        <Icon guid="GuidImageOptions" id="IconOptions" />
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Automatic Cleanup On Save</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Sort Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Delete</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Find References</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextInsertRegion" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Insert Region</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Remove Region</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeOptions" id="CmdIDCodeMaidSpadeOptions" priority="0x0100" type="Button">
+        <Icon guid="GuidImageOptions" id="IconOptions" />
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
+        <Icon guid="GuidImageRefresh" id="IconRefresh" />
+        <Strings>
+          <ButtonText>Refresh Spade</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Search Spade</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
+        <Strings>
+          <ButtonText>Sort alphabetically</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderFile" id="CmdIDCodeMaidSpadeSortOrderFile" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSortNumeric" id="IconSortNumeric" />
+        <Strings>
+          <ButtonText>Sort by file order</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSortType" id="IconSortType" />
+        <Strings>
+          <ButtonText>Sort by type</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSpade" id="IconSpade" />
+        <Strings>
+          <ButtonText>&amp;Spade</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
+        <Icon guid="GuidImageSwitch" id="IconSwitch" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Switch File</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+    <Bitmaps>
+      <!--  The bitmap id is defined in a way that is a little bit different from the others:
+            the declaration starts with a guid for the bitmap strip, then there is the resource id of the
+            bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
+            inside a button definition. An important aspect of this declaration is that the element id
+            must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+      <Bitmap guid="GuidImageCleanup" href="Integration\Images\IDE\cleanup.bmp" usedList="IconCleanup" />
+      <Bitmap guid="GuidImageCleanupAll" href="Integration\Images\IDE\cleanupAll.bmp" usedList="IconCleanupAll" />
+      <Bitmap guid="GuidImageCloseLocked" href="Integration\Images\IDE\closeLocked.bmp" usedList="IconCloseLocked" />
+      <Bitmap guid="GuidImageCollapse" href="Integration\Images\IDE\collapse.bmp" usedList="IconCollapse" />
+      <Bitmap guid="GuidImageCommentFormat" href="Integration\Images\IDE\commentformat.bmp" usedList="IconCommentFormat" />
+      <Bitmap guid="GuidImageFind" href="Integration\Images\IDE\find.bmp" usedList="IconFind" />
+      <Bitmap guid="GuidImageInfo" href="Integration\Images\IDE\info.bmp" usedList="IconInfo" />
+      <Bitmap guid="GuidImageJoin" href="Integration\Images\IDE\join.bmp" usedList="IconJoin" />
+      <Bitmap guid="GuidImageLock" href="Integration\Images\IDE\lock.bmp" usedList="IconLock" />
+      <Bitmap guid="GuidImageOptions" href="Integration\Images\IDE\options.bmp" usedList="IconOptions" />
+      <Bitmap guid="GuidImageProgress" href="Integration\Images\IDE\progress.bmp" usedList="IconProgress" />
+      <Bitmap guid="GuidImageRefresh" href="Integration\Images\IDE\refresh.bmp" usedList="IconRefresh" />
+      <Bitmap guid="GuidImageRemoveRegion" href="Integration\Images\IDE\removeRegion.bmp" usedList="IconRemoveRegion" />
+      <Bitmap guid="GuidImageReorganize" href="Integration\Images\IDE\reorganize.bmp" usedList="IconReorganize" />
+      <Bitmap guid="GuidImageSortAlpha" href="Integration\Images\IDE\sortAlpha.bmp" usedList="IconSortAlpha" />
+      <Bitmap guid="GuidImageSortNumeric" href="Integration\Images\IDE\sortNumeric.bmp" usedList="IconSortNumeric" />
+      <Bitmap guid="GuidImageSortType" href="Integration\Images\IDE\sortType.bmp" usedList="IconSortType" />
+      <Bitmap guid="GuidImageSpade" href="Integration\Images\IDE\spade.bmp" usedList="IconSpade" />
+      <Bitmap guid="GuidImageSwitch" href="Integration\Images\IDE\switch.bmp" usedList="IconSwitch" />
+      <Bitmap guid="GuidImageUnlock" href="Integration\Images\IDE\unlock.bmp" usedList="IconUnlock" />
+    </Bitmaps>
+  </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="GuidCodeMaidCommandAbout" id="CmdIDCodeMaidAbout" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandBuildProgressToolWindow" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0600">
+      <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupAllCode" id="CmdIDCodeMaidCleanupAllCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupOpenCode" id="CmdIDCodeMaidCleanupOpenCode" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupOpenCode" id="CmdIDCodeMaidCleanupOpenCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCleanupSelectedCode" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCloseAllReadOnly" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSolutionNodeGroup" id="GroupIDCodeMaidContextSolutionNodeGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSolutionFolderGroup" id="GroupIDCodeMaidContextSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextProjectNodeGroup" id="GroupIDCodeMaidContextProjectNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextFolderNodeGroup" id="GroupIDCodeMaidContextFolderNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextItemNodeGroup" id="GroupIDCodeMaidContextItemNodeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionProjectGroup" id="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectSolutionItemGroup" id="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectProjectItemGroup" id="GroupIDCodeMaidContextCrossProjectProjectItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiItemGroup" id="GroupIDCodeMaidContextCrossProjectMultiItemGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" id="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuSolutionExplorerGroup" id="GroupIDCodeMaidMenuSolutionExplorerGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0300">
+      <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0500">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" priority="0x0200">
+      <Parent guid="GuidCodeMaidMenuMetaGroup" id="GroupIDCodeMaidMenuMetaGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuDocumentGroup" id="GroupIDCodeMaidMenuDocumentGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandReadOnlyToggle" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextDocumentTabGroup" id="GroupIDCodeMaidContextDocumentTabGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0500">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0600">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSettingCleanupOnSave" id="CmdIDCodeMaidSettingCleanupOnSave" priority="0x0800">
+      <Parent guid="GuidCodeMaidMenuCleanupGroup" id="GroupIDCodeMaidMenuCleanupGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" priority="0x0700">
+      <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextDelete" id="CmdIDCodeMaidSpadeContextDelete" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextFindReferences" id="CmdIDCodeMaidSpadeContextFindReferences" priority="0x0200">
+      <Parent guid="GuidCodeMaidContextSpadeFindGroup" id="GroupIDCodeMaidContextSpadeFindGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextInsertRegion" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0400">
+      <Parent guid="GuidCodeMaidContextSpadeInsertGroup" id="GroupIDCodeMaidContextSpadeInsertGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeContextRemoveRegion" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0600">
+      <Parent guid="GuidCodeMaidContextSpadeDeleteGroup" id="GroupIDCodeMaidContextSpadeDeleteGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeOptions" id="CmdIDCodeMaidSpadeOptions" priority="0x0100">
+      <Parent guid="GuidCodeMaidToolbarSpadeMetaGroup" id="GroupIDCodeMaidToolbarSpadeMetaGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarSpadeRefreshGroup" id="GroupIDCodeMaidToolbarSpadeRefreshGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderAlpha" id="CmdIDCodeMaidSpadeSortOrderAlpha" priority="0x0600">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderFile" id="CmdIDCodeMaidSpadeSortOrderFile" priority="0x0200">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeSortOrderType" id="CmdIDCodeMaidSpadeSortOrderType" priority="0x0400">
+      <Parent guid="GuidCodeMaidToolbarSpadeSortOrderGroup" id="GroupIDCodeMaidToolbarSpadeSortOrderGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0400">
+      <Parent guid="GuidCodeMaidMenuVisualizeGroup" id="GroupIDCodeMaidMenuVisualizeGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidMenuExtendGroup" id="GroupIDCodeMaidMenuExtendGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0900">
+      <Parent guid="GuidCodeMaidContextCodeWindowSubGroup" id="GroupIDCodeMaidContextCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextASPXWindowSubGroup" id="GroupIDCodeMaidContextASPXWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextASPXCodeWindowSubGroup" id="GroupIDCodeMaidContextASPXCodeWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextCSSWindowSubGroup" id="GroupIDCodeMaidContextCSSWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextCSSDocumentSubGroup" id="GroupIDCodeMaidContextCSSDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextHTMLWindowSubGroup" id="GroupIDCodeMaidContextHTMLWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextHTMLDocumentSubGroup" id="GroupIDCodeMaidContextHTMLDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextJSONDocumentSubGroup" id="GroupIDCodeMaidContextJSONDocumentSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextScriptWindowSubGroup" id="GroupIDCodeMaidContextScriptWindowSubGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" priority="0x0800">
+      <Parent guid="GuidCodeMaidContextXAMLWindowSubGroup" id="GroupIDCodeMaidContextXAMLWindowSubGroup" />
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <KeyBindings>
+    <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCleanupActiveCode" id="CmdIDCodeMaidCleanupActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_SPACE" />
+
+    <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCollapseAllSolutionExplorer" id="CmdIDCodeMaidCollapseAllSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBD" />
+
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandCommentFormat" id="CmdIDCodeMaidCommentFormat" editor="guidVSStd97" key1="M" mod1="Control" key2="N" />
+
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandFindInSolutionExplorer" id="CmdIDCodeMaidFindInSolutionExplorer" editor="guidVSStd97" key1="M" mod1="Control" key2="F" />
+
+    <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandJoinLines" id="CmdIDCodeMaidJoinLines" editor="guidVSStd97" key1="M" mod1="Control" key2="J" />
+
+    <KeyBinding guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandOptions" id="CmdIDCodeMaidOptions" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBF" />
+
+    <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandRemoveRegion" id="CmdIDCodeMaidRemoveRegion" editor="guidVSStd97" key1="M" mod1="Control" key2="R" />
+
+    <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandReorganizeActiveCode" id="CmdIDCodeMaidReorganizeActiveCode" editor="guidVSStd97" key1="M" mod1="Control" key2="Z" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSettingCleanupOnSave" id="CmdIDCodeMaidSettingCleanupOnSave" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_OEM_7" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSettingCleanupOnSave" id="CmdIDCodeMaidSettingCleanupOnSave" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_OEM_7" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_F9" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSortLines" id="CmdIDCodeMaidSortLines" editor="guidVSStd97" key1="M" mod1="Control" key2="VK_F9" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSpadeRefresh" id="CmdIDCodeMaidSpadeRefresh" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Shift" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSpadeSearch" id="CmdIDCodeMaidSpadeSearch" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBA" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSpadeToolWindow" id="CmdIDCodeMaidSpadeToolWindow" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBE" />
+
+    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" mod2="Control" />
+    <KeyBinding guid="GuidCodeMaidCommandSwitchFile" id="CmdIDCodeMaidSwitchFile" editor="guidVSStd97" key1="M" mod1="Control" key2="0xBC" />
+  </KeyBindings>
+
+  <Symbols>
+    <!-- These are Visual Studio constants not found in SDK header files (found via VSIPLogging) -->
+    <GuidSymbol name="GuidVisualStudioCSSWindowContextMenu" value="{a764e896-518d-11d2-9a89-00c04f79efc3}">
+      <IDSymbol name="IDVisualStudioCSSWindowContextMenu" value="0x102" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioCSSDocumentContextMenu" value="{64da400e-b4ad-4d67-aa92-4b7acb01ecd5}">
+      <IDSymbol name="IDVisualStudioCSSDocumentContextMenu" value="0x2" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioHTMLWindowContextMenu" value="{d7e8c5e1-bdb8-11d0-9c88-0000f8040a53}">
+      <IDSymbol name="IDVisualStudioASPXWindowContextMenu" value="0x35" />
+      <IDSymbol name="IDVisualStudioASPXCodeWindowContextMenu" value="0x36" />
+      <IDSymbol name="IDVisualStudioHTMLWindowContextMenu" value="0x33" />
+      <IDSymbol name="IDVisualStudioScriptWindowContextMenu" value="0x34" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioHTMLDocumentContextMenu" value="{78f03954-2fb8-4087-8ce7-59d71710b3bb}">
+      <IDSymbol name="IDVisualStudioHTMLDocumentContextMenu" value="0x1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioJSONDocumentContextMenu" value="{f718ca06-cf4f-4a0c-9106-e79e9ee5e7cd}">
+      <IDSymbol name="IDVisualStudioJSONDocumentContextMenu" value="0x3" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
+      <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x103" />
+    </GuidSymbol>
+
+    <!-- This is the package guid. -->
+    <GuidSymbol name="GuidCodeMaidPackage" value="{4c82e17d-927e-42d2-8460-b473ac7df316}" />
+
+    <!-- These are the tool window guids -->
+    <GuidSymbol name="GuidCodeMaidToolWindowBuildProgress" value="{260978c3-582c-487d-ab12-c1fdde07c578}">
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidToolWindowSpade" value="{75d09b86-471e-4b30-8720-362d13ad0a45}">
+    </GuidSymbol>
+
+    <!-- This is the output pane guid -->
+    <GuidSymbol name="GuidCodeMaidOutputPane" value="{4e7ba904-9311-4dd0-abe5-a61c1739780f}">
+    </GuidSymbol>
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="GuidCodeMaidMenuBaseGroup" value="{186512ff-6c4e-42c9-b9a1-032f35109993}">
+      <IDSymbol name="GroupIDCodeMaidMenuBaseGroup" value="0x1020" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the menu -->
+    <GuidSymbol name="GuidCodeMaidMenuCleanupGroup" value="{eb1c95fd-1b99-47ab-913a-62e7f69a0319}">
+      <IDSymbol name="GroupIDCodeMaidMenuCleanupGroup" value="0x1021" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuDocumentGroup" value="{5c29c8d8-681c-4cf3-8481-cc3ee484639a}">
+      <IDSymbol name="GroupIDCodeMaidMenuDocumentGroup" value="0x1022" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuExtendGroup" value="{4527c6ae-82e7-4fd8-9755-43bfbcfd2a61}">
+      <IDSymbol name="GroupIDCodeMaidMenuExtendGroup" value="0x1023" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuMetaGroup" value="{590f8d08-eb82-444c-bee2-4652d3f30145}">
+      <IDSymbol name="GroupIDCodeMaidMenuMetaGroup" value="0x1024" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuSolutionExplorerGroup" value="{d69f1580-274f-4d12-b13a-c365c759de66}">
+      <IDSymbol name="GroupIDCodeMaidMenuSolutionExplorerGroup" value="0x1025" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidMenuVisualizeGroup" value="{a4ef7624-6477-4860-85bc-46564429f935}">
+      <IDSymbol name="GroupIDCodeMaidMenuVisualizeGroup" value="0x1026" />
+    </GuidSymbol>
+
+    <!-- This is the guid used to group the Spade toolbar commands together -->
+    <GuidSymbol name="GuidCodeMaidToolbarSpadeBaseGroup" value="{93e0e5d3-d335-4c12-ae8b-bccccdcd1eda}">
+      <IDSymbol name="ToolbarIDCodeMaidToolbarSpade" value="0x1040" />
+      <IDSymbol name="GroupIDCodeMaidToolbarSpadeBaseGroup" value="0x1041" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the Spade toolbar -->
+    <GuidSymbol name="GuidCodeMaidToolbarSpadeRefreshGroup" value="{c4640933-0ac0-485c-875f-4aaa94fdd8d0}">
+      <IDSymbol name="GroupIDCodeMaidToolbarSpadeRefreshGroup" value="0x1042" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidToolbarSpadeSortOrderGroup" value="{e5e5ca6a-7cdd-473f-9d55-9d726e220bd3}">
+      <IDSymbol name="GroupIDCodeMaidToolbarSpadeSortOrderGroup" value="0x1043" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidToolbarSpadeMetaGroup" value="{e56ddcf8-dc5f-45cb-84f5-c88d2c8e556b}">
+      <IDSymbol name="GroupIDCodeMaidToolbarSpadeMetaGroup" value="0x1045" />
+    </GuidSymbol>
+
+    <!-- This is the guid used to group the Spade context menu commands together -->
+    <GuidSymbol name="GuidCodeMaidContextSpadeBaseGroup" value="{a8c6d617-bb41-4357-b0a1-175e7a04cc5a}">
+      <IDSymbol name="MenuIDCodeMaidContextSpade" value="0x1060" />
+      <IDSymbol name="GroupIDCodeMaidContextSpadeBaseGroup" value="0x1061" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the Spade context menu -->
+    <GuidSymbol name="GuidCodeMaidContextSpadeFindGroup" value="{4e3fd2e6-4cde-497c-a899-eee7e53c8852}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeFindGroup" value="0x1062" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidContextSpadeDeleteGroup" value="{e4abf3d9-e332-4c5d-97a9-4ac09395c28f}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeDeleteGroup" value="0x1063" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidContextSpadeInsertGroup" value="{707d9532-5392-4b5f-a36d-b88c583eb732}">
+      <IDSymbol name="GroupIDCodeMaidContextSpadeInsertGroup" value="0x1064" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the solution explorer context menus -->
+    <GuidSymbol name="GuidCodeMaidContextSolutionNodeGroup" value="{eda37cf1-ff29-46aa-ba07-05abf7ba6596}">
+      <IDSymbol name="GroupIDCodeMaidContextSolutionNodeGroup" value="0x1050" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextSolutionFolderGroup" value="{39de3da3-f28c-41fc-85c8-6d0fa801f3f1}">
+      <IDSymbol name="GroupIDCodeMaidContextSolutionFolderGroup" value="0x1051" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextProjectNodeGroup" value="{a04159ed-c5ee-4146-954a-4e662b297513}">
+      <IDSymbol name="GroupIDCodeMaidContextProjectNodeGroup" value="0x1052" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextFolderNodeGroup" value="{9979d6f0-4af6-446a-a9ff-b84e27452435}">
+      <IDSymbol name="GroupIDCodeMaidContextFolderNodeGroup" value="0x1053" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextItemNodeGroup" value="{36669853-51f0-4da1-828d-d43d67b8450c}">
+      <IDSymbol name="GroupIDCodeMaidContextItemNodeGroup" value="0x1054" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectSolutionProjectGroup" value="{3cbd1bde-1874-44c5-83e4-371b0a767d4b}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectSolutionProjectGroup" value="0x1055" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectSolutionItemGroup" value="{fd769de2-2836-4027-9f8e-dee5690521d9}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectSolutionItemGroup" value="0x1056" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectProjectItemGroup" value="{623f520b-6640-432e-b61b-12b6b0be3663}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectProjectItemGroup" value="0x1057" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiProjectGroup" value="{5662bd3b-b933-4c44-b6cc-585688ed31c5}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiProjectGroup" value="0x1058" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiItemGroup" value="{adc86bfa-64b0-4d80-b3c8-59ac96a1b81e}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiItemGroup" value="0x1059" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiSolutionFolderGroup" value="{aab9ce77-df9e-4235-a5fd-27a247b49760}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiSolutionFolderGroup" value="0x105a" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCrossProjectMultiProjectFolderGroup" value="{d6785fff-23de-4fc1-8e5a-e044ff685f1d}">
+      <IDSymbol name="GroupIDCodeMaidContextCrossProjectMultiProjectFolderGroup" value="0x105b" />
+    </GuidSymbol>
+
+    <!-- This is the command set for the document tab context menu -->
+    <GuidSymbol name="GuidCodeMaidContextDocumentTabGroup" value="{9cba7ef0-ce80-42bb-9f25-c69a9710d328}">
+      <IDSymbol name="GroupIDCodeMaidContextDocumentTabGroup" value="0x1070" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the document context menu groups -->
+    <GuidSymbol name="GuidCodeMaidContextASPXWindowGroup" value="{d4cee201-6b18-4265-8693-a0cb38cf070b}">
+      <IDSymbol name="GroupIDCodeMaidContextASPXWindowGroup" value="0x1080" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextASPXCodeWindowGroup" value="{9c3012ad-61b1-4272-9ea2-5c07e33a9e2f}">
+      <IDSymbol name="GroupIDCodeMaidContextASPXCodeWindowGroup" value="0x1081" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCodeWindowGroup" value="{29039753-26f9-4548-b81c-d7baa5ebc661}">
+      <IDSymbol name="GroupIDCodeMaidContextCodeWindowGroup" value="0x1082" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSWindowGroup" value="{5c88b2b2-24c7-4ff5-b16c-19f01e46a229}">
+      <IDSymbol name="GroupIDCodeMaidContextCSSWindowGroup" value="0x1083" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSDocumentGroup" value="{8b375766-4cfd-4a2d-9e15-a535304efe2b}">
+      <IDSymbol name="GroupIDCodeMaidContextCSSDocumentGroup" value="0x1084" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLWindowGroup" value="{248aaae5-8d3e-4914-9cd9-89c95941965a}">
+      <IDSymbol name="GroupIDCodeMaidContextHTMLWindowGroup" value="0x1085" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLDocumentGroup" value="{5d667016-1652-4c9e-b57e-66c94ba59f19}">
+      <IDSymbol name="GroupIDCodeMaidContextHTMLDocumentGroup" value="0x1086" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextJSONDocumentGroup" value="{bdfc1abc-a4d2-41ed-8567-013286b56fff}">
+      <IDSymbol name="GroupIDCodeMaidContextJSONDocumentGroup" value="0x1087" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextScriptWindowGroup" value="{b6343c4a-01bd-4a5e-b1fb-9a8a6203c74c}">
+      <IDSymbol name="GroupIDCodeMaidContextScriptWindowGroup" value="0x1088" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextXAMLWindowGroup" value="{b362d22f-6a03-4247-aaf9-bfc02f81d41b}">
+      <IDSymbol name="GroupIDCodeMaidContextXAMLWindowGroup" value="0x1089" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the document context menus -->
+    <GuidSymbol name="GuidCodeMaidContextASPXWindowMenu" value="{aa0e9e4f-11f4-44f9-a0a9-b3ba5ad2117d}">
+      <IDSymbol name="MenuIDCodeMaidContextASPXWindowMenu" value="0x1090" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextASPXCodeWindowMenu" value="{5e9cf46a-e9b7-41c2-b041-40d11de2109c}">
+      <IDSymbol name="MenuIDCodeMaidContextASPXCodeWindowMenu" value="0x1091" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCodeWindowMenu" value="{2407a356-0df5-444c-ab30-0f3315bfb412}">
+      <IDSymbol name="MenuIDCodeMaidContextCodeWindowMenu" value="0x1092" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSWindowMenu" value="{c9d5d306-597c-448a-bb51-fc97726f3776}">
+      <IDSymbol name="MenuIDCodeMaidContextCSSWindowMenu" value="0x1093" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSDocumentMenu" value="{bdc687d2-cb59-4fa6-ad02-6c30f6ff481f}">
+      <IDSymbol name="MenuIDCodeMaidContextCSSDocumentMenu" value="0x1094" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLWindowMenu" value="{b38d6415-8521-4b0c-9a93-1ab4cb049a53}">
+      <IDSymbol name="MenuIDCodeMaidContextHTMLWindowMenu" value="0x1095" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLDocumentMenu" value="{bf16b6c8-fa53-4e82-bff3-38774bd5fc51}">
+      <IDSymbol name="MenuIDCodeMaidContextHTMLDocumentMenu" value="0x1096" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextJSONDocumentMenu" value="{ca93db91-b073-4656-baec-dfe551ab58fb}">
+      <IDSymbol name="MenuIDCodeMaidContextJSONDocumentMenu" value="0x1097" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextScriptWindowMenu" value="{d4a4e92c-c45e-41b2-82e0-69ecb72889c8}">
+      <IDSymbol name="MenuIDCodeMaidContextScriptWindowMenu" value="0x1098" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextXAMLWindowMenu" value="{483bb2c8-b8d4-43c5-a3d5-7bdcbf5772fb}">
+      <IDSymbol name="MenuIDCodeMaidContextXAMLWindowMenu" value="0x1099" />
+    </GuidSymbol>
+
+    <!-- These are the command sets for the document context menu sub groups -->
+    <GuidSymbol name="GuidCodeMaidContextASPXWindowSubGroup" value="{b22f3759-9a95-4954-b2ff-26813d8a2e3d}">
+      <IDSymbol name="GroupIDCodeMaidContextASPXWindowSubGroup" value="0x10a0" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextASPXCodeWindowSubGroup" value="{7f281cda-0728-455a-9512-2ed63c424423}">
+      <IDSymbol name="GroupIDCodeMaidContextASPXCodeWindowSubGroup" value="0x10a1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCodeWindowSubGroup" value="{038e98da-e31f-4e55-bf95-8aa8627420f8}">
+      <IDSymbol name="GroupIDCodeMaidContextCodeWindowSubGroup" value="0x10a2" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSWindowSubGroup" value="{3e54b869-d473-4c52-8b79-5391bf87161f}">
+      <IDSymbol name="GroupIDCodeMaidContextCSSWindowSubGroup" value="0x10a3" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextCSSDocumentSubGroup" value="{97870d60-97fe-4983-9378-325917a09842}">
+      <IDSymbol name="GroupIDCodeMaidContextCSSDocumentSubGroup" value="0x10a4" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLWindowSubGroup" value="{322bf642-99c2-47c2-811d-9d22dae9745e}">
+      <IDSymbol name="GroupIDCodeMaidContextHTMLWindowSubGroup" value="0x10a5" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextHTMLDocumentSubGroup" value="{2f85fed9-d46f-4342-b9d2-53b1b13d7fa8}">
+      <IDSymbol name="GroupIDCodeMaidContextHTMLDocumentSubGroup" value="0x10a6" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextJSONDocumentSubGroup" value="{ab7eac96-d4ef-4ef5-ab3a-af8b7a237cd1}">
+      <IDSymbol name="GroupIDCodeMaidContextJSONDocumentSubGroup" value="0x10a7" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextScriptWindowSubGroup" value="{471b4d49-0e00-433e-b343-cc29ddac5f0c}">
+      <IDSymbol name="GroupIDCodeMaidContextScriptWindowSubGroup" value="0x10a8" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidContextXAMLWindowSubGroup" value="{114b9d10-7081-4923-bb62-1028b4a0feb1}">
+      <IDSymbol name="GroupIDCodeMaidContextXAMLWindowSubGroup" value="0x10a9" />
+    </GuidSymbol>
+
+    <!-- These are the symbols for the individual commands -->
+    <GuidSymbol name="GuidCodeMaidCommandAbout" value="{369b04df-0688-4074-911d-d0d6c6a31632}">
+      <IDSymbol name="CmdIDCodeMaidAbout" value="0x1000" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandBuildProgressToolWindow" value="{857ff04f-140c-47b1-b10b-dca6154ec26a}">
+      <IDSymbol name="CmdIDCodeMaidBuildProgressToolWindow" value="0x1100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCleanupActiveCode" value="{36de540f-25cb-4151-957f-d63a5a3a10a7}">
+      <IDSymbol name="CmdIDCodeMaidCleanupActiveCode" value="0x1200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCleanupAllCode" value="{eb2efdb6-2efe-405c-94af-383d36ad58dd}">
+      <IDSymbol name="CmdIDCodeMaidCleanupAllCode" value="0x1300" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCleanupOpenCode" value="{4e6a8a94-e888-4fa8-aae8-d6375f395e29}">
+      <IDSymbol name="CmdIDCodeMaidCleanupOpenCode" value="0x1400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCleanupSelectedCode" value="{b2979ac6-2853-442c-8df6-21637af5130e}">
+      <IDSymbol name="CmdIDCodeMaidCleanupSelectedCode" value="0x1500" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCloseAllReadOnly" value="{170a0d22-19ea-452c-839a-fb33535abbb7}">
+      <IDSymbol name="CmdIDCodeMaidCloseAllReadOnly" value="0x1600" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCollapseAllSolutionExplorer" value="{f0b58f42-6f6e-49db-8787-411979a4a4e3}">
+      <IDSymbol name="CmdIDCodeMaidCollapseAllSolutionExplorer" value="0x1700" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCollapseSelectedSolutionExplorer" value="{ed5ec7f2-c011-43c4-9a02-4f7fb907c734}">
+      <IDSymbol name="CmdIDCodeMaidCollapseSelectedSolutionExplorer" value="0x1800" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandCommentFormat" value="{2A7FCCC9-311C-4725-B1C1-F2D1A2FFFE7D}">
+      <IDSymbol name="CmdIDCodeMaidCommentFormat" value="0x1900" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandFindInSolutionExplorer" value="{9e7a4c5b-5de4-418c-8ede-71fcfa4e811f}">
+      <IDSymbol name="CmdIDCodeMaidFindInSolutionExplorer" value="0x2000" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandJoinLines" value="{7912f0a2-ada9-4888-9d2f-cde09cd310c6}">
+      <IDSymbol name="CmdIDCodeMaidJoinLines" value="0x2100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandOptions" value="{56718f89-01d2-4405-99b5-4aa665af5947}">
+      <IDSymbol name="CmdIDCodeMaidOptions" value="0x2200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandReadOnlyToggle" value="{f8a69cbc-1c88-4229-8a28-eac0e7e55c30}">
+      <IDSymbol name="CmdIDCodeMaidReadOnlyToggle" value="0x2300" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandRemoveRegion" value="{88438672-b9f2-422c-83e8-706f89f33d80}">
+      <IDSymbol name="CmdIDCodeMaidRemoveRegion" value="0x2400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandReorganizeActiveCode" value="{60bd7c93-ff19-4351-8d2f-8761bdfc6a2a}">
+      <IDSymbol name="CmdIDCodeMaidReorganizeActiveCode" value="0x2500" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSettingCleanupOnSave" value="{411f786c-cf13-4f96-82ae-89d2a1d4f5a1}">
+      <IDSymbol name="CmdIDCodeMaidSettingCleanupOnSave" value="0x2600" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSortLines" value="{e74645b3-7248-4001-ac8c-085b24908fee}">
+      <IDSymbol name="CmdIDCodeMaidSortLines" value="0x2700" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextDelete" value="{d8312056-c902-4d26-9f12-b4bb60db0365}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextDelete" value="0x2800" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextFindReferences" value="{9ed89f6a-ab37-487a-8beb-d3c586d76a47}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextFindReferences" value="0x2900" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextInsertRegion" value="{bc52d3da-030d-4d4b-b2c6-4c86b6805b2e}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextInsertRegion" value="0x3000" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeContextRemoveRegion" value="{502c000f-9afa-4c6a-af01-4d64d756733e}">
+      <IDSymbol name="CmdIDCodeMaidSpadeContextRemoveRegion" value="0x3100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeOptions" value="{d068f0d3-267c-45b5-a02f-14f3422b8540}">
+      <IDSymbol name="CmdIDCodeMaidSpadeOptions" value="0x3200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeRefresh" value="{6e26b076-d635-4a6e-82a8-ba10483f5414}">
+      <IDSymbol name="CmdIDCodeMaidSpadeRefresh" value="0x3300" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSearch" value="{d2586ad7-b0c0-4421-a42c-1b95d943cfa4}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSearch" value="0x3400" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderAlpha" value="{96d3277b-ef42-45a0-ab4e-199068aee37a}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderAlpha" value="0x3500" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderFile" value="{f415e355-9e84-40d4-9162-0d1035fed5ad}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderFile" value="0x3600" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeSortOrderType" value="{a59af09e-4c0f-4790-a954-3d967adcf216}">
+      <IDSymbol name="CmdIDCodeMaidSpadeSortOrderType" value="0x3700" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSpadeToolWindow" value="{aaf6a75d-2ccc-4081-b1ab-76306653807c}">
+      <IDSymbol name="CmdIDCodeMaidSpadeToolWindow" value="0x3800" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidCodeMaidCommandSwitchFile" value="{8cd97d41-8750-4dbb-9e89-eaa91620b078}">
+      <IDSymbol name="CmdIDCodeMaidSwitchFile" value="0x3900" />
+    </GuidSymbol>
+
+    <!-- These are the guids for images -->
+    <GuidSymbol name="GuidImageCleanup" value="{54aa78c8-285a-4166-9eba-369dde5d787e}">
+      <IDSymbol name="IconCleanup" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCleanupAll" value="{e3d926ae-03d7-4c69-8226-440eeddab292}">
+      <IDSymbol name="IconCleanupAll" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCloseLocked" value="{02ee894b-084c-4ccb-8a67-5f236b5df68b}">
+      <IDSymbol name="IconCloseLocked" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCollapse" value="{c853fa86-98f3-4f30-89f4-913d84c34a29}">
+      <IDSymbol name="IconCollapse" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageCommentFormat" value="{512526cf-2bb2-47fc-88af-dbd3678fe428}">
+      <IDSymbol name="IconCommentFormat" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageFind" value="{d83e7fab-c902-4348-9828-6931df5f9dd4}">
+      <IDSymbol name="IconFind" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageInfo" value="{0c75ffd4-f452-47c7-a36b-3179b6d6309f}">
+      <IDSymbol name="IconInfo" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageJoin" value="{e6e6dcd8-accc-4552-890b-a68ef0cf7279}">
+      <IDSymbol name="IconJoin" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageLock" value="{f21ca5ca-1dd5-4d93-995b-499d6ad2c30e}">
+      <IDSymbol name="IconLock" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageOptions" value="{a81c0e9b-bfdf-4b2f-a7ba-ca7e3183658a}">
+      <IDSymbol name="IconOptions" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageProgress" value="{57d334e8-69fb-4554-8632-3fd5be77e45e}">
+      <IDSymbol name="IconProgress" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageRefresh" value="{fad83984-8b84-4176-98a0-7bd92ef7b3be}">
+      <IDSymbol name="IconRefresh" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageRemoveRegion" value="{0130de2e-d65e-4e8f-b424-1a7ee90acd29}">
+      <IDSymbol name="IconRemoveRegion" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageReorganize" value="{8591e1d2-3204-4e9d-9789-c8de79bc5313}">
+      <IDSymbol name="IconReorganize" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortAlpha" value="{735bc8ba-0eaf-4fa3-a8ce-6f2e23c615b6}">
+      <IDSymbol name="IconSortAlpha" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortNumeric" value="{f5ae9c2c-0174-4cd0-bb8c-b62043da5d0d}">
+      <IDSymbol name="IconSortNumeric" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSortType" value="{b46f9a94-256d-48d2-84f6-3b3fbe4a1afa}">
+      <IDSymbol name="IconSortType" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSpade" value="{24791b87-377a-4661-8c0a-3754eadaff5c}">
+      <IDSymbol name="IconSpade" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageSwitch" value="{f86e7cf5-34e4-4f45-a8c3-9528b6e49a12}">
+      <IDSymbol name="IconSwitch" value="1" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidImageUnlock" value="{6c3e76ea-326a-4201-aa74-fb2b9b8ccb0f}">
+      <IDSymbol name="IconUnlock" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

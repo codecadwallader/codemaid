@@ -174,7 +174,6 @@
     </None>
     <Compile Include="StringResourceKey.cs" />
     <Compile Include="CodeMaid.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
     </Compile>
@@ -413,12 +412,6 @@
     <Compile Include="UI\WindowAttachedProperties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="CodeMaid.vsct">
-      <ResourceName>1000</ResourceName>
-      <SubType>Designer</SubType>
-      <Generator>VsctGenerator</Generator>
-      <LastGenOutput>CodeMaid.cs</LastGenOutput>
-    </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -601,6 +594,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <VSCTCompile Include="CodeMaid.zh-Hans.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+    </VSCTCompile>
+    <VSCTCompile Include="CodeMaid.en-US.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+    </VSCTCompile>
+    <None Include="CodeMaid.vsct">
+      <SubType>Designer</SubType>
+      <LastGenOutput>CodeMaid.cs</LastGenOutput>
+    </None>
     <Content Include="CodeMaid_Large.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -797,21 +804,32 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.en-US.resx">
+      <DependentUpon>Properties\Resources.resx</DependentUpon>
+      <MergeWithCTO>true</MergeWithCTO>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <DependentUpon>Properties\Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="source.extension.en-US.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="source.extension.resx">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
-      <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
     </EmbeddedResource>
     <EmbeddedResource Include="source.extension.zh-Hans.resx">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+      <MergeWithCTO>true</MergeWithCTO>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
