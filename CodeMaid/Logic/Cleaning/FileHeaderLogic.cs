@@ -2,6 +2,7 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.IO;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -13,6 +14,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Fields
 
         private readonly CodeMaidPackage _package;
+
+        private readonly string[] _variables = { "$USER_LOGIN$", "$SOLUTION$", "$PROJECT$", "$FILENAME$" };
 
         #endregion Fields
 
@@ -58,6 +61,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
+            this.ReplaceVariables(textDocument, ref settingsFileHeader);
+
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
@@ -65,6 +70,58 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 cursor.Insert(settingsFileHeader);
                 cursor.Insert(Environment.NewLine);
+            }
+        }
+
+        /// <summary>
+        /// Replace the variables in the header if any
+        /// </summary>
+        /// <param name="textDocument"></param>
+        internal void ReplaceVariables(TextDocument textDocument, ref string settingsFileHeader)
+        {
+            foreach (var variable in _variables)
+            {
+                var variableValue = string.Empty;
+                switch (variable)
+                {
+                    case "$USER_LOGIN$":
+                        {
+                            variableValue = Environment.UserName;
+                            break;
+                        }
+                    case "$SOLUTION$":
+                        {
+                            if (_package.IDE.Solution != null)
+                            {
+                                variableValue = Path.GetFileNameWithoutExtension(_package.IDE.Solution.FullName);
+                            }
+
+                            break;
+                        }
+                    case "$PROJECT$":
+                        {
+                            try
+                            {
+                                if (_package.IDE.Solution != null)
+                                {
+                                    variableValue = _package.IDE.Solution.Projects.Item(1).Name;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            break;
+                        }
+                    case "$FILENAME$":
+                        {
+                            variableValue = textDocument?.Parent?.Name ?? "";
+                            break;
+                        }
+                    default:
+                        return;
+                }
+
+                settingsFileHeader = settingsFileHeader.Replace(variable, variableValue);
             }
         }
 

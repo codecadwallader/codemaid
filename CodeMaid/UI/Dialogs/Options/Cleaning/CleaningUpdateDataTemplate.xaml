@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
@@ -13,7 +14,7 @@
             </GroupBox>
             <GroupBox Header="File Header">
                 <StackPanel>
-                    <TabControl>
+                    <TabControl Name="LanguageTab">
                         <TabItem Header="C#">
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
                         </TabItem>
@@ -63,6 +64,42 @@
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
                         </TabItem>
                     </TabControl>
+                    <GroupBox Header="Variables">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="UserLogin" Content="$USER_LOGIN$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
+                                        <Binding ElementName="LanguageTab" />
+                                        <Binding ElementName="UserLogin" Path="Content" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Name="Solution" Content="$SOLUTION$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
+                                        <Binding ElementName="LanguageTab" />
+                                        <Binding ElementName="Solution" Path="Content" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Name="Project" Content="$PROJECT$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
+                                        <Binding ElementName="LanguageTab" />
+                                        <Binding ElementName="Project" Path="Content" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Name="FileName" Content="$FILENAME$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
+                                        <Binding ElementName="LanguageTab" />
+                                        <Binding ElementName="FileName" Path="Content" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </StackPanel>
+                    </GroupBox>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

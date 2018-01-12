@@ -256,6 +256,9 @@
     <Content Include="Cleaning\Update\Data\FileHeaderCSharp_Cleaned.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Cleaning\Update\Data\FileHeaderCSharp_CleanedWithVariable.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Cleaning\Update\FileHeaderRTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderXMLTests.cs" />
     <Compile Include="Cleaning\Update\FileHeaderXAMLTests.cs" />

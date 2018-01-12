@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Properties;
+using System.Windows;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 {
@@ -227,5 +228,41 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         }
 
         #endregion Options
+
+        #region AddHeaderVariable Command
+
+        private DelegateCommand _addHeaderVariableCommand;
+
+        /// <summary>
+        /// Gets the set dialog result command.
+        /// </summary>
+        public DelegateCommand AddHeaderVariableCommand => _addHeaderVariableCommand ?? (_addHeaderVariableCommand = new DelegateCommand(OnAddVaribleCommandExecuted));
+
+        /// <summary>
+        /// Called when the <see cref="AddHeaderVariableCommand" /> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OnAddVaribleCommandExecuted(object parameter)
+        {
+            var values = (object[])parameter;
+            if (values.Length != 2)
+            {
+                return;
+            }
+
+            var tabControl = values[0];
+            var variableText = values[1] as string;
+            var textBox = (((tabControl as System.Windows.Controls.TabControl)?.SelectedItem as System.Windows.Controls.TabItem)?.Content as System.Windows.Controls.TextBox);
+            if (textBox == null || variableText == null)
+            {
+                return;
+            }
+
+            var previousSelectionStart = textBox.SelectionStart;
+            textBox.Text = textBox.Text.Insert(textBox.SelectionStart, variableText);
+            textBox.SelectionStart = previousSelectionStart + variableText.Length;
+        }
+
+        #endregion AddHeaderVariable Command
     }
 }

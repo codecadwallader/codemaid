@@ -77,6 +77,20 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
             TestOperations.ExecuteCommandAndVerifyNoChanges(RunUpdateFileHeader, _projectItem);
         }
 
+        [TestMethod]
+        [HostType("VS IDE")]
+        public void CleaningUpdateFileHeaderCSharp_CleansAsExpectedWithVariable()
+        {
+            Settings.Default.Cleaning_UpdateFileHeaderCSharp =
+@"//-----------------------------------------------------------------------
+// <copyright file=""$FileName$.cs"" company=""CodeMaid"">
+//     Sample copyright.
+// </copyright>
+//-----------------------------------------------------------------------";
+
+            TestOperations.ExecuteCommandAndVerifyResults(RunUpdateFileHeader, _projectItem, @"Data\FileHeaderCSharp_CleanedWithVariable.cs");
+        }
+
         #endregion Tests
 
         #region Helpers
