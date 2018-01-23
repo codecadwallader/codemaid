@@ -558,7 +558,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var menuCommandService = ViewModel?.Package.MenuCommandService;
             if (menuCommandService != null)
             {
-                var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidContextSpadeBaseGroup, PackageIds.MenuIDCodeMaidContextSpade);
+                var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.MenuIDCodeMaidContextSpade);
 
                 menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
             }

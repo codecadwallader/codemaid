@@ -25,7 +25,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal CommentFormatCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandCommentFormat, PackageIds.CmdIDCodeMaidCommentFormat))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat))
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Format Comment");
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);

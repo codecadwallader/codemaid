@@ -23,7 +23,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal JoinLinesCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandJoinLines, PackageIds.CmdIDCodeMaidJoinLines))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidJoinLines))
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Join");
         }

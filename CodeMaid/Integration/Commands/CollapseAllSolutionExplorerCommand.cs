@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal CollapseAllSolutionExplorerCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandCollapseAllSolutionExplorer, PackageIds.CmdIDCodeMaidCollapseAllSolutionExplorer))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCollapseAllSolutionExplorer))
         {
         }
 
