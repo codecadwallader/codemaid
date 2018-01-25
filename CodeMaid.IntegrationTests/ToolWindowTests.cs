@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var buildProgressToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidCommandBuildProgressToolWindow, PackageIds.CmdIDCodeMaidBuildProgressToolWindow);
+                var buildProgressToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidBuildProgressToolWindow);
                 TestUtils.ExecuteCommand(buildProgressToolWindowCommand);
 
                 Assert.IsTrue(TestUtils.CanFindToolwindow(PackageGuids.GuidCodeMaidToolWindowBuildProgress));
@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests
         {
             UIThreadInvoker.Invoke(new Action(() =>
             {
-                var spadeToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow);
+                var spadeToolWindowCommand = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeToolWindow);
                 TestUtils.ExecuteCommand(spadeToolWindowCommand);
 
                 Assert.IsTrue(TestUtils.CanFindToolwindow(PackageGuids.GuidCodeMaidToolWindowSpade));

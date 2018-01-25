@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SortLinesCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSortLines, PackageIds.CmdIDCodeMaidSortLines))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSortLines))
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Sort");
         }

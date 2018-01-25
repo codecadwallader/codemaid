@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeToolWindowCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeToolWindow))
         {
         }
 
