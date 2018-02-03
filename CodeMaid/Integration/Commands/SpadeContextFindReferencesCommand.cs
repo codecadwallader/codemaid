@@ -1,6 +1,5 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -8,8 +7,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for finding references of a member within Spade.
     /// </summary>
-    internal class SpadeContextFindReferencesCommand : BaseCommand
+    internal sealed class SpadeContextFindReferencesCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeContextFindReferencesCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextFindReferencesCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -17,8 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeContextFindReferencesCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextFindReferences))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextFindReferences)
         {
         }
 

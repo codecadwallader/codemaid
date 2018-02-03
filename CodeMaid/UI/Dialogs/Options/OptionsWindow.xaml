@@ -98,6 +98,7 @@
                                 <ResourceDictionary Source="Finding/FindingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Formatting/FormattingDataTemplate.xaml" />
                                 <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
+                                <ResourceDictionary Source="General/FeatureDataTemplate.xaml" />
                                 <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingGeneralDataTemplate.xaml" />
                                 <ResourceDictionary Source="Reorganizing/ReorganizingParentDataTemplate.xaml" />

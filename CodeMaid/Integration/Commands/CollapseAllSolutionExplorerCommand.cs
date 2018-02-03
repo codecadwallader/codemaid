@@ -1,15 +1,26 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for collapsing nodes in the solution explorer tool window.
     /// </summary>
-    internal class CollapseAllSolutionExplorerCommand : BaseCommand
+    internal sealed class CollapseAllSolutionExplorerCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CollapseAllSolutionExplorerCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CollapseAllSolutionExplorerCommand(package);
+            package.SettingMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         /// <summary>
@@ -26,8 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CollapseAllSolutionExplorerCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCollapseAllSolutionExplorer))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCollapseAllSolutionExplorer)
         {
         }
 

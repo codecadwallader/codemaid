@@ -82,7 +82,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void OnSolutionOpened()
         {
-            LoadSolutionSpecificSettings(Settings.Default);
+            if (LoadSolutionSpecificSettings(Settings.Default))
+            {
+                _package.SettingMonitor.NotifySettingsChanged();
+            }
         }
 
         /// <summary>
@@ -90,7 +93,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void OnSolutionClosed()
         {
-            UnloadSolutionSpecificSettings(Settings.Default);
+            if (UnloadSolutionSpecificSettings(Settings.Default))
+            {
+                _package.SettingMonitor.NotifySettingsChanged();
+            }
         }
 
         /// <summary>

@@ -193,6 +193,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             ConditionallyUpdateCodeModel(true);
         }
 
+        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+
         #endregion Public Methods
 
         #region Private Properties

@@ -1,13 +1,24 @@
 ﻿using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for changing the setting for cleanup on save.
     /// </summary>
-    internal class SettingCleanupOnSaveCommand : BaseCommand
+    internal sealed class SettingCleanupOnSaveCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SettingCleanupOnSaveCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SettingCleanupOnSaveCommand(package);
+            package.SettingMonitor.Watch(s => s.Feature_SettingCleanupOnSave, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -15,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SettingCleanupOnSaveCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSettingCleanupOnSave))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSettingCleanupOnSave)
         {
         }
 

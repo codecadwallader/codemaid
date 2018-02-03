@@ -1,14 +1,25 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for joining lines together.
     /// </summary>
-    internal class JoinLinesCommand : BaseCommand
+    internal sealed class JoinLinesCommand : BaseCommand
     {
+        #region Singleton
+
+        public static JoinLinesCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new JoinLinesCommand(package);
+            package.SettingMonitor.Watch(s => s.Feature_JoinLines, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly UndoTransactionHelper _undoTransactionHelper;
@@ -22,8 +33,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal JoinLinesCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidJoinLines))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidJoinLines)
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Join");
         }

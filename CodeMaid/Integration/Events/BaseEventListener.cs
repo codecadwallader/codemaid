@@ -5,7 +5,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// The base implementation of an event listener.
     /// </summary>
-    internal abstract class BaseEventListener : IDisposable
+    internal abstract class BaseEventListener : ISwitchable, IDisposable
     {
         #region Constructors
 
@@ -28,6 +28,30 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         protected CodeMaidPackage Package { get; private set; }
 
         #endregion Properties
+
+        #region ISwitchable Members
+
+        protected bool IsListening { get; set; }
+
+        public void Switch(bool on)
+        {
+            if (on && !IsListening)
+            {
+                IsListening = true;
+                RegisterListeners();
+            }
+            else if (IsListening && !on)
+            {
+                IsListening = false;
+                UnRegisterListeners();
+            }
+        }
+
+        protected abstract void RegisterListeners();
+
+        protected abstract void UnRegisterListeners();
+
+        #endregion ISwitchable Members
 
         #region IDisposable Members
 

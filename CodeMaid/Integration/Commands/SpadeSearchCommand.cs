@@ -1,12 +1,22 @@
-﻿using System.ComponentModel.Design;
-
-namespace SteveCadwallader.CodeMaid.Integration.Commands
+﻿namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for setting focus on the search bar in the Spade tool window.
     /// </summary>
-    internal class SpadeSearchCommand : BaseCommand
+    internal sealed class SpadeSearchCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeSearchCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeSearchCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -14,8 +24,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeSearchCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeSearch))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeSearch)
         {
         }
 

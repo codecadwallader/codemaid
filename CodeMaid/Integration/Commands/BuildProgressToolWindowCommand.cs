@@ -1,15 +1,26 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for launching the build progress tool window.
     /// </summary>
-    internal class BuildProgressToolWindowCommand : BaseCommand
+    internal sealed class BuildProgressToolWindowCommand : BaseCommand
     {
+        #region Singleton
+
+        public static BuildProgressToolWindowCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new BuildProgressToolWindowCommand(package);
+            package.SettingMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -17,8 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal BuildProgressToolWindowCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidBuildProgressToolWindow))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidBuildProgressToolWindow)
         {
         }
 
@@ -33,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             get
             {
-                var buildProgress = Package.BuildProgress;
+                var buildProgress = Package.BuildProgressForceLoad;
                 if (buildProgress != null)
                 {
                     return buildProgress.Frame as IVsWindowFrame;
@@ -57,6 +67,16 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             ShowBuildProgressToolWindow();
         }
 
+        public override void Switch(bool on)
+        {
+            base.Switch(on);
+
+            if (!on)
+            {
+                Package.BuildProgress?.Close();
+            }
+        }
+
         #endregion BaseCommand Methods
 
         #region Internal Methods
@@ -68,7 +88,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
-            var buildProgress = Package.BuildProgress;
+            var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
                 buildProgress.NotifyBuildBegin(scope, action);
@@ -89,7 +109,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="solutionConfig">The solution config.</param>
         internal void OnBuildProjConfigBegin(string project, string projectConfig, string platform, string solutionConfig)
         {
-            var buildProgress = Package.BuildProgress;
+            var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
                 buildProgress.NotifyBuildProjConfigBegin(project, projectConfig, platform, solutionConfig);
@@ -106,7 +126,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="success">True if project build was successful, otherwise false.</param>
         internal void OnBuildProjConfigDone(string project, string projectConfig, string platform, string solutionConfig, bool success)
         {
-            var buildProgress = Package.BuildProgress;
+            var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
                 buildProgress.NotifyBuildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
@@ -120,7 +140,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            var buildProgress = Package.BuildProgress;
+            var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
                 buildProgress.NotifyBuildDone(scope, action);

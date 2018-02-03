@@ -8,8 +8,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for shell events.
     /// </summary>
-    internal class ShellEventListener : BaseEventListener, IVsBroadcastMessageEvents, IVsShellPropertyEvents
+    internal sealed class ShellEventListener : BaseEventListener, IVsBroadcastMessageEvents
     {
+        #region Singleton
+
+        public static ShellEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package, IVsShell shellService)
+            => Instance = new ShellEventListener(package, shellService);
+
+        #endregion Singleton
+
         #region Constants
 
         private const uint WM_SYSCOLORCHANGE = 0x0015;
@@ -27,11 +36,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             : base(package)
         {
             _shellService = shellService;
-            if (_shellService != null)
-            {
-                _shellService.AdviseBroadcastMessages(this, out _broadcastEventCookie);
-                _shellService.AdviseShellPropertyChanges(this, out _propertyEventCookie);
-            }
+            Switch(on: true);
         }
 
         #endregion Constructors
@@ -43,11 +48,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         internal event Action EnvironmentColorChanged;
 
-        /// <summary>
-        /// An event raised when the shell is available.
-        /// </summary>
-        internal event Action ShellAvailable;
-
         #endregion Internal Events
 
         #region Private Fields
@@ -56,11 +56,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// An event cookie used as a notification token for broadcast events.
         /// </summary>
         private uint _broadcastEventCookie;
-
-        /// <summary>
-        /// An event cookie used as a notification token for property events.
-        /// </summary>
-        private uint _propertyEventCookie;
 
         /// <summary>
         /// The shell service.
@@ -96,32 +91,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion IVsBroadcastMessageEvents Members
 
-        #region IVsShellPropertyEvents Members
+        #region ISwitchable Members
 
-        /// <summary>
-        /// Called when a shell property has changed.
-        /// </summary>
-        /// <param name="propid">The id of the property that changed.</param>
-        /// <param name="var">The new value of the property.</param>
-        /// <returns>S_OK if successful, otherwise an error code.</returns>
-        public int OnShellPropertyChange(int propid, object var)
+        protected override void RegisterListeners()
         {
-            // Check if the zombie state property of the shell has changed to false.
-            if ((int)__VSSPROPID.VSSPROPID_Zombie == propid && ((bool)var == false))
-            {
-                var shellAvailable = ShellAvailable;
-                if (shellAvailable != null)
-                {
-                    OutputWindowHelper.DiagnosticWriteLine("ShellEventListener.ShellAvailable raised");
-
-                    shellAvailable();
-                }
-            }
-
-            return VSConstants.S_OK;
+            _shellService.AdviseBroadcastMessages(this, out _broadcastEventCookie);
         }
 
-        #endregion IVsShellPropertyEvents Members
+        protected override void UnRegisterListeners()
+        {
+            _shellService.UnadviseBroadcastMessages(_broadcastEventCookie);
+            _broadcastEventCookie = 0;
+        }
+
+        #endregion ISwitchable Members
 
         #region IDisposable Members
 
@@ -142,14 +125,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
                 {
                     if (_broadcastEventCookie != 0)
                     {
-                        _shellService.UnadviseBroadcastMessages(_broadcastEventCookie);
-                        _broadcastEventCookie = 0;
-                    }
-
-                    if (_propertyEventCookie != 0)
-                    {
-                        _shellService.UnadviseShellPropertyChanges(_propertyEventCookie);
-                        _propertyEventCookie = 0;
+                        Switch(on: false);
                     }
                 }
             }
