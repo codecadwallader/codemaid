@@ -256,7 +256,6 @@
     <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
     <Compile Include="Integration\Events\DocumentEventListener.cs" />
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
-    <Compile Include="Integration\Events\ShellEventListener.cs" />
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
     <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />

@@ -20,6 +20,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -182,15 +183,6 @@ namespace SteveCadwallader.CodeMaid
 
         #endregion Public Integration Properties
 
-        #region Private Service Properties
-
-        /// <summary>
-        /// Gets the shell service.
-        /// </summary>
-        private IVsShell ShellService => GetService(typeof(SVsShell)) as IVsShell;
-
-        #endregion Private Service Properties
-
         #region Package Members
 
         /// <summary>
@@ -337,8 +329,7 @@ namespace SteveCadwallader.CodeMaid
             var codeModelManager = CodeModelManager.GetInstance(this);
             var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 
-            ShellEventListener.Intialize(this, ShellService);
-            ShellEventListener.Instance.EnvironmentColorChanged += ThemeManager.ApplyTheme;
+            VSColorTheme.ThemeChanged += _ => ThemeManager.ApplyTheme();
 
             BuildProgressEventListener.Intialize(this);
             BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
@@ -409,7 +400,6 @@ namespace SteveCadwallader.CodeMaid
             BuildProgressEventListener.Instance.Dispose();
             DocumentEventListener.Instance.Dispose();
             RunningDocumentTableEventListener.Instance.Dispose();
-            ShellEventListener.Instance.Dispose();
             SolutionEventListener.Instance.Dispose();
             TextEditorEventListener.Instance.Dispose();
             WindowEventListener.Instance.Dispose();
