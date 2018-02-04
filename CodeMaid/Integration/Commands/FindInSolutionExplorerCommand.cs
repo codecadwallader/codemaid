@@ -105,12 +105,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ClearSolutionExplorerSearchFilter()
         {
-            if (Package.ServiceProvider != null)
-            {
-                var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package.ServiceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
-                var ws = solutionExplorer as IVsWindowSearch;
-                ws?.ClearSearch();
-            }
+            var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package, VSConstants.StandardToolWindows.SolutionExplorer);
+            var ws = solutionExplorer as IVsWindowSearch;
+            ws?.ClearSearch();
         }
 
         /// <summary>
