@@ -62,10 +62,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             // Create and set the view.
             Content = new SpadeView { DataContext = _viewModel };
-
-            // Register for changes to settings.
-            Settings.Default.SettingsLoaded += (sender, args) => OnSettingsChange();
-            Settings.Default.SettingsSaving += (sender, args) => OnSettingsChange();
         }
 
         #endregion Constructors
@@ -162,7 +158,24 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
-                _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+                Package.SettingMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+                {
+                    if (on)
+                    {
+                        _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+
+                        // Register for changes to settings.
+                        Settings.Default.SettingsLoaded += OnSettingsLoaded;
+                        Settings.Default.SettingsSaving += OnSettingsSaving;
+                    }
+                    else
+                    {
+                        _codeModelManager.CodeModelBuilt -= OnCodeModelBuilt;
+
+                        Settings.Default.SettingsLoaded -= OnSettingsLoaded;
+                        Settings.Default.SettingsSaving -= OnSettingsSaving;
+                    }
+                });
 
                 // Pass the package over to the view model.
                 _viewModel.Package = Package;
@@ -178,7 +191,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _viewModel.Dispatcher = spadeContent.Dispatcher;
 
-                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => Package.ThemeManager.ApplyTheme()));
+                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(Package.ThemeManager.ApplyTheme));
                 }
             }
         }
@@ -274,6 +287,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 UpdateViewModelRawCodeItems(codeModel.CodeItems);
             }
         }
+
+        private void OnSettingsSaving(object sender, System.ComponentModel.CancelEventArgs e) => OnSettingsChange();
+
+        private void OnSettingsLoaded(object sender, System.Configuration.SettingsLoadedEventArgs e) => OnSettingsChange();
 
         /// <summary>
         /// An event handler called when settings are changed.
