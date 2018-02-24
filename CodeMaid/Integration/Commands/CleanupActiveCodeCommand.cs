@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal CleanupActiveCodeCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandCleanupActiveCode, PackageIds.CmdIDCodeMaidCleanupActiveCode))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCleanupActiveCode))
         {
             CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
             CodeCleanupManager = CodeCleanupManager.GetInstance(Package);

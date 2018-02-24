@@ -27,7 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal SpadeContextInsertRegionCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeContextInsertRegion, PackageIds.CmdIDCodeMaidSpadeContextInsertRegion))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextInsertRegion))
         {
             _generateRegionLogic = GenerateRegionLogic.GetInstance(package);
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Insert Region");

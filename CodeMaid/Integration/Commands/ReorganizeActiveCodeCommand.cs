@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="package">The hosting package.</param>
         internal ReorganizeActiveCodeCommand(CodeMaidPackage package)
             : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandReorganizeActiveCode, PackageIds.CmdIDCodeMaidReorganizeActiveCode))
+                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidReorganizeActiveCode))
         {
             CodeReorganizationManager = CodeReorganizationManager.GetInstance(Package);
 
