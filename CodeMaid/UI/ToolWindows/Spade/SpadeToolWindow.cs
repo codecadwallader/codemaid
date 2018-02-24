@@ -52,7 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.
-            ToolBar = new CommandID(PackageGuids.GuidCodeMaidToolbarSpadeBaseGroup, PackageIds.ToolbarIDCodeMaidToolbarSpade);
+            ToolBar = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
             _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };
