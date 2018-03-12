@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new CloseAllReadOnlyCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_CloseAllReadOnly, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_CloseAllReadOnly, Instance.Switch);
         }
 
         #endregion Singleton

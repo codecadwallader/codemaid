@@ -6,7 +6,7 @@ using System.Linq;
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
     [TestClass]
-    public class SettingMonitorTests
+    public class SettingsMonitorTests
     {
         [TestInitialize]
         public void TestInitialize()
@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         [TestMethod]
         public void CallbackShouldBeCalledAtOnce()
         {
-            var monitor = new SettingMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default);
 
             int callbackTimes = 0;
             monitor.Watch(s => s.Feature_CleanupAllCode, _ => callbackTimes++);
@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         public void CallbackShouldNotBeCalledIfSettingNotChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default);
 
             bool? value = null;
             int callbackTimes = 0;
@@ -50,7 +50,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         public void CallbackShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default);
 
             bool? value = null;
             int callbackTimes = 0;
@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         public void AllCallbacksShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default);
 
             bool? value1 = null, value2 = null;
             int callbackTimes1 = 0, callbackTimes2 = 0;
@@ -101,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Feature_CleanupAllCode = false;
             Settings.Default.Feature_CleanupOpenCode = false;
             Settings.Default.Feature_CleanupSelectedCode = true;
-            var monitor = new SettingMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default);
 
             bool[] values = null;
             int callbackTimes = 0;

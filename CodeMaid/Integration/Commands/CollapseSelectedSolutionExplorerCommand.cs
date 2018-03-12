@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new CollapseSelectedSolutionExplorerCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_CollapseSelectedSolutionExplorer, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_CollapseSelectedSolutionExplorer, Instance.Switch);
         }
 
         #endregion Singleton

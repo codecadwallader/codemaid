@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new CommentFormatCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_CommentFormat, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_CommentFormat, Instance.Switch);
         }
 
         #endregion Singleton

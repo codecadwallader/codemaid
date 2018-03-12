@@ -8,7 +8,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// The base implementation of a command.
     /// </summary>
-    internal abstract class BaseCommand : OleMenuCommand, ISwitchable
+    internal abstract class BaseCommand : OleMenuCommand, ISwitchableFeature
     {
         #region Constructors
 

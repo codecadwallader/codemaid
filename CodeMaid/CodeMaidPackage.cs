@@ -97,7 +97,7 @@ namespace SteveCadwallader.CodeMaid
                 Settings.Default.Save();
             }
 
-            SettingMonitor = new SettingMonitor<Settings>(Settings.Default);
+            SettingsMonitor = new SettingsMonitor<Settings>(Settings.Default);
         }
 
         #endregion Constructors
@@ -178,7 +178,7 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
-        public SettingMonitor<Settings> SettingMonitor { get; }
+        public SettingsMonitor<Settings> SettingsMonitor { get; }
 
         #endregion Public Integration Properties
 
@@ -340,14 +340,14 @@ namespace SteveCadwallader.CodeMaid
             DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
             RunningDocumentTableEventListener.Intialize(this);
-            SettingMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
+            SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
             {
                 if (on)
                     RunningDocumentTableEventListener.Instance.BeforeSave += CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
                 else
                     RunningDocumentTableEventListener.Instance.BeforeSave -= CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
             });
-            SettingMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+            SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
             {
                 if (on)
                     RunningDocumentTableEventListener.Instance.AfterSave += SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
@@ -356,7 +356,7 @@ namespace SteveCadwallader.CodeMaid
             });
 
             SolutionEventListener.Intialize(this);
-            SettingMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
+            SettingsMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
             {
                 if (on)
                     SolutionEventListener.Instance.OnSolutionOpened += CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;

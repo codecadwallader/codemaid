@@ -28,7 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             // Store access to the build events, otherwise events will not register properly via DTE.
             BuildEvents = Package.IDE.Events.BuildEvents;
-            package.SettingMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Switch);
         }
 
         #endregion Constructors

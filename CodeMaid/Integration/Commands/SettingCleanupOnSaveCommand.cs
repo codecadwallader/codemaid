@@ -14,7 +14,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new SettingCleanupOnSaveCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_SettingCleanupOnSave, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, Instance.Switch);
         }
 
         #endregion Singleton

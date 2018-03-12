@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new ReadOnlyToggleCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_ReadOnlyToggle, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_ReadOnlyToggle, Instance.Switch);
         }
 
         #endregion Singleton

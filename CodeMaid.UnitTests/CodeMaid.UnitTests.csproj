@@ -118,7 +118,7 @@
     <Compile Include="Formatting\ListFormattingTests.cs" />
     <Compile Include="Helpers\CodeItemTypeComparerTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
-    <Compile Include="Helpers\SettingMonitorTests.cs" />
+    <Compile Include="Helpers\SettingsMonitorTests.cs" />
     <Compile Include="Helpers\UIShellServiceMock.cs" />
     <Compile Include="Helpers\WindowFrameMock.cs" />
     <Compile Include="CodeMaidPackageTest.cs" />

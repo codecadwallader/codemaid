@@ -5,7 +5,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// The base implementation of an event listener.
     /// </summary>
-    internal abstract class BaseEventListener : ISwitchable, IDisposable
+    internal abstract class BaseEventListener : ISwitchableFeature, IDisposable
     {
         #region Constructors
 

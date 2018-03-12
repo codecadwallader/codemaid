@@ -6,17 +6,17 @@ using System.Linq.Expressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
-    public sealed class SettingMonitor<TSetting> where TSetting : ApplicationSettingsBase
+    public sealed class SettingsMonitor<TSetting>
+        where TSetting : ApplicationSettingsBase
     {
-        private readonly Dictionary<string[], Monitor> _monitors = new Dictionary<string[], Monitor>(new StringArrayComparor());
+        private readonly Dictionary<string[], Monitor> _monitors = new Dictionary<string[], Monitor>(new StringArrayComparer());
+        private readonly TSetting _settings;
 
-        public SettingMonitor(TSetting settings)
+        public SettingsMonitor(TSetting settings)
         {
-            Settings = settings;
-            Settings.SettingsSaving += (s, e) => NotifySettingsChanged();
+            _settings = settings;
+            _settings.SettingsSaving += (s, e) => NotifySettingsChanged();
         }
-
-        public TSetting Settings { get; }
 
         internal void NotifySettingsChanged()
         {
@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
-        private object[] FindValues(string[] settings) => Array.ConvertAll(settings, key => Settings[key]);
+        private object[] FindValues(string[] settings) => Array.ConvertAll(settings, key => _settings[key]);
 
         public void Watch<TValue>(Expression<Func<TSetting, TValue>> setting, Action<TValue> changedCallback)
         {
@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             public Action<object[]> Callback;
         }
 
-        private class StringArrayComparor : IEqualityComparer<string[]>
+        private class StringArrayComparer : IEqualityComparer<string[]>
         {
             private static readonly StringComparer ElementComparer = StringComparer.OrdinalIgnoreCase;
 

@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new SwitchFileCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_SwitchFile, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_SwitchFile, Instance.Switch);
         }
 
         #endregion Singleton

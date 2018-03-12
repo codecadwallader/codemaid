@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new BuildProgressToolWindowCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.Switch);
         }
 
         #endregion Singleton

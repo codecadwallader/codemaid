@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             RunningDocumentTable = new RunningDocumentTable(package);
 
             // This listener services multiple features, watching if any of them switched.
-            package.SettingMonitor.Watch<bool>(new[] {
+            package.SettingsMonitor.Watch<bool>(new[] {
                 nameof(Settings.Default.Feature_SettingCleanupOnSave),
                 nameof(Settings.Default.Feature_SpadeToolWindow)
             }, values =>

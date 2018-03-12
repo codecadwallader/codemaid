@@ -20,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new FindInSolutionExplorerCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_FindInSolutionExplorer, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_FindInSolutionExplorer, Instance.Switch);
         }
 
         #endregion Singleton

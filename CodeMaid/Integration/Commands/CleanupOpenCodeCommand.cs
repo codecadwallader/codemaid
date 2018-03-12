@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new CleanupOpenCodeCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_CleanupOpenCode, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_CleanupOpenCode, Instance.Switch);
         }
 
         #endregion Singleton

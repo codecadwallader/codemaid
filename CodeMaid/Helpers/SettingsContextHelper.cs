@@ -84,7 +84,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (LoadSolutionSpecificSettings(Settings.Default))
             {
-                _package.SettingMonitor.NotifySettingsChanged();
+                _package.SettingsMonitor.NotifySettingsChanged();
             }
         }
 
@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (UnloadSolutionSpecificSettings(Settings.Default))
             {
-                _package.SettingMonitor.NotifySettingsChanged();
+                _package.SettingsMonitor.NotifySettingsChanged();
             }
         }
 

@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new SpadeToolWindowCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_SpadeToolWindow, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, Instance.Switch);
         }
 
         #endregion Singleton

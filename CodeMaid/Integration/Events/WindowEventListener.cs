@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             // Store access to the window events, otherwise events will not register properly via DTE.
             WindowEvents = Package.IDE.Events.WindowEvents;
-            package.SettingMonitor.Watch(s => s.Feature_SpadeToolWindow, Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, Switch);
         }
 
         #endregion Constructors

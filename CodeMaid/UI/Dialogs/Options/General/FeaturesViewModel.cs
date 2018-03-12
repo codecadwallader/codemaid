@@ -3,9 +3,9 @@ using Mapping = SteveCadwallader.CodeMaid.UI.Dialogs.Options.SettingToOptionMapp
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 {
-    public class FeatureViewModel : OptionsPageViewModel
+    public class FeaturesViewModel : OptionsPageViewModel
     {
-        public FeatureViewModel(CodeMaidPackage package, Settings activeSettings)
+        public FeaturesViewModel(CodeMaidPackage package, Settings activeSettings)
             : base(package, activeSettings)
         {
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             };
         }
 
-        public override string Header => "Feature Switch";
+        public override string Header => "Features Switch";
 
         public bool BuildProgressToolWindow
         {

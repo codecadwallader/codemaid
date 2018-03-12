@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static void Initialize(CodeMaidPackage package)
         {
             Instance = new JoinLinesCommand(package);
-            package.SettingMonitor.Watch(s => s.Feature_JoinLines, Instance.Switch);
+            package.SettingsMonitor.Watch(s => s.Feature_JoinLines, Instance.Switch);
         }
 
         #endregion Singleton

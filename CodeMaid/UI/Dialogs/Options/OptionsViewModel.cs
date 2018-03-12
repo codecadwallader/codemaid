@@ -52,7 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                                 {
                                     Children = new OptionsPageViewModel[]
                                     {
-                                        new FeatureViewModel(package,ActiveSettings)
+                                        new FeaturesViewModel(package, ActiveSettings)
                                     }
                                 },
                             new CleaningParentViewModel(package, ActiveSettings)
