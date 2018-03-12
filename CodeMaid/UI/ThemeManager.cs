@@ -194,7 +194,7 @@ namespace SteveCadwallader.CodeMaid.UI
             catch (Exception ex)
             {
                 OutputWindowHelper.ExceptionWriteLine($"Unable to load theme '{themeUri}'", ex);
-                _package.IDE.StatusBar.Text = string.Format(StringResourceKey.CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails, themeUri);
+                _package.IDE.StatusBar.Text = string.Format( CodeMaid.Properties.Resources.CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails, themeUri);
 
                 return null;
             }

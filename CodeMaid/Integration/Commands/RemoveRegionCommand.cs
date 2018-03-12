@@ -63,15 +63,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text = StringResourceKey.RemoveCurrentRegion;
+                    Text =  CodeMaid.Properties.Resources.RemoveCurrentRegion;
                     break;
 
                 case RegionCommandScope.Selection:
-                    Text = StringResourceKey.RemoveSelectedRegions;
+                    Text =  CodeMaid.Properties.Resources.RemoveSelectedRegions;
                     break;
 
                 default:
-                    Text = StringResourceKey.RemoveAllRegions;
+                    Text =  CodeMaid.Properties.Resources.RemoveAllRegions;
                     break;
             }
         }

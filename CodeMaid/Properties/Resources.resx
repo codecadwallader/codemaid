@@ -192,9 +192,6 @@
   <data name="SWitchTo" xml:space="preserve">
     <value>S&amp;witch to </value>
   </data>
-  <data name="Cleaning0" xml:space="preserve">
-    <value>Cleaning {0}...</value>
-  </data>
   <data name="CodeMaidCleanupProgress" xml:space="preserve">
     <value>CodeMaid: Cleanup Progress</value>
   </data>

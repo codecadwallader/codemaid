@@ -340,15 +340,6 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Cleaning {0}... 的本地化字符串。
-        /// </summary>
-        public static string Cleaning0 {
-            get {
-                return ResourceManager.GetString("Cleaning0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 File Types 的本地化字符串。
         /// </summary>
         public static string CleaningFileTypesViewModel_FileTypes {

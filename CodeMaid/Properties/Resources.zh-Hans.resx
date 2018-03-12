@@ -222,9 +222,6 @@
   <data name="CodeMaidCleanupProgress" xml:space="preserve">
     <value>CodeMaid: 整理进度</value>
   </data>
-  <data name="Cleaning0" xml:space="preserve">
-    <value>正在整理{0}..。</value>
-  </data>
   <data name="SWitchTo" xml:space="preserve">
     <value>切换至(&amp;W)</value>
   </data>

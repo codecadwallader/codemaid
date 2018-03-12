@@ -46,10 +46,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
             BaseCommand command = sender as BaseCommand;
-            //if (string.IsNullOrEmpty(command.Text))
-            //{
-            //    command.Text = StringResourceKey.GetResourceText(command);
-            //}
             command?.OnBeforeQueryStatus();
         }
 

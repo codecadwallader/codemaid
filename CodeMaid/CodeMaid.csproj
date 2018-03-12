@@ -172,8 +172,8 @@
     <None Include="..\CodeMaid.snk">
       <Link>Properties\CodeMaid.snk</Link>
     </None>
-    <Compile Include="StringResourceKey.cs" />
     <Compile Include="CodeMaid.cs">
+      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
     </Compile>

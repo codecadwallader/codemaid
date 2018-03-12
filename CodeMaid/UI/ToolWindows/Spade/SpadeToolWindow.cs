@@ -45,7 +45,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             : base(null)
         {
             // Set the tool window caption.
-            Caption = StringResourceKey.CodeMaidSpade;
+            Caption =  CodeMaid.Properties.Resources.CodeMaidSpade;
 
             // Set the tool window image from resources.
             BitmapResourceID = 508;
@@ -360,7 +360,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, StringResourceKey.SearchCodeMaidSpadeCtrlM);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark,  CodeMaid.Properties.Resources.SearchCodeMaidSpadeCtrlM);
         }
 
         #endregion IVsWindowSearch Members

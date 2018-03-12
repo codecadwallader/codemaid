@@ -48,12 +48,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())
             {
-                MessageBox.Show(StringResourceKey.CleanupCannotRunWhileDebugging,
-                                StringResourceKey.CodeMaidCleanupAllCode,
+                MessageBox.Show(CodeMaid.Properties.Resources.CleanupCannotRunWhileDebugging,
+                                CodeMaid.Properties.Resources.CodeMaidCleanupAllCode,
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if (MessageBox.Show(StringResourceKey.AreYouReadyForCodeMaidToCleanEverythingInTheSolution,
-                                     StringResourceKey.CodeMaidConfirmationForCleanupAllCode,
+            else if (MessageBox.Show(CodeMaid.Properties.Resources.AreYouReadyForCodeMaidToCleanEverythingInTheSolution,
+                                     CodeMaid.Properties.Resources.CodeMaidConfirmationForCleanupAllCode,
                                      MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No)
                          == MessageBoxResult.Yes)
             {

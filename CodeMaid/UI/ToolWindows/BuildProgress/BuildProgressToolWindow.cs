@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     {
         #region Fields
 
-        private string DefaultCaption = StringResourceKey.BuildProgress;
+        private string DefaultCaption =  CodeMaid.Properties.Resources.BuildProgress;
 
         private readonly BuildProgressViewModel _viewModel;
 
@@ -216,26 +216,26 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // First append the word 'Batch ' if this is a batch build event.
             if (buildScope == vsBuildScope.vsBuildScopeBatch)
             {
-                stringBuilder.Append(StringResourceKey.Batch);
+                stringBuilder.Append( CodeMaid.Properties.Resources.Batch);
             }
 
             // Next append the action-specific build string.
             switch (buildAction)
             {
                 case vsBuildAction.vsBuildActionBuild:
-                    stringBuilder.Append(StringResourceKey.Building);
+                    stringBuilder.Append( CodeMaid.Properties.Resources.Building);
                     break;
 
                 case vsBuildAction.vsBuildActionClean:
-                    stringBuilder.Append(StringResourceKey.Cleaning);
+                    stringBuilder.Append( CodeMaid.Properties.Resources.Cleaning);
                     break;
 
                 case vsBuildAction.vsBuildActionDeploy:
-                    stringBuilder.Append(StringResourceKey.Deploying);
+                    stringBuilder.Append( CodeMaid.Properties.Resources.Deploying);
                     break;
 
                 case vsBuildAction.vsBuildActionRebuildAll:
-                    stringBuilder.Append(StringResourceKey.Rebuilding);
+                    stringBuilder.Append( CodeMaid.Properties.Resources.Rebuilding);
                     break;
             }
 

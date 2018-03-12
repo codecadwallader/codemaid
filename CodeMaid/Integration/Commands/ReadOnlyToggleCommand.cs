@@ -54,7 +54,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine($"{StringResourceKey.UnableToToggleReadOnlyStateOn}'{document.FullName}'", ex);
+                    OutputWindowHelper.ExceptionWriteLine($"{ CodeMaid.Properties.Resources.UnableToToggleReadOnlyStateOn}'{document.FullName}'", ex);
                 }
             }
         }

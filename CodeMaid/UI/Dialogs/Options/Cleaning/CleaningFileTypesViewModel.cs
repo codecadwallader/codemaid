@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => StringResourceKey.CleaningFileTypesViewModel_FileTypes;
+        public override string Header =>  CodeMaid.Properties.Resources.CleaningFileTypesViewModel_FileTypes;
 
         #endregion Overrides of OptionsPageViewModel
 

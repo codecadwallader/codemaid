@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Collapsing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => StringResourceKey.CollapsingViewModel_Collapsing;
+        public override string Header =>  CodeMaid.Properties.Resources.CollapsingViewModel_Collapsing;
 
         #endregion Overrides of OptionsPageViewModel
 

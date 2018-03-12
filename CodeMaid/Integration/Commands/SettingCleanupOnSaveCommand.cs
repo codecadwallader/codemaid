@@ -36,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets an ON/OFF string based on the <see cref="CleanupOnSave"/> state.
         /// </summary>
-        public string CleanupOnSaveStateText => CleanupOnSave ? StringResourceKey.SettingCleanupOnSaveCommand_ON : StringResourceKey.SettingCleanupOnSaveCommand_OFF;
+        public string CleanupOnSaveStateText => CleanupOnSave ?  CodeMaid.Properties.Resources.SettingCleanupOnSaveCommand_ON :  CodeMaid.Properties.Resources.SettingCleanupOnSaveCommand_OFF;
 
         #endregion Properties
 
@@ -48,7 +48,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnBeforeQueryStatus()
         {
             Checked = CleanupOnSave;
-            Text = StringResourceKey.AutomaticCleanupOnSave + CleanupOnSaveStateText;
+            Text =  CodeMaid.Properties.Resources.AutomaticCleanupOnSave + CleanupOnSaveStateText;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             CleanupOnSave = !CleanupOnSave;
             Settings.Default.Save();
 
-            Package.IDE.StatusBar.Text = $"{StringResourceKey.CodeMaidTurnedAutomaticCleanupOnSave }{CleanupOnSaveStateText}.";
+            Package.IDE.StatusBar.Text = $"{ CodeMaid.Properties.Resources.CodeMaidTurnedAutomaticCleanupOnSave }{CleanupOnSaveStateText}.";
         }
 
         #endregion BaseCommand Methods
