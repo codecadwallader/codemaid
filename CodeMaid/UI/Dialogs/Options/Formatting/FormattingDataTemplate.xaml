@@ -27,11 +27,11 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Cleanup">
+            <GroupBox Header="{x:Static p:Resources.Cleanup}">
                 <CheckBox Content="{x:Static p:Resources.RunFormatCommentsDuringCleanup}" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="Preview (reopen to refresh)">
+            <GroupBox Header="{x:Static p:Resources.PreviewReopenToRefresh}">
                 <TextBox FontFamily="{Binding CommentPreviewTextFont}"
                          Foreground="{Binding CommentPreviewTextForeground}"
                          Background="{Binding CommentPreviewTextBackground}"

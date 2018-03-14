@@ -298,10 +298,10 @@
     <value>将 XML 标记放在一起</value>
   </data>
   <data name="AlignXMLLtParamGtTags" xml:space="preserve">
-    <value>对齐 XML &amp;lt; 参数 &amp;gt; 标记</value>
+    <value>对齐 XML &lt;param&gt; 标记</value>
   </data>
   <data name="AlwaysSplitLtSummaryGtTagsOntoMultipleLines" xml:space="preserve">
-    <value>始终将 &amp;lt; 摘要 &amp;gt; 标签分到多行</value>
+    <value>始终将  &lt;summary&gt; 标签分到多行</value>
   </data>
   <data name="AlwaysSplitAllXMLTagsOntoMultipleLines" xml:space="preserve">
     <value>始终将所有 XML 标记拆分为多行</value>
@@ -616,7 +616,7 @@
     <value>进度</value>
   </data>
   <data name="FormattingViewModel_Formatting" xml:space="preserve">
-    <value>格格式化</value>
+    <value>格式化</value>
   </data>
   <data name="CollapsingViewModel_Collapsing" xml:space="preserve">
     <value>折叠</value>
@@ -674,5 +674,35 @@
   </data>
   <data name="WindowsTaskbar" xml:space="preserve">
     <value>Windows 任务栏</value>
+  </data>
+  <data name="PreviewReopenToRefresh" xml:space="preserve">
+    <value>预览 (重新打开以刷新)</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>询问</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="AutoDetect" xml:space="preserve">
+    <value>自动检测</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>空</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
   </data>
 </root>

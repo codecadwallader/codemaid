@@ -133,6 +133,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 all 的本地化字符串。
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 alphabetical 的本地化字符串。
         /// </summary>
         public static string Alphabetical {
@@ -178,6 +187,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 ask 的本地化字符串。
+        /// </summary>
+        public static string Ask {
+            get {
+                return ResourceManager.GetString("Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 at bottom of file 的本地化字符串。
         /// </summary>
         public static string AtBottomOfFile {
@@ -192,6 +210,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string AtTopOfFile {
             get {
                 return ResourceManager.GetString("AtTopOfFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 auto-detect 的本地化字符串。
+        /// </summary>
+        public static string AutoDetect {
+            get {
+                return ResourceManager.GetString("AutoDetect", resourceCulture);
             }
         }
         
@@ -574,6 +601,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 dark 的本地化字符串。
+        /// </summary>
+        public static string Dark {
+            get {
+                return ResourceManager.GetString("Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Deploying 的本地化字符串。
         /// </summary>
         public static string Deploying {
@@ -633,6 +669,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string DragToReorderDragOverToGroupRightClickToSplitDoubleClickToRename {
             get {
                 return ResourceManager.GetString("DragToReorderDragOverToGroupRightClickToSplitDoubleClickToRename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 empty 的本地化字符串。
+        /// </summary>
+        public static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
             }
         }
         
@@ -925,6 +970,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 light 的本地化字符串。
+        /// </summary>
+        public static string Light {
+            get {
+                return ResourceManager.GetString("Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Load models asynchronously 的本地化字符串。
         /// </summary>
         public static string LoadModelsAsynchronously {
@@ -975,6 +1029,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string NewRegion {
             get {
                 return ResourceManager.GetString("NewRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no 的本地化字符串。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 none 的本地化字符串。
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -1056,6 +1128,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup {
             get {
                 return ResourceManager.GetString("PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Preview (reopen to refresh) 的本地化字符串。
+        /// </summary>
+        public static string PreviewReopenToRefresh {
+            get {
+                return ResourceManager.GetString("PreviewReopenToRefresh", resourceCulture);
             }
         }
         
@@ -1731,6 +1812,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string WrapCommentsAtColumn {
             get {
                 return ResourceManager.GetString("WrapCommentsAtColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 yes 的本地化字符串。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

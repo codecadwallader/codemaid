@@ -15,9 +15,9 @@
             <GroupBox Header="{x:Static p:Resources.External}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Static p:Resources.PerformPartialCleanupIfFileIsNotInTheSolution}" VerticalAlignment="Center" />
-                    <RadioButton Content="ask" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Ask}}" />
-                    <RadioButton Content="yes" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Yes}}" />
-                    <RadioButton Content="no" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.No}}" />
+                    <RadioButton Content="{x:Static p:Resources.Ask}" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Ask}}" />
+                    <RadioButton Content="{x:Static p:Resources.Yes}" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.Yes}}" />
+                    <RadioButton Content="{x:Static p:Resources.No}" IsChecked="{Binding PerformPartialCleanupOnExternal, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:AskYesNo.No}}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

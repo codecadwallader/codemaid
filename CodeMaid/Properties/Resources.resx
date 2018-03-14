@@ -675,4 +675,34 @@
   <data name="WindowsTaskbar" xml:space="preserve">
     <value>Windows taskbar</value>
   </data>
+  <data name="PreviewReopenToRefresh" xml:space="preserve">
+    <value>Preview (reopen to refresh)</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>ask</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="AutoDetect" xml:space="preserve">
+    <value>auto-detect</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>dark</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>light</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>empty</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>all</value>
+  </data>
 </root>

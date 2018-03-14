@@ -32,9 +32,9 @@
             <GroupBox Header="{x:Static p:Resources.Regions}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Static p:Resources.RemoveRegions}" VerticalAlignment="Center" />
-                    <RadioButton Content="none" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.None}}" />
-                    <RadioButton Content="empty" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.Empty}}" />
-                    <RadioButton Content="all" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.All}}" />
+                    <RadioButton Content="{x:Static p:Resources.None}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.None}}" />
+                    <RadioButton Content="{x:Static p:Resources.Empty}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.Empty}}" />
+                    <RadioButton Content="{x:Static p:Resources.All}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.All}}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>
