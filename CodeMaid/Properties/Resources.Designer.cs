@@ -376,6 +376,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Cleaning 的本地化字符串。
+        /// </summary>
+        public static string Cleaning_n {
+            get {
+                return ResourceManager.GetString("Cleaning_n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File Types 的本地化字符串。
         /// </summary>
         public static string CleaningFileTypesViewModel_FileTypes {
@@ -948,6 +957,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Import {
             get {
                 return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Include 的本地化字符串。
+        /// </summary>
+        public static string Include {
+            get {
+                return ResourceManager.GetString("Include", resourceCulture);
             }
         }
         

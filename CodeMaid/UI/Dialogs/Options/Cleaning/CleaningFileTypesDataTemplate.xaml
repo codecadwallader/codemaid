@@ -5,7 +5,7 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters">
     <DataTemplate DataType="{x:Type local:CleaningFileTypesViewModel}">
         <StackPanel>
-            <GroupBox Header="Include">
+            <GroupBox Header="{x:Static p:Resources.Include}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

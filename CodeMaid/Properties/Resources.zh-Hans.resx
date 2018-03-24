@@ -622,7 +622,7 @@
     <value>折叠</value>
   </data>
   <data name="DiggingViewModel_DiggingSpade" xml:space="preserve">
-    <value>挖掘 (码锹)</value>
+    <value>发掘 (码锹)</value>
   </data>
   <data name="CleaningUpdateViewModel_Update" xml:space="preserve">
     <value>更新</value>
@@ -724,7 +724,7 @@
     <value>折叠选定的解决方案资源管理器</value>
   </data>
   <data name="Digging" xml:space="preserve">
-    <value>挖</value>
+    <value>发掘</value>
   </data>
   <data name="SpadeToolWindow" xml:space="preserve">
     <value>码锹工具窗口</value>
@@ -764,5 +764,11 @@
   </data>
   <data name="FeaturesSwitch" xml:space="preserve">
     <value>功能开关</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>包含</value>
+  </data>
+  <data name="Cleaning_n" xml:space="preserve">
+    <value>清理</value>
   </data>
 </root>

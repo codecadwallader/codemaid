@@ -765,4 +765,10 @@
   <data name="CloseAllReadOnly" xml:space="preserve">
     <value>Close All Read-Only</value>
   </data>
+  <data name="Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="Cleaning_n" xml:space="preserve">
+    <value>Cleaning</value>
+  </data>
 </root>
