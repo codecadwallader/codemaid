@@ -1,13 +1,24 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.About;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for launching the CodeMaid about window.
     /// </summary>
-    internal class AboutCommand : BaseCommand
+    internal sealed class AboutCommand : BaseCommand
     {
+        #region Singleton
+
+        public static AboutCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new AboutCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -15,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal AboutCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidAbout))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidAbout)
         {
         }
 

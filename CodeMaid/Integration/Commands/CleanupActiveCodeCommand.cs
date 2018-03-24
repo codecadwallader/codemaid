@@ -2,15 +2,26 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for cleaning up code in the active document.
     /// </summary>
-    internal class CleanupActiveCodeCommand : BaseCommand
+    internal sealed class CleanupActiveCodeCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CleanupActiveCodeCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CleanupActiveCodeCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_CleanupActiveCode, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -18,8 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CleanupActiveCodeCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCleanupActiveCode))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCleanupActiveCode)
         {
             CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
             CodeCleanupManager = CodeCleanupManager.GetInstance(Package);

@@ -7,8 +7,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for window events.
     /// </summary>
-    internal class WindowEventListener : BaseEventListener
+    internal sealed class WindowEventListener : BaseEventListener
     {
+        #region Singleton
+
+        public static WindowEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new WindowEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -19,8 +28,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             : base(package)
         {
             // Store access to the window events, otherwise events will not register properly via DTE.
-            WindowEvents = Package.IDE.Events.get_WindowEvents(null);
-            WindowEvents.WindowActivated += WindowEvents_WindowActivated;
+            WindowEvents = Package.IDE.Events.WindowEvents;
+            package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, Switch);
         }
 
         #endregion Constructors
@@ -83,6 +92,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion Private Methods
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            WindowEvents.WindowActivated += WindowEvents_WindowActivated;
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            WindowEvents.WindowActivated -= WindowEvents_WindowActivated;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -100,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && WindowEvents != null)
                 {
-                    WindowEvents.WindowActivated -= WindowEvents_WindowActivated;
+                    Switch(on: false);
                 }
             }
         }

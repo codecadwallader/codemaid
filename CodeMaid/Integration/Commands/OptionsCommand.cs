@@ -1,13 +1,24 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for launching the CodeMaid Options to the general cleanup page.
     /// </summary>
-    internal class OptionsCommand : BaseCommand
+    internal sealed class OptionsCommand : BaseCommand
     {
+        #region Singleton
+
+        public static OptionsCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new OptionsCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -15,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal OptionsCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidOptions))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidOptions)
         {
         }
 

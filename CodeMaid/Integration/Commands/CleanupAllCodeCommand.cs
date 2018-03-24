@@ -3,7 +3,6 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Windows;
 
@@ -12,8 +11,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for cleaning up code in all documents.
     /// </summary>
-    internal class CleanupAllCodeCommand : BaseCommand
+    internal sealed class CleanupAllCodeCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CleanupAllCodeCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CleanupAllCodeCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_CleanupAllCode, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -21,8 +32,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CleanupAllCodeCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCleanupAllCode))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCleanupAllCode)
         {
             CodeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(Package);
         }

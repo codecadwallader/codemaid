@@ -48,7 +48,13 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             Package = package;
             Pages = new OptionsPageViewModel[]
                         {
-                            new GeneralViewModel(package, ActiveSettings),
+                            new GeneralViewModel(package, ActiveSettings)
+                                {
+                                    Children = new OptionsPageViewModel[]
+                                    {
+                                        new FeaturesViewModel(package, ActiveSettings)
+                                    }
+                                },
                             new CleaningParentViewModel(package, ActiveSettings)
                                 {
                                     Children = new OptionsPageViewModel[]

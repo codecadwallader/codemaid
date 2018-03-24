@@ -13,15 +13,14 @@ using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -37,12 +36,11 @@ namespace SteveCadwallader.CodeMaid
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
-    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")] // Force CodeMaid to load on startup so menu items can determine their state.
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string)] // Force CodeMaid to load so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource(1000, 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
-    [ProvideToolWindowVisibility(typeof(SpadeToolWindow), "{F1536EF8-92EC-443C-9ED7-FDADF150DA82}")]
     [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : Package, IVsInstalledProduct
     {
@@ -54,11 +52,6 @@ namespace SteveCadwallader.CodeMaid
         private BuildProgressToolWindow _buildProgress;
 
         /// <summary>
-        /// An internal collection of the commands registered by this package.
-        /// </summary>
-        private readonly ICollection<BaseCommand> _commands = new List<BaseCommand>();
-
-        /// <summary>
         /// The IComponentModel service.
         /// </summary>
         private IComponentModel _componentModel;
@@ -67,11 +60,6 @@ namespace SteveCadwallader.CodeMaid
         /// The top level application instance of the VS IDE that is executing this package.
         /// </summary>
         private DTE2 _ide;
-
-        /// <summary>
-        /// The service provider.
-        /// </summary>
-        private IServiceProvider _serviceProvider;
 
         /// <summary>
         /// The Spade tool window.
@@ -108,6 +96,8 @@ namespace SteveCadwallader.CodeMaid
                 Settings.Default.Upgrade();
                 Settings.Default.Save();
             }
+
+            SettingsMonitor = new SettingsMonitor<Settings>(Settings.Default);
         }
 
         #endregion Constructors
@@ -134,9 +124,15 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the build progress tool window, creating it if necessary.
+        /// Gets the build progress tool window, if it already exists.
         /// </summary>
         public BuildProgressToolWindow BuildProgress =>
+            _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, false) as BuildProgressToolWindow));
+
+        /// <summary>
+        /// Gets the build progress tool window, creating it if necessary.
+        /// </summary>
+        public BuildProgressToolWindow BuildProgressForceLoad =>
             _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
 
         /// <summary>
@@ -166,12 +162,7 @@ namespace SteveCadwallader.CodeMaid
         public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
         /// <summary>
-        /// Gets the service provider.
-        /// </summary>
-        public IServiceProvider ServiceProvider => _serviceProvider ?? (_serviceProvider = new ServiceProvider((Microsoft.VisualStudio.OLE.Interop.IServiceProvider)IDE));
-
-        /// <summary>
-        /// Gets the Spade tool window, iff it already exists.
+        /// Gets the Spade tool window, if it already exists.
         /// </summary>
         public SpadeToolWindow Spade =>
             _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
@@ -187,55 +178,9 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
+        public SettingsMonitor<Settings> SettingsMonitor { get; }
+
         #endregion Public Integration Properties
-
-        #region Private Event Listener Properties
-
-        /// <summary>
-        /// Gets or sets the build progress event listener.
-        /// </summary>
-        private BuildProgressEventListener BuildProgressEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the document event listener.
-        /// </summary>
-        private DocumentEventListener DocumentEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the running document table event listener.
-        /// </summary>
-        private RunningDocumentTableEventListener RunningDocumentTableEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shell event listener.
-        /// </summary>
-        private ShellEventListener ShellEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the solution event listener.
-        /// </summary>
-        private SolutionEventListener SolutionEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text editor event listener.
-        /// </summary>
-        private TextEditorEventListener TextEditorEventListener { get; set; }
-
-        /// <summary>
-        /// Gets or sets the window event listener.
-        /// </summary>
-        private WindowEventListener WindowEventListener { get; set; }
-
-        #endregion Private Event Listener Properties
-
-        #region Private Service Properties
-
-        /// <summary>
-        /// Gets the shell service.
-        /// </summary>
-        private IVsShell ShellService => GetService(typeof(SVsShell)) as IVsShell;
-
-        #endregion Private Service Properties
 
         #region Package Members
 
@@ -250,7 +195,7 @@ namespace SteveCadwallader.CodeMaid
             base.Initialize();
 
             RegisterCommands();
-            RegisterShellEventListener();
+            RegisterEventListeners();
         }
 
         #endregion Package Members
@@ -339,114 +284,99 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         private void RegisterCommands()
         {
-            var menuCommandService = MenuCommandService;
-            if (menuCommandService != null)
-            {
-                // Create the individual commands, which internally register for command events.
-                _commands.Add(new AboutCommand(this));
-                _commands.Add(new BuildProgressToolWindowCommand(this));
-                _commands.Add(new CleanupActiveCodeCommand(this));
-                _commands.Add(new CleanupAllCodeCommand(this));
-                _commands.Add(new CleanupOpenCodeCommand(this));
-                _commands.Add(new CleanupSelectedCodeCommand(this));
-                _commands.Add(new CloseAllReadOnlyCommand(this));
-                _commands.Add(new CollapseAllSolutionExplorerCommand(this));
-                _commands.Add(new CollapseSelectedSolutionExplorerCommand(this));
-                _commands.Add(new CommentFormatCommand(this));
-                _commands.Add(new FindInSolutionExplorerCommand(this));
-                _commands.Add(new JoinLinesCommand(this));
-                _commands.Add(new OptionsCommand(this));
-                _commands.Add(new ReadOnlyToggleCommand(this));
-                _commands.Add(new RemoveRegionCommand(this));
-                _commands.Add(new ReorganizeActiveCodeCommand(this));
-                _commands.Add(new SettingCleanupOnSaveCommand(this));
-                _commands.Add(new SortLinesCommand(this));
-                _commands.Add(new SpadeContextDeleteCommand(this));
-                _commands.Add(new SpadeContextFindReferencesCommand(this));
-                _commands.Add(new SpadeContextInsertRegionCommand(this));
-                _commands.Add(new SpadeContextRemoveRegionCommand(this));
-                _commands.Add(new SpadeOptionsCommand(this));
-                _commands.Add(new SpadeRefreshCommand(this));
-                _commands.Add(new SpadeSearchCommand(this));
-                _commands.Add(new SpadeSortOrderAlphaCommand(this));
-                _commands.Add(new SpadeSortOrderFileCommand(this));
-                _commands.Add(new SpadeSortOrderTypeCommand(this));
-                _commands.Add(new SpadeToolWindowCommand(this));
-                _commands.Add(new SwitchFileCommand(this));
-
-                // Add all commands to the menu command service.
-                foreach (var command in _commands)
-                {
-                    menuCommandService.AddCommand(command);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Registers the shell event listener.
-        /// </summary>
-        /// <remarks>
-        /// This event listener is registered by itself and first to wait for the shell to be ready
-        /// for other event listeners to be registered.
-        /// </remarks>
-        private void RegisterShellEventListener()
-        {
-            ShellEventListener = new ShellEventListener(this, ShellService);
-            ShellEventListener.EnvironmentColorChanged += () => ThemeManager.ApplyTheme();
-            ShellEventListener.ShellAvailable += RegisterNonShellEventListeners;
+            // Initialize the individual commands, which internally register for command events.
+            AboutCommand.Initialize(this);
+            BuildProgressToolWindowCommand.Initialize(this);
+            CleanupActiveCodeCommand.Initialize(this);
+            CleanupAllCodeCommand.Initialize(this);
+            CleanupOpenCodeCommand.Initialize(this);
+            CleanupSelectedCodeCommand.Initialize(this);
+            CloseAllReadOnlyCommand.Initialize(this);
+            CollapseAllSolutionExplorerCommand.Initialize(this);
+            CollapseSelectedSolutionExplorerCommand.Initialize(this);
+            CommentFormatCommand.Initialize(this);
+            FindInSolutionExplorerCommand.Initialize(this);
+            JoinLinesCommand.Initialize(this);
+            OptionsCommand.Initialize(this);
+            ReadOnlyToggleCommand.Initialize(this);
+            RemoveRegionCommand.Initialize(this);
+            ReorganizeActiveCodeCommand.Initialize(this);
+            SettingCleanupOnSaveCommand.Initialize(this);
+            SortLinesCommand.Initialize(this);
+            SpadeContextDeleteCommand.Initialize(this);
+            SpadeContextFindReferencesCommand.Initialize(this);
+            SpadeContextInsertRegionCommand.Initialize(this);
+            SpadeContextRemoveRegionCommand.Initialize(this);
+            SpadeOptionsCommand.Initialize(this);
+            SpadeRefreshCommand.Initialize(this);
+            SpadeSearchCommand.Initialize(this);
+            SpadeSortOrderAlphaCommand.Initialize(this);
+            SpadeSortOrderFileCommand.Initialize(this);
+            SpadeSortOrderTypeCommand.Initialize(this);
+            SpadeToolWindowCommand.Initialize(this);
+            SwitchFileCommand.Initialize(this);
         }
 
         /// <summary>
         /// Register the package event listeners.
         /// </summary>
         /// <remarks>
-        /// This must occur after the DTE service is available since many of the events are based
-        /// off of the DTE object.
+        /// Every event listener registers VS events by itself.
         /// </remarks>
-        private void RegisterNonShellEventListeners()
+        private void RegisterEventListeners()
         {
-            // Create event listeners and register for events.
-            var menuCommandService = MenuCommandService;
-            if (menuCommandService != null)
+            var codeModelManager = CodeModelManager.GetInstance(this);
+            var settingsContextHelper = SettingsContextHelper.GetInstance(this);
+
+            VSColorTheme.ThemeChanged += _ => ThemeManager.ApplyTheme();
+
+            BuildProgressEventListener.Intialize(this);
+            BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
+            BuildProgressEventListener.Instance.BuildProjConfigBegin += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigBegin;
+            BuildProgressEventListener.Instance.BuildProjConfigDone += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigDone;
+            BuildProgressEventListener.Instance.BuildDone += BuildProgressToolWindowCommand.Instance.OnBuildDone;
+
+            DocumentEventListener.Intialize(this);
+            DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
+
+            RunningDocumentTableEventListener.Intialize(this);
+            SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
             {
-                var buildProgressToolWindowCommand = _commands.OfType<BuildProgressToolWindowCommand>().First();
-                var cleanupActiveCodeCommand = _commands.OfType<CleanupActiveCodeCommand>().First();
-                var collapseAllSolutionExplorerCommand = _commands.OfType<CollapseAllSolutionExplorerCommand>().First();
-                var spadeToolWindowCommand = _commands.OfType<SpadeToolWindowCommand>().First();
+                if (on)
+                    RunningDocumentTableEventListener.Instance.BeforeSave += CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
+                else
+                    RunningDocumentTableEventListener.Instance.BeforeSave -= CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
+            });
+            SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+            {
+                if (on)
+                    RunningDocumentTableEventListener.Instance.AfterSave += SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
+                else
+                    RunningDocumentTableEventListener.Instance.AfterSave -= SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
+            });
 
-                var codeModelManager = CodeModelManager.GetInstance(this);
-                var settingsContextHelper = SettingsContextHelper.GetInstance(this);
+            SolutionEventListener.Intialize(this);
+            SettingsMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
+            {
+                if (on)
+                    SolutionEventListener.Instance.OnSolutionOpened += CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
+                else
+                    SolutionEventListener.Instance.OnSolutionOpened -= CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
+            });
+            SolutionEventListener.Instance.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
+            SolutionEventListener.Instance.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
+            SolutionEventListener.Instance.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
-                BuildProgressEventListener = new BuildProgressEventListener(this);
-                BuildProgressEventListener.BuildBegin += buildProgressToolWindowCommand.OnBuildBegin;
-                BuildProgressEventListener.BuildProjConfigBegin += buildProgressToolWindowCommand.OnBuildProjConfigBegin;
-                BuildProgressEventListener.BuildProjConfigDone += buildProgressToolWindowCommand.OnBuildProjConfigDone;
-                BuildProgressEventListener.BuildDone += buildProgressToolWindowCommand.OnBuildDone;
+            TextEditorEventListener.Intialize(this);
+            TextEditorEventListener.Instance.OnLineChanged += codeModelManager.OnDocumentChanged;
 
-                DocumentEventListener = new DocumentEventListener(this);
-                DocumentEventListener.OnDocumentClosing += codeModelManager.OnDocumentClosing;
+            WindowEventListener.Intialize(this);
+            WindowEventListener.Instance.OnWindowChange += SpadeToolWindowCommand.Instance.OnWindowChange;
 
-                RunningDocumentTableEventListener = new RunningDocumentTableEventListener(this);
-                RunningDocumentTableEventListener.BeforeSave += cleanupActiveCodeCommand.OnBeforeDocumentSave;
-                RunningDocumentTableEventListener.AfterSave += spadeToolWindowCommand.OnAfterDocumentSave;
-
-                SolutionEventListener = new SolutionEventListener(this);
-                SolutionEventListener.OnSolutionOpened += collapseAllSolutionExplorerCommand.OnSolutionOpened;
-                SolutionEventListener.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
-                SolutionEventListener.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
-                SolutionEventListener.OnSolutionClosed += OnSolutionClosedShowStartPage;
-
-                // Check if a solution has already been opened before CodeMaid was initialized.
-                if (IDE.Solution != null && IDE.Solution.IsOpen)
-                {
-                    collapseAllSolutionExplorerCommand.OnSolutionOpened();
-                }
-
-                TextEditorEventListener = new TextEditorEventListener(this);
-                TextEditorEventListener.OnLineChanged += codeModelManager.OnDocumentChanged;
-
-                WindowEventListener = new WindowEventListener(this);
-                WindowEventListener.OnWindowChange += spadeToolWindowCommand.OnWindowChange;
+            // Check if a solution has already been opened before CodeMaid was initialized.
+            if (IDE.Solution != null && IDE.Solution.IsOpen)
+            {
+                SolutionEventListener.Instance.FireSolutionOpenedEvent();
             }
         }
 
@@ -466,13 +396,12 @@ namespace SteveCadwallader.CodeMaid
             base.Dispose(disposing);
 
             // Dispose of any event listeners.
-            BuildProgressEventListener?.Dispose();
-            DocumentEventListener?.Dispose();
-            RunningDocumentTableEventListener?.Dispose();
-            ShellEventListener?.Dispose();
-            SolutionEventListener?.Dispose();
-            TextEditorEventListener?.Dispose();
-            WindowEventListener?.Dispose();
+            BuildProgressEventListener.Instance.Dispose();
+            DocumentEventListener.Instance.Dispose();
+            RunningDocumentTableEventListener.Instance.Dispose();
+            SolutionEventListener.Instance.Dispose();
+            TextEditorEventListener.Instance.Dispose();
+            WindowEventListener.Instance.Dispose();
         }
 
         #endregion IDisposable Members

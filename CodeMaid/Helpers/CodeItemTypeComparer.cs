@@ -2,7 +2,6 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {

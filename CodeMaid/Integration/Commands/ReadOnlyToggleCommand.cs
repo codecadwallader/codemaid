@@ -1,7 +1,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
-using System.ComponentModel.Design;
 using System.IO;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -9,8 +8,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for toggling the read only attribute of a file.
     /// </summary>
-    internal class ReadOnlyToggleCommand : BaseCommand
+    internal sealed class ReadOnlyToggleCommand : BaseCommand
     {
+        #region Singleton
+
+        public static ReadOnlyToggleCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new ReadOnlyToggleCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_ReadOnlyToggle, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -18,8 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal ReadOnlyToggleCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidReadOnlyToggle))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidReadOnlyToggle)
         {
         }
 
