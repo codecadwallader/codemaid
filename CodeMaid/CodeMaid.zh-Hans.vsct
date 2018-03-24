@@ -295,6 +295,8 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidBuildProgressToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageProgress" id="IconProgress" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>生成进度(&amp;B)</ButtonText>
         </Strings>
@@ -302,7 +304,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCleanupActiveCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -312,7 +314,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCleanupAllCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanupAll" id="IconCleanupAll" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>整理所有代码(&amp;A)...</ButtonText>
@@ -321,7 +323,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCleanupOpenCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>整理打开代码(&amp;C)</ButtonText>
@@ -330,7 +332,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCleanupSelectedCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageCleanup" id="IconCleanup" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>整理已选代码(&amp;C)</ButtonText>
@@ -339,7 +341,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCloseAllReadOnly" priority="0x0100" type="Button">
         <Icon guid="GuidImageCloseLocked" id="IconCloseLocked" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>关闭所有只读(&amp;R)</ButtonText>
@@ -348,7 +350,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCollapseAllSolutionExplorer" priority="0x0100" type="Button">
         <Icon guid="GuidImageCollapse" id="IconCollapse" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>全部递归折叠(&amp;L)</ButtonText>
@@ -357,7 +359,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCollapseSelectedSolutionExplorer" priority="0x0100" type="Button">
         <Icon guid="GuidImageCollapse" id="IconCollapse" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>递归折叠(&amp;L)</ButtonText>
@@ -366,7 +368,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidCommentFormat" priority="0x0100" type="Button">
         <Icon guid="GuidImageCommentFormat" id="IconCommentFormat" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>格式化注释(&amp;N)</ButtonText>
@@ -375,7 +377,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidFindInSolutionExplorer" priority="0x0100" type="Button">
         <Icon guid="GuidImageFind" id="IconFind" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>在解决方案资源管理器中查找(&amp;F)</ButtonText>
@@ -384,7 +386,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidJoinLines" priority="0x0100" type="Button">
         <Icon guid="GuidImageJoin" id="IconJoin" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>联结行(&amp;J)</ButtonText>
@@ -400,7 +402,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidReadOnlyToggle" priority="0x0100" type="Button">
         <Icon guid="GuidImageUnlock" id="IconUnlock" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>只读切换(&amp;R)</ButtonText>
@@ -409,7 +411,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidRemoveRegion" priority="0x0100" type="Button">
         <Icon guid="GuidImageRemoveRegion" id="IconRemoveRegion" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -419,7 +421,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidReorganizeActiveCode" priority="0x0100" type="Button">
         <Icon guid="GuidImageReorganize" id="IconReorganize" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -429,6 +431,8 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSettingCleanupOnSave" priority="0x0100" type="Button">
         <Icon guid="GuidImageOptions" id="IconOptions" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>保存时自动清理(&amp;A)</ButtonText>
@@ -437,7 +441,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSortLines" priority="0x0100" type="Button">
         <Icon guid="GuidImageSortAlpha" id="IconSortAlpha" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>多行排序(&amp;S)</ButtonText>
@@ -515,6 +519,8 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeToolWindow" priority="0x0100" type="Button">
         <Icon guid="GuidImageSpade" id="IconSpade" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>码锹(&amp;S)</ButtonText>
         </Strings>
@@ -522,7 +528,7 @@
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSwitchFile" priority="0x0100" type="Button">
         <Icon guid="GuidImageSwitch" id="IconSwitch" />
-        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -987,18 +993,14 @@
     <GuidSymbol name="GuidCodeMaidPackage" value="{4c82e17d-927e-42d2-8460-b473ac7df316}" />
 
     <!-- These are the tool window guids -->
-    <GuidSymbol name="GuidCodeMaidToolWindowBuildProgress" value="{260978c3-582c-487d-ab12-c1fdde07c578}">
-    </GuidSymbol>
-    <GuidSymbol name="GuidCodeMaidToolWindowSpade" value="{75d09b86-471e-4b30-8720-362d13ad0a45}">
-    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidToolWindowBuildProgress" value="{260978c3-582c-487d-ab12-c1fdde07c578}" />
+    <GuidSymbol name="GuidCodeMaidToolWindowSpade" value="{75d09b86-471e-4b30-8720-362d13ad0a45}" />
 
     <!-- This is the output pane guid -->
-    <GuidSymbol name="GuidCodeMaidOutputPane" value="{4e7ba904-9311-4dd0-abe5-a61c1739780f}">
-    </GuidSymbol>
+    <GuidSymbol name="GuidCodeMaidOutputPane" value="{4e7ba904-9311-4dd0-abe5-a61c1739780f}" />
 
     <!-- These are the symbols for all menu items provided by CodeMaid -->
     <GuidSymbol name="GuidCodeMaidMenuSet" value="{369b04df-0688-4074-911d-d0d6c6a31632}">
-
       <!-- This is the id used to group the menu commands together -->
       <IDSymbol name="GroupIDCodeMaidMenuBaseGroup" value="0x1020" />
 

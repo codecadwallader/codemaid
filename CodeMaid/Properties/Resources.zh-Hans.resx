@@ -705,4 +705,64 @@
   <data name="All" xml:space="preserve">
     <value>全部</value>
   </data>
+  <data name="CleanupAllCode" xml:space="preserve">
+    <value>整理所有代码</value>
+  </data>
+  <data name="CleanupActiveCode" xml:space="preserve">
+    <value>整理活动代码</value>
+  </data>
+  <data name="CleanupOpenCode" xml:space="preserve">
+    <value>整理打开的代码</value>
+  </data>
+  <data name="CleanupSelectedCode" xml:space="preserve">
+    <value>整理选定的代码</value>
+  </data>
+  <data name="CollapseAllSolutionExplorer" xml:space="preserve">
+    <value>折叠所有解决方案资源管理器</value>
+  </data>
+  <data name="CollapseSelectedSolutionExplorer" xml:space="preserve">
+    <value>折叠选定的解决方案资源管理器</value>
+  </data>
+  <data name="Digging" xml:space="preserve">
+    <value>挖</value>
+  </data>
+  <data name="SpadeToolWindow" xml:space="preserve">
+    <value>码锹工具窗口</value>
+  </data>
+  <data name="FormatComment" xml:space="preserve">
+    <value>格式注释</value>
+  </data>
+  <data name="FindInSolutionExplorer" xml:space="preserve">
+    <value>在解决方案资源管理器中查找</value>
+  </data>
+  <data name="FeaturesDataTemplate_AutomaticCleanupOnSave" xml:space="preserve">
+    <value>保存时自动清理</value>
+  </data>
+  <data name="BuildProgressToolWindow" xml:space="preserve">
+    <value>"生成进度" 工具窗口</value>
+  </data>
+  <data name="RemoveRegion" xml:space="preserve">
+    <value>删除区域</value>
+  </data>
+  <data name="JoinLines" xml:space="preserve">
+    <value>联接行</value>
+  </data>
+  <data name="ReorganizeActiveCode" xml:space="preserve">
+    <value>重新组织活动代码</value>
+  </data>
+  <data name="SortLines" xml:space="preserve">
+    <value>排序行</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="ReadOnlyToggle" xml:space="preserve">
+    <value>只读切换</value>
+  </data>
+  <data name="CloseAllReadOnly" xml:space="preserve">
+    <value>关闭所有只读</value>
+  </data>
+  <data name="FeaturesSwitch" xml:space="preserve">
+    <value>功能开关</value>
+  </data>
 </root>

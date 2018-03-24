@@ -1,68 +1,69 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties">
     <DataTemplate DataType="{x:Type local:FeaturesViewModel}">
         <StackPanel>
-            <GroupBox Header="Cleaning">
+            <GroupBox Header="{x:Static p:Resources.Cleaning}">
                 <StackPanel>
-                    <CheckBox Content="Cleanup All Code" IsChecked="{Binding CleanupAllCode}" />
-                    <CheckBox Content="Cleanup Active Code" IsChecked="{Binding CleanupActiveCode}" Name="CleanupActiveCode" />
-                    <CheckBox Content="Automatic Cleanup On Save" IsChecked="{Binding SettingCleanupOnSave}" IsEnabled="{Binding IsChecked, ElementName=CleanupActiveCode}" Margin="35,5,5,5" />
-                    <CheckBox Content="Cleanup Open Code" IsChecked="{Binding CleanupOpenCode}" />
-                    <CheckBox Content="Cleanup Selected Code" IsChecked="{Binding CleanupSelectedCode}" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupAllCode}" IsChecked="{Binding CleanupAllCode}" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupActiveCode}" IsChecked="{Binding CleanupActiveCode}" Name="CleanupActiveCode" />
+                    <CheckBox Content="{x:Static p:Resources.FeaturesDataTemplate_AutomaticCleanupOnSave}" IsChecked="{Binding SettingCleanupOnSave}" IsEnabled="{Binding IsChecked, ElementName=CleanupActiveCode}" Margin="35,5,5,5" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupOpenCode}" IsChecked="{Binding CleanupOpenCode}" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupSelectedCode}" IsChecked="{Binding CleanupSelectedCode}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Collapsing">
+            <GroupBox Header="{x:Static p:Resources.CollapsingViewModel_Collapsing}">
                 <StackPanel>
-                    <CheckBox Content="Collapse All Solution Explorer" IsChecked="{Binding CollapseAllSolutionExplorer}" />
-                    <CheckBox Content="Collapse Selected Solution Explorer" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
+                    <CheckBox Content="{x:Static p:Resources.CollapseAllSolutionExplorer}" IsChecked="{Binding CollapseAllSolutionExplorer}" />
+                    <CheckBox Content="{x:Static p:Resources.CollapseSelectedSolutionExplorer}" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Digging">
+            <GroupBox Header="{x:Static p:Resources.Digging}">
                 <StackPanel>
-                    <CheckBox Content="Spade Tool Window" IsChecked="{Binding SpadeToolWindow}" />
+                    <CheckBox Content="{x:Static p:Resources.SpadeToolWindow}" IsChecked="{Binding SpadeToolWindow}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Finding">
+            <GroupBox Header="{x:Static p:Resources.FindingViewModel_Finding}">
                 <StackPanel>
-                    <CheckBox Content="Find In Solution Explorer" IsChecked="{Binding FindInSolutionExplorer}" />
+                    <CheckBox Content="{x:Static p:Resources.FindInSolutionExplorer}" IsChecked="{Binding FindInSolutionExplorer}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Formatting">
+            <GroupBox Header="{x:Static p:Resources.FormattingViewModel_Formatting}">
                 <StackPanel>
-                    <CheckBox Content="Format Comment" IsChecked="{Binding CommentFormat}" />
+                    <CheckBox Content="{x:Static p:Resources.FormatComment}" IsChecked="{Binding CommentFormat}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Progressing">
+            <GroupBox Header="{x:Static p:Resources.ProgressingViewModel_Progressing}">
                 <StackPanel>
-                    <CheckBox Content="Build Progress Tool Window" IsChecked="{Binding BuildProgressToolWindow}" />
+                    <CheckBox Content="{x:Static p:Resources.BuildProgressToolWindow}" IsChecked="{Binding BuildProgressToolWindow}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Reorganizing">
+            <GroupBox Header="{x:Static p:Resources.Reorganizing}">
                 <StackPanel>
-                    <CheckBox Content="Remove Region" IsChecked="{Binding RemoveRegion}" />
-                    <CheckBox Content="Reorganize Active Code" IsChecked="{Binding ReorganizeActiveCode}" />
-                    <CheckBox Content="Join Lines" IsChecked="{Binding JoinLines}" />
-                    <CheckBox Content="Sort Lines" IsChecked="{Binding SortLines}" />
+                    <CheckBox Content="{x:Static p:Resources.RemoveRegion}" IsChecked="{Binding RemoveRegion}" />
+                    <CheckBox Content="{x:Static p:Resources.ReorganizeActiveCode}" IsChecked="{Binding ReorganizeActiveCode}" />
+                    <CheckBox Content="{x:Static p:Resources.JoinLines}" IsChecked="{Binding JoinLines}" />
+                    <CheckBox Content="{x:Static p:Resources.SortLines}" IsChecked="{Binding SortLines}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Switching">
+            <GroupBox Header="{x:Static p:Resources.SwitchingViewModel_Switching}">
                 <StackPanel>
                     <CheckBox Content="Switch File" IsChecked="{Binding SwitchFile}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Read-Only">
+            <GroupBox Header="{x:Static p:Resources.ReadOnly}">
                 <StackPanel>
-                    <CheckBox Content="Read-Only Toggle" IsChecked="{Binding ReadOnlyToggle}" />
-                    <CheckBox Content="Close All Read-Only" IsChecked="{Binding CloseAllReadOnly}" />
+                    <CheckBox Content="{x:Static p:Resources.ReadOnlyToggle}" IsChecked="{Binding ReadOnlyToggle}" />
+                    <CheckBox Content="{x:Static p:Resources.CloseAllReadOnly}" IsChecked="{Binding CloseAllReadOnly}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

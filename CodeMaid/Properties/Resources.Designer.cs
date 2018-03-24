@@ -322,6 +322,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Build Progress Tool Window 的本地化字符串。
+        /// </summary>
+        public static string BuildProgressToolWindow {
+            get {
+                return ResourceManager.GetString("BuildProgressToolWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Build progress window 的本地化字符串。
         /// </summary>
         public static string BuildProgressWindow {
@@ -394,11 +403,47 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Cleanup Active Code 的本地化字符串。
+        /// </summary>
+        public static string CleanupActiveCode {
+            get {
+                return ResourceManager.GetString("CleanupActiveCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cleanup All Code 的本地化字符串。
+        /// </summary>
+        public static string CleanupAllCode {
+            get {
+                return ResourceManager.GetString("CleanupAllCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Cleanup cannot run while debugging. 的本地化字符串。
         /// </summary>
         public static string CleanupCannotRunWhileDebugging {
             get {
                 return ResourceManager.GetString("CleanupCannotRunWhileDebugging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cleanup Open Code 的本地化字符串。
+        /// </summary>
+        public static string CleanupOpenCode {
+            get {
+                return ResourceManager.GetString("CleanupOpenCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cleanup Selected Code 的本地化字符串。
+        /// </summary>
+        public static string CleanupSelectedCode {
+            get {
+                return ResourceManager.GetString("CleanupSelectedCode", resourceCulture);
             }
         }
         
@@ -417,6 +462,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Close All Read-Only 的本地化字符串。
+        /// </summary>
+        public static string CloseAllReadOnly {
+            get {
+                return ResourceManager.GetString("CloseAllReadOnly", resourceCulture);
             }
         }
         
@@ -565,6 +619,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Collapse All Solution Explorer 的本地化字符串。
+        /// </summary>
+        public static string CollapseAllSolutionExplorer {
+            get {
+                return ResourceManager.GetString("CollapseAllSolutionExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Collapse Selected Solution Explorer 的本地化字符串。
+        /// </summary>
+        public static string CollapseSelectedSolutionExplorer {
+            get {
+                return ResourceManager.GetString("CollapseSelectedSolutionExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Collapse solutions when they are opened 的本地化字符串。
         /// </summary>
         public static string CollapseSolutionsWhenTheyAreOpened {
@@ -633,6 +705,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string DiagnosticsMode {
             get {
                 return ResourceManager.GetString("DiagnosticsMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Digging 的本地化字符串。
+        /// </summary>
+        public static string Digging {
+            get {
+                return ResourceManager.GetString("Digging", resourceCulture);
             }
         }
         
@@ -745,6 +826,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Automatic Cleanup On Save 的本地化字符串。
+        /// </summary>
+        public static string FeaturesDataTemplate_AutomaticCleanupOnSave {
+            get {
+                return ResourceManager.GetString("FeaturesDataTemplate_AutomaticCleanupOnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Features Switch 的本地化字符串。
+        /// </summary>
+        public static string FeaturesSwitch {
+            get {
+                return ResourceManager.GetString("FeaturesSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File Header 的本地化字符串。
         /// </summary>
         public static string FileHeader {
@@ -772,11 +871,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Find In Solution Explorer 的本地化字符串。
+        /// </summary>
+        public static string FindInSolutionExplorer {
+            get {
+                return ResourceManager.GetString("FindInSolutionExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Font 的本地化字符串。
         /// </summary>
         public static string Font {
             get {
                 return ResourceManager.GetString("Font", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Format Comment 的本地化字符串。
+        /// </summary>
+        public static string FormatComment {
+            get {
+                return ResourceManager.GetString("FormatComment", resourceCulture);
             }
         }
         
@@ -948,6 +1065,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable {
             get {
                 return ResourceManager.GetString("IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Join Lines 的本地化字符串。
+        /// </summary>
+        public static string JoinLines {
+            get {
+                return ResourceManager.GetString("JoinLines", resourceCulture);
             }
         }
         
@@ -1168,6 +1294,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Read-Only 的本地化字符串。
+        /// </summary>
+        public static string ReadOnly {
+            get {
+                return ResourceManager.GetString("ReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Read-Only Toggle 的本地化字符串。
+        /// </summary>
+        public static string ReadOnlyToggle {
+            get {
+                return ResourceManager.GetString("ReadOnlyToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Rebuilding 的本地化字符串。
         /// </summary>
         public static string Rebuilding {
@@ -1276,6 +1420,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Remove Region 的本地化字符串。
+        /// </summary>
+        public static string RemoveRegion {
+            get {
+                return ResourceManager.GetString("RemoveRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Remove regions 的本地化字符串。
         /// </summary>
         public static string RemoveRegions {
@@ -1290,6 +1443,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string RemoveSelectedRegions {
             get {
                 return ResourceManager.GetString("RemoveSelectedRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Reorganize Active Code 的本地化字符串。
+        /// </summary>
+        public static string ReorganizeActiveCode {
+            get {
+                return ResourceManager.GetString("ReorganizeActiveCode", resourceCulture);
             }
         }
         
@@ -1533,6 +1695,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Sort {
             get {
                 return ResourceManager.GetString("Sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Sort Lines 的本地化字符串。
+        /// </summary>
+        public static string SortLines {
+            get {
+                return ResourceManager.GetString("SortLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Spade Tool Window 的本地化字符串。
+        /// </summary>
+        public static string SpadeToolWindow {
+            get {
+                return ResourceManager.GetString("SpadeToolWindow", resourceCulture);
             }
         }
         

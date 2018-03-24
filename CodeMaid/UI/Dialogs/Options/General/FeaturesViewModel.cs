@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             };
         }
 
-        public override string Header => "Features Switch";
+        public override string Header => Resources.FeaturesSwitch;
 
         public bool BuildProgressToolWindow
         {

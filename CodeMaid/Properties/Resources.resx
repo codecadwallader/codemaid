@@ -705,4 +705,64 @@
   <data name="All" xml:space="preserve">
     <value>all</value>
   </data>
+  <data name="FeaturesSwitch" xml:space="preserve">
+    <value>Features Switch</value>
+  </data>
+  <data name="CleanupAllCode" xml:space="preserve">
+    <value>Cleanup All Code</value>
+  </data>
+  <data name="CleanupActiveCode" xml:space="preserve">
+    <value>Cleanup Active Code</value>
+  </data>
+  <data name="CleanupOpenCode" xml:space="preserve">
+    <value>Cleanup Open Code</value>
+  </data>
+  <data name="CleanupSelectedCode" xml:space="preserve">
+    <value>Cleanup Selected Code</value>
+  </data>
+  <data name="CollapseAllSolutionExplorer" xml:space="preserve">
+    <value>Collapse All Solution Explorer</value>
+  </data>
+  <data name="CollapseSelectedSolutionExplorer" xml:space="preserve">
+    <value>Collapse Selected Solution Explorer</value>
+  </data>
+  <data name="Digging" xml:space="preserve">
+    <value>Digging</value>
+  </data>
+  <data name="SpadeToolWindow" xml:space="preserve">
+    <value>Spade Tool Window</value>
+  </data>
+  <data name="FindInSolutionExplorer" xml:space="preserve">
+    <value>Find In Solution Explorer</value>
+  </data>
+  <data name="FormatComment" xml:space="preserve">
+    <value>Format Comment</value>
+  </data>
+  <data name="FeaturesDataTemplate_AutomaticCleanupOnSave" xml:space="preserve">
+    <value>Automatic Cleanup On Save</value>
+  </data>
+  <data name="BuildProgressToolWindow" xml:space="preserve">
+    <value>Build Progress Tool Window</value>
+  </data>
+  <data name="RemoveRegion" xml:space="preserve">
+    <value>Remove Region</value>
+  </data>
+  <data name="JoinLines" xml:space="preserve">
+    <value>Join Lines</value>
+  </data>
+  <data name="ReorganizeActiveCode" xml:space="preserve">
+    <value>Reorganize Active Code</value>
+  </data>
+  <data name="SortLines" xml:space="preserve">
+    <value>Sort Lines</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Read-Only</value>
+  </data>
+  <data name="ReadOnlyToggle" xml:space="preserve">
+    <value>Read-Only Toggle</value>
+  </data>
+  <data name="CloseAllReadOnly" xml:space="preserve">
+    <value>Close All Read-Only</value>
+  </data>
 </root>
