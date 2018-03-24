@@ -1,5 +1,6 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -97,6 +98,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         #endregion Properties
 
         #region Methods
+
+        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
 
         /// <summary>
         /// This method can be overriden by the derived class to execute any code that needs to run

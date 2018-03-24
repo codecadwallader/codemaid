@@ -274,7 +274,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated text view, otherwise null.</returns>
         private IVsTextView GetTextView(Document document)
         {
-            if (_package.ServiceProvider == null || document == null)
+            if (document == null)
             {
                 return null;
             }
@@ -283,7 +283,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             uint itemID;
             IVsWindowFrame windowFrame;
 
-            if (VsShellUtilities.IsDocumentOpen(_package.ServiceProvider, document.FullName, Guid.Empty, out hierarchy, out itemID, out windowFrame))
+            if (VsShellUtilities.IsDocumentOpen(_package, document.FullName, Guid.Empty, out hierarchy, out itemID, out windowFrame))
             {
                 return VsShellUtilities.GetTextView(windowFrame);
             }

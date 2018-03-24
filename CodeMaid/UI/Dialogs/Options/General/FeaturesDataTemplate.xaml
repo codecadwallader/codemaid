@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General">
+    <DataTemplate DataType="{x:Type local:FeaturesViewModel}">
+        <StackPanel>
+            <GroupBox Header="Cleaning">
+                <StackPanel>
+                    <CheckBox Content="Cleanup All Code" IsChecked="{Binding CleanupAllCode}" />
+                    <CheckBox Content="Cleanup Active Code" IsChecked="{Binding CleanupActiveCode}" Name="CleanupActiveCode" />
+                    <CheckBox Content="Automatic Cleanup On Save" IsChecked="{Binding SettingCleanupOnSave}" IsEnabled="{Binding IsChecked, ElementName=CleanupActiveCode}" Margin="35,5,5,5" />
+                    <CheckBox Content="Cleanup Open Code" IsChecked="{Binding CleanupOpenCode}" />
+                    <CheckBox Content="Cleanup Selected Code" IsChecked="{Binding CleanupSelectedCode}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Collapsing">
+                <StackPanel>
+                    <CheckBox Content="Collapse All Solution Explorer" IsChecked="{Binding CollapseAllSolutionExplorer}" />
+                    <CheckBox Content="Collapse Selected Solution Explorer" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Digging">
+                <StackPanel>
+                    <CheckBox Content="Spade Tool Window" IsChecked="{Binding SpadeToolWindow}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Finding">
+                <StackPanel>
+                    <CheckBox Content="Find In Solution Explorer" IsChecked="{Binding FindInSolutionExplorer}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Formatting">
+                <StackPanel>
+                    <CheckBox Content="Format Comment" IsChecked="{Binding CommentFormat}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Progressing">
+                <StackPanel>
+                    <CheckBox Content="Build Progress Tool Window" IsChecked="{Binding BuildProgressToolWindow}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Reorganizing">
+                <StackPanel>
+                    <CheckBox Content="Remove Region" IsChecked="{Binding RemoveRegion}" />
+                    <CheckBox Content="Reorganize Active Code" IsChecked="{Binding ReorganizeActiveCode}" />
+                    <CheckBox Content="Join Lines" IsChecked="{Binding JoinLines}" />
+                    <CheckBox Content="Sort Lines" IsChecked="{Binding SortLines}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Switching">
+                <StackPanel>
+                    <CheckBox Content="Switch File" IsChecked="{Binding SwitchFile}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Read-Only">
+                <StackPanel>
+                    <CheckBox Content="Read-Only Toggle" IsChecked="{Binding ReadOnlyToggle}" />
+                    <CheckBox Content="Close All Read-Only" IsChecked="{Binding CloseAllReadOnly}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -3,7 +3,6 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 
@@ -12,8 +11,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for switching between files based on their filename.
     /// </summary>
-    internal class SwitchFileCommand : BaseCommand
+    internal sealed class SwitchFileCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SwitchFileCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SwitchFileCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_SwitchFile, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -21,8 +32,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SwitchFileCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSwitchFile))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSwitchFile)
         {
         }
 

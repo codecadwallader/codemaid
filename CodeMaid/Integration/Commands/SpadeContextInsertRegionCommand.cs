@@ -2,7 +2,6 @@
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -10,8 +9,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for inserting a region within Spade.
     /// </summary>
-    internal class SpadeContextInsertRegionCommand : BaseCommand
+    internal sealed class SpadeContextInsertRegionCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeContextInsertRegionCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextInsertRegionCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly GenerateRegionLogic _generateRegionLogic;
@@ -26,8 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeContextInsertRegionCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextInsertRegion))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextInsertRegion)
         {
             _generateRegionLogic = GenerateRegionLogic.GetInstance(package);
             _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Insert Region");

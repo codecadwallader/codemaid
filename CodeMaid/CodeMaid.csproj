@@ -189,6 +189,7 @@
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
     <Compile Include="Helpers\RegexNullSafe.cs" />
+    <Compile Include="Helpers\SettingsMonitor.cs" />
     <Compile Include="Helpers\SettingsContextHelper.cs" />
     <Compile Include="Helpers\RegionHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
+    <Compile Include="Integration\ISwitchableFeature.cs" />
     <Compile Include="Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
@@ -254,7 +256,6 @@
     <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
     <Compile Include="Integration\Events\DocumentEventListener.cs" />
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
-    <Compile Include="Integration\Events\ShellEventListener.cs" />
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
     <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
@@ -355,6 +356,7 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\General\FeaturesViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
     <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
     <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
@@ -691,6 +693,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\General\FeaturesDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,15 +1,26 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for formatting the current comment.
     /// </summary>
-    internal class CommentFormatCommand : BaseCommand
+    internal sealed class CommentFormatCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CommentFormatCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CommentFormatCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_CommentFormat, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly CommentFormatLogic _commentFormatLogic;
@@ -24,8 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CommentFormatCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat)
         {
             _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidFormatComment);
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);

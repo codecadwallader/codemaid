@@ -6,8 +6,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for build progress events.
     /// </summary>
-    internal class BuildProgressEventListener : BaseEventListener
+    internal sealed class BuildProgressEventListener : BaseEventListener
     {
+        #region Singleton
+
+        public static BuildProgressEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new BuildProgressEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -19,10 +28,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             // Store access to the build events, otherwise events will not register properly via DTE.
             BuildEvents = Package.IDE.Events.BuildEvents;
-            BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
-            BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
-            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
-            BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
+            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Switch);
         }
 
         #endregion Constructors
@@ -133,6 +139,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion Private Event Handlers
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
+            BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
+            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
+            BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
+            BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
+            BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
+            BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -150,10 +176,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && BuildEvents != null)
                 {
-                    BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
-                    BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
-                    BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
-                    BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
+                    Switch(on: false);
                 }
             }
         }

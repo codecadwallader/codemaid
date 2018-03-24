@@ -5,16 +5,26 @@ using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
-using System.ComponentModel.Design;
-using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for finding a file in the solution explorer.
     /// </summary>
-    internal class FindInSolutionExplorerCommand : BaseCommand
+    internal sealed class FindInSolutionExplorerCommand : BaseCommand
     {
+        #region Singleton
+
+        public static FindInSolutionExplorerCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new FindInSolutionExplorerCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_FindInSolutionExplorer, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly CommandHelper _commandHelper;
@@ -28,8 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal FindInSolutionExplorerCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidFindInSolutionExplorer))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidFindInSolutionExplorer)
         {
             _commandHelper = CommandHelper.GetInstance(package);
         }
@@ -96,12 +105,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ClearSolutionExplorerSearchFilter()
         {
-            if (Package.ServiceProvider != null)
-            {
-                var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package.ServiceProvider, VSConstants.StandardToolWindows.SolutionExplorer);
-                var ws = solutionExplorer as IVsWindowSearch;
-                ws?.ClearSearch();
-            }
+            var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package, VSConstants.StandardToolWindows.SolutionExplorer);
+            var ws = solutionExplorer as IVsWindowSearch;
+            ws?.ClearSearch();
         }
 
         /// <summary>
