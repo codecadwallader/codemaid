@@ -605,6 +605,7 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <Generator>VsctGenerator</Generator>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
+      <SubType>Designer</SubType>
     </VSCTCompile>
     <None Include="CodeMaid.vsct">
       <SubType>Designer</SubType>
@@ -811,7 +812,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en-US.resx">
-      <DependentUpon>Properties\Resources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -821,7 +822,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
       <MergeWithCTO>true</MergeWithCTO>
-      <DependentUpon>Properties\Resources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="source.extension.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>

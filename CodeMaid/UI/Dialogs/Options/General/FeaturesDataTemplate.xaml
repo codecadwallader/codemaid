@@ -56,7 +56,7 @@
 
             <GroupBox Header="{x:Static p:Resources.SwitchingViewModel_Switching}">
                 <StackPanel>
-                    <CheckBox Content="Switch File" IsChecked="{Binding SwitchFile}" />
+                    <CheckBox Content="{x:Static p:Resources.SwitchFile_no_alt}" IsChecked="{Binding SwitchFile}" />
                 </StackPanel>
             </GroupBox>
 

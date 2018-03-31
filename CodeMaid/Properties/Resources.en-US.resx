@@ -771,4 +771,7 @@
   <data name="Cleaning_n" xml:space="preserve">
     <value>Cleaning</value>
   </data>
+  <data name="SwitchFile_no_alt" xml:space="preserve">
+    <value>Switch File</value>
+  </data>
 </root>

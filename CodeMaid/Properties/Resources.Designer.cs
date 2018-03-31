@@ -1762,6 +1762,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Switch File 的本地化字符串。
+        /// </summary>
+        public static string SwitchFile_no_alt {
+            get {
+                return ResourceManager.GetString("SwitchFile_no_alt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Switching 的本地化字符串。
         /// </summary>
         public static string SwitchingViewModel_Switching {
