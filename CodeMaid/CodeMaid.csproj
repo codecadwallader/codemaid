@@ -421,6 +421,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="zh-Hans\extension.vsixlangpack">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Resource>
