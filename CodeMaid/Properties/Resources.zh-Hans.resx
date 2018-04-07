@@ -792,4 +792,7 @@
   <data name="CleanupActiveDocument" xml:space="preserve">
     <value>整理活动文档</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>其它</value>
+  </data>
 </root>

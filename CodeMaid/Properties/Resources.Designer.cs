@@ -1213,6 +1213,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Other 的本地化字符串。
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Other cleaning commands (ex: ReSharper.ReSharper_SilentCleanupCode) 的本地化字符串。
         /// </summary>
         public static string OtherCleaningCommandsExReSharperReSharper_SilentCleanupCode {

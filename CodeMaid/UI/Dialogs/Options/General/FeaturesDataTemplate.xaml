@@ -20,7 +20,7 @@
                     <CheckBox Content="{x:Static p:Resources.FindInSolutionExplorer}" IsChecked="{Binding FindInSolutionExplorer}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Other">
+            <GroupBox Header="{x:Static p:Resources.Other}">
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.FormatComment}" IsChecked="{Binding CommentFormat}" />
                     <CheckBox Content="{x:Static p:Resources.JoinLines}" IsChecked="{Binding JoinLines}" />

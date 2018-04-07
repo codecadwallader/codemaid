@@ -792,4 +792,7 @@
   <data name="FeaturesViewModel_Features" xml:space="preserve">
     <value>Features</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
 </root>
