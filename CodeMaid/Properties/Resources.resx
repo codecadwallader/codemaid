@@ -795,4 +795,22 @@
   <data name="Other" xml:space="preserve">
     <value>Other</value>
   </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>Complexity</value>
+  </data>
+  <data name="Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="MostComplex" xml:space="preserve">
+    <value>Most Complex</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>loading...</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>refreshing...</value>
+  </data>
 </root>

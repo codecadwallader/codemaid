@@ -673,6 +673,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Complexity 的本地化字符串。
+        /// </summary>
+        public static string Complexity {
+            get {
+                return ResourceManager.GetString("Complexity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Conditions 的本地化字符串。
         /// </summary>
         public static string Conditions {
@@ -1141,6 +1150,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 loading... 的本地化字符串。
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Load models asynchronously 的本地化字符串。
         /// </summary>
         public static string LoadModelsAsynchronously {
@@ -1159,6 +1177,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Metadata 的本地化字符串。
+        /// </summary>
+        public static string Metadata {
+            get {
+                return ResourceManager.GetString("Metadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Miscellaneous 的本地化字符串。
         /// </summary>
         public static string Miscellaneous {
@@ -1168,11 +1195,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Most Complex 的本地化字符串。
+        /// </summary>
+        public static string MostComplex {
+            get {
+                return ResourceManager.GetString("MostComplex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 name only 的本地化字符串。
         /// </summary>
         public static string NameOnly {
             get {
                 return ResourceManager.GetString("NameOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Namespace 的本地化字符串。
+        /// </summary>
+        public static string Namespace {
+            get {
+                return ResourceManager.GetString("Namespace", resourceCulture);
             }
         }
         
@@ -1362,6 +1407,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Rebuilding {
             get {
                 return ResourceManager.GetString("Rebuilding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 refreshing... 的本地化字符串。
+        /// </summary>
+        public static string Refreshing {
+            get {
+                return ResourceManager.GetString("Refreshing", resourceCulture);
             }
         }
         

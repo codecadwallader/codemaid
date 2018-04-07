@@ -3,6 +3,7 @@
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CodeItemBaseTemplates.xaml" />
@@ -119,7 +120,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ComplexityToolTipDataTemplate">
-        <HeaderedContentControl Header="Complexity" Content="{Binding}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" Style="{StaticResource HeaderedToolTipValue}" />
+        <HeaderedContentControl Header="{x:Static p:Resources.Complexity}" Content="{Binding}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" Style="{StaticResource HeaderedToolTipValue}" />
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Digging_ShowItemComplexity, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
@@ -128,7 +129,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetadataToolTipDataTemplate">
-        <HeaderedContentControl Header="Metadata" Content="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" Style="{StaticResource HeaderedToolTipValue}" />
+        <HeaderedContentControl Header="{x:Static p:Resources.Metadata}" Content="{Binding Converter={x:Static cnv:CodeItemToMetadataStringConverter.Extended}}" Style="{StaticResource HeaderedToolTipValue}" />
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Digging_ShowItemMetadata, Source={x:Static p:Settings.Default}}" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
@@ -158,11 +159,11 @@
     </DataTemplate>
 
     <DataTemplate x:Key="NamespaceToolTipDataTemplate">
-        <HeaderedContentControl Header="Namespace" Content="{Binding}" Style="{StaticResource HeaderedToolTipValue}" />
+        <HeaderedContentControl Header="{x:Static properties:Resources.Namespace}" Content="{Binding}" Style="{StaticResource HeaderedToolTipValue}" />
     </DataTemplate>
 
     <DataTemplate x:Key="HighestComplexityToolTipDataTemplate">
-        <HeaderedContentControl Header="Most Complex" Style="{StaticResource HeaderedToolTipValue}">
+        <HeaderedContentControl Header="{x:Static properties:Resources.MostComplex}" Style="{StaticResource HeaderedToolTipValue}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Margin="0,0,5,0" />
                 <ContentControl Content="{Binding Complexity}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" />
