@@ -774,4 +774,22 @@
   <data name="SwitchFile_no_alt" xml:space="preserve">
     <value>Switch File</value>
   </data>
+  <data name="CleanupActiveDocument" xml:space="preserve">
+    <value>Cleanup Active Document</value>
+  </data>
+  <data name="SolutionExplorer" xml:space="preserve">
+    <value>Solution Explorer</value>
+  </data>
+  <data name="ReorganizeActiveDocument" xml:space="preserve">
+    <value>Reorganize Active Document</value>
+  </data>
+  <data name="ToolWindows" xml:space="preserve">
+    <value>Tool Windows</value>
+  </data>
+  <data name="Spade" xml:space="preserve">
+    <value>Spade</value>
+  </data>
+  <data name="FeaturesViewModel_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
 </root>
