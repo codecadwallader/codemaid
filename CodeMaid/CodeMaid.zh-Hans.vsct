@@ -131,7 +131,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>整理活动文档(&amp;C)</ButtonText>
+          <ButtonText>清理活动文档(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -140,7 +140,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理所有代码(&amp;A)...</ButtonText>
+          <ButtonText>清理所有代码(&amp;A)...</ButtonText>
         </Strings>
       </Button>
 
@@ -149,7 +149,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理打开代码(&amp;C)</ButtonText>
+          <ButtonText>清理打开代码(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -158,7 +158,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理已选代码(&amp;C)</ButtonText>
+          <ButtonText>清理已选代码(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
