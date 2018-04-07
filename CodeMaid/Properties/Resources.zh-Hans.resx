@@ -370,7 +370,7 @@
     <value>在文件保存时自动清理</value>
   </data>
   <data name="AutomaticallySaveAndCloseDocumentsOpenedByCleanup" xml:space="preserve">
-    <value>自动保存和关闭通过清理打开的文档</value>
+    <value>自动保存和关闭执行清理时打开的文档</value>
   </data>
   <data name="PerformPartialCleanupIfFileIsNotInTheSolution" xml:space="preserve">
     <value>如果文件不在解决方案中, 则执行部分清理</value>
@@ -607,7 +607,7 @@
     <value>切换</value>
   </data>
   <data name="Reorganizing" xml:space="preserve">
-    <value>重新组织</value>
+    <value>整理</value>
   </data>
   <data name="ReorganizingTypesViewModel_Types" xml:space="preserve">
     <value>类型</value>
@@ -724,7 +724,7 @@
     <value>折叠选定的解决方案资源管理器</value>
   </data>
   <data name="Digging" xml:space="preserve">
-    <value>发掘</value>
+    <value>代码视图</value>
   </data>
   <data name="SpadeToolWindow" xml:space="preserve">
     <value>代码视图</value>
@@ -748,7 +748,7 @@
     <value>联接行</value>
   </data>
   <data name="ReorganizeActiveCode" xml:space="preserve">
-    <value>重新组织活动代码</value>
+    <value>整理活动文档</value>
   </data>
   <data name="SortLines" xml:space="preserve">
     <value>排序行</value>

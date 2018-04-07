@@ -149,7 +149,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>清理打开代码(&amp;C)</ButtonText>
+          <ButtonText>清理打开的代码(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -248,7 +248,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>活动文档大纲(&amp;Z)</ButtonText>
+          <ButtonText>整理活动文档(&amp;Z)</ButtonText>
         </Strings>
       </Button>
 
