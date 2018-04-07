@@ -598,18 +598,17 @@
     </Content>
     <VSCTCompile Include="CodeMaid.zh-Hans.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
-      <Generator>VsctGenerator</Generator>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
     </VSCTCompile>
     <VSCTCompile Include="CodeMaid.en-US.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
-      <Generator>VsctGenerator</Generator>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
       <SubType>Designer</SubType>
     </VSCTCompile>
     <None Include="CodeMaid.vsct">
       <SubType>Designer</SubType>
       <LastGenOutput>CodeMaid.cs</LastGenOutput>
+      <Generator>VsctGenerator</Generator>
     </None>
     <Content Include="CodeMaid_Large.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
