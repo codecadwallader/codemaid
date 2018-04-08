@@ -409,7 +409,7 @@
     <value>在文件顶部</value>
   </data>
   <data name="AfterAttributes" xml:space="preserve">
-    <value>属性后</value>
+    <value>特性后</value>
   </data>
   <data name="AfterOpeningBraces" xml:space="preserve">
     <value>打开大括号后</value>
