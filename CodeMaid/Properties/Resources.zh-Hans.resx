@@ -250,7 +250,7 @@
     <value>字体</value>
   </data>
   <data name="SkipDuringAutomaticCleanupOnSave" xml:space="preserve">
-    <value>在保存时跳过自动清理</value>
+    <value>当执行自动清理时跳过</value>
   </data>
   <data name="Icons" xml:space="preserve">
     <value>图标</value>
@@ -271,19 +271,19 @@
     <value>缓存文件代码模型</value>
   </data>
   <data name="ShowBuildProgressOnVisualStudioIconInWindowsTaskbar" xml:space="preserve">
-    <value>在 Windows 任务栏中的Visual Studio 图标中生成进度</value>
+    <value>在 Windows 任务栏中的 Visual Studio 图标中显示生成进度</value>
   </data>
   <data name="HideBuildProgressWindowWhenABuildStops" xml:space="preserve">
-    <value>在生成停止时隐藏生成进度窗口</value>
+    <value>在生成停止时隐藏'生成进度'窗口</value>
   </data>
   <data name="ShowBuildProgressWindowWhenABuildStarts" xml:space="preserve">
-    <value>在生成开始时显示生成进度窗口</value>
+    <value>在生成开始时显示'生成进度'窗口</value>
   </data>
   <data name="BuildProgressWindow" xml:space="preserve">
-    <value>生成进度的窗口</value>
+    <value>'生成进度'窗口</value>
   </data>
   <data name="WrapCommentsAtColumn" xml:space="preserve">
-    <value>在列中换行注释</value>
+    <value>注释最大列长度 (当长度达到时强制换行)</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>常规</value>
@@ -310,13 +310,13 @@
     <value>在清理过程中格式化注释</value>
   </data>
   <data name="ClearSolutionExplorerSearchFilteringToFindFilteredItems" xml:space="preserve">
-    <value>清除解决方案资源管理器搜索筛选以查找筛选的项目</value>
+    <value>清除解决方案资源管理器搜索以查找被筛选掉的项目</value>
   </data>
   <data name="ShowItemComplexityMcCabe" xml:space="preserve">
     <value>显示项目复杂性 (McCabe)</value>
   </data>
   <data name="ShowItemMetadata" xml:space="preserve">
-    <value>显示项元数据</value>
+    <value>显示项目元数据</value>
   </data>
   <data name="ShowMethodParameters" xml:space="preserve">
     <value>显示方法参数</value>
@@ -376,25 +376,25 @@
     <value>如果文件不在解决方案中, 则执行部分清理</value>
   </data>
   <data name="InsertBlankLinePaddingBefore" xml:space="preserve">
-    <value>在前面插入空白行填充</value>
+    <value>在前面插入空行</value>
   </data>
   <data name="InsertBlankLinePaddingBetween" xml:space="preserve">
-    <value>在之间插入空白行填充</value>
+    <value>在之间插入空行</value>
   </data>
   <data name="InsertBlankLinePaddingAfter" xml:space="preserve">
-    <value>插入空行填充</value>
+    <value>在之后插入空行</value>
   </data>
   <data name="InsertBlankSpaceBefore" xml:space="preserve">
     <value>在前面插入空格</value>
   </data>
   <data name="InsertExplicitAccessModifiersOn" xml:space="preserve">
-    <value>在上插入显式访问修饰符</value>
+    <value>插入显式访问修饰符</value>
   </data>
   <data name="InsertEndOfFileTrailingNewLine" xml:space="preserve">
-    <value>插入结尾的文件尾部新行</value>
+    <value>在文件结尾插入新行标记(EOF)</value>
   </data>
   <data name="SelectASubCategoryToSetOptions" xml:space="preserve">
-    <value>选择要设置选项的子类别。</value>
+    <value>选择一个子类别进行设置。</value>
   </data>
   <data name="Whitespace" xml:space="preserve">
     <value>空白</value>
@@ -439,16 +439,16 @@
     <value>所有其他内容 (比如: .txt, README)</value>
   </data>
   <data name="RegularExpressionsThatMatchPathNamesToExcludeExResxOrLib" xml:space="preserve">
-    <value>与要排除的路径名匹配的正则表达式 (ex: \ resx $ 或 \ lib \)</value>
+    <value>排除与以下正则表达式相匹配的路径 (例如: \.resx$ or \\lib\\ )</value>
   </data>
   <data name="PlaceEachRegularExpressionOnASeparateLine" xml:space="preserve">
-    <value>将每个正则表达式放在单独的行上</value>
+    <value>每个正则表达式一行</value>
   </data>
   <data name="ExtraIndentForValuesInsideXMLComments" xml:space="preserve">
     <value>XML 注释内部值的额外缩进</value>
   </data>
   <data name="RemoveEndOfFileTrailingNewLine" xml:space="preserve">
-    <value>删除文件尾部新行的结尾</value>
+    <value>删除文件结尾新行标记(EOF)</value>
   </data>
   <data name="RemoveEndOfLineWhitespace" xml:space="preserve">
     <value>删除行尾空白</value>
@@ -469,7 +469,7 @@
     <value>使用 #region 名称更新 #endregion 标记</value>
   </data>
   <data name="ExEndregionMethods" xml:space="preserve">
-    <value>Ex: #endregion 方法</value>
+    <value>例如: #endregion 方法</value>
   </data>
   <data name="UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502" xml:space="preserve">
     <value>通过在单独的行上放置大括号来更新单行方法 (SA1502)</value>
@@ -478,19 +478,19 @@
     <value>文件头</value>
   </data>
   <data name="RunFormatDocument" xml:space="preserve">
-    <value>运行格式化文档</value>
+    <value>运行 '设置文档的格式'</value>
   </data>
   <data name="RunRemoveAndSortUsingStatements" xml:space="preserve">
-    <value>运行删除和排序using语句</value>
+    <value>运行 '对 Using 进行删除和排序'</value>
   </data>
   <data name="UsingStatementsToReInsertWhenRemovedExUsingSystem" xml:space="preserve">
-    <value>当被删除时using语句来重新插入 (如: using System;)</value>
+    <value>当被删除时，重新插入以下 Using 语句 (如: using System;)</value>
   </data>
   <data name="PlaceEachUsingStatementOnASeparateLine" xml:space="preserve">
-    <value>将每个 using 语句放在单独的行上</value>
+    <value>每个 Using 语句一行</value>
   </data>
   <data name="AlphabetizeMembersOfTheSameGroup" xml:space="preserve">
-    <value>同一组的顺序成员</value>
+    <value>按字母排序同一组内成员</value>
   </data>
   <data name="KeepMembersWithinRegions" xml:space="preserve">
     <value>保留 #regions 内的成员</value>
@@ -502,16 +502,16 @@
     <value>主要排序应由</value>
   </data>
   <data name="TypeThenAccess" xml:space="preserve">
-    <value>键入然后访问</value>
+    <value>类型 优先于 访问级别</value>
   </data>
   <data name="AccessThenType" xml:space="preserve">
-    <value>访问然后键入</value>
+    <value>访问级别 优先于 类型</value>
   </data>
   <data name="AccessLevelsShouldBeOrderedBy" xml:space="preserve">
-    <value>访问级别应按</value>
+    <value>访问级别排序应按</value>
   </data>
   <data name="RunReorganizeAtStartOfCleanup" xml:space="preserve">
-    <value>在清理开始时运行重组</value>
+    <value>在清理开始时执行整理</value>
   </data>
   <data name="Cleanup" xml:space="preserve">
     <value>清理</value>
@@ -520,13 +520,13 @@
     <value>条件</value>
   </data>
   <data name="PerformReorganizationWhenPreprocessorConditionalsArePresent" xml:space="preserve">
-    <value>在存在预处理器条件时执行重组</value>
+    <value>在存在预处理器条件时执行整理</value>
   </data>
   <data name="IncludeAccessLevelInRegions" xml:space="preserve">
     <value>在 #regions 中包括访问级别</value>
   </data>
   <data name="ExRegionPublicMethodsRegionPrivateMethods" xml:space="preserve">
-    <value>Ex: #region 公共方法, #region 私有方法</value>
+    <value>例如: #region 公共方法, #region 私有方法</value>
   </data>
   <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
     <value>插入/保留 #regions (即使它们是空的)</value>
@@ -541,7 +541,7 @@
     <value>删除现有 #regions</value>
   </data>
   <data name="SkipWrappingOnTheLastWord" xml:space="preserve">
-    <value>跳过最后一个词</value>
+    <value>当最后一个词超出注释长度时，不强制换行</value>
   </data>
   <data name="Insert" xml:space="preserve">
     <value>插入</value>
@@ -553,13 +553,13 @@
     <value>拆分</value>
   </data>
   <data name="DragToReorderDragOverToGroupRightClickToSplitDoubleClickToRename" xml:space="preserve">
-    <value>拖动以重新排序, 拖动到组, 右键单击可拆分, 双击以重命名</value>
+    <value>拖动可重新排序, 拖放到另一项上可分组, 右键单击可拆分, 双击可重命名</value>
   </data>
   <data name="SetsOfRelatedFileExtensionsExCppH" xml:space="preserve">
-    <value>相关文件扩展集 (比如:. cpp h)</value>
+    <value>关联的文件扩展名 (例如: .cpp .h )</value>
   </data>
   <data name="PlaceEachSetOnASeparateLine" xml:space="preserve">
-    <value>将每个设置放在单独的行上</value>
+    <value>每个设置一行</value>
   </data>
   <data name="WhileCleaning" xml:space="preserve">
     <value>清理时</value>
@@ -577,7 +577,7 @@
     <value>其他清理命令 (比如: ReSharper ReSharper_SilentCleanupCode)</value>
   </data>
   <data name="PlaceEachCommandOnASeparateLine" xml:space="preserve">
-    <value>将每个命令放在单独的行上</value>
+    <value>每个命令一行</value>
   </data>
   <data name="CodeMaidExport" xml:space="preserve">
     <value>CodeMaid: 导出</value>
@@ -715,7 +715,7 @@
     <value>清理打开的代码</value>
   </data>
   <data name="CleanupSelectedCode" xml:space="preserve">
-    <value>清理选定的代码</value>
+    <value>清理已选代码</value>
   </data>
   <data name="CollapseAllSolutionExplorer" xml:space="preserve">
     <value>折叠所有解决方案资源管理器</value>
@@ -730,7 +730,7 @@
     <value>代码大纲</value>
   </data>
   <data name="FormatComment" xml:space="preserve">
-    <value>格式注释</value>
+    <value>格式化注释</value>
   </data>
   <data name="FindInSolutionExplorer" xml:space="preserve">
     <value>在解决方案资源管理器中查找</value>
@@ -739,19 +739,19 @@
     <value>保存时自动清理</value>
   </data>
   <data name="BuildProgressToolWindow" xml:space="preserve">
-    <value>"生成进度" 工具窗口</value>
+    <value>'生成进度'窗口</value>
   </data>
   <data name="RemoveRegion" xml:space="preserve">
     <value>删除 #region</value>
   </data>
   <data name="JoinLines" xml:space="preserve">
-    <value>联接行</value>
+    <value>连接多行</value>
   </data>
   <data name="ReorganizeActiveCode" xml:space="preserve">
     <value>整理活动文档</value>
   </data>
   <data name="SortLines" xml:space="preserve">
-    <value>排序行</value>
+    <value>排序多行</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>只读</value>
@@ -784,13 +784,13 @@
     <value>工具窗口</value>
   </data>
   <data name="ReorganizeActiveDocument" xml:space="preserve">
-    <value>重新组织活动文档</value>
+    <value>整理活动文档</value>
   </data>
   <data name="SolutionExplorer" xml:space="preserve">
     <value>解决方案资源管理器</value>
   </data>
   <data name="CleanupActiveDocument" xml:space="preserve">
-    <value>整理活动文档</value>
+    <value>清理活动文档</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>其它</value>

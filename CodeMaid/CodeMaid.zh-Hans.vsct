@@ -212,7 +212,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>联结行(&amp;J)</ButtonText>
+          <ButtonText>连接多行(&amp;J)</ButtonText>
         </Strings>
       </Button>
 
@@ -267,7 +267,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>多行排序(&amp;S)</ButtonText>
+          <ButtonText>排序多行(&amp;S)</ButtonText>
         </Strings>
       </Button>
 
