@@ -3,7 +3,6 @@
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:ci="clr-namespace:SteveCadwallader.CodeMaid.Model.CodeItems"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
-        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CodeItemBaseTemplates.xaml" />
@@ -159,11 +158,11 @@
     </DataTemplate>
 
     <DataTemplate x:Key="NamespaceToolTipDataTemplate">
-        <HeaderedContentControl Header="{x:Static properties:Resources.Namespace}" Content="{Binding}" Style="{StaticResource HeaderedToolTipValue}" />
+        <HeaderedContentControl Header="{x:Static p:Resources.Namespace}" Content="{Binding}" Style="{StaticResource HeaderedToolTipValue}" />
     </DataTemplate>
 
     <DataTemplate x:Key="HighestComplexityToolTipDataTemplate">
-        <HeaderedContentControl Header="{x:Static properties:Resources.MostComplex}" Style="{StaticResource HeaderedToolTipValue}">
+        <HeaderedContentControl Header="{x:Static p:Resources.MostComplex}" Style="{StaticResource HeaderedToolTipValue}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}" Margin="0,0,5,0" />
                 <ContentControl Content="{Binding Complexity}" ContentTemplate="{StaticResource ComplexityScoreDataTemplate}" />
