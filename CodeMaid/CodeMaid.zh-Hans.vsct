@@ -238,7 +238,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>移除所有大纲(&amp;R)</ButtonText>
+          <ButtonText>移除所有 #region(&amp;R)</ButtonText>
         </Strings>
       </Button>
 
@@ -288,14 +288,14 @@
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>插入大纲(&amp;I)</ButtonText>
+          <ButtonText>插入 #region(&amp;I)</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>移除大纲(&amp;R)</ButtonText>
+          <ButtonText>移除 #region(&amp;R)</ButtonText>
         </Strings>
       </Button>
 

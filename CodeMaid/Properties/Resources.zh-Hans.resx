@@ -124,13 +124,13 @@
     <value>取消</value>
   </data>
   <data name="RemoveAllRegions" xml:space="preserve">
-    <value>移除全部大纲(&amp;R)</value>
+    <value>移除全部 #region(&amp;R)</value>
   </data>
   <data name="RemoveCurrentRegion" xml:space="preserve">
-    <value>移除当前大纲(&amp;R)</value>
+    <value>移除当前 #region(&amp;R)</value>
   </data>
   <data name="RemoveSelectedRegions" xml:space="preserve">
-    <value>移除已选大纲(&amp;R)</value>
+    <value>移除已选 #region(&amp;R)</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
@@ -229,7 +229,7 @@
     <value>切换文件(&amp;W)</value>
   </data>
   <data name="NewRegion" xml:space="preserve">
-    <value>新建大纲</value>
+    <value>新建 #region</value>
   </data>
   <data name="CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
     <value>CodeMaid 已开启保存时自动清理</value>
@@ -457,16 +457,16 @@
     <value>删除多个连续的空行</value>
   </data>
   <data name="Regions" xml:space="preserve">
-    <value>大纲</value>
+    <value>#region</value>
   </data>
   <data name="RemoveRegions" xml:space="preserve">
-    <value>删除大纲</value>
+    <value>删除 #region</value>
   </data>
   <data name="UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504" xml:space="preserve">
     <value>将访问器更新为单行或多行 (SA1504)</value>
   </data>
   <data name="UpdateEndregionTagsWithRegionName" xml:space="preserve">
-    <value>使用大纲名称更新 #endregion 标记</value>
+    <value>使用 #region 名称更新 #endregion 标记</value>
   </data>
   <data name="ExEndregionMethods" xml:space="preserve">
     <value>Ex: #endregion 方法</value>
@@ -493,7 +493,7 @@
     <value>同一组的顺序成员</value>
   </data>
   <data name="KeepMembersWithinRegions" xml:space="preserve">
-    <value>保留区大纲内的成员</value>
+    <value>保留 #region 内的成员</value>
   </data>
   <data name="PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup" xml:space="preserve">
     <value>在其组的末尾放置显式接口成员</value>
@@ -523,22 +523,22 @@
     <value>在存在预处理器条件时执行重组</value>
   </data>
   <data name="IncludeAccessLevelInRegions" xml:space="preserve">
-    <value>在大纲中包括访问级别</value>
+    <value>在 #region 中包括访问级别</value>
   </data>
   <data name="ExRegionPublicMethodsRegionPrivateMethods" xml:space="preserve">
     <value>Ex: #region 公共方法, #region 私有方法</value>
   </data>
   <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
-    <value>插入/保留区域 (即使它们是空的)</value>
+    <value>插入/保留 #region (即使它们是空的)</value>
   </data>
   <data name="InsertNewRegions" xml:space="preserve">
-    <value>插入新大纲</value>
+    <value>插入新 #region</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>删除</value>
   </data>
   <data name="RemoveExistingRegions" xml:space="preserve">
-    <value>删除现有大纲域</value>
+    <value>删除现有 #region</value>
   </data>
   <data name="SkipWrappingOnTheLastWord" xml:space="preserve">
     <value>跳过最后一个词</value>
@@ -742,7 +742,7 @@
     <value>"生成进度" 工具窗口</value>
   </data>
   <data name="RemoveRegion" xml:space="preserve">
-    <value>删除区域</value>
+    <value>删除 #region</value>
   </data>
   <data name="JoinLines" xml:space="preserve">
     <value>联接行</value>
