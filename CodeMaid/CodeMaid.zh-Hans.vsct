@@ -238,7 +238,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>移除所有 #region(&amp;R)</ButtonText>
+          <ButtonText>移除所有 #regions(&amp;R)</ButtonText>
         </Strings>
       </Button>
 

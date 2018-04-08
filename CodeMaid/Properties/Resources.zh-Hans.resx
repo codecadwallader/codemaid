@@ -124,13 +124,13 @@
     <value>取消</value>
   </data>
   <data name="RemoveAllRegions" xml:space="preserve">
-    <value>移除全部 #region(&amp;R)</value>
+    <value>移除全部 #regions(&amp;R)</value>
   </data>
   <data name="RemoveCurrentRegion" xml:space="preserve">
     <value>移除当前 #region(&amp;R)</value>
   </data>
   <data name="RemoveSelectedRegions" xml:space="preserve">
-    <value>移除已选 #region(&amp;R)</value>
+    <value>移除已选 #regions(&amp;R)</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
@@ -457,10 +457,10 @@
     <value>删除多个连续的空行</value>
   </data>
   <data name="Regions" xml:space="preserve">
-    <value>#region</value>
+    <value>#regions</value>
   </data>
   <data name="RemoveRegions" xml:space="preserve">
-    <value>删除 #region</value>
+    <value>删除 #regions</value>
   </data>
   <data name="UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504" xml:space="preserve">
     <value>将访问器更新为单行或多行 (SA1504)</value>
@@ -493,7 +493,7 @@
     <value>同一组的顺序成员</value>
   </data>
   <data name="KeepMembersWithinRegions" xml:space="preserve">
-    <value>保留 #region 内的成员</value>
+    <value>保留 #regions 内的成员</value>
   </data>
   <data name="PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup" xml:space="preserve">
     <value>在其组的末尾放置显式接口成员</value>
@@ -523,22 +523,22 @@
     <value>在存在预处理器条件时执行重组</value>
   </data>
   <data name="IncludeAccessLevelInRegions" xml:space="preserve">
-    <value>在 #region 中包括访问级别</value>
+    <value>在 #regions 中包括访问级别</value>
   </data>
   <data name="ExRegionPublicMethodsRegionPrivateMethods" xml:space="preserve">
     <value>Ex: #region 公共方法, #region 私有方法</value>
   </data>
   <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
-    <value>插入/保留 #region (即使它们是空的)</value>
+    <value>插入/保留 #regions (即使它们是空的)</value>
   </data>
   <data name="InsertNewRegions" xml:space="preserve">
-    <value>插入新 #region</value>
+    <value>插入新 #regions</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>删除</value>
   </data>
   <data name="RemoveExistingRegions" xml:space="preserve">
-    <value>删除现有 #region</value>
+    <value>删除现有 #regions</value>
   </data>
   <data name="SkipWrappingOnTheLastWord" xml:space="preserve">
     <value>跳过最后一个词</value>
