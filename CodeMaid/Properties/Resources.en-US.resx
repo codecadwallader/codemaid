@@ -741,9 +741,6 @@
   <data name="FeaturesDataTemplate_AutomaticCleanupOnSave" xml:space="preserve">
     <value>Automatic Cleanup On Save</value>
   </data>
-  <data name="BuildProgressToolWindow" xml:space="preserve">
-    <value>Build Progress Tool Window</value>
-  </data>
   <data name="RemoveRegion" xml:space="preserve">
     <value>Remove Region</value>
   </data>

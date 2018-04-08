@@ -738,9 +738,6 @@
   <data name="FeaturesDataTemplate_AutomaticCleanupOnSave" xml:space="preserve">
     <value>保存时自动清理</value>
   </data>
-  <data name="BuildProgressToolWindow" xml:space="preserve">
-    <value>'生成进度'窗口</value>
-  </data>
   <data name="RemoveRegion" xml:space="preserve">
     <value>删除 #region</value>
   </data>
