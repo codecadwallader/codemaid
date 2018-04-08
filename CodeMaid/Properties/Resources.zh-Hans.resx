@@ -774,4 +774,43 @@
   <data name="SwitchFile_no_alt" xml:space="preserve">
     <value>切换文件</value>
   </data>
+  <data name="Spade" xml:space="preserve">
+    <value>码锹</value>
+  </data>
+  <data name="FeaturesViewModel_Features" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="ToolWindows" xml:space="preserve">
+    <value>工具窗口</value>
+  </data>
+  <data name="ReorganizeActiveDocument" xml:space="preserve">
+    <value>重新组织活动文档</value>
+  </data>
+  <data name="SolutionExplorer" xml:space="preserve">
+    <value>解决方案资源管理器</value>
+  </data>
+  <data name="CleanupActiveDocument" xml:space="preserve">
+    <value>整理活动文档</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其它</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>复杂度</value>
+  </data>
+  <data name="Metadata" xml:space="preserve">
+    <value>元数据</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>命名空间</value>
+  </data>
+  <data name="MostComplex" xml:space="preserve">
+    <value>最复杂</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>正在加载...</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>正在刷新...</value>
+  </data>
 </root>

@@ -191,11 +191,11 @@
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsLoading}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="loading..." />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Loading}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="refreshing..." />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Refreshing}" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
