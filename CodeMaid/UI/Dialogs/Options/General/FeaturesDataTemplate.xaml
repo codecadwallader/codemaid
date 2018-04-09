@@ -7,13 +7,13 @@
                 <StackPanel>
                     <CheckBox Content="Cleanup Active Document" IsChecked="{Binding CleanupActiveCode}" />
                     <CheckBox Content="Automatic Cleanup On Save" IsChecked="{Binding SettingCleanupOnSave}" IsEnabled="{Binding CleanupActiveCode}" Margin="35,5,5,5" />
-                    <CheckBox Content="Cleanup Open Code" IsChecked="{Binding CleanupOpenCode}" />
                     <CheckBox Content="Cleanup All Code" IsChecked="{Binding CleanupAllCode}" />
+                    <CheckBox Content="Cleanup Open Code" IsChecked="{Binding CleanupOpenCode}" />
+                    <CheckBox Content="Cleanup Selected Code" IsChecked="{Binding CleanupSelectedCode}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Solution Explorer">
                 <StackPanel>
-                    <CheckBox Content="Cleanup Selected Code" IsChecked="{Binding CleanupSelectedCode}" />
                     <CheckBox Content="Collapse All Solution Explorer" IsChecked="{Binding CollapseAllSolutionExplorer}" />
                     <CheckBox Content="Collapse Selected Solution Explorer" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
                     <CheckBox Content="Find In Solution Explorer" IsChecked="{Binding FindInSolutionExplorer}" />
