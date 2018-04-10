@@ -160,13 +160,13 @@
     <value>正在重新生成</value>
   </data>
   <data name="CodeMaidSpade" xml:space="preserve">
-    <value>CodeMaid 代码大纲</value>
+    <value>CodeMaid 代码视图</value>
   </data>
   <data name="Canceling" xml:space="preserve">
     <value>正在取消...</value>
   </data>
   <data name="SearchCodeMaidSpadeCtrlM" xml:space="preserve">
-    <value>搜索代码大纲</value>
+    <value>搜索代码视图</value>
   </data>
   <data name="UnderTheCursor" xml:space="preserve">
     <value>在鼠标下方</value>
@@ -622,7 +622,7 @@
     <value>折叠</value>
   </data>
   <data name="DiggingViewModel_DiggingSpade" xml:space="preserve">
-    <value>代码大纲</value>
+    <value>代码视图</value>
   </data>
   <data name="CleaningUpdateViewModel_Update" xml:space="preserve">
     <value>更新</value>
@@ -724,10 +724,10 @@
     <value>折叠选定的解决方案资源管理器</value>
   </data>
   <data name="Digging" xml:space="preserve">
-    <value>代码大纲</value>
+    <value>代码视图</value>
   </data>
   <data name="SpadeToolWindow" xml:space="preserve">
-    <value>代码大纲</value>
+    <value>代码视图</value>
   </data>
   <data name="FormatComment" xml:space="preserve">
     <value>格式化注释</value>
@@ -772,7 +772,7 @@
     <value>切换文件</value>
   </data>
   <data name="Spade" xml:space="preserve">
-    <value>代码大纲</value>
+    <value>码锹</value>
   </data>
   <data name="FeaturesViewModel_Features" xml:space="preserve">
     <value>功能</value>
