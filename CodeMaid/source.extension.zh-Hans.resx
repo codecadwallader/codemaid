@@ -121,7 +121,7 @@
     <value>CodeMaid</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>CodeMaid 是一个开源Visual Studio 扩展, 用于整理和简化我们的 c#、c++、f#、VB、PHP、PowerShell、R、JSON、XAML、XML、ASP、HTML、CSS、LESS、SCSS、JavaScript 和TypeScript编码。</value>
+    <value>CodeMaid 是一个开源Visual Studio 扩展, 用于清理和简化我们的 C#、C++、F#、VB、PHP、PowerShell、R、JSON、XAML、XML、ASP、HTML、CSS、LESS、SCSS、JavaScript 和TypeScript编码。</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

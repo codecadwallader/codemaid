@@ -36,6 +36,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <UICulture>en-US</UICulture>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -421,6 +422,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="zh-Hans\extension.vsixlangpack">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Resource>
@@ -812,28 +817,22 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en-US.resx">
       <DependentUpon>Resources.resx</DependentUpon>
-      <MergeWithCTO>true</MergeWithCTO>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <None Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </None>
     <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
-      <MergeWithCTO>true</MergeWithCTO>
       <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="source.extension.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.en-US.resources</LogicalName>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="source.extension.resx">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
     </EmbeddedResource>
     <EmbeddedResource Include="source.extension.zh-Hans.resx">
+      <LogicalName>VSPackage.zh-Hans.resources</LogicalName>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
     </EmbeddedResource>

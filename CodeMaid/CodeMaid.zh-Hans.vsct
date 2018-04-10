@@ -27,7 +27,7 @@
         <CommandFlag>DefaultDocked</CommandFlag>
         <Strings>
           <ButtonText>CodeMaid Spade Toolbar</ButtonText>
-          <CommandName>CodeMaid码锹工具栏</CommandName>
+          <CommandName>CodeMaid码锹窗口</CommandName>
         </Strings>
       </Menu>
       <Menu guid="GuidCodeMaidMenuSet" id="MenuIDCodeMaidContextSpade" type="Context">
@@ -131,7 +131,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>整理活动文档(&amp;C)</ButtonText>
+          <ButtonText>清理活动文档(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -140,7 +140,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理所有代码(&amp;A)...</ButtonText>
+          <ButtonText>清理所有代码(&amp;A)...</ButtonText>
         </Strings>
       </Button>
 
@@ -149,7 +149,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理打开代码(&amp;C)</ButtonText>
+          <ButtonText>清理打开的代码(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -158,7 +158,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>整理已选代码(&amp;C)</ButtonText>
+          <ButtonText>清理已选代码(&amp;C)</ButtonText>
         </Strings>
       </Button>
 
@@ -212,7 +212,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>联结行(&amp;J)</ButtonText>
+          <ButtonText>连接多行(&amp;J)</ButtonText>
         </Strings>
       </Button>
 
@@ -238,7 +238,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>移除所有大纲(&amp;R)</ButtonText>
+          <ButtonText>移除所有 #regions(&amp;R)</ButtonText>
         </Strings>
       </Button>
 
@@ -248,7 +248,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>活动文档大纲(&amp;Z)</ButtonText>
+          <ButtonText>整理活动文档(&amp;Z)</ButtonText>
         </Strings>
       </Button>
 
@@ -267,7 +267,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>多行排序(&amp;S)</ButtonText>
+          <ButtonText>排序多行(&amp;S)</ButtonText>
         </Strings>
       </Button>
 
@@ -288,14 +288,14 @@
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeContextInsertRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>插入大纲(&amp;I)</ButtonText>
+          <ButtonText>插入 #region(&amp;I)</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeContextRemoveRegion" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>移除大纲(&amp;R)</ButtonText>
+          <ButtonText>移除 #region(&amp;R)</ButtonText>
         </Strings>
       </Button>
 
@@ -309,13 +309,13 @@
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
         <Icon guid="GuidImageRefresh" id="IconRefresh" />
         <Strings>
-          <ButtonText>刷新码锹</ButtonText>
+          <ButtonText>刷新码锹窗口</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeSearch" priority="0x0100" type="Button">
         <Strings>
-          <ButtonText>搜索码锹</ButtonText>
+          <ButtonText>搜索码锹窗口</ButtonText>
         </Strings>
       </Button>
 
@@ -345,7 +345,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>码锹(&amp;S)</ButtonText>
+          <ButtonText>码锹窗口(&amp;S)</ButtonText>
         </Strings>
       </Button>
 

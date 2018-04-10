@@ -12,4 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(Vsix.Version)]
 [assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
-[assembly: NeutralResourcesLanguage("en-US")]
+[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
