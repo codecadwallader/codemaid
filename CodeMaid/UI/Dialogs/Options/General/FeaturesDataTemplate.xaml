@@ -8,13 +8,13 @@
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.CleanupActiveDocument}" IsChecked="{Binding CleanupActiveCode}" />
                     <CheckBox Content="{x:Static p:Resources.FeaturesDataTemplate_AutomaticCleanupOnSave}" IsChecked="{Binding SettingCleanupOnSave}" IsEnabled="{Binding CleanupActiveCode}" Margin="35,5,5,5" />
-                    <CheckBox Content="{x:Static p:Resources.CleanupOpenCode}" IsChecked="{Binding CleanupOpenCode}" />
                     <CheckBox Content="{x:Static p:Resources.CleanupAllCode}" IsChecked="{Binding CleanupAllCode}" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupOpenCode}" IsChecked="{Binding CleanupOpenCode}" />
+                    <CheckBox Content="{x:Static p:Resources.CleanupSelectedCode}" IsChecked="{Binding CleanupSelectedCode}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{x:Static p:Resources.SolutionExplorer}">
                 <StackPanel>
-                    <CheckBox Content="{x:Static p:Resources.CleanupSelectedCode}" IsChecked="{Binding CleanupSelectedCode}" />
                     <CheckBox Content="{x:Static p:Resources.CollapseAllSolutionExplorer}" IsChecked="{Binding CollapseAllSolutionExplorer}" />
                     <CheckBox Content="{x:Static p:Resources.CollapseSelectedSolutionExplorer}" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
                     <CheckBox Content="{x:Static p:Resources.FindInSolutionExplorer}" IsChecked="{Binding FindInSolutionExplorer}" />
