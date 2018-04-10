@@ -739,7 +739,7 @@
     <value>保存时自动清理</value>
   </data>
   <data name="RemoveRegion" xml:space="preserve">
-    <value>删除 #region</value>
+    <value>删除 #region(s)</value>
   </data>
   <data name="JoinLines" xml:space="preserve">
     <value>连接多行</value>
