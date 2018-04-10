@@ -27,7 +27,7 @@
         <CommandFlag>DefaultDocked</CommandFlag>
         <Strings>
           <ButtonText>CodeMaid Spade Toolbar</ButtonText>
-          <CommandName>CodeMaid代码视图</CommandName>
+          <CommandName>CodeMaid码锹工具栏</CommandName>
         </Strings>
       </Menu>
       <Menu guid="GuidCodeMaidMenuSet" id="MenuIDCodeMaidContextSpade" type="Context">
@@ -309,13 +309,13 @@
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeRefresh" priority="0x0100" type="Button">
         <Icon guid="GuidImageRefresh" id="IconRefresh" />
         <Strings>
-          <ButtonText>刷新代码视图</ButtonText>
+          <ButtonText>刷新码锹</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="GuidCodeMaidMenuSet" id="CmdIDCodeMaidSpadeSearch" priority="0x0100" type="Button">
         <Strings>
-          <ButtonText>搜索代码视图</ButtonText>
+          <ButtonText>搜索码锹</ButtonText>
         </Strings>
       </Button>
 
@@ -345,7 +345,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>代码视图(&amp;S)</ButtonText>
+          <ButtonText>码锹(&amp;S)</ButtonText>
         </Strings>
       </Button>
 
