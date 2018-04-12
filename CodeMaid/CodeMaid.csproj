@@ -16,6 +16,9 @@
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
