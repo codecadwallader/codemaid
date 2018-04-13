@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal SortLinesCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSortLines)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Sort");
+            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidSort);
         }
 
         #endregion Constructors

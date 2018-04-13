@@ -810,4 +810,115 @@
   <data name="Refreshing" xml:space="preserve">
     <value>refreshing...</value>
   </data>
+  <data name="YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing" xml:space="preserve">
+    <value>You have pending changes.  Do you want to save them before continuing?</value>
+  </data>
+  <data name="CodeMaidConfirmationToSavePendingChanges" xml:space="preserve">
+    <value>CodeMaid: Confirmation to Save Pending Changes</value>
+  </data>
+  <data name="CodeMaidWasUnableToReset" xml:space="preserve">
+    <value>CodeMaid was unable to reset </value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyReset" xml:space="preserve">
+    <value>CodeMaid has successfully reset </value>
+  </data>
+  <data name="CodeMaidReset" xml:space="preserve">
+    <value>CodeMaid: Reset </value>
+  </data>
+  <data name="UnableToReset" xml:space="preserve">
+    <value>Unable to reset </value>
+  </data>
+  <data name="UnableToExport" xml:space="preserve">
+    <value>Unable to export </value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyImported1From0" xml:space="preserve">
+    <value>CodeMaid has successfully imported {1} from '{0}'.</value>
+  </data>
+  <data name="_UnableToImport" xml:space="preserve">
+    <value>Unable to import </value>
+  </data>
+  <data name="CodeMaidWasUnableToImport" xml:space="preserve">
+    <value>CodeMaid was unable to import </value>
+  </data>
+  <data name="CodeMaidConfirmationForReset" xml:space="preserve">
+    <value>CodeMaid: Confirmation for Reset </value>
+  </data>
+  <data name="OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults" xml:space="preserve">
+    <value> to be reset to their defaults?</value>
+  </data>
+  <data name="AreYouSureYouWantAll" xml:space="preserve">
+    <value>Are you sure you want all </value>
+  </data>
+  <data name="ThisActionCannotBeUndone" xml:space="preserve">
+    <value>This action cannot be undone.</value>
+  </data>
+  <data name="WasStopped" xml:space="preserve">
+    <value> was stopped</value>
+  </data>
+  <data name="CodeMaidIsCleaning0" xml:space="preserve">
+    <value>CodeMaid is cleaning '{0}'...</value>
+  </data>
+  <data name="CodeMaidCleanupFor0" xml:space="preserve">
+    <value>CodeMaid Cleanup for '{0}'</value>
+  </data>
+  <data name="CodeMaidCleaned0" xml:space="preserve">
+    <value>CodeMaid cleaned '{0}'.</value>
+  </data>
+  <data name="Reorganize_CodeMaidIsReorganizing0" xml:space="preserve">
+    <value>CodeMaid is reorganizing '{0}'...</value>
+  </data>
+  <data name="CodeMaidReorganized0" xml:space="preserve">
+    <value>CodeMaid reorganized '{0}'.</value>
+  </data>
+  <data name="CodeMaidInsertRegion" xml:space="preserve">
+    <value>CodeMaid Insert Region</value>
+  </data>
+  <data name="CodeMaidJoin" xml:space="preserve">
+    <value>CodeMaid Join</value>
+  </data>
+  <data name="CodeMaidMoveItemAbove" xml:space="preserve">
+    <value>CodeMaid Move Item Above</value>
+  </data>
+  <data name="CodeMaidMoveItemBelow" xml:space="preserve">
+    <value>CodeMaid Move Item Below</value>
+  </data>
+  <data name="CodeMaidMoveItemInto" xml:space="preserve">
+    <value>CodeMaid Move Item Into</value>
+  </data>
+  <data name="CodeMaidReorganizeFor0" xml:space="preserve">
+    <value>CodeMaid Reorganize for '{0}'</value>
+  </data>
+  <data name="CodeMaidSort" xml:space="preserve">
+    <value>CodeMaid Sort</value>
+  </data>
+  <data name="CodeMaidDeleteItems" xml:space="preserve">
+    <value>CodeMaid Delete Items</value>
+  </data>
+  <data name="CodeMaidRemoveAllRegions" xml:space="preserve">
+    <value>CodeMaid Remove All Regions</value>
+  </data>
+  <data name="CodeMaidRemoveSelectedRegions" xml:space="preserve">
+    <value>CodeMaid Remove Selected Regions</value>
+  </data>
+  <data name="CodeMaidRemoveRegions" xml:space="preserve">
+    <value>CodeMaid Remove Regions</value>
+  </data>
+  <data name="CodeMaidRemoveRegion" xml:space="preserve">
+    <value>CodeMaid Remove Region </value>
+  </data>
+  <data name="CodeMaidReorganizePreprocessorConditionals" xml:space="preserve">
+    <value>CodeMaid: Reorganize Preprocessor Conditionals</value>
+  </data>
+  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
+    <value>{0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.\r\n\r\nDo you want to reorganize anyways (DANGEROUS)?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="HandledException" xml:space="preserve">
+    <value>Handled Exception</value>
+  </data>
+  <data name="Diagnostic" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
 </root>

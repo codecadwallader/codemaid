@@ -810,4 +810,115 @@
   <data name="Refreshing" xml:space="preserve">
     <value>正在刷新...</value>
   </data>
+  <data name="YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing" xml:space="preserve">
+    <value>您有挂起的更改。 是否要在继续之前保存它们？</value>
+  </data>
+  <data name="CodeMaidConfirmationToSavePendingChanges" xml:space="preserve">
+    <value>CodeMaid: 确认保存挂起的更改</value>
+  </data>
+  <data name="CodeMaidWasUnableToReset" xml:space="preserve">
+    <value>CodeMaid 无法重置</value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyReset" xml:space="preserve">
+    <value>CodeMaid 已成功重置</value>
+  </data>
+  <data name="CodeMaidReset" xml:space="preserve">
+    <value>CodeMaid: 重置</value>
+  </data>
+  <data name="UnableToReset" xml:space="preserve">
+    <value>无法重置</value>
+  </data>
+  <data name="UnableToExport" xml:space="preserve">
+    <value>无法导出</value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyImported1From0" xml:space="preserve">
+    <value>CodeMaid 已成功从 "{0}" 导入 {1}。</value>
+  </data>
+  <data name="_UnableToImport" xml:space="preserve">
+    <value>无法导入</value>
+  </data>
+  <data name="CodeMaidWasUnableToImport" xml:space="preserve">
+    <value>CodeMaid 无法导入</value>
+  </data>
+  <data name="CodeMaidConfirmationForReset" xml:space="preserve">
+    <value>CodeMaid: 确认重置</value>
+  </data>
+  <data name="OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults" xml:space="preserve">
+    <value>重置为默认值？</value>
+  </data>
+  <data name="AreYouSureYouWantAll" xml:space="preserve">
+    <value>您确定要所有</value>
+  </data>
+  <data name="ThisActionCannotBeUndone" xml:space="preserve">
+    <value>无法撤消此操作。</value>
+  </data>
+  <data name="WasStopped" xml:space="preserve">
+    <value>被停止</value>
+  </data>
+  <data name="CodeMaidIsCleaning0" xml:space="preserve">
+    <value>CodeMaid 正在清理 "{0}"..。</value>
+  </data>
+  <data name="CodeMaidCleanupFor0" xml:space="preserve">
+    <value>针对"{0}" 的 CodeMaid 清理</value>
+  </data>
+  <data name="CodeMaidCleaned0" xml:space="preserve">
+    <value>CodeMaid 已清理 "{0}"。</value>
+  </data>
+  <data name="Reorganize_CodeMaidIsReorganizing0" xml:space="preserve">
+    <value>CodeMaid 正在整理{0}"...</value>
+  </data>
+  <data name="CodeMaidReorganized0" xml:space="preserve">
+    <value>CodeMaid 整理了 "{0}"。</value>
+  </data>
+  <data name="CodeMaidInsertRegion" xml:space="preserve">
+    <value>CodeMaid 插入区域</value>
+  </data>
+  <data name="CodeMaidJoin" xml:space="preserve">
+    <value>CodeMaid 连接</value>
+  </data>
+  <data name="CodeMaidMoveItemAbove" xml:space="preserve">
+    <value>CodeMaid 条目上移</value>
+  </data>
+  <data name="CodeMaidMoveItemBelow" xml:space="preserve">
+    <value>CodeMaid 条目下移</value>
+  </data>
+  <data name="CodeMaidMoveItemInto" xml:space="preserve">
+    <value>CodeMaid 将条目移动到</value>
+  </data>
+  <data name="CodeMaidReorganizeFor0" xml:space="preserve">
+    <value>CodeMaid 针对"{0}" 整理</value>
+  </data>
+  <data name="CodeMaidSort" xml:space="preserve">
+    <value>CodeMaid 排序</value>
+  </data>
+  <data name="CodeMaidDeleteItems" xml:space="preserve">
+    <value>CodeMaid 删除条目</value>
+  </data>
+  <data name="CodeMaidRemoveAllRegions" xml:space="preserve">
+    <value>CodeMaid 删除所有 #region</value>
+  </data>
+  <data name="CodeMaidRemoveSelectedRegions" xml:space="preserve">
+    <value>CodeMaid 删除选定 #region</value>
+  </data>
+  <data name="CodeMaidRemoveRegions" xml:space="preserve">
+    <value>CodeMaid 删除 #region</value>
+  </data>
+  <data name="CodeMaidRemoveRegion" xml:space="preserve">
+    <value>CodeMaid 删除 #region</value>
+  </data>
+  <data name="CodeMaidReorganizePreprocessorConditionals" xml:space="preserve">
+    <value>CodeMaid: 整理预处理器条件</value>
+  </data>
+  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
+    <value>{0} 包含整理当前不支持的预处理器条件 (例如 #if、#pragma). \n 是否要整理 (危险)？</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="HandledException" xml:space="preserve">
+    <value>处理异常</value>
+  </data>
+  <data name="Diagnostic" xml:space="preserve">
+    <value>诊断</value>
+  </data>
 </root>

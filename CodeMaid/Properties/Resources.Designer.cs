@@ -61,6 +61,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to import .
+        /// </summary>
+        public static string _UnableToImport {
+            get {
+                return ResourceManager.GetString("_UnableToImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access levels should be ordered by.
         /// </summary>
         public static string AccessLevelsShouldBeOrderedBy {
@@ -183,6 +192,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string AreYouReadyForCodeMaidToCleanEverythingInTheSolution {
             get {
                 return ResourceManager.GetString("AreYouReadyForCodeMaidToCleanEverythingInTheSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want all .
+        /// </summary>
+        public static string AreYouSureYouWantAll {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantAll", resourceCulture);
             }
         }
         
@@ -484,6 +502,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CodeMaid cleaned &apos;{0}&apos;..
+        /// </summary>
+        public static string CodeMaidCleaned0 {
+            get {
+                return ResourceManager.GetString("CodeMaidCleaned0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CodeMaid: Cleanup All Code.
         /// </summary>
         public static string CodeMaidCleanupAllCode {
@@ -502,6 +529,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Cleanup for &apos;{0}&apos;.
+        /// </summary>
+        public static string CodeMaidCleanupFor0 {
+            get {
+                return ResourceManager.GetString("CodeMaidCleanupFor0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CodeMaid: Cleanup Progress.
         /// </summary>
         public static string CodeMaidCleanupProgress {
@@ -516,6 +552,33 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string CodeMaidConfirmationForCleanupAllCode {
             get {
                 return ResourceManager.GetString("CodeMaidConfirmationForCleanupAllCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid: Confirmation for Reset .
+        /// </summary>
+        public static string CodeMaidConfirmationForReset {
+            get {
+                return ResourceManager.GetString("CodeMaidConfirmationForReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid: Confirmation to Save Pending Changes.
+        /// </summary>
+        public static string CodeMaidConfirmationToSavePendingChanges {
+            get {
+                return ResourceManager.GetString("CodeMaidConfirmationToSavePendingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Delete Items.
+        /// </summary>
+        public static string CodeMaidDeleteItems {
+            get {
+                return ResourceManager.GetString("CodeMaidDeleteItems", resourceCulture);
             }
         }
         
@@ -583,6 +646,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CodeMaid has successfully imported {1} from &apos;{0}&apos;..
+        /// </summary>
+        public static string CodeMaidHasSuccessfullyImported1From0 {
+            get {
+                return ResourceManager.GetString("CodeMaidHasSuccessfullyImported1From0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid has successfully reset .
+        /// </summary>
+        public static string CodeMaidHasSuccessfullyReset {
+            get {
+                return ResourceManager.GetString("CodeMaidHasSuccessfullyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CodeMaid: Import .
         /// </summary>
         public static string CodeMaidImport {
@@ -592,11 +673,146 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Insert Region.
+        /// </summary>
+        public static string CodeMaidInsertRegion {
+            get {
+                return ResourceManager.GetString("CodeMaidInsertRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid is cleaning &apos;{0}&apos;....
+        /// </summary>
+        public static string CodeMaidIsCleaning0 {
+            get {
+                return ResourceManager.GetString("CodeMaidIsCleaning0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Join.
+        /// </summary>
+        public static string CodeMaidJoin {
+            get {
+                return ResourceManager.GetString("CodeMaidJoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Move Item Above.
+        /// </summary>
+        public static string CodeMaidMoveItemAbove {
+            get {
+                return ResourceManager.GetString("CodeMaidMoveItemAbove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Move Item Below.
+        /// </summary>
+        public static string CodeMaidMoveItemBelow {
+            get {
+                return ResourceManager.GetString("CodeMaidMoveItemBelow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Move Item Into.
+        /// </summary>
+        public static string CodeMaidMoveItemInto {
+            get {
+                return ResourceManager.GetString("CodeMaidMoveItemInto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CodeMaid Options.
         /// </summary>
         public static string CodeMaidOptions {
             get {
                 return ResourceManager.GetString("CodeMaidOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Remove All Regions.
+        /// </summary>
+        public static string CodeMaidRemoveAllRegions {
+            get {
+                return ResourceManager.GetString("CodeMaidRemoveAllRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Remove Region .
+        /// </summary>
+        public static string CodeMaidRemoveRegion {
+            get {
+                return ResourceManager.GetString("CodeMaidRemoveRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Remove Regions.
+        /// </summary>
+        public static string CodeMaidRemoveRegions {
+            get {
+                return ResourceManager.GetString("CodeMaidRemoveRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Remove Selected Regions.
+        /// </summary>
+        public static string CodeMaidRemoveSelectedRegions {
+            get {
+                return ResourceManager.GetString("CodeMaidRemoveSelectedRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid reorganized &apos;{0}&apos;..
+        /// </summary>
+        public static string CodeMaidReorganized0 {
+            get {
+                return ResourceManager.GetString("CodeMaidReorganized0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Reorganize for &apos;{0}&apos;.
+        /// </summary>
+        public static string CodeMaidReorganizeFor0 {
+            get {
+                return ResourceManager.GetString("CodeMaidReorganizeFor0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid: Reorganize Preprocessor Conditionals.
+        /// </summary>
+        public static string CodeMaidReorganizePreprocessorConditionals {
+            get {
+                return ResourceManager.GetString("CodeMaidReorganizePreprocessorConditionals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid: Reset .
+        /// </summary>
+        public static string CodeMaidReset {
+            get {
+                return ResourceManager.GetString("CodeMaidReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid Sort.
+        /// </summary>
+        public static string CodeMaidSort {
+            get {
+                return ResourceManager.GetString("CodeMaidSort", resourceCulture);
             }
         }
         
@@ -624,6 +840,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string CodeMaidWasUnableToExport {
             get {
                 return ResourceManager.GetString("CodeMaidWasUnableToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid was unable to import .
+        /// </summary>
+        public static string CodeMaidWasUnableToImport {
+            get {
+                return ResourceManager.GetString("CodeMaidWasUnableToImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid was unable to reset .
+        /// </summary>
+        public static string CodeMaidWasUnableToReset {
+            get {
+                return ResourceManager.GetString("CodeMaidWasUnableToReset", resourceCulture);
             }
         }
         
@@ -691,6 +925,16 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.\r\n\r\nDo you want to reorganize anyways (DANGEROUS)?.
+        /// </summary>
+        public static string ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS {
+            get {
+                return ResourceManager.GetString("ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupp" +
+                        "ortRNRNDoYouWantToReorganizeAnywaysDANGEROUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dark.
         /// </summary>
         public static string Dark {
@@ -705,6 +949,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Deploying {
             get {
                 return ResourceManager.GetString("Deploying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnostic.
+        /// </summary>
+        public static string Diagnostic {
+            get {
+                return ResourceManager.GetString("Diagnostic", resourceCulture);
             }
         }
         
@@ -939,6 +1192,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handled Exception.
+        /// </summary>
+        public static string HandledException {
+            get {
+                return ResourceManager.GetString("HandledException", resourceCulture);
             }
         }
         
@@ -1249,6 +1511,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  to be reset to their defaults?.
+        /// </summary>
+        public static string OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults {
+            get {
+                return ResourceManager.GetString("OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string Other {
@@ -1533,6 +1804,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string RemoveSelectedRegions {
             get {
                 return ResourceManager.GetString("RemoveSelectedRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CodeMaid is reorganizing &apos;{0}&apos;....
+        /// </summary>
+        public static string Reorganize_CodeMaidIsReorganizing0 {
+            get {
+                return ResourceManager.GetString("Reorganize_CodeMaidIsReorganizing0", resourceCulture);
             }
         }
         
@@ -1933,6 +2213,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action cannot be undone..
+        /// </summary>
+        public static string ThisActionCannotBeUndone {
+            get {
+                return ResourceManager.GetString("ThisActionCannotBeUndone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  to &apos;{0}&apos;..
         /// </summary>
         public static string To0 {
@@ -1965,6 +2254,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string TypeThenAccess {
             get {
                 return ResourceManager.GetString("TypeThenAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to export .
+        /// </summary>
+        public static string UnableToExport {
+            get {
+                return ResourceManager.GetString("UnableToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to reset .
+        /// </summary>
+        public static string UnableToReset {
+            get {
+                return ResourceManager.GetString("UnableToReset", resourceCulture);
             }
         }
         
@@ -2059,11 +2366,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning threshold.
         /// </summary>
         public static string WarningThreshold {
             get {
                 return ResourceManager.GetString("WarningThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  was stopped.
+        /// </summary>
+        public static string WasStopped {
+            get {
+                return ResourceManager.GetString("WasStopped", resourceCulture);
             }
         }
         
@@ -2136,6 +2461,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have pending changes.  Do you want to save them before continuing?.
+        /// </summary>
+        public static string YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing {
+            get {
+                return ResourceManager.GetString("YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing", resourceCulture);
             }
         }
     }
