@@ -856,7 +856,7 @@
     <value>被停止</value>
   </data>
   <data name="CodeMaidIsCleaning0" xml:space="preserve">
-    <value>CodeMaid 正在清理 "{0}"..。</value>
+    <value>CodeMaid 正在清理 "{0}"...</value>
   </data>
   <data name="CodeMaidCleanupFor0" xml:space="preserve">
     <value>针对"{0}" 的 CodeMaid 清理</value>
@@ -865,7 +865,7 @@
     <value>CodeMaid 已清理 "{0}"。</value>
   </data>
   <data name="Reorganize_CodeMaidIsReorganizing0" xml:space="preserve">
-    <value>CodeMaid 正在整理{0}"...</value>
+    <value>CodeMaid 正在整理 "{0}"...</value>
   </data>
   <data name="CodeMaidReorganized0" xml:space="preserve">
     <value>CodeMaid 整理了 "{0}"。</value>
@@ -910,7 +910,7 @@
     <value>CodeMaid: 整理预处理器条件</value>
   </data>
   <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
-    <value>{0} 包含整理当前不支持的预处理器条件 (例如 #if、#pragma). \n 是否要整理 (危险)？</value>
+    <value>{0} 包含当前整理不支持的预处理器条件 (例如 #if、#pragma)。 \n 是否仍要整理 (危险)？</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
