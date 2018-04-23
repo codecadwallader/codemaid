@@ -9,10 +9,11 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [ ] [#506](https://github.com/codecadwallader/codemaid/pull/506) - Enable localization for Chinese - thanks [maikebing](https://github.com/maikebing)!
   - [x] [#519](https://github.com/codecadwallader/codemaid/pull/519) - Simplify the code by removing unnecessary guids - thanks [heku](https://github.com/heku)!
   - [x] [#525](https://github.com/codecadwallader/codemaid/pull/525) - Make all features switchable - thanks [heku](https://github.com/heku)!
-
+  
 - [x] Fixes
   - [x] [#479](https://github.com/codecadwallader/codemaid/pull/479) - Update XAML Styler integration mappings - thanks [grochocki](https://github.com/grochocki)!
   - [x] [#496](https://github.com/codecadwallader/codemaid/pull/496) - Fix the .NET Framework minimum required version (which is v4.6)
+  - [x] [#541](https://github.com/codecadwallader/codemaid/pull/541) - Project file (.csproj) cleanup - thanks [heku](https://github.com/heku)!
 
 ## Previous Releases
 
