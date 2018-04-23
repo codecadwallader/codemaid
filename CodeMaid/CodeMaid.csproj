@@ -835,13 +835,17 @@
       <LogicalName>VSPackage.en-US.resources</LogicalName>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="source.extension.zh-Hans.resx">
-      <LogicalName>VSPackage.zh-Hans.resources</LogicalName>
     <EmbeddedResource Include="source.extension.resx">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="source.extension.zh-Hans.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.zh-Hans.resources</LogicalName>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
