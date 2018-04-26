@@ -189,6 +189,8 @@
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
     <Compile Include="Model\CodeItems\IInterfaceItem.cs" />
+    <Compile Include="Model\Comments\CommentOptions.cs" />
+    <Compile Include="Model\Comments\FormatterOptions.cs" />
     <Compile Include="Model\Comments\CommentLine.cs" />
     <Compile Include="Model\Comments\CommentLineXml.cs" />
     <Compile Include="Model\Comments\ICommentLine.cs" />
