@@ -1,6 +1,7 @@
 ﻿using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,30 +15,30 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
+        private readonly FormatterOptions _formatterOptions;
+        private readonly CommentOptions _commentOptions;
+
         private StringBuilder _builder;
-        private string _commentPrefix;
         private int _commentPrefixLength;
         private int _currentPosition;
         private bool _isAfterCommentPrefix;
         private bool _isFirstWord;
         private bool _isIndented;
-        private Regex _regex;
-        private int _tabSize;
 
         #endregion Fields
 
         #region Constructors
 
-        public CommentFormatter(ICommentLine line, string commentPrefix, int tabSize, Regex regex)
+        public CommentFormatter(ICommentLine line, FormatterOptions formatterOptions, CommentOptions commentOptions)
         {
+            _formatterOptions = formatterOptions;
+            _commentOptions = commentOptions;
+
             _builder = new StringBuilder();
             _currentPosition = 0;
-            _regex = regex;
-            _tabSize = tabSize;
             _isFirstWord = true;
             _isIndented = false;
-            _commentPrefix = commentPrefix ?? string.Empty;
-            _commentPrefixLength = WordLength(_commentPrefix);
+            _commentPrefixLength = WordLength(commentOptions.Prefix);
 
             // Special handling for the root XML line, it should not output it's surrounding xml
             // tags, only it's child lines.
@@ -130,7 +131,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 _currentPosition = 0;
             }
 
-            _builder.Append(_commentPrefix);
+            _builder.Append(_commentOptions.Prefix);
             _currentPosition += _commentPrefixLength;
             _isFirstWord = true;
             _isIndented = false;
@@ -160,7 +161,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
             else if (line.Content != null)
             {
-                var matches = _regex.Matches(line.Content).OfType<Match>().Select(x => new CodeCommentMatch(x)).ToList();
+                var matches = _commentOptions.Regex.Matches(line.Content).OfType<Match>().Select(x => new CodeCommentMatch(x, _formatterOptions)).ToList();
 
                 // Remove empty matches from the start and end of the comment.
                 CodeCommentMatch m;
@@ -227,7 +228,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                 foreach (var match in matches)
                 {
-                    if (match.IsList)
+                    if (match.IsLiteral || match.IsList)
                     {
                         if (!_isFirstWord)
                         {
@@ -235,10 +236,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         }
 
                         Indent(indentLevel);
+                    }
+
+                    if (match.IsList)
+                    {
                         Append(match.ListPrefix);
 
-                        // List items include their spacing and do not require additional space,
-                        // thus we are logically still on the first word.
+                        // List items include their spacing and do not require additional space, thus
+                        // we are logically still on the first word.
                         _isFirstWord = true;
                     }
 
@@ -274,8 +279,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                                 NewLine();
                                 Indent(indentLevel);
 
-                                // If linewrap is on a list item, add extra spacing to align the
-                                // text with the previous line.
+                                // If linewrap is on a list item, add extra spacing to align the text
+                                // with the previous line.
                                 if (match.IsList)
                                 {
                                     Append(string.Empty.PadLeft(WordLength(match.ListPrefix), CodeCommentHelper.Spacer));
@@ -355,7 +360,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (isCopyrightTag && Settings.Default.Formatting_CommentXmlValueIndent < 1)
             {
                 _commentPrefixLength += CodeCommentHelper.CopyrightExtraIndent;
-                _commentPrefix += string.Empty.PadLeft(CodeCommentHelper.CopyrightExtraIndent);
+                _commentOptions.Prefix += string.Empty.PadLeft(CodeCommentHelper.CopyrightExtraIndent);
             }
 
             // Increase the indent level.
@@ -392,8 +397,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 {
                     if (needBreakBefore) NewLine();
 
-                    // Parse function returns true if it had to wrap lines. If so, we need to force
-                    // a newline before the closing tag.
+                    // Parse function returns true if it had to wrap lines. If so, we need to force a
+                    // newline before the closing tag.
                     needBreakBefore = Parse(l, indentLevel, xmlTagLength);
                     tagOnOwnLine |= needBreakBefore;
                 }
@@ -405,7 +410,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (isCopyrightTag && Settings.Default.Formatting_CommentXmlValueIndent < 1)
             {
                 _commentPrefixLength -= CodeCommentHelper.CopyrightExtraIndent;
-                _commentPrefix = _commentPrefix.Substring(0, _commentPrefixLength);
+                _commentOptions.Prefix = _commentOptions.Prefix.Substring(0, _commentPrefixLength);
             }
 
             // If opening tag was on own line, do the same for the closing tag.
@@ -458,7 +463,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <returns>The length of the string.</returns>
         private int WordLength(string word)
         {
-            return word == null ? 0 : word.Length + word.Count(c => c == '\t') * (_tabSize - 1);
+            return word == null ? 0 : word.Length + word.Count(c => c == '\t') * (_formatterOptions.TabSize - 1);
         }
 
         #endregion Methods

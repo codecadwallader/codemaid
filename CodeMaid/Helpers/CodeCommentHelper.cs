@@ -1,7 +1,9 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SteveCadwallader.CodeMaid.Helpers
@@ -140,7 +142,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 prefix = string.Format(@"(?<prefix>[\t ]*{0})(?<initialspacer>( |\t|\r|\n|$))?", prefix);
             }
 
-            var pattern = string.Format(@"^{0}(?<line>(?<indent>[\t ]*)(?<listprefix>[-=\*\+]+[ \t]*|\w+[\):][ \t]+|\d+\.[ \t]+)?((?<words>[^\t\r\n ]+)*[\t ]*)*)[\r]*[\n]?$", prefix);
+            var pattern = string.Format(@"^{0}(?<indent>[\t ]*)(?<line>(?<listprefix>[-=\*\+]+[ \t]*|\w+[\):][ \t]+|\d+\.[ \t]+)?((?<words>[^\t\r\n ]+)*[\t ]*)*)\r*\n?$", prefix);
             return new Regex(pattern, RegexOptions.ExplicitCapture | RegexOptions.Multiline);
         }
 
@@ -159,6 +161,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // Some languages (e.g. F#, PowerShell) may not correctly resolve tab settings.
                 return fallbackTabSize;
             }
+        }
+
+        /// <summary>
+        /// Gets the list of tokens defined in Tools &gt; Options &gt; Environment &gt; Task List.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetTaskListTokens(CodeMaidPackage package)
+        {
+            var settings = package.IDE.Properties["Environment", "TaskList"];
+            var tokens = settings.Item("CommentTokens").Value as string[];
+            if (tokens == null || tokens.Length < 1)
+                return Enumerable.Empty<string>();
+
+            // Tokens values are written like "NAME:PRIORITY". We want only the names, and require
+            // that they are followed by a semicolon and a space.
+            return tokens.Select(t => t.Substring(0, t.LastIndexOf(':') + 1) + " ");
         }
 
         internal static bool IsCommentLine(EditPoint point)

@@ -112,6 +112,7 @@
     <Compile Include="Formatting\CommentFormatHelper.cs" />
     <Compile Include="Formatting\HeaderFormattingTests.cs" />
     <Compile Include="Formatting\FormatWithPrefixTests.cs" />
+    <Compile Include="Formatting\IgnorePrefixesTests.cs" />
     <Compile Include="Formatting\SimpleFormattingTests.cs" />
     <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\ListFormattingTests.cs" />
