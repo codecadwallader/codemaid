@@ -6,14 +6,16 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 
 - [x] Features
   - [x] [#477](https://github.com/codecadwallader/codemaid/pull/477) - Digging: New radial progress bar - thanks [Jammer77](https://github.com/Jammer77)!
-  - [ ] [#506](https://github.com/codecadwallader/codemaid/pull/506) - Enable localization for Chinese - thanks [maikebing](https://github.com/maikebing)!
+  - [x] [#506](https://github.com/codecadwallader/codemaid/pull/506) - Enable localization for Chinese - thanks [maikebing](https://github.com/maikebing)!
   - [x] [#519](https://github.com/codecadwallader/codemaid/pull/519) - Simplify the code by removing unnecessary guids - thanks [heku](https://github.com/heku)!
   - [x] [#525](https://github.com/codecadwallader/codemaid/pull/525) - Make all features switchable - thanks [heku](https://github.com/heku)!
+  - [x] [#545](https://github.com/codecadwallader/codemaid/pull/545) - Ignore comment lines starting with certain prefixes - thanks [willemduncan](https://github.com/willemduncan)!
   
 - [x] Fixes
   - [x] [#479](https://github.com/codecadwallader/codemaid/pull/479) - Update XAML Styler integration mappings - thanks [grochocki](https://github.com/grochocki)!
   - [x] [#496](https://github.com/codecadwallader/codemaid/pull/496) - Fix the .NET Framework minimum required version (which is v4.6)
   - [x] [#541](https://github.com/codecadwallader/codemaid/pull/541) - Project file (.csproj) cleanup - thanks [heku](https://github.com/heku)!
+  - [x] [#546](https://github.com/codecadwallader/codemaid/pull/546) - Fix a setting that would leave a trailing white space when formatting comments - thanks [willemduncan](https://github.com/willemduncan)!
 
 ## Previous Releases
 
