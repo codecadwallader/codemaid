@@ -217,10 +217,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 {
                     NewLine();
                 }
-                else if (!_isFirstWord && Settings.Default.Formatting_CommentXmlSpaceTags)
-                {
-                    Append(CodeCommentHelper.Spacer);
-                }
 
                 // Always consider the word after the opening tag as the first word to prevent an
                 // extra space before.
@@ -310,11 +306,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                     }
                 }
 
-                if (!forceBreak && Settings.Default.Formatting_CommentXmlSpaceTags)
-                {
-                    Append(CodeCommentHelper.Spacer);
-                }
-
                 if (_currentPosition == 0 || _currentPosition > _commentPrefixLength && forceBreak)
                 {
                     // This comment fitted on a single line.
@@ -371,6 +362,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             // If true the tag should be alone on it's own line.
             tagOnOwnLine |= isLiteralContent;
 
+            if (!tagOnOwnLine && Settings.Default.Formatting_CommentXmlSpaceTags)
+            {
+                Append(CodeCommentHelper.Spacer);
+            }
+
             // If the literal content of an XML tag is set, output that content without formatting.
             if (isLiteralContent)
             {
@@ -417,9 +413,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (tagOnOwnLine && !_isFirstWord)
             {
                 NewLine();
+                Indent(indentLevel);
+            }
+            else if (Settings.Default.Formatting_CommentXmlSpaceTags)
+            {
+                Append(CodeCommentHelper.Spacer);
             }
 
-            Indent(indentLevel);
             Append(line.CloseTag);
 
             return tagOnOwnLine || CommentLineXml.SingleLineElementNames.Contains(line.TagName, StringComparer.OrdinalIgnoreCase);
