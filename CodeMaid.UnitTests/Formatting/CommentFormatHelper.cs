@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {

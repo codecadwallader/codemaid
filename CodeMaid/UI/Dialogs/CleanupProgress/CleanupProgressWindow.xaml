@@ -28,12 +28,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="10">
-            <TextBlock   FontSize="14"
-                    TextTrimming="CharacterEllipsis"  ><InlineUIContainer>
-                    <Label Content="{x:Static p:Resources.Cleaning}"/>
-                </InlineUIContainer><InlineUIContainer>
-                    <Label Content="{Binding CurrentFileName}"  />
-                </InlineUIContainer></TextBlock>
+            <TextBlock FontSize="14" TextTrimming="CharacterEllipsis">
+                <InlineUIContainer>
+                    <Label Content="{x:Static p:Resources.Cleaning}" />
+                </InlineUIContainer>
+                <InlineUIContainer>
+                    <Label Content="{Binding CurrentFileName}" />
+                </InlineUIContainer>
+            </TextBlock>
             <ProgressBar Height="30" Margin="0,5" Maximum="{Binding CountTotal}" Value="{Binding CountProgress}" />
             <TextBlock HorizontalAlignment="Center" TextTrimming="CharacterEllipsis">
                 <TextBlock.Text>
