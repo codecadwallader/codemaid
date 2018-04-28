@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal SortLinesCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSortLines)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidSort);
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidSort);
         }
 
         #endregion Constructors

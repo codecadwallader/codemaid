@@ -2,6 +2,7 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -73,15 +74,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text =  CodeMaid.Properties.Resources.RemoveCurrentRegion;
+                    Text = Resources.RemoveCurrentRegion;
                     break;
 
                 case RegionCommandScope.Selection:
-                    Text =  CodeMaid.Properties.Resources.RemoveSelectedRegions;
+                    Text = Resources.RemoveSelectedRegions;
                     break;
 
                 default:
-                    Text =  CodeMaid.Properties.Resources.RemoveAllRegions;
+                    Text = Resources.RemoveAllRegions;
                     break;
             }
         }

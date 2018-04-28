@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Linq;
 
@@ -38,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal SpadeContextDeleteCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextDelete)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidDeleteItems);
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidDeleteItems);
         }
 
         #endregion Constructors

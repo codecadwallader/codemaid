@@ -223,10 +223,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Title = CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName,
+                Title = Resources.CodeMaidExport + activeSettingsName,
                 FileName = "CodeMaid",
                 DefaultExt = ".config",
-                Filter = CodeMaid.Properties.Resources.ConfigFilesConfigConfigAllFiles
+                Filter = Resources.ConfigFilesConfigConfigAllFiles
             };
 
             if (dialog.ShowDialog() == true)
@@ -235,14 +235,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 {
                     File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
-                    MessageBox.Show(string.Format(CodeMaid.Properties.Resources.CodeMaidHasSuccessfullyExported + activeSettingsName + CodeMaid.Properties.Resources.To0, dialog.FileName),
-                                     CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName + CodeMaid.Properties.Resources.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(Resources.CodeMaidHasSuccessfullyExported + activeSettingsName + Resources.To0, dialog.FileName),
+                                     Resources.CodeMaidExport + activeSettingsName + Resources.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     OutputWindowHelper.ExceptionWriteLine(Resources.UnableToExport + activeSettingsName, ex);
-                    MessageBox.Show(CodeMaid.Properties.Resources.CodeMaidWasUnableToExport + activeSettingsName + CodeMaid.Properties.Resources.SeeOutputWindowForMoreDetails,
-                                     CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName + CodeMaid.Properties.Resources.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.CodeMaidWasUnableToExport + activeSettingsName + Resources.SeeOutputWindowForMoreDetails,
+                                     Resources.CodeMaidExport + activeSettingsName + Resources.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -272,9 +272,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Title = CodeMaid.Properties.Resources.CodeMaidImport + activeSettingsName,
+                Title = Resources.CodeMaidImport + activeSettingsName,
                 DefaultExt = ".config",
-                Filter = CodeMaid.Properties.Resources.ConfigFilesConfigConfigAllFiles,
+                Filter = Resources.ConfigFilesConfigConfigAllFiles,
                 CheckFileExists = true
             };
 
@@ -499,7 +499,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>The active or inactive settings name.</returns>
         private string GetSettingsName(bool inactive)
         {
-            return IsActiveSolutionSpecificSettings ^ inactive ? CodeMaid.Properties.Resources.SolutionSpecificSettings : CodeMaid.Properties.Resources.UserSettings;
+            return IsActiveSolutionSpecificSettings ^ inactive ? Resources.SolutionSpecificSettings : Resources.UserSettings;
         }
 
         /// <summary>

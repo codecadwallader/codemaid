@@ -1,6 +1,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
+using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,12 +59,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())
             {
-                MessageBox.Show(CodeMaid.Properties.Resources.CleanupCannotRunWhileDebugging,
-                                CodeMaid.Properties.Resources.CodeMaidCleanupAllCode,
+                MessageBox.Show(Resources.CleanupCannotRunWhileDebugging,
+                                Resources.CodeMaidCleanupAllCode,
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if (MessageBox.Show(CodeMaid.Properties.Resources.AreYouReadyForCodeMaidToCleanEverythingInTheSolution,
-                                     CodeMaid.Properties.Resources.CodeMaidConfirmationForCleanupAllCode,
+            else if (MessageBox.Show(Resources.AreYouReadyForCodeMaidToCleanEverythingInTheSolution,
+                                     Resources.CodeMaidConfirmationForCleanupAllCode,
                                      MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No)
                          == MessageBoxResult.Yes)
             {

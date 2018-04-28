@@ -1,6 +1,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -37,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal CommentFormatCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidFormatComment);
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidFormatComment);
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
@@ -91,15 +92,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                     if (foundComments)
                     {
-                        Package.IDE.StatusBar.Text = CodeMaid.Properties.Resources.CodeMaidFinishedFormattingTheComment;
+                        Package.IDE.StatusBar.Text = Resources.CodeMaidFinishedFormattingTheComment;
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = string.Format(
                             foundComments
-                                ?  CodeMaid.Properties.Resources.CodeMaidFinishedFormattingTheComments0
-                                :  CodeMaid.Properties.Resources.CodeMaidDidNotFindANonCodeComment0ToReformat,
-                            selection.IsEmpty ?  CodeMaid.Properties.Resources.UnderTheCursor :  CodeMaid.Properties.Resources.InTheSelection
+                                ? Resources.CodeMaidFinishedFormattingTheComments0
+                                : Resources.CodeMaidDidNotFindANonCodeComment0ToReformat,
+                            selection.IsEmpty ? Resources.UnderTheCursor : Resources.InTheSelection
                         );
                     }
                 }

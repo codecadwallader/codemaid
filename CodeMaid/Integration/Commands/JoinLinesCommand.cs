@@ -1,5 +1,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -35,7 +36,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal JoinLinesCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidJoinLines)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidJoin);
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidJoin);
         }
 
         #endregion Constructors

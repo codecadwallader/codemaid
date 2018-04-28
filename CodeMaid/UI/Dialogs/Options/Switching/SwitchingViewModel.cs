@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Switching
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header =>  CodeMaid.Properties.Resources.SwitchingViewModel_Switching;
+        public override string Header => Resources.SwitchingViewModel_Switching;
 
         #endregion Overrides of OptionsPageViewModel
 

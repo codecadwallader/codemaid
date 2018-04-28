@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Finding
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header =>  CodeMaid.Properties.Resources.FindingViewModel_Finding;
+        public override string Header => Resources.FindingViewModel_Finding;
 
         #endregion Overrides of OptionsPageViewModel
 

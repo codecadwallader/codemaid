@@ -63,7 +63,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header =>  CodeMaid.Properties.Resources.FormattingViewModel_Formatting;
+        public override string Header => Resources.FormattingViewModel_Formatting;
 
         /// <summary>
         /// Loads the settings.

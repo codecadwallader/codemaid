@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header =>  CodeMaid.Properties.Resources.DiggingViewModel_DiggingSpade;
+        public override string Header => Resources.DiggingViewModel_DiggingSpade;
 
         #endregion Overrides of OptionsPageViewModel
 

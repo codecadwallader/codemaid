@@ -1,6 +1,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     {
         #region Fields
 
-        private string DefaultCaption =  CodeMaid.Properties.Resources.BuildProgress;
+        private string DefaultCaption = Resources.BuildProgress;
 
         private readonly BuildProgressViewModel _viewModel;
 
@@ -219,26 +220,26 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // First append the word 'Batch ' if this is a batch build event.
             if (buildScope == vsBuildScope.vsBuildScopeBatch)
             {
-                stringBuilder.Append( CodeMaid.Properties.Resources.Batch);
+                stringBuilder.Append(Resources.Batch);
             }
 
             // Next append the action-specific build string.
             switch (buildAction)
             {
                 case vsBuildAction.vsBuildActionBuild:
-                    stringBuilder.Append( CodeMaid.Properties.Resources.Building);
+                    stringBuilder.Append(Resources.Building);
                     break;
 
                 case vsBuildAction.vsBuildActionClean:
-                    stringBuilder.Append( CodeMaid.Properties.Resources.Cleaning);
+                    stringBuilder.Append(Resources.Cleaning);
                     break;
 
                 case vsBuildAction.vsBuildActionDeploy:
-                    stringBuilder.Append( CodeMaid.Properties.Resources.Deploying);
+                    stringBuilder.Append(Resources.Deploying);
                     break;
 
                 case vsBuildAction.vsBuildActionRebuildAll:
-                    stringBuilder.Append( CodeMaid.Properties.Resources.Rebuilding);
+                    stringBuilder.Append(Resources.Rebuilding);
                     break;
             }
 

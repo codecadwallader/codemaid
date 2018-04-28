@@ -1,5 +1,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.IO;
 
@@ -64,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine($"{ CodeMaid.Properties.Resources.UnableToToggleReadOnlyStateOn}'{document.FullName}'", ex);
+                    OutputWindowHelper.ExceptionWriteLine($"{ Resources.UnableToToggleReadOnlyStateOn}'{document.FullName}'", ex);
                 }
             }
         }
