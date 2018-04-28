@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
             };
         }
 
-        public override string Header => "Features";
+        public override string Header => Resources.FeaturesViewModel_Features;
 
         public bool BuildProgressToolWindow
         {

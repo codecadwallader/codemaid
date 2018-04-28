@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextInsertRegion)
         {
             _generateRegionLogic = GenerateRegionLogic.GetInstance(package);
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Insert Region");
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidInsertRegion);
         }
 
         #endregion Constructors
@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             var spade = Package.Spade;
             if (spade != null)
             {
-                var region = new CodeItemRegion { Name = "New Region" };
+                var region = new CodeItemRegion { Name = CodeMaid.Properties.Resources.NewRegion };
                 var startPoint = spade.SelectedItems.OrderBy(x => x.StartOffset).First().StartPoint;
                 var endPoint = spade.SelectedItems.OrderBy(x => x.EndOffset).Last().EndPoint;
 

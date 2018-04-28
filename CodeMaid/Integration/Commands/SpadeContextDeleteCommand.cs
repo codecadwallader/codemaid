@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal SpadeContextDeleteCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextDelete)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Delete Items");
+            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidDeleteItems);
         }
 
         #endregion Constructors

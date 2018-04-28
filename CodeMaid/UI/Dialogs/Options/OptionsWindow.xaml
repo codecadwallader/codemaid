@@ -10,7 +10,7 @@
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
-        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="CodeMaid Options"
+        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="{x:Static p:Resources.CodeMaidOptions}"
         MinHeight="480" MinWidth="640" Height="768" Width="1024"
         Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
         ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
@@ -174,29 +174,29 @@
 
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
 
-        <Button Grid.Row="2" Grid.Column="0" Content="Reset to Defaults" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+        <Button Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.ResetToDefaults}" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Content="Export" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
-            <Button Content="Import" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="{x:Static p:Resources.Export}" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="{x:Static p:Resources.Import}" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
         </StackPanel>
 
         <ContentControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="save" Content="Save" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}">
+                        <Button x:Name="save" Content="{x:Static p:Resources.Save}" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}">
                             <Button.ToolTip>
                                 <ToolTip Content="{Binding ActiveSettingsPath}" ContentStringFormat="Options will be saved to '{0}'." />
                             </Button.ToolTip>
                         </Button>
 
-                        <Button x:Name="cancel" Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
+                        <Button x:Name="cancel" Content="{x:Static p:Resources.Cancel}" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
                     </StackPanel>
                     <DataTemplate.Triggers>
                         <Trigger SourceName="save" Property="IsEnabled" Value="False">
                             <Setter TargetName="save" Property="Visibility" Value="Hidden" />
-                            <Setter TargetName="cancel" Property="Content" Value="Close" />
+                            <Setter TargetName="cancel" Property="Content" Value="{x:Static p:Resources.Close}" />
                         </Trigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

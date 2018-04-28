@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Third Party";
+        public override string Header =>  CodeMaid.Properties.Resources.ThirdPartyViewModel_ThirdParty;
 
         #endregion Overrides of OptionsPageViewModel
 

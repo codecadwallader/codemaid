@@ -51,11 +51,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Enabled = canAlterate;
             if (canAlterate)
             {
-                Text = "S&witch to " + Path.GetFileName(alternatePath);
+                Text =  CodeMaid.Properties.Resources.SWitchTo + Path.GetFileName(alternatePath);
             }
             else
             {
-                Text = "S&witch File";
+                Text =  CodeMaid.Properties.Resources.SWitchFile;
             }
         }
 

@@ -58,12 +58,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())
             {
-                MessageBox.Show(@"Cleanup cannot run while debugging.",
-                                @"CodeMaid: Cleanup All Code",
+                MessageBox.Show(CodeMaid.Properties.Resources.CleanupCannotRunWhileDebugging,
+                                CodeMaid.Properties.Resources.CodeMaidCleanupAllCode,
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if (MessageBox.Show(@"Are you ready for CodeMaid to clean everything in the solution?",
-                                     @"CodeMaid: Confirmation for Cleanup All Code",
+            else if (MessageBox.Show(CodeMaid.Properties.Resources.AreYouReadyForCodeMaidToCleanEverythingInTheSolution,
+                                     CodeMaid.Properties.Resources.CodeMaidConfirmationForCleanupAllCode,
                                      MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No)
                          == MessageBoxResult.Yes)
             {

@@ -2,38 +2,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations">
     <DataTemplate DataType="{x:Type local:CleaningRemoveViewModel}">
         <StackPanel>
-            <GroupBox Header="Whitespace">
+            <GroupBox Header="{x:Static p:Resources.Whitespace}">
                 <StackPanel>
-                    <TextBlock Text="Remove blank lines" Margin="5,5,5,0" />
+                    <TextBlock Text="{x:Static p:Resources.RemoveBlankLines}" Margin="5,5,5,0" />
                     <WrapPanel Margin="35,0,5,10">
-                        <ToggleButton Content="at top of file" IsChecked="{Binding RemoveBlankLinesAtTop}" />
-                        <ToggleButton Content="after attributes" IsChecked="{Binding RemoveBlankLinesAfterAttributes}" />
-                        <ToggleButton Content="after opening braces" IsChecked="{Binding RemoveBlankLinesAfterOpeningBraces}" />
-                        <ToggleButton Content="before closing braces" IsChecked="{Binding RemoveBlankLinesBeforeClosingBraces}" />
-                        <ToggleButton Content="before closing tags" IsChecked="{Binding RemoveBlankLinesBeforeClosingTags}" />
-                        <ToggleButton Content="between chained statements" IsChecked="{Binding RemoveBlankLinesBetweenChainedStatements}" />
-                        <ToggleButton Content="at bottom of file" IsChecked="{Binding RemoveBlankLinesAtBottom}" />
+                        <ToggleButton Content="{x:Static p:Resources.AtTopOfFile}" IsChecked="{Binding RemoveBlankLinesAtTop}" />
+                        <ToggleButton Content="{x:Static p:Resources.AfterAttributes}" IsChecked="{Binding RemoveBlankLinesAfterAttributes}" />
+                        <ToggleButton Content="{x:Static p:Resources.AfterOpeningBraces}" IsChecked="{Binding RemoveBlankLinesAfterOpeningBraces}" />
+                        <ToggleButton Content="{x:Static p:Resources.BeforeClosingBraces}" IsChecked="{Binding RemoveBlankLinesBeforeClosingBraces}" />
+                        <ToggleButton Content="{x:Static p:Resources.BeforeClosingTags}" IsChecked="{Binding RemoveBlankLinesBeforeClosingTags}" />
+                        <ToggleButton Content="{x:Static p:Resources.BetweenChainedStatements}" IsChecked="{Binding RemoveBlankLinesBetweenChainedStatements}" />
+                        <ToggleButton Content="{x:Static p:Resources.AtBottomOfFile}" IsChecked="{Binding RemoveBlankLinesAtBottom}" />
                     </WrapPanel>
 
-                    <TextBlock Text="Remove blank spaces" Margin="5,5,5,0" />
+                    <TextBlock Text="{x:Static p:Resources.RemoveBlankSpaces}" Margin="5,5,5,0" />
                     <WrapPanel Margin="35,0,5,20">
-                        <ToggleButton Content="before closing angle brackets" IsChecked="{Binding RemoveBlankSpacesBeforeClosingAngleBrackets}" />
+                        <ToggleButton Content="{x:Static p:Resources.BeforeClosingAngleBrackets}" IsChecked="{Binding RemoveBlankSpacesBeforeClosingAngleBrackets}" />
                     </WrapPanel>
 
-                    <CheckBox Content="Remove end of file trailing new line" IsChecked="{Binding RemoveEndOfFileTrailingNewLine}" />
-                    <CheckBox Content="Remove end of line whitespace" IsChecked="{Binding RemoveEndOfLineWhitespace}" />
-                    <CheckBox Content="Remove multiple consecutive blank lines" IsChecked="{Binding RemoveMultipleConsecutiveBlankLines}" />
+                    <CheckBox Content="{x:Static p:Resources.RemoveEndOfFileTrailingNewLine}" IsChecked="{Binding RemoveEndOfFileTrailingNewLine}" />
+                    <CheckBox Content="{x:Static p:Resources.RemoveEndOfLineWhitespace}" IsChecked="{Binding RemoveEndOfLineWhitespace}" />
+                    <CheckBox Content="{x:Static p:Resources.RemoveMultipleConsecutiveBlankLines}" IsChecked="{Binding RemoveMultipleConsecutiveBlankLines}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Regions">
+            <GroupBox Header="{x:Static p:Resources.Regions}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Remove regions" VerticalAlignment="Center" />
-                    <RadioButton Content="none" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.None}}" />
-                    <RadioButton Content="empty" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.Empty}}" />
-                    <RadioButton Content="all" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.All}}" />
+                    <TextBlock Text="{x:Static p:Resources.RemoveRegions}" VerticalAlignment="Center" />
+                    <RadioButton Content="{x:Static p:Resources.None}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.None}}" />
+                    <RadioButton Content="{x:Static p:Resources.Empty}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.Empty}}" />
+                    <RadioButton Content="{x:Static p:Resources.All}" IsChecked="{Binding RemoveRegions, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:NoneEmptyAll.All}}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "General";
+        public override string Header =>  CodeMaid.Properties.Resources.General;
 
         #endregion Overrides of OptionsPageViewModel
 

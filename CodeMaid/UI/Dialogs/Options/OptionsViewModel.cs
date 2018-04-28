@@ -223,10 +223,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Title = "CodeMaid: Export " + activeSettingsName,
+                Title = CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName,
                 FileName = "CodeMaid",
                 DefaultExt = ".config",
-                Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*"
+                Filter = CodeMaid.Properties.Resources.ConfigFilesConfigConfigAllFiles
             };
 
             if (dialog.ShowDialog() == true)
@@ -235,14 +235,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 {
                     File.Copy(ActiveSettingsPath, dialog.FileName, true);
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully exported " + activeSettingsName + " to '{0}'.", dialog.FileName),
-                                    "CodeMaid: Export " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(CodeMaid.Properties.Resources.CodeMaidHasSuccessfullyExported + activeSettingsName + CodeMaid.Properties.Resources.To0, dialog.FileName),
+                                     CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName + CodeMaid.Properties.Resources.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to export " + activeSettingsName, ex);
-                    MessageBox.Show("CodeMaid was unable to export " + activeSettingsName + ".  See output window for more details.",
-                                    "CodeMaid: Export " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine(Resources.UnableToExport + activeSettingsName, ex);
+                    MessageBox.Show(CodeMaid.Properties.Resources.CodeMaidWasUnableToExport + activeSettingsName + CodeMaid.Properties.Resources.SeeOutputWindowForMoreDetails,
+                                     CodeMaid.Properties.Resources.CodeMaidExport + activeSettingsName + CodeMaid.Properties.Resources.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -272,9 +272,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
             var activeSettingsName = ActiveSettingsName;
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Title = "CodeMaid: Import " + activeSettingsName,
+                Title = CodeMaid.Properties.Resources.CodeMaidImport + activeSettingsName,
                 DefaultExt = ".config",
-                Filter = "Config files (*.config)|*.config|All Files (*.*)|*.*",
+                Filter = CodeMaid.Properties.Resources.ConfigFilesConfigConfigAllFiles,
                 CheckFileExists = true
             };
 
@@ -289,14 +289,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     ActiveSettings.Reload();
                     ReloadPagesFromSettings();
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully imported " + activeSettingsName + " from '{0}'.", dialog.FileName),
-                                    "CodeMaid: Import " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(Resources.CodeMaidHasSuccessfullyImported1From0, dialog.FileName, activeSettingsName),
+                                    Resources.CodeMaidImport + activeSettingsName + Resources.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to import " + activeSettingsName, ex);
-                    MessageBox.Show("CodeMaid was unable to import " + activeSettingsName + ".  See output window for more details.",
-                                    "CodeMaid: Import " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine(Resources._UnableToImport + activeSettingsName, ex);
+                    MessageBox.Show(Resources.CodeMaidWasUnableToImport + activeSettingsName + Resources.SeeOutputWindowForMoreDetails,
+                                    Resources.CodeMaidImport + activeSettingsName + Resources.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -319,9 +319,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         private void OnResetToDefaultsCommandExecuted(object parameter)
         {
             var activeSettingsName = ActiveSettingsName;
-            var result = MessageBox.Show(@"Are you sure you want all " + activeSettingsName + " to be reset to their defaults?" + Environment.NewLine + Environment.NewLine +
-                                         @"This action cannot be undone.",
-                                         @"CodeMaid: Confirmation for Reset " + activeSettingsName,
+            var result = MessageBox.Show(Resources.AreYouSureYouWantAll + activeSettingsName + Resources.OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults + Environment.NewLine + Environment.NewLine +
+                                         Resources.ThisActionCannotBeUndone,
+                                         Resources.CodeMaidConfirmationForReset + activeSettingsName,
                                          MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
             if (result == MessageBoxResult.Yes)
@@ -335,14 +335,14 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                     ActiveSettings.Reload();
                     ReloadPagesFromSettings();
 
-                    MessageBox.Show(string.Format("CodeMaid has successfully reset " + activeSettingsName + "."),
-                                    "CodeMaid: Reset " + activeSettingsName + " Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(Resources.CodeMaidHasSuccessfullyReset + activeSettingsName + "."),
+                                    Resources.CodeMaidReset + activeSettingsName + Resources.Successful, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    OutputWindowHelper.ExceptionWriteLine("Unable to reset " + ActiveSettingsName, ex);
-                    MessageBox.Show("CodeMaid was unable to reset " + activeSettingsName + ".  See output window for more details.",
-                                    "CodeMaid: Reset " + activeSettingsName + " Unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error);
+                    OutputWindowHelper.ExceptionWriteLine(Resources.UnableToReset + ActiveSettingsName, ex);
+                    MessageBox.Show(Resources.CodeMaidWasUnableToReset + activeSettingsName + Resources.SeeOutputWindowForMoreDetails,
+                                    Resources.CodeMaidReset + activeSettingsName + Resources.Unsuccessful, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -474,8 +474,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         {
             if (HasChanges)
             {
-                var result = MessageBox.Show(@"You have pending changes.  Do you want to save them before continuing?",
-                    @"CodeMaid: Confirmation to Save Pending Changes",
+                var result = MessageBox.Show(Resources.YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing,
+                    Resources.CodeMaidConfirmationToSavePendingChanges,
                     MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
 
                 switch (result)
@@ -499,7 +499,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>The active or inactive settings name.</returns>
         private string GetSettingsName(bool inactive)
         {
-            return IsActiveSolutionSpecificSettings ^ inactive ? "Solution-Specific Settings" : "User Settings";
+            return IsActiveSolutionSpecificSettings ^ inactive ? CodeMaid.Properties.Resources.SolutionSpecificSettings : CodeMaid.Properties.Resources.UserSettings;
         }
 
         /// <summary>

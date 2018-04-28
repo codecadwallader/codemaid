@@ -168,10 +168,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 var viewModel = new YesNoPromptViewModel
                 {
-                    Title = @"CodeMaid: Reorganize Preprocessor Conditionals",
-                    Message = document.Name + " contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support." +
-                              Environment.NewLine + Environment.NewLine +
-                              "Do you want to reorganize anyways (DANGEROUS)?",
+                    Title = @Resources.CodeMaidReorganizePreprocessorConditionals,
+                    Message = string.Format(Resources.ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS, document.Name),
                     CanRemember = true
                 };
 

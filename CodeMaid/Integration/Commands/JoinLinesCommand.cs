@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal JoinLinesCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidJoinLines)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Join");
+            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidJoin);
         }
 
         #endregion Constructors

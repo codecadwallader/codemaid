@@ -37,7 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         internal CommentFormatCommand(CodeMaidPackage package)
             : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Format Comment");
+            _undoTransactionHelper = new UndoTransactionHelper(package, CodeMaid.Properties.Resources.CodeMaidFormatComment);
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
@@ -91,15 +91,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                     if (foundComments)
                     {
-                        Package.IDE.StatusBar.Text = "CodeMaid finished formatting the comment.";
+                        Package.IDE.StatusBar.Text = CodeMaid.Properties.Resources.CodeMaidFinishedFormattingTheComment;
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = string.Format(
                             foundComments
-                                ? "CodeMaid finished formatting the comments {0}."
-                                : "CodeMaid did not find a non-code comment {0} to reformat.",
-                            selection.IsEmpty ? "under the cursor" : "in the selection"
+                                ?  CodeMaid.Properties.Resources.CodeMaidFinishedFormattingTheComments0
+                                :  CodeMaid.Properties.Resources.CodeMaidDidNotFindANonCodeComment0ToReformat,
+                            selection.IsEmpty ?  CodeMaid.Properties.Resources.UnderTheCursor :  CodeMaid.Properties.Resources.InTheSelection
                         );
                     }
                 }
