@@ -15,7 +15,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>    
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <UICulture>en-US</UICulture>
     <StartAction>Program</StartAction>
     <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
@@ -804,13 +804,13 @@
       <LogicalName>VSPackage.en-US.resources</LogicalName>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="source.extension.resx">
+    <None Include="source.extension.resx">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
-    </EmbeddedResource>
+    </None>
     <EmbeddedResource Include="source.extension.zh-Hans.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.zh-Hans.resources</LogicalName>
