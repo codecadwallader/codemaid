@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Windows.Media;
 
@@ -212,10 +213,22 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 
         private void UpdatePreviewText()
         {
-            //TODO: Preview functionality used to work against CodeCommentOptions, but now is
-            // working directly against the Settings object which is not updated until save.
-            // Utilize an alternate Settings object to show settings on the fly?
-            CommentPreviewText = CodeComment.FormatXml(UnformattedPreviewText);
+            CommentPreviewText = CodeComment.Format(UnformattedPreviewText, null, o =>
+            {
+                o.WrapColumn = CommentWrapColumn;
+                o.SkipWrapOnLastWord = CommentSkipWrapOnLastWord;
+
+                o.Xml.AlignParamTags = CommentXmlAlignParamTags;
+
+                o.Xml.Default.Case = CommentXmlTagsToLowerCase ? XmlTagCase.LowerCase : XmlTagCase.Keep;
+                o.Xml.Default.Indent = CommentXmlValueIndent;
+                o.Xml.Default.KeepTogether = CommentXmlKeepTagsTogether;
+                o.Xml.Default.SpaceContent = CommentXmlSpaceTags;
+                o.Xml.Default.SpaceSelfClosing = CommentXmlSpaceSingleTags;
+
+                o.Xml.Default.Split = CommentXmlSplitAllTags ? XmlTagNewLine.Always : XmlTagNewLine.Content;
+                o.Xml.Tags["summary"] = new FormatterOptionsXmlTag { Split = CommentXmlSplitSummaryTagToMultipleLines ? XmlTagNewLine.Always : XmlTagNewLine.Content };
+            });
         }
 
         #endregion Preview Text and Helpers

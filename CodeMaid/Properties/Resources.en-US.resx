@@ -633,8 +633,8 @@
   <data name="PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup" xml:space="preserve">
     <value>Place explicit interface members at the end of their group</value>
   </data>
-  <data name="PreviewReopenToRefresh" xml:space="preserve">
-    <value>Preview (reopen to refresh)</value>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
   </data>
   <data name="PrimaryOrderingShouldBeBy" xml:space="preserve">
     <value>Primary ordering should be by</value>

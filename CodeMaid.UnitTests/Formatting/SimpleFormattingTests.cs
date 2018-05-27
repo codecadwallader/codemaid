@@ -105,10 +105,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit amet.";
             var expected = "Lorem ipsum\r\ndolor sit amet.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 12;
-            Settings.Default.Formatting_CommentSkipWrapOnLastWord = true;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o =>
+            {
+                o.WrapColumn = 12;
+                o.SkipWrapOnLastWord = true;
+            });
         }
 
         [TestMethod]
@@ -118,10 +119,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit amet.";
             var expected = "Lorem ipsum\r\ndolor sit\r\namet.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 12;
-            Settings.Default.Formatting_CommentSkipWrapOnLastWord = false;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o =>
+            {
+                o.WrapColumn = 12;
+                o.SkipWrapOnLastWord = false;
+            });
         }
 
         [TestMethod]
@@ -147,9 +149,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "Lorem ipsum dolor sit.";
             var expected = "Lorem ipsum\r\ndolor sit.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 12;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 12);
         }
 
         [TestMethod]

@@ -633,8 +633,8 @@
   <data name="PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup" xml:space="preserve">
     <value>在其组的末尾放置显式接口成员</value>
   </data>
-  <data name="PreviewReopenToRefresh" xml:space="preserve">
-    <value>预览 (重新打开以刷新)</value>
+  <data name="Preview" xml:space="preserve">
+    <value>预览</value>
   </data>
   <data name="PrimaryOrderingShouldBeBy" xml:space="preserve">
     <value>主要排序应由</value>

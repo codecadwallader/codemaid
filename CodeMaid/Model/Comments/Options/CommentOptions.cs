@@ -1,11 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace SteveCadwallader.CodeMaid.Model.Comments
+namespace SteveCadwallader.CodeMaid.Model.Comments.Options
 {
     /// <summary>
     /// Comment specific options for the formatter.
     /// </summary>
-    internal class CommentOptions
+    internal class CommentOptions : ICommentOptions
     {
         public string Prefix { get; internal set; }
 

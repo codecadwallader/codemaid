@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
@@ -16,65 +17,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         public const int CopyrightExtraIndent = 4;
         public const char KeepTogetherSpacer = '\a';
         public const char Spacer = ' ';
-
-        /// <summary>
-        /// Creates the XML close tag string for an XElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        /// <returns>
-        /// The XML close tag, or <c>null</c> if the element has no value and is a self-closing tag.
-        /// </returns>
-        internal static string CreateXmlCloseTag(System.Xml.Linq.XElement element)
-        {
-            if (element.IsEmpty)
-            {
-                return null;
-            }
-
-            var name = element.Name.LocalName;
-
-            var result = string.Format("</{0}>", Settings.Default.Formatting_CommentXmlTagsToLowerCase ? name.ToLowerInvariant() : name);
-
-            return Settings.Default.Formatting_CommentXmlKeepTagsTogether ? SpaceToFake(result) : result;
-        }
-
-        /// <summary>
-        /// Creates the XML open tag string for an XElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        /// <returns>The XML open tag. In case of an element without value, the tag is self-closing.</returns>
-        internal static string CreateXmlOpenTag(System.Xml.Linq.XElement element)
-        {
-            var builder = new System.Text.StringBuilder();
-            builder.Append("<");
-            var name = element.Name.LocalName;
-            builder.Append(Settings.Default.Formatting_CommentXmlTagsToLowerCase ? name.ToLowerInvariant() : name);
-
-            if (element.HasAttributes)
-            {
-                foreach (var attr in element.Attributes())
-                {
-                    builder.Append(Spacer);
-                    builder.Append(attr);
-                }
-            }
-
-            if (element.IsEmpty)
-            {
-                if (Settings.Default.Formatting_CommentXmlSpaceSingleTags)
-                {
-                    builder.Append(Spacer);
-                }
-
-                builder.Append("/");
-            }
-
-            builder.Append(">");
-
-            var result = builder.ToString();
-
-            return Settings.Default.Formatting_CommentXmlKeepTagsTogether ? SpaceToFake(result) : result;
-        }
 
         internal static string FakeToSpace(string value)
         {
@@ -144,23 +86,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var pattern = string.Format(@"^{0}(?<indent>[\t ]*)(?<line>(?<listprefix>[-=\*\+]+[ \t]*|\w+[\):][ \t]+|\d+\.[ \t]+)?((?<words>[^\t\r\n ]+)*[\t ]*)*)\r*\n?$", prefix);
             return new Regex(pattern, RegexOptions.ExplicitCapture | RegexOptions.Multiline);
-        }
-
-        internal static int GetTabSize(CodeMaidPackage package, TextDocument document)
-        {
-            const int fallbackTabSize = 4;
-
-            try
-            {
-                var settings = package.IDE.Properties["TextEditor", document.Language];
-                var tabsize = settings.Item("TabSize").Value as int? ?? fallbackTabSize;
-                return tabsize;
-            }
-            catch (Exception)
-            {
-                // Some languages (e.g. F#, PowerShell) may not correctly resolve tab settings.
-                return fallbackTabSize;
-            }
         }
 
         /// <summary>

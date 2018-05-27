@@ -31,7 +31,7 @@
                 <CheckBox Content="{x:Static p:Resources.RunFormatCommentsDuringCleanup}" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="{x:Static p:Resources.PreviewReopenToRefresh}">
+            <GroupBox Header="{x:Static p:Resources.Preview}">
                 <TextBox FontFamily="{Binding CommentPreviewTextFont}"
                          Foreground="{Binding CommentPreviewTextForeground}"
                          Background="{Binding CommentPreviewTextBackground}"

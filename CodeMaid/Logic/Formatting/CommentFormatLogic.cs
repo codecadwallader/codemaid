@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
 
@@ -59,14 +60,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         {
             bool foundComments = false;
 
-            var options = new FormatterOptions
-            {
-                TabSize = CodeCommentHelper.GetTabSize(_package, textDocument),
-                IgnoreTokens = CodeCommentHelper
-                    .GetTaskListTokens(_package)
-                    .Concat(Settings.Default.Formatting_IgnoreLinesStartingWith.Cast<string>())
-                    .ToArray()
-            };
+            var options = FormatterOptions
+                .FromSettings(Settings.Default)
+                .Set(o =>
+                {
+                    o.TabSize = textDocument.TabSize;
+                    o.IgnoreTokens = CodeCommentHelper
+                        .GetTaskListTokens(_package)
+                        .Concat(Settings.Default.Formatting_IgnoreLinesStartingWith.Cast<string>())
+                        .ToArray();
+                });
 
             while (start.Line <= end.Line)
             {
