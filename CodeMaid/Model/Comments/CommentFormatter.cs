@@ -270,7 +270,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                             Append(CodeCommentHelper.Spacer);
                         }
 
-                        Append(word);
+                        Append(CodeCommentHelper.FakeToSpace(word));
                     }
                 }
                 else
