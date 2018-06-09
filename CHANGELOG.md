@@ -1,8 +1,19 @@
 # Changelog
 
-## vNext (10.5)
+## vNext (10.6)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
+
+- [ ] Features
+- [ ] Fixes
+
+## Previous Releases
+
+These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 10.5
+
+**2018-06-09**
 
 - [x] Features
   - [x] [#477](https://github.com/codecadwallader/codemaid/pull/477) - Digging: New radial progress bar - thanks [Jammer77](https://github.com/Jammer77)!
@@ -17,10 +28,6 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#541](https://github.com/codecadwallader/codemaid/pull/541) - Project file (.csproj) cleanup - thanks [heku](https://github.com/heku)!
   - [x] [#546](https://github.com/codecadwallader/codemaid/pull/546) - Fix a setting that would leave a trailing white space when formatting comments - thanks [willemduncan](https://github.com/willemduncan)!
   - [x] [#556](https://github.com/codecadwallader/codemaid/issues/556) - Partial fix reducing how long we will block waiting for a code model to be built.
-
-## Previous Releases
-
-These are the changes to each version that has been released to the Visual Studio marketplace.
 
 ## 10.4
 
