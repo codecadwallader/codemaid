@@ -112,7 +112,7 @@ namespace SteveCadwallader.CodeMaid.Model
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
             {
-                if (!codeModel.IsBuiltWaitHandle.WaitOne(TimeSpan.FromSeconds(30)))
+                if (!codeModel.IsBuiltWaitHandle.WaitOne(TimeSpan.FromSeconds(3)))
                 {
                     OutputWindowHelper.WarningWriteLine(
                         $"Timed out waiting for code model to be built for '{codeModel.Document.FullName}'");
