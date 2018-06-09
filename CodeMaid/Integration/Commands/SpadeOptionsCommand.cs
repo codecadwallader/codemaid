@@ -1,14 +1,25 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for launching the CodeMaid Options to the Spade page.
     /// </summary>
-    internal class SpadeOptionsCommand : BaseCommand
+    internal sealed class SpadeOptionsCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeOptionsCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeOptionsCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -16,8 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeOptionsCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeOptions, PackageIds.CmdIDCodeMaidSpadeOptions))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeOptions)
         {
         }
 

@@ -1,15 +1,27 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;
-using System.ComponentModel.Design;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for formatting the current comment.
     /// </summary>
-    internal class CommentFormatCommand : BaseCommand
+    internal sealed class CommentFormatCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CommentFormatCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CommentFormatCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_CommentFormat, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly CommentFormatLogic _commentFormatLogic;
@@ -24,10 +36,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CommentFormatCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandCommentFormat, PackageIds.CmdIDCodeMaidCommentFormat))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCommentFormat)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Format Comment");
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidFormatComment);
             _commentFormatLogic = CommentFormatLogic.GetInstance(package);
         }
 
@@ -81,15 +92,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                     if (foundComments)
                     {
-                        Package.IDE.StatusBar.Text = "CodeMaid finished formatting the comment.";
+                        Package.IDE.StatusBar.Text = Resources.CodeMaidFinishedFormattingTheComment;
                     }
                     else
                     {
                         Package.IDE.StatusBar.Text = string.Format(
                             foundComments
-                                ? "CodeMaid finished formatting the comments {0}."
-                                : "CodeMaid did not find a non-code comment {0} to reformat.",
-                            selection.IsEmpty ? "under the cursor" : "in the selection"
+                                ? Resources.CodeMaidFinishedFormattingTheComments0
+                                : Resources.CodeMaidDidNotFindANonCodeComment0ToReformat,
+                            selection.IsEmpty ? Resources.UnderTheCursor : Resources.InTheSelection
                         );
                     }
                 }

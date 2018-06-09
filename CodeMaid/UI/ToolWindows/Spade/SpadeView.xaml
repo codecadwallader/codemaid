@@ -174,23 +174,28 @@
         <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <Border x:Name="outerBorder" Background="{DynamicResource FWindow}" BorderBrush="{StaticResource FCodeMaidGreen}"
-                            BorderThickness="0,1" Margin="1,0" Padding="0,5" Visibility="Collapsed">
+                    <Border x:Name="outerBorder"
+                            Background="{DynamicResource FWindow}"
+                            BorderBrush="{StaticResource FCodeMaidGreen}"
+                            BorderThickness="0" Margin="1,0" Padding="0,5" Visibility="Collapsed">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock x:Name="stateLabel" FontSize="12" FontStyle="Italic"
+                            <local:RadialProgressBar Width="80" Height="80" Margin="5" />
+                            <TextBlock x:Name="stateLabel" FontSize="14" FontStyle="Italic"
                                     Foreground="{StaticResource FCodeMaidGray}" />
-                            <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource FCodeMaidGreen}"
-                                    Text="{Binding Document.Name}" />
+                            <TextBlock FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource FCodeMaidGreen}"
+                                       Text="{Binding Document.Name}" />
                         </StackPanel>
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsLoading}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="loading" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Loading}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="refreshing" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Refreshing}" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

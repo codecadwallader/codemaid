@@ -7,8 +7,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for text editor events.
     /// </summary>
-    internal class TextEditorEventListener : BaseEventListener
+    internal sealed class TextEditorEventListener : BaseEventListener
     {
+        #region Singleton
+
+        public static TextEditorEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new TextEditorEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -21,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             // Store access to the text editor events, otherwise events will not register properly
             // via DTE.
             TextEditorEvents = Package.IDE.Events.TextEditorEvents;
-            TextEditorEvents.LineChanged += TextEditorEvents_LineChanged;
+            Switch(on: true);
         }
 
         #endregion Constructors
@@ -70,6 +79,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion Private Event Handlers
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            TextEditorEvents.LineChanged += TextEditorEvents_LineChanged;
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            TextEditorEvents.LineChanged -= TextEditorEvents_LineChanged;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -87,7 +110,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && TextEditorEvents != null)
                 {
-                    TextEditorEvents.LineChanged -= TextEditorEvents_LineChanged;
+                    Switch(on: false);
                 }
             }
         }

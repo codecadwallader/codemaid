@@ -1,5 +1,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     {
         #region Fields
 
-        private const string DefaultCaption = "Build Progress";
+        private string DefaultCaption = Resources.BuildProgress;
 
         private readonly BuildProgressViewModel _viewModel;
 
@@ -97,6 +99,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         #endregion Properties
 
         #region Methods
+
+        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
 
         /// <summary>
         /// This method can be overriden by the derived class to execute any code that needs to run
@@ -216,26 +220,26 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // First append the word 'Batch ' if this is a batch build event.
             if (buildScope == vsBuildScope.vsBuildScopeBatch)
             {
-                stringBuilder.Append("Batch ");
+                stringBuilder.Append(Resources.Batch);
             }
 
             // Next append the action-specific build string.
             switch (buildAction)
             {
                 case vsBuildAction.vsBuildActionBuild:
-                    stringBuilder.Append("Building");
+                    stringBuilder.Append(Resources.Building);
                     break;
 
                 case vsBuildAction.vsBuildActionClean:
-                    stringBuilder.Append("Cleaning");
+                    stringBuilder.Append(Resources.Cleaning);
                     break;
 
                 case vsBuildAction.vsBuildActionDeploy:
-                    stringBuilder.Append("Deploying");
+                    stringBuilder.Append(Resources.Deploying);
                     break;
 
                 case vsBuildAction.vsBuildActionRebuildAll:
-                    stringBuilder.Append("Rebuilding");
+                    stringBuilder.Append(Resources.Rebuilding);
                     break;
             }
 

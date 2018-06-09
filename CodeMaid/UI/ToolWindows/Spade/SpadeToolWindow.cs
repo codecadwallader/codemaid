@@ -45,14 +45,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             : base(null)
         {
             // Set the tool window caption.
-            Caption = "CodeMaid Spade";
+            Caption = Resources.CodeMaidSpade;
 
             // Set the tool window image from resources.
             BitmapResourceID = 508;
             BitmapIndex = 0;
 
             // Create the toolbar for the tool window.
-            ToolBar = new CommandID(PackageGuids.GuidCodeMaidToolbarSpadeBaseGroup, PackageIds.ToolbarIDCodeMaidToolbarSpade);
+            ToolBar = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.ToolbarIDCodeMaidToolbarSpade);
 
             // Setup the associated classes.
             _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };
@@ -62,10 +62,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             // Create and set the view.
             Content = new SpadeView { DataContext = _viewModel };
-
-            // Register for changes to settings.
-            Settings.Default.SettingsLoaded += (sender, args) => OnSettingsChange();
-            Settings.Default.SettingsSaving += (sender, args) => OnSettingsChange();
         }
 
         #endregion Constructors
@@ -162,7 +158,24 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
-                _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+                Package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+                {
+                    if (on)
+                    {
+                        _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+
+                        // Register for changes to settings.
+                        Settings.Default.SettingsLoaded += OnSettingsLoaded;
+                        Settings.Default.SettingsSaving += OnSettingsSaving;
+                    }
+                    else
+                    {
+                        _codeModelManager.CodeModelBuilt -= OnCodeModelBuilt;
+
+                        Settings.Default.SettingsLoaded -= OnSettingsLoaded;
+                        Settings.Default.SettingsSaving -= OnSettingsSaving;
+                    }
+                });
 
                 // Pass the package over to the view model.
                 _viewModel.Package = Package;
@@ -178,7 +191,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _viewModel.Dispatcher = spadeContent.Dispatcher;
 
-                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => Package.ThemeManager.ApplyTheme()));
+                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(Package.ThemeManager.ApplyTheme));
                 }
             }
         }
@@ -192,6 +205,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             ConditionallyUpdateCodeModel(true);
         }
+
+        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
 
         #endregion Public Methods
 
@@ -272,6 +287,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 UpdateViewModelRawCodeItems(codeModel.CodeItems);
             }
         }
+
+        private void OnSettingsSaving(object sender, System.ComponentModel.CancelEventArgs e) => OnSettingsChange();
+
+        private void OnSettingsLoaded(object sender, System.Configuration.SettingsLoadedEventArgs e) => OnSettingsChange();
 
         /// <summary>
         /// An event handler called when settings are changed.
@@ -360,7 +379,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search CodeMaid Spade (Ctrl+M, ;)");
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, Resources.SearchCodeMaidSpadeCtrlM);
         }
 
         #endregion IVsWindowSearch Members

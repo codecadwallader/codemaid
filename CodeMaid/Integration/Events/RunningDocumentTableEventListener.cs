@@ -3,6 +3,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -10,8 +11,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that listens for running document table events.
     /// </summary>
-    internal class RunningDocumentTableEventListener : BaseEventListener, IVsRunningDocTableEvents3
+    internal sealed class RunningDocumentTableEventListener : BaseEventListener, IVsRunningDocTableEvents3
     {
+        #region Singleton
+
+        public static RunningDocumentTableEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new RunningDocumentTableEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -24,8 +34,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             // Create and store a reference to the running document table.
             RunningDocumentTable = new RunningDocumentTable(package);
 
-            // Register with the running document table for events.
-            EventCookie = RunningDocumentTable.Advise(this);
+            // This listener services multiple features, watching if any of them switched.
+            package.SettingsMonitor.Watch<bool>(new[] {
+                nameof(Settings.Default.Feature_SettingCleanupOnSave),
+                nameof(Settings.Default.Feature_SpadeToolWindow)
+            }, values =>
+            {
+                Switch(values.Any(v => v));
+            });
         }
 
         #endregion Constructors
@@ -156,6 +172,22 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion IVsRunningDocTableEvents3 Members
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            // Register with the running document table for events.
+            EventCookie = RunningDocumentTable.Advise(this);
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            RunningDocumentTable.Unadvise(EventCookie);
+            EventCookie = 0;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -173,8 +205,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && RunningDocumentTable != null && EventCookie != 0)
                 {
-                    RunningDocumentTable.Unadvise(EventCookie);
-                    EventCookie = 0;
+                    Switch(on: false);
                 }
             }
         }

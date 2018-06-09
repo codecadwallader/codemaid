@@ -1,13 +1,24 @@
 ﻿using SteveCadwallader.CodeMaid.Properties;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for changing the setting for cleanup on save.
     /// </summary>
-    internal class SettingCleanupOnSaveCommand : BaseCommand
+    internal sealed class SettingCleanupOnSaveCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SettingCleanupOnSaveCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SettingCleanupOnSaveCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -15,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SettingCleanupOnSaveCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSettingCleanupOnSave, PackageIds.CmdIDCodeMaidSettingCleanupOnSave))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSettingCleanupOnSave)
         {
         }
 
@@ -36,7 +46,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets an ON/OFF string based on the <see cref="CleanupOnSave"/> state.
         /// </summary>
-        public string CleanupOnSaveStateText => CleanupOnSave ? "ON" : "OFF";
+        public string CleanupOnSaveStateText => CleanupOnSave ? Resources.SettingCleanupOnSaveCommand_ON : Resources.SettingCleanupOnSaveCommand_OFF;
 
         #endregion Properties
 
@@ -48,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnBeforeQueryStatus()
         {
             Checked = CleanupOnSave;
-            Text = "Automatic Cleanup On Save - " + CleanupOnSaveStateText;
+            Text = Resources.AutomaticCleanupOnSave + CleanupOnSaveStateText;
         }
 
         /// <summary>
@@ -61,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             CleanupOnSave = !CleanupOnSave;
             Settings.Default.Save();
 
-            Package.IDE.StatusBar.Text = $"CodeMaid turned automatic cleanup on save {CleanupOnSaveStateText}.";
+            Package.IDE.StatusBar.Text = $"{Resources.CodeMaidTurnedAutomaticCleanupOnSave} {CleanupOnSaveStateText}.";
         }
 
         #endregion BaseCommand Methods

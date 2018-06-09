@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Third Party";
+        public override string Header => Resources.ThirdPartyViewModel_ThirdParty;
 
         #endregion Overrides of OptionsPageViewModel
 
@@ -101,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.ThirdParty
         /// <summary>
         /// Gets a flag indicating if the UseXAMLStylerCleanup option should be enabled.
         /// </summary>
-        public bool IsEnabledUseXAMLStylerCleanup => _commandHelper.FindCommand("EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML") != null;
+        public bool IsEnabledUseXAMLStylerCleanup => _commandHelper.FindCommand("EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML", "EditorContextMenus.CodeWindow.FormatXAML") != null;
 
         #endregion Enables
     }

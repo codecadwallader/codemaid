@@ -45,6 +45,53 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContentWithSelfClosingTag()
+        {
+            var input = "<summary><see/></summary>";
+            var expected = "<summary> <see/> </summary>";
+
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = false;
+            Settings.Default.Formatting_CommentXmlSpaceTags = true;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContentWithSelfClosingTagMultiline()
+        {
+            var input = "<summary><see/></summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "<see/>" + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlSpaceTags = true;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace()
+        {
+            var input = "<summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</summary>";
+            var expected =
+                "<summary>" + Environment.NewLine +
+                "Lorem ipsum dolor sit amet," + Environment.NewLine +
+                "consectetur adipiscing elit." + Environment.NewLine +
+                "</summary>";
+
+            Settings.Default.Formatting_CommentWrapColumn = 30;
+            Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlSpaceTags = true;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
         public void XmlFormattingTests_AllRootLevelTagsOnNewLine()
         {
             var input = "<summary>abc</summary><returns>abc</returns>";

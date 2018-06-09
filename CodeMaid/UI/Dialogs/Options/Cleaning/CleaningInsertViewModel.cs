@@ -71,7 +71,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Insert";
+        public override string Header => Resources.Insert;
 
         #endregion Overrides of OptionsPageViewModel
 

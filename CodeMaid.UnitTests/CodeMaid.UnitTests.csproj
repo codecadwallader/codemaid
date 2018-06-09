@@ -16,7 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,11 +113,13 @@
     <Compile Include="Formatting\CommentFormatHelper.cs" />
     <Compile Include="Formatting\HeaderFormattingTests.cs" />
     <Compile Include="Formatting\FormatWithPrefixTests.cs" />
+    <Compile Include="Formatting\IgnorePrefixesTests.cs" />
     <Compile Include="Formatting\SimpleFormattingTests.cs" />
     <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\ListFormattingTests.cs" />
     <Compile Include="Helpers\CodeItemTypeComparerTests.cs" />
     <Compile Include="Helpers\CodeMaidPackageHelper.cs" />
+    <Compile Include="Helpers\SettingsMonitorTests.cs" />
     <Compile Include="Helpers\UIShellServiceMock.cs" />
     <Compile Include="Helpers\WindowFrameMock.cs" />
     <Compile Include="CodeMaidPackageTest.cs" />

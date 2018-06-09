@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <UseCodebase>true</UseCodebase>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}</ProjectGuid>
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -15,27 +16,11 @@
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
-    <OldToolsVersion>12.0</OldToolsVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <UICulture>en-US</UICulture>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,6 +174,7 @@
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
     <Compile Include="Helpers\RegexNullSafe.cs" />
+    <Compile Include="Helpers\SettingsMonitor.cs" />
     <Compile Include="Helpers\SettingsContextHelper.cs" />
     <Compile Include="Helpers\RegionHelper.cs" />
     <Compile Include="Helpers\TextDocumentExtensions.cs" />
@@ -197,6 +183,7 @@
     <Compile Include="Integration\Commands\SortLinesCommand.cs" />
     <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
+    <Compile Include="Integration\ISwitchableFeature.cs" />
     <Compile Include="Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
@@ -204,6 +191,8 @@
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
     <Compile Include="Model\CodeItems\IInterfaceItem.cs" />
+    <Compile Include="Model\Comments\CommentOptions.cs" />
+    <Compile Include="Model\Comments\FormatterOptions.cs" />
     <Compile Include="Model\Comments\CommentLine.cs" />
     <Compile Include="Model\Comments\CommentLineXml.cs" />
     <Compile Include="Model\Comments\ICommentLine.cs" />
@@ -254,7 +243,6 @@
     <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
     <Compile Include="Integration\Events\DocumentEventListener.cs" />
     <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
-    <Compile Include="Integration\Events\ShellEventListener.cs" />
     <Compile Include="Integration\Events\SolutionEventListener.cs" />
     <Compile Include="Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="Integration\Events\WindowEventListener.cs" />
@@ -304,6 +292,11 @@
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -350,6 +343,7 @@
     <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="UI\Dialogs\Options\General\FeaturesViewModel.cs" />
     <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
     <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
     <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
@@ -392,23 +386,21 @@
     <Compile Include="UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
     <Compile Include="UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
     <Compile Include="UI\ToolWindows\Spade\MemberSearchTask.cs" />
+    <Compile Include="UI\ToolWindows\Spade\RadialProgressBar.xaml.cs">
+      <DependentUpon>RadialProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToolWindows\Spade\SpadeToolWindow.cs" />
     <Compile Include="UI\ToolWindows\Spade\SpadeView.xaml.cs">
       <DependentUpon>SpadeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
+    <Compile Include="UI\ToolWindows\Spade\CenterConverter.cs" />
     <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
     <Compile Include="UI\Bindable.cs" />
     <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
     <Compile Include="UI\WindowAttachedProperties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="CodeMaid.vsct">
-      <ResourceName>1000</ResourceName>
-      <SubType>Designer</SubType>
-      <Generator>VsctGenerator</Generator>
-      <LastGenOutput>CodeMaid.cs</LastGenOutput>
-    </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -416,6 +408,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="zh-Hans\extension.vsixlangpack">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Resource>
@@ -591,6 +587,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <VSCTCompile Include="CodeMaid.zh-Hans.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+    </VSCTCompile>
+    <VSCTCompile Include="CodeMaid.en-US.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <DependentUpon>CodeMaid.vsct</DependentUpon>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+    <None Include="CodeMaid.vsct">
+      <SubType>Designer</SubType>
+      <LastGenOutput>CodeMaid.cs</LastGenOutput>
+      <Generator>VsctGenerator</Generator>
+    </None>
     <Content Include="CodeMaid_Large.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -674,6 +684,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\Options\General\FeaturesDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -765,35 +779,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\ToolWindows\Spade\RadialProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\ToolWindows\Spade\SpadeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="source.extension.resx">
+    <EmbeddedResource Include="Properties\Resources.en-US.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="source.extension.en-US.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.en-US.resources</LogicalName>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </EmbeddedResource>
+    <None Include="source.extension.resx">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+    </None>
+    <EmbeddedResource Include="source.extension.zh-Hans.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.zh-Hans.resources</LogicalName>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <PropertyGroup>
-    <UseCodebase>true</UseCodebase>
-  </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
