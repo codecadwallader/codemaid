@@ -16,6 +16,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#496](https://github.com/codecadwallader/codemaid/pull/496) - Fix the .NET Framework minimum required version (which is v4.6)
   - [x] [#541](https://github.com/codecadwallader/codemaid/pull/541) - Project file (.csproj) cleanup - thanks [heku](https://github.com/heku)!
   - [x] [#546](https://github.com/codecadwallader/codemaid/pull/546) - Fix a setting that would leave a trailing white space when formatting comments - thanks [willemduncan](https://github.com/willemduncan)!
+  - [x] [#556](https://github.com/codecadwallader/codemaid/issues/556) - Partial fix reducing how long we will block waiting for a code model to be built.
 
 ## Previous Releases
 
