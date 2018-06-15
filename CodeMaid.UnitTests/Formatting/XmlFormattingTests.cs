@@ -52,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = false;
             Settings.Default.Formatting_CommentXmlSpaceTags = true;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
@@ -68,13 +69,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
             Settings.Default.Formatting_CommentXmlSpaceTags = true;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace()
+        public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace1()
         {
             var input = "<summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</summary>";
             var expected =
@@ -85,6 +87,29 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             Settings.Default.Formatting_CommentWrapColumn = 30;
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = true;
+            Settings.Default.Formatting_CommentXmlSpaceTags = true;
+
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+        }
+
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace2()
+        {
+            var input =
+               "<remarks>" + Environment.NewLine +
+               "Lorem ipsum dolor sit amet, consectetur adipiscing elit." + Environment.NewLine +
+               "</remarks>";
+
+            var expected =
+               "<remarks>" + Environment.NewLine +
+               "    Lorem ipsum dolor sit amet, consectetur" + Environment.NewLine +
+               "    adipiscing elit." + Environment.NewLine +
+               "</remarks>";
+
+            Settings.Default.Formatting_CommentWrapColumn = 50;
+            Settings.Default.Formatting_CommentXmlValueIndent = 4;
             Settings.Default.Formatting_CommentXmlSpaceTags = true;
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
@@ -185,6 +210,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
             Settings.Default.Formatting_CommentXmlValueIndent = 4;
             Settings.Default.Formatting_CommentXmlKeepTagsTogether = true;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
 
             // First pass.
             var result = CommentFormatHelper.AssertEqualAfterFormat(input, expected);
@@ -264,6 +290,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var input = "<summary/>";
 
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = false;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
 
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
@@ -350,6 +377,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         {
             var input = "<test>Line with <interpunction/>.</test>";
 
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
+
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
@@ -405,6 +434,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             var expected = "<summary><see/></summary>";
 
             Settings.Default.Formatting_CommentXmlSplitSummaryTagToMultipleLines = false;
+            Settings.Default.Formatting_CommentXmlSpaceSingleTags = false;
 
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }

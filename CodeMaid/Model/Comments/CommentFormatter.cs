@@ -216,6 +216,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 {
                     NewLine();
                 }
+                else if (Settings.Default.Formatting_CommentXmlSpaceTags)
+                {
+                    Append(CodeCommentHelper.Spacer);
+                }
 
                 // Always consider the word after the opening tag as the first word to prevent an
                 // extra space before.
@@ -360,11 +364,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             // If true the tag should be alone on it's own line.
             tagOnOwnLine |= isLiteralContent;
-
-            if (!tagOnOwnLine && Settings.Default.Formatting_CommentXmlSpaceTags)
-            {
-                Append(CodeCommentHelper.Spacer);
-            }
 
             // If the literal content of an XML tag is set, output that content without formatting.
             if (isLiteralContent)
