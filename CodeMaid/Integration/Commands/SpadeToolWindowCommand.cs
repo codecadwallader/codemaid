@@ -1,14 +1,25 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for launching the Spade tool window.
     /// </summary>
-    internal class SpadeToolWindowCommand : BaseCommand
+    internal sealed class SpadeToolWindowCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeToolWindowCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeToolWindowCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -16,8 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeToolWindowCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeToolWindow, PackageIds.CmdIDCodeMaidSpadeToolWindow))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeToolWindow)
         {
         }
 
@@ -40,6 +50,16 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 {
                     spadeFrame.Show();
                 }
+            }
+        }
+
+        public override void Switch(bool on)
+        {
+            base.Switch(on);
+
+            if (!on)
+            {
+                Package.Spade?.Close();
             }
         }
 

@@ -56,9 +56,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
             catch (Exception ex)
             {
-                var message = $"{_transactionName} was stopped";
+                var message = $"{_transactionName}{Resources.WasStopped}";
                 OutputWindowHelper.ExceptionWriteLine(message, ex);
-                _package.IDE.StatusBar.Text = $"{message}.  See output window for more details.";
+                _package.IDE.StatusBar.Text = $"{message}{Resources.SeeOutputWindowForMoreDetails}";
 
                 catchAction?.Invoke(ex);
 

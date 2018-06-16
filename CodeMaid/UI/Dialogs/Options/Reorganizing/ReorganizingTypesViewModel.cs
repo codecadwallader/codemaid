@@ -47,7 +47,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Types";
+        public override string Header => Resources.ReorganizingTypesViewModel_Types;
 
         /// <summary>
         /// Loads the settings.

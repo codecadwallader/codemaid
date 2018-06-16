@@ -7,8 +7,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for solution events.
     /// </summary>
-    internal class SolutionEventListener : BaseEventListener
+    internal sealed class SolutionEventListener : BaseEventListener
     {
+        #region Singleton
+
+        public static SolutionEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new SolutionEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -20,8 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             // Store access to the solutions events, otherwise events will not register properly via DTE.
             SolutionEvents = Package.IDE.Events.SolutionEvents;
-            SolutionEvents.Opened += SolutionEvents_Opened;
-            SolutionEvents.AfterClosing += SolutionEvents_AfterClosing;
+            Switch(on: true);
         }
 
         #endregion Constructors
@@ -37,6 +45,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// An event raised when a solution has closed.
         /// </summary>
         internal event Action OnSolutionClosed;
+
+        internal void FireSolutionOpenedEvent() => SolutionEvents_Opened();
 
         #endregion Internal Events
 
@@ -81,6 +91,22 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion Private Methods
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            SolutionEvents.Opened += SolutionEvents_Opened;
+            SolutionEvents.AfterClosing += SolutionEvents_AfterClosing;
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            SolutionEvents.Opened -= SolutionEvents_Opened;
+            SolutionEvents.AfterClosing -= SolutionEvents_AfterClosing;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -98,8 +124,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && SolutionEvents != null)
                 {
-                    SolutionEvents.Opened -= SolutionEvents_Opened;
-                    SolutionEvents.AfterClosing -= SolutionEvents_AfterClosing;
+                    Switch(on: false);
                 }
             }
         }

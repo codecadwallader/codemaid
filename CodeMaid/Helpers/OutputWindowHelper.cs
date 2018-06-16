@@ -39,7 +39,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 message += $": {ex}";
             }
 
-            WriteLine("Diagnostic", message);
+            WriteLine(Resources.Diagnostic, message);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var exceptionMessage = $"{message}: {ex}";
 
-            WriteLine("Handled Exception", exceptionMessage);
+            WriteLine(Resources.HandledException, exceptionMessage);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="message">The message.</param>
         internal static void WarningWriteLine(string message)
         {
-            WriteLine("Warning", message);
+            WriteLine(Resources.Warning, message);
         }
 
         /// <summary>

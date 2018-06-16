@@ -1,36 +1,37 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting">
     <DataTemplate DataType="{x:Type local:FormattingViewModel}">
         <StackPanel>
-            <GroupBox Header="General">
+            <GroupBox Header="{x:Static p:Resources.General}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Wrap comments at column" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Static p:Resources.WrapCommentsAtColumn}" VerticalAlignment="Center" />
                         <TextBox Text="{Binding CommentWrapColumn, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="Skip wrapping on the last word" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
+                    <CheckBox Content="{x:Static p:Resources.SkipWrappingOnTheLastWord}" IsChecked="{Binding CommentSkipWrapOnLastWord}" />
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Extra indent for values inside XML comments" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Static p:Resources.ExtraIndentForValuesInsideXMLComments}" VerticalAlignment="Center" />
                         <TextBox Text="{Binding CommentXmlValueIndent, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </StackPanel>
 
-                    <CheckBox Content="Add spacing around XML tags" IsChecked="{Binding CommentXmlSpaceTags}" />
-                    <CheckBox Content="Add space inside self closing tags" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
-                    <CheckBox Content="Keep XML tags together" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
-                    <CheckBox Content="Align XML &lt;param&gt; tags" IsChecked="{Binding CommentXmlAlignParamTags}" />
-                    <CheckBox Content="Always split &lt;summary&gt; tags onto multiple lines" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
-                    <CheckBox Content="Always split all XML tags onto multiple lines" IsChecked="{Binding CommentXmlSplitAllTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AddSpacingAroundXMLTags}" IsChecked="{Binding CommentXmlSpaceTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AddSpaceInsideSelfClosingTags}" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
+                    <CheckBox Content="{x:Static p:Resources.KeepXMLTagsTogether}" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
+                    <CheckBox Content="{x:Static p:Resources.AlignXMLLtParamGtTags}" IsChecked="{Binding CommentXmlAlignParamTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitLtSummaryGtTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
+                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitAllXMLTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitAllTags}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Cleanup">
-                <CheckBox Content="Run format comments during cleanup" IsChecked="{Binding CommentRunDuringCleanup}" />
+            <GroupBox Header="{x:Static p:Resources.Cleanup}">
+                <CheckBox Content="{x:Static p:Resources.RunFormatCommentsDuringCleanup}" IsChecked="{Binding CommentRunDuringCleanup}" />
             </GroupBox>
 
-            <GroupBox Header="Preview (reopen to refresh)">
+            <GroupBox Header="{x:Static p:Resources.PreviewReopenToRefresh}">
                 <TextBox FontFamily="{Binding CommentPreviewTextFont}"
                          Foreground="{Binding CommentPreviewTextForeground}"
                          Background="{Binding CommentPreviewTextBackground}"

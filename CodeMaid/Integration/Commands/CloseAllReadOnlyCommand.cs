@@ -1,5 +1,4 @@
 using EnvDTE;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -7,8 +6,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for closing all read-only files.
     /// </summary>
-    internal class CloseAllReadOnlyCommand : BaseCommand
+    internal sealed class CloseAllReadOnlyCommand : BaseCommand
     {
+        #region Singleton
+
+        public static CloseAllReadOnlyCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new CloseAllReadOnlyCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_CloseAllReadOnly, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -16,8 +27,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal CloseAllReadOnlyCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandCloseAllReadOnly, PackageIds.CmdIDCodeMaidCloseAllReadOnly))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidCloseAllReadOnly)
         {
         }
 

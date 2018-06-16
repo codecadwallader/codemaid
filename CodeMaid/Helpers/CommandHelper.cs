@@ -1,5 +1,5 @@
-﻿using System;
-using EnvDTE;
+﻿using EnvDTE;
+using System;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers

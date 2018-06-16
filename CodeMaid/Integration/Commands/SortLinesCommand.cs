@@ -1,7 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using TextSelection = EnvDTE.TextSelection;
@@ -11,8 +11,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for sorting lines.
     /// </summary>
-    internal class SortLinesCommand : BaseCommand
+    internal sealed class SortLinesCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SortLinesCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SortLinesCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_SortLines, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly UndoTransactionHelper _undoTransactionHelper;
@@ -26,10 +38,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SortLinesCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSortLines, PackageIds.CmdIDCodeMaidSortLines))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSortLines)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Sort");
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidSort);
         }
 
         #endregion Constructors

@@ -1,13 +1,24 @@
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for reorganizing code in the active document.
     /// </summary>
-    internal class ReorganizeActiveCodeCommand : BaseCommand
+    internal sealed class ReorganizeActiveCodeCommand : BaseCommand
     {
+        #region Singleton
+
+        public static ReorganizeActiveCodeCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new ReorganizeActiveCodeCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_ReorganizeActiveCode, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly CodeReorganizationAvailabilityLogic _codeReorganizationAvailabilityLogic;
@@ -21,8 +32,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal ReorganizeActiveCodeCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandReorganizeActiveCode, PackageIds.CmdIDCodeMaidReorganizeActiveCode))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidReorganizeActiveCode)
         {
             CodeReorganizationManager = CodeReorganizationManager.GetInstance(Package);
 

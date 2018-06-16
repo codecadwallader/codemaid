@@ -1,12 +1,22 @@
-using System.ComponentModel.Design;
-
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for refreshing the Spade tool window.
     /// </summary>
-    internal class SpadeRefreshCommand : BaseCommand
+    internal sealed class SpadeRefreshCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeRefreshCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeRefreshCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -14,8 +24,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeRefreshCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeRefresh, PackageIds.CmdIDCodeMaidSpadeRefresh))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeRefresh)
         {
         }
 

@@ -2,15 +2,27 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
-using System.ComponentModel.Design;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for removing region(s).
     /// </summary>
-    internal class RemoveRegionCommand : BaseCommand
+    internal sealed class RemoveRegionCommand : BaseCommand
     {
+        #region Singleton
+
+        public static RemoveRegionCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new RemoveRegionCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_RemoveRegion, Instance.Switch);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly CodeModelHelper _codeModelHelper;
@@ -25,8 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal RemoveRegionCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandRemoveRegion, PackageIds.CmdIDCodeMaidRemoveRegion))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidRemoveRegion)
         {
             _codeModelHelper = CodeModelHelper.GetInstance(package);
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
@@ -63,15 +74,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             switch (regionCommandScope)
             {
                 case RegionCommandScope.CurrentLine:
-                    Text = "&Remove Current Region";
+                    Text = Resources.RemoveCurrentRegion;
                     break;
 
                 case RegionCommandScope.Selection:
-                    Text = "&Remove Selected Regions";
+                    Text = Resources.RemoveSelectedRegions;
                     break;
 
                 default:
-                    Text = "&Remove All Regions";
+                    Text = Resources.RemoveAllRegions;
                     break;
             }
         }

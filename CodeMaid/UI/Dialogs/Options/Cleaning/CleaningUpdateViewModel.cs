@@ -49,7 +49,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Update";
+        public override string Header => Resources.CleaningUpdateViewModel_Update;
 
         #endregion Overrides of OptionsPageViewModel
 

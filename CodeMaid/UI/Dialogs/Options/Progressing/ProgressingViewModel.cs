@@ -32,7 +32,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Progressing
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "Progressing";
+        public override string Header => Resources.ProgressingViewModel_Progressing;
 
         #endregion Overrides of OptionsPageViewModel
 

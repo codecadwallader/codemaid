@@ -3,10 +3,12 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties">
+
     <DataTemplate DataType="{x:Type local:GeneralViewModel}">
         <StackPanel>
-            <GroupBox Header="Display">
+            <GroupBox Header="{x:Static p:Resources.Display}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -35,17 +37,17 @@
                         </CollectionViewSource>
                     </Grid.Resources>
 
-                    <TextBlock Text="Theme" VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static p:Resources.Theme}" VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <RadioButton Content="auto-detect" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.AutoDetect}}" />
-                        <RadioButton Content="dark" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Dark}}" />
-                        <RadioButton Content="light" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Light}}" />
+                        <RadioButton Content="{x:Static p:Resources.AutoDetect}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.AutoDetect}}" />
+                        <RadioButton Content="{x:Static p:Resources.Dark}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Dark}}" />
+                        <RadioButton Content="{x:Static p:Resources.Light}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Light}}" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="1" Text="Icons" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Text="{x:Static p:Resources.Icons}" VerticalAlignment="Center" />
 
-                    <RadioButton Grid.Row="1" Grid.Column="1" Content="auto-detect"
+                    <RadioButton Grid.Row="1" Grid.Column="1" Content="{x:Static p:Resources.AutoDetect}"
                                  IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.AutoDetect}}" />
                     <RadioButton Grid.Row="2" Grid.Column="1" Padding="0,-2,0,0"
                                  IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2010}}">
@@ -110,7 +112,7 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <TextBlock Grid.Row="5" Text="Font" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="5" Text="{x:Static p:Resources.Font}" VerticalAlignment="Center" />
                     <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
                               HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
@@ -122,26 +124,26 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Miscellaneous">
+            <GroupBox Header="{x:Static p:Resources.Miscellaneous}">
                 <StackPanel>
-                    <CheckBox Content="Show start page when a solution is closed" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
-                    <CheckBox Content="Use undo transactions" IsChecked="{Binding UseUndoTransactions}" />
-                    <CheckBox Content="Skip during automatic cleanup on save"
+                    <CheckBox Content="{x:Static p:Resources.ShowStartPageWhenASolutionIsClosed}" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                    <CheckBox Content="{x:Static p:Resources.UseUndoTransactions}" IsChecked="{Binding UseUndoTransactions}" />
+                    <CheckBox Content="{x:Static p:Resources.SkipDuringAutomaticCleanupOnSave}"
                               IsChecked="{Binding SkipUndoTransactionsDuringAutoCleanupOnSave}"
                               IsEnabled="{Binding UseUndoTransactions}"
                               Margin="35,5,5,5" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Performance">
+            <GroupBox Header="{x:Static p:Resources.Performance}">
                 <StackPanel>
-                    <CheckBox Content="Cache file code models" IsChecked="{Binding CacheFiles}" />
-                    <CheckBox Content="Load models asynchronously" IsChecked="{Binding LoadModelsAsynchronously}" />
+                    <CheckBox Content="{x:Static p:Resources.CacheFileCodeModels}" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="{x:Static p:Resources.LoadModelsAsynchronously}" IsChecked="{Binding LoadModelsAsynchronously}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Diagnostics">
-                <CheckBox Content="Diagnostics mode" IsChecked="{Binding DiagnosticsMode}" />
+            <GroupBox Header="{x:Static p:Resources.Diagnostics}">
+                <CheckBox Content="{x:Static p:Resources.DiagnosticsMode}" IsChecked="{Binding DiagnosticsMode}" />
             </GroupBox>
         </StackPanel>
     </DataTemplate>

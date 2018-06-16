@@ -33,7 +33,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// <summary>
         /// Gets the header.
         /// </summary>
-        public override string Header => "General";
+        public override string Header => Resources.General;
 
         #endregion Overrides of OptionsPageViewModel
 

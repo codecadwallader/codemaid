@@ -1,8 +1,8 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -10,8 +10,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for deleting a member within Spade.
     /// </summary>
-    internal class SpadeContextDeleteCommand : BaseCommand
+    internal sealed class SpadeContextDeleteCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeContextDeleteCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextDeleteCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly UndoTransactionHelper _undoTransactionHelper;
@@ -25,10 +37,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeContextDeleteCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeContextDelete, PackageIds.CmdIDCodeMaidSpadeContextDelete))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextDelete)
         {
-            _undoTransactionHelper = new UndoTransactionHelper(package, "CodeMaid Delete Items");
+            _undoTransactionHelper = new UndoTransactionHelper(package, Resources.CodeMaidDeleteItems);
         }
 
         #endregion Constructors

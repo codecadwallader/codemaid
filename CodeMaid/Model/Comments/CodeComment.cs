@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
         private readonly TextDocument _document;
         private readonly Regex _commentLineRegex;
-        private readonly int _tabSize;
+        private readonly FormatterOptions _formatterOptions;
 
         private EditPoint _endPoint;
         private EditPoint _startPoint;
@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeComment" /> class.
         /// </summary>
-        public CodeComment(TextPoint point, int tabSize)
+        public CodeComment(TextPoint point, FormatterOptions options)
         {
             if (point == null)
             {
@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             _document = point.Parent;
             _commentLineRegex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage());
-            _tabSize = tabSize;
+            _formatterOptions = options;
 
             Expand(point);
         }
@@ -60,12 +60,22 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Helper function to generate the preview in the options menu.
         /// </summary>
-        public static string FormatXml(string text)
+        public static string FormatXml(string text, string prefix = "///")
         {
             var xml = XElement.Parse($"<doc>{text}</doc>");
-            var line = new CommentLineXml(xml);
-            var regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, false);
-            var formatter = new CommentFormatter(line, "///", 4, regex);
+
+            var formatter = new CommentFormatter(
+                new CommentLineXml(xml),
+                new FormatterOptions
+                {
+                    IgnoreTokens = new[] { "TODO: " },
+                    TabSize = 4
+                },
+                new CommentOptions
+                {
+                    Prefix = prefix,
+                    Regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrWhiteSpace(prefix))
+                });
 
             return formatter.ToString();
         }
@@ -82,7 +92,12 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             var originalText = _startPoint.GetText(_endPoint);
             var matches = _commentLineRegex.Matches(originalText).OfType<Match>().ToArray();
-            var commentPrefix = matches.First(m => m.Success).Groups["prefix"].Value;
+
+            var commentOptions = new CommentOptions
+            {
+                Prefix = matches.First(m => m.Success).Groups["prefix"].Value ?? string.Empty,
+                Regex = CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), false)
+            };
 
             // Concatenate the comment lines without comment prefixes and see if the resulting bit
             // can be parsed as XML.
@@ -109,9 +124,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             var formatter = new CommentFormatter(
                 line,
-                commentPrefix,
-                _tabSize,
-                CodeCommentHelper.GetCommentRegex(_document.GetCodeLanguage(), false));
+                _formatterOptions,
+                commentOptions);
 
             if (!formatter.Equals(originalText))
             {

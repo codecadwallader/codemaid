@@ -1,13 +1,24 @@
 using SteveCadwallader.CodeMaid.Model.CodeTree;
-using System.ComponentModel.Design;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
     /// <summary>
     /// A command that provides for setting Spade to file sort order.
     /// </summary>
-    internal class SpadeSortOrderFileCommand : BaseCommand
+    internal sealed class SpadeSortOrderFileCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeSortOrderFileCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeSortOrderFileCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -15,8 +26,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeSortOrderFileCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeSortOrderFile, PackageIds.CmdIDCodeMaidSpadeSortOrderFile))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeSortOrderFile)
         {
         }
 

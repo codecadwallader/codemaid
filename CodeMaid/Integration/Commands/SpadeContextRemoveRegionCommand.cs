@@ -1,6 +1,5 @@
 ﻿using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
@@ -8,8 +7,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// <summary>
     /// A command that provides for removing a region within Spade.
     /// </summary>
-    internal class SpadeContextRemoveRegionCommand : BaseCommand
+    internal sealed class SpadeContextRemoveRegionCommand : BaseCommand
     {
+        #region Singleton
+
+        public static SpadeContextRemoveRegionCommand Instance { get; private set; }
+
+        public static void Initialize(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextRemoveRegionCommand(package);
+            Instance.Switch(on: true);
+        }
+
+        #endregion Singleton
+
         #region Fields
 
         private readonly RemoveRegionLogic _removeRegionLogic;
@@ -23,8 +34,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         internal SpadeContextRemoveRegionCommand(CodeMaidPackage package)
-            : base(package,
-                   new CommandID(PackageGuids.GuidCodeMaidCommandSpadeContextRemoveRegion, PackageIds.CmdIDCodeMaidSpadeContextRemoveRegion))
+            : base(package, PackageGuids.GuidCodeMaidMenuSet, PackageIds.CmdIDCodeMaidSpadeContextRemoveRegion)
         {
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }

@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).OrderByDescending(x => x.StartLine);
 
-            new UndoTransactionHelper(_package, "CodeMaid Remove All Regions").Run(() =>
+            new UndoTransactionHelper(_package, Resources.CodeMaidRemoveAllRegions).Run(() =>
             {
                 foreach (var region in regions)
                 {
@@ -93,7 +93,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).OrderByDescending(x => x.StartLine);
 
-            new UndoTransactionHelper(_package, "CodeMaid Remove Selected Regions").Run(() =>
+            new UndoTransactionHelper(_package, Resources.CodeMaidRemoveSelectedRegions).Run(() =>
             {
                 foreach (var region in regions)
                 {
@@ -108,7 +108,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to update.</param>
         internal void RemoveRegions(IEnumerable<CodeItemRegion> regions)
         {
-            new UndoTransactionHelper(_package, "CodeMaid Remove Regions").Run(() =>
+            new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegions).Run(() =>
             {
                 // Iterate through regions in reverse order (reduces line number updates during removal).
                 foreach (var region in regions.OrderByDescending(x => x.StartLine))
@@ -151,7 +151,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
-            new UndoTransactionHelper(_package, "CodeMaid Remove Region " + region.Name).Run(() =>
+            new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegion + region.Name).Run(() =>
             {
                 var end = region.EndPoint.CreateEditPoint();
                 end.StartOfLine();

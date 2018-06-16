@@ -7,8 +7,17 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// A class that encapsulates listening for document events.
     /// </summary>
-    internal class DocumentEventListener : BaseEventListener
+    internal sealed class DocumentEventListener : BaseEventListener
     {
+        #region Singleton
+
+        public static DocumentEventListener Instance { get; private set; }
+
+        public static void Intialize(CodeMaidPackage package)
+            => Instance = new DocumentEventListener(package);
+
+        #endregion Singleton
+
         #region Constructors
 
         /// <summary>
@@ -20,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             // Store access to the document events, otherwise events will not register properly via DTE.
             DocumentEvents = Package.IDE.Events.DocumentEvents;
-            DocumentEvents.DocumentClosing += DocumentEvents_DocumentClosing;
+            Switch(on: true);
         }
 
         #endregion Constructors
@@ -62,6 +71,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
         #endregion Private Event Handlers
 
+        #region ISwitchable Members
+
+        protected override void RegisterListeners()
+        {
+            DocumentEvents.DocumentClosing += DocumentEvents_DocumentClosing;
+        }
+
+        protected override void UnRegisterListeners()
+        {
+            DocumentEvents.DocumentClosing -= DocumentEvents_DocumentClosing;
+        }
+
+        #endregion ISwitchable Members
+
         #region IDisposable Members
 
         /// <summary>
@@ -79,7 +102,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
 
                 if (disposing && DocumentEvents != null)
                 {
-                    DocumentEvents.DocumentClosing -= DocumentEvents_DocumentClosing;
+                    Switch(on: false);
                 }
             }
         }
