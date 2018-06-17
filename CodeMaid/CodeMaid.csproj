@@ -308,7 +308,6 @@
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
-    <Compile Include="UI\Converters\AppendParametersConverter.cs" />
     <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
@@ -378,6 +377,7 @@
     <Compile Include="UI\Enumerations\ThemeMode.cs" />
     <Compile Include="UI\ListBoxReorderBehavior.cs" />
     <Compile Include="UI\NotifiesOnAttribute.cs" />
+    <Compile Include="UI\SelectionBindingTextBox.cs" />
     <Compile Include="UI\ThemeManager.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">

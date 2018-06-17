@@ -1,7 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
-        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning">
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
     <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
         <StackPanel>
             <GroupBox Header="{x:Static p:Resources.General}">
@@ -14,90 +16,61 @@
             </GroupBox>
             <GroupBox Header="{x:Static p:Resources.FileHeader}">
                 <StackPanel>
-                    <TabControl Name="LanguageTab">
+                    <TabControl x:Name="LanguageTab" SelectedIndex="{Binding SelectedTabIndex}">
                         <TabItem Header="C#">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartCSharp, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="C++">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartCPlusPlus, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="F#">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderFSharp, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderFSharp, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartFSharp, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="VB">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderVisualBasic, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderVisualBasic, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartVisualBasic, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="PHP">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPHP, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPHP, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartPHP, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="PowerShell">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartPowerShell, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="R">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderR, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderR, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartR, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="JSON">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartJSON, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="XAML">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXAML, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXAML, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartXAML, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="XML">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXML, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXML, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartXML, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="HTML">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderHTML, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderHTML, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartHTML, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="CSS">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSS, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSS, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartCSS, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="LESS">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderLESS, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderLESS, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartLESS, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="SCSS">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderSCSS, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderSCSS, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartSCSS, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="JavaScript">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJavaScript, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJavaScript, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartJavaScript, Mode=TwoWay}" />
                         </TabItem>
                         <TabItem Header="TypeScript">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
+                            <ui:SelectionBindingTextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" BindableSelectionStart="{Binding TextSelectionStartTypeScript, Mode=TwoWay}" />
                         </TabItem>
                     </TabControl>
                     <GroupBox Header="Variables">
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="UserLogin" Content="$USER_LOGIN$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
-                                        <Binding ElementName="LanguageTab" />
-                                        <Binding ElementName="UserLogin" Path="Content" />
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
-                            <Button Name="Solution" Content="$SOLUTION$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
-                                        <Binding ElementName="LanguageTab" />
-                                        <Binding ElementName="Solution" Path="Content" />
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
-                            <Button Name="Project" Content="$PROJECT$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
-                                        <Binding ElementName="LanguageTab" />
-                                        <Binding ElementName="Project" Path="Content" />
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
-                            <Button Name="FileName" Content="$FILENAME$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{x:Static cnv:AppendParametersConverter.Default}">
-                                        <Binding ElementName="LanguageTab" />
-                                        <Binding ElementName="FileName" Path="Content" />
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
+                            <Button Content="$SOLUTION$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}" CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+                            <Button Content="$PROJECT$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}" CommandParameter="{Binding Path=Content,RelativeSource={RelativeSource Self}}" />
+                            <Button Content="$FILENAME$" Width="Auto" Margin="2, 2, 2, 2" Command="{Binding AddHeaderVariableCommand}" CommandParameter="{Binding Path=Content,RelativeSource={RelativeSource Self}}" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

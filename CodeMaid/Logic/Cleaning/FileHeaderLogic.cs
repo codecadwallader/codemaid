@@ -1,8 +1,8 @@
-﻿using EnvDTE;
+﻿using System;
+using System.IO;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
-using System.IO;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private readonly CodeMaidPackage _package;
 
-        private readonly string[] _variables = { "$USER_LOGIN$", "$SOLUTION$", "$PROJECT$", "$FILENAME$" };
+        private readonly string[] _variables = { "$SOLUTION$", "$PROJECT$", "$FILENAME$" };
 
         #endregion Fields
 
@@ -61,7 +61,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
-            this.ReplaceVariables(textDocument, ref settingsFileHeader);
+            settingsFileHeader = ReplaceVariables(textDocument, settingsFileHeader);
 
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
@@ -77,10 +77,18 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Replace the variables in the header if any
         /// </summary>
         /// <param name="textDocument"></param>
-        internal void ReplaceVariables(TextDocument textDocument, ref string settingsFileHeader)
+        internal string ReplaceVariables(TextDocument textDocument, string settingsFileHeader)
         {
+            var outputSettingsFileHeader = settingsFileHeader;
+
             foreach (var variable in _variables)
             {
+                // If the file header doesn't contain this variable, do nothing...
+                if (!settingsFileHeader.Contains(variable))
+                {
+                    continue;
+                }
+
                 var variableValue = string.Empty;
                 switch (variable)
                 {
@@ -118,11 +126,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                             break;
                         }
                     default:
-                        return;
+                        return outputSettingsFileHeader;
                 }
 
-                settingsFileHeader = settingsFileHeader.Replace(variable, variableValue);
+                outputSettingsFileHeader = outputSettingsFileHeader.Replace(variable, variableValue);
             }
+
+            return outputSettingsFileHeader;
         }
 
         /// <summary>
