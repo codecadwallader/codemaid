@@ -83,7 +83,7 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Cleaning.Update
         {
             Settings.Default.Cleaning_UpdateFileHeaderCSharp =
 @"//-----------------------------------------------------------------------
-// <copyright file=""$FileName$.cs"" company=""CodeMaid"">
+// <copyright file=""$FILENAME$.cs"" project=""$PROJECT$"" solution=""$SOLUTION$"" company=""CodeMaid"">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------";

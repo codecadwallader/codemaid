@@ -377,7 +377,6 @@
     <Compile Include="UI\Enumerations\ThemeMode.cs" />
     <Compile Include="UI\ListBoxReorderBehavior.cs" />
     <Compile Include="UI\NotifiesOnAttribute.cs" />
-    <Compile Include="UI\SelectionBindingTextBox.cs" />
     <Compile Include="UI\ThemeManager.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">

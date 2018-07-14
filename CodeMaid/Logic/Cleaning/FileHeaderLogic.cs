@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-using EnvDTE;
+﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
+using System;
+using System.IO;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -66,7 +66,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
-            if (!existingFileHeader.StartsWith(settingsFileHeader))
+            if (!existingFileHeader.StartsWith(textDocument.GetCodeLanguageComment()))
             {
                 cursor.Insert(settingsFileHeader);
                 cursor.Insert(Environment.NewLine);
@@ -92,11 +92,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 var variableValue = string.Empty;
                 switch (variable)
                 {
-                    case "$USER_LOGIN$":
-                        {
-                            variableValue = Environment.UserName;
-                            break;
-                        }
                     case "$SOLUTION$":
                         {
                             if (_package.IDE.Solution != null)
@@ -110,10 +105,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                         {
                             try
                             {
-                                if (_package.IDE.Solution != null)
-                                {
-                                    variableValue = _package.IDE.Solution.Projects.Item(1).Name;
-                                }
+                                variableValue = textDocument.Parent?.ProjectItem?.ProjectItems?.ContainingProject?.Name ?? "";
                             }
                             catch (Exception)
                             {

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FileHeaderCSharp_CleanedWithVariable.cs" company="CodeMaid">
+// <copyright file="FileHeaderCSharp_CleanedWithVariable.cs" project="CodeMaid.IntegrationTests" solution="CodeMaid" company="CodeMaid">
 //     Sample copyright.
 // </copyright>
 //-----------------------------------------------------------------------

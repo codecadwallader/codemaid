@@ -37,5 +37,35 @@
                 default: return CodeLanguage.Unknown;
             }
         }
+
+        /// <summary>
+        /// From a <see cref="CodeLanguage"/> return a string symbol for a comment
+        /// </summary>
+        /// <param name="language">A <see cref="CodeLanguage"/>.</param>
+        /// <returns>A string representation of the beggining of a comment</returns>
+        internal static string GetCodeLanguageComment(CodeLanguage language)
+        {
+            switch (language)
+            {
+                case CodeLanguage.VisualBasic: return "\'";
+                case CodeLanguage.CSharp:
+                case CodeLanguage.FSharp:
+                case CodeLanguage.JavaScript:
+                case CodeLanguage.PHP:
+                case CodeLanguage.SCSS:
+                case CodeLanguage.TypeScript:
+                case CodeLanguage.CPlusPlus: return "/";
+                case CodeLanguage.CSS: return "/*";
+                case CodeLanguage.XAML:
+                case CodeLanguage.XML:
+                case CodeLanguage.HTML: return "<!";
+                case CodeLanguage.R:
+                case CodeLanguage.PowerShell: return "#";
+                case CodeLanguage.LESS:
+                case CodeLanguage.Unknown:
+                case CodeLanguage.JSON:
+                default: return string.Empty;
+            }
+        }
     }
 }
