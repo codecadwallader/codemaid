@@ -540,6 +540,9 @@
   <data name="InsertExplicitAccessModifiersOn" xml:space="preserve">
     <value>插入显式访问修饰符</value>
   </data>
+  <data name="InsertHeaderVariables" xml:space="preserve">
+    <value>Add variables to file header: $SOLUTION$, $PROJECT$, $FILE$</value>
+  </data>
   <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
     <value>插入/保留 #regions (即使它们是空的)</value>
   </data>

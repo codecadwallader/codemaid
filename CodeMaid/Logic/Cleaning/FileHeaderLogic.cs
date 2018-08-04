@@ -15,7 +15,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private readonly CodeMaidPackage _package;
 
-        private readonly string[] _variables = { "$SOLUTION$", "$PROJECT$", "$FILENAME$" };
+        private const string _solutionNameVariable = "$SOLUTION$";
+
+        private const string _projectNameVariable = "$PROJECT$";
+
+        private const string _fileNameVariable = "$FILENAME$";
+
+        private readonly string[] _variables = { _solutionNameVariable, _projectNameVariable, _fileNameVariable };
 
         #endregion Fields
 
@@ -76,7 +82,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <summary>
         /// Replace the variables in the header if any
         /// </summary>
-        /// <param name="textDocument"></param>
+        /// <param name="textDocument">The text document to update.</param>
+        /// <param name="settingsFileHeader">The file header to be updated if it contains any variables.</param>
+        /// <returns>The headers with variables replaced if any.</returns>
         internal string ReplaceVariables(TextDocument textDocument, string settingsFileHeader)
         {
             var outputSettingsFileHeader = settingsFileHeader;
@@ -92,31 +100,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 var variableValue = string.Empty;
                 switch (variable)
                 {
-                    case "$SOLUTION$":
+                    case _solutionNameVariable:
+                        if (_package.IDE.Solution != null)
                         {
-                            if (_package.IDE.Solution != null)
-                            {
-                                variableValue = Path.GetFileNameWithoutExtension(_package.IDE.Solution.FullName);
-                            }
+                            variableValue = Path.GetFileNameWithoutExtension(_package.IDE.Solution.FullName);
+                        }
 
-                            break;
-                        }
-                    case "$PROJECT$":
+                        break;
+
+                    case _projectNameVariable:
+                        try
                         {
-                            try
-                            {
-                                variableValue = textDocument.Parent?.ProjectItem?.ProjectItems?.ContainingProject?.Name ?? "";
-                            }
-                            catch (Exception)
-                            {
-                            }
-                            break;
+                            variableValue = textDocument.Parent?.ProjectItem?.ProjectItems?.ContainingProject?.Name ?? string.Empty;
                         }
-                    case "$FILENAME$":
+                        catch (Exception ex)
                         {
-                            variableValue = textDocument?.Parent?.Name ?? "";
-                            break;
+                            OutputWindowHelper.DiagnosticWriteLine("Unable to retrieve containing project", ex);
                         }
+                        break;
+
+                    case _fileNameVariable:
+                        variableValue = textDocument?.Parent?.Name ?? string.Empty;
+                        break;
+
                     default:
                         return outputSettingsFileHeader;
                 }

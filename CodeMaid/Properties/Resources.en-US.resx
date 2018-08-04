@@ -540,6 +540,9 @@
   <data name="InsertExplicitAccessModifiersOn" xml:space="preserve">
     <value>Insert explicit access modifiers on</value>
   </data>
+  <data name="InsertHeaderVariables" xml:space="preserve">
+    <value>Add variables to file header: $SOLUTION$, $PROJECT$, $FILE$</value>
+  </data>
   <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
     <value>Insert/keep regions even if they are empty</value>
   </data>

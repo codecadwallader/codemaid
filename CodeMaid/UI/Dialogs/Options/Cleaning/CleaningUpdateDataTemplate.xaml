@@ -66,13 +66,7 @@
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
                         </TabItem>
                     </TabControl>
-                    <GroupBox Header="Variables">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="$SOLUTION$" Width="Auto" Margin="2, 2, 2, 2" />
-                            <Label Content="$PROJECT$" Width="Auto" Margin="2, 2, 2, 2" />
-                            <Label Content="$FILENAME$" Width="Auto" Margin="2, 2, 2, 2" />
-                        </StackPanel>
-                    </GroupBox>
+                    <TextBlock FontStyle="Italic" Text="{x:Static p:Resources.InsertHeaderVariables}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

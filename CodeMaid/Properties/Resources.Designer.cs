@@ -1331,6 +1331,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add variables to file header: $SOLUTION$, $PROJECT$, $FILE$.
+        /// </summary>
+        public static string InsertHeaderVariables {
+            get {
+                return ResourceManager.GetString("InsertHeaderVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert/keep regions even if they are empty.
         /// </summary>
         public static string InsertKeepRegionsEvenIfTheyAreEmpty {
