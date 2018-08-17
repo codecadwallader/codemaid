@@ -2042,6 +2042,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show types.
+        /// </summary>
+        public static string ShowTypes {
+            get {
+                return ResourceManager.GetString("ShowTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skip during automatic cleanup on save.
         /// </summary>
         public static string SkipDuringAutomaticCleanupOnSave {

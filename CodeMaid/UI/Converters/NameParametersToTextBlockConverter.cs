@@ -123,7 +123,23 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 }
             }
 
+            if (Properties.Settings.Default.Digging_ShowTypes)
+            { 
+                string formattedTypeString = CreateFormattedTypeString(codeItem);
+                if (!string.IsNullOrWhiteSpace(formattedTypeString))
+                {
+                    textBlock.Inlines.Add(" : " + formattedTypeString);
+                }
+            }
+
             return textBlock;
+        }
+
+        private string CreateFormattedTypeString(ICodeItem codeItem)
+        {
+            return codeItem is BaseCodeItemElement bcie
+                ? TypeFormatHelper.Format(bcie.TypeString)
+                : string.Empty;
         }
 
         /// <summary>

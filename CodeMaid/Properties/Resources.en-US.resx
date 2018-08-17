@@ -774,6 +774,9 @@
   <data name="ShowMethodParameters" xml:space="preserve">
     <value>Show method parameters</value>
   </data>
+  <data name="ShowTypes" xml:space="preserve">
+    <value>Show types</value>
+  </data>
   <data name="ShowStartPageWhenASolutionIsClosed" xml:space="preserve">
     <value>Show start page when a solution is closed</value>
   </data>

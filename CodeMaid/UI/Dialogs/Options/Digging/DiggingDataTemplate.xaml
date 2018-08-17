@@ -31,6 +31,7 @@
                         <TextBlock Grid.Row="1" Text="{x:Static p:Resources.AlertThreshold}" VerticalAlignment="Center" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </Grid>
+                    <CheckBox Content="{x:Static p:Resources.ShowTypes}" IsChecked="{Binding ShowTypes}" />
                 </StackPanel>
             </GroupBox>
 

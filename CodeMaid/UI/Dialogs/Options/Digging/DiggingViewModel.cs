@@ -29,6 +29,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemComplexity, x => ShowItemComplexity),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemMetadata, x => ShowItemMetadata),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowTypes, x => ShowTypes),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
             };
         }
@@ -122,6 +123,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// Gets or sets the flag indicating if method parameters should be shown.
         /// </summary>
         public bool ShowMethodParameters
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if types should be shown.
+        /// </summary>
+        public bool ShowTypes
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
