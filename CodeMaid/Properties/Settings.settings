@@ -332,7 +332,7 @@
     <Setting Name="Digging_ShowMethodParameters" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Digging_ShowTypes" Type="System.Boolean" Scope="User">
+    <Setting Name="Digging_ShowReturnTypes" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Digging_SynchronizeOutlining" Type="System.Boolean" Scope="User">

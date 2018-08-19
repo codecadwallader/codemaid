@@ -123,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 }
             }
 
-            if (Properties.Settings.Default.Digging_ShowTypes)
+            if (Properties.Settings.Default.Digging_ShowReturnTypes)
             { 
                 string formattedTypeString = CreateFormattedTypeString(codeItem);
                 if (!string.IsNullOrWhiteSpace(formattedTypeString))

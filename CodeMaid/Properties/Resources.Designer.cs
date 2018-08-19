@@ -2033,20 +2033,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show return types.
+        /// </summary>
+        public static string ShowReturnTypes {
+            get {
+                return ResourceManager.GetString("ShowReturnTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show start page when a solution is closed.
         /// </summary>
         public static string ShowStartPageWhenASolutionIsClosed {
             get {
                 return ResourceManager.GetString("ShowStartPageWhenASolutionIsClosed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show types.
-        /// </summary>
-        public static string ShowTypes {
-            get {
-                return ResourceManager.GetString("ShowTypes", resourceCulture);
             }
         }
         

@@ -777,8 +777,8 @@
   <data name="ShowStartPageWhenASolutionIsClosed" xml:space="preserve">
     <value>Show start page when a solution is closed</value>
   </data>
-  <data name="ShowTypes" xml:space="preserve">
-    <value>Show types</value>
+  <data name="ShowReturnTypes" xml:space="preserve">
+    <value>Show return types</value>
   </data>
   <data name="SkipDuringAutomaticCleanupOnSave" xml:space="preserve">
     <value>Skip during automatic cleanup on save</value>

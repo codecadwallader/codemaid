@@ -1346,12 +1346,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Digging_ShowTypes {
+        public bool Digging_ShowReturnTypes {
             get {
-                return ((bool)(this["Digging_ShowTypes"]));
+                return ((bool)(this["Digging_ShowReturnTypes"]));
             }
             set {
-                this["Digging_ShowTypes"] = value;
+                this["Digging_ShowReturnTypes"] = value;
             }
         }
         
