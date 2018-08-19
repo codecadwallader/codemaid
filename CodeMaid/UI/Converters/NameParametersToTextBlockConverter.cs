@@ -128,7 +128,8 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 string formattedTypeString = CreateFormattedTypeString(codeItem);
                 if (!string.IsNullOrWhiteSpace(formattedTypeString))
                 {
-                    textBlock.Inlines.Add(" : " + formattedTypeString);
+                    textBlock.Inlines.Add(" : ");
+                    textBlock.Inlines.Add(CreateTypeRun(formattedTypeString));
                 }
             }
 
