@@ -1,5 +1,6 @@
 ﻿using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,14 +24,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         public static NameParametersToTextBlockConverter Default = new NameParametersToTextBlockConverter();
 
         /// <summary>
-        /// An instance of the <see cref="NameParametersToTextBlockConverter" /> that includes parameters.
-        /// </summary>
-        public static NameParametersToTextBlockConverter WithParameters = new NameParametersToTextBlockConverter
-        {
-            IncludeParameters = true
-        };
-
-        /// <summary>
         /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items.
         /// </summary>
         public static NameParametersToTextBlockConverter Parent = new NameParametersToTextBlockConverter
@@ -40,25 +33,9 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             FontWeight = FontWeights.SemiBold
         };
 
-        /// <summary>
-        /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items with parameters.
-        /// </summary>
-        public static NameParametersToTextBlockConverter ParentWithParameters = new NameParametersToTextBlockConverter
-        {
-            FontSize = 14,
-            FontStyle = FontStyles.Normal,
-            FontWeight = FontWeights.SemiBold,
-            IncludeParameters = true
-        };
-
         #endregion Fields
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets a flag indicating if parameters should be included.
-        /// </summary>
-        public bool IncludeParameters { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the font.
@@ -114,7 +91,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             textBlock.Inlines.AddRange(CreateInlinesForName(codeItem.Name, textToHighlight));
 
-            if (IncludeParameters)
+            if (Settings.Default.Digging_ShowMethodParameters)
             {
                 var codeItemParameters = codeItem as ICodeItemParameters;
                 if (codeItemParameters != null)
@@ -123,8 +100,8 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 }
             }
 
-            if (Properties.Settings.Default.Digging_ShowReturnTypes)
-            { 
+            if (Settings.Default.Digging_ShowReturnTypes)
+            {
                 string formattedTypeString = CreateFormattedTypeString(codeItem);
                 if (!string.IsNullOrWhiteSpace(formattedTypeString))
                 {
