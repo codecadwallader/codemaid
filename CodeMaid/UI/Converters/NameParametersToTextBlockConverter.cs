@@ -102,22 +102,14 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             if (Settings.Default.Digging_ShowReturnTypes)
             {
-                string formattedTypeString = CreateFormattedTypeString(codeItem);
-                if (!string.IsNullOrWhiteSpace(formattedTypeString))
+                var codeItemElement = codeItem as BaseCodeItemElement;
+                if (codeItemElement != null)
                 {
-                    textBlock.Inlines.Add(" : ");
-                    textBlock.Inlines.Add(CreateTypeRun(formattedTypeString));
+                    textBlock.Inlines.AddRange(CreateInlinesForReturn(codeItemElement));
                 }
             }
 
             return textBlock;
-        }
-
-        private string CreateFormattedTypeString(ICodeItem codeItem)
-        {
-            return codeItem is BaseCodeItemElement bcie
-                ? TypeFormatHelper.Format(bcie.TypeString)
-                : string.Empty;
         }
 
         /// <summary>
@@ -229,6 +221,25 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
             if (closer != null)
             {
                 inlines.Add(CreateItalicRun(closer));
+            }
+
+            return inlines;
+        }
+
+        /// <summary>
+        /// Creates the inlines for the return.
+        /// </summary>
+        /// <param name="codeItemElement">The code item element.</param>
+        /// <returns>The inlines representing the return.</returns>
+        private IEnumerable<Inline> CreateInlinesForReturn(BaseCodeItemElement codeItemElement)
+        {
+            var inlines = new List<Inline>();
+
+            var formattedTypeString = TypeFormatHelper.Format(codeItemElement.TypeString);
+            if (!string.IsNullOrWhiteSpace(formattedTypeString))
+            {
+                inlines.Add(CreateTypeRun(" : "));
+                inlines.Add(CreateTypeRun(formattedTypeString));
             }
 
             return inlines;
