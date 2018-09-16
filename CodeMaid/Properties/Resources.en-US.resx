@@ -771,11 +771,11 @@
   <data name="ShowItemMetadata" xml:space="preserve">
     <value>Show item metadata</value>
   </data>
+  <data name="ShowItemTypes" xml:space="preserve">
+    <value>Show item types</value>
+  </data>
   <data name="ShowMethodParameters" xml:space="preserve">
     <value>Show method parameters</value>
-  </data>
-  <data name="ShowReturnTypes" xml:space="preserve">
-    <value>Show return types</value>
   </data>
   <data name="ShowStartPageWhenASolutionIsClosed" xml:space="preserve">
     <value>Show start page when a solution is closed</value>

@@ -100,12 +100,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
                 }
             }
 
-            if (Settings.Default.Digging_ShowReturnTypes)
+            if (Settings.Default.Digging_ShowItemTypes)
             {
                 var codeItemElement = codeItem as BaseCodeItemElement;
                 if (codeItemElement != null)
                 {
-                    textBlock.Inlines.AddRange(CreateInlinesForReturn(codeItemElement));
+                    textBlock.Inlines.AddRange(CreateInlinesForType(codeItemElement));
                 }
             }
 
@@ -227,11 +227,11 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         }
 
         /// <summary>
-        /// Creates the inlines for the return.
+        /// Creates the inlines for the type.
         /// </summary>
         /// <param name="codeItemElement">The code item element.</param>
-        /// <returns>The inlines representing the return.</returns>
-        private IEnumerable<Inline> CreateInlinesForReturn(BaseCodeItemElement codeItemElement)
+        /// <returns>The inlines representing the type.</returns>
+        private IEnumerable<Inline> CreateInlinesForType(BaseCodeItemElement codeItemElement)
         {
             var inlines = new List<Inline>();
 

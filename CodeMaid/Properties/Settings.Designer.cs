@@ -1334,24 +1334,24 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_ShowItemTypes {
+            get {
+                return ((bool)(this["Digging_ShowItemTypes"]));
+            }
+            set {
+                this["Digging_ShowItemTypes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Digging_ShowMethodParameters {
             get {
                 return ((bool)(this["Digging_ShowMethodParameters"]));
             }
             set {
                 this["Digging_ShowMethodParameters"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Digging_ShowReturnTypes {
-            get {
-                return ((bool)(this["Digging_ShowReturnTypes"]));
-            }
-            set {
-                this["Digging_ShowReturnTypes"] = value;
             }
         }
         

@@ -13,6 +13,7 @@
             <GroupBox Header="{x:Static p:Resources.Display}">
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.ShowMethodParameters}" IsChecked="{Binding ShowMethodParameters}" />
+                    <CheckBox Content="{x:Static p:Resources.ShowItemTypes}" IsChecked="{Binding ShowItemTypes}" />
                     <CheckBox Content="{x:Static p:Resources.ShowItemMetadata}" IsChecked="{Binding ShowItemMetadata}" />
                     <CheckBox Content="{x:Static p:Resources.ShowItemComplexityMcCabe}" IsChecked="{Binding ShowItemComplexity}" />
                     <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="35,0,5,5">
@@ -31,7 +32,6 @@
                         <TextBlock Grid.Row="1" Text="{x:Static p:Resources.AlertThreshold}" VerticalAlignment="Center" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ComplexityAlertThreshold, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" />
                     </Grid>
-                    <CheckBox Content="{x:Static p:Resources.ShowReturnTypes}" IsChecked="{Binding ShowReturnTypes}" />
                 </StackPanel>
             </GroupBox>
 

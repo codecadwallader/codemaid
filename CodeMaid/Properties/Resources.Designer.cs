@@ -2024,20 +2024,20 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show item types.
+        /// </summary>
+        public static string ShowItemTypes {
+            get {
+                return ResourceManager.GetString("ShowItemTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show method parameters.
         /// </summary>
         public static string ShowMethodParameters {
             get {
                 return ResourceManager.GetString("ShowMethodParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show return types.
-        /// </summary>
-        public static string ShowReturnTypes {
-            get {
-                return ResourceManager.GetString("ShowReturnTypes", resourceCulture);
             }
         }
         
