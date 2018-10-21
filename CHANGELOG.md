@@ -4,8 +4,11 @@
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
-- [ ] Features
-- [ ] Fixes
+- [x] Features
+  - [x] [#582](https://github.com/codecadwallader/codemaid/pull/582) - Digging: New option to show item types (e.g. method return or property type) - thanks [GammaWolf](https://github.com/GammaWolf)!
+
+- [x] Fixes
+  - [x] [#565](https://github.com/codecadwallader/codemaid/pull/565) - Fix another case of trailing whitespace - thanks [willemduncan](https://github.com/willemduncan)!
 
 ## Previous Releases
 
