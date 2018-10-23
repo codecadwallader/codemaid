@@ -2234,5 +2234,29 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Formatting_IgnoreLinesStartingWith"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine"] = value;
+            }
+        }
     }
 }
