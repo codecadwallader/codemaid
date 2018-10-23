@@ -483,7 +483,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Switching_RelatedFileExtensionsExpression" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .master.cs</Value>
+      <Value Profile="(Default)">.cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .master.cs||.cshtml .cshtml.cs</Value>
     </Setting>
     <Setting Name="ThirdParty_OtherCleaningCommandsExpression" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

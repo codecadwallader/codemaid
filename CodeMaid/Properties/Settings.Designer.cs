@@ -1946,7 +1946,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .mast" +
-            "er.cs")]
+            "er.cs||.cshtml .cshtml.cs")]
         public string Switching_RelatedFileExtensionsExpression {
             get {
                 return ((string)(this["Switching_RelatedFileExtensionsExpression"]));
