@@ -17,6 +17,7 @@
                 <ToggleButton Content="enumerations" IsChecked="{Binding InsertBlankLinePaddingBeforeEnumerations}" />
                 <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingBeforeEvents}" />
                 <ToggleButton Content="multi-line fields" IsChecked="{Binding InsertBlankLinePaddingBeforeFieldsMultiLine}" />
+                <ToggleButton Content="single-line fields" IsChecked="{Binding InsertBlankLinePaddingBeforeFieldsSingleLine}" />
                 <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingBeforeInterfaces}" />
                 <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingBeforeMethods}" />
                 <ToggleButton Content="multi-line properties" IsChecked="{Binding InsertBlankLinePaddingBeforePropertiesMultiLine}" />
@@ -42,6 +43,7 @@
                 <ToggleButton Content="enumerations" IsChecked="{Binding InsertBlankLinePaddingAfterEnumerations}" />
                 <ToggleButton Content="events" IsChecked="{Binding InsertBlankLinePaddingAfterEvents}" />
                 <ToggleButton Content="multi-line fields" IsChecked="{Binding InsertBlankLinePaddingAfterFieldsMultiLine}" />
+                <ToggleButton Content="single-line fields" IsChecked="{Binding InsertBlankLinePaddingAfterFieldsSingleLine}" />
                 <ToggleButton Content="interfaces" IsChecked="{Binding InsertBlankLinePaddingAfterInterfaces}" />
                 <ToggleButton Content="methods" IsChecked="{Binding InsertBlankLinePaddingAfterMethods}" />
                 <ToggleButton Content="multi-line properties" IsChecked="{Binding InsertBlankLinePaddingAfterPropertiesMultiLine}" />
