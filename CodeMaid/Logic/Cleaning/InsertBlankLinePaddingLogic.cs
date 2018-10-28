@@ -77,7 +77,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEvents;
 
                 case KindCodeItem.Field:
-                    return codeItem.IsMultiLine && Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine;
+                    return codeItem.IsMultiLine
+                        ? Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine
+                        : Settings.Default.Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine;
 
                 case KindCodeItem.Interface:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingBeforeInterfaces;
@@ -138,7 +140,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterEvents;
 
                 case KindCodeItem.Field:
-                    return codeItem.IsMultiLine && Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine;
+                    return codeItem.IsMultiLine
+                        ? Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine
+                        : Settings.Default.Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine;
 
                 case KindCodeItem.Interface:
                     return Settings.Default.Cleaning_InsertBlankLinePaddingAfterInterfaces;

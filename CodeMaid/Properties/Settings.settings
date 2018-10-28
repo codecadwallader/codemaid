@@ -558,5 +558,11 @@
   &lt;string&gt;ReSharper enable &lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
