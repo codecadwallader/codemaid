@@ -5,11 +5,22 @@
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 - [ ] Features
+
 - [ ] Fixes
 
 ## Previous Releases
 
 These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 10.6
+
+**2018-12-09**
+
+- [x] Features
+  - [x] [#582](https://github.com/codecadwallader/codemaid/pull/582) - Digging: New option to show item types (e.g. method return or property type) - thanks [GammaWolf](https://github.com/GammaWolf)!
+  - [x] [#593](https://github.com/codecadwallader/codemaid/pull/593) - Switching: Add .cshtml -> .cshtml.cs to defaults - thanks [derekmckinnon](https://github.com/derekmckinnon)!
+  - [x] [#594](https://github.com/codecadwallader/codemaid/pull/594) - Cleaning: New option to add blank lines before/after single-line fields - thanks [jasonjtyler](https://github.com/jasonjtyler)!
+  - [x] [#604](https://github.com/codecadwallader/codemaid/pull/604) - Turn on VS2019 support - thanks [digovc](https://github.com/digovc)!
 
 ## 10.5
 

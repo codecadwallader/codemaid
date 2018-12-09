@@ -25,6 +25,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterEnumerations, x => InsertBlankLinePaddingAfterEnumerations),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterEvents, x => InsertBlankLinePaddingAfterEvents),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterFieldsMultiLine, x => InsertBlankLinePaddingAfterFieldsMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine, x => InsertBlankLinePaddingAfterFieldsSingleLine),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterInterfaces, x => InsertBlankLinePaddingAfterInterfaces),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterMethods, x => InsertBlankLinePaddingAfterMethods),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingAfterNamespaces, x => InsertBlankLinePaddingAfterNamespaces),
@@ -40,6 +41,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeEnumerations, x => InsertBlankLinePaddingBeforeEnumerations),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeEvents, x => InsertBlankLinePaddingBeforeEvents),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeFieldsMultiLine, x => InsertBlankLinePaddingBeforeFieldsMultiLine),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine, x => InsertBlankLinePaddingBeforeFieldsSingleLine),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeInterfaces, x => InsertBlankLinePaddingBeforeInterfaces),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeMethods, x => InsertBlankLinePaddingBeforeMethods),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_InsertBlankLinePaddingBeforeNamespaces, x => InsertBlankLinePaddingBeforeNamespaces),
@@ -126,6 +128,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if blank line padding should be added after multi-line fields.
         /// </summary>
         public bool InsertBlankLinePaddingAfterFieldsMultiLine
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added after single-line fields.
+        /// </summary>
+        public bool InsertBlankLinePaddingAfterFieldsSingleLine
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }
@@ -262,6 +273,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets or sets the flag indicating if blank line padding should be added before multi-line fields.
         /// </summary>
         public bool InsertBlankLinePaddingBeforeFieldsMultiLine
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if blank line padding should be added before single-line fields.
+        /// </summary>
+        public bool InsertBlankLinePaddingBeforeFieldsSingleLine
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

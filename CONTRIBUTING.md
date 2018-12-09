@@ -2,7 +2,7 @@
 
 Looking to contribute something? **Here's how you can help.**
 
-Please read http://www.codemaid.net/contribute/ for setup and a quick code overview
+Please read http://www.codemaid.net/contribute/ for setup and a quick code overview.
 
 Following these guidelines helps to communicate that you respect the time of
 the developers managing and developing this open source project. In return,
@@ -17,7 +17,7 @@ The issue tracker is the preferred channel for [bug reports](#bug-reports),
 [submitting pull requests](#pull-requests), but please respect the
 following restrictions:
 
-* Please **do not** use the issue tracker for personal support requests.  Stack
+* Please **do not** use the issue tracker for personal support requests. Stack
   Overflow is a better place to get help.
 
 * Please **do not** derail or troll issues. Keep the discussion on topic and
@@ -42,7 +42,7 @@ Guidelines for bug reports:
 
 3. **Isolate the problem** &mdash; ideally create an
    [SSCCE](http://www.sscce.org/) and a live example.
-   Uploading the project on cloud storage (OneDrive, DropBox, et el.)
+   Uploading the project on cloud storage (OneDrive, DropBox, et al.)
    or creating a sample GitHub repository is also helpful.
 
 

@@ -13,6 +13,7 @@
             <GroupBox Header="{x:Static p:Resources.Display}">
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.ShowMethodParameters}" IsChecked="{Binding ShowMethodParameters}" />
+                    <CheckBox Content="{x:Static p:Resources.ShowItemTypes}" IsChecked="{Binding ShowItemTypes}" />
                     <CheckBox Content="{x:Static p:Resources.ShowItemMetadata}" IsChecked="{Binding ShowItemMetadata}" />
                     <CheckBox Content="{x:Static p:Resources.ShowItemComplexityMcCabe}" IsChecked="{Binding ShowItemComplexity}" />
                     <Grid IsEnabled="{Binding ShowItemComplexity}" Margin="35,0,5,5">
