@@ -41,6 +41,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _innerText = new StringBuilder();
             ParseChildNodes(xml);
             CloseInnerText();
+
+            IsLastNode = xml.Parent?.NextNode == null;
         }
 
         #endregion Constructors
@@ -56,6 +58,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public string OpenTag { get; set; }
 
         public string TagName { get; private set; }
+
+        public bool IsLastNode { get; private set; }
 
         #endregion Properties
 
