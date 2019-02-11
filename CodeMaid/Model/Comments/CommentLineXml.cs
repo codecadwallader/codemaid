@@ -29,9 +29,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             IsSelfClosing = CloseTag == null;
 
             Lines = new List<ICommentLine>();
-
             ParseChildNodes(xml);
-            CloseInnerText();
+            CloseInnerText(true);
+            IsLast = xml.NextNode == null;
         }
 
         public string CloseTag { get; }
@@ -118,11 +118,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// If there is text left in the buffer, parse and append it as a comment line.
         /// </summary>
-        private void CloseInnerText()
+        private void CloseInnerText(bool isLast)
         {
             if (_innerText.Length > 0)
             {
-                Lines.Add(new CommentLine(_innerText.ToString()));
+                Lines.Add(new CommentLine(_innerText.ToString()) { IsLast = isLast });
                 _innerText.Clear();
             }
         }
@@ -164,7 +164,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                         if (NeedsXmlHandling(element))
                         {
-                            CloseInnerText();
+                            CloseInnerText(false);
                             Lines.Add(new CommentLineXml(element, _formatterOptions));
                         }
                         else

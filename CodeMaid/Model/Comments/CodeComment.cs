@@ -16,8 +16,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        private readonly TextDocument _document;
         private readonly Regex _commentLineRegex;
+        private readonly TextDocument _document;
         private readonly FormatterOptions _formatterOptions;
 
         private EditPoint _endPoint;

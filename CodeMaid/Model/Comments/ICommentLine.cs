@@ -2,10 +2,8 @@
 {
     internal interface ICommentLine
     {
-        #region Properties
-
         string Content { get; }
 
-        #endregion Properties
+        bool IsLast { get; }
     }
 }

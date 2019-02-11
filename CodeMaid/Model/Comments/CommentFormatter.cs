@@ -12,10 +12,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     /// </summary>
     internal class CommentFormatter : IEquatable<string>
     {
+        private readonly StringBuilder _builder;
         private readonly CommentOptions _commentOptions;
         private readonly FormatterOptions _formatterOptions;
-
-        private readonly StringBuilder _builder;
         private int _commentPrefixLength;
         private int _currentPosition;
         private bool _isAfterCommentPrefix;
@@ -383,7 +382,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             if (split.HasFlag(XmlTagNewLine.AfterClose))
             {
-                NewLine();
+                if (!xml.IsLast)
+                {
+                    NewLine();
+                }
                 return false;
             }
 
