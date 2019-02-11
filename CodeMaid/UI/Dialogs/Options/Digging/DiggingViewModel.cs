@@ -28,6 +28,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SecondarySortTypeByName, x => SecondarySortTypeByName),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemComplexity, x => ShowItemComplexity),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemMetadata, x => ShowItemMetadata),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemTypes, x => ShowItemTypes),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
             };
@@ -113,6 +114,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// Gets or sets the flag indicating if item metadata should be shown.
         /// </summary>
         public bool ShowItemMetadata
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the flag indicating if item types should be shown.
+        /// </summary>
+        public bool ShowItemTypes
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

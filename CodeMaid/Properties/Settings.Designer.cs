@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1334,6 +1334,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Digging_ShowItemTypes {
+            get {
+                return ((bool)(this["Digging_ShowItemTypes"]));
+            }
+            set {
+                this["Digging_ShowItemTypes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Digging_ShowMethodParameters {
             get {
                 return ((bool)(this["Digging_ShowMethodParameters"]));
@@ -1934,7 +1946,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".cpp .h||.xaml .xaml.cs||.xml .xsd||.ascx .ascx.cs||.aspx .aspx.cs||.master .mast" +
-            "er.cs")]
+            "er.cs||.cshtml .cshtml.cs")]
         public string Switching_RelatedFileExtensionsExpression {
             get {
                 return ((string)(this["Switching_RelatedFileExtensionsExpression"]));
@@ -2220,6 +2232,30 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Formatting_IgnoreLinesStartingWith"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingBeforeFieldsSingleLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine {
+            get {
+                return ((bool)(this["Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine"]));
+            }
+            set {
+                this["Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine"] = value;
             }
         }
     }

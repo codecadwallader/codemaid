@@ -771,6 +771,9 @@
   <data name="ShowItemMetadata" xml:space="preserve">
     <value>显示项目元数据</value>
   </data>
+  <data name="ShowItemTypes" xml:space="preserve">
+    <value>显示项目类型</value>
+  </data>
   <data name="ShowMethodParameters" xml:space="preserve">
     <value>显示方法参数</value>
   </data>

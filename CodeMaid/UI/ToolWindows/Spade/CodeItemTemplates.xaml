@@ -97,28 +97,14 @@
                 <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
             </MultiBinding>
         </ContentControl>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Digging_ShowMethodParameters, Source={x:Static p:Settings.Default}}" Value="True">
-                <Setter TargetName="name" Property="Content">
-                    <Setter.Value>
-                        <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.WithParameters}">
-                            <Binding />
-                            <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
-                        </MultiBinding>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="ParentNameDataTemplate">
         <ContentControl x:Name="name" Focusable="False">
-            <ContentControl.Content>
-                <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Parent}">
-                    <Binding />
-                    <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
-                </MultiBinding>
-            </ContentControl.Content>
+            <MultiBinding Converter="{x:Static cnv:NameParametersToTextBlockConverter.Parent}">
+                <Binding />
+                <Binding Path="DataContext.NameFilter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type spade:SpadeView}}" FallbackValue="{x:Null}" />
+            </MultiBinding>
         </ContentControl>
     </DataTemplate>
 
