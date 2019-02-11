@@ -98,7 +98,6 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        [Ignore] // This is temporarily ignored until a better fix for #564 is found.
         public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace2()
         {
             var input =
