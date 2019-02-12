@@ -128,10 +128,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// The length of the enclosing XML tags, this is needed to calculate the line length for
         /// single line XML comments.
         /// </param>
+        /// <param name="xmlSpaceParentTagContent">
+        /// Set to <c>true</c> when parent is an XML tag and wants space between tags and content.
+        /// </param>
         /// <returns>
         /// <c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.
         /// </returns>
-        private bool Format(ICommentLine line, int indentAmount = 0, int xmlTagLength = 0)
+        private bool Format(ICommentLine line, int indentAmount = 0, int xmlTagLength = 0, bool xmlSpaceParentTagContent = false)
         {
             if (line is CommentLineXml xml)
             {
@@ -193,6 +196,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 NewLine();
                 fittedOnLine = false;
+            }
+            else if (!_isFirstWord && xmlSpaceParentTagContent)
+            {
+                // Parent is XML tag and wants space between tags and content.
+                Append(CodeCommentHelper.Spacer);
             }
 
             // Always consider the word after the opening tag as the first word to prevent an extra
@@ -350,16 +358,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             else
             {
                 // Else output the child lines.
-                if (!_isFirstWord && xml.TagOptions.SpaceContent)
-                {
-                    Append(CodeCommentHelper.Spacer);
-                }
-
                 var xmlTagLength = WordLength(xml.OpenTag) + WordLength(xml.CloseTag) + (xml.TagOptions.SpaceContent ? 2 : 0);
 
                 foreach (var line in xml.Lines)
                 {
-                    if (!Format(line, indentAmount, xmlTagLength))
+                    if (!Format(line, indentAmount, xmlTagLength, xml.TagOptions.SpaceContent))
                         split |= XmlTagNewLine.BeforeClose | XmlTagNewLine.AfterClose;
                 }
             }
@@ -386,6 +389,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 {
                     NewLine();
                 }
+
                 return false;
             }
 
