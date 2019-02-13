@@ -293,7 +293,6 @@
     <Compile Include="CodeMaidPackage.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
-    <Compile Include="Model\Comments\Options\ICommentOptions.cs" />
     <Compile Include="Model\Comments\Options\IXmlTagOptions.cs" />
     <Compile Include="Model\Comments\Options\XmlTagCase.cs" />
     <Compile Include="Model\Comments\Options\XmlTagNewLine.cs" />
