@@ -337,7 +337,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 if (tagOnOwnLine)
                 {
-                    NewLine();
+                    if (!line.IsLastNode)
+                    {
+                        NewLine();
+                    }
                     return false;
                 }
                 return true;
