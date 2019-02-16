@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
@@ -26,23 +27,30 @@ namespace SteveCadwallader.CodeMaid
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
-    ///
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// The minimum requirement for a class to be considered a valid package for Visual Studio is to
     /// implement the IVsPackage interface and register itself with the shell. This package uses the
     /// helper classes defined inside the Managed Package Framework (MPF) to do it: it derives from
     /// the Package class that provides the implementation of the IVsPackage interface and uses the
     /// registration attributes defined in the framework to register itself and its components with
-    /// the shell.
-    /// </summary>
-    [PackageRegistration(UseManagedResourcesOnly = true)] // Tells Visual Studio utilities that this is a package that needs registered.
+    /// the shell. These attributes tell the pkgdef creation utility what data to put into .pkgdef file.
+    /// </para>
+    /// <para>
+    /// To get loaded into VS, the package must be referred by &lt;Asset
+    /// Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
+    /// </para>
+    /// </remarks>
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)] // Tells Visual Studio utilities that this is a package that needs registered.
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
-    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string)] // Force CodeMaid to load so menu items can determine their state.
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string, PackageAutoLoadFlags.BackgroundLoad)] // Trigger CodeMaid to load on solution open so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource("Menus.ctmenu", 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
-    public sealed class CodeMaidPackage : Package, IVsInstalledProduct
+    public sealed class CodeMaidPackage : AsyncPackage, IVsInstalledProduct
     {
         #region Fields
 
@@ -76,11 +84,14 @@ namespace SteveCadwallader.CodeMaid
         #region Constructors
 
         /// <summary>
-        /// Default constructor of the package. Inside this method you can place any initialization
-        /// code that does not require any Visual Studio service because at this point the package
-        /// object is created but not sited yet inside Visual Studio environment. The place to do
-        /// all the other initialization is the Initialize method.
+        /// Initializes a new instance of the <see cref="CodeMaidPackage"/> class.
         /// </summary>
+        /// <remarks>
+        /// Inside this method you can place any initialization code that does not require any Visual
+        /// Studio service because at this point the package object is created but not sited yet
+        /// inside Visual Studio environment. The place to do all the other initialization is the
+        /// Initialize method.
+        /// </remarks>
         public CodeMaidPackage()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
@@ -196,6 +207,29 @@ namespace SteveCadwallader.CodeMaid
 
             RegisterCommands();
             RegisterEventListeners();
+        }
+
+        /// <summary>
+        /// Initialization of the package; this method is called right after the package is sited, so
+        /// this is the place where you can put all the initialization code that rely on services
+        /// provided by VisualStudio.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A cancellation token to monitor for initialization cancellation, which can occur when VS
+        /// is shutting down.
+        /// </param>
+        /// <param name="progress">A provider for progress updates.</param>
+        /// <returns>
+        /// A task representing the async work of package initialization, or an already completed
+        /// task if there is none. Do not return null from this method.
+        /// </returns>
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        {
+            // When initialized asynchronously, the current thread may be a background thread at this point.
+            // Do any initialization that requires the UI thread after switching to the UI thread.
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            await AboutCommand.InitializeAsync(this);
+            await BuildProgressToolWindowCommand.InitializeAsync(this);
         }
 
         #endregion Package Members
