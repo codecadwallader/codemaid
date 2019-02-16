@@ -1,6 +1,7 @@
 ﻿using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -9,25 +10,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class SpadeContextRemoveRegionCommand : BaseCommand
     {
-        #region Singleton
-
-        public static SpadeContextRemoveRegionCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new SpadeContextRemoveRegionCommand(package);
-            Instance.Switch(on: true);
-        }
-
-        #endregion Singleton
-
-        #region Fields
-
         private readonly RemoveRegionLogic _removeRegionLogic;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeContextRemoveRegionCommand" /> class.
@@ -39,9 +22,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static SpadeContextRemoveRegionCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextRemoveRegionCommand(package);
+            await Instance.SwitchAsync(on: true);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -76,10 +71,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        #endregion BaseCommand Methods
-
-        #region Methods
-
         /// <summary>
         /// Determines if the specified region is a candidate for removal.
         /// </summary>
@@ -89,7 +80,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             return !region.IsPseudoGroup && region.StartLine > 0 && region.EndLine > 0;
         }
-
-        #endregion Methods
     }
 }

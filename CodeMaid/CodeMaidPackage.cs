@@ -3,7 +3,6 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
@@ -13,7 +12,6 @@ using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using System;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -21,6 +19,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using Task = System.Threading.Tasks.Task;
 using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
 
 namespace SteveCadwallader.CodeMaid
@@ -50,10 +49,8 @@ namespace SteveCadwallader.CodeMaid
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
     [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
-    public sealed class CodeMaidPackage : AsyncPackage, IVsInstalledProduct
+    public sealed class CodeMaidPackage : AsyncPackage
     {
-        #region Fields
-
         /// <summary>
         /// The build progress tool window.
         /// </summary>
@@ -78,10 +75,6 @@ namespace SteveCadwallader.CodeMaid
         /// The theme manager.
         /// </summary>
         private ThemeManager _themeManager;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeMaidPackage"/> class.
@@ -110,10 +103,6 @@ namespace SteveCadwallader.CodeMaid
 
             SettingsMonitor = new SettingsMonitor<Settings>(Settings.Default);
         }
-
-        #endregion Constructors
-
-        #region Public Integration Properties
 
         /// <summary>
         /// Gets the currently active document, otherwise null.
@@ -168,9 +157,9 @@ namespace SteveCadwallader.CodeMaid
         public bool IsAutoSaveContext { get; set; }
 
         /// <summary>
-        /// Gets the menu command service.
+        /// Gets the settings monitor.
         /// </summary>
-        public OleMenuCommandService MenuCommandService => GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+        public SettingsMonitor<Settings> SettingsMonitor { get; }
 
         /// <summary>
         /// Gets the Spade tool window, if it already exists.
@@ -189,24 +178,24 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
-        public SettingsMonitor<Settings> SettingsMonitor { get; }
-
-        #endregion Public Integration Properties
-
-        #region Package Members
-
         /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited,
-        /// so this is the place where you can put all the initialization code that rely on services
-        /// provided by VisualStudio.
+        /// Releases unmanaged and - optionally - managed resources
         /// </summary>
-        protected override void Initialize()
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
-            base.Initialize();
+            base.Dispose(disposing);
 
-            RegisterCommands();
-            RegisterEventListeners();
+            // Dispose of any event listeners.
+            BuildProgressEventListener.Instance.Dispose();
+            DocumentEventListener.Instance.Dispose();
+            RunningDocumentTableEventListener.Instance.Dispose();
+            SolutionEventListener.Instance.Dispose();
+            TextEditorEventListener.Instance.Dispose();
+            WindowEventListener.Instance.Dispose();
         }
 
         /// <summary>
@@ -227,66 +216,11 @@ namespace SteveCadwallader.CodeMaid
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await AboutCommand.InitializeAsync(this);
-            await BuildProgressToolWindowCommand.InitializeAsync(this);
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            await RegisterCommandsAsync();
+            RegisterEventListeners();
         }
-
-        #endregion Package Members
-
-        #region IVsInstalledProduct Members
-
-        public int IdBmpSplash(out uint pIdBmp)
-        {
-            pIdBmp = 400;
-            return VSConstants.S_OK;
-        }
-
-        public int IdIcoLogoForAboutbox(out uint pIdIco)
-        {
-            pIdIco = 400;
-            return VSConstants.S_OK;
-        }
-
-        public int OfficialName(out string pbstrName)
-        {
-            pbstrName = GetResourceString("@110");
-            return VSConstants.S_OK;
-        }
-
-        public int ProductDetails(out string pbstrProductDetails)
-        {
-            pbstrProductDetails = GetResourceString("@112");
-            return VSConstants.S_OK;
-        }
-
-        public int ProductID(out string pbstrPID)
-        {
-            pbstrPID = GetResourceString("@114");
-            return VSConstants.S_OK;
-        }
-
-        public string GetResourceString(string resourceName)
-        {
-            string resourceValue;
-            var resourceManager = (IVsResourceManager)GetService(typeof(SVsResourceManager));
-            if (resourceManager == null)
-            {
-                throw new InvalidOperationException(
-                    "Could not get SVsResourceManager service. Make sure that the package is sited before calling this method");
-            }
-
-            Guid packageGuid = GetType().GUID;
-            int hr = resourceManager.LoadResourceString(
-                ref packageGuid, -1, resourceName, out resourceValue);
-            ErrorHandler.ThrowOnFailure(hr);
-
-            return resourceValue;
-        }
-
-        #endregion IVsInstalledProduct Members
-
-        #region Private Methods
 
         /// <summary>
         /// Called when a DispatcherUnhandledException is raised by Visual Studio.
@@ -316,39 +250,39 @@ namespace SteveCadwallader.CodeMaid
         /// <summary>
         /// Register the package commands (which must exist in the .vsct file).
         /// </summary>
-        private void RegisterCommands()
+        private async Task RegisterCommandsAsync()
         {
             // Initialize the individual commands, which internally register for command events.
-            AboutCommand.Initialize(this);
-            BuildProgressToolWindowCommand.Initialize(this);
-            CleanupActiveCodeCommand.Initialize(this);
-            CleanupAllCodeCommand.Initialize(this);
-            CleanupOpenCodeCommand.Initialize(this);
-            CleanupSelectedCodeCommand.Initialize(this);
-            CloseAllReadOnlyCommand.Initialize(this);
-            CollapseAllSolutionExplorerCommand.Initialize(this);
-            CollapseSelectedSolutionExplorerCommand.Initialize(this);
-            CommentFormatCommand.Initialize(this);
-            FindInSolutionExplorerCommand.Initialize(this);
-            JoinLinesCommand.Initialize(this);
-            OptionsCommand.Initialize(this);
-            ReadOnlyToggleCommand.Initialize(this);
-            RemoveRegionCommand.Initialize(this);
-            ReorganizeActiveCodeCommand.Initialize(this);
-            SettingCleanupOnSaveCommand.Initialize(this);
-            SortLinesCommand.Initialize(this);
-            SpadeContextDeleteCommand.Initialize(this);
-            SpadeContextFindReferencesCommand.Initialize(this);
-            SpadeContextInsertRegionCommand.Initialize(this);
-            SpadeContextRemoveRegionCommand.Initialize(this);
-            SpadeOptionsCommand.Initialize(this);
-            SpadeRefreshCommand.Initialize(this);
-            SpadeSearchCommand.Initialize(this);
-            SpadeSortOrderAlphaCommand.Initialize(this);
-            SpadeSortOrderFileCommand.Initialize(this);
-            SpadeSortOrderTypeCommand.Initialize(this);
-            SpadeToolWindowCommand.Initialize(this);
-            SwitchFileCommand.Initialize(this);
+            await AboutCommand.InitializeAsync(this);
+            await BuildProgressToolWindowCommand.InitializeAsync(this);
+            await CleanupActiveCodeCommand.InitializeAsync(this);
+            await CleanupAllCodeCommand.InitializeAsync(this);
+            await CleanupOpenCodeCommand.InitializeAsync(this);
+            await CleanupSelectedCodeCommand.InitializeAsync(this);
+            await CloseAllReadOnlyCommand.InitializeAsync(this);
+            await CollapseAllSolutionExplorerCommand.InitializeAsync(this);
+            await CollapseSelectedSolutionExplorerCommand.InitializeAsync(this);
+            await CommentFormatCommand.InitializeAsync(this);
+            await FindInSolutionExplorerCommand.InitializeAsync(this);
+            await JoinLinesCommand.InitializeAsync(this);
+            await OptionsCommand.InitializeAsync(this);
+            await ReadOnlyToggleCommand.InitializeAsync(this);
+            await RemoveRegionCommand.InitializeAsync(this);
+            await ReorganizeActiveCodeCommand.InitializeAsync(this);
+            await SettingCleanupOnSaveCommand.InitializeAsync(this);
+            await SortLinesCommand.InitializeAsync(this);
+            await SpadeContextDeleteCommand.InitializeAsync(this);
+            await SpadeContextFindReferencesCommand.InitializeAsync(this);
+            await SpadeContextInsertRegionCommand.InitializeAsync(this);
+            await SpadeContextRemoveRegionCommand.InitializeAsync(this);
+            await SpadeOptionsCommand.InitializeAsync(this);
+            await SpadeRefreshCommand.InitializeAsync(this);
+            await SpadeSearchCommand.InitializeAsync(this);
+            await SpadeSortOrderAlphaCommand.InitializeAsync(this);
+            await SpadeSortOrderFileCommand.InitializeAsync(this);
+            await SpadeSortOrderTypeCommand.InitializeAsync(this);
+            await SpadeToolWindowCommand.InitializeAsync(this);
+            await SwitchFileCommand.InitializeAsync(this);
         }
 
         /// <summary>
@@ -377,25 +311,37 @@ namespace SteveCadwallader.CodeMaid
             SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
             {
                 if (on)
+                {
                     RunningDocumentTableEventListener.Instance.BeforeSave += CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
+                }
                 else
+                {
                     RunningDocumentTableEventListener.Instance.BeforeSave -= CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
+                }
             });
             SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
             {
                 if (on)
+                {
                     RunningDocumentTableEventListener.Instance.AfterSave += SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
+                }
                 else
+                {
                     RunningDocumentTableEventListener.Instance.AfterSave -= SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
+                }
             });
 
             SolutionEventListener.Intialize(this);
             SettingsMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
             {
                 if (on)
+                {
                     SolutionEventListener.Instance.OnSolutionOpened += CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
+                }
                 else
+                {
                     SolutionEventListener.Instance.OnSolutionOpened -= CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
+                }
             });
             SolutionEventListener.Instance.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
             SolutionEventListener.Instance.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
@@ -408,36 +354,10 @@ namespace SteveCadwallader.CodeMaid
             WindowEventListener.Instance.OnWindowChange += SpadeToolWindowCommand.Instance.OnWindowChange;
 
             // Check if a solution has already been opened before CodeMaid was initialized.
-            if (IDE.Solution != null && IDE.Solution.IsOpen)
+            if (IDE.Solution?.IsOpen == true)
             {
                 SolutionEventListener.Instance.FireSolutionOpenedEvent();
             }
         }
-
-        #endregion Private Methods
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            // Dispose of any event listeners.
-            BuildProgressEventListener.Instance.Dispose();
-            DocumentEventListener.Instance.Dispose();
-            RunningDocumentTableEventListener.Instance.Dispose();
-            SolutionEventListener.Instance.Dispose();
-            TextEditorEventListener.Instance.Dispose();
-            WindowEventListener.Instance.Dispose();
-        }
-
-        #endregion IDisposable Members
     }
 }

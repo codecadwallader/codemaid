@@ -3,6 +3,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -11,26 +12,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class RemoveRegionCommand : BaseCommand
     {
-        #region Singleton
-
-        public static RemoveRegionCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new RemoveRegionCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_RemoveRegion, Instance.Switch);
-        }
-
-        #endregion Singleton
-
-        #region Fields
-
         private readonly CodeModelHelper _codeModelHelper;
         private readonly RemoveRegionLogic _removeRegionLogic;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoveRegionCommand" /> class.
@@ -43,10 +26,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             _removeRegionLogic = RemoveRegionLogic.GetInstance(package);
         }
 
-        #endregion Constructors
-
-        #region Enumerations
-
         /// <summary>
         /// An enumeration of region command scopes.
         /// </summary>
@@ -58,9 +37,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Selection
         }
 
-        #endregion Enumerations
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static RemoveRegionCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Gets the active text document, otherwise null.
+        /// </summary>
+        private TextDocument ActiveTextDocument => Package.ActiveDocument?.GetTextDocument();
+
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new RemoveRegionCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_RemoveRegion, Instance.SwitchAsync);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -111,19 +107,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        #endregion BaseCommand Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets the active text document, otherwise null.
-        /// </summary>
-        private TextDocument ActiveTextDocument => Package.ActiveDocument?.GetTextDocument();
-
-        #endregion Private Properties
-
-        #region Private Methods
-
         /// <summary>
         /// Gets the region command scope based on the current document and selection conditions.
         /// </summary>
@@ -155,7 +138,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             return RegionCommandScope.None;
         }
-
-        #endregion Private Methods
     }
 }

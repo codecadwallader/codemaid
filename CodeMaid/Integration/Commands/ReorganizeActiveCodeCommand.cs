@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
+using Task = System.Threading.Tasks.Task;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -7,25 +8,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class ReorganizeActiveCodeCommand : BaseCommand
     {
-        #region Singleton
-
-        public static ReorganizeActiveCodeCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new ReorganizeActiveCodeCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_ReorganizeActiveCode, Instance.Switch);
-        }
-
-        #endregion Singleton
-
-        #region Fields
-
         private readonly CodeReorganizationAvailabilityLogic _codeReorganizationAvailabilityLogic;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReorganizeActiveCodeCommand" /> class.
@@ -39,9 +22,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             _codeReorganizationAvailabilityLogic = CodeReorganizationAvailabilityLogic.GetInstance(Package);
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static ReorganizeActiveCodeCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Gets the code reorganization manager.
+        /// </summary>
+        private CodeReorganizationManager CodeReorganizationManager { get; }
+
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new ReorganizeActiveCodeCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_ReorganizeActiveCode, Instance.SwitchAsync);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -60,16 +60,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             CodeReorganizationManager.Reorganize(Package.ActiveDocument);
         }
-
-        #endregion BaseCommand Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets the code reorganization manager.
-        /// </summary>
-        private CodeReorganizationManager CodeReorganizationManager { get; }
-
-        #endregion Private Properties
     }
 }

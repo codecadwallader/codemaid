@@ -1,6 +1,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -9,20 +10,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class BuildProgressToolWindowCommand : BaseCommand
     {
-        #region Singleton
-
-        public static BuildProgressToolWindowCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new BuildProgressToolWindowCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.Switch);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildProgressToolWindowCommand" /> class.
         /// </summary>
@@ -32,9 +19,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
         }
 
-        #endregion Constructors
-
-        #region Properties
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static BuildProgressToolWindowCommand Instance { get; private set; }
 
         /// <summary>
         /// Gets the build progress window frame.
@@ -53,33 +41,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        #endregion Properties
-
-        #region BaseCommand Methods
-
         /// <summary>
-        /// Called to execute the command.
+        /// Initializes a singleton instance of this command.
         /// </summary>
-        protected override void OnExecute()
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
         {
-            base.OnExecute();
-
-            ShowBuildProgressToolWindow();
+            Instance = new BuildProgressToolWindowCommand(package);
+            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.SwitchAsync);
         }
 
-        public override void Switch(bool on)
+        public override async Task SwitchAsync(bool on)
         {
-            base.Switch(on);
+            await base.SwitchAsync(on);
 
             if (!on)
             {
                 Package.BuildProgress?.Close();
             }
         }
-
-        #endregion BaseCommand Methods
-
-        #region Internal Methods
 
         /// <summary>
         /// Called when a build has begun.
@@ -96,6 +77,25 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 if (Settings.Default.Progressing_ShowBuildProgressOnBuildStart)
                 {
                     ShowBuildProgressToolWindowWithoutActivation();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called when a build is done.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="action">The action.</param>
+        internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
+        {
+            var buildProgress = Package.BuildProgressForceLoad;
+            if (buildProgress != null)
+            {
+                buildProgress.NotifyBuildDone(scope, action);
+
+                if (Settings.Default.Progressing_HideBuildProgressOnBuildStop)
+                {
+                    HideBuildProgressToolWindow();
                 }
             }
         }
@@ -134,27 +134,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         }
 
         /// <summary>
-        /// Called when a build is done.
+        /// Called to execute the command.
         /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="action">The action.</param>
-        internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
+        protected override void OnExecute()
         {
-            var buildProgress = Package.BuildProgressForceLoad;
-            if (buildProgress != null)
-            {
-                buildProgress.NotifyBuildDone(scope, action);
+            base.OnExecute();
 
-                if (Settings.Default.Progressing_HideBuildProgressOnBuildStop)
-                {
-                    HideBuildProgressToolWindow();
-                }
-            }
+            ShowBuildProgressToolWindow();
         }
-
-        #endregion Internal Methods
-
-        #region Private Methods
 
         /// <summary>
         /// Docks the specified frame window if it is currently floating.
@@ -171,6 +158,18 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             if ((VSFRAMEMODE)currentFrameMode == VSFRAMEMODE.VSFM_Float)
             {
                 frame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Dock);
+            }
+        }
+
+        /// <summary>
+        /// Hides the build progress tool window.
+        /// </summary>
+        private void HideBuildProgressToolWindow()
+        {
+            var frame = BuildProgressWindowFrame;
+            if (frame != null)
+            {
+                frame.Hide();
             }
         }
 
@@ -199,19 +198,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 DockWindowIfFloating(frame);
             }
         }
-
-        /// <summary>
-        /// Hides the build progress tool window.
-        /// </summary>
-        private void HideBuildProgressToolWindow()
-        {
-            var frame = BuildProgressWindowFrame;
-            if (frame != null)
-            {
-                frame.Hide();
-            }
-        }
-
-        #endregion Private Methods
     }
 }

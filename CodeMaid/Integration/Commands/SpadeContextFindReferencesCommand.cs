@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -9,20 +10,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class SpadeContextFindReferencesCommand : BaseCommand
     {
-        #region Singleton
-
-        public static SpadeContextFindReferencesCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new SpadeContextFindReferencesCommand(package);
-            Instance.Switch(on: true);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeContextFindReferencesCommand" /> class.
         /// </summary>
@@ -32,9 +19,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static SpadeContextFindReferencesCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new SpadeContextFindReferencesCommand(package);
+            await Instance.SwitchAsync(on: true);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -72,7 +71,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             // Invoke the command.
             Package.IDE.ExecuteCommand("Edit.FindAllReferences");
         }
-
-        #endregion BaseCommand Methods
     }
 }
