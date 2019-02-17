@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new BuildProgressEventListener(package);
-            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_BuildProgressToolWindow, Instance.SwitchAsync);
         }
 
         /// <summary>

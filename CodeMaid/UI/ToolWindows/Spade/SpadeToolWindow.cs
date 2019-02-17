@@ -25,18 +25,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     [Guid(PackageGuids.GuidCodeMaidToolWindowSpadeString)]
     public sealed class SpadeToolWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
-        #region Fields
-
         private readonly SpadeViewModel _viewModel;
 
         private CodeModelManager _codeModelManager;
-
         private Document _document;
         private bool _isVisible;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeToolWindow" /> class.
@@ -64,10 +57,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             Content = new SpadeView { DataContext = _viewModel };
         }
 
-        #endregion Constructors
-
-        #region Public Properties
-
         /// <summary>
         /// Gets or sets the current document.
         /// </summary>
@@ -94,6 +83,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         /// <summary>
+        /// Gets or sets the package that owns the tool window.
+        /// </summary>
+        private new CodeMaidPackage Package => base.Package as CodeMaidPackage;
+
+        public override bool SearchEnabled => true;
+
+        /// <summary>
         /// Gets the selected items.
         /// </summary>
         public IEnumerable<BaseCodeItem> SelectedItems => _viewModel.SelectedItems;
@@ -114,9 +110,33 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
-        #endregion Public Properties
+        /// <summary>
+        /// Gets or sets a flag indicating if this tool window is visible.
+        /// </summary>
+        private bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                if (_isVisible != value)
+                {
+                    _isVisible = value;
+                    ConditionallyUpdateCodeModel(false);
+                }
+            }
+        }
 
-        #region Public Methods
+        public override void ClearSearch()
+        {
+            NameFilter = null;
+        }
+
+        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+
+        public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+        {
+            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
+        }
 
         /// <summary>
         /// A method to be called to notify the tool window about the current active document.
@@ -140,6 +160,43 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
+        public int OnClose(ref uint pgrfSaveOptions)
+        {
+            return VSConstants.S_OK;
+        }
+
+        public int OnDockableChange(int fDockable, int x, int y, int w, int h)
+        {
+            return VSConstants.S_OK;
+        }
+
+        public int OnMove(int x, int y, int w, int h)
+        {
+            return VSConstants.S_OK;
+        }
+
+        public int OnShow(int fShow)
+        {
+            // Track the visibility of this tool window.
+            switch ((__FRAMESHOW)fShow)
+            {
+                case __FRAMESHOW.FRAMESHOW_WinShown:
+                    IsVisible = true;
+                    break;
+
+                case __FRAMESHOW.FRAMESHOW_WinHidden:
+                    IsVisible = false;
+                    break;
+            }
+
+            return VSConstants.S_OK;
+        }
+
+        public int OnSize(int x, int y, int w, int h)
+        {
+            return VSConstants.S_OK;
+        }
+
         /// <summary>
         /// This method can be overriden by the derived class to execute any code that needs to run
         /// after the IVsWindowFrame is created. If the toolwindow has a toolbar with a combobox, it
@@ -158,7 +215,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
-                Package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+                await Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
                 {
                     if (on)
                     {
@@ -196,6 +253,15 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
+        public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+        {
+            base.ProvideSearchSettings(pSearchSettings);
+
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
+            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, Resources.SearchCodeMaidSpadeCtrlM);
+        }
+
         /// <summary>
         /// Refresh the Spade tool window.
         /// </summary>
@@ -205,37 +271,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             ConditionallyUpdateCodeModel(true);
         }
-
-        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
-
-        #endregion Public Methods
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets or sets a flag indicating if this tool window is visible.
-        /// </summary>
-        private bool IsVisible
-        {
-            get { return _isVisible; }
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    ConditionallyUpdateCodeModel(false);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the package that owns the tool window.
-        /// </summary>
-        private new CodeMaidPackage Package => base.Package as CodeMaidPackage;
-
-        #endregion Private Properties
-
-        #region Private Methods
 
         /// <summary>
         /// Conditionally updates the code model.
@@ -288,10 +323,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
-        private void OnSettingsSaving(object sender, System.ComponentModel.CancelEventArgs e) => OnSettingsChange();
-
-        private void OnSettingsLoaded(object sender, System.Configuration.SettingsLoadedEventArgs e) => OnSettingsChange();
-
         /// <summary>
         /// An event handler called when settings are changed.
         /// </summary>
@@ -300,6 +331,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _viewModel.SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
             Refresh();
         }
+
+        private void OnSettingsLoaded(object sender, System.Configuration.SettingsLoadedEventArgs e) => OnSettingsChange();
+
+        private void OnSettingsSaving(object sender, System.ComponentModel.CancelEventArgs e) => OnSettingsChange();
 
         /// <summary>
         /// Update the view model's raw set of code items based on the specified code items.
@@ -315,73 +350,5 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _viewModel.IsLoading = false;
             _viewModel.IsRefreshing = false;
         }
-
-        #endregion Private Methods
-
-        #region IVsWindowFrameNotify3 Members
-
-        public int OnClose(ref uint pgrfSaveOptions)
-        {
-            return VSConstants.S_OK;
-        }
-
-        public int OnDockableChange(int fDockable, int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
-
-        public int OnMove(int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
-
-        public int OnShow(int fShow)
-        {
-            // Track the visibility of this tool window.
-            switch ((__FRAMESHOW)fShow)
-            {
-                case __FRAMESHOW.FRAMESHOW_WinShown:
-                    IsVisible = true;
-                    break;
-
-                case __FRAMESHOW.FRAMESHOW_WinHidden:
-                    IsVisible = false;
-                    break;
-            }
-
-            return VSConstants.S_OK;
-        }
-
-        public int OnSize(int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
-
-        #endregion IVsWindowFrameNotify3 Members
-
-        #region IVsWindowSearch Members
-
-        public override bool SearchEnabled => true;
-
-        public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
-        {
-            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
-        }
-
-        public override void ClearSearch()
-        {
-            NameFilter = null;
-        }
-
-        public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
-        {
-            base.ProvideSearchSettings(pSearchSettings);
-
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, uint.MaxValue);
-            Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, Resources.SearchCodeMaidSpadeCtrlM);
-        }
-
-        #endregion IVsWindowSearch Members
     }
 }

@@ -31,7 +31,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new CloseAllReadOnlyCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_CloseAllReadOnly, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_CloseAllReadOnly, Instance.SwitchAsync);
         }
 
         /// <summary>

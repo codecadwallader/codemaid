@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new WindowEventListener(package);
-            package.SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, Instance.SwitchAsync);
         }
 
         /// <summary>

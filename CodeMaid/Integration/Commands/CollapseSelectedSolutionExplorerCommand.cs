@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new CollapseSelectedSolutionExplorerCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_CollapseSelectedSolutionExplorer, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_CollapseSelectedSolutionExplorer, Instance.SwitchAsync);
         }
 
         /// <summary>

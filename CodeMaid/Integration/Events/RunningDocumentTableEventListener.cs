@@ -66,12 +66,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             Instance = new RunningDocumentTableEventListener(package);
 
             // This listener services multiple features, watching if any of them switched.
-            package.SettingsMonitor.Watch<bool>(new[] {
+            await package.SettingsMonitor.WatchAsync<bool>(new[] {
                 nameof(Settings.Default.Feature_SettingCleanupOnSave),
                 nameof(Settings.Default.Feature_SpadeToolWindow)
-            }, values =>
+            }, async values =>
             {
-                Instance.SwitchAsync(values.Any(v => v));
+                await Instance.SwitchAsync(values.Any(v => v));
             });
         }
 

@@ -55,7 +55,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new RemoveRegionCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_RemoveRegion, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_RemoveRegion, Instance.SwitchAsync);
         }
 
         /// <summary>

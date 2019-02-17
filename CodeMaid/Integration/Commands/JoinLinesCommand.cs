@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new JoinLinesCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_JoinLines, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_JoinLines, Instance.SwitchAsync);
         }
 
         /// <summary>

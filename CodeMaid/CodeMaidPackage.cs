@@ -100,8 +100,6 @@ namespace SteveCadwallader.CodeMaid
                 Settings.Default.Upgrade();
                 Settings.Default.Save();
             }
-
-            SettingsMonitor = new SettingsMonitor<Settings>(Settings.Default);
         }
 
         /// <summary>
@@ -157,9 +155,9 @@ namespace SteveCadwallader.CodeMaid
         public bool IsAutoSaveContext { get; set; }
 
         /// <summary>
-        /// Gets the settings monitor.
+        /// Gets or sets the settings monitor.
         /// </summary>
-        public SettingsMonitor<Settings> SettingsMonitor { get; }
+        public SettingsMonitor<Settings> SettingsMonitor { get; private set; }
 
         /// <summary>
         /// Gets the Spade tool window, if it already exists.
@@ -217,6 +215,8 @@ namespace SteveCadwallader.CodeMaid
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            SettingsMonitor = new SettingsMonitor<Settings>(Settings.Default, JoinableTaskFactory);
 
             await RegisterCommandsAsync();
             await RegisterEventListenersAsync();

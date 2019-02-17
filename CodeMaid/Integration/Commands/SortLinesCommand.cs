@@ -44,7 +44,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new SortLinesCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_SortLines, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_SortLines, Instance.SwitchAsync);
         }
 
         /// <summary>

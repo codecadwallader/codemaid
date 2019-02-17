@@ -43,7 +43,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new CommentFormatCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_CommentFormat, Instance.SwitchAsync);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_CommentFormat, Instance.SwitchAsync);
         }
 
         /// <summary>
