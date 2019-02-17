@@ -308,7 +308,7 @@ namespace SteveCadwallader.CodeMaid
             DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
             await RunningDocumentTableEventListener.InitializeAsync(this);
-            SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
+            await SettingsMonitor.WatchAsync(s => s.Feature_SettingCleanupOnSave, on =>
             {
                 if (on)
                 {
@@ -318,8 +318,10 @@ namespace SteveCadwallader.CodeMaid
                 {
                     RunningDocumentTableEventListener.Instance.BeforeSave -= CleanupActiveCodeCommand.Instance.OnBeforeDocumentSave;
                 }
+
+                return Task.CompletedTask;
             });
-            SettingsMonitor.Watch(s => s.Feature_SpadeToolWindow, on =>
+            await SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
             {
                 if (on)
                 {
@@ -329,10 +331,12 @@ namespace SteveCadwallader.CodeMaid
                 {
                     RunningDocumentTableEventListener.Instance.AfterSave -= SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
                 }
+
+                return Task.CompletedTask;
             });
 
             await SolutionEventListener.InitializeAsync(this);
-            SettingsMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
+            await SettingsMonitor.WatchAsync(s => s.Feature_CollapseAllSolutionExplorer, on =>
             {
                 if (on)
                 {
@@ -342,6 +346,8 @@ namespace SteveCadwallader.CodeMaid
                 {
                     SolutionEventListener.Instance.OnSolutionOpened -= CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
                 }
+
+                return Task.CompletedTask;
             });
             SolutionEventListener.Instance.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
             SolutionEventListener.Instance.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;

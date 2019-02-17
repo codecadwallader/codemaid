@@ -232,6 +232,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                         Settings.Default.SettingsLoaded -= OnSettingsLoaded;
                         Settings.Default.SettingsSaving -= OnSettingsSaving;
                     }
+
+                    return Task.CompletedTask;
                 });
 
                 // Pass the package over to the view model.
