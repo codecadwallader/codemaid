@@ -59,26 +59,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         internal void FireSolutionOpenedEvent() => SolutionEvents_Opened();
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
-
-                if (disposing && SolutionEvents != null)
-                {
-                    await SwitchAsync(on: false);
-                }
-            }
-        }
-
-        /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
         /// <returns>A task.</returns>

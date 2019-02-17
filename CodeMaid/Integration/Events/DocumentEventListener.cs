@@ -48,26 +48,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         }
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
-
-                if (disposing && DocumentEvents != null)
-                {
-                    await SwitchAsync(on: false);
-                }
-            }
-        }
-
-        /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
         /// <returns>A task.</returns>

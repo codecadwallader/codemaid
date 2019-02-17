@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
@@ -6,7 +5,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// <summary>
     /// The base implementation of an event listener.
     /// </summary>
-    internal abstract class BaseEventListener : ISwitchableFeature, IDisposable
+    internal abstract class BaseEventListener : ISwitchableFeature
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEventListener" /> class.
@@ -18,11 +17,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is disposed.
-        /// </summary>
-        protected bool IsDisposed { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether listeners are registered.
         /// </summary>
         protected bool IsListening { get; set; }
@@ -31,16 +25,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// Gets the hosting package.
         /// </summary>
         protected CodeMaidPackage Package { get; private set; }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting
-        /// unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
         /// <summary>
         /// Switches the event listener on or off, registering/unregistering from events from the IDE.
@@ -58,21 +42,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             {
                 IsListening = false;
                 await UnRegisterListenersAsync();
-            }
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
             }
         }
 

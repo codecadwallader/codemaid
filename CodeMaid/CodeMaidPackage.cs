@@ -177,26 +177,6 @@ namespace SteveCadwallader.CodeMaid
         public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            // Dispose of any event listeners.
-            BuildProgressEventListener.Instance.Dispose();
-            DocumentEventListener.Instance.Dispose();
-            RunningDocumentTableEventListener.Instance.Dispose();
-            SolutionEventListener.Instance.Dispose();
-            TextEditorEventListener.Instance.Dispose();
-            WindowEventListener.Instance.Dispose();
-        }
-
-        /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so
         /// this is the place where you can put all the initialization code that rely on services
         /// provided by VisualStudio.
