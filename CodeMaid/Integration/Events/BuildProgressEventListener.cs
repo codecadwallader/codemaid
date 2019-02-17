@@ -1,5 +1,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -8,37 +9,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// </summary>
     internal sealed class BuildProgressEventListener : BaseEventListener
     {
-        #region Singleton
-
-        public static BuildProgressEventListener Instance { get; private set; }
-
-        public static void Intialize(CodeMaidPackage package)
-            => Instance = new BuildProgressEventListener(package);
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildProgressEventListener" /> class.
         /// </summary>
         /// <param name="package">The package hosting the event listener.</param>
-        internal BuildProgressEventListener(CodeMaidPackage package)
+        private BuildProgressEventListener(CodeMaidPackage package)
             : base(package)
         {
             // Store access to the build events, otherwise events will not register properly via DTE.
             BuildEvents = Package.IDE.Events.BuildEvents;
-            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Switch);
         }
-
-        #endregion Constructors
-
-        #region Internal Events
 
         /// <summary>
         /// An event raised when a build has begun.
         /// </summary>
         internal event _dispBuildEvents_OnBuildBeginEventHandler BuildBegin;
+
+        /// <summary>
+        /// An event raised when a build is done.
+        /// </summary>
+        internal event _dispBuildEvents_OnBuildDoneEventHandler BuildDone;
 
         /// <summary>
         /// An event raised when an individual project build has begun.
@@ -51,22 +41,69 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         internal event _dispBuildEvents_OnBuildProjConfigDoneEventHandler BuildProjConfigDone;
 
         /// <summary>
-        /// An event raised when a build is done.
+        /// A singleton instance of this command.
         /// </summary>
-        internal event _dispBuildEvents_OnBuildDoneEventHandler BuildDone;
-
-        #endregion Internal Events
-
-        #region Private Properties
+        public static BuildProgressEventListener Instance { get; private set; }
 
         /// <summary>
         /// Gets or sets a pointer to the IDE build events.
         /// </summary>
         private BuildEvents BuildEvents { get; set; }
 
-        #endregion Private Properties
+        /// <summary>
+        /// Initializes a singleton instance of this event listener.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new BuildProgressEventListener(package);
+            package.SettingsMonitor.Watch(s => s.Feature_BuildProgressToolWindow, Instance.SwitchAsync);
+        }
 
-        #region Private Event Handlers
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+
+                if (disposing && BuildEvents != null)
+                {
+                    await SwitchAsync(on: false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Registers event handlers with the IDE.
+        /// </summary>
+        /// <returns>A task.</returns>
+        protected override async Task RegisterListenersAsync()
+        {
+            BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
+            BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
+            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
+            BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
+        }
+
+        /// <summary>
+        /// Unregisters event handlers with the IDE.
+        /// </summary>
+        /// <returns>A task.</returns>
+        protected override async Task UnRegisterListenersAsync()
+        {
+            BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
+            BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
+            BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
+            BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
+        }
 
         /// <summary>
         /// Event raised when a build begins.
@@ -81,6 +118,22 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
                 OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildBegin raised");
 
                 buildBegin(scope, action);
+            }
+        }
+
+        /// <summary>
+        /// Event raised when a build is done.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="action">The action.</param>
+        private void BuildEvents_OnBuildDone(vsBuildScope scope, vsBuildAction action)
+        {
+            var buildDone = BuildDone;
+            if (buildDone != null)
+            {
+                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildDone raised");
+
+                buildDone(scope, action);
             }
         }
 
@@ -120,67 +173,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
                 buildProjConfigDone(project, projectConfig, platform, solutionConfig, success);
             }
         }
-
-        /// <summary>
-        /// Event raised when a build is done.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="action">The action.</param>
-        private void BuildEvents_OnBuildDone(vsBuildScope scope, vsBuildAction action)
-        {
-            var buildDone = BuildDone;
-            if (buildDone != null)
-            {
-                OutputWindowHelper.DiagnosticWriteLine("BuildProgressEventListener.BuildDone raised");
-
-                buildDone(scope, action);
-            }
-        }
-
-        #endregion Private Event Handlers
-
-        #region ISwitchable Members
-
-        protected override void RegisterListeners()
-        {
-            BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
-            BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
-            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
-            BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
-        }
-
-        protected override void UnRegisterListeners()
-        {
-            BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
-            BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
-            BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
-            BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
-        }
-
-        #endregion ISwitchable Members
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
-
-                if (disposing && BuildEvents != null)
-                {
-                    Switch(on: false);
-                }
-            }
-        }
-
-        #endregion IDisposable Members
     }
 }

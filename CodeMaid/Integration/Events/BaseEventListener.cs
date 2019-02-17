@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -7,8 +8,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// </summary>
     internal abstract class BaseEventListener : ISwitchableFeature, IDisposable
     {
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEventListener" /> class.
         /// </summary>
@@ -18,42 +17,20 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             Package = package;
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is disposed.
+        /// </summary>
+        protected bool IsDisposed { get; set; }
 
-        #region Properties
+        /// <summary>
+        /// Gets or sets a value indicating whether listeners are registered.
+        /// </summary>
+        protected bool IsListening { get; set; }
 
         /// <summary>
         /// Gets the hosting package.
         /// </summary>
         protected CodeMaidPackage Package { get; private set; }
-
-        #endregion Properties
-
-        #region ISwitchable Members
-
-        protected bool IsListening { get; set; }
-
-        public void Switch(bool on)
-        {
-            if (on && !IsListening)
-            {
-                IsListening = true;
-                RegisterListeners();
-            }
-            else if (IsListening && !on)
-            {
-                IsListening = false;
-                UnRegisterListeners();
-            }
-        }
-
-        protected abstract void RegisterListeners();
-
-        protected abstract void UnRegisterListeners();
-
-        #endregion ISwitchable Members
-
-        #region IDisposable Members
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
@@ -63,6 +40,25 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Switches the event listener on or off, registering/unregistering from events from the IDE.
+        /// </summary>
+        /// <param name="on">True if switching the event listener on, otherwise false.</param>
+        /// <returns>A task.</returns>
+        public async Task SwitchAsync(bool on)
+        {
+            if (on && !IsListening)
+            {
+                IsListening = true;
+                await RegisterListenersAsync();
+            }
+            else if (IsListening && !on)
+            {
+                IsListening = false;
+                await UnRegisterListenersAsync();
+            }
         }
 
         /// <summary>
@@ -81,10 +77,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is disposed.
+        /// Registers event handlers with the IDE.
         /// </summary>
-        protected bool IsDisposed { get; set; }
+        /// <returns>A task.</returns>
+        protected abstract Task RegisterListenersAsync();
 
-        #endregion IDisposable Members
+        /// <summary>
+        /// Unregisters event handlers with the IDE.
+        /// </summary>
+        /// <returns>A task.</returns>
+        protected abstract Task UnRegisterListenersAsync();
     }
 }

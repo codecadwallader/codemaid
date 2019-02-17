@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -9,51 +10,81 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// </summary>
     internal sealed class TextEditorEventListener : BaseEventListener
     {
-        #region Singleton
-
-        public static TextEditorEventListener Instance { get; private set; }
-
-        public static void Intialize(CodeMaidPackage package)
-            => Instance = new TextEditorEventListener(package);
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TextEditorEventListener" /> class.
         /// </summary>
         /// <param name="package">The package hosting the event listener.</param>
-        internal TextEditorEventListener(CodeMaidPackage package)
+        private TextEditorEventListener(CodeMaidPackage package)
             : base(package)
         {
             // Store access to the text editor events, otherwise events will not register properly
             // via DTE.
             TextEditorEvents = Package.IDE.Events.TextEditorEvents;
-            Switch(on: true);
         }
-
-        #endregion Constructors
-
-        #region Internal Events
 
         /// <summary>
         /// An event raised when a line has been changed.
         /// </summary>
         internal event Action<Document> OnLineChanged;
 
-        #endregion Internal Events
-
-        #region Private Properties
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static TextEditorEventListener Instance { get; private set; }
 
         /// <summary>
         /// Gets or sets a pointer to the IDE text editor events.
         /// </summary>
         public TextEditorEvents TextEditorEvents { get; set; }
 
-        #endregion Private Properties
+        /// <summary>
+        /// Initializes a singleton instance of this event listener.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new TextEditorEventListener(package);
+            await Instance.SwitchAsync(on: true);
+        }
 
-        #region Private Event Handlers
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+
+                if (disposing && TextEditorEvents != null)
+                {
+                    await SwitchAsync(on: false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Registers event handlers with the IDE.
+        /// </summary>
+        /// <returns>A task.</returns>
+        protected override async Task RegisterListenersAsync()
+        {
+            TextEditorEvents.LineChanged += TextEditorEvents_LineChanged;
+        }
+
+        /// <summary>
+        /// Unregisters event handlers with the IDE.
+        /// </summary>
+        /// <returns>A task.</returns>
+        protected override async Task UnRegisterListenersAsync()
+        {
+            TextEditorEvents.LineChanged -= TextEditorEvents_LineChanged;
+        }
 
         /// <summary>
         /// An event handler for a line being changed.
@@ -76,45 +107,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
                 onLineChanged(document);
             }
         }
-
-        #endregion Private Event Handlers
-
-        #region ISwitchable Members
-
-        protected override void RegisterListeners()
-        {
-            TextEditorEvents.LineChanged += TextEditorEvents_LineChanged;
-        }
-
-        protected override void UnRegisterListeners()
-        {
-            TextEditorEvents.LineChanged -= TextEditorEvents_LineChanged;
-        }
-
-        #endregion ISwitchable Members
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
-
-                if (disposing && TextEditorEvents != null)
-                {
-                    Switch(on: false);
-                }
-            }
-        }
-
-        #endregion IDisposable Members
     }
 }

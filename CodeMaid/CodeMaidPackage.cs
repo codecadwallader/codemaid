@@ -219,7 +219,7 @@ namespace SteveCadwallader.CodeMaid
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             await RegisterCommandsAsync();
-            RegisterEventListeners();
+            await RegisterEventListenersAsync();
         }
 
         /// <summary>
@@ -291,23 +291,23 @@ namespace SteveCadwallader.CodeMaid
         /// <remarks>
         /// Every event listener registers VS events by itself.
         /// </remarks>
-        private void RegisterEventListeners()
+        private async Task RegisterEventListenersAsync()
         {
             var codeModelManager = CodeModelManager.GetInstance(this);
             var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 
             VSColorTheme.ThemeChanged += _ => ThemeManager.ApplyTheme();
 
-            BuildProgressEventListener.Intialize(this);
+            await BuildProgressEventListener.InitializeAsync(this);
             BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
             BuildProgressEventListener.Instance.BuildProjConfigBegin += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigBegin;
             BuildProgressEventListener.Instance.BuildProjConfigDone += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigDone;
             BuildProgressEventListener.Instance.BuildDone += BuildProgressToolWindowCommand.Instance.OnBuildDone;
 
-            DocumentEventListener.Intialize(this);
+            await DocumentEventListener.InitializeAsync(this);
             DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
 
-            RunningDocumentTableEventListener.Intialize(this);
+            await RunningDocumentTableEventListener.InitializeAsync(this);
             SettingsMonitor.Watch(s => s.Feature_SettingCleanupOnSave, on =>
             {
                 if (on)
@@ -331,7 +331,7 @@ namespace SteveCadwallader.CodeMaid
                 }
             });
 
-            SolutionEventListener.Intialize(this);
+            await SolutionEventListener.InitializeAsync(this);
             SettingsMonitor.Watch(s => s.Feature_CollapseAllSolutionExplorer, on =>
             {
                 if (on)
@@ -347,10 +347,10 @@ namespace SteveCadwallader.CodeMaid
             SolutionEventListener.Instance.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
             SolutionEventListener.Instance.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
-            TextEditorEventListener.Intialize(this);
+            await TextEditorEventListener.InitializeAsync(this);
             TextEditorEventListener.Instance.OnLineChanged += codeModelManager.OnDocumentChanged;
 
-            WindowEventListener.Intialize(this);
+            await WindowEventListener.InitializeAsync(this);
             WindowEventListener.Instance.OnWindowChange += SpadeToolWindowCommand.Instance.OnWindowChange;
 
             // Check if a solution has already been opened before CodeMaid was initialized.
