@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -19,17 +20,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     /// </summary>
     public partial class SpadeView
     {
-        #region Fields
+        /// <summary>
+        /// The dependency property definition for the ScaleFactor property.
+        /// </summary>
+        public static DependencyProperty ScaleFactorProperty = DependencyProperty.Register(
+            "ScaleFactor", typeof(double), typeof(SpadeView),
+            new FrameworkPropertyMetadata(1.0d, null, OnCoerceScaleFactor));
 
         private CodeReorganizationManager _codeReorganizationManager;
         private TreeViewItem _dragCandidate;
         private Point? _dragStartPoint;
         private bool _isDoubleClick;
         private ScrollViewer _scrollViewer;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeView" /> class.
@@ -39,9 +41,14 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             InitializeComponent();
         }
 
-        #endregion Constructors
-
-        #region Properties
+        /// <summary>
+        /// Gets or sets the scale factor.
+        /// </summary>
+        public double ScaleFactor
+        {
+            get { return (double)GetValue(ScaleFactorProperty); }
+            set { SetValue(ScaleFactorProperty, value); }
+        }
 
         /// <summary>
         /// Gets the lazy-initialized code reorganization manager.
@@ -59,24 +66,90 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private SpadeViewModel ViewModel => DataContext as SpadeViewModel;
 
-        #endregion Properties
-
-        #region ScaleFactor (Dependency Property)
-
         /// <summary>
-        /// The dependency property definition for the ScaleFactor property.
+        /// Attempts to find the parent TreeViewItem from the specified event source.
         /// </summary>
-        public static DependencyProperty ScaleFactorProperty = DependencyProperty.Register(
-            "ScaleFactor", typeof(double), typeof(SpadeView),
-            new FrameworkPropertyMetadata(1.0d, null, OnCoerceScaleFactor));
-
-        /// <summary>
-        /// Gets or sets the scale factor.
-        /// </summary>
-        public double ScaleFactor
+        /// <param name="eventSource">The event source.</param>
+        /// <returns>The parent TreeViewItem, otherwise null.</returns>
+        private static TreeViewItem FindParentTreeViewItem(object eventSource)
         {
-            get { return (double)GetValue(ScaleFactorProperty); }
-            set { SetValue(ScaleFactorProperty, value); }
+            var source = eventSource as DependencyObject;
+
+            var treeViewItem = source?.FindVisualAncestor<TreeViewItem>();
+
+            return treeViewItem;
+        }
+
+        /// <summary>
+        /// Determines the drop position for the specified drag event and the drop target.
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
+        /// <param name="targetItem">The target item.</param>
+        /// <param name="targetElement">The target element.</param>
+        /// <returns>The drop position.</returns>
+        private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, TreeViewItem targetElement)
+        {
+            var header = targetElement.Template.FindName("PART_HeaderBorder", targetElement) as FrameworkElement;
+            var targetHeight = header?.ActualHeight ?? targetElement.ActualHeight;
+            var dropPoint = e.GetPosition(targetElement);
+            bool canDropOn = targetItem is ICodeItemParent;
+
+            if (canDropOn)
+            {
+                bool isTopThird = dropPoint.Y <= targetHeight / 3;
+                bool isBottomThird = dropPoint.Y > targetHeight * 2 / 3;
+
+                return isTopThird ? DropPosition.Above : (isBottomThird ? DropPosition.Below : DropPosition.On);
+            }
+
+            bool isTopHalf = dropPoint.Y <= targetHeight / 2;
+
+            return isTopHalf ? DropPosition.Above : DropPosition.Below;
+        }
+
+        /// <summary>
+        /// Handles scrolling the specified scroll viewer if the drag event indicates the drag
+        /// operation is nearing the scroll viewers top or bottom boundaries.
+        /// </summary>
+        /// <param name="scrollViewer">The scroll viewer.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// </param>
+        private static void HandleDragScrolling(ScrollViewer scrollViewer, DragEventArgs e)
+        {
+            const int threshold = 20;
+            const int offset = 10;
+
+            var mousePoint = e.GetPosition(scrollViewer);
+
+            if (mousePoint.Y < threshold)
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - offset);
+            }
+            else if (mousePoint.Y > (scrollViewer.ActualHeight - threshold))
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + offset);
+            }
+        }
+
+        /// <summary>
+        /// Determines if the specified item is an ancestor of the specified base.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="baseItem">The base item.</param>
+        /// <returns>True if item is an ancestor of the specified base, otherwise false.</returns>
+        private static bool IsItemAncestorOfBase(BaseCodeItem item, BaseCodeItem baseItem)
+        {
+            var itemAsParent = item as ICodeItemParent;
+            if (itemAsParent == null)
+            {
+                return false;
+            }
+
+            return itemAsParent.Children.Contains(baseItem) ||
+                   itemAsParent.Children.Any(x => IsItemAncestorOfBase(x, baseItem));
         }
 
         /// <summary>
@@ -95,9 +168,44 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             return value;
         }
 
-        #endregion ScaleFactor (Dependency Property)
+        /// <summary>
+        /// Gets the selected tree view items, ensuring the specified item is one of them. If it is
+        /// not, all other selections are cleared and it is the only item selected.
+        /// </summary>
+        /// <param name="treeViewItem">The tree view item that must be selected.</param>
+        /// <returns>The set of selected tree view items, guaranteed to include the specified one.</returns>
+        private IList<TreeViewItem> GetSelectedTreeViewItemsIncluding(TreeViewItem treeViewItem)
+        {
+            // Get the currently selected tree view items.
+            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
+                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
+                .ToList();
 
-        #region Event Handlers
+            // If the specified tree view item is not selected, change the current selection to it.
+            if (!selectedTreeViewItems.Contains(treeViewItem))
+            {
+                var behavior = Interaction.GetBehaviors(treeView).OfType<TreeViewMultipleSelectionBehavior>().FirstOrDefault();
+                behavior?.SelectSingleItem(treeViewItem);
+
+                selectedTreeViewItems.Clear();
+                selectedTreeViewItems.Add(treeViewItem);
+            }
+
+            return selectedTreeViewItems;
+        }
+
+        /// <summary>
+        /// Jumps to the specified code item.
+        /// </summary>
+        /// <param name="codeItem">The code item.</param>
+        private void JumpToCodeItem(BaseCodeItem codeItem)
+        {
+            var viewModel = ViewModel;
+            if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
+
+            Dispatcher.BeginInvoke(
+                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole)));
+        }
 
         /// <summary>
         /// Called when a PreviewMouseDown event is received.
@@ -135,144 +243,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
                 ScaleFactor *= percentage;
                 e.Handled = true;
-            }
-        }
-
-        /// <summary>
-        /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by
-        /// TreeView) . Used to jump to a code item upon enter, or toggle the expansion state upon space.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.Input.KeyEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
-        {
-            var treeViewItem = e.Source as TreeViewItem;
-            if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
-
-            switch (e.Key)
-            {
-                case Key.Return:
-                    JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
-                    break;
-
-                case Key.Space:
-                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse down event. Used to start
-        /// detecting a drag and drop operation or toggle the expansion state depending on conditions.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
-        /// event data.
-        /// </param>
-        private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            _isDoubleClick = false;
-
-            var treeViewItem = FindParentTreeViewItem(e.Source);
-            if (treeViewItem == null) return;
-
-            switch (e.ChangedButton)
-            {
-                case MouseButton.Left:
-                    if (e.ClickCount == 2)
-                    {
-                        _isDoubleClick = true;
-                        e.Handled = true;
-                    }
-                    else if (treeViewItem.DataContext is BaseCodeItem)
-                    {
-                        _dragCandidate = treeViewItem;
-                        _dragStartPoint = e.GetPosition(null);
-                    }
-                    break;
-
-                case MouseButton.Middle:
-                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse move event. Used to
-        /// conditionally initiate a drag and drop operation.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.Input.MouseEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
-        {
-            if (_dragCandidate == null || !_dragStartPoint.HasValue) return;
-
-            var delta = _dragStartPoint.Value - e.GetPosition(null);
-            if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
-                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
-            {
-                return;
-            }
-
-            var selectedTreeViewItems = GetSelectedTreeViewItemsIncluding(_dragCandidate);
-
-            foreach (var selectedTreeViewItem in selectedTreeViewItems)
-            {
-                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
-            }
-
-            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
-
-            foreach (var selectedTreeViewItem in selectedTreeViewItems)
-            {
-                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
-            }
-
-            _dragCandidate = null;
-            _dragStartPoint = null;
-        }
-
-        /// <summary>
-        /// Called when the header of a TreeViewItem receives a mouse up event. Used to
-        /// conditionally jump to a code item.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
-        /// event data.
-        /// </param>
-        private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            _dragCandidate = null;
-            _dragStartPoint = null;
-
-            var treeViewItem = FindParentTreeViewItem(e.Source);
-            if (treeViewItem == null) return;
-
-            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
-
-            switch (e.ChangedButton)
-            {
-                case MouseButton.Left:
-                    if (_isDoubleClick)
-                    {
-                        SelectCodeItem(baseCodeItem);
-                    }
-                    else
-                    {
-                        JumpToCodeItem(baseCodeItem);
-                    }
-                    break;
-
-                case MouseButton.Right:
-                    GetSelectedTreeViewItemsIncluding(treeViewItem);
-                    ShowContextMenu(PointToScreen(e.GetPosition(this)));
-                    break;
             }
         }
 
@@ -399,133 +369,142 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             e.Handled = true;
         }
 
-        #endregion Event Handlers
-
-        #region Methods
-
         /// <summary>
-        /// Gets the selected tree view items, ensuring the specified item is one of them. If it is
-        /// not, all other selections are cleared and it is the only item selected.
+        /// Called when the header of a TreeViewItem receives a mouse down event. Used to start
+        /// detecting a drag and drop operation or toggle the expansion state depending on conditions.
         /// </summary>
-        /// <param name="treeViewItem">The tree view item that must be selected.</param>
-        /// <returns>The set of selected tree view items, guaranteed to include the specified one.</returns>
-        private IList<TreeViewItem> GetSelectedTreeViewItemsIncluding(TreeViewItem treeViewItem)
-        {
-            // Get the currently selected tree view items.
-            var selectedTreeViewItems = treeView.FindVisualChildren<TreeViewItem>()
-                .Where(TreeViewMultipleSelectionBehavior.GetIsItemSelected)
-                .ToList();
-
-            // If the specified tree view item is not selected, change the current selection to it.
-            if (!selectedTreeViewItems.Contains(treeViewItem))
-            {
-                var behavior = Interaction.GetBehaviors(treeView).OfType<TreeViewMultipleSelectionBehavior>().FirstOrDefault();
-                behavior?.SelectSingleItem(treeViewItem);
-
-                selectedTreeViewItems.Clear();
-                selectedTreeViewItems.Add(treeViewItem);
-            }
-
-            return selectedTreeViewItems;
-        }
-
-        /// <summary>
-        /// Attempts to find the parent TreeViewItem from the specified event source.
-        /// </summary>
-        /// <param name="eventSource">The event source.</param>
-        /// <returns>The parent TreeViewItem, otherwise null.</returns>
-        private static TreeViewItem FindParentTreeViewItem(object eventSource)
-        {
-            var source = eventSource as DependencyObject;
-
-            var treeViewItem = source?.FindVisualAncestor<TreeViewItem>();
-
-            return treeViewItem;
-        }
-
-        /// <summary>
-        /// Determines the drop position for the specified drag event and the drop target.
-        /// </summary>
+        /// <param name="sender">The sender.</param>
         /// <param name="e">
-        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
+        /// event data.
         /// </param>
-        /// <param name="targetItem">The target item.</param>
-        /// <param name="targetElement">The target element.</param>
-        /// <returns>The drop position.</returns>
-        private static DropPosition GetDropPosition(DragEventArgs e, BaseCodeItem targetItem, TreeViewItem targetElement)
+        private void OnTreeViewItemHeaderMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var header = targetElement.Template.FindName("PART_HeaderBorder", targetElement) as FrameworkElement;
-            var targetHeight = header?.ActualHeight ?? targetElement.ActualHeight;
-            var dropPoint = e.GetPosition(targetElement);
-            bool canDropOn = targetItem is ICodeItemParent;
+            _isDoubleClick = false;
 
-            if (canDropOn)
+            var treeViewItem = FindParentTreeViewItem(e.Source);
+            if (treeViewItem == null) return;
+
+            switch (e.ChangedButton)
             {
-                bool isTopThird = dropPoint.Y <= targetHeight / 3;
-                bool isBottomThird = dropPoint.Y > targetHeight * 2 / 3;
+                case MouseButton.Left:
+                    if (e.ClickCount == 2)
+                    {
+                        _isDoubleClick = true;
+                        e.Handled = true;
+                    }
+                    else if (treeViewItem.DataContext is BaseCodeItem)
+                    {
+                        _dragCandidate = treeViewItem;
+                        _dragStartPoint = e.GetPosition(null);
+                    }
+                    break;
 
-                return isTopThird ? DropPosition.Above : (isBottomThird ? DropPosition.Below : DropPosition.On);
+                case MouseButton.Middle:
+                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                    break;
             }
-
-            bool isTopHalf = dropPoint.Y <= targetHeight / 2;
-
-            return isTopHalf ? DropPosition.Above : DropPosition.Below;
         }
 
         /// <summary>
-        /// Handles scrolling the specified scroll viewer if the drag event indicates the drag
-        /// operation is nearing the scroll viewers top or bottom boundaries.
+        /// Called when the header of a TreeViewItem receives a mouse move event. Used to
+        /// conditionally initiate a drag and drop operation.
         /// </summary>
-        /// <param name="scrollViewer">The scroll viewer.</param>
+        /// <param name="sender">The sender.</param>
         /// <param name="e">
-        /// The <see cref="System.Windows.DragEventArgs" /> instance containing the event data.
+        /// The <see cref="System.Windows.Input.MouseEventArgs" /> instance containing the event data.
         /// </param>
-        private static void HandleDragScrolling(ScrollViewer scrollViewer, DragEventArgs e)
+        private void OnTreeViewItemHeaderMouseMove(object sender, MouseEventArgs e)
         {
-            const int threshold = 20;
-            const int offset = 10;
+            if (_dragCandidate == null || !_dragStartPoint.HasValue) return;
 
-            var mousePoint = e.GetPosition(scrollViewer);
-
-            if (mousePoint.Y < threshold)
+            var delta = _dragStartPoint.Value - e.GetPosition(null);
+            if (Math.Abs(delta.X) <= SystemParameters.MinimumHorizontalDragDistance &&
+                Math.Abs(delta.Y) <= SystemParameters.MinimumVerticalDragDistance)
             {
-                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - offset);
+                return;
             }
-            else if (mousePoint.Y > (scrollViewer.ActualHeight - threshold))
+
+            var selectedTreeViewItems = GetSelectedTreeViewItemsIncluding(_dragCandidate);
+
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
             {
-                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + offset);
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            }
+
+            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(IList<BaseCodeItem>), ViewModel.SelectedItems), DragDropEffects.Move);
+
+            foreach (var selectedTreeViewItem in selectedTreeViewItems)
+            {
+                selectedTreeViewItem.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            }
+
+            _dragCandidate = null;
+            _dragStartPoint = null;
+        }
+
+        /// <summary>
+        /// Called when the header of a TreeViewItem receives a mouse up event. Used to
+        /// conditionally jump to a code item.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the
+        /// event data.
+        /// </param>
+        private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _dragCandidate = null;
+            _dragStartPoint = null;
+
+            var treeViewItem = FindParentTreeViewItem(e.Source);
+            if (treeViewItem == null) return;
+
+            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
+
+            switch (e.ChangedButton)
+            {
+                case MouseButton.Left:
+                    if (_isDoubleClick)
+                    {
+                        SelectCodeItem(baseCodeItem);
+                    }
+                    else
+                    {
+                        JumpToCodeItem(baseCodeItem);
+                    }
+                    break;
+
+                case MouseButton.Right:
+                    GetSelectedTreeViewItemsIncluding(treeViewItem);
+                    ShowContextMenu(PointToScreen(e.GetPosition(this)));
+                    break;
             }
         }
 
         /// <summary>
-        /// Determines if the specified item is an ancestor of the specified base.
+        /// Called when a KeyDown event is raised by a TreeViewItem (not automatically handled by
+        /// TreeView) . Used to jump to a code item upon enter, or toggle the expansion state upon space.
         /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="baseItem">The base item.</param>
-        /// <returns>True if item is an ancestor of the specified base, otherwise false.</returns>
-        private static bool IsItemAncestorOfBase(BaseCodeItem item, BaseCodeItem baseItem)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">
+        /// The <see cref="System.Windows.Input.KeyEventArgs" /> instance containing the event data.
+        /// </param>
+        private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
-            var itemAsParent = item as ICodeItemParent;
-            if (itemAsParent == null)
+            var treeViewItem = e.Source as TreeViewItem;
+            if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
+
+            switch (e.Key)
             {
-                return false;
+                case Key.Return:
+                    JumpToCodeItem(treeViewItem.DataContext as BaseCodeItem);
+                    break;
+
+                case Key.Space:
+                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                    break;
             }
-
-            return itemAsParent.Children.Contains(baseItem) ||
-                   itemAsParent.Children.Any(x => IsItemAncestorOfBase(x, baseItem));
-        }
-
-        /// <summary>
-        /// Jumps to the specified code item.
-        /// </summary>
-        /// <param name="codeItem">The code item.</param>
-        private void JumpToCodeItem(BaseCodeItem codeItem)
-        {
-            var viewModel = ViewModel;
-            if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
-
-            Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole)));
         }
 
         /// <summary>
@@ -555,15 +534,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="point">The point where the context menu should be shown.</param>
         private void ShowContextMenu(Point point)
         {
-            var menuCommandService = ViewModel?.Package.MenuCommandService;
-            if (menuCommandService != null)
+            if (ViewModel?.Package is var package)
             {
-                var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.MenuIDCodeMaidContextSpade);
+                package.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    if (await package.GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
+                    {
+                        var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.MenuIDCodeMaidContextSpade);
 
-                menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+                        menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+                    }
+                });
             }
         }
-
-        #endregion Methods
     }
 }
