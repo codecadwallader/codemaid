@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
+using Task = System.Threading.Tasks.Task;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -215,26 +216,28 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             {
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
-                await Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
-                {
-                    if (on)
+
+                Package.JoinableTaskFactory.RunAsync(async () =>
+                    await Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
                     {
-                        _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
+                        if (on)
+                        {
+                            _codeModelManager.CodeModelBuilt += OnCodeModelBuilt;
 
-                        // Register for changes to settings.
-                        Settings.Default.SettingsLoaded += OnSettingsLoaded;
-                        Settings.Default.SettingsSaving += OnSettingsSaving;
-                    }
-                    else
-                    {
-                        _codeModelManager.CodeModelBuilt -= OnCodeModelBuilt;
+                            // Register for changes to settings.
+                            Settings.Default.SettingsLoaded += OnSettingsLoaded;
+                            Settings.Default.SettingsSaving += OnSettingsSaving;
+                        }
+                        else
+                        {
+                            _codeModelManager.CodeModelBuilt -= OnCodeModelBuilt;
 
-                        Settings.Default.SettingsLoaded -= OnSettingsLoaded;
-                        Settings.Default.SettingsSaving -= OnSettingsSaving;
-                    }
+                            Settings.Default.SettingsLoaded -= OnSettingsLoaded;
+                            Settings.Default.SettingsSaving -= OnSettingsSaving;
+                        }
 
-                    return Task.CompletedTask;
-                });
+                        return Task.CompletedTask;
+                    }));
 
                 // Pass the package over to the view model.
                 _viewModel.Package = Package;
