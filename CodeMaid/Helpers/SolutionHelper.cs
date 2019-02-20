@@ -50,8 +50,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var projectItems = new List<T>();
 
             // Include the parent item if it is of the desired type.
-            var desiredType = parentItem as T;
-            if (desiredType != null)
+            if (parentItem is T desiredType)
             {
                 projectItems.Add(desiredType);
             }
@@ -137,8 +136,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             // Next check if the item is a project item.
-            var projectItem = parentItem as ProjectItem;
-            if (projectItem != null)
+            if (parentItem is ProjectItem projectItem)
             {
                 // Standard projects.
                 if (projectItem.ProjectItems != null)
