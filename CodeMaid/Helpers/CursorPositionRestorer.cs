@@ -31,6 +31,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void CaptureCursorPosition()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (TextDocument != null && TextDocument.Selection != null)
             {
                 TrackedCursorPosition = new CursorPosition(TextDocument.Selection);
@@ -42,6 +44,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void RestoreCursorPosition()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (TextDocument != null && TextDocument.Selection != null)
             {
                 if (IsCursorPositionReset() && TrackedCursorPosition.Line > 1)
@@ -66,6 +70,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the cursor position was reset, otherwise false.</returns>
         private bool IsCursorPositionReset()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return TextDocument.Selection.ActivePoint.AtStartOfDocument ||
                    TextDocument.Selection.ActivePoint.AtEndOfDocument;
         }
@@ -114,6 +120,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             /// <param name="textSelection">The text selection.</param>
             public CursorPosition(TextSelection textSelection)
             {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
                 Line = textSelection.CurrentLine;
                 Column = textSelection.CurrentColumn;
             }

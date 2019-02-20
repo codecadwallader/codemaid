@@ -78,7 +78,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var selectedProjectItems = new List<ProjectItem>();
             var selectedUIHierarchyItems = UIHierarchyHelper.GetSelectedUIHierarchyItems(package);
 
-            foreach (var item in selectedUIHierarchyItems.Select(uiHierarchyItem => uiHierarchyItem.Object))
+            var selectedUIHierarchyItemObjects = selectedUIHierarchyItems.Select(uiHierarchyItem =>
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                return uiHierarchyItem.Object;
+            });
+
+            foreach (var item in selectedUIHierarchyItemObjects)
             {
                 selectedProjectItems.AddRange(GetItemsRecursively<ProjectItem>(item));
             }
@@ -96,7 +102,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var allItems = GetAllItemsInSolution<ProjectItem>(package.IDE.Solution);
 
-            return allItems.Where(x => x.Name == projectItem.Name && x.Kind == projectItem.Kind && x.Document.FullName == projectItem.Document.FullName);
+            return allItems.Where(x =>
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                return x.Name == projectItem.Name && x.Kind == projectItem.Kind && x.Document.FullName == projectItem.Document.FullName;
+            });
         }
 
         #endregion Internal Methods
@@ -110,6 +120,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>An enumerable set of children, may be empty.</returns>
         private static IEnumerable<object> GetChildren(object parentItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // First check if the item is a solution.
             var solution = parentItem as Solution;
             if (solution?.Projects != null)

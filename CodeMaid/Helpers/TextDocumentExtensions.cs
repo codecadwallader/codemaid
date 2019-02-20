@@ -14,6 +14,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A <see cref="CodeLanguage"/>.</returns>
         internal static CodeLanguage GetCodeLanguage(this TextDocument document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return CodeLanguageHelper.GetCodeLanguage(document.Language);
         }
 
@@ -24,6 +26,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>An edit point at the cursor.</returns>
         internal static EditPoint GetEditPointAtCursor(this TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var cursor = textDocument.CreateEditPoint();
             cursor.MoveToPoint(textDocument.Selection.ActivePoint);
 

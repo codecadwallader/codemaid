@@ -16,6 +16,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The filename of the project item if available, otherwise null.</returns>
         internal static string GetFileName(this ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 return projectItem.FileNames[1];
@@ -34,6 +36,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The parent project item, otherwise null.</returns>
         internal static ProjectItem GetParentProjectItem(this ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 var parentProjectItem = projectItem.Collection?.Parent as ProjectItem;
@@ -53,6 +57,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the project item is external, otherwise false.</returns>
         internal static bool IsExternal(this ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 if (projectItem.Collection == null || !projectItem.IsPhysicalFile())
@@ -60,7 +66,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     return true;
                 }
 
-                return projectItem.Collection.OfType<ProjectItem>().All(x => x.Object != projectItem.Object);
+                return projectItem.Collection.OfType<ProjectItem>().All(x =>
+                {
+                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                    return x.Object != projectItem.Object;
+                });
             }
             catch (Exception ex)
             {
@@ -76,6 +86,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the project item is a physical file, otherwise false.</returns>
         internal static bool IsPhysicalFile(this ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 return string.Equals(projectItem.Kind, Constants.vsProjectItemKindPhysicalFile, StringComparison.OrdinalIgnoreCase);

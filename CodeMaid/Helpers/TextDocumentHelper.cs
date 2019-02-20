@@ -35,6 +35,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The set of matches.</returns>
         internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var matches = new List<EditPoint>();
             var cursor = textDocument.StartPoint.CreateEditPoint();
             EditPoint end = null;
@@ -57,6 +59,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The set of matches.</returns>
         internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var matches = new List<EditPoint>();
             var cursor = textSelection.TopPoint.CreateEditPoint();
             EditPoint end = null;
@@ -84,6 +88,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The first match, otherwise null.</returns>
         internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var cursor = textDocument.StartPoint.CreateEditPoint();
             EditPoint end = null;
             TextRanges dummy = null;
@@ -104,6 +110,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The matching text, otherwise null.</returns>
         internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var startEditPoint = startPoint.CreateEditPoint();
             var endEditPoint = startEditPoint.CreateEditPoint();
             TextRanges subGroupMatches = null; // Not used - required for FindPattern.
@@ -122,6 +130,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineBeforePoint(EditPoint point)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (point.Line <= 1) return;
 
             point.LineUp(1);
@@ -141,6 +151,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineAfterPoint(EditPoint point)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (point.AtEndOfDocument) return;
 
             point.LineDown(1);
@@ -161,6 +173,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="centerOnWhole">True if the whole element should be used for centering.</param>
         internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem, bool centerOnWhole)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
@@ -213,6 +227,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeItem">The code item.</param>
         internal static void SelectCodeItem(Document document, BaseCodeItem codeItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
@@ -244,6 +260,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             TextRanges dummy = null;
             int lastCount = -1;
             while (textDocument.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
@@ -269,6 +287,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             TextRanges dummy = null;
             int lastCount = -1;
             while (textSelection.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
@@ -295,6 +315,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             TextRanges dummy = null;
             int lastCount = -1;
             while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))

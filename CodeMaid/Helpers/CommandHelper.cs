@@ -54,7 +54,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (commandNames == null || commandNames.Length == 0) return null;
 
-            return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => commandNames.Contains(x.Name));
+            return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x =>
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                return commandNames.Contains(x.Name);
+            });
         }
 
         /// <summary>
@@ -64,9 +68,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="id">The command id.</param>
         /// <returns>The found command, otherwise null.</returns>
         public Command FindCommand(string guid, int id)
-        {
-            return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => x.Guid == guid && x.ID == id);
-        }
+            => _package.IDE.Commands.OfType<Command>().FirstOrDefault(x =>
+                {
+                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                    return x.Guid == guid && x.ID == id;
+                });
 
         /// <summary>
         /// Executes the specified command when available against the specified text document.
@@ -75,6 +81,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="commandNames">The cleanup command name(s).</param>
         public void ExecuteCommand(TextDocument textDocument, params string[] commandNames)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 var command = FindCommand(commandNames);

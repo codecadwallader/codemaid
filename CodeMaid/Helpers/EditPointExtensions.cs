@@ -14,6 +14,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A <see cref="CodeLanguage"/>.</returns>
         internal static CodeLanguage GetCodeLanguage(this EditPoint editPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return editPoint.Parent.GetCodeLanguage();
         }
 
@@ -24,6 +26,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The text of the edit point's line.</returns>
         internal static string GetLine(this EditPoint editPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return editPoint.GetLines(editPoint.Line, editPoint.Line + 1);
         }
     }
