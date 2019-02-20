@@ -35,7 +35,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<ProjectItem> AllProjectItems
         {
-            get { return SolutionHelper.GetAllItemsInSolution<ProjectItem>(Package.IDE.Solution).Where(x => CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x)); }
+            get { return SolutionHelper.GetAllItemsInSolution<ProjectItem>(Package.IDE.Solution).Where(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x); }); }
         }
 
         /// <summary>
@@ -69,6 +69,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnExecute();
 
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())

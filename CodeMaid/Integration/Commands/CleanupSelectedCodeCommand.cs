@@ -38,7 +38,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private IEnumerable<ProjectItem> SelectedProjectItems
         {
-            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package).Where(x => CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x)); }
+            get { return SolutionHelper.GetSelectedProjectItemsRecursively(Package).Where(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x); }); }
         }
 
         /// <summary>
@@ -67,6 +67,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnExecute();
 
             using (new ActiveDocumentRestorer(Package))

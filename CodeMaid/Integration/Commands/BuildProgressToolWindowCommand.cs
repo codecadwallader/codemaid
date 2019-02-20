@@ -71,6 +71,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -90,6 +92,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -140,6 +144,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnExecute();
 
             ShowBuildProgressToolWindow();

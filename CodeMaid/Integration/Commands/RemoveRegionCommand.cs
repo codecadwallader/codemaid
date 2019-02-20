@@ -63,6 +63,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var regionCommandScope = GetRegionCommandScope();
 
             Enabled = regionCommandScope != RegionCommandScope.None;
@@ -88,6 +90,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnExecute();
 
             var regionCommandScope = GetRegionCommandScope();
@@ -113,6 +117,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The scope that should be used for the region command.</returns>
         private RegionCommandScope GetRegionCommandScope()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (_removeRegionLogic.CanRemoveRegions(Package.ActiveDocument))
             {
                 var activeTextDocument = ActiveTextDocument;

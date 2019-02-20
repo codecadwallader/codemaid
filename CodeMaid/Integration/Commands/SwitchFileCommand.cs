@@ -76,6 +76,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnExecute();
 
             string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
@@ -95,7 +97,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             var alternatePaths = GetAlternatePaths(document);
 
-            return alternatePaths.FirstOrDefault(x => !String.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null);
+            return alternatePaths.FirstOrDefault(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return !String.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null; });
         }
 
         /// <summary>
@@ -105,6 +107,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The alternate paths, otherwise null.</returns>
         private IEnumerable<string> GetAlternatePaths(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var results = new List<string>();
 
             if (document != null)

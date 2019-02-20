@@ -46,7 +46,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = SelectedUIHierarchyItems.Any(x => x.UIHierarchyItems.Expanded);
+            Enabled = SelectedUIHierarchyItems.Any(x =>
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                return x.UIHierarchyItems.Expanded;
+            });
         }
 
         /// <summary>
