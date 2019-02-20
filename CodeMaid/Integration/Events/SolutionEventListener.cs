@@ -17,6 +17,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private SolutionEventListener(CodeMaidPackage package)
             : base(package)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Store access to the solutions events, otherwise events will not register properly via DTE.
             SolutionEvents = Package.IDE.Events.SolutionEvents;
         }
@@ -61,8 +63,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task RegisterListenersAsync()
+        protected override void RegisterListeners()
         {
             SolutionEvents.Opened += SolutionEvents_Opened;
             SolutionEvents.AfterClosing += SolutionEvents_AfterClosing;
@@ -71,8 +72,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Unregisters event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task UnRegisterListenersAsync()
+        protected override void UnRegisterListeners()
         {
             SolutionEvents.Opened -= SolutionEvents_Opened;
             SolutionEvents.AfterClosing -= SolutionEvents_AfterClosing;

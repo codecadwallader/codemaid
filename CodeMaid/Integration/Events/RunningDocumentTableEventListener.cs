@@ -75,25 +75,13 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             });
         }
 
-        public int OnAfterAttributeChange(uint docCookie, uint grfAttribs)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterAttributeChange(uint docCookie, uint grfAttribs) => VSConstants.S_OK;
 
-        public int OnAfterAttributeChangeEx(uint docCookie, uint grfAttribs, IVsHierarchy pHierOld, uint itemidOld, string pszMkDocumentOld, IVsHierarchy pHierNew, uint itemidNew, string pszMkDocumentNew)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterAttributeChangeEx(uint docCookie, uint grfAttribs, IVsHierarchy pHierOld, uint itemidOld, string pszMkDocumentOld, IVsHierarchy pHierNew, uint itemidNew, string pszMkDocumentNew) => VSConstants.S_OK;
 
-        public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame) => VSConstants.S_OK;
 
-        public int OnAfterFirstDocumentLock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterFirstDocumentLock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining) => VSConstants.S_OK;
 
         /// <summary>
         /// Called when a document has been saved.
@@ -102,6 +90,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnAfterSave(uint docCookie)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var afterSave = AfterSave;
             if (afterSave != null)
             {
@@ -115,15 +105,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             return VSConstants.S_OK;
         }
 
-        public int OnBeforeDocumentWindowShow(uint docCookie, int fFirstShow, IVsWindowFrame pFrame)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnBeforeDocumentWindowShow(uint docCookie, int fFirstShow, IVsWindowFrame pFrame) => VSConstants.S_OK;
 
-        public int OnBeforeLastDocumentUnlock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnBeforeLastDocumentUnlock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining) => VSConstants.S_OK;
 
         /// <summary>
         /// Called when a document is about to be saved.
@@ -132,6 +116,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnBeforeSave(uint docCookie)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var beforeSave = BeforeSave;
             if (beforeSave != null)
             {
@@ -148,8 +134,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task RegisterListenersAsync()
+        protected override void RegisterListeners()
         {
             // Register with the running document table for events.
             EventCookie = RunningDocumentTable.Advise(this);
@@ -158,8 +143,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Unregisters event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task UnRegisterListenersAsync()
+        protected override void UnRegisterListeners()
         {
             RunningDocumentTable.Unadvise(EventCookie);
             EventCookie = 0;

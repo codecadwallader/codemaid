@@ -36,25 +36,23 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             if (on && !IsListening)
             {
                 IsListening = true;
-                await RegisterListenersAsync();
+                RegisterListeners();
             }
             else if (IsListening && !on)
             {
                 IsListening = false;
-                await UnRegisterListenersAsync();
+                UnRegisterListeners();
             }
         }
 
         /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected abstract Task RegisterListenersAsync();
+        protected abstract void RegisterListeners();
 
         /// <summary>
         /// Unregisters event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected abstract Task UnRegisterListenersAsync();
+        protected abstract void UnRegisterListeners();
     }
 }

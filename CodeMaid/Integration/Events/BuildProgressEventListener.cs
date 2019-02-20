@@ -16,6 +16,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private BuildProgressEventListener(CodeMaidPackage package)
             : base(package)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Store access to the build events, otherwise events will not register properly via DTE.
             BuildEvents = Package.IDE.Events.BuildEvents;
         }
@@ -64,8 +66,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Registers event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task RegisterListenersAsync()
+        protected override void RegisterListeners()
         {
             BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
             BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
@@ -76,8 +77,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <summary>
         /// Unregisters event handlers with the IDE.
         /// </summary>
-        /// <returns>A task.</returns>
-        protected override async Task UnRegisterListenersAsync()
+        protected override void UnRegisterListeners()
         {
             BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
             BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
