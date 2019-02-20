@@ -67,6 +67,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         public void RemoveAndSortUsingStatements(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements) return;
             if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave) return;
 

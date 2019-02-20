@@ -57,6 +57,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if code item should be preceded by a blank line, otherwise false.</returns>
         internal bool ShouldBePrecededByBlankLine(BaseCodeItem codeItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (codeItem == null)
             {
                 return false;
@@ -120,6 +122,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if code item should be followed by a blank line, otherwise false.</returns>
         internal bool ShouldBeFollowedByBlankLine(BaseCodeItem codeItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (codeItem == null)
             {
                 return false;
@@ -185,6 +189,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingBeforeRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -201,6 +207,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingAfterRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -217,6 +225,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingBeforeEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -233,6 +243,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingAfterEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -251,6 +263,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingBeforeCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (T codeElement in codeElements.Where(ShouldBePrecededByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineBeforePoint(codeElement.StartPoint);
@@ -265,6 +279,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingAfterCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (T codeElement in codeElements.Where(ShouldBeFollowedByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineAfterPoint(codeElement.EndPoint);
@@ -306,6 +322,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="properties">The properties.</param>
         internal void InsertPaddingBetweenMultiLinePropertyAccessors(IEnumerable<CodeItemProperty> properties)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors) return;
 
             foreach (var property in properties)

@@ -139,6 +139,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if item can be cleaned up, otherwise false.</returns>
         internal bool CanCleanupProjectItem(ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!IsCleanupEnvironmentAvailable())
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false due to the cleanup environment not being available.");
@@ -247,6 +249,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </returns>
         private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!document.IsExternal()) return false;
 
             switch ((AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal)
@@ -357,6 +361,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var parentProjectItem = projectItem?.GetParentProjectItem();
             if (parentProjectItem == null) return false;
 
@@ -376,6 +382,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsProjectItemLanguageIncludedByOptions(ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {

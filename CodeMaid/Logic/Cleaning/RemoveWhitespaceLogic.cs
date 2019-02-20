@@ -52,6 +52,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAtBottom(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_RemoveBlankLinesAtBottom) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
@@ -64,6 +66,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAtTop(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_RemoveBlankLinesAtTop) return;
 
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
@@ -177,6 +181,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveEOFTrailingNewLine(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
