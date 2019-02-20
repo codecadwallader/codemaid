@@ -15,6 +15,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <returns>A generated code item element, otherwise null.</returns>
         public static BaseCodeItemElement CreateCodeItemElement(CodeElement codeElement)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (codeElement == null) return null;
 
             BaseCodeItemElement codeItem;

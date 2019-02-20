@@ -137,6 +137,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeElements">The CodeElements to walk.</param>
         private static void RetrieveCodeItemsFromElements(SetCodeItems codeItems, CodeElements codeElements)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (CodeElement child in codeElements)
             {
                 RetrieveCodeItemsRecursively(codeItems, child);

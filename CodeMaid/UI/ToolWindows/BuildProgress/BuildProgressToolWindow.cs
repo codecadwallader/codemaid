@@ -113,6 +113,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <param name="action">The action.</param>
         internal void NotifyBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             BuildAction = action;
             BuildScope = scope;
             BuildingProjects = new List<string>();

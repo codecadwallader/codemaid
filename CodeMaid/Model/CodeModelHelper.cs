@@ -86,6 +86,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>True if there is a region under the cursor, otherwise false.</returns>
         internal bool IsCodeRegionUnderCursor(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (textDocument != null && textDocument.Selection != null)
             {
                 var cursor = textDocument.GetEditPointAtCursor();
@@ -104,6 +106,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var editPoints = TextDocumentHelper.FindMatches(textDocument, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
@@ -116,6 +120,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextSelection textSelection)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var editPoints = TextDocumentHelper.FindMatches(textSelection, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
@@ -128,6 +134,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The region under the cursor, otherwise null.</returns>
         internal CodeItemRegion RetrieveCodeRegionUnderCursor(TextDocument textDocument)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (IsCodeRegionUnderCursor(textDocument))
             {
                 var regions = RetrieveCodeRegions(textDocument);
@@ -159,6 +167,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         private static IEnumerable<CodeItemRegion> RetrieveCodeRegions(IEnumerable<EditPoint> editPoints)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var regionStack = new Stack<CodeItemRegion>();
             var codeItems = new List<CodeItemRegion>();
 

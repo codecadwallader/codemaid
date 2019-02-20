@@ -26,6 +26,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         protected override void OnStartSearch()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             ErrorCode = VSConstants.S_OK;
 
             try

@@ -52,7 +52,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };
 
             // Register for view model requests to be refreshed.
-            _viewModel.RequestingRefresh += (sender, args) => Refresh();
+            _viewModel.RequestingRefresh += (sender, args) =>
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                Refresh();
+            };
 
             // Create and set the view.
             Content = new SpadeView { DataContext = _viewModel };
@@ -66,6 +70,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             get { return _document; }
             private set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_document != value)
                 {
                     _document = value;
@@ -119,6 +125,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             get { return _isVisible; }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_isVisible != value)
                 {
                     _isVisible = value;
@@ -145,6 +153,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="document">The active document.</param>
         public void NotifyActiveDocument(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Document = document;
         }
 
@@ -154,6 +164,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (Document == document)
             {
                 // Refresh the document if active.
@@ -169,6 +181,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         public int OnShow(int fShow)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Track the visibility of this tool window.
             switch ((__FRAMESHOW)fShow)
             {
@@ -194,6 +208,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public override void OnToolWindowCreated()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             base.OnToolWindowCreated();
 
             // Register for events to this window.
@@ -248,6 +264,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             base.ProvideSearchSettings(pSearchSettings);
 
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
@@ -260,6 +278,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void Refresh()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Package?.ThemeManager.ApplyTheme();
 
             ConditionallyUpdateCodeModel(true);
@@ -271,6 +291,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
         private void ConditionallyUpdateCodeModel(bool isRefresh)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!IsVisible) return;
 
             _viewModel.Document = Document;
@@ -321,6 +343,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void OnSettingsChange()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             _viewModel.SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder;
             Refresh();
         }
