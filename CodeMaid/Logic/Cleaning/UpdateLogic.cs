@@ -101,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     {
                         // Do not trim the endRegionName in order to catch whitespace differences.
                         string endRegionName = regionText.Length > 9 ?
-                            regionText.Substring(10) : String.Empty;
+                            regionText.Substring(10) : string.Empty;
                         string matchingRegion = regionStack.Pop();
 
                         // Update if the strings do not match.

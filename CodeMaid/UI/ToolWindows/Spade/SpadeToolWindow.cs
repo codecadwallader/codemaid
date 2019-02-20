@@ -140,7 +140,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             NameFilter = null;
         }
 
-        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+        public void Close()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+        }
 
         public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
         {

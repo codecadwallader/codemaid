@@ -58,7 +58,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         protected override void OnBeforeQueryStatus()
         {
             string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
-            bool canAlterate = !String.IsNullOrEmpty(alternatePath);
+            bool canAlterate = !string.IsNullOrEmpty(alternatePath);
 
             Enabled = canAlterate;
             if (canAlterate)
@@ -81,7 +81,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             base.OnExecute();
 
             string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
-            if (!String.IsNullOrEmpty(alternatePath))
+            if (!string.IsNullOrEmpty(alternatePath))
             {
                 Package.IDE.ItemOperations.OpenFile(alternatePath, Constants.vsViewKindAny);
             }
@@ -97,7 +97,11 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             var alternatePaths = GetAlternatePaths(document);
 
-            return alternatePaths.FirstOrDefault(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return !String.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null; });
+            return alternatePaths.FirstOrDefault(x =>
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                return !string.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null;
+            });
         }
 
         /// <summary>
