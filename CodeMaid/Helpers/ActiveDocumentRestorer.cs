@@ -9,8 +9,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class ActiveDocumentRestorer : IDisposable
     {
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ActiveDocumentRestorer" /> class.
         /// </summary>
@@ -22,47 +20,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             StartTracking();
         }
 
-        #endregion Constructors
-
-        #region Internal Methods
-
-        /// <summary>
-        /// Starts tracking the active document.
-        /// </summary>
-        internal void StartTracking()
-        {
-            // Cache the active document.
-            TrackedDocument = Package.ActiveDocument;
-        }
-
-        /// <summary>
-        /// Restores the tracked document if not already active.
-        /// </summary>
-        internal void RestoreTrackedDocument()
-        {
-            if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
-            {
-                TrackedDocument.Activate();
-            }
-        }
-
-        #endregion Internal Methods
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting
-        /// unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            RestoreTrackedDocument();
-        }
-
-        #endregion IDisposable Members
-
-        #region Private Properties
-
         /// <summary>
         /// Gets or sets the hosting package.
         /// </summary>
@@ -73,6 +30,35 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         private Document TrackedDocument { get; set; }
 
-        #endregion Private Properties
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            RestoreTrackedDocument();
+        }
+
+        /// <summary>
+        /// Restores the tracked document if not already active.
+        /// </summary>
+        internal void RestoreTrackedDocument()
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
+            {
+                TrackedDocument.Activate();
+            }
+        }
+
+        /// <summary>
+        /// Starts tracking the active document.
+        /// </summary>
+        internal void StartTracking()
+        {
+            // Cache the active document.
+            TrackedDocument = Package.ActiveDocument;
+        }
     }
 }

@@ -40,12 +40,28 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the start point adjusted for leading comments, may be null.
         /// </summary>
-        public override EditPoint StartPoint => CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.GetStartPoint()) : null;
+        public override EditPoint StartPoint
+        {
+            get
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                return CodeElement != null ? GetStartPointAdjustedForComments(CodeElement.GetStartPoint()) : null;
+            }
+        }
 
         /// <summary>
         /// Gets the end point, may be null.
         /// </summary>
-        public override EditPoint EndPoint => CodeElement?.GetEndPoint().CreateEditPoint();
+        public override EditPoint EndPoint
+        {
+            get
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                return CodeElement?.GetEndPoint().CreateEditPoint();
+            }
+        }
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -66,6 +82,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override void RefreshCachedPositionAndName()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var startPoint = CodeElement.GetStartPoint();
             var endPoint = CodeElement.GetEndPoint();
 
@@ -142,7 +160,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             {
                 OutputWindowHelper.ExceptionWriteLine($"TryDefault caught an exception on '{func}'", ex);
 
-                return default(T);
+                return default;
             }
         }
 
@@ -153,6 +171,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <returns>The adjusted starting point.</returns>
         private static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var commentPrefix = CodeCommentHelper.GetCommentPrefix(originalPoint.Parent);
             var point = originalPoint.CreateEditPoint();
 

@@ -60,7 +60,15 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets the insert point, may be null.
         /// </summary>
-        public EditPoint InsertPoint => CodeElement?.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+        public EditPoint InsertPoint
+        {
+            get
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                return CodeElement?.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the flag indicating if this parent item is expanded.
@@ -75,10 +83,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     _isExpanded = value;
                     RaisePropertyChanged();
 
-                    if (IsExpandedChanged != null)
-                    {
-                        IsExpandedChanged(this, EventArgs.Empty);
-                    }
+                    IsExpandedChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
