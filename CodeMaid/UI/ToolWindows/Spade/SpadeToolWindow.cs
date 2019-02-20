@@ -161,20 +161,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             }
         }
 
-        public int OnClose(ref uint pgrfSaveOptions)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnClose(ref uint pgrfSaveOptions) => VSConstants.S_OK;
 
-        public int OnDockableChange(int fDockable, int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnDockableChange(int fDockable, int x, int y, int w, int h) => VSConstants.S_OK;
 
-        public int OnMove(int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnMove(int x, int y, int w, int h) => VSConstants.S_OK;
 
         public int OnShow(int fShow)
         {
@@ -193,10 +184,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             return VSConstants.S_OK;
         }
 
-        public int OnSize(int x, int y, int w, int h)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnSize(int x, int y, int w, int h) => VSConstants.S_OK;
 
         /// <summary>
         /// This method can be overriden by the derived class to execute any code that needs to run
