@@ -235,6 +235,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated outlining manager, otherwise null.</returns>
         private IOutliningManager GetOutliningManager(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 _wpfTextView = GetWpfTextView(document);
@@ -274,6 +276,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated text view, otherwise null.</returns>
         private IVsTextView GetTextView(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (document == null)
             {
                 return null;

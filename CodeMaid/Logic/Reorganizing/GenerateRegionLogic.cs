@@ -92,6 +92,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="insertPoint">The default insertion point.</param>
         public void InsertRegions(IEnumerable<BaseCodeItem> codeItems, EditPoint insertPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Refresh and sort the code items.
             foreach (var codeItem in codeItems)
             {
@@ -168,6 +170,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>The updated cursor.</returns>
         public EditPoint InsertRegionTag(CodeItemRegion region, EditPoint startPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var cursor = startPoint.CreateEditPoint();
 
             // If the cursor is not preceeded only by whitespace, insert a new line.
@@ -200,6 +204,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>The updated cursor.</returns>
         public EditPoint InsertEndRegionTag(CodeItemRegion region, EditPoint endPoint)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var cursor = endPoint.CreateEditPoint();
 
             // If the cursor is not preceeded only by whitespace, insert a new line.
