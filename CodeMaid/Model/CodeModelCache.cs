@@ -38,6 +38,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>A code model representing the document.</returns>
         internal CodeModel GetCodeModel(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             CodeModel codeModel;
 
             OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.GetCodeModel for '{document.FullName}'");
@@ -71,6 +73,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void RemoveCodeModel(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             lock (_cache)
             {
                 if (_cache.Remove(document.FullName))
@@ -86,8 +90,9 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void StaleCodeModel(Document document)
         {
-            CodeModel codeModel;
-            if (_cache.TryGetValue(document.FullName, out codeModel))
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (_cache.TryGetValue(document.FullName, out CodeModel codeModel))
             {
                 codeModel.IsStale = true;
                 OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.StaleCodeModel in cache for '{document.FullName}'");

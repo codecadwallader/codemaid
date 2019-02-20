@@ -10,8 +10,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class CodeElementHelper
     {
-        #region Internal Methods
-
         /// <summary>
         /// Calculates the complexity of the given element.
         /// </summary>
@@ -19,6 +17,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The calculated complexity.</returns>
         internal static int CalculateComplexity(CodeElement element)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             EditPoint startPoint = element.StartPoint.CreateEditPoint();
             string functionText = startPoint.GetText(element.EndPoint);
 
@@ -80,6 +80,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetClassDeclaration(CodeClass codeClass)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point after the attributes.
             var startPoint = codeClass.GetStartPoint(vsCMPart.vsCMPartHeader);
 
@@ -93,6 +95,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetDelegateDeclaration(CodeDelegate codeDelegate)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point at the end of the attributes if there are any (vsCMPartHeader is
             // not available for delegates).
             var startPoint = codeDelegate.Attributes.Count > 0
@@ -109,6 +113,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetEnumerationDeclaration(CodeEnum codeEnum)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point after the attributes.
             var startPoint = codeEnum.GetStartPoint(vsCMPart.vsCMPartHeader);
 
@@ -122,6 +128,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetEventDeclaration(CodeEvent codeEvent)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point at the end of the attributes if there are any (vsCMPartHeader is
             // not available for events).
             var startPoint = codeEvent.Attributes.Count > 0
@@ -138,6 +146,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetFieldDeclaration(CodeVariable codeField)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point at the end of the attributes if there are any (vsCMPartHeader is
             // not available for fields).
             var startPoint = codeField.Attributes.Count > 0
@@ -154,6 +164,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetInterfaceDeclaration(CodeInterface codeInterface)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point after the attributes.
             var startPoint = codeInterface.GetStartPoint(vsCMPart.vsCMPartHeader);
 
@@ -167,6 +179,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetMethodDeclaration(CodeFunction codeFunction)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point after the attributes.
             var startPoint = codeFunction.GetStartPoint(vsCMPart.vsCMPartHeader);
 
@@ -180,6 +194,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetPropertyDeclaration(CodeProperty codeProperty)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point at the end of the attributes if there are any (vsCMPartHeader is
             // not available for properties).
             var startPoint = codeProperty.Attributes.Count > 0
@@ -196,12 +212,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The string declaration.</returns>
         internal static string GetStructDeclaration(CodeStruct codeStruct)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the start point after the attributes.
             var startPoint = codeStruct.GetStartPoint(vsCMPart.vsCMPartHeader);
 
             return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
         }
-
-        #endregion Internal Methods
     }
 }

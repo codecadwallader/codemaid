@@ -57,6 +57,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document, including regions.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var codeItems = new SetCodeItems();
 
             var fileCodeModel = RetrieveFileCodeModel(document.ProjectItem);
@@ -78,6 +80,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The associated FileCodeModel, otherwise null.</returns>
         private FileCodeModel RetrieveFileCodeModel(ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (projectItem == null)
             {
                 return null;
@@ -96,7 +100,13 @@ namespace SteveCadwallader.CodeMaid.Model
                 containingProject.Kind.ToLowerInvariant() == sharedProjectTypeGUID)
             {
                 var similarProjectItems = SolutionHelper.GetSimilarProjectItems(_package, projectItem);
-                var fileCodeModel = similarProjectItems.Select(x => x.FileCodeModel).FirstOrDefault(y => y != null);
+                var fileCodeModel = similarProjectItems
+                    .Select(x =>
+                        {
+                            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                            return x.FileCodeModel;
+                        })
+                    .FirstOrDefault(y => y != null);
 
                 return fileCodeModel;
             }
@@ -112,6 +122,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="fcm">The FileCodeModel to walk.</param>
         private static void RetrieveCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (fcm != null && fcm.CodeElements != null)
             {
                 RetrieveCodeItemsFromElements(codeItems, fcm.CodeElements);
@@ -139,6 +151,8 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeElement">The CodeElement to walk (add and recurse).</param>
         private static void RetrieveCodeItemsRecursively(SetCodeItems codeItems, CodeElement codeElement)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var parentCodeItem = FactoryCodeItems.CreateCodeItemElement(codeElement);
             if (parentCodeItem != null)
             {

@@ -36,6 +36,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </remarks>
         public override void RefreshCachedPositionAndName()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var startPoint = CodeElement.GetStartPoint();
             var endPoint = CodeElement.GetEndPoint();
 
