@@ -36,18 +36,18 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets the list of open documents that are cleanup candidates.
         /// </summary>
-        private IEnumerable<Document> OpenCleanableDocuments
-        {
-            get { return OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanupDocument(x)); }
-        }
+        private IEnumerable<Document> OpenCleanableDocuments => OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanupDocument(x));
 
         /// <summary>
         /// Gets the list of open documents.
         /// </summary>
         private IEnumerable<Document> OpenDocuments
-        {
-            get { return Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null); }
-        }
+            => Package.IDE.Documents.OfType<Document>().Where(x =>
+                {
+                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                    return x.ActiveWindow != null;
+                });
 
         /// <summary>
         /// Initializes a singleton instance of this command.

@@ -101,6 +101,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!_codeCleanupAvailabilityLogic.CanCleanupProjectItem(projectItem)) return;
 
             // Attempt to open the document if not already opened.
@@ -135,6 +137,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         internal void Cleanup(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!_codeCleanupAvailabilityLogic.CanCleanupDocument(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
@@ -160,6 +164,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             new UndoTransactionHelper(_package, string.Format(Resources.CodeMaidCleanupFor0, document.Name)).Run(
                 delegate
                 {
+                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
@@ -186,6 +192,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The code cleanup method, otherwise null.</returns>
         private Action<Document> FindCodeCleanupMethod(Document document)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             switch (document.GetCodeLanguage())
             {
                 case CodeLanguage.CSharp:

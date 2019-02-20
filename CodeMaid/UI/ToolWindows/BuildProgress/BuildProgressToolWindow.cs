@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
     public class BuildProgressToolWindow : ToolWindowPane
     {
         private readonly BuildProgressViewModel _viewModel;
-        private string DefaultCaption = Resources.BuildProgress;
+        private readonly string DefaultCaption = Resources.BuildProgress;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildProgressToolWindow" /> class.
@@ -85,7 +85,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             }
         }
 
-        public void Close() => (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+        public void Close()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
+        }
 
         /// <summary>
         /// This method can be overriden by the derived class to execute any code that needs to run
@@ -236,6 +241,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         private int GetNumberOfProjectsToBeBuilt()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var solutionContexts = Package.IDE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts;
             int count = 0;
 

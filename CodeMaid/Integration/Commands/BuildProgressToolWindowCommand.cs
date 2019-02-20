@@ -31,6 +31,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             get
             {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
                 var buildProgress = Package.BuildProgressForceLoad;
                 if (buildProgress != null)
                 {
@@ -150,9 +152,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="frame">The frame.</param>
         private static void DockWindowIfFloating(IVsWindowFrame frame)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the current tool window frame mode.
-            object currentFrameMode;
-            frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out currentFrameMode);
+            frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out object currentFrameMode);
 
             // If currently floating, switch to dock mode.
             if ((VSFRAMEMODE)currentFrameMode == VSFRAMEMODE.VSFM_Float)
@@ -166,6 +169,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void HideBuildProgressToolWindow()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {
@@ -178,6 +183,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ShowBuildProgressToolWindow()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {
@@ -191,6 +198,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ShowBuildProgressToolWindowWithoutActivation()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {
