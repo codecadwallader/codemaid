@@ -128,8 +128,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 config.SectionGroups.Add("userSettings", userSettings);
             }
 
-            var section = userSettings.Sections.Get(sectionName) as ClientSettingsSection;
-            if (section == null)
+            if (!(userSettings.Sections.Get(sectionName) is ClientSettingsSection section))
             {
                 section = new ClientSettingsSection();
                 userSettings.Sections.Add(sectionName, section);

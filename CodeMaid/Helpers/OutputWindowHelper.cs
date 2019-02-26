@@ -71,14 +71,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-            if (outputWindow == null) return null;
+            if (!(Package.GetGlobalService(typeof(SVsOutputWindow)) is IVsOutputWindow outputWindow))
+            {
+                return null;
+            }
 
             Guid outputPaneGuid = new Guid(PackageGuids.GuidCodeMaidOutputPane.ToByteArray());
-            IVsOutputWindowPane windowPane;
 
             outputWindow.CreatePane(ref outputPaneGuid, "CodeMaid", 1, 1);
-            outputWindow.GetPane(ref outputPaneGuid, out windowPane);
+            outputWindow.GetPane(ref outputPaneGuid, out IVsOutputWindowPane windowPane);
 
             return windowPane;
         }

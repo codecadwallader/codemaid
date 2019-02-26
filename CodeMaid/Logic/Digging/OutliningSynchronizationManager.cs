@@ -111,8 +111,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <param name="eventArgs">The event arguments.</param>
         private void OnCodeItemParentIsExpandedChanged(object sender, EventArgs eventArgs)
         {
-            var codeItemParent = sender as ICodeItemParent;
-            if (codeItemParent != null)
+            if (sender is ICodeItemParent codeItemParent)
             {
                 var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
                 if (iCollapsible != null)
@@ -283,11 +282,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
                 return null;
             }
 
-            IVsUIHierarchy hierarchy;
-            uint itemID;
-            IVsWindowFrame windowFrame;
-
-            if (VsShellUtilities.IsDocumentOpen(_package, document.FullName, Guid.Empty, out hierarchy, out itemID, out windowFrame))
+            if (VsShellUtilities.IsDocumentOpen(_package, document.FullName, Guid.Empty, out IVsUIHierarchy hierarchy, out uint itemID, out IVsWindowFrame windowFrame))
             {
                 return VsShellUtilities.GetTextView(windowFrame);
             }
