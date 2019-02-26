@@ -257,8 +257,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     Document = Package.ActiveDocument;
                 }
 
-                var spadeContent = Content as FrameworkElement;
-                if (spadeContent != null)
+                if (Content is FrameworkElement spadeContent)
                 {
                     _viewModel.Dispatcher = spadeContent.Dispatcher;
 
