@@ -26,13 +26,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         protected override void OnStartSearch()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             ErrorCode = VSConstants.S_OK;
 
             try
             {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
                 _callback(SearchQuery.SearchString);
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             }
             catch (Exception)
             {
