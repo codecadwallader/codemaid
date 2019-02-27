@@ -95,25 +95,31 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return false;
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods
+
         /// <summary>
         /// Called when a solution is closed.
         /// </summary>
-        internal void OnSolutionClosed()
+        internal async void OnSolutionClosed()
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (UnloadSolutionSpecificSettings(Settings.Default))
             {
-                _package.SettingsMonitor.NotifySettingsChangedAsync();
+                await _package.SettingsMonitor.NotifySettingsChangedAsync();
             }
         }
+
+#pragma warning disable VSTHRD100 // Avoid async void methods
 
         /// <summary>
         /// Called when a solution is opened.
         /// </summary>
-        internal void OnSolutionOpened()
+        internal async void OnSolutionOpened()
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (LoadSolutionSpecificSettings(Settings.Default))
             {
-                _package.SettingsMonitor.NotifySettingsChangedAsync();
+                await _package.SettingsMonitor.NotifySettingsChangedAsync();
             }
         }
 
