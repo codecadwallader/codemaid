@@ -80,21 +80,19 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var codeItem = values[0] as ICodeItem;
-            var textToHighlight = values[1] as string;
-            if (codeItem == null)
+            if (!(values[0] is ICodeItem codeItem))
             {
                 return null;
             }
 
+            var textToHighlight = values[1] as string;
             var textBlock = new TextBlock();
 
             textBlock.Inlines.AddRange(CreateInlinesForName(codeItem.Name, textToHighlight));
 
             if (Settings.Default.Digging_ShowMethodParameters)
             {
-                var codeItemParameters = codeItem as ICodeItemParameters;
-                if (codeItemParameters != null)
+                if (codeItem is ICodeItemParameters codeItemParameters)
                 {
                     textBlock.Inlines.AddRange(CreateInlinesForParameters(codeItemParameters));
                 }
@@ -102,8 +100,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
 
             if (Settings.Default.Digging_ShowItemTypes)
             {
-                var codeItemElement = codeItem as BaseCodeItemElement;
-                if (codeItemElement != null)
+                if (codeItem is BaseCodeItemElement codeItemElement)
                 {
                     textBlock.Inlines.AddRange(CreateInlinesForType(codeItemElement));
                 }
@@ -315,8 +312,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The opening string, otherwise null.</returns>
         private static string GetOpeningString(ICodeItemParameters codeItem)
         {
-            var property = codeItem as CodeItemProperty;
-            if (property != null)
+            if (codeItem is CodeItemProperty property)
             {
                 return property.IsIndexer ? "[" : null;
             }
@@ -331,8 +327,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The closing string, otherwise null.</returns>
         private static string GetClosingString(ICodeItemParameters codeItem)
         {
-            var property = codeItem as CodeItemProperty;
-            if (property != null)
+            if (codeItem is CodeItemProperty property)
             {
                 return property.IsIndexer ? "]" : null;
             }

@@ -142,8 +142,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <returns>True if item is an ancestor of the specified base, otherwise false.</returns>
         private static bool IsItemAncestorOfBase(BaseCodeItem item, BaseCodeItem baseItem)
         {
-            var itemAsParent = item as ICodeItemParent;
-            if (itemAsParent == null)
+            if (!(item is ICodeItemParent itemAsParent))
             {
                 return false;
             }
@@ -267,10 +266,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             if (targetTreeViewItem != null &&
                 e.Data.GetDataPresent(typeof(IList<BaseCodeItem>)))
             {
-                var baseCodeItem = targetTreeViewItem.DataContext as BaseCodeItem;
                 var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
 
-                if (baseCodeItem != null && codeItemsToMove != null &&
+                if (targetTreeViewItem.DataContext is BaseCodeItem baseCodeItem &&
+                    codeItemsToMove != null &&
                     !codeItemsToMove.Contains(baseCodeItem) &&
                     !codeItemsToMove.Any(x => IsItemAncestorOfBase(x, baseCodeItem)))
                 {
@@ -341,11 +340,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var treeViewItem = FindParentTreeViewItem(sender);
             if (treeViewItem == null || ReferenceEquals(e.Source, treeViewItem)) return;
 
-            var baseCodeItem = treeViewItem.DataContext as BaseCodeItem;
-            if (baseCodeItem == null) return;
+            if (!(treeViewItem.DataContext is BaseCodeItem baseCodeItem)) return;
 
-            var codeItemsToMove = e.Data.GetData(typeof(IList<BaseCodeItem>)) as IList<BaseCodeItem>;
-            if (codeItemsToMove == null) return;
+            if (!(e.Data.GetData(typeof(IList<BaseCodeItem>)) is IList<BaseCodeItem> codeItemsToMove)) return;
 
             switch (GetDropPosition(e, baseCodeItem, treeViewItem))
             {
@@ -502,8 +499,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var treeViewItem = e.Source as TreeViewItem;
-            if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
+            if (!(e.Source is TreeViewItem treeViewItem) || Keyboard.Modifiers != ModifierKeys.None) return;
 
             switch (e.Key)
             {

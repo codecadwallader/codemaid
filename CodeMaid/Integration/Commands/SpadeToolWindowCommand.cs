@@ -83,13 +83,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             base.OnExecute();
 
             var spade = Package.SpadeForceLoad;
-            if (spade != null)
+            if (spade?.Frame is IVsWindowFrame spadeFrame)
             {
-                var spadeFrame = spade.Frame as IVsWindowFrame;
-                if (spadeFrame != null)
-                {
-                    spadeFrame.Show();
-                }
+                spadeFrame.Show();
             }
         }
     }
