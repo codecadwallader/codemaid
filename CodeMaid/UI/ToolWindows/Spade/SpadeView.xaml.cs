@@ -199,15 +199,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="codeItem">The code item.</param>
         private void JumpToCodeItem(BaseCodeItem codeItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var viewModel = ViewModel;
             if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
 
-            Dispatcher.BeginInvoke(
-                new Action(() =>
-                {
-                    ThreadHelper.ThrowIfNotOnUIThread();
-                    TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole);
-                }));
+            TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole);
         }
 
         /// <summary>
