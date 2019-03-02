@@ -52,10 +52,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             _viewModel = new SpadeViewModel { SortOrder = (CodeSortOrder)Settings.Default.Digging_PrimarySortOrder };
 
             // Register for view model requests to be refreshed.
-            _viewModel.RequestingRefresh += (sender, args) =>
-            {
-                Refresh();
-            };
+            _viewModel.RequestingRefresh += (sender, args) => Refresh();
 
             // Create and set the view.
             Content = new SpadeView { DataContext = _viewModel };
@@ -141,9 +138,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         }
 
         public override IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
-        {
-            return new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
-        }
+            => new MemberSearchTask(dwCookie, pSearchQuery, pSearchCallback, x => NameFilter = x);
 
         /// <summary>
         /// A method to be called to notify the tool window about the current active document.

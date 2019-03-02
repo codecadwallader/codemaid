@@ -18,14 +18,16 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// A cached setting set container for accessing sets of related file extensions.
         /// </summary>
         private readonly CachedSettingSet<IList<string>> _relatedFileExtensions =
-            new CachedSettingSet<IList<string>>(() => Settings.Default.Switching_RelatedFileExtensionsExpression,
-                                                      expression =>
-                                                      expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
-                                                                .Select(rfeGroup =>
-                                                                        rfeGroup.Split(' ')
-                                                                                .Select(item => item.Trim().ToLower())
-                                                                                .Where(x => !string.IsNullOrEmpty(x)).ToList())
-                                                                .Where(list => list.Count >= 2).ToList());
+            new CachedSettingSet<IList<string>>(()
+                => Settings.Default.Switching_RelatedFileExtensionsExpression,
+                   expression => expression
+                       .Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                       .Select(rfeGroup => rfeGroup
+                           .Split(' ')
+                           .Select(item => item.Trim().ToLower())
+                           .Where(x => !string.IsNullOrEmpty(x)).ToList())
+                       .Where(list => list.Count >= 2)
+                       .ToList());
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SwitchFileCommand" /> class.

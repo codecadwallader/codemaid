@@ -30,9 +30,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
             try
             {
-#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
                 _callback(SearchQuery.SearchString);
-#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             }
             catch (Exception)
             {

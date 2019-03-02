@@ -1,5 +1,5 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.About;
-using Task = System.Threading.Tasks.Task;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
