@@ -66,8 +66,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void InsertEOFTrailingNewLine(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();

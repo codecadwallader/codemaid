@@ -56,8 +56,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if item can be reorganized, otherwise false.</returns>
         internal bool CanReorganize(Document document, bool allowUserPrompts = false)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!IsReorganizationEnvironmentAvailable())
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationAvailabilityLogic.CanReorganize returned false due to the reorganization environment not being available.");
@@ -97,8 +95,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if reorganization can occur, false otherwise.</returns>
         internal bool IsReorganizationEnvironmentAvailable()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
         }
 
@@ -117,8 +113,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </returns>
         private bool IsDocumentExcludedBecausePreprocessorConditionals(Document document, bool allowUserPrompts)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!HasPreprocessorConditionalCompilationDirectives(document)) return false;
 
             switch ((AskYesNo)Settings.Default.Reorganizing_PerformWhenPreprocessorConditionals)
@@ -170,8 +164,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if files with preprocessor conditionals should be reorganized, otherwise false.</returns>
         private static bool PromptUserAboutReorganizingPreprocessorConditionals(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 var viewModel = new YesNoPromptViewModel

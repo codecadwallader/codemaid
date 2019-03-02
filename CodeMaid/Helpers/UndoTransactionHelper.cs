@@ -40,8 +40,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
         public void Run(Action tryAction, Action<Exception> catchAction = null)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             bool shouldCloseUndoContext = false;
 
             // Start an undo transaction (unless inside one already or within an auto save context).

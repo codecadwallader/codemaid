@@ -17,8 +17,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private SolutionEventListener(CodeMaidPackage package)
             : base(package)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Store access to the solutions events, otherwise events will not register properly via DTE.
             SolutionEvents = Package.IDE.Events.SolutionEvents;
         }

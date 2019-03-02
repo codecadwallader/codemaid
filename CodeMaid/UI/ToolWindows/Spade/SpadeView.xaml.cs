@@ -199,8 +199,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="codeItem">The code item.</param>
         private void JumpToCodeItem(BaseCodeItem codeItem)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var viewModel = ViewModel;
             if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
 
@@ -330,8 +328,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!e.Data.GetDataPresent(typeof(IList<BaseCodeItem>))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
@@ -454,8 +450,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             _dragCandidate = null;
             _dragStartPoint = null;
 
@@ -494,8 +488,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!(e.Source is TreeViewItem treeViewItem) || Keyboard.Modifiers != ModifierKeys.None) return;
 
             switch (e.Key)
@@ -530,7 +522,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             Dispatcher.BeginInvoke(
                 new Action(() =>
                 {
-                    ThreadHelper.ThrowIfNotOnUIThread();
                     TextDocumentHelper.SelectCodeItem(viewModel.Document, codeItem);
                 }));
         }

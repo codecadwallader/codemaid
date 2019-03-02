@@ -433,8 +433,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>True if the command can execute, otherwise false.</returns>
         private bool OnSwitchSettingsCommandCanExecute(object parameter)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             return IsActiveSolutionSpecificSettings || Package.IDE.Solution.IsOpen;
         }
 

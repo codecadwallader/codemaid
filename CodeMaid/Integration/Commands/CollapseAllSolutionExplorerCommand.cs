@@ -50,8 +50,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         internal void OnSolutionOpened()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Collapsing_CollapseSolutionWhenOpened) return;
 
             var topItem = TopUIHierarchyItem;
@@ -70,8 +68,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             Enabled = Package.IDE.Solution.IsOpen;
 
             if (Enabled && _isWaitingToExecute)

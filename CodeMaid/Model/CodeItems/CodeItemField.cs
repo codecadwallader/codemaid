@@ -37,11 +37,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindConst);
 
             _isEnumItem = LazyTryDefault(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    return CodeVariable?.Parent is CodeEnum;
-                });
+                () => CodeVariable?.Parent is CodeEnum);
 
             _isReadOnly = LazyTryDefault(
                 () => CodeVariable != null && CodeVariable.IsConstant && CodeVariable.ConstKind == vsCMConstKind.vsCMConstKindReadOnly);

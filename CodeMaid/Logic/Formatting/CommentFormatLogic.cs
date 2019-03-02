@@ -43,8 +43,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="textDocument">The text document.</param>
         public void FormatComments(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Formatting_CommentRunDuringCleanup) return;
 
             FormatComments(textDocument, textDocument.StartPoint.CreateEditPoint(), textDocument.EndPoint.CreateEditPoint());
@@ -59,8 +57,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="end">The end point.</param>
         public bool FormatComments(TextDocument textDocument, EditPoint start, EditPoint end)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             bool foundComments = false;
 
             var options = new FormatterOptions

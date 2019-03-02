@@ -17,8 +17,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private DocumentEventListener(CodeMaidPackage package)
             : base(package)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Store access to the document events, otherwise events will not register properly via DTE.
             DocumentEvents = Package.IDE.Events.DocumentEvents;
         }
@@ -71,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="document">The document that is closing.</param>
         private void DocumentEvents_DocumentClosing(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var onDocumentClosing = OnDocumentClosing;
             if (onDocumentClosing != null)
             {

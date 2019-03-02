@@ -17,8 +17,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private TextEditorEventListener(CodeMaidPackage package)
             : base(package)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Store access to the text editor events, otherwise events will not register properly
             // via DTE.
             TextEditorEvents = Package.IDE.Events.TextEditorEvents;
@@ -74,8 +72,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="hint">A hint as to the type of change that has occurred.</param>
         private void TextEditorEvents_LineChanged(TextPoint startPoint, TextPoint endPoint, int hint)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = startPoint?.Parent;
             if (textDocument == null) return;
 

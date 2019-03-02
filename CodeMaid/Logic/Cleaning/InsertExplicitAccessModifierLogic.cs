@@ -52,8 +52,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="classes">The classes.</param>
         public void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeItemClass> classes)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return;
 
             foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
@@ -80,8 +78,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="delegates">The delegates.</param>
         public void InsertExplicitAccessModifiersOnDelegates(IEnumerable<CodeItemDelegate> delegates)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates) return;
 
             foreach (var codeDelegate in delegates.Select(x => x.CodeDelegate).Where(y => y != null))
@@ -102,8 +98,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="enumerations">The enumerations.</param>
         public void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations) return;
 
             foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
@@ -124,8 +118,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="events">The events.</param>
         public void InsertExplicitAccessModifiersOnEvents(IEnumerable<CodeItemEvent> events)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents) return;
 
             foreach (var codeEvent in events.Select(x => x.CodeEvent).Where(y => y != null))
@@ -166,8 +158,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="fields">The fields.</param>
         public void InsertExplicitAccessModifiersOnFields(IEnumerable<CodeItemField> fields)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields) return;
 
             foreach (var codeField in fields.Select(x => x.CodeVariable).Where(y => y != null))
@@ -202,8 +192,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="interfaces">The interfaces.</param>
         public void InsertExplicitAccessModifiersOnInterfaces(IEnumerable<CodeItemInterface> interfaces)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces) return;
 
             foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
@@ -224,8 +212,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="methods">The methods.</param>
         public void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeItemMethod> methods)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return;
 
             foreach (var codeFunction in methods.Select(x => x.CodeFunction).Where(y => y != null))
@@ -284,8 +270,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="properties">The properties.</param>
         public void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeItemProperty> properties)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return;
 
             foreach (var codeProperty in properties.Select(x => x.CodeProperty).Where(y => y != null))
@@ -326,8 +310,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="structs">The structs.</param>
         public void InsertExplicitAccessModifiersOnStructs(IEnumerable<CodeItemStruct> structs)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs) return;
 
             foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))

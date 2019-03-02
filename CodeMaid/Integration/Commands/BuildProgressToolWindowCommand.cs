@@ -31,8 +31,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             get
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 var buildProgress = Package.BuildProgressForceLoad;
                 if (buildProgress != null)
                 {
@@ -71,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -92,8 +88,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -144,8 +138,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             ShowBuildProgressToolWindow();
@@ -158,8 +150,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="frame">The frame.</param>
         private static void DockWindowIfFloating(IVsWindowFrame frame)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Get the current tool window frame mode.
             frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out object currentFrameMode);
 
@@ -175,8 +165,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void HideBuildProgressToolWindow()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {
@@ -189,8 +177,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ShowBuildProgressToolWindow()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {
@@ -204,8 +190,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ShowBuildProgressToolWindowWithoutActivation()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {

@@ -50,8 +50,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document that was saved.</param>
         internal void OnAfterDocumentSave(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var spade = Package.Spade;
             if (spade != null)
             {
@@ -65,7 +63,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document that got focus, may be null.</param>
         internal void OnWindowChange(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var spade = Package.Spade;
             if (spade != null)
             {
@@ -78,8 +75,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             var spade = Package.SpadeForceLoad;

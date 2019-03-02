@@ -31,8 +31,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public CodeComment(TextPoint point, FormatterOptions options)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (point == null)
             {
                 throw new ArgumentNullException(nameof(point));
@@ -87,8 +85,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public TextPoint Format()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!IsValid)
             {
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
@@ -148,25 +144,15 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="point">The original text point to expand from.</param>
         private void Expand(TextPoint point)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var i = point.CreateEditPoint();
 
             // Look up to find the start of the comment.
-            _startPoint = Expand(point, p =>
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                p.LineUp();
-            });
+            _startPoint = Expand(point, p => p.LineUp());
 
             // If a valid start is found, look down to find the end of the comment.
             if (_startPoint != null)
             {
-                _endPoint = Expand(point, p =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    p.LineDown();
-                });
+                _endPoint = Expand(point, p => p.LineDown());
             }
 
             // If both start and endpoint are valid, the comment is valid.
@@ -192,8 +178,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </returns>
         private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             EditPoint current = point.CreateEditPoint();
             EditPoint result = null;
             string prefix = null;

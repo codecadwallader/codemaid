@@ -69,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The CodeMaid output window pane, otherwise null.</returns>
         private static IVsOutputWindowPane GetCodeMaidOutputWindowPane()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!(Package.GetGlobalService(typeof(SVsOutputWindow)) is IVsOutputWindow outputWindow))
             {
                 return null;
@@ -91,8 +89,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="message">The message.</param>
         private static void WriteLine(string category, string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var outputWindowPane = CodeMaidOutputWindowPane;
             if (outputWindowPane != null)
             {

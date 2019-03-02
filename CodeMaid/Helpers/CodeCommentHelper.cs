@@ -148,8 +148,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static int GetTabSize(CodeMaidPackage package, TextDocument document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             const int fallbackTabSize = 4;
 
             try
@@ -172,8 +170,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns></returns>
         public static IEnumerable<string> GetTaskListTokens(CodeMaidPackage package)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var settings = package.IDE.Properties["Environment", "TaskList"];
             var tokens = settings.Item("CommentTokens").Value as string[];
             if (tokens == null || tokens.Length < 1)

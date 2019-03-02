@@ -55,8 +55,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 var startPoint = StartPoint;
                 if (startPoint != null)
                 {
@@ -98,8 +96,6 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (Children.Any())
                 {
                     return false;

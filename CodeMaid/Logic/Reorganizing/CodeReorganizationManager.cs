@@ -74,11 +74,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         internal void MoveItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemAbove).Run(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    RepositionItemAboveBase(itemToMove, baseItem);
-                });
+                () => RepositionItemAboveBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -89,11 +85,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         internal void MoveItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemBelow).Run(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    RepositionItemBelowBase(itemToMove, baseItem);
-                });
+                () => RepositionItemBelowBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -104,11 +96,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         internal void MoveItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemInto).Run(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    RepositionItemIntoBase(itemToMove, baseItem);
-                });
+                () => RepositionItemIntoBase(itemToMove, baseItem));
         }
 
         /// <summary>
@@ -117,15 +105,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="document">The document for reorganizing.</param>
         internal void Reorganize(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!_codeReorganizationAvailabilityLogic.CanReorganize(document, true)) return;
 
             new UndoTransactionHelper(_package, string.Format(Resources.CodeMaidReorganizeFor0, document.Name)).Run(
                 delegate
                 {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                     OutputWindowHelper.DiagnosticWriteLine($"CodeReorganizationManager.Reorganize started for '{document.FullName}'");
                     _package.IDE.StatusBar.Text = string.Format(Resources.Reorganize_CodeMaidIsReorganizing0, document.Name);
 
@@ -159,11 +143,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
 
             // Refresh them to make sure all positions are updated.
-            codeItemElements.ForEach(x =>
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                x.RefreshCachedPositionAndName();
-            });
+            codeItemElements.ForEach(x => x.RefreshCachedPositionAndName());
 
             // Sort the items, pulling out the first item in a set if there are items sharing a definition (ex: fields).
             codeItemElements = codeItemElements.GroupBy(x => x.StartOffset).Select(y => y.First()).OrderBy(z => z.StartOffset).ToList();
@@ -180,8 +160,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </param>
         private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove, out int cursorOffset)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Refresh the code item and capture its end points.
             itemToRemove.RefreshCachedPositionAndName();
             var removeStartPoint = itemToRemove.StartPoint;
@@ -216,8 +194,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the items should be separated by a newline, otherwise false.</returns>
         private bool ShouldBeSeparatedByNewLine(BaseCodeItem firstItem, BaseCodeItem secondItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             return _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(firstItem) ||
                    _insertBlankLinePaddingLogic.ShouldBePrecededByBlankLine(secondItem);
         }
@@ -245,13 +221,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     "System.Runtime.InteropServices.StructLayoutAttribute"
                 };
 
-                var hasAttributeToIgnore = parentAttributes.OfType<CodeAttribute>().Any(x =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                    return attributesToIgnore.Contains(x.FullName);
-                });
-
-                if (hasAttributeToIgnore)
+                if (parentAttributes.OfType<CodeAttribute>().Any(x => attributesToIgnore.Contains(x.FullName)))
                 {
                     return false;
                 }
@@ -267,8 +237,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
@@ -304,8 +272,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(baseItem, itemToMove);
@@ -345,8 +311,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (itemToMove == baseItem) return;
 
             bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(itemToMove);
@@ -382,8 +346,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="parent">The parent to the code items, otherwise null.</param>
         private void RecursivelyReorganize(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent = null)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!codeItems.Any())
             {
                 // If there are no code items, the only action we may want to take is conditionally insert regions.
@@ -443,8 +405,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An updated code items collection.</returns>
         private IEnumerable<BaseCodeItem> RegionsRemoveExisting(IEnumerable<BaseCodeItem> codeItems)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
             {
                 return codeItems;
@@ -519,8 +479,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="parent">The parent to the code items, otherwise null.</param>
         private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (Settings.Default.Reorganizing_RegionsInsertNewRegions)
             {
                 // Only insert regions when directly inside the scope of a class, interface or struct.

@@ -69,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentChanged(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (document != null)
             {
                 _codeModelCache.StaleCodeModel(document);
@@ -83,8 +81,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentClosing(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (document != null)
             {
                 _codeModelCache.RemoveCodeModel(document);
@@ -105,8 +101,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document, bool loadLazyInitializedValues = false)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (document == null)
             {
                 throw new ArgumentNullException(nameof(document));
@@ -152,8 +146,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// </returns>
         internal SetCodeItems RetrieveAllCodeItemsAsync(Document document, bool loadLazyInitializedValues = false)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (document == null)
             {
                 throw new ArgumentNullException(nameof(document));
@@ -208,8 +200,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void BuildCodeItems(CodeModel codeModel)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
@@ -248,8 +238,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void LoadLazyInitializedValues(CodeModel codeModel)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
@@ -273,8 +261,6 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void RaiseCodeModelBuilt(CodeModel codeModel)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var codeModelBuilt = CodeModelBuilt;
             if (codeModelBuilt != null)
             {

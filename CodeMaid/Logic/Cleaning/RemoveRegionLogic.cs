@@ -60,8 +60,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if document can remove regions, otherwise false.</returns>
         internal bool CanRemoveRegions(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
                    document != null &&
                    (document.GetCodeLanguage() == CodeLanguage.CSharp ||
@@ -74,8 +72,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void RemoveRegions(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).OrderByDescending(x => x.StartLine);
 
@@ -94,8 +90,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textSelection">The text selection to update.</param>
         internal void RemoveRegions(TextSelection textSelection)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).OrderByDescending(x => x.StartLine);
 
@@ -130,8 +124,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to update.</param>
         internal void RemoveRegionsPerSettings(IEnumerable<CodeItemRegion> regions)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var setting = (NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions;
             if (setting == NoneEmptyAll.None) return;
 
@@ -161,8 +153,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegion + region.Name).Run(() =>
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 var end = region.EndPoint.CreateEditPoint();
                 end.StartOfLine();
                 end.Delete(end.LineLength);

@@ -175,8 +175,6 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The inlines representing the parameters.</returns>
         private IEnumerable<Inline> CreateInlinesForParameters(ICodeItemParameters codeItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var inlines = new List<Inline>();
 
             var opener = GetOpeningString(codeItem);

@@ -17,8 +17,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private WindowEventListener(CodeMaidPackage package)
             : base(package)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Store access to the window events, otherwise events will not register properly via DTE.
             WindowEvents = Package.IDE.Events.WindowEvents;
         }
@@ -71,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="document">The document that got focus, may be null.</param>
         private void RaiseWindowChange(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var onWindowChange = OnWindowChange;
             if (onWindowChange != null)
             {
@@ -89,8 +85,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="lostFocus">The window that lost focus.</param>
         private void WindowEvents_WindowActivated(Window gotFocus, Window lostFocus)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (gotFocus.Kind == "Document")
             {
                 RaiseWindowChange(gotFocus.Document);

@@ -20,8 +20,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeEvent codeEvent)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // In some VS editions, the name may be reported including the interface name.
             if (codeEvent.Name.Contains("."))
             {
@@ -42,8 +40,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeFunction2 codeFunction)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // In some VS editions, the name may be reported including the interface name.
             if (codeFunction.Name.Contains("."))
             {
@@ -64,8 +60,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if an explicit interface implementation, otherwise false.</returns>
         public static bool IsExplicitInterfaceImplementation(CodeProperty codeProperty)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // In some VS editions, the name may be reported including the interface name.
             if (codeProperty.Name.Contains("."))
             {

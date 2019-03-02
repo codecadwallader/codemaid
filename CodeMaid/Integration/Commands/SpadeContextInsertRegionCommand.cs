@@ -65,8 +65,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             var spade = Package.Spade;
@@ -78,8 +76,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                 _undoTransactionHelper.Run(() =>
                 {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                     // Create the new region.
                     _generateRegionLogic.InsertEndRegionTag(region, endPoint);
                     _generateRegionLogic.InsertRegionTag(region, startPoint);

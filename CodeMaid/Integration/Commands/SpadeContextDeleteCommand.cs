@@ -62,8 +62,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             var spade = Package.Spade;
@@ -74,8 +72,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
                 _undoTransactionHelper.Run(() =>
                 {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                     // Iterate through items in reverse order (reduces line number updates during removal).
                     foreach (var item in items.OrderByDescending(x => x.StartLine))
                     {

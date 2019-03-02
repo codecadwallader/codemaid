@@ -87,8 +87,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 
         public void Close()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
         }
 
@@ -113,8 +111,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <param name="action">The action.</param>
         internal void NotifyBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             BuildAction = action;
             BuildScope = scope;
             BuildingProjects = new List<string>();
@@ -243,8 +239,6 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         private int GetNumberOfProjectsToBeBuilt()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var solutionContexts = Package.IDE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts;
             int count = 0;
 

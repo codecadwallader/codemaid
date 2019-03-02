@@ -54,8 +54,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document about to be saved.</param>
         internal void OnBeforeDocumentSave(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
             if (!CodeCleanupAvailabilityLogic.CanCleanupDocument(document)) return;
 
@@ -87,8 +85,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             CodeCleanupManager.Cleanup(Package.ActiveDocument);

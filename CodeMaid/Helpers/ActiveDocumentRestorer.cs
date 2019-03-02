@@ -9,6 +9,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class ActiveDocumentRestorer : IDisposable
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ActiveDocumentRestorer" /> class.
         /// </summary>
@@ -20,15 +22,33 @@ namespace SteveCadwallader.CodeMaid.Helpers
             StartTracking();
         }
 
-        /// <summary>
-        /// Gets or sets the hosting package.
-        /// </summary>
-        private CodeMaidPackage Package { get; set; }
+        #endregion Constructors
+
+        #region Internal Methods
 
         /// <summary>
-        /// Gets or sets the active document.
+        /// Starts tracking the active document.
         /// </summary>
-        private Document TrackedDocument { get; set; }
+        internal void StartTracking()
+        {
+            // Cache the active document.
+            TrackedDocument = Package.ActiveDocument;
+        }
+
+        /// <summary>
+        /// Restores the tracked document if not already active.
+        /// </summary>
+        internal void RestoreTrackedDocument()
+        {
+            if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
+            {
+                TrackedDocument.Activate();
+            }
+        }
+
+        #endregion Internal Methods
+
+        #region IDisposable Members
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
@@ -39,26 +59,20 @@ namespace SteveCadwallader.CodeMaid.Helpers
             RestoreTrackedDocument();
         }
 
-        /// <summary>
-        /// Restores the tracked document if not already active.
-        /// </summary>
-        internal void RestoreTrackedDocument()
-        {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+        #endregion IDisposable Members
 
-            if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
-            {
-                TrackedDocument.Activate();
-            }
-        }
+        #region Private Properties
 
         /// <summary>
-        /// Starts tracking the active document.
+        /// Gets or sets the hosting package.
         /// </summary>
-        internal void StartTracking()
-        {
-            // Cache the active document.
-            TrackedDocument = Package.ActiveDocument;
-        }
+        private CodeMaidPackage Package { get; set; }
+
+        /// <summary>
+        /// Gets or sets the active document.
+        /// </summary>
+        private Document TrackedDocument { get; set; }
+
+        #endregion Private Properties
     }
 }

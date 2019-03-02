@@ -184,8 +184,6 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <returns>The loaded resource dictionary, otherwise null.</returns>
         private ResourceDictionary LoadResourceDictionary(Uri themeUri)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 var dictionary = (ResourceDictionary)Application.LoadComponent(themeUri);

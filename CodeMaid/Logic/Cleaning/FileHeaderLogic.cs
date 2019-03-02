@@ -52,8 +52,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void UpdateFileHeader(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var settingsFileHeader = GetFileHeaderFromSettings(textDocument);
             if (string.IsNullOrWhiteSpace(settingsFileHeader))
             {

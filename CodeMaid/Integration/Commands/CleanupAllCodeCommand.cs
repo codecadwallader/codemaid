@@ -34,9 +34,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// Gets the list of all project items.
         /// </summary>
         private IEnumerable<ProjectItem> AllProjectItems
-        {
-            get { return SolutionHelper.GetAllItemsInSolution<ProjectItem>(Package.IDE.Solution).Where(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x); }); }
-        }
+            => SolutionHelper.GetAllItemsInSolution<ProjectItem>(Package.IDE.Solution).Where(x => CodeCleanupAvailabilityLogic.CanCleanupProjectItem(x));
 
         /// <summary>
         /// Gets or sets the code cleanup availability logic.
@@ -59,8 +57,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             Enabled = Package.IDE.Solution.IsOpen;
         }
 
@@ -69,8 +65,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             if (!CodeCleanupAvailabilityLogic.IsCleanupEnvironmentAvailable())

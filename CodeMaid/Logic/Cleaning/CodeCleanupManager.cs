@@ -101,8 +101,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!_codeCleanupAvailabilityLogic.CanCleanupProjectItem(projectItem)) return;
 
             // Attempt to open the document if not already opened.
@@ -137,8 +135,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         internal void Cleanup(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!_codeCleanupAvailabilityLogic.CanCleanupDocument(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
@@ -164,8 +160,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             new UndoTransactionHelper(_package, string.Format(Resources.CodeMaidCleanupFor0, document.Name)).Run(
                 delegate
                 {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                     var cleanupMethod = FindCodeCleanupMethod(document);
                     if (cleanupMethod != null)
                     {
@@ -192,8 +186,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The code cleanup method, otherwise null.</returns>
         private Action<Document> FindCodeCleanupMethod(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             switch (document.GetCodeLanguage())
             {
                 case CodeLanguage.CSharp:
@@ -235,8 +227,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupCSharp(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = document.GetTextDocument();
 
             // Perform any actions that can modify the file code model first.
@@ -356,8 +346,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupVB(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = document.GetTextDocument();
 
             // Perform any actions that can modify the file code model first.
@@ -458,8 +446,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupC(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -489,8 +475,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupMarkup(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -518,8 +502,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupGeneric(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -548,8 +530,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunExternalFormatting(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             RunVisualStudioFormatDocument(textDocument);
             RunJetBrainsReSharperCleanup(textDocument);
             RunTelerikJustCodeCleanup(textDocument);
@@ -563,8 +543,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunVisualStudioFormatDocument(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
             _commandHelper.ExecuteCommand(textDocument, "Edit.FormatDocument");
@@ -576,8 +554,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunJetBrainsReSharperCleanup(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.ThirdParty_UseJetBrainsReSharperCleanup) return;
 
             // This command changed to include the leading 'ReSharper.' in version 2016.1.
@@ -591,8 +567,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunTelerikJustCodeCleanup(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.ThirdParty_UseTelerikJustCodeCleanup) return;
 
             _commandHelper.ExecuteCommand(textDocument, "JustCode.JustCode_CleanCodeWithDefaultProfile");
@@ -604,8 +578,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunXAMLStylerCleanup(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.ThirdParty_UseXAMLStylerCleanup) return;
 
             _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.XAMLEditor.BeautifyXaml", "EditorContextMenus.XAMLEditor.FormatXAML", "EditorContextMenus.CodeWindow.FormatXAML");
@@ -617,8 +589,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunOtherCleanupCommands(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!_otherCleaningCommands.Value.Any()) return;
 
             foreach (var commandName in _otherCleaningCommands.Value)

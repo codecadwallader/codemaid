@@ -46,22 +46,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 () => CodeProperty != null && ExplicitInterfaceImplementationHelper.IsExplicitInterfaceImplementation(CodeProperty));
 
             _isIndexer = LazyTryDefault(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-                    return CodeProperty?.Parameters != null && CodeProperty.Parameters.Count > 0;
-                });
+                () => CodeProperty?.Parameters != null && CodeProperty.Parameters.Count > 0);
 
             _IsStatic = LazyTryDefault(
-                () =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-                    return CodeProperty != null &&
-                        ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
-                         (CodeProperty.Setter != null && CodeProperty.Setter.IsShared));
-                });
+                () => CodeProperty != null &&
+                      ((CodeProperty.Getter != null && CodeProperty.Getter.IsShared) ||
+                       (CodeProperty.Setter != null && CodeProperty.Setter.IsShared)));
 
             _parameters = LazyTryDefault(
                 () => CodeProperty?.Parameters?.Cast<CodeParameter>().ToList() ?? Enumerable.Empty<CodeParameter>());

@@ -90,8 +90,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnAfterSave(uint docCookie)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var afterSave = AfterSave;
             if (afterSave != null)
             {
@@ -116,8 +114,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnBeforeSave(uint docCookie)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var beforeSave = BeforeSave;
             if (beforeSave != null)
             {
@@ -160,7 +156,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             var documentName = RunningDocumentTable.GetDocumentInfo(docCookie).Moniker;
 
             // Search against the IDE documents to find the object that matches the full document name.
-            return Package.IDE.Documents.OfType<Document>().FirstOrDefault(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return x.FullName == documentName; });
+            return Package.IDE.Documents.OfType<Document>().FirstOrDefault(x => x.FullName == documentName);
         }
     }
 }

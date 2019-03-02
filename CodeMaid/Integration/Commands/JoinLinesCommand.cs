@@ -56,8 +56,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             var activeTextDocument = ActiveTextDocument;
@@ -77,8 +75,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="textSelection">The text selection.</param>
         private void JoinText(TextSelection textSelection)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // If the selection has no length, try to pick up the next line.
             if (textSelection.IsEmpty)
             {

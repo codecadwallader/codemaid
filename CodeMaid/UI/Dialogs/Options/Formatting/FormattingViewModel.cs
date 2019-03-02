@@ -33,8 +33,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         public FormattingViewModel(CodeMaidPackage package, Settings activeSettings)
             : base(package, activeSettings)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentRunDuringCleanup, x => CommentRunDuringCleanup),
@@ -190,22 +188,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             private set { SetPropertyValue(value); }
         }
 
-        public FontFamily CommentPreviewTextFont
-        {
-            get
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-                return new FontFamily(_editorProperties.Item("FontFamily").Value.ToString());
-            }
-        }
+        public FontFamily CommentPreviewTextFont => new FontFamily(_editorProperties.Item("FontFamily").Value.ToString());
 
         public Brush CommentPreviewTextForeground
         {
             get
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Foreground);
 
                 return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
@@ -216,8 +204,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         {
             get
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Background);
 
                 return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));

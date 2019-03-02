@@ -53,8 +53,6 @@ namespace SteveCadwallader.CodeMaid.Model
             get { return _isBuilding; }
             set
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (_isBuilding != value)
                 {
                     OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsBuilding changing to '{value}' for '{Document.FullName}'");
@@ -85,8 +83,6 @@ namespace SteveCadwallader.CodeMaid.Model
             get { return _isStale; }
             set
             {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (_isStale != value)
                 {
                     OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsStale changing to '{value}' for '{Document.FullName}'");

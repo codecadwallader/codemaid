@@ -85,8 +85,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if item can be cleaned up, otherwise false.</returns>
         internal bool CanCleanupDocument(Document document, bool allowUserPrompts = false)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!IsCleanupEnvironmentAvailable())
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false due to the cleanup environment not being available.");
@@ -139,8 +137,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if item can be cleaned up, otherwise false.</returns>
         internal bool CanCleanupProjectItem(ProjectItem projectItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!IsCleanupEnvironmentAvailable())
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupProjectItem returned false due to the cleanup environment not being available.");
@@ -188,8 +184,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if cleanup can occur, false otherwise.</returns>
         internal bool IsCleanupEnvironmentAvailable()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode;
         }
 
@@ -204,8 +198,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The file extension, otherwise an empty string.</returns>
         private static string GetProjectItemExtension(ProjectItem projectItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 return Path.GetExtension(projectItem.Name) ?? string.Empty;
@@ -249,8 +241,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </returns>
         private bool IsDocumentExcludedBecauseExternal(Document document, bool allowUserPrompts)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!document.IsExternal()) return false;
 
             switch ((AskYesNo)Settings.Default.Cleaning_PerformPartialCleanupOnExternal)
@@ -280,8 +270,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsDocumentLanguageIncludedByOptions(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var projectItem = document.ProjectItem;
             var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".php", StringComparison.CurrentCultureIgnoreCase))
@@ -346,8 +334,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (document == null) return false;
 
             return IsParentCodeGeneratorExcludedByOptions(document.ProjectItem);
@@ -361,8 +347,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the parent is excluded by options, otherwise false.</returns>
         private static bool IsParentCodeGeneratorExcludedByOptions(ProjectItem projectItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var parentProjectItem = projectItem?.GetParentProjectItem();
             if (parentProjectItem == null) return false;
 
@@ -382,8 +366,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the document language is included, otherwise false.</returns>
         private bool IsProjectItemLanguageIncludedByOptions(ProjectItem projectItem)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".js", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -429,8 +411,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if external files should be cleaned, otherwise false.</returns>
         private static bool PromptUserAboutCleaningExternalFiles(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 var viewModel = new YesNoPromptViewModel

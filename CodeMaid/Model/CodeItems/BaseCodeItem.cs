@@ -11,6 +11,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
     [DebuggerDisplay("{GetType().Name,nq}: {Name}")]
     public abstract class BaseCodeItem : Bindable, ICodeItem
     {
+        #region Properties
+
         /// <summary>
         /// Gets the kind.
         /// </summary>
@@ -54,15 +56,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <summary>
         /// Gets a flag indicating if this is a code item that spans multiple lines.
         /// </summary>
-        public bool IsMultiLine
-        {
-            get
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+        public bool IsMultiLine => StartPoint != null && EndPoint != null && StartPoint.Line != EndPoint.Line;
 
-                return StartPoint != null && EndPoint != null && StartPoint.Line != EndPoint.Line;
-            }
-        }
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Loads all lazy initialized values immediately.
@@ -76,12 +74,12 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public virtual void RefreshCachedPositionAndName()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             StartLine = StartPoint.Line;
             StartOffset = StartPoint.AbsoluteCharOffset;
             EndLine = EndPoint.Line;
             EndOffset = EndPoint.AbsoluteCharOffset;
         }
+
+        #endregion Methods
     }
 }

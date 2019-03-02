@@ -39,12 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Enabled = Package.IDE.Documents.Cast<Document>().Any(x =>
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-                return x.ReadOnly && x.Saved;
-            });
+            Enabled = Package.IDE.Documents.Cast<Document>().Any(x => x.ReadOnly && x.Saved);
         }
 
         /// <summary>
@@ -52,8 +47,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             var docs = Package.IDE.Documents;

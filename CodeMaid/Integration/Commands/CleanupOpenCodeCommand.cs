@@ -36,18 +36,14 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <summary>
         /// Gets the list of open documents that are cleanup candidates.
         /// </summary>
-        private IEnumerable<Document> OpenCleanableDocuments => OpenDocuments.Where(x => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return CodeCleanupAvailabilityLogic.CanCleanupDocument(x); });
+        private IEnumerable<Document> OpenCleanableDocuments
+            => OpenDocuments.Where(x => CodeCleanupAvailabilityLogic.CanCleanupDocument(x));
 
         /// <summary>
         /// Gets the list of open documents.
         /// </summary>
         private IEnumerable<Document> OpenDocuments
-            => Package.IDE.Documents.OfType<Document>().Where(x =>
-                {
-                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-                    return x.ActiveWindow != null;
-                });
+            => Package.IDE.Documents.OfType<Document>().Where(x => x.ActiveWindow != null);
 
         /// <summary>
         /// Initializes a singleton instance of this command.
@@ -65,8 +61,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             Enabled = OpenDocuments.Any();
         }
 
@@ -75,8 +69,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             base.OnExecute();
 
             using (new ActiveDocumentRestorer(Package))

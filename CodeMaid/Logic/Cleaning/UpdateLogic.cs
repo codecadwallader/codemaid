@@ -62,8 +62,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void UpdateEndRegionDirectives(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Settings.Default.Cleaning_UpdateEndRegionDirectives) return;
 
             var regionStack = new Stack<string>();
@@ -160,11 +158,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         {
             if (!Settings.Default.Cleaning_UpdateSingleLineMethods) return;
 
-            var singleLineMethods = methods.Where(x =>
-            {
-                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                return x.StartPoint.Line == x.EndPoint.Line && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract && !(x.CodeFunction.Parent is CodeInterface);
-            });
+            var singleLineMethods = methods.Where(x => x.StartPoint.Line == x.EndPoint.Line && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract && !(x.CodeFunction.Parent is CodeInterface));
             foreach (var singleLineMethod in singleLineMethods)
             {
                 SpreadSingleLineMethodOntoMultipleLines(singleLineMethod.CodeFunction);
@@ -177,8 +171,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="method">The method to update.</param>
         private void JoinMultiLineMethodOntoSingleLine(CodeFunction method)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             var start = method.StartPoint.CreateEditPoint();
             var end = method.EndPoint.CreateEditPoint();
 
@@ -195,8 +187,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="method">The method to update.</param>
         private void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
@@ -231,8 +221,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="second">The second accessor.</param>
         private void UpdateAccessorsToBothBeSingleLineOrMultiLine(CodeFunction first, CodeFunction second)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             if (first == null || second == null) return;
 
             bool isFirstSingleLine = first.StartPoint.Line == first.EndPoint.Line;
