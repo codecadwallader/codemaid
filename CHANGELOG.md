@@ -4,10 +4,10 @@
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
-- [ ] Features
-  - [x] [#563](https://github.com/codecadwallader/codemaid/issues/563) - Use new AsyncPackage base class
+- [x] Features
+  - [x] [#625](https://github.com/codecadwallader/codemaid/pull/625) - Use new AsyncPackage base class
 
-- [ ] Fixes
+- [x] Fixes
   - [x] [#613](https://github.com/codecadwallader/codemaid/pull/613) - Formatting: Avoid trailing comment line on self closing XML tag - thanks [bonimy](https://github.com/bonimy)!
 
 ## Previous Releases
