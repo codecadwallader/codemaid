@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Threading;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,7 +20,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             _joinableTaskFactory = joinableTaskFactory;
             _settings = settings;
-            _settings.SettingsSaving += (s, e) => _joinableTaskFactory.Run(NotifySettingsChangedAsync);
+            _settings.SettingsSaving += OnSettingsSaving;
         }
 
         public async Task WatchAsync<TValue>(Expression<Func<TSetting, TValue>> setting, Func<TValue, Task> changedCallback)
@@ -70,6 +71,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         private object[] FindValues(string[] settings) => Array.ConvertAll(settings, key => _settings[key]);
+
+        private async void OnSettingsSaving(object sender, CancelEventArgs e)
+        {
+            if (_joinableTaskFactory != null)
+            {
+                await _joinableTaskFactory.RunAsync(NotifySettingsChangedAsync);
+            }
+            else
+            {
+                await NotifySettingsChangedAsync();
+            }
+        }
 
         private class Monitor
         {
