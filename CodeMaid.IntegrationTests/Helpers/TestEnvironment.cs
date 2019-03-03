@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VSSDK.Tools.VsIdeTesting;
@@ -81,7 +82,16 @@ namespace SteveCadwallader.CodeMaid.IntegrationTests.Helpers
         /// <returns>The package command.</returns>
         public static MenuCommand GetPackageCommand(CommandID commandID)
         {
-            var command = Package.MenuCommandService.FindCommand(commandID);
+            MenuCommand command = null;
+
+            Package.JoinableTaskFactory.Run(async () =>
+            {
+                if (await Package.GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
+                {
+                    command = menuCommandService.FindCommand(commandID);
+                }
+            });
+
             Assert.IsNotNull(command);
 
             return command;

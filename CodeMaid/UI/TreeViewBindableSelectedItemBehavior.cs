@@ -38,8 +38,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// </param>
         private static void OnSelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = obj as TreeViewBindableSelectedItemBehavior;
-            if (behavior != null)
+            if (obj is TreeViewBindableSelectedItemBehavior behavior)
             {
                 var treeView = behavior.AssociatedObject;
                 if (treeView != null)

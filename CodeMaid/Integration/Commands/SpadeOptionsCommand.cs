@@ -1,5 +1,6 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options;
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -8,20 +9,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class SpadeOptionsCommand : BaseCommand
     {
-        #region Singleton
-
-        public static SpadeOptionsCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new SpadeOptionsCommand(package);
-            Instance.Switch(on: true);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeOptionsCommand" /> class.
         /// </summary>
@@ -31,9 +18,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static SpadeOptionsCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new SpadeOptionsCommand(package);
+            await Instance.SwitchAsync(on: true);
+        }
 
         /// <summary>
         /// Called to execute the command.
@@ -44,7 +43,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
             new OptionsWindow { DataContext = new OptionsViewModel(Package, typeof(DiggingViewModel)) }.ShowModal();
         }
-
-        #endregion BaseCommand Methods
     }
 }

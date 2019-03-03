@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -555,12 +556,17 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="point">The point where the context menu should be shown.</param>
         private void ShowContextMenu(Point point)
         {
-            var menuCommandService = ViewModel?.Package.MenuCommandService;
-            if (menuCommandService != null)
+            if (ViewModel?.Package is var package)
             {
-                var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.MenuIDCodeMaidContextSpade);
+                package.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    if (await package.GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
+                    {
+                        var contextMenuCommandID = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.MenuIDCodeMaidContextSpade);
 
-                menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+                        menuCommandService.ShowContextMenu(contextMenuCommandID, (int)point.X, (int)point.Y);
+                    }
+                });
             }
         }
 

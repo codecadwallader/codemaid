@@ -1,5 +1,6 @@
 using EnvDTE;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -8,20 +9,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class CloseAllReadOnlyCommand : BaseCommand
     {
-        #region Singleton
-
-        public static CloseAllReadOnlyCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new CloseAllReadOnlyCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_CloseAllReadOnly, Instance.Switch);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CloseAllReadOnlyCommand" /> class.
         /// </summary>
@@ -31,9 +18,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static CloseAllReadOnlyCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new CloseAllReadOnlyCommand(package);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_CloseAllReadOnly, Instance.SwitchAsync);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -60,7 +59,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 }
             }
         }
-
-        #endregion BaseCommand Methods
     }
 }

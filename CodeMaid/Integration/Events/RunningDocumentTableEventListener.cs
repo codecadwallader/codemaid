@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
+using Task = System.Threading.Tasks.Task;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -13,40 +14,16 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
     /// </summary>
     internal sealed class RunningDocumentTableEventListener : BaseEventListener, IVsRunningDocTableEvents3
     {
-        #region Singleton
-
-        public static RunningDocumentTableEventListener Instance { get; private set; }
-
-        public static void Intialize(CodeMaidPackage package)
-            => Instance = new RunningDocumentTableEventListener(package);
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RunningDocumentTableEventListener" /> class.
         /// </summary>
         /// <param name="package">The package hosting the event listener.</param>
-        internal RunningDocumentTableEventListener(CodeMaidPackage package)
+        private RunningDocumentTableEventListener(CodeMaidPackage package)
             : base(package)
         {
             // Create and store a reference to the running document table.
             RunningDocumentTable = new RunningDocumentTable(package);
-
-            // This listener services multiple features, watching if any of them switched.
-            package.SettingsMonitor.Watch<bool>(new[] {
-                nameof(Settings.Default.Feature_SettingCleanupOnSave),
-                nameof(Settings.Default.Feature_SpadeToolWindow)
-            }, values =>
-            {
-                Switch(values.Any(v => v));
-            });
         }
-
-        #endregion Constructors
-
-        #region Internal Events
 
         /// <summary>
         /// A delegate specifying the contract for a document save event.
@@ -64,9 +41,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         internal event OnDocumentSaveEventHandler BeforeSave;
 
-        #endregion Internal Events
-
-        #region Private Properties
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static RunningDocumentTableEventListener Instance { get; private set; }
 
         /// <summary>
         /// Gets or sets an event cookie used as a notification token.
@@ -78,47 +56,32 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         private RunningDocumentTable RunningDocumentTable { get; }
 
-        #endregion Private Properties
-
-        #region Private Methods
-
         /// <summary>
-        /// Gets the document object from a document cookie.
+        /// Initializes a singleton instance of this event listener.
         /// </summary>
-        /// <param name="docCookie">The document cookie.</param>
-        /// <returns>The document object, otherwise null.</returns>
-        private Document GetDocumentFromCookie(uint docCookie)
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
         {
-            // Retrieve document information from the cookie to get the full document name.
-            var documentName = RunningDocumentTable.GetDocumentInfo(docCookie).Moniker;
+            Instance = new RunningDocumentTableEventListener(package);
 
-            // Search against the IDE documents to find the object that matches the full document name.
-            return Package.IDE.Documents.OfType<Document>().FirstOrDefault(x => x.FullName == documentName);
+            // This listener services multiple features, watching if any of them switched.
+            await package.SettingsMonitor.WatchAsync<bool>(new[] {
+                nameof(Settings.Default.Feature_SettingCleanupOnSave),
+                nameof(Settings.Default.Feature_SpadeToolWindow)
+            }, async values =>
+            {
+                await Instance.SwitchAsync(values.Any(v => v));
+            });
         }
 
-        #endregion Private Methods
+        public int OnAfterAttributeChange(uint docCookie, uint grfAttribs) => VSConstants.S_OK;
 
-        #region IVsRunningDocTableEvents3 Members
+        public int OnAfterAttributeChangeEx(uint docCookie, uint grfAttribs, IVsHierarchy pHierOld, uint itemidOld, string pszMkDocumentOld, IVsHierarchy pHierNew, uint itemidNew, string pszMkDocumentNew) => VSConstants.S_OK;
 
-        public int OnAfterAttributeChange(uint docCookie, uint grfAttribs)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame) => VSConstants.S_OK;
 
-        public int OnAfterAttributeChangeEx(uint docCookie, uint grfAttribs, IVsHierarchy pHierOld, uint itemidOld, string pszMkDocumentOld, IVsHierarchy pHierNew, uint itemidNew, string pszMkDocumentNew)
-        {
-            return VSConstants.S_OK;
-        }
-
-        public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame)
-        {
-            return VSConstants.S_OK;
-        }
-
-        public int OnAfterFirstDocumentLock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnAfterFirstDocumentLock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining) => VSConstants.S_OK;
 
         /// <summary>
         /// Called when a document has been saved.
@@ -140,15 +103,9 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             return VSConstants.S_OK;
         }
 
-        public int OnBeforeDocumentWindowShow(uint docCookie, int fFirstShow, IVsWindowFrame pFrame)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnBeforeDocumentWindowShow(uint docCookie, int fFirstShow, IVsWindowFrame pFrame) => VSConstants.S_OK;
 
-        public int OnBeforeLastDocumentUnlock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining)
-        {
-            return VSConstants.S_OK;
-        }
+        public int OnBeforeLastDocumentUnlock(uint docCookie, uint dwRDTLockType, uint dwReadLocksRemaining, uint dwEditLocksRemaining) => VSConstants.S_OK;
 
         /// <summary>
         /// Called when a document is about to be saved.
@@ -170,46 +127,36 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
             return VSConstants.S_OK;
         }
 
-        #endregion IVsRunningDocTableEvents3 Members
-
-        #region ISwitchable Members
-
+        /// <summary>
+        /// Registers event handlers with the IDE.
+        /// </summary>
         protected override void RegisterListeners()
         {
             // Register with the running document table for events.
             EventCookie = RunningDocumentTable.Advise(this);
         }
 
+        /// <summary>
+        /// Unregisters event handlers with the IDE.
+        /// </summary>
         protected override void UnRegisterListeners()
         {
             RunningDocumentTable.Unadvise(EventCookie);
             EventCookie = 0;
         }
 
-        #endregion ISwitchable Members
-
-        #region IDisposable Members
-
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
+        /// Gets the document object from a document cookie.
         /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
-        /// only unmanaged resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
+        /// <param name="docCookie">The document cookie.</param>
+        /// <returns>The document object, otherwise null.</returns>
+        private Document GetDocumentFromCookie(uint docCookie)
         {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
+            // Retrieve document information from the cookie to get the full document name.
+            var documentName = RunningDocumentTable.GetDocumentInfo(docCookie).Moniker;
 
-                if (disposing && RunningDocumentTable != null && EventCookie != 0)
-                {
-                    Switch(on: false);
-                }
-            }
+            // Search against the IDE documents to find the object that matches the full document name.
+            return Package.IDE.Documents.OfType<Document>().FirstOrDefault(x => x.FullName == documentName);
         }
-
-        #endregion IDisposable Members
     }
 }
