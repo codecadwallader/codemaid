@@ -240,8 +240,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
-            int cursorOffset;
-            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
+            var text = GetTextAndRemoveItem(itemToMove, out int cursorOffset);
 
             baseItem.RefreshCachedPositionAndName();
             var baseStartPoint = baseItem.StartPoint;
@@ -276,8 +275,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(baseItem, itemToMove);
-            int cursorOffset;
-            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
+            var text = GetTextAndRemoveItem(itemToMove, out int cursorOffset);
 
             baseItem.RefreshCachedPositionAndName();
             var baseEndPoint = baseItem.EndPoint;
@@ -316,8 +314,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             if (itemToMove == baseItem) return;
 
             bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(itemToMove);
-            int cursorOffset;
-            var text = GetTextAndRemoveItem(itemToMove, out cursorOffset);
+            var text = GetTextAndRemoveItem(itemToMove, out int cursorOffset);
 
             baseItem.RefreshCachedPositionAndName();
             var baseInsertPoint = baseItem.InsertPoint;
@@ -372,8 +369,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             {
                 var item = desiredOrder[desiredIndex];
 
-                var itemAsParent = item as ICodeItemParent;
-                if (itemAsParent != null && ShouldReorganizeChildren(item))
+                if (item is ICodeItemParent itemAsParent && ShouldReorganizeChildren(item))
                 {
                     RecursivelyReorganize(itemAsParent.Children, itemAsParent);
                 }

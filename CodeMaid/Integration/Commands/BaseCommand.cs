@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.ComponentModel.Design;
+using Task = System.Threading.Tasks.Task;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -10,8 +11,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal abstract class BaseCommand : OleMenuCommand, ISwitchableFeature
     {
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommand" /> class.
         /// </summary>
@@ -24,44 +23,32 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             Package = package;
         }
 
-        #endregion Constructors
-
-        #region Properties
-
         /// <summary>
         /// Gets the hosting package.
         /// </summary>
         protected CodeMaidPackage Package { get; private set; }
 
-        #endregion Properties
-
-        #region Event Handlers
-
         /// <summary>
-        /// Handles the BeforeQueryStatus event of the BaseCommand control.
+        /// Switches the command on or off, adding/removing it from the IDE.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
+        /// <param name="on">True if switching the command on, otherwise false.</param>
+        /// <returns>A task.</returns>
+        public virtual async Task SwitchAsync(bool on)
         {
-            BaseCommand command = sender as BaseCommand;
-            command?.OnBeforeQueryStatus();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(Package.DisposalToken);
+
+            if (await Package.GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
+            {
+                if (on && commandService.FindCommand(CommandID) == null)
+                {
+                    commandService.AddCommand(this);
+                }
+                else if (!on)
+                {
+                    commandService.RemoveCommand(this);
+                }
+            }
         }
-
-        /// <summary>
-        /// Handles the Execute event of the BaseCommand control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        private static void BaseCommand_Execute(object sender, EventArgs e)
-        {
-            BaseCommand command = sender as BaseCommand;
-            command?.OnExecute();
-        }
-
-        #endregion Event Handlers
-
-        #region Methods
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -80,18 +67,26 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             OutputWindowHelper.DiagnosticWriteLine($"{GetType().Name}.OnExecute invoked");
         }
 
-        public virtual void Switch(bool on)
+        /// <summary>
+        /// Handles the BeforeQueryStatus event of the BaseCommand control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        private static void BaseCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (on && Package.MenuCommandService.FindCommand(CommandID) == null)
-            {
-                Package.MenuCommandService.AddCommand(this);
-            }
-            else if (!on)
-            {
-                Package.MenuCommandService.RemoveCommand(this);
-            }
+            var command = sender as BaseCommand;
+            command?.OnBeforeQueryStatus();
         }
 
-        #endregion Methods
+        /// <summary>
+        /// Handles the Execute event of the BaseCommand control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        private static void BaseCommand_Execute(object sender, EventArgs e)
+        {
+            var command = sender as BaseCommand;
+            command?.OnExecute();
+        }
     }
 }

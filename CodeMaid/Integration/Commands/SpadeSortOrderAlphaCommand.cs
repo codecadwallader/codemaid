@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Model.CodeTree;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -7,20 +8,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class SpadeSortOrderAlphaCommand : BaseCommand
     {
-        #region Singleton
-
-        public static SpadeSortOrderAlphaCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new SpadeSortOrderAlphaCommand(package);
-            Instance.Switch(on: true);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SpadeSortOrderAlphaCommand" /> class.
         /// </summary>
@@ -30,9 +17,21 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static SpadeSortOrderAlphaCommand Instance { get; private set; }
 
-        #region BaseCommand Methods
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
+        {
+            Instance = new SpadeSortOrderAlphaCommand(package);
+            await Instance.SwitchAsync(on: true);
+        }
 
         /// <summary>
         /// Called to update the current status of the command.
@@ -59,7 +58,5 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
                 spade.SortOrder = CodeSortOrder.Alpha;
             }
         }
-
-        #endregion BaseCommand Methods
     }
 }

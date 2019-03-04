@@ -10,24 +10,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal class SettingsContextHelper
     {
-        #region Constants
-
         private const string SettingsFilename = "CodeMaid.config";
-
-        #endregion Constants
-
-        #region Fields
-
-        private readonly CodeMaidPackage _package;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// The singleton instance of the <see cref="SettingsContextHelper" /> class.
         /// </summary>
         private static SettingsContextHelper _instance;
+
+        private readonly CodeMaidPackage _package;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsContextHelper" /> class.
@@ -48,18 +38,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return _instance ?? (_instance = new SettingsContextHelper(package));
         }
 
-        #endregion Constructors
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the path to the user settings file.
-        /// </summary>
-        internal static string GetUserSettingsPath()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", SettingsFilename);
-        }
-
         /// <summary>
         /// Gets the path to the solution settings file based on the specified <see cref="SettingsContext"/>.
         /// </summary>
@@ -78,25 +56,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         }
 
         /// <summary>
-        /// Called when a solution is opened.
+        /// Gets the path to the user settings file.
         /// </summary>
-        internal void OnSolutionOpened()
+        internal static string GetUserSettingsPath()
         {
-            if (LoadSolutionSpecificSettings(Settings.Default))
-            {
-                _package.SettingsMonitor.NotifySettingsChanged();
-            }
-        }
-
-        /// <summary>
-        /// Called when a solution is closed.
-        /// </summary>
-        internal void OnSolutionClosed()
-        {
-            if (UnloadSolutionSpecificSettings(Settings.Default))
-            {
-                _package.SettingsMonitor.NotifySettingsChanged();
-            }
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CodeMaid", SettingsFilename);
         }
 
         /// <summary>
@@ -129,6 +93,34 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return false;
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods
+
+        /// <summary>
+        /// Called when a solution is closed.
+        /// </summary>
+        internal async void OnSolutionClosed()
+#pragma warning restore VSTHRD100 // Avoid async void methods
+        {
+            if (UnloadSolutionSpecificSettings(Settings.Default))
+            {
+                await _package.SettingsMonitor.NotifySettingsChangedAsync();
+            }
+        }
+
+#pragma warning disable VSTHRD100 // Avoid async void methods
+
+        /// <summary>
+        /// Called when a solution is opened.
+        /// </summary>
+        internal async void OnSolutionOpened()
+#pragma warning restore VSTHRD100 // Avoid async void methods
+        {
+            if (LoadSolutionSpecificSettings(Settings.Default))
+            {
+                await _package.SettingsMonitor.NotifySettingsChangedAsync();
+            }
+        }
+
         /// <summary>
         /// Unloads solution-specific settings from the specified settings object.
         /// </summary>
@@ -147,7 +139,5 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             return false;
         }
-
-        #endregion Methods
     }
 }

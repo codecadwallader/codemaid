@@ -330,7 +330,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             {
                 if (split.HasFlag(XmlTagNewLine.AfterClose))
                 {
-                    NewLine();
+                    if (!xml.IsLast)
+                    {
+                        NewLine();
+                    }
                     return false;
                 }
 

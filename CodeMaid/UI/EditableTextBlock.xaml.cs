@@ -53,8 +53,10 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <param name="e">The <see cref="System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnIsEditingChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var editableTextBlock = obj as EditableTextBlock;
-            if (editableTextBlock == null) return;
+            if (!(obj is EditableTextBlock editableTextBlock))
+            {
+                return;
+            }
 
             if ((bool)e.NewValue)
             {

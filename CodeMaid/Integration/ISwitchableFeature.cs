@@ -1,7 +1,9 @@
-﻿namespace SteveCadwallader.CodeMaid.Integration
+﻿using System.Threading.Tasks;
+
+namespace SteveCadwallader.CodeMaid.Integration
 {
     internal interface ISwitchableFeature
     {
-        void Switch(bool on);
+        Task SwitchAsync(bool on);
     }
 }

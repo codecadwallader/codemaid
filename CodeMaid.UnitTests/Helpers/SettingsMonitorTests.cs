@@ -2,6 +2,7 @@
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
@@ -15,28 +16,35 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         }
 
         [TestMethod]
-        public void CallbackShouldBeCalledAtOnce()
+        public async Task CallbackShouldBeCalledAtOnce()
         {
-            var monitor = new SettingsMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
 
             int callbackTimes = 0;
-            monitor.Watch(s => s.Feature_CleanupAllCode, _ => callbackTimes++);
+            await monitor.WatchAsync(s => s.Feature_CleanupAllCode, _ =>
+            {
+                callbackTimes++;
+
+                return Task.CompletedTask;
+            });
 
             Assert.AreEqual(/*Initial Call Times*/1, callbackTimes);
         }
 
         [TestMethod]
-        public void CallbackShouldNotBeCalledIfSettingNotChanged()
+        public async Task CallbackShouldNotBeCalledIfSettingNotChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingsMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
 
             bool? value = null;
             int callbackTimes = 0;
-            monitor.Watch(s => s.Feature_CleanupAllCode, v =>
+            await monitor.WatchAsync(s => s.Feature_CleanupAllCode, v =>
             {
                 value = v;
                 callbackTimes++;
+
+                return Task.CompletedTask;
             });
 
             Settings.Default.Feature_CleanupAllCode = false;
@@ -47,17 +55,19 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         }
 
         [TestMethod]
-        public void CallbackShouldBeCalledOnceSettingChanged()
+        public async Task CallbackShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingsMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
 
             bool? value = null;
             int callbackTimes = 0;
-            monitor.Watch(s => s.Feature_CleanupAllCode, v =>
+            await monitor.WatchAsync(s => s.Feature_CleanupAllCode, v =>
             {
                 value = v;
                 callbackTimes++;
+
+                return Task.CompletedTask;
             });
 
             Settings.Default.Feature_CleanupAllCode = true;
@@ -68,22 +78,26 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         }
 
         [TestMethod]
-        public void AllCallbacksShouldBeCalledOnceSettingChanged()
+        public async Task AllCallbacksShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
-            var monitor = new SettingsMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
 
             bool? value1 = null, value2 = null;
             int callbackTimes1 = 0, callbackTimes2 = 0;
-            monitor.Watch(s => s.Feature_CleanupAllCode, v =>
+            await monitor.WatchAsync(s => s.Feature_CleanupAllCode, v =>
             {
                 value1 = v;
                 callbackTimes1++;
+
+                return Task.CompletedTask;
             });
-            monitor.Watch(s => s.Feature_CleanupAllCode, v =>
+            await monitor.WatchAsync(s => s.Feature_CleanupAllCode, v =>
             {
                 value2 = v;
                 callbackTimes2++;
+
+                return Task.CompletedTask;
             });
 
             Settings.Default.Feature_CleanupAllCode = true;
@@ -96,16 +110,16 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         }
 
         [TestMethod]
-        public void CallbackShouldBeCalledOnceAnyWatchedSettingChanged()
+        public async Task CallbackShouldBeCalledOnceAnyWatchedSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
             Settings.Default.Feature_CleanupOpenCode = false;
             Settings.Default.Feature_CleanupSelectedCode = true;
-            var monitor = new SettingsMonitor<Settings>(Settings.Default);
+            var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
 
             bool[] values = null;
             int callbackTimes = 0;
-            monitor.Watch<bool>(new[]{
+            await monitor.WatchAsync<bool>(new[]{
                 nameof(Settings.Default.Feature_CleanupAllCode),
                 nameof(Settings.Default.Feature_CleanupOpenCode),
                 nameof(Settings.Default.Feature_CleanupSelectedCode)
@@ -113,6 +127,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             {
                 values = v;
                 callbackTimes++;
+
+                return Task.CompletedTask;
             });
 
             Settings.Default.Feature_CleanupSelectedCode = false;

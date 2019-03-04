@@ -2,6 +2,7 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
+using System.Threading.Tasks;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -10,20 +11,6 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
     /// </summary>
     internal sealed class CleanupActiveCodeCommand : BaseCommand
     {
-        #region Singleton
-
-        public static CleanupActiveCodeCommand Instance { get; private set; }
-
-        public static void Initialize(CodeMaidPackage package)
-        {
-            Instance = new CleanupActiveCodeCommand(package);
-            package.SettingsMonitor.Watch(s => s.Feature_CleanupActiveCode, Instance.Switch);
-        }
-
-        #endregion Singleton
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CleanupActiveCodeCommand" /> class.
         /// </summary>
@@ -35,31 +22,31 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             CodeCleanupManager = CodeCleanupManager.GetInstance(Package);
         }
 
-        #endregion Constructors
-
-        #region BaseCommand Members
+        /// <summary>
+        /// A singleton instance of this command.
+        /// </summary>
+        public static CleanupActiveCodeCommand Instance { get; private set; }
 
         /// <summary>
-        /// Called to update the current status of the command.
+        /// Gets the code cleanup availability logic.
         /// </summary>
-        protected override void OnBeforeQueryStatus()
-        {
-            Enabled = Package.ActiveDocument != null;
-        }
+        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; }
 
         /// <summary>
-        /// Called to execute the command.
+        /// Gets the code cleanup manager.
         /// </summary>
-        protected override void OnExecute()
+        private CodeCleanupManager CodeCleanupManager { get; }
+
+        /// <summary>
+        /// Initializes a singleton instance of this command.
+        /// </summary>
+        /// <param name="package">The hosting package.</param>
+        /// <returns>A task.</returns>
+        public static async Task InitializeAsync(CodeMaidPackage package)
         {
-            base.OnExecute();
-
-            CodeCleanupManager.Cleanup(Package.ActiveDocument);
+            Instance = new CleanupActiveCodeCommand(package);
+            await package.SettingsMonitor.WatchAsync(s => s.Feature_CleanupActiveCode, Instance.SwitchAsync);
         }
-
-        #endregion BaseCommand Members
-
-        #region Internal Methods
 
         /// <summary>
         /// Called before a document is saved in order to potentially run code cleanup.
@@ -85,20 +72,22 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
             }
         }
 
-        #endregion Internal Methods
-
-        #region Private Properties
+        /// <summary>
+        /// Called to update the current status of the command.
+        /// </summary>
+        protected override void OnBeforeQueryStatus()
+        {
+            Enabled = Package.ActiveDocument != null;
+        }
 
         /// <summary>
-        /// Gets the code cleanup availability logic.
+        /// Called to execute the command.
         /// </summary>
-        private CodeCleanupAvailabilityLogic CodeCleanupAvailabilityLogic { get; }
+        protected override void OnExecute()
+        {
+            base.OnExecute();
 
-        /// <summary>
-        /// Gets the code cleanup manager.
-        /// </summary>
-        private CodeCleanupManager CodeCleanupManager { get; }
-
-        #endregion Private Properties
+            CodeCleanupManager.Cleanup(Package.ActiveDocument);
+        }
     }
 }

@@ -10,8 +10,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
     /// </summary>
     internal static class CodeElementHelper
     {
-        #region Internal Methods
-
         /// <summary>
         /// Calculates the complexity of the given element.
         /// </summary>
@@ -26,13 +24,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             functionText = Regex.Replace(functionText, @"//.*" + Environment.NewLine, Environment.NewLine);
 
             // Rip out multi-line comments.
-            functionText = Regex.Replace(functionText, @"/\*.*?\*/", String.Empty, RegexOptions.Singleline);
+            functionText = Regex.Replace(functionText, @"/\*.*?\*/", string.Empty, RegexOptions.Singleline);
 
             // Rip out strings.
-            functionText = Regex.Replace(functionText, @"""[^""]*""", String.Empty);
+            functionText = Regex.Replace(functionText, @"""[^""]*""", string.Empty);
 
             // Rip out characters.
-            functionText = Regex.Replace(functionText, @"'[^']*'", String.Empty);
+            functionText = Regex.Replace(functionText, @"'[^']*'", string.Empty);
 
             int ifCount = Regex.Matches(functionText, @"\sif[\s\(]").Count;
             int elseCount = Regex.Matches(functionText, @"\selse\s").Count;
@@ -201,7 +199,5 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             return TextDocumentHelper.GetTextToFirstMatch(startPoint, @"\{");
         }
-
-        #endregion Internal Methods
     }
 }

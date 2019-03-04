@@ -142,7 +142,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             {
                 OutputWindowHelper.ExceptionWriteLine($"TryDefault caught an exception on '{func}'", ex);
 
-                return default(T);
+                return default;
             }
         }
 
