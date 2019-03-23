@@ -21,8 +21,8 @@
                     <CheckBox Content="{x:Static p:Resources.AddSpacingAroundXMLTags}" IsChecked="{Binding CommentXmlSpaceTags}" />
                     <CheckBox Content="{x:Static p:Resources.AddSpaceInsideSelfClosingTags}" IsChecked="{Binding CommentXmlSpaceSingleTags}" />
                     <CheckBox Content="{x:Static p:Resources.KeepXMLTagsTogether}" IsChecked="{Binding CommentXmlKeepTagsTogether}" />
-                    <CheckBox Content="{x:Static p:Resources.AlignXMLLtParamGtTags}" IsChecked="{Binding CommentXmlAlignParamTags}" />
-                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitLtSummaryGtTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
+                    <CheckBox Content="{x:Static p:Resources.AlignXMLParamTags}" IsChecked="{Binding CommentXmlAlignParamTags}" />
+                    <CheckBox Content="{x:Static p:Resources.AlwaysSplitSummaryTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitSummaryTagToMultipleLines}" />
                     <CheckBox Content="{x:Static p:Resources.AlwaysSplitAllXMLTagsOntoMultipleLines}" IsChecked="{Binding CommentXmlSplitAllTags}" />
                 </StackPanel>
             </GroupBox>
