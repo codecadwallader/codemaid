@@ -133,11 +133,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Align XML &amp;lt;param&amp;gt; tags.
+        ///   Looks up a localized string similar to Align XML param tags.
         /// </summary>
-        public static string AlignXMLLtParamGtTags {
+        public static string AlignXMLParamTags {
             get {
-                return ResourceManager.GetString("AlignXMLLtParamGtTags", resourceCulture);
+                return ResourceManager.GetString("AlignXMLParamTags", resourceCulture);
             }
         }
         
@@ -178,11 +178,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Always split &amp;lt;summary&amp;gt; tags onto multiple lines.
+        ///   Looks up a localized string similar to Always split summary tags onto multiple lines.
         /// </summary>
-        public static string AlwaysSplitLtSummaryGtTagsOntoMultipleLines {
+        public static string AlwaysSplitSummaryTagsOntoMultipleLines {
             get {
-                return ResourceManager.GetString("AlwaysSplitLtSummaryGtTagsOntoMultipleLines", resourceCulture);
+                return ResourceManager.GetString("AlwaysSplitSummaryTagsOntoMultipleLines", resourceCulture);
             }
         }
         

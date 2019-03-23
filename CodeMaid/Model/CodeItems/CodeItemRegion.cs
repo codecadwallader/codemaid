@@ -80,10 +80,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     _isExpanded = value;
                     RaisePropertyChanged();
 
-                    if (IsExpandedChanged != null)
-                    {
-                        IsExpandedChanged(this, EventArgs.Empty);
-                    }
+                    IsExpandedChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }

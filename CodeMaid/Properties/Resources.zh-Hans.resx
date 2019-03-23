@@ -141,8 +141,8 @@
   <data name="AlertThreshold" xml:space="preserve">
     <value>警报阈值</value>
   </data>
-  <data name="AlignXMLLtParamGtTags" xml:space="preserve">
-    <value>对齐 XML &lt;param&gt; 标记</value>
+  <data name="AlignXMLParamTags" xml:space="preserve">
+    <value>对齐 XML param 标记</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>全部</value>
@@ -156,8 +156,8 @@
   <data name="AlwaysSplitAllXMLTagsOntoMultipleLines" xml:space="preserve">
     <value>始终将所有 XML 标记拆分为多行</value>
   </data>
-  <data name="AlwaysSplitLtSummaryGtTagsOntoMultipleLines" xml:space="preserve">
-    <value>始终将  &lt;summary&gt; 标签分到多行</value>
+  <data name="AlwaysSplitSummaryTagsOntoMultipleLines" xml:space="preserve">
+    <value>始终将  summary 标签分到多行</value>
   </data>
   <data name="AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
     <value>你准备好使用CodeMaid 清理解决方案中的所有代码了吗？</value>

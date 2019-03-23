@@ -141,8 +141,8 @@
   <data name="AlertThreshold" xml:space="preserve">
     <value>Alert threshold</value>
   </data>
-  <data name="AlignXMLLtParamGtTags" xml:space="preserve">
-    <value>Align XML &amp;lt;param&amp;gt; tags</value>
+  <data name="AlignXMLParamTags" xml:space="preserve">
+    <value>Align XML param tags</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>all</value>
@@ -156,8 +156,8 @@
   <data name="AlwaysSplitAllXMLTagsOntoMultipleLines" xml:space="preserve">
     <value>Always split all XML tags onto multiple lines</value>
   </data>
-  <data name="AlwaysSplitLtSummaryGtTagsOntoMultipleLines" xml:space="preserve">
-    <value>Always split &amp;lt;summary&amp;gt; tags onto multiple lines</value>
+  <data name="AlwaysSplitSummaryTagsOntoMultipleLines" xml:space="preserve">
+    <value>Always split summary tags onto multiple lines</value>
   </data>
   <data name="AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
     <value>Are you ready for CodeMaid to clean everything in the solution?</value>

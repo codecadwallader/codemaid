@@ -86,8 +86,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void StaleCodeModel(Document document)
         {
-            CodeModel codeModel;
-            if (_cache.TryGetValue(document.FullName, out codeModel))
+            if (_cache.TryGetValue(document.FullName, out CodeModel codeModel))
             {
                 codeModel.IsStale = true;
                 OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.StaleCodeModel in cache for '{document.FullName}'");

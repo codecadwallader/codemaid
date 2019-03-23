@@ -67,8 +67,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// </param>
         private static void OnDoWork(object sender, DoWorkEventArgs e)
         {
-            var request = e.Argument as CodeTreeRequest;
-            if (request == null || request.RawCodeItems == null) return;
+            if (!(e.Argument is CodeTreeRequest request) || request.RawCodeItems == null)
+            {
+                return;
+            }
 
             var codeItems = CodeTreeBuilder.RetrieveCodeTree(request);
 
@@ -94,8 +96,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
             }
             else if (e.Error == null)
             {
-                var snapshot = e.Result as SnapshotCodeItems;
-                if (snapshot != null)
+                if (e.Result is SnapshotCodeItems snapshot)
                 {
                     _callback(snapshot);
                 }
