@@ -14,7 +14,7 @@ These are the changes to each version that has been released to the Visual Studi
 
 ## 11.0
 
-**2019-03-28**
+**2019-03-23**
 
 - [x] Features
   - [x] [#625](https://github.com/codecadwallader/codemaid/pull/625) - Use new AsyncPackage base class
