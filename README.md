@@ -3,7 +3,7 @@
 <div id="mainFeatures"><a title="codemaid.net" href="http://www.codemaid.net" target="_blank"><img src="http://www.codemaid.net/wp-content/uploads/2019/03/about.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="http://www.codemaid.net" target="_blank"> http://www.codemaid.net</a></div>
 <p>Currently supports VS2017 and VS2019.</p>
-<p>For Visual Studio 2012/2013/2015, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v10.6/CodeMaid.v10.6.144.vsix" target="_blank"> v0.10.6</a>.</p>
+<p>For Visual Studio 2012/2013/2015, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v10.6/CodeMaid.v10.6.144.vsix" target="_blank"> v10.6</a>.</p>
 <p>For Visual Studio 2010, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.8.1/CodeMaid_v0.8.1.vsix" target="_blank"> v0.8.1</a>.</p>
 <p>For Visual Studio 2005/2008, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.4.3/CodeMaid_v0.4.3.msi" target="_blank"> v0.4.3</a>.</p>
 <h2>Links</h2>
