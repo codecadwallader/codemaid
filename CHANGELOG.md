@@ -1,18 +1,27 @@
 # Changelog
 
-## vNext (11.0)
+## vNext (11.1)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
+
+- [ ] Features
+
+- [ ] Fixes
+
+## Previous Releases
+
+These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 11.0
+
+**2019-03-28**
 
 - [x] Features
   - [x] [#625](https://github.com/codecadwallader/codemaid/pull/625) - Use new AsyncPackage base class
 
 - [x] Fixes
   - [x] [#613](https://github.com/codecadwallader/codemaid/pull/613) - Formatting: Avoid trailing comment line on self closing XML tag - thanks [bonimy](https://github.com/bonimy)!
-
-## Previous Releases
-
-These are the changes to each version that has been released to the Visual Studio marketplace.
+  - [x] [#632](https://github.com/codecadwallader/codemaid/issues/632) - Options: Fix XML encoding issue from resource translations
 
 ## 10.6
 
