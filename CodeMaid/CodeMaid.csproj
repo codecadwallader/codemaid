@@ -229,6 +229,7 @@
     <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
     <Compile Include="Integration\ISwitchableFeature.cs" />
     <Compile Include="Logic\Cleaning\FileHeaderLogic.cs" />
+    <Compile Include="Logic\Cleaning\FileHeaderVariable.cs" />
     <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
     <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
