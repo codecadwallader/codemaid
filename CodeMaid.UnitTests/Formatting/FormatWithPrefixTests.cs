@@ -19,12 +19,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_KeepsPrefix()
         {
-            Settings.Default.Formatting_CommentWrapColumn = 40;
             var input = "// Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
             var expected =
                 "// Lorem ipsum dolor sit amet," + Environment.NewLine +
                 "// consectetur adipiscing elit.";
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//", o => o.WrapColumn = 40);
         }
 
         [TestMethod]
@@ -48,26 +47,24 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_AlignsToFirstPrefix()
         {
-            Settings.Default.Formatting_CommentWrapColumn = 40;
             var input =
                 "    // Lorem ipsum dolor sit amet, consectetur" + Environment.NewLine +
                 "  // adipiscing elit.";
             var expected =
                 "    // Lorem ipsum dolor sit amet," + Environment.NewLine +
                 "    // consectetur adipiscing elit.";
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "    //");
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "    //", o => o.WrapColumn = 40);
         }
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_NoTrailingWhitespaceOnEmptyLine()
         {
-            Settings.Default.Formatting_CommentWrapColumn = 40;
             var input =
                 "// Lorem ipsum dolor sit amet." + Environment.NewLine +
                 "//" + Environment.NewLine +
                 "// Consectetur adipiscing elit.";
-            CommentFormatHelper.AssertEqualAfterFormat(input, input, "//");
+            CommentFormatHelper.AssertEqualAfterFormat(input, input, "//", o => o.WrapColumn = 40);
         }
     }
 }

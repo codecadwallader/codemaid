@@ -22,24 +22,19 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// </summary>
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void HeaderFormattingTests_IndentsXML()
+        public void HeaderFormattingTests_Copyright_Indenting()
         {
-            Settings.Default.Formatting_CommentXmlValueIndent = 0;
-
             var input =
                 @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
                 @"Company copyright tag." + Environment.NewLine +
                 @"</copyright>";
 
-            // It's not fair, but even though we are formatting without a prefix, the forced header
-            // indenting adds one extra space (to separate the prefix from the text) to the
-            // indenting, making it 5 total.
             var expected =
                 @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
-                @"     Company copyright tag." + Environment.NewLine +
+                @"    Company copyright tag." + Environment.NewLine +
                 @"</copyright>";
 
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.Indent = 0);
         }
 
         [TestMethod]
@@ -58,13 +53,12 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 
         [TestMethod]
         [TestCategory("Formatting UnitTests")]
-        public void HeaderFormattingTests_PreservesHyphenLinesWithXML()
+        public void HeaderFormattingTests_Copyright_PreservesHyphenLinesWithXML()
         {
-            // Same as above, indenting without a prefix sneaks in an extra space.
             var input =
                 @"-----------------------------------------------------------------------" + Environment.NewLine +
                 @"<copyright file=""NameOfFile.cs"" company=""CompanyName"">" + Environment.NewLine +
-                @"     Company copyright tag." + Environment.NewLine +
+                @"    Company copyright tag." + Environment.NewLine +
                 @"</copyright>" + Environment.NewLine +
                 @"-----------------------------------------------------------------------";
 

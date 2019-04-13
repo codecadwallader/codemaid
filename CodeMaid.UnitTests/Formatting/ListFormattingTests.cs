@@ -5,8 +5,8 @@ using System;
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     /// <summary>
-    /// Class with list oriented unit tests for formatting. This calls the formatter directly,
-    /// rather than invoking it through the UI as with the integration tests.
+    /// Class with list oriented unit tests for formatting. This calls the formatter directly, rather
+    /// than invoking it through the UI as with the integration tests.
     /// </summary>
     [TestClass]
     public class ListFormattingTests
@@ -35,9 +35,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"  words to require wrapping." + Environment.NewLine +
                 @"Some trailing text.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 30;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
         [TestMethod]
@@ -58,9 +56,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"   words to require wrapping." + Environment.NewLine +
                 @"Some trailing text.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 30;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
         [TestMethod]
@@ -81,9 +77,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 @"      words to require wrapping." + Environment.NewLine +
                 @"Some trailing text.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 35;
-
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 35);
         }
 
         [TestMethod]
@@ -153,8 +147,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 "</list>" + Environment.NewLine +
                 "Some trailing text.";
 
-            Settings.Default.Formatting_CommentXmlValueIndent = 2;
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.Indent = 2);
         }
     }
 }

@@ -235,10 +235,12 @@
     <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
     <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
     <Compile Include="Model\CodeItems\IInterfaceItem.cs" />
-    <Compile Include="Model\Comments\CommentOptions.cs" />
-    <Compile Include="Model\Comments\FormatterOptions.cs" />
+    <Compile Include="Model\Comments\Options\CommentOptions.cs" />
+    <Compile Include="Model\Comments\Options\FormatterOptions.cs" />
     <Compile Include="Model\Comments\CommentLine.cs" />
     <Compile Include="Model\Comments\CommentLineXml.cs" />
+    <Compile Include="Model\Comments\Options\FormatterOptionsXml.cs" />
+    <Compile Include="Model\Comments\Options\FormatterOptionsXmlTag.cs" />
     <Compile Include="Model\Comments\ICommentLine.cs" />
     <Compile Include="Model\Comments\CodeComment.cs" />
     <Compile Include="Helpers\CodeCommentHelper.cs" />
@@ -335,6 +337,10 @@
     <Compile Include="CodeMaidPackage.cs" />
     <Compile Include="Model\Comments\CommentFormatter.cs" />
     <Compile Include="Model\Comments\CommentMatch.cs" />
+    <Compile Include="Model\Comments\Options\IXmlTagOptions.cs" />
+    <Compile Include="Model\Comments\Options\XmlTagCase.cs" />
+    <Compile Include="Model\Comments\Options\XmlTagNewLine.cs" />
+    <Compile Include="Model\Comments\Options\XmlTagOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

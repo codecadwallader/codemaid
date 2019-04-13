@@ -1,42 +1,36 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Model.Comments;
+using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using System;
-using System.Collections.Generic;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     internal class CommentFormatHelper
     {
-        public static string AssertEqualAfterFormat(string input)
+        public static string AssertEqualAfterFormat(
+             string text,
+             Action<FormatterOptions> options = null)
         {
-            return AssertEqualAfterFormat(input, input);
+            return AssertEqualAfterFormat(text, null, null, options);
         }
 
-        public static string AssertEqualAfterFormat(string input, string expected)
+        public static string AssertEqualAfterFormat(
+                  string text,
+            string expected,
+                  Action<FormatterOptions> options = null)
         {
-            return AssertEqualAfterFormat(input, expected, null);
+            return AssertEqualAfterFormat(text, expected, null, options);
         }
 
-        public static string AssertEqualAfterFormat(string input, string expected, string prefix)
+        public static string AssertEqualAfterFormat(
+            string text,
+            string expected,
+            string prefix,
+            Action<FormatterOptions> options = null)
         {
-            var result = Format(input, prefix);
-            Assert.AreEqual(expected, result);
+            var result = CodeComment.Format(text, prefix, options);
+            Assert.AreEqual(expected ?? text, result);
             return result;
-        }
-
-        public static string Format(IEnumerable<string> text)
-        {
-            return Format(string.Join(Environment.NewLine, text));
-        }
-
-        public static string Format(string text)
-        {
-            return Format(text, null);
-        }
-
-        public static string Format(string text, string prefix)
-        {
-            return CodeComment.FormatXml(text, prefix);
         }
     }
 }
