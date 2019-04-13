@@ -5,6 +5,7 @@
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 - [ ] Features
+  - [x] [#620](https://github.com/codecadwallader/codemaid/pull/620) - Formatting: Allow for individual tag formatting rules - thanks [willemduncan](https://github.com/willemduncan)!
 
 - [ ] Fixes
 
