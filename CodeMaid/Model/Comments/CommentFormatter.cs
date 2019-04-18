@@ -17,9 +17,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         private readonly FormatterOptions _formatterOptions;
         private int _commentPrefixLength;
         private int _currentPosition;
-        private bool _isAfterCommentPrefix;
+        private int _indentAmount;
         private bool _isFirstWord;
         private bool _isIndented;
+        private bool _isPrefixWritten;
 
         public CommentFormatter(ICommentLine line, FormatterOptions formatterOptions, CommentOptions commentOptions)
         {
@@ -29,7 +30,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             _builder = new StringBuilder();
             _currentPosition = 0;
             _isFirstWord = true;
+            _isPrefixWritten = false;
             _isIndented = false;
+            _indentAmount = 0;
             _commentPrefixLength = WordLength(commentOptions.Prefix);
 
             // Special handling for the root XML line, it should not output it's surrounding xml
@@ -52,7 +55,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             else
             {
                 // Normal comment line has no child-lines and can be processed normally.
-                NewLine();
                 Format(line);
             }
         }
@@ -60,19 +62,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         public bool Equals(string other)
         {
             return string.Equals(ToString(), other);
-        }
-
-        public void Indent(int amount)
-        {
-            if (!_isIndented)
-            {
-                if (amount > 0)
-                {
-                    Append(string.Empty.PadLeft(amount));
-                }
-                _isIndented = true;
-                _isFirstWord = true;
-            }
         }
 
         public override string ToString()
@@ -103,27 +92,60 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             Append(value.ToString());
         }
 
-        private void Append(string value)
+        /// <summary>
+        /// Append value to current line. When line is still empty, this first writes the comment
+        /// prefix, indenting and initial spacer before appending the given value. Empty values are
+        /// ignored, but the comment prefix will be added if required.
+        /// </summary>
+        /// <param name="value">The string to append to the writer.</param>
+        /// <param name="noIdenting">
+        /// <c>true</c> if value should not be indented, eg for literal content.
+        /// </param>
+        private void Append(string value, bool noIdenting = false)
         {
+            if (!_isPrefixWritten)
+            {
+                _builder.Append(_commentOptions.Prefix);
+                _currentPosition += _commentPrefixLength;
+                _isPrefixWritten = true;
+                _isIndented = false;
+            }
+
             if (string.IsNullOrEmpty(value))
             {
                 return;
             }
-            if (_isAfterCommentPrefix)
+
+            if (!_isIndented)
             {
-                _builder.Append(CodeCommentHelper.Spacer);
-                _isAfterCommentPrefix = false;
+                if (!noIdenting)
+                {
+                    // Empty prefix also means no initial spacing.
+                    if (_commentPrefixLength > 0)
+                    {
+                        _builder.Append(CodeCommentHelper.Spacer);
+                        _currentPosition += 1;
+                    }
+
+                    if (_indentAmount > 0)
+                    {
+                        _builder.Append(string.Empty.PadLeft(_indentAmount));
+                        _currentPosition += _indentAmount;
+                    }
+
+                    _isIndented = true;
+                }
             }
+
             _builder.Append(value);
             _currentPosition += WordLength(value);
             _isFirstWord = false;
         }
 
         /// <summary>
-        /// Parse a code comment line into a string and write it to the buffer.
+        /// Parse a comment line into individual words and write it to the buffer.
         /// </summary>
         /// <param name="line">The comment line.</param>
-        /// <param name="indentAmount">The amount of indenting for the content of this tag.</param>
         /// <param name="xmlTagLength">
         /// The length of the enclosing XML tags, this is needed to calculate the line length for
         /// single line XML comments.
@@ -134,11 +156,11 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <returns>
         /// <c>true</c> if line fitted on single line, <c>false</c> if it wrapped on multiple lines.
         /// </returns>
-        private bool Format(ICommentLine line, int indentAmount = 0, int xmlTagLength = 0, bool xmlSpaceParentTagContent = false)
+        private bool Format(ICommentLine line, int xmlTagLength = 0, bool xmlSpaceParentTagContent = false)
         {
             if (line is CommentLineXml xml)
             {
-                return FormatXml(xml, indentAmount);
+                return FormatXml(xml);
             }
 
             if (line.Content == null)
@@ -181,7 +203,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (!forceBreak && matchCount == 1 && matches[0].Words.Any())
             {
                 // Calculate the length of the first line.
-                var firstLineLength = _commentPrefixLength + xmlTagLength + matches[0].Length + indentAmount;
+                var firstLineLength = _commentPrefixLength + xmlTagLength + matches[0].Length + _indentAmount;
 
                 // If set to skip wrapping on the last word, the last word's length does not matter.
                 if (_formatterOptions.SkipWrapOnLastWord)
@@ -216,8 +238,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         NewLine();
                         fittedOnLine = false;
                     }
-
-                    Indent(indentAmount);
                 }
 
                 if (match.IsList)
@@ -231,7 +251,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                 if (!match.IsEmpty)
                 {
-                    Indent(indentAmount);
                     var wordCount = match.Words.Count - 1;
 
                     for (int i = 0; i <= wordCount; i++)
@@ -258,7 +277,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         if (wrap)
                         {
                             NewLine();
-                            Indent(indentAmount);
                             fittedOnLine = false;
 
                             // If linewrap is on a list item, add extra spacing to align the text
@@ -282,12 +300,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 }
                 else
                 {
-                    // Line without words, create a blank line.
-                    if (!_isFirstWord)
-                    {
-                        NewLine();
-                    }
+                    // Line without words, create a blank line. First end the current line.
+                    NewLine();
 
+                    // And then force a newline creating an empty one.
                     NewLine(true);
                     fittedOnLine = false;
                 }
@@ -300,7 +316,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// Returns <c>true</c> if the line requests a break afterwards (did not fit on a single
         /// line), otherwise <c>false</c>.
         /// </returns>
-        private bool FormatXml(CommentLineXml xml, int indentAmount)
+        private bool FormatXml(CommentLineXml xml)
         {
             var isLiteralContent = !string.IsNullOrEmpty(xml.Content);
             var split = xml.TagOptions.Split;
@@ -322,7 +338,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 NewLine();
             }
 
-            Indent(indentAmount);
             Append(xml.TagOptions.KeepTogether ? CodeCommentHelper.FakeToSpace(xml.OpenTag) : xml.OpenTag);
 
             // Self closing tags have no content, skip all further logic and just output.
@@ -346,7 +361,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
 
             // Increase the indenting.
-            indentAmount += xml.TagOptions.Indent;
+            _indentAmount += xml.TagOptions.Indent;
 
             if (isLiteralContent)
             {
@@ -354,8 +369,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 var literals = xml.Content.Trim('\r', '\n').TrimEnd('\r', '\n', '\t', ' ').Split('\n');
                 for (int i = 0; i < literals.Length; i++)
                 {
-                    if (i > 0) NewLine(true);
-                    Append(literals[i].TrimEnd());
+                    if (i > 0)
+                        NewLine(true);
+                    Append(literals[i].TrimEnd(), true);
                 }
             }
             else
@@ -365,19 +381,18 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
                 foreach (var line in xml.Lines)
                 {
-                    if (!Format(line, indentAmount, xmlTagLength, xml.TagOptions.SpaceContent))
+                    if (!Format(line, xmlTagLength, xml.TagOptions.SpaceContent))
                         split |= XmlTagNewLine.BeforeClose | XmlTagNewLine.AfterClose;
                 }
             }
 
             // Remove the indenting.
-            indentAmount -= xml.TagOptions.Indent;
+            _indentAmount -= xml.TagOptions.Indent;
 
             // If opening tag was on own line, do the same for the closing tag.
             if (split.HasFlag(XmlTagNewLine.BeforeClose))
             {
                 NewLine();
-                Indent(indentAmount);
             }
             else if (xml.TagOptions.SpaceContent)
             {
@@ -388,7 +403,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 
             if (split.HasFlag(XmlTagNewLine.AfterClose))
             {
-                if (!xml.IsLast)
+                //if (!xml.IsLast)
                 {
                     NewLine();
                 }
@@ -399,21 +414,27 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             return true;
         }
 
+        /// <summary>
+        /// Appends a new line to the buffer, unless buffer already is on an empty new line.
+        /// </summary>
+        /// <param name="force">
+        /// If <c>true</c>, creates a new line even if the current line is empty.
+        /// </param>
         private void NewLine(bool force = false)
         {
+            if (_isFirstWord && force)
+            {
+                Append(string.Empty);
+            }
+
             if (!_isFirstWord || force)
             {
                 _builder.AppendLine();
                 _currentPosition = 0;
+
+                _isPrefixWritten = false;
+                _isFirstWord = true;
             }
-
-            _builder.Append(_commentOptions.Prefix);
-            _currentPosition += _commentPrefixLength;
-            _isFirstWord = true;
-            _isIndented = false;
-
-            // Cannot simply be true, because an empty prefix also means no initial spacing.
-            _isAfterCommentPrefix = _commentPrefixLength > 0;
         }
 
         /// <summary>
