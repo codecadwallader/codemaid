@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Properties;
-using System;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -30,8 +30,35 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_TrimsTrailingSpace()
         {
-            var input = "//   ";
-            var expected = "//";
+            var input = "// Trailing space  ";
+            var expected = "// Trailing space";
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void SimpleFormatWithPrefixTests_TrimsTrailingLines()
+        {
+            var input =
+                "// Comment with some trailing lines" + Environment.NewLine +
+                "//" + Environment.NewLine +
+                "//";
+            var expected =
+                "// Comment with some trailing lines";
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
+        }
+
+        [TestMethod]
+        [TestCategory("Formatting UnitTests")]
+        public void SimpleFormatWithPrefixTests_TrimsLeadingLines()
+        {
+            var input =
+                "//" + Environment.NewLine +
+                "//" + Environment.NewLine +
+                "// Comment with some leading lines";
+            var expected =
+                "// Comment with some leading lines";
+
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
         }
 
