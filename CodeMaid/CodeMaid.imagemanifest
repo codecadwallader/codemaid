@@ -6,19 +6,19 @@
 
   <Symbols>
     <String Name="ImagesIdePath" Value="/SteveCadwallader.CodeMaid;Component/Integration/Images/IDE" />
-    <Guid Name="CodeMaidMonikerGuid" Value="{E4C3C7F4-7250-4F02-B07B-575A320898AB}" />
+    <Guid Name="GuidCodeMaidImageMoniker" Value="{e4c3c7f4-7250-4f02-b07b-575a320898ab}" />
     <ID Name="progressToolWindow" Value="1" />
     <ID Name="spadeToolWindow" Value="2" />
   </Symbols>
 
   <Images>
-    <Image Guid="$(CodeMaidMonikerGuid)" ID="$(progressToolWindow)">
+    <Image Guid="$(GuidCodeMaidImageMoniker)" ID="$(progressToolWindow)">
       <Source Uri="$(ImagesIdePath)/progressToolWindow.png">
         <Size Value="16" />
       </Source>
     </Image>
 
-    <Image Guid="$(CodeMaidMonikerGuid)" ID="$(spadeToolWindow)">
+    <Image Guid="$(GuidCodeMaidImageMoniker)" ID="$(spadeToolWindow)">
       <Source Uri="$(ImagesIdePath)/spadeToolWindow.png">
         <Size Value="16" />
       </Source>
@@ -27,5 +27,4 @@
 
   <ImageLists>
   </ImageLists>
-
 </ImageManifest>

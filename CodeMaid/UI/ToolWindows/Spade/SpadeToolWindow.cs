@@ -1,6 +1,7 @@
 using EnvDTE;
 using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -17,7 +18,6 @@ using System.Windows;
 using System.Windows.Threading;
 using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
 using Task = System.Threading.Tasks.Task;
-using Microsoft.VisualStudio.Imaging.Interop;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -43,9 +43,9 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             Caption = Resources.CodeMaidSpade;
 
             // Set the tool window image from moniker.
-            BitmapImageMoniker = new ImageMoniker()
+            BitmapImageMoniker = new ImageMoniker
             {
-                Guid = new Guid("{E4C3C7F4-7250-4F02-B07B-575A320898AB}"),
+                Guid = PackageGuids.GuidCodeMaidImageMoniker,
                 Id = 2,
             };
 

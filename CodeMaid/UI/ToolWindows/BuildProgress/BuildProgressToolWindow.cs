@@ -1,4 +1,5 @@
 using EnvDTE;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
@@ -8,7 +9,6 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.VisualStudio.Imaging.Interop;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 {
@@ -31,10 +31,10 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             Caption = DefaultCaption;
 
             // Set the tool window image from moniker.
-            BitmapImageMoniker = new ImageMoniker()
+            BitmapImageMoniker = new ImageMoniker
             {
-                Guid = new Guid("{E4C3C7F4-7250-4F02-B07B-575A320898AB}"),
-                Id = 1,
+                Guid = PackageGuids.GuidCodeMaidImageMoniker,
+                Id = 1
             };
 
             // Create the view model.
