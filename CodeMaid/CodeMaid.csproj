@@ -460,6 +460,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Integration\Images\IDE\progressToolWindow.png" />
+    <Resource Include="Integration\Images\IDE\spadeToolWindow.png" />
     <Content Include="zh-Hans\extension.vsixlangpack">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -648,6 +650,9 @@
       <DependentUpon>CodeMaid.vsct</DependentUpon>
       <SubType>Designer</SubType>
     </VSCTCompile>
+    <Content Include="CodeMaid.imagemanifest">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="CodeMaid.vsct">
       <SubType>Designer</SubType>
       <LastGenOutput>CodeMaid.cs</LastGenOutput>

@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Threading;
 using CodeModel = SteveCadwallader.CodeMaid.Model.CodeModel;
 using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio.Imaging.Interop;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -41,9 +42,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // Set the tool window caption.
             Caption = Resources.CodeMaidSpade;
 
-            // Set the tool window image from resources.
-            BitmapResourceID = 508;
-            BitmapIndex = 0;
+            // Set the tool window image from moniker.
+            BitmapImageMoniker = new ImageMoniker()
+            {
+                Guid = new Guid("{E4C3C7F4-7250-4F02-B07B-575A320898AB}"),
+                Id = 2,
+            };
 
             // Create the toolbar for the tool window.
             ToolBar = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.ToolbarIDCodeMaidToolbarSpade);

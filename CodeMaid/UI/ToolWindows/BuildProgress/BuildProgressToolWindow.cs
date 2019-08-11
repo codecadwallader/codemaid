@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.VisualStudio.Imaging.Interop;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 {
@@ -29,9 +30,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // Set the tool window caption.
             Caption = DefaultCaption;
 
-            // Set the tool window image from resources.
-            BitmapResourceID = 502;
-            BitmapIndex = 0;
+            // Set the tool window image from moniker.
+            BitmapImageMoniker = new ImageMoniker()
+            {
+                Guid = new Guid("{E4C3C7F4-7250-4F02-B07B-575A320898AB}"),
+                Id = 1,
+            };
 
             // Create the view model.
             _viewModel = new BuildProgressViewModel();
