@@ -6,8 +6,10 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 
 - [ ] Features
   - [x] [#620](https://github.com/codecadwallader/codemaid/pull/620) - Formatting: Allow for individual tag formatting rules - thanks [willemduncan](https://github.com/willemduncan)!
+  - [x] [#665](https://github.com/codecadwallader/codemaid/pull/665) - Use image monikors so icons show up again when tool windows are small - thanks [Diermeier](https://github.com/Diermeier)!
 
 - [ ] Fixes
+  - [x] [#647](https://github.com/codecadwallader/codemaid/pull/647) - Formatting: Fix magically added slashes - thanks [willemduncan](https://github.com/willemduncan)!
 
 ## Previous Releases
 
