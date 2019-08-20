@@ -1,9 +1,9 @@
-using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Model.CodeItems;
-using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model.CodeItems;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeTree
 {
@@ -195,6 +195,9 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                 if (group == null || memberTypeSetting.Order != groupOrder)
                 {
                     group = new CodeItemRegion { Name = memberTypeSetting.EffectiveName, IsPseudoGroup = true };
+
+                    group.IsExpanded = CodeItemRegionDefaults.GetDefaultIsExpandedFor(group.Name);
+
                     groupOrder = memberTypeSetting.Order;
 
                     codeItem.Children.Add(group);

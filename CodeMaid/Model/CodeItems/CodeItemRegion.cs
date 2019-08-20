@@ -1,9 +1,27 @@
-using EnvDTE;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using EnvDTE;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
+    static class CodeItemRegionDefaults
+    {
+        public static bool GetDefaultIsExpandedFor(string name)
+        {
+            if (IsExpanded.ContainsKey(name))
+                return IsExpanded[name];
+            return true;
+        }
+
+        public static void SetDefaultIsExpandedFor(string name, bool isExpanded)
+        {
+            IsExpanded[name] = isExpanded;
+        }
+
+        static Dictionary<string, bool> IsExpanded = new Dictionary<string, bool>();
+    }
+
     /// <summary>
     /// The representation of a code region.
     /// </summary>
@@ -81,6 +99,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     RaisePropertyChanged();
 
                     IsExpandedChanged?.Invoke(this, EventArgs.Empty);
+                    CodeItemRegionDefaults.SetDefaultIsExpandedFor(this.Name, _isExpanded);
                 }
             }
         }
