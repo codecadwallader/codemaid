@@ -283,6 +283,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
                 try
                 {
                     File.Copy(dialog.FileName, ActiveSettingsPath, true);
+                    File.SetAttributes(ActiveSettingsPath, File.GetAttributes(ActiveSettingsPath) & ~FileAttributes.ReadOnly);
 
                     RefreshPackageSettings();
 
