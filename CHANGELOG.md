@@ -10,6 +10,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 
 - [ ] Fixes
   - [x] [#647](https://github.com/codecadwallader/codemaid/pull/647) - Formatting: Fix magically added slashes - thanks [willemduncan](https://github.com/willemduncan)!
+  - [x] [#670](https://github.com/codecadwallader/codemaid/pull/670) - Options: Fix importing read-only config - thanks [Smartis2812](https://github.com/Smartis2812)!
 
 ## Previous Releases
 
