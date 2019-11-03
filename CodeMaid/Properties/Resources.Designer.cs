@@ -1610,11 +1610,11 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preview (reopen to refresh).
+        ///   Looks up a localized string similar to Preview.
         /// </summary>
-        public static string PreviewReopenToRefresh {
+        public static string Preview {
             get {
-                return ResourceManager.GetString("PreviewReopenToRefresh", resourceCulture);
+                return ResourceManager.GetString("Preview", resourceCulture);
             }
         }
         

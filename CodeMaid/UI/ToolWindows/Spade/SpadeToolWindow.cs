@@ -1,6 +1,7 @@
 using EnvDTE;
 using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -41,9 +42,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             // Set the tool window caption.
             Caption = Resources.CodeMaidSpade;
 
-            // Set the tool window image from resources.
-            BitmapResourceID = 508;
-            BitmapIndex = 0;
+            // Set the tool window image from moniker.
+            BitmapImageMoniker = new ImageMoniker
+            {
+                Guid = PackageGuids.GuidCodeMaidImageMoniker,
+                Id = 2,
+            };
 
             // Create the toolbar for the tool window.
             ToolBar = new CommandID(PackageGuids.GuidCodeMaidMenuSet, PackageIds.ToolbarIDCodeMaidToolbarSpade);

@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -15,8 +16,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
     {
         #region Fields
 
-        private readonly TextDocument _document;
         private readonly Regex _commentLineRegex;
+        private readonly TextDocument _document;
         private readonly FormatterOptions _formatterOptions;
 
         private EditPoint _endPoint;
@@ -60,22 +61,26 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <summary>
         /// Helper function to generate the preview in the options menu.
         /// </summary>
-        public static string FormatXml(string text, string prefix = "///")
+        public static string Format(string text, string prefix = null, Action<FormatterOptions> options = null)
         {
             var xml = XElement.Parse($"<doc>{text}</doc>");
 
+            var formatterOptions = FormatterOptions
+                .FromSettings(Properties.Settings.Default)
+                .Set(o => o.IgnoreTokens = new[] { "TODO: " });
+
+            options?.Invoke(formatterOptions);
+
+            var commentOptions = new CommentOptions
+            {
+                Prefix = prefix,
+                Regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrWhiteSpace(prefix))
+            };
+
             var formatter = new CommentFormatter(
-                new CommentLineXml(xml),
-                new FormatterOptions
-                {
-                    IgnoreTokens = new[] { "TODO: " },
-                    TabSize = 4
-                },
-                new CommentOptions
-                {
-                    Prefix = prefix,
-                    Regex = CodeCommentHelper.GetCommentRegex(CodeLanguage.CSharp, !string.IsNullOrWhiteSpace(prefix))
-                });
+                new CommentLineXml(xml, formatterOptions),
+                formatterOptions,
+                commentOptions);
 
             return formatter.ToString();
         }
@@ -109,7 +114,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                 try
                 {
                     var xml = XElement.Parse($"<doc>{commentText}</doc>");
-                    line = new CommentLineXml(xml);
+                    line = new CommentLineXml(xml, _formatterOptions);
                 }
                 catch (System.Xml.XmlException)
                 {
@@ -203,8 +208,8 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
                         prefix = currentPrefix;
                     }
 
-                    // The initial spacer is required, otherwise we assume this is commented out
-                    // code and do not format.
+                    // The initial spacer is required, otherwise we assume this is commented out code
+                    // and do not format.
                     if (match.Groups["initialspacer"].Success)
                     {
                         result = current.CreateEditPoint();

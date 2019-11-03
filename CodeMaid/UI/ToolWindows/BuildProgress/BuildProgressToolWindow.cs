@@ -1,4 +1,5 @@
 using EnvDTE;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
@@ -29,9 +30,12 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
             // Set the tool window caption.
             Caption = DefaultCaption;
 
-            // Set the tool window image from resources.
-            BitmapResourceID = 502;
-            BitmapIndex = 0;
+            // Set the tool window image from moniker.
+            BitmapImageMoniker = new ImageMoniker
+            {
+                Guid = PackageGuids.GuidCodeMaidImageMoniker,
+                Id = 1
+            };
 
             // Create the view model.
             _viewModel = new BuildProgressViewModel();

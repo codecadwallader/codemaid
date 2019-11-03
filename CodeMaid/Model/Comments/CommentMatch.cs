@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SteveCadwallader.CodeMaid.Model.Comments.Options;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -6,8 +7,6 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CodeCommentMatch
     {
-        #region Constructors
-
         public CodeCommentMatch(Match match, FormatterOptions formatterOptions)
         {
             if (!match.Success)
@@ -44,17 +43,13 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
-        #endregion Constructors
-
-        #region Properties
-
-        public int Indent { get; private set; }
+        public int Indent { get; }
 
         public bool IsEmpty { get; private set; }
 
-        public bool IsList { get; private set; }
+        public bool IsList { get; }
 
-        public bool IsLiteral { get; private set; }
+        public bool IsLiteral { get; }
 
         public int Length
         {
@@ -66,13 +61,9 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             }
         }
 
-        public string ListPrefix { get; private set; }
+        public string ListPrefix { get; }
 
-        public IList<string> Words { get; private set; }
-
-        #endregion Properties
-
-        #region Methods
+        public List<string> Words { get; }
 
         /// <summary>
         /// Attempt to combine another match with this match. If possible, all words from the other
@@ -97,14 +88,10 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
             if (IsLiteral || other.IsLiteral)
                 return false;
 
-            foreach (var word in other.Words)
-                Words.Add(word);
-
+            Words.AddRange(other.Words);
             IsEmpty = Words.Count < 1;
 
             return true;
         }
-
-        #endregion Methods
     }
 }

@@ -2,8 +2,6 @@
 {
     internal class CommentLine : ICommentLine
     {
-        #region Constructors
-
         public CommentLine(string content)
         {
             if (!string.IsNullOrWhiteSpace(content))
@@ -12,12 +10,8 @@
             }
         }
 
-        #endregion Constructors
-
-        #region Properties
-
         public string Content { get; protected set; }
 
-        #endregion Properties
+        public bool IsLast { get; internal set; }
     }
 }

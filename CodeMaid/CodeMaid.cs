@@ -18,6 +18,7 @@ namespace SteveCadwallader.CodeMaid
         public const string GuidCodeMaidToolWindowSpadeString = "75d09b86-471e-4b30-8720-362d13ad0a45";
         public const string GuidCodeMaidOutputPaneString = "4e7ba904-9311-4dd0-abe5-a61c1739780f";
         public const string GuidCodeMaidMenuSetString = "369b04df-0688-4074-911d-d0d6c6a31632";
+        public const string GuidCodeMaidImageMonikerString = "e4c3c7f4-7250-4f02-b07b-575a320898ab";
         public const string GuidImageCleanupString = "54aa78c8-285a-4166-9eba-369dde5d787e";
         public const string GuidImageCleanupAllString = "e3d926ae-03d7-4c69-8226-440eeddab292";
         public const string GuidImageCloseLockedString = "02ee894b-084c-4ccb-8a67-5f236b5df68b";
@@ -49,6 +50,7 @@ namespace SteveCadwallader.CodeMaid
         public static Guid GuidCodeMaidToolWindowSpade = new Guid(GuidCodeMaidToolWindowSpadeString);
         public static Guid GuidCodeMaidOutputPane = new Guid(GuidCodeMaidOutputPaneString);
         public static Guid GuidCodeMaidMenuSet = new Guid(GuidCodeMaidMenuSetString);
+        public static Guid GuidCodeMaidImageMoniker = new Guid(GuidCodeMaidImageMonikerString);
         public static Guid GuidImageCleanup = new Guid(GuidImageCleanupString);
         public static Guid GuidImageCleanupAll = new Guid(GuidImageCleanupAllString);
         public static Guid GuidImageCloseLocked = new Guid(GuidImageCloseLockedString);

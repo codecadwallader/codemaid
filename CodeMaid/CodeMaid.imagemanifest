@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- see: https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/manifest-from-resources?view=vs-2019 -->
+
+<ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
+
+  <Symbols>
+    <String Name="ImagesIdePath" Value="/SteveCadwallader.CodeMaid;Component/Integration/Images/IDE" />
+    <Guid Name="GuidCodeMaidImageMoniker" Value="{e4c3c7f4-7250-4f02-b07b-575a320898ab}" />
+    <ID Name="progressToolWindow" Value="1" />
+    <ID Name="spadeToolWindow" Value="2" />
+  </Symbols>
+
+  <Images>
+    <Image Guid="$(GuidCodeMaidImageMoniker)" ID="$(progressToolWindow)">
+      <Source Uri="$(ImagesIdePath)/progressToolWindow.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+
+    <Image Guid="$(GuidCodeMaidImageMoniker)" ID="$(spadeToolWindow)">
+      <Source Uri="$(ImagesIdePath)/spadeToolWindow.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+  </Images>
+
+  <ImageLists>
+  </ImageLists>
+</ImageManifest>

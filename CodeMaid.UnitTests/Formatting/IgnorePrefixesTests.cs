@@ -20,8 +20,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         [TestCategory("Formatting UnitTests")]
         public void IgnorePrefixesTests_DoesNotWrapSingleLine()
         {
-            Settings.Default.Formatting_CommentWrapColumn = 30;
-            CommentFormatHelper.AssertEqualAfterFormat(@"TODO: Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+            CommentFormatHelper.AssertEqualAfterFormat(@"TODO: Lorem ipsum dolor sit amet, consectetur adipiscing elit.", o => o.WrapColumn = 30);
         }
 
         [TestMethod]
@@ -41,8 +40,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 "Lorem ipsum dolor sit amet," + Environment.NewLine +
                 "consectetur adipiscing elit.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 30;
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
         [TestMethod]
@@ -64,8 +62,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
                 "Lorem ipsum dolor sit amet," + Environment.NewLine +
                 "consectetur adipiscing elit.";
 
-            Settings.Default.Formatting_CommentWrapColumn = 30;
-            CommentFormatHelper.AssertEqualAfterFormat(input, expected);
+            CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
     }
 }
