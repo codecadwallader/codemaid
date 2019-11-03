@@ -1,20 +1,27 @@
 # Changelog
 
-## vNext (11.1)
+## vNext (11.2)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 - [ ] Features
-  - [x] [#620](https://github.com/codecadwallader/codemaid/pull/620) - Formatting: Allow for individual tag formatting rules - thanks [willemduncan](https://github.com/willemduncan)!
-  - [x] [#665](https://github.com/codecadwallader/codemaid/pull/665) - Use image monikors so icons show up again when tool windows are small - thanks [Diermeier](https://github.com/Diermeier)!
-
 - [ ] Fixes
-  - [x] [#647](https://github.com/codecadwallader/codemaid/pull/647) - Formatting: Fix magically added slashes - thanks [willemduncan](https://github.com/willemduncan)!
-  - [x] [#670](https://github.com/codecadwallader/codemaid/pull/670) - Options: Fix importing read-only config - thanks [Smartis2812](https://github.com/Smartis2812)!
 
 ## Previous Releases
 
 These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 11.1
+
+**2019-11-03**
+
+- [x] Features
+  - [x] [#620](https://github.com/codecadwallader/codemaid/pull/620) - Formatting: Allow for individual tag formatting rules - thanks [willemduncan](https://github.com/willemduncan)!
+  - [x] [#665](https://github.com/codecadwallader/codemaid/pull/665) - Use image monikors so icons show up again when tool windows are small - thanks [Diermeier](https://github.com/Diermeier)!
+
+- [x] Fixes
+  - [x] [#647](https://github.com/codecadwallader/codemaid/pull/647) - Formatting: Fix magically added slashes - thanks [willemduncan](https://github.com/willemduncan)!
+  - [x] [#670](https://github.com/codecadwallader/codemaid/pull/670) - Options: Fix importing read-only config - thanks [Smartis2812](https://github.com/Smartis2812)!
 
 ## 11.0
 
