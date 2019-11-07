@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1705,7 +1705,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Classes||12||Classes")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Classes||12||true||Classes")]
         public string Reorganizing_MemberTypeClasses {
             get {
                 return ((string)(this["Reorganizing_MemberTypeClasses"]));
@@ -1717,7 +1717,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Constructors||2||Constructors")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Constructors||2||true||Constructors")]
         public string Reorganizing_MemberTypeConstructors {
             get {
                 return ((string)(this["Reorganizing_MemberTypeConstructors"]));
@@ -1729,7 +1729,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Delegates||4||Delegates")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Delegates||4||true||Delegates")]
         public string Reorganizing_MemberTypeDelegates {
             get {
                 return ((string)(this["Reorganizing_MemberTypeDelegates"]));
@@ -1741,7 +1741,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Destructors||3||Destructors")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Destructors||3||true||Destructors")]
         public string Reorganizing_MemberTypeDestructors {
             get {
                 return ((string)(this["Reorganizing_MemberTypeDestructors"]));
@@ -1753,7 +1753,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Enums||6||Enums")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Enums||6||true||Enums")]
         public string Reorganizing_MemberTypeEnums {
             get {
                 return ((string)(this["Reorganizing_MemberTypeEnums"]));
@@ -1765,7 +1765,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Events||5||Events")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Events||5||true||Events")]
         public string Reorganizing_MemberTypeEvents {
             get {
                 return ((string)(this["Reorganizing_MemberTypeEvents"]));
@@ -1777,7 +1777,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Fields||1||Fields")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Fields||1||true||Fields")]
         public string Reorganizing_MemberTypeFields {
             get {
                 return ((string)(this["Reorganizing_MemberTypeFields"]));
@@ -1789,7 +1789,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Indexers||9||Indexers")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Indexers||9||true||Indexers")]
         public string Reorganizing_MemberTypeIndexers {
             get {
                 return ((string)(this["Reorganizing_MemberTypeIndexers"]));
@@ -1801,7 +1801,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Interfaces||7||Interfaces")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Interfaces||7||true||Interfaces")]
         public string Reorganizing_MemberTypeInterfaces {
             get {
                 return ((string)(this["Reorganizing_MemberTypeInterfaces"]));
@@ -1813,7 +1813,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Methods||10||Methods")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Methods||10||true||Methods")]
         public string Reorganizing_MemberTypeMethods {
             get {
                 return ((string)(this["Reorganizing_MemberTypeMethods"]));
@@ -1825,7 +1825,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Properties||8||Properties")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Properties||8||true||Properties")]
         public string Reorganizing_MemberTypeProperties {
             get {
                 return ((string)(this["Reorganizing_MemberTypeProperties"]));
@@ -1837,7 +1837,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Structs||11||Structs")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Structs||11||true||Structs")]
         public string Reorganizing_MemberTypeStructs {
             get {
                 return ((string)(this["Reorganizing_MemberTypeStructs"]));

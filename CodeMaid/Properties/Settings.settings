@@ -423,40 +423,40 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeClasses" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Classes||12||Classes</Value>
+      <Value Profile="(Default)">Classes||12||true||Classes</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeConstructors" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Constructors||2||Constructors</Value>
+      <Value Profile="(Default)">Constructors||2||true||Constructors</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeDelegates" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Delegates||4||Delegates</Value>
+      <Value Profile="(Default)">Delegates||4||true||Delegates</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeDestructors" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Destructors||3||Destructors</Value>
+      <Value Profile="(Default)">Destructors||3||true||Destructors</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeEnums" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Enums||6||Enums</Value>
+      <Value Profile="(Default)">Enums||6||true||Enums</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeEvents" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Events||5||Events</Value>
+      <Value Profile="(Default)">Events||5||true||Events</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeFields" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Fields||1||Fields</Value>
+      <Value Profile="(Default)">Fields||1||true||Fields</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeIndexers" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Indexers||9||Indexers</Value>
+      <Value Profile="(Default)">Indexers||9||true||Indexers</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeInterfaces" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Interfaces||7||Interfaces</Value>
+      <Value Profile="(Default)">Interfaces||7||true||Interfaces</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeMethods" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Methods||10||Methods</Value>
+      <Value Profile="(Default)">Methods||10||true||Methods</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeProperties" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Properties||8||Properties</Value>
+      <Value Profile="(Default)">Properties||8||true||Properties</Value>
     </Setting>
     <Setting Name="Reorganizing_MemberTypeStructs" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Structs||11||Structs</Value>
+      <Value Profile="(Default)">Structs||11||true||Structs</Value>
     </Setting>
     <Setting Name="Reorganizing_PerformWhenPreprocessorConditionals" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

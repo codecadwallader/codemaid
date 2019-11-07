@@ -17,11 +17,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="defaultName">The default name.</param>
         /// <param name="effectiveName">The effective name.</param>
         /// <param name="order">The order.</param>
-        public MemberTypeSetting(string defaultName, string effectiveName, int order)
+        /// <param name="optionStatic">The static option.</param>
+        public MemberTypeSetting(string defaultName, string effectiveName, int order, bool optionStatic)
         {
             DefaultName = defaultName;
             EffectiveName = effectiveName;
             Order = order;
+            OptionStatic = optionStatic;
         }
 
         #endregion Constructors
@@ -51,6 +53,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
             set { SetPropertyValue(value); }
         }
 
+        /// <summary>
+        /// Gets or sets the static option associated with this member type.
+        /// </summary>
+        public bool OptionStatic
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -62,23 +73,43 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A new instance of <see cref="MemberTypeSetting" />.</returns>
         public static explicit operator MemberTypeSetting(string serializedString)
         {
-            const string pattern = @"^(?<defaultName>\w+)\|\|(?<order>\d+)\|\|(?<effectiveName>.*)$";
-
             try
             {
-                var match = Regex.Match(serializedString, pattern);
+                const string patternV2 = @"^(?<defaultName>\w+)\|\|(?<order>\d+)\|\|(?<optionStatic>\w+)\|\|(?<effectiveName>.*)$";
 
-                var defaultName = match.Groups["defaultName"].Value;
-                var order = Convert.ToInt32(match.Groups["order"].Value);
-                var effectiveName = match.Groups["effectiveName"].Value;
+                if (Regex.IsMatch(serializedString, patternV2))
+                {
+                    var match = Regex.Match(serializedString, patternV2);
 
-                return new MemberTypeSetting(defaultName, effectiveName, order);
+                    var defaultName = match.Groups["defaultName"].Value;
+                    var effectiveName = match.Groups["effectiveName"].Value;
+                    var order = Convert.ToInt32(match.Groups["order"].Value);
+                    var optionStatic = Convert.ToBoolean(match.Groups["optionStatic"].Value);
+
+                    return new MemberTypeSetting(defaultName, effectiveName, order, optionStatic);
+                }
+
+                const string patternV1 = @"^(?<defaultName>\w+)\|\|(?<order>\d+)\|\|(?<effectiveName>.*)$";
+
+                if (Regex.IsMatch(serializedString, patternV1))
+                {
+                    var match = Regex.Match(serializedString, patternV1);
+
+                    var defaultName = match.Groups["defaultName"].Value;
+                    var effectiveName = match.Groups["effectiveName"].Value;
+                    var order = Convert.ToInt32(match.Groups["order"].Value);
+                    var optionStatic = true;
+
+                    return new MemberTypeSetting(defaultName, effectiveName, order, optionStatic);
+                }
             }
             catch (Exception ex)
             {
                 OutputWindowHelper.ExceptionWriteLine("Unable to deserialize member type settings", ex);
                 return null;
             }
+
+            return null;
         }
 
         /// <summary>
@@ -87,7 +118,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A serialized string representing the object.</returns>
         public static explicit operator string(MemberTypeSetting memberTypeSetting)
         {
-            return $"{memberTypeSetting.DefaultName}||{memberTypeSetting.Order}||{memberTypeSetting.EffectiveName}";
+            return $"{memberTypeSetting.DefaultName}||" +
+                   $"{memberTypeSetting.Order}||" +
+                   $"{memberTypeSetting.OptionStatic}||" +
+                   $"{memberTypeSetting.EffectiveName}";
         }
 
         #endregion Methods

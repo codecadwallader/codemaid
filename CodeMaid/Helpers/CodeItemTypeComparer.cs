@@ -163,7 +163,27 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var codeItemElement = codeItem as BaseCodeItemElement;
             if (codeItemElement == null) return 0;
 
-            return codeItemElement.IsStatic ? 0 : 1;
+            bool optionStatic;
+            switch (codeItem.Kind)
+            {
+                case KindCodeItem.Class: optionStatic = MemberTypeSettingHelper.ClassSettings.OptionStatic; break;
+                case KindCodeItem.Constructor: optionStatic = MemberTypeSettingHelper.ConstructorSettings.OptionStatic; break;
+                case KindCodeItem.Delegate: optionStatic = MemberTypeSettingHelper.DelegateSettings.OptionStatic; break;
+                case KindCodeItem.Destructor: optionStatic = MemberTypeSettingHelper.DestructorSettings.OptionStatic; break;
+                case KindCodeItem.Enum: optionStatic = MemberTypeSettingHelper.EnumSettings.OptionStatic; break;
+                case KindCodeItem.Event: optionStatic = MemberTypeSettingHelper.EventSettings.OptionStatic; break;
+                case KindCodeItem.Field: optionStatic = MemberTypeSettingHelper.FieldSettings.OptionStatic; break;
+                case KindCodeItem.Indexer: optionStatic = MemberTypeSettingHelper.IndexerSettings.OptionStatic; break;
+                case KindCodeItem.Interface: optionStatic = MemberTypeSettingHelper.InterfaceSettings.OptionStatic; break;
+                case KindCodeItem.Method: optionStatic = MemberTypeSettingHelper.MethodSettings.OptionStatic; break;
+                case KindCodeItem.Property: optionStatic = MemberTypeSettingHelper.PropertySettings.OptionStatic; break;
+                case KindCodeItem.Struct: optionStatic = MemberTypeSettingHelper.StructSettings.OptionStatic; break;
+                default: optionStatic = false; break;
+            }
+
+            if (optionStatic) return codeItemElement.IsStatic ? 0 : 1;
+
+            return 0;
         }
 
         private static int CalculateReadOnlyOffset(BaseCodeItem codeItem)

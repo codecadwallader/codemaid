@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="SteveCadwallader.CodeMaid.UI.OptionBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI">
+    <Grid x:Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label x:Name="Label" Content=""/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <CheckBox 
+                x:Name="CheckBoxStatic"
+                IsChecked="{Binding CheckBoxStaticIsChecked, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:OptionBlock}, UpdateSourceTrigger=PropertyChanged}">
+                Static
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+        </StackPanel>
+    </Grid>
+</UserControl>

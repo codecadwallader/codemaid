@@ -117,11 +117,20 @@ namespace SteveCadwallader.CodeMaid.UI
                 return;
             }
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            if (_dragCandidate != null)
+            {
+                _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, true);
+            }
 
-            DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(object), _dragCandidate.DataContext), DragDropEffects.Move);
+            if (_dragCandidate != null)
+            {
+                DragDrop.DoDragDrop(_dragCandidate, new DataObject(typeof(object), _dragCandidate.DataContext), DragDropEffects.Move);
+            }
 
-            _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            if (_dragCandidate != null)
+            {
+                _dragCandidate.SetValue(DragDropAttachedProperties.IsBeingDraggedProperty, false);
+            }
 
             _dragCandidate = null;
             _dragStartPoint = null;

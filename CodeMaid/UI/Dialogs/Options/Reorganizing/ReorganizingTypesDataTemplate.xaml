@@ -34,7 +34,6 @@
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <Grid Background="{TemplateBinding Background}">
                                         <ui:EditableTextBlock Text="{Binding EffectiveName}" Margin="2" />
-
                                         <Border x:Name="dropTargetCue" BorderBrush="{DynamicResource FCodeMaidGreen}" SnapsToDevicePixels="True" Visibility="Collapsed" />
                                     </Grid>
                                     <ControlTemplate.Triggers>

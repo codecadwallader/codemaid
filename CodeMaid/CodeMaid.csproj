@@ -426,6 +426,9 @@
     <Compile Include="UI\Enumerations\ThemeMode.cs" />
     <Compile Include="UI\ListBoxReorderBehavior.cs" />
     <Compile Include="UI\NotifiesOnAttribute.cs" />
+    <Compile Include="UI\OptionBlock.xaml.cs">
+      <DependentUpon>OptionBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ThemeManager.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
     <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">
@@ -795,6 +798,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\EditableTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

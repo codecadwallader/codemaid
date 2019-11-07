@@ -9,7 +9,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         [TestMethod]
         public void CanSerializeMemberTypeSetting()
         {
-            var memberTypeSetting = new MemberTypeSetting("Fields", "Member Variables", 1);
+            var memberTypeSetting = new MemberTypeSetting("Fields", "Member Variables", 1, true);
             Assert.IsNotNull(memberTypeSetting);
 
             var serializedString = (string)memberTypeSetting;
@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         [TestMethod]
         public void CanDeserializeMemberTypeSetting()
         {
-            const string serializedString = @"Fields||1||Member Variables";
+            const string serializedString = @"Fields||1||true||Member Variables";
 
             var memberTypeSetting = (MemberTypeSetting)serializedString;
 
@@ -27,6 +27,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
             Assert.AreEqual(memberTypeSetting.DefaultName, "Fields");
             Assert.AreEqual(memberTypeSetting.EffectiveName, "Member Variables");
             Assert.AreEqual(memberTypeSetting.Order, 1);
+            Assert.AreEqual(memberTypeSetting.OptionStatic, true);
         }
     }
 }
