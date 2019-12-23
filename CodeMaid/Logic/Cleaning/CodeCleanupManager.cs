@@ -482,6 +482,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 _usingStatementCleanupLogic.RemoveAndSortUsingStatements(textDocument);
             }
+
             // Perform file header cleanup.
             _fileHeaderLogic.UpdateFileHeader(textDocument);
 
