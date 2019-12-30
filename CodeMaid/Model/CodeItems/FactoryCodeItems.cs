@@ -1,5 +1,9 @@
+using System.ComponentModel;
+using System.Linq;
 using EnvDTE;
 using EnvDTE80;
+using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -68,6 +72,10 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                 default:
                     return null;
             }
+
+            if (Settings.Default.Digging_HideISpadeItemsEnabled &&
+                Settings.Default.Digging_HideSpadeItemsNames.Contains(codeItem.Kind.GetDescription()))
+                return null;
 
             // Populate the common fields.
             codeItem.CodeElement = codeElement;

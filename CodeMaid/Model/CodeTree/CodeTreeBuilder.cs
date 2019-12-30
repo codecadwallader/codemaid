@@ -196,7 +196,8 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
                 {
                     group = new CodeItemRegion { Name = memberTypeSetting.EffectiveName, IsPseudoGroup = true };
 
-                    group.IsExpanded = CodeItemRegionDefaults.GetDefaultIsExpandedFor(group.Name);
+                    if (Settings.Default.Digging_TrackExpandedStateOfSpadeNodes)
+                        group.IsExpanded = CodeItemRegionGlobals.GetIsExpandedFor(group.Name);
 
                     groupOrder = memberTypeSetting.Order;
 

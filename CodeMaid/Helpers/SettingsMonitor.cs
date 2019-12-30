@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.Threading;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Threading;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -104,7 +104,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 {
                     hash = unchecked(
                         hash * 31 ^ ElementComparer.GetHashCode(strings[i])
-                    );
+                                    );
                 }
                 return hash;
             }

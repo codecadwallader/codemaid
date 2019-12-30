@@ -564,5 +564,14 @@
     <Setting Name="Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Digging_HideISpadeItems" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Fields||Properties</Value>
+    </Setting>
+    <Setting Name="Digging_TrackExpandedStateOfSpadeNodes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Digging_HideISpadeItemsEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

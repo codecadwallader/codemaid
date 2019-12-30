@@ -30,7 +30,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemMetadata, x => ShowItemMetadata),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowItemTypes, x => ShowItemTypes),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_TrackExpandedStateOfSpadeNodes, x => TrackExpandedStateOfSpadeNodes),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_HideISpadeItemsEnabled, x => HideISpadeItemsEnabled),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Digging_HideISpadeItems, x => HideISpadeItems)
             };
         }
 
@@ -128,6 +131,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
             set { SetPropertyValue(value); }
         }
 
+        public bool TrackExpandedStateOfSpadeNodes
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
         /// <summary>
         /// Gets or sets the flag indicating if method parameters should be shown.
         /// </summary>
@@ -141,6 +150,18 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
         /// Gets or sets the flag indicating if outlining should be synchronized with the code file.
         /// </summary>
         public bool SynchronizeOutlining
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public string HideISpadeItems
+        {
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool HideISpadeItemsEnabled
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

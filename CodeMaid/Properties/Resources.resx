@@ -924,4 +924,13 @@
   <data name="YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing" xml:space="preserve">
     <value>You have pending changes.  Do you want to save them before continuing?</value>
   </data>
+  <data name="HideISpadeItemsPrompt" xml:space="preserve">
+    <value>Hide items (ex: Fields, Properties, Methods):</value>
+  </data>
+  <data name="PlaceEachRegionOnASeparateLine" xml:space="preserve">
+    <value>Place each region on a separate line</value>
+  </data>
+  <data name="TrackExpandedStateOfSpadeNodes" xml:space="preserve">
+    <value>Remember expanded state of the nodes</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
+using System.Diagnostics;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.UI;
-using System.Diagnostics;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -78,6 +78,11 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
             StartOffset = StartPoint.AbsoluteCharOffset;
             EndLine = EndPoint.Line;
             EndOffset = EndPoint.AbsoluteCharOffset;
+        }
+
+        public bool ShouldHideInSpade(string[] namesToHide)
+        {
+            return false;
         }
 
         #endregion Methods

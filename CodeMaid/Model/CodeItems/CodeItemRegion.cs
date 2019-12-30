@@ -2,22 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
-    static class CodeItemRegionDefaults
+    static class CodeItemRegionGlobals
     {
-        public static bool GetDefaultIsExpandedFor(string name)
-        {
-            if (IsExpanded.ContainsKey(name))
-                return IsExpanded[name];
-            return true;
-        }
+        public static bool GetIsExpandedFor(string groupTypeName)
+            => !IsExpanded.ContainsKey(groupTypeName) ?
+                IsExpanded[groupTypeName] = true :
+                IsExpanded[groupTypeName];
 
-        public static void SetDefaultIsExpandedFor(string name, bool isExpanded)
-        {
-            IsExpanded[name] = isExpanded;
-        }
+        public static void SetIsExpandedFor(string groupTypeName, bool isExpanded)
+            => IsExpanded[groupTypeName] = isExpanded;
 
         static Dictionary<string, bool> IsExpanded = new Dictionary<string, bool>();
     }
@@ -99,7 +96,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     RaisePropertyChanged();
 
                     IsExpandedChanged?.Invoke(this, EventArgs.Empty);
-                    CodeItemRegionDefaults.SetDefaultIsExpandedFor(this.Name, _isExpanded);
+                    CodeItemRegionGlobals.SetIsExpandedFor(this.Name, _isExpanded);
                 }
             }
         }

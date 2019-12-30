@@ -1,5 +1,5 @@
-﻿using SteveCadwallader.CodeMaid.Helpers;
-using System.Configuration;
+﻿using System.Configuration;
+using SteveCadwallader.CodeMaid.Helpers;
 
 namespace SteveCadwallader.CodeMaid.Properties
 {
@@ -25,5 +25,10 @@ namespace SteveCadwallader.CodeMaid.Properties
                 }
             }
         }
+
+        static char[] itemsDelimiters = new[] { '|' };
+
+        public string[] Digging_HideSpadeItemsNames
+            => (this.Digging_HideISpadeItems ?? "").Split(itemsDelimiters, System.StringSplitOptions.RemoveEmptyEntries);
     }
 }

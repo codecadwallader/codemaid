@@ -19,7 +19,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1214,6 +1214,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide items (ex: Fields, Properties, Methods):.
+        /// </summary>
+        public static string HideISpadeItemsPrompt {
+            get {
+                return ResourceManager.GetString("HideISpadeItemsPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Icons.
         /// </summary>
         public static string Icons {
@@ -1570,6 +1579,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string PlaceEachCommandOnASeparateLine {
             get {
                 return ResourceManager.GetString("PlaceEachCommandOnASeparateLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place each region on a separate line.
+        /// </summary>
+        public static string PlaceEachRegionOnASeparateLine {
+            get {
+                return ResourceManager.GetString("PlaceEachRegionOnASeparateLine", resourceCulture);
             }
         }
         
@@ -2245,6 +2263,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         public static string ToolWindows {
             get {
                 return ResourceManager.GetString("ToolWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember expanded state of the nodes.
+        /// </summary>
+        public static string TrackExpandedStateOfSpadeNodes {
+            get {
+                return ResourceManager.GetString("TrackExpandedStateOfSpadeNodes", resourceCulture);
             }
         }
         
