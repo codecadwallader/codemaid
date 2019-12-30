@@ -29,6 +29,6 @@ namespace SteveCadwallader.CodeMaid.Properties
         static char[] itemsDelimiters = new[] { '|' };
 
         public string[] Digging_HideSpadeItemsNames
-            => (this.Digging_HideISpadeItems ?? "").Split(itemsDelimiters, System.StringSplitOptions.RemoveEmptyEntries);
+            => (this.Digging_HideSpadeItems ?? "").Split(itemsDelimiters, System.StringSplitOptions.RemoveEmptyEntries);
     }
 }

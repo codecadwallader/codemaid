@@ -2261,13 +2261,13 @@ namespace SteveCadwallader.CodeMaid.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Fields||Properties")]
-        public string Digging_HideISpadeItems {
+        [global::System.Configuration.DefaultSettingValueAttribute("Fields||Indexers")]
+        public string Digging_HideSpadeItems {
             get {
-                return ((string)(this["Digging_HideISpadeItems"]));
+                return ((string)(this["Digging_HideSpadeItems"]));
             }
             set {
-                this["Digging_HideISpadeItems"] = value;
+                this["Digging_HideSpadeItems"] = value;
             }
         }
         
@@ -2286,12 +2286,12 @@ namespace SteveCadwallader.CodeMaid.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Digging_HideISpadeItemsEnabled {
+        public bool Digging_HideSpadeItemsEnabled {
             get {
-                return ((bool)(this["Digging_HideISpadeItemsEnabled"]));
+                return ((bool)(this["Digging_HideSpadeItemsEnabled"]));
             }
             set {
-                this["Digging_HideISpadeItemsEnabled"] = value;
+                this["Digging_HideSpadeItemsEnabled"] = value;
             }
         }
     }

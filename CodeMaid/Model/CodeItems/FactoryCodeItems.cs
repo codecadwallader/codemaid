@@ -73,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
                     return null;
             }
 
-            if (Settings.Default.Digging_HideISpadeItemsEnabled &&
+            if (Settings.Default.Digging_HideSpadeItemsEnabled &&
                 Settings.Default.Digging_HideSpadeItemsNames.Contains(codeItem.Kind.GetDescription()))
                 return null;
 

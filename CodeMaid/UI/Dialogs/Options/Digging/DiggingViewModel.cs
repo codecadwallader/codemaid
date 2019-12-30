@@ -32,8 +32,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Digging
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_ShowMethodParameters, x => ShowMethodParameters),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_SynchronizeOutlining, x => SynchronizeOutlining),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_TrackExpandedStateOfSpadeNodes, x => TrackExpandedStateOfSpadeNodes),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_HideISpadeItemsEnabled, x => HideISpadeItemsEnabled),
-                new SettingToOptionMapping<string, string>(x => ActiveSettings.Digging_HideISpadeItems, x => HideISpadeItems)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Digging_HideSpadeItemsEnabled, x => HideISpadeItemsEnabled),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Digging_HideSpadeItems, x => HideISpadeItems)
             };
         }
 
