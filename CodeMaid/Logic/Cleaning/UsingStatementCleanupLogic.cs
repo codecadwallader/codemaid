@@ -1,5 +1,4 @@
 using EnvDTE;
-using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
@@ -92,18 +91,20 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                  .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) == null)
                  .ToList();
 
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var point = textDocument.StartPoint.CreateEditPoint();
-
-            foreach (string usingStatement in usingStatementsToReinsert)
+            if (usingStatementsToReinsert.Count > 0)
             {
-                point.StartOfLine();
-                point.Insert(usingStatement);
-                point.Insert(Environment.NewLine);
-            }
+                var point = textDocument.StartPoint.CreateEditPoint();
 
-            // Now sort without removing to ensure correct ordering.
-            _commandHelper.ExecuteCommand(textDocument, "Edit.SortUsings");
+                foreach (string usingStatement in usingStatementsToReinsert)
+                {
+                    point.StartOfLine();
+                    point.Insert(usingStatement);
+                    point.Insert(Environment.NewLine);
+                }
+
+                // Now sort without removing to ensure correct ordering.
+                _commandHelper.ExecuteCommand(textDocument, "Edit.SortUsings");
+            }
         }
 
         #endregion Methods
