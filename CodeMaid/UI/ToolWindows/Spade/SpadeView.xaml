@@ -168,34 +168,37 @@
             </TreeView.ItemTemplateSelector>
         </TreeView>
 
-        <Border Background="{DynamicResource FOverlay}"
-                Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+        <Border Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" >
+            <Border.Background>
+                <SolidColorBrush Opacity="0" Color="#00000000"/>
+            </Border.Background>
+        </Border>
 
-        <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
+        <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Top">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <Border x:Name="outerBorder"
-                            Background="{DynamicResource FWindow}"
+                            Background="#00000000"
                             BorderBrush="{StaticResource FCodeMaidGreen}"
                             BorderThickness="0" Margin="1,0" Padding="0,5" Visibility="Collapsed">
-                        <StackPanel HorizontalAlignment="Center">
-                            <local:RadialProgressBar Width="80" Height="80" Margin="5" />
-                            <TextBlock x:Name="stateLabel" FontSize="14" FontStyle="Italic"
+                        <StackPanel HorizontalAlignment="Right">
+                            <local:RadialProgressBar Width="10" Height="10" Margin="5" />
+                            <!--<TextBlock x:Name="stateLabel" FontSize="14" FontStyle="Italic"
                                     Foreground="{StaticResource FCodeMaidGray}" />
                             <TextBlock FontSize="16"
                                        FontWeight="SemiBold"
                                        Foreground="{StaticResource FCodeMaidGreen}"
-                                       Text="{Binding Document.Name}" />
+                                       Text="{Binding Document.Name}" />-->
                         </StackPanel>
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsLoading}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Loading}" />
+                            <!--<Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Loading}" />-->
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
                             <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Refreshing}" />
+                            <!--<Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Refreshing}" />-->
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
