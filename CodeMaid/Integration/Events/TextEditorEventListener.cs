@@ -73,7 +73,8 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private void TextEditorEvents_LineChanged(TextPoint startPoint, TextPoint endPoint, int hint)
         {
             var textDocument = startPoint?.Parent;
-            if (textDocument == null) return;
+            // Ignore Output Window and other non code documents
+            if (textDocument == null || textDocument.Language == "Plain Text") return;
 
             var document = startPoint.Parent.Parent;
 
