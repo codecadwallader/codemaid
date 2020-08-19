@@ -44,6 +44,7 @@ namespace SteveCadwallader.CodeMaid
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)] // Tells Visual Studio utilities that this is a package that needs registered.
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400, LanguageIndependentName = "CodeMaid")] // VS Help/About details (Name, Description, Version, Icon).
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string, PackageAutoLoadFlags.BackgroundLoad)] // Trigger CodeMaid to load on solution open so menu items can determine their state.
+    [ProvideAutoLoad(VSConstants.UICONTEXT.FolderOpened_string, PackageAutoLoadFlags.BackgroundLoad)] // Trigger CodeMaid to load on solution open so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource("Menus.ctmenu", 1)] // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
