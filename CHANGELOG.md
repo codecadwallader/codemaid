@@ -8,6 +8,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#692](https://github.com/codecadwallader/codemaid/pull/692) - Remove and sort namespaces now supports XAML - thanks [Apflkuacha](https://github.com/Apflkuacha)!
 
 - [ ] Fixes
+  - [x] [#727](https://github.com/codecadwallader/codemaid/pull/727) - Remove and sort usings fixes - thanks [kyleruddbiz](https://github.com/kyleruddbiz)!
 
 ## Previous Releases
 
