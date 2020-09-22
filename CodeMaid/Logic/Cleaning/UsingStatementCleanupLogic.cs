@@ -73,16 +73,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             // Capture all existing using statements that should be re-inserted if removed.
             const string patternFormat = @"^[ \t]*{0}[ \t]*\r?\n";
 
-            var points = (from usingStatement in _usingStatementsToReinsertWhenRemoved.Value
-                          from editPoint in TextDocumentHelper.FindMatches(textDocument, string.Format(patternFormat, usingStatement))
-                          select new { editPoint, text = editPoint.GetLine() }).Reverse().ToList();
-
-            // Shift every captured point one character to the right so they will auto-advance
-            // during new insertions at the start of the line.
-            foreach (var point in points)
-            {
-                point.editPoint.CharRight();
-            }
+            var usingStatementsToReinsert = _usingStatementsToReinsertWhenRemoved.Value
+                .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) != null)
+                .ToList();
 
             if (_package.IDEVersion >= 15)
             {
@@ -91,19 +84,26 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             else
             {
                 _commandHelper.ExecuteCommand(textDocument, "Edit.RemoveUnusedUsings");
-                _commandHelper.ExecuteCommand(textDocument, "Edit.SortUsings");
             }
 
-            // Check each using statement point and re-insert it if removed.
-            foreach (var point in points)
+            // Ignore any using statements that are still referenced
+            usingStatementsToReinsert = usingStatementsToReinsert
+                 .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) == null)
+                 .ToList();
+
+            if (usingStatementsToReinsert.Count > 0)
             {
-                string text = point.editPoint.GetLine();
-                if (text != point.text)
+                var point = textDocument.StartPoint.CreateEditPoint();
+
+                foreach (string usingStatement in usingStatementsToReinsert)
                 {
-                    point.editPoint.StartOfLine();
-                    point.editPoint.Insert(point.text);
-                    point.editPoint.Insert(Environment.NewLine);
+                    point.StartOfLine();
+                    point.Insert(usingStatement);
+                    point.Insert(Environment.NewLine);
                 }
+
+                // Now sort without removing to ensure correct ordering.
+                _commandHelper.ExecuteCommand(textDocument, "Edit.SortUsings");
             }
         }
 
