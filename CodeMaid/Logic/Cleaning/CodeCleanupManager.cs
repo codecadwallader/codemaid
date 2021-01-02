@@ -478,6 +478,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
+            if (!document.IsExternal())
+            {
+                _usingStatementCleanupLogic.RemoveAndSortUsingStatements(textDocument);
+            }
 
             // Perform file header cleanup.
             _fileHeaderLogic.UpdateFileHeader(textDocument);

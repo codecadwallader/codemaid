@@ -1,15 +1,26 @@
 # Changelog
 
-## vNext (11.2)
+## vNext (11.3)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
 - [ ] Features
+
 - [ ] Fixes
 
 ## Previous Releases
 
 These are the changes to each version that has been released to the Visual Studio marketplace.
+
+## 11.2
+
+**2021-01-02**
+
+- [x] Features
+  - [x] [#692](https://github.com/codecadwallader/codemaid/pull/692) - Remove and sort namespaces now supports XAML - thanks [Apflkuacha](https://github.com/Apflkuacha)!
+
+- [x] Fixes
+  - [x] [#727](https://github.com/codecadwallader/codemaid/pull/727) - Remove and sort usings fixes - thanks [kyleruddbiz](https://github.com/kyleruddbiz)!
 
 ## 11.1
 

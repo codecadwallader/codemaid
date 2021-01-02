@@ -1,4 +1,4 @@
-version: 11.1.{build}
+version: 11.2.{build}
 image: Visual Studio 2017
 
 install:
@@ -23,5 +23,5 @@ test:
   assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
 
 after_test:
-  - ps: if ($env:APPVEYOR_REPO_BRANCH -eq 'master' -or $env:APPVEYOR_REPO_BRANCH -eq 'stable') { Vsix-PushArtifacts | Vsix-PublishToGallery }
-  - ps: if ($env:APPVEYOR_REPO_BRANCH -ne 'master' -and $env:APPVEYOR_REPO_BRANCH -ne 'stable') { Vsix-PushArtifacts }
+  - ps: if ($env:APPVEYOR_REPO_BRANCH -eq 'dev' -or $env:APPVEYOR_REPO_BRANCH -eq 'release') { Vsix-PushArtifacts | Vsix-PublishToGallery }
+  - ps: if ($env:APPVEYOR_REPO_BRANCH -ne 'dev' -and $env:APPVEYOR_REPO_BRANCH -ne 'release') { Vsix-PushArtifacts }
