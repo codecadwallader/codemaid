@@ -29,6 +29,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                                                    .Where(y => !string.IsNullOrEmpty(y))
                                                    .ToList());
 
+        private readonly CachedSettingSet<string> _cleanupInclusions =
+                    new CachedSettingSet<string>(() => Settings.Default.Cleaning_InclusionExpression,
+                                         expression =>
+                                         expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .Select(x => x.Trim().ToLower())
+                                                   .Where(y => !string.IsNullOrEmpty(y))
+                                                   .ToList());
+
         private EditorFactory _editorFactory;
 
         #endregion Fields
@@ -67,6 +75,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Gets a set of cleanup exclusion filters.
         /// </summary>
         private IEnumerable<string> CleanupExclusions => _cleanupExclusions.Value;
+
+        /// <summary>
+        /// Gets a set of cleanup inclusion filters.
+        /// </summary>
+        private IEnumerable<string> CleanupInclusions => _cleanupInclusions.Value;
 
         /// <summary>
         /// A default editor factory, used for its knowledge of language service-extension mappings.
@@ -112,6 +125,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (IsFileNameExcludedByOptions(document.FullName))
             {
                 OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to the file name being excluded within CodeMaid Options.");
+                return false;
+            }
+
+            if (!IsFileNameIncludedByOptions(document.FullName))
+            {
+                OutputWindowHelper.DiagnosticWriteLine($"CodeCleanupAvailabilityLogic.CanCleanupDocument returned false for '{document.FullName}' due to the file name not being included within CodeMaid Options.");
                 return false;
             }
 
@@ -324,6 +343,29 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             return cleanupExclusions.Any(cleanupExclusion => Regex.IsMatch(filename, cleanupExclusion, RegexOptions.IgnoreCase));
+        }
+
+        /// <summary>
+        /// Determines whether the specified filename is included by options.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns>True if the filename is included, otherwise false.</returns>
+        private bool IsFileNameIncludedByOptions(string filename)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                return false;
+            }
+
+            var cleanupInclusions = CleanupInclusions;
+            if (cleanupInclusions == null || !cleanupInclusions.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return cleanupInclusions.Any(cleanupInclusion => Regex.IsMatch(filename, cleanupInclusion, RegexOptions.IgnoreCase));
+            }
         }
 
         /// <summary>

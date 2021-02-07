@@ -2258,5 +2258,17 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Cleaning_InclusionExpression {
+            get {
+                return ((string)(this["Cleaning_InclusionExpression"]));
+            }
+            set {
+                this["Cleaning_InclusionExpression"] = value;
+            }
+        }
     }
 }
