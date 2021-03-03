@@ -564,5 +564,8 @@
     <Setting Name="Cleaning_InsertBlankLinePaddingAfterFieldsSingleLine" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Cleaning_InclusionExpression" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

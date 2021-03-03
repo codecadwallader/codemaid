@@ -62,6 +62,15 @@
                     <TextBlock FontStyle="Italic" Text="{x:Static p:Resources.PlaceEachRegularExpressionOnASeparateLine}" />
                 </StackPanel>
             </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Include}">
+                <StackPanel>
+                    <TextBlock Text="{x:Static p:Resources.RegularExpressionsThatMatchPathNamesToIncludeExResxOrLib}" Margin="5,5,5,0" />
+                    <TextBox Style="{DynamicResource TextBoxMultiLine}"
+                             Text="{Binding InclusionExpression, Converter={x:Static cnv:StringReplaceConverter.DoublePipeToNewLine}, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock FontStyle="Italic" Text="{x:Static p:Resources.PlaceEachRegularExpressionOnASeparateLine}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

@@ -1700,6 +1700,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regular expressions that match path names to include or leave empty to include all files  (ex: \.resx$ or \\lib\\ ).
+        /// </summary>
+        public static string RegularExpressionsThatMatchPathNamesToIncludeExResxOrLib {
+            get {
+                return ResourceManager.GetString("RegularExpressionsThatMatchPathNamesToIncludeExResxOrLib", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Remove {

@@ -21,6 +21,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_ExcludeT4GeneratedCode, x => ExcludeT4GeneratedCode),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_ExclusionExpression, x => ExclusionExpression),
+                new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_InclusionExpression, x => InclusionExpression),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCPlusPlus, x => IncludeCPlusPlus),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSharp, x => IncludeCSharp),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_IncludeCSS, x => IncludeCSS),
@@ -222,6 +223,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         public bool IncludeXML
         {
             get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public string InclusionExpression
+        {
+            get { return GetPropertyValue<string>(); }
             set { SetPropertyValue(value); }
         }
 
