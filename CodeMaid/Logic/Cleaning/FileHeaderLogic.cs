@@ -1,6 +1,5 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Properties;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
@@ -13,6 +12,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         #region Fields
 
         private readonly CodeMaidPackage _package;
+
+        private const int HeaderMaxNbLines = 30;
 
         #endregion Fields
 
@@ -52,49 +53,42 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void UpdateFileHeader(TextDocument textDocument)
         {
-            var settingsFileHeader = GetFileHeaderFromSettings(textDocument);
+            var settingsFileHeader = FileHeaderHelper.GetFileHeaderFromSettings(textDocument);
             if (string.IsNullOrWhiteSpace(settingsFileHeader))
             {
                 return;
             }
 
-            var cursor = textDocument.StartPoint.CreateEditPoint();
-            var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
+            var headerBlock = ReadHeaderBlock(textDocument);
+            var currentHeaderLength = FileHeaderHelper.GetHeaderLength(textDocument.GetCodeLanguage(), headerBlock);
+            var currentHeader = headerBlock.Substring(0, currentHeaderLength + 1) + Environment.NewLine;
+            var newHeader = settingsFileHeader + Environment.NewLine;
 
-            if (!existingFileHeader.StartsWith(settingsFileHeader))
+            if (string.Equals(currentHeader, newHeader))
             {
-                cursor.Insert(settingsFileHeader);
-                cursor.Insert(Environment.NewLine);
+                return;
             }
+
+            var docStart = textDocument.StartPoint.CreateEditPoint();
+            docStart.ReplaceText(currentHeaderLength, newHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
         }
 
         /// <summary>
-        /// Gets the file header from settings based on the language of the specified document.
+        /// Reads the first lines of a document
         /// </summary>
-        /// <param name="textDocument">The text document.</param>
-        /// <returns>A file header from settings.</returns>
-        private static string GetFileHeaderFromSettings(TextDocument textDocument)
+        /// <param name="textDocument">The document to read</param>
+        /// <returns>A string representing the first <see cref="HeaderMaxNbLines"/> lines of the document</returns>
+        private string ReadHeaderBlock(TextDocument textDocument)
         {
-            switch (textDocument.GetCodeLanguage())
-            {
-                case CodeLanguage.CPlusPlus: return Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus;
-                case CodeLanguage.CSharp: return Settings.Default.Cleaning_UpdateFileHeaderCSharp;
-                case CodeLanguage.CSS: return Settings.Default.Cleaning_UpdateFileHeaderCSS;
-                case CodeLanguage.FSharp: return Settings.Default.Cleaning_UpdateFileHeaderFSharp;
-                case CodeLanguage.HTML: return Settings.Default.Cleaning_UpdateFileHeaderHTML;
-                case CodeLanguage.JavaScript: return Settings.Default.Cleaning_UpdateFileHeaderJavaScript;
-                case CodeLanguage.JSON: return Settings.Default.Cleaning_UpdateFileHeaderJSON;
-                case CodeLanguage.LESS: return Settings.Default.Cleaning_UpdateFileHeaderLESS;
-                case CodeLanguage.PHP: return Settings.Default.Cleaning_UpdateFileHeaderPHP;
-                case CodeLanguage.PowerShell: return Settings.Default.Cleaning_UpdateFileHeaderPowerShell;
-                case CodeLanguage.R: return Settings.Default.Cleaning_UpdateFileHeaderR;
-                case CodeLanguage.SCSS: return Settings.Default.Cleaning_UpdateFileHeaderSCSS;
-                case CodeLanguage.TypeScript: return Settings.Default.Cleaning_UpdateFileHeaderTypeScript;
-                case CodeLanguage.VisualBasic: return Settings.Default.Cleaning_UpdateFileHeaderVB;
-                case CodeLanguage.XAML: return Settings.Default.Cleaning_UpdateFileHeaderXAML;
-                case CodeLanguage.XML: return Settings.Default.Cleaning_UpdateFileHeaderXML;
-                default: return null;
-            }
+            var headerNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
+            var headerBlockEnd = textDocument.StartPoint.CreateEditPoint();
+            
+            headerBlockEnd.MoveToLineAndOffset(headerNbLines, 1);
+
+            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+            var headerBlock = headerBlockStart.GetText(headerBlockEnd);
+
+            return headerBlock;
         }
 
         #endregion Methods

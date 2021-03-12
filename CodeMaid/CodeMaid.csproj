@@ -213,6 +213,7 @@
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\CommandHelper.cs" />
     <Compile Include="Helpers\DocumentExtensions.cs" />
+    <Compile Include="Helpers\FileHeaderHelper.cs" />
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />

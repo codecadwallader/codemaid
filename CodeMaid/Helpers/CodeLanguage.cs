@@ -7,7 +7,7 @@
     /// This is used to encapsulate Visual Studio reported differences we do not want to consider
     /// (e.g. JavaScript vs. JScript or HTML vs. HTMLX)
     /// </remarks>
-    internal enum CodeLanguage
+    public enum CodeLanguage
     {
         Unknown,
         CPlusPlus,
