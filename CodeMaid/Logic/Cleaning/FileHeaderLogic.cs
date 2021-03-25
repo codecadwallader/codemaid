@@ -1,5 +1,7 @@
 ﻿using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
@@ -59,18 +61,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
-            var headerBlock = ReadHeaderBlock(textDocument);
-            var currentHeaderLength = FileHeaderHelper.GetHeaderLength(textDocument.GetCodeLanguage(), headerBlock);
-            var currentHeader = headerBlock.Substring(0, currentHeaderLength + 1) + Environment.NewLine;
-            var newHeader = settingsFileHeader + Environment.NewLine;
-
-            if (string.Equals(currentHeader, newHeader))
+            switch ((HeaderUpdateMode)Settings.Default.Cleaning_UpdateFileHeader_HeaderUpdateMode)
             {
-                return;
+                case HeaderUpdateMode.Insert:
+                    InsertFileHeader(textDocument, settingsFileHeader);
+                    break;
+                case HeaderUpdateMode.Replace:
+                    ReplaceFileHeader(textDocument, settingsFileHeader);
+                    break;
             }
+        }
 
-            var docStart = textDocument.StartPoint.CreateEditPoint();
-            docStart.ReplaceText(currentHeaderLength, newHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+        private void InsertFileHeader(TextDocument textDocument, string settingsFileHeader)
+        {
+            var cursor = textDocument.StartPoint.CreateEditPoint();
+            var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
+
+            if (!existingFileHeader.StartsWith(settingsFileHeader))
+            {
+                cursor.Insert(settingsFileHeader);
+                cursor.Insert(Environment.NewLine);
+            }
         }
 
         /// <summary>
@@ -89,6 +100,22 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var headerBlock = headerBlockStart.GetText(headerBlockEnd);
 
             return headerBlock;
+        }
+
+        private void ReplaceFileHeader(TextDocument textDocument, string settingsFileHeader)
+        {
+            var headerBlock = ReadHeaderBlock(textDocument);
+            var currentHeaderLength = FileHeaderHelper.GetHeaderLength(textDocument.GetCodeLanguage(), headerBlock);
+            var currentHeader = headerBlock.Substring(0, currentHeaderLength + 1) + Environment.NewLine;
+            var newHeader = settingsFileHeader + Environment.NewLine;
+
+            if (string.Equals(currentHeader, newHeader))
+            {
+                return;
+            }
+
+            var docStart = textDocument.StartPoint.CreateEditPoint();
+            docStart.ReplaceText(currentHeaderLength, newHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
         }
 
         #endregion Methods
