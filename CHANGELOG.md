@@ -8,6 +8,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#778](https://github.com/codecadwallader/codemaid/pull/778) - Cleaning: Option to specify file inclusions by RegEx - thanks [Timo-Weike](https://github.com/Timo-Weike)!
 
 - [ ] Fixes
+  - [x] [] - Reorganizing: Fix dialog showing literal newline characters
 
 ## Previous Releases
 
