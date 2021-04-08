@@ -925,12 +925,14 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.\r\n\r\nDo you want to reorganize anyways (DANGEROUS)?.
+        ///   Looks up a localized string similar to {0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.
+        ///
+        ///Do you want to reorganize anyways (DANGEROUS)?.
         /// </summary>
-        public static string ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS {
+        public static string ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportDoYouWantToReorganizeAnywaysDANGEROUS {
             get {
                 return ResourceManager.GetString("ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupp" +
-                        "ortRNRNDoYouWantToReorganizeAnywaysDANGEROUS", resourceCulture);
+                        "ortDoYouWantToReorganizeAnywaysDANGEROUS", resourceCulture);
             }
         }
         

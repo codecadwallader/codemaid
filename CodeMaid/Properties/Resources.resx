@@ -405,8 +405,10 @@
   <data name="ConfigFilesConfigConfigAllFiles" xml:space="preserve">
     <value>Config files (*.config)|*.config|All Files (*.*)|*.*</value>
   </data>
-  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
-    <value>{0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.\r\n\r\nDo you want to reorganize anyways (DANGEROUS)?</value>
+  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
+    <value>{0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.
+
+Do you want to reorganize anyways (DANGEROUS)?</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>dark</value>
