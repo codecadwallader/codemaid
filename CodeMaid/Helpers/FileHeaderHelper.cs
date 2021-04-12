@@ -85,6 +85,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
         }
 
+        /// <summary>
+        /// Computes the length of the header
+        /// </summary>
+        /// <param name="docStart">The beginning of the document containing the header</param>
+        /// <param name="commentSyntax">The syntax of the comment tag in the processed language</param>
+        /// <returns>The header length</returns>
+        /// <remarks>EnvDTE API only counts 1 character per end of line (\r\n counts for 1)</remarks>
         internal static int GetHeaderLength(string docStart, string commentSyntax)
         {
             if (!docStart.TrimStart().StartsWith(commentSyntax))
@@ -124,6 +131,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return nbChar;
         }
 
+        /// <summary>
+        /// Computes the length of the header
+        /// </summary>
+        /// <param name="docStart">The beginning of the document containing the header</param>
+        /// <param name="commentSyntaxStart">The syntax of the comment tag start in the processed language</param>
+        /// <param name="commentSyntaxEnd">The syntax of the comment tag end in the processed language</param>
+        /// <returns>The header length</returns>
+        /// <remarks>EnvDTE API only counts 1 character per end of line (\r\n counts for 1)</remarks>
         internal static int GetHeaderLength(string docStart, string commentSyntaxStart, string commentSyntaxEnd)
         {
             if (!docStart.TrimStart().StartsWith(commentSyntaxStart))
@@ -131,13 +146,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return 0;
             }
 
-            var startIndex = docStart.IndexOf(commentSyntaxStart);
             var endIndex = docStart.IndexOf(commentSyntaxEnd);
-            var emptyStart = docStart.Substring(0, startIndex);
-            var emptyStartLength = emptyStart.Length - Regex.Matches(emptyStart, Environment.NewLine).Count;
-            var commentLength = endIndex - startIndex + commentSyntaxEnd.Length - 1;
 
-            return emptyStartLength + commentLength;
+            if (endIndex == -1)
+            {
+                return 0;
+            }
+
+            var headerBlock = docStart.Substring(0, endIndex);
+            var nbNewLines = Regex.Matches(headerBlock, Environment.NewLine).Count;
+
+            return docStart.IndexOf(commentSyntaxEnd) + commentSyntaxEnd.Length - nbNewLines;
         }
     }
 }

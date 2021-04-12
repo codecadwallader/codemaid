@@ -2,7 +2,7 @@
 {
     public enum HeaderUpdateMode
     {
-        Insert,
-        Replace,
+        Insert = 0,
+        Replace = 1,
     }
 }

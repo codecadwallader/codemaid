@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private readonly CodeMaidPackage _package;
 
-        private const int HeaderMaxNbLines = 30;
+        private const int HeaderMaxNbLines = 60;
 
         #endregion Fields
 
@@ -66,6 +66,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case HeaderUpdateMode.Insert:
                     InsertFileHeader(textDocument, settingsFileHeader);
                     break;
+
                 case HeaderUpdateMode.Replace:
                     ReplaceFileHeader(textDocument, settingsFileHeader);
                     break;
@@ -77,7 +78,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
-            if (!existingFileHeader.StartsWith(settingsFileHeader))
+            if (!existingFileHeader.StartsWith(settingsFileHeader.TrimStart()))
             {
                 cursor.Insert(settingsFileHeader);
                 cursor.Insert(Environment.NewLine);
@@ -92,14 +93,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private string ReadHeaderBlock(TextDocument textDocument)
         {
             var headerNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
-            var headerBlockEnd = textDocument.StartPoint.CreateEditPoint();
-            
-            headerBlockEnd.MoveToLineAndOffset(headerNbLines, 1);
-
             var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
-            var headerBlock = headerBlockStart.GetText(headerBlockEnd);
 
-            return headerBlock;
+            return headerBlockStart.GetLines(1, headerNbLines);
         }
 
         private void ReplaceFileHeader(TextDocument textDocument, string settingsFileHeader)

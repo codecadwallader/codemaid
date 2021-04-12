@@ -80,8 +80,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         public void GetHeaderLengthMultiLine(string docStart, string tagStart, string beaconEnd)
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(docStart, tagStart, beaconEnd);
+            var length = docStart.Length - Regex.Matches(docStart, Environment.NewLine).Count;
 
-            Assert.IsTrue(headerLength == docStart.Length - 1);
+            Assert.IsTrue(headerLength == length);
         }
 
         [TestCase("\r\n/* */", "/*", "*/")]
@@ -90,8 +91,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         public void GetHeaderLengthMultiLineWithEmptyLines(string docStart, string tagStart, string tagEnd)
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(docStart, tagStart, tagEnd);
+            var value = docStart.Length - Regex.Matches(docStart, Environment.NewLine).Count;
 
-            Assert.IsTrue(headerLength == docStart.Length - 1 - Regex.Matches(docStart, Environment.NewLine).Count);
+            Assert.IsTrue(headerLength == value);
         }
 
         [TestCase("", "/*", "*/")]
@@ -103,7 +105,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(docStart, tagStart, tagEnd);
 
-            Assert.IsTrue(headerLength <= 0);
+            Assert.IsTrue(headerLength == 0);
         }
 
         [TestCase("//", "// header fdsfndksjnfe\r\n")]
@@ -143,4 +145,3 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
         }
     }
 }
-
