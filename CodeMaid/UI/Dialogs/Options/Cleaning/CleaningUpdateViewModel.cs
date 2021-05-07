@@ -1,4 +1,5 @@
 using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.UI.Enumerations;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
 {
@@ -21,6 +22,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<int, HeaderUpdateMode>(x => ActiveSettings.Cleaning_UpdateFileHeader_HeaderUpdateMode, x => HeaderUpdateMode),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderCPlusPlus, x => UpdateFileHeaderCPlusPlus),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderCSharp, x => UpdateFileHeaderCSharp),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderCSS, x => UpdateFileHeaderCSS),
@@ -53,6 +55,15 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         #endregion Overrides of OptionsPageViewModel
 
         #region Options
+
+        /// <summary>
+        /// Gets or sets the position of the file header.
+        /// </summary>
+        public HeaderUpdateMode HeaderUpdateMode
+        {
+            get { return GetPropertyValue<HeaderUpdateMode>(); }
+            set { SetPropertyValue(value); }
+        }
 
         /// <summary>
         /// Gets or sets the flag indicating if accessors should be updated to both be single line

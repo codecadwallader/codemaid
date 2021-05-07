@@ -213,6 +213,7 @@
     <Compile Include="Helpers\CachedSettingSet.cs" />
     <Compile Include="Helpers\CommandHelper.cs" />
     <Compile Include="Helpers\DocumentExtensions.cs" />
+    <Compile Include="Helpers\FileHeaderHelper.cs" />
     <Compile Include="Helpers\MemberTypeSetting.cs" />
     <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
     <Compile Include="Helpers\ProjectItemExtensions.cs" />
@@ -420,6 +421,7 @@
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Enumerations\DropPosition.cs" />
+    <Compile Include="UI\Enumerations\HeaderUpdateMode.cs" />
     <Compile Include="UI\Enumerations\NoneEmptyAll.cs" />
     <Compile Include="UI\Enumerations\AskYesNo.cs" />
     <Compile Include="UI\Enumerations\IconSetMode.cs" />
