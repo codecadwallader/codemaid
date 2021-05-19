@@ -16,8 +16,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private BuildProgressEventListener(CodeMaidPackage package)
             : base(package)
         {
+            //TODO: Temporarily commented out build event registration related to issue #795
+
             // Store access to the build events, otherwise events will not register properly via DTE.
-            BuildEvents = Package.IDE.Events.BuildEvents;
+            //BuildEvents = Package.IDE.Events.BuildEvents;
         }
 
         /// <summary>
@@ -66,10 +68,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void RegisterListeners()
         {
-            BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
-            BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
-            BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
-            BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
+            //TODO: Temporarily commented out build event registration related to issue #795
+
+            //BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
+            //BuildEvents.OnBuildProjConfigBegin += BuildEvents_OnBuildProjConfigBegin;
+            //BuildEvents.OnBuildProjConfigDone += BuildEvents_OnBuildProjConfigDone;
+            //BuildEvents.OnBuildDone += BuildEvents_OnBuildDone;
         }
 
         /// <summary>
@@ -77,10 +81,12 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void UnRegisterListeners()
         {
-            BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
-            BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
-            BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
-            BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
+            //TODO: Temporarily commented out build event registration related to issue #795
+
+            //BuildEvents.OnBuildBegin -= BuildEvents_OnBuildBegin;
+            //BuildEvents.OnBuildProjConfigBegin -= BuildEvents_OnBuildProjConfigBegin;
+            //BuildEvents.OnBuildProjConfigDone -= BuildEvents_OnBuildProjConfigDone;
+            //BuildEvents.OnBuildDone -= BuildEvents_OnBuildDone;
         }
 
         /// <summary>

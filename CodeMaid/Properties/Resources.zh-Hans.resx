@@ -405,8 +405,8 @@
   <data name="ConfigFilesConfigConfigAllFiles" xml:space="preserve">
     <value>配置文件 (*.config)|*.config|所有文件 (*.*)|*.*</value>
   </data>
-  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
-    <value>{0} 包含当前整理不支持的预处理器条件 (例如 #if、#pragma)。 \n 是否仍要整理 (危险)？</value>
+  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
+    <value>{0} 包含当前整理不支持的预处理器条件 (例如 #if、#pragma)。  是否仍要整理 (危险)？</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>

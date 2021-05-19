@@ -169,7 +169,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                 var viewModel = new YesNoPromptViewModel
                 {
                     Title = @Resources.CodeMaidReorganizePreprocessorConditionals,
-                    Message = string.Format(Resources.ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportRNRNDoYouWantToReorganizeAnywaysDANGEROUS, document.Name),
+                    Message = string.Format(Resources.ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportDoYouWantToReorganizeAnywaysDANGEROUS, document.Name),
                     CanRemember = true
                 };
 
