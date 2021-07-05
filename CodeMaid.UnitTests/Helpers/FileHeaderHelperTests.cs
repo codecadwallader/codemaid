@@ -174,6 +174,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 
         [TestCase("//", "using System;\r\n\r\n//  header \r\nnamespace System.Windows;\r\npublic class Test\r\n", 13)]
         [TestCase("//", "using EnvDTE;\r\nusing System;\r\nusing SteveCadwallader.CodeMaid.Helpers;\r\n\r\n\r\n//  header \r\n// more header \r\nnamespace SteveCadwallader.CodeMaid;\r\n", 29)]
+        [TestCase("//", "using System;\r\n\r\n//  header \r\n[assembly: AssemblyTitle(\"SteveCadwallader.CodeMaid.UnitTests\")]\r\n", 13)]
         public void GetHeaderLengthMultiSingleLineWithCodeSkipUsings(string tag, string text, int expectedLength)
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(text, tag, true);

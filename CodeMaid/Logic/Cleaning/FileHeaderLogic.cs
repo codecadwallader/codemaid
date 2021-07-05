@@ -63,6 +63,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
+            if (!settingsFileHeader.EndsWith(Environment.NewLine))
+            {
+                settingsFileHeader += Environment.NewLine;
+            }
+
             switch ((HeaderUpdateMode)Settings.Default.Cleaning_UpdateFileHeader_HeaderUpdateMode)
             {
                 case HeaderUpdateMode.Insert:
@@ -152,7 +157,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
 
             headerBlockStart.Insert(settingsFileHeader);
-            headerBlockStart.Insert(Environment.NewLine);
         }
 
         private void InsertFileHeaderDocumentStart(TextDocument textDocument, string settingsFileHeader)
@@ -165,7 +169,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (!existingFileHeader.StartsWith(settingsFileHeader.TrimStart()))
             {
                 cursor.Insert(settingsFileHeader);
-                cursor.Insert(Environment.NewLine);
             }
         }
 
