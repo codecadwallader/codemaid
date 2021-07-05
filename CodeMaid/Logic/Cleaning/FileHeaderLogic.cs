@@ -3,6 +3,8 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -61,6 +63,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 return;
             }
 
+            if (!settingsFileHeader.EndsWith(Environment.NewLine))
+            {
+                settingsFileHeader += Environment.NewLine;
+            }
+
             switch ((HeaderUpdateMode)Settings.Default.Cleaning_UpdateFileHeader_HeaderUpdateMode)
             {
                 case HeaderUpdateMode.Insert:
@@ -70,18 +77,98 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 case HeaderUpdateMode.Replace:
                     ReplaceFileHeader(textDocument, settingsFileHeader);
                     break;
+
+                default:
+                    throw new InvalidEnumArgumentException("Invalid file header update mode retrieved from settings");
             }
+        }
+
+        private int GetHeaderLength(TextDocument textDocument, bool skipUsings)
+        {
+            var headerBlock = ReadTextBlock(textDocument);
+            var language = textDocument.GetCodeLanguage();
+
+            return FileHeaderHelper.GetHeaderLength(language, headerBlock, skipUsings);
+        }
+
+        private string GetCurrentHeader(TextDocument textDocument, bool skipUsings)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            var currentHeaderLength = GetHeaderLength(textDocument, skipUsings);
+
+            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+
+            if (skipUsings)
+            {
+                var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+
+                headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+            }
+
+            return headerBlockStart.GetText(currentHeaderLength + 1).Trim();
+        }
+
+        private int GetNbLinesToSkip(TextDocument textDocument)
+        {
+            var docHeadBlock = ReadTextBlock(textDocument);
+
+            return FileHeaderHelper.GetNbLinesToSkip("using ", docHeadBlock, new List<string> { "namespace ", "[assembly:" });
         }
 
         private void InsertFileHeader(TextDocument textDocument, string settingsFileHeader)
         {
+            switch (FileHeaderHelper.GetFileHeaderPositionFromSettings(textDocument))
+            {
+                case HeaderPosition.DocumentStart:
+                    InsertFileHeaderDocumentStart(textDocument, settingsFileHeader);
+                    return;
+
+                case HeaderPosition.AfterUsings:
+                    InsertFileHeaderAfterUsings(textDocument, settingsFileHeader);
+                    return;
+
+                default:
+                    throw new InvalidEnumArgumentException("Invalid file header position retrieved from settings");
+            }
+        }
+
+        /// <summary>
+        /// Inserts a file header located after the first block of "using" lines
+        /// </summary>
+        /// <param name="textDocument">The document to update</param>
+        /// <param name="settingsFileHeader">The new file header read from the settings</param>
+        /// <remarks>Only valid for languages containing "using" directive</remarks>
+        private void InsertFileHeaderAfterUsings(TextDocument textDocument, string settingsFileHeader)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            var currentHeader = GetCurrentHeader(textDocument, true).Trim();
+            var newHeader = settingsFileHeader.Trim();
+
+            if (string.Equals(currentHeader, newHeader))
+            {
+                return;
+            }
+
+            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+            var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+
+            headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+
+            headerBlockStart.Insert(settingsFileHeader);
+        }
+
+        private void InsertFileHeaderDocumentStart(TextDocument textDocument, string settingsFileHeader)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
             if (!existingFileHeader.StartsWith(settingsFileHeader.TrimStart()))
             {
                 cursor.Insert(settingsFileHeader);
-                cursor.Insert(Environment.NewLine);
             }
         }
 
@@ -90,28 +177,77 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// </summary>
         /// <param name="textDocument">The document to read</param>
         /// <returns>A string representing the first <see cref="HeaderMaxNbLines"/> lines of the document</returns>
-        private string ReadHeaderBlock(TextDocument textDocument)
+        private string ReadTextBlock(TextDocument textDocument)
         {
-            var headerNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
-            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            return headerBlockStart.GetLines(1, headerNbLines);
+            var maxNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
+            var blockStart = textDocument.StartPoint.CreateEditPoint();
+
+            return blockStart.GetLines(1, maxNbLines);
         }
 
         private void ReplaceFileHeader(TextDocument textDocument, string settingsFileHeader)
         {
-            var headerBlock = ReadHeaderBlock(textDocument);
-            var currentHeaderLength = FileHeaderHelper.GetHeaderLength(textDocument.GetCodeLanguage(), headerBlock);
-            var currentHeader = headerBlock.Substring(0, currentHeaderLength + 1) + Environment.NewLine;
-            var newHeader = settingsFileHeader + Environment.NewLine;
+            switch (FileHeaderHelper.GetFileHeaderPositionFromSettings(textDocument))
+            {
+                case HeaderPosition.DocumentStart:
+                    ReplaceFileHeaderDocumentStart(textDocument, settingsFileHeader);
+                    return;
+
+                case HeaderPosition.AfterUsings:
+                    ReplaceFileHeaderAfterUsings(textDocument, settingsFileHeader);
+                    return;
+
+                default:
+                    throw new InvalidEnumArgumentException("Invalid file header position retrieved from settings");
+            }
+        }
+
+        /// <summary>
+        /// Updates the file header located after the first block of "using" lines
+        /// </summary>
+        /// <param name="textDocument">The document to update</param>
+        /// <param name="settingsFileHeader">The new file header read from the settings</param>
+        /// <remarks>Only valid for languages containing "using" directive</remarks>
+        private void ReplaceFileHeaderAfterUsings(TextDocument textDocument, string settingsFileHeader)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            var currentHeader = GetCurrentHeader(textDocument, true).Trim();
+            var newHeader = settingsFileHeader.Trim();
 
             if (string.Equals(currentHeader, newHeader))
             {
                 return;
             }
 
-            var docStart = textDocument.StartPoint.CreateEditPoint();
-            docStart.ReplaceText(currentHeaderLength, newHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+            var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+
+            headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+
+            var currentHeaderLength = GetHeaderLength(textDocument, true);
+
+            headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+        }
+
+        private void ReplaceFileHeaderDocumentStart(TextDocument textDocument, string settingsFileHeader)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            var currentHeader = GetCurrentHeader(textDocument, false).Trim();
+            var newHeader = settingsFileHeader.Trim();
+
+            if (string.Equals(currentHeader, newHeader))
+            {
+                return;
+            }
+
+            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+            var currentHeaderLength = GetHeaderLength(textDocument, false);
+
+            headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
         }
 
         #endregion Methods

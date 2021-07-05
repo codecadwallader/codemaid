@@ -22,6 +22,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine, x => UpdateAccessorsToBothBeSingleLineOrMultiLine),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateEndRegionDirectives, x => UpdateEndRegionDirectives),
+                new SettingToOptionMapping<int, HeaderPosition>(x => ActiveSettings.Cleaning_UpdateFileHeader_HeaderPosition, x => HeaderPosition),
                 new SettingToOptionMapping<int, HeaderUpdateMode>(x => ActiveSettings.Cleaning_UpdateFileHeader_HeaderUpdateMode, x => HeaderUpdateMode),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderCPlusPlus, x => UpdateFileHeaderCPlusPlus),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderCSharp, x => UpdateFileHeaderCSharp),
@@ -39,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderVB, x => UpdateFileHeaderVisualBasic),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderXAML, x => UpdateFileHeaderXAML),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.Cleaning_UpdateFileHeaderXML, x => UpdateFileHeaderXML),
-                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods)
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Cleaning_UpdateSingleLineMethods, x => UpdateSingleLineMethods),
             };
         }
 
@@ -51,6 +52,19 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning
         /// Gets the header.
         /// </summary>
         public override string Header => Resources.CleaningUpdateViewModel_Update;
+
+        #endregion Overrides of OptionsPageViewModel
+
+        #region Options
+
+        /// <summary>
+        /// Gets or sets the position of the file header.
+        /// </summary>
+        public HeaderPosition HeaderPosition
+        {
+            get { return GetPropertyValue<HeaderPosition>(); }
+            set { SetPropertyValue(value); }
+        }
 
         #endregion Overrides of OptionsPageViewModel
 

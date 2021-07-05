@@ -422,6 +422,7 @@
     </Compile>
     <Compile Include="UI\Enumerations\DropPosition.cs" />
     <Compile Include="UI\Enumerations\HeaderUpdateMode.cs" />
+    <Compile Include="UI\Enumerations\HeaderPosition.cs" />
     <Compile Include="UI\Enumerations\NoneEmptyAll.cs" />
     <Compile Include="UI\Enumerations\AskYesNo.cs" />
     <Compile Include="UI\Enumerations\IconSetMode.cs" />
