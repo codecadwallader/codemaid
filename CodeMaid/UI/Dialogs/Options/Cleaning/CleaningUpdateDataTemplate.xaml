@@ -21,12 +21,24 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <RadioButton Grid.Row="0" GroupName="HeaderMode" Content="Insert header on top of files" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Insert}}" />
-                        <RadioButton Grid.Row="1" GroupName="HeaderMode" Content="Replace existing header if present" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Replace}}"  />
+                        <RadioButton Grid.Row="0" GroupName="HeaderMode" Content="Insert" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Insert}}" ToolTip="Inserts a new header if the one already present is different. If no header is present, the defined header is simply inserted." />
+                        <RadioButton Grid.Row="1" GroupName="HeaderMode" Content="Replace" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Replace}}" ToolTip="Replaces the existing header. If no header is present, the defined header is simply inserted." />
                     </Grid>
                     <TabControl Margin="0 5">
                         <TabItem Header="C#">
-                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                            <StackPanel Orientation="Vertical">
+                                <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                                <GroupBox Header="Position" Margin="5,0,5,5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <RadioButton Grid.Row="0" GroupName="HeaderInsertStyle" Content="Start of document" IsChecked="{Binding HeaderPosition, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderPosition.DocumentStart}}" />
+                                        <RadioButton Grid.Row="1" GroupName="HeaderInsertStyle" Content="After usings" IsChecked="{Binding HeaderPosition, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderPosition.AfterUsings}}" />
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
                         </TabItem>
                         <TabItem Header="C++">
                             <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" />

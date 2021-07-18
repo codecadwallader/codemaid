@@ -2270,6 +2270,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InclusionExpression"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Cleaning_UpdateFileHeader_HeaderPosition {
+            get {
+                return ((int)(this["Cleaning_UpdateFileHeader_HeaderPosition"]));
+            }
+            set {
+                this["Cleaning_UpdateFileHeader_HeaderPosition"] = value;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -567,6 +567,9 @@
     <Setting Name="Cleaning_InclusionExpression" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Cleaning_UpdateFileHeader_HeaderPosition" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
     <Setting Name="Cleaning_UpdateFileHeader_HeaderUpdateMode" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
