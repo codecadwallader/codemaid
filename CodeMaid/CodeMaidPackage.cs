@@ -278,12 +278,11 @@ namespace SteveCadwallader.CodeMaid
 
             VSColorTheme.ThemeChanged += _ => ThemeManager.ApplyTheme();
 
-            //TODO: Temporarily commented out build event registration related to issue #795
-            //await BuildProgressEventListener.InitializeAsync(this);
-            //BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
-            //BuildProgressEventListener.Instance.BuildProjConfigBegin += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigBegin;
-            //BuildProgressEventListener.Instance.BuildProjConfigDone += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigDone;
-            //BuildProgressEventListener.Instance.BuildDone += BuildProgressToolWindowCommand.Instance.OnBuildDone;
+            await BuildProgressEventListener.InitializeAsync(this);
+            BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
+            BuildProgressEventListener.Instance.BuildProjConfigBegin += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigBegin;
+            BuildProgressEventListener.Instance.BuildProjConfigDone += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigDone;
+            BuildProgressEventListener.Instance.BuildDone += BuildProgressToolWindowCommand.Instance.OnBuildDone;
 
             await DocumentEventListener.InitializeAsync(this);
             DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
