@@ -20,12 +20,12 @@
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>[base64 mime encoded serialized .NET Framework object]</value>
-  </data>
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
-  </data>
+    </data>
                 
     There are any number of "resheader" rows that contain simple 
     name/value pairs.
@@ -923,5 +923,8 @@
   </data>
   <data name="YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing" xml:space="preserve">
     <value>您有挂起的更改。 是否要在继续之前保存它们？</value>
+  </data>
+  <data name="OnlyForMethods" xml:space="preserve">
+    <value>Only for methods (TBT)</value>
   </data>
 </root>

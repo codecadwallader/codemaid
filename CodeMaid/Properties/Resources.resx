@@ -929,4 +929,7 @@ Do you want to reorganize anyways (DANGEROUS)?</value>
   <data name="RegularExpressionsThatMatchPathNamesToIncludeExResxOrLib" xml:space="preserve">
     <value>Regular expressions that match path names to include or leave empty to include all files  (ex: \.resx$ or \\lib\\ )</value>
   </data>
+  <data name="OnlyForMethods" xml:space="preserve">
+    <value>Only for methods</value>
+  </data>
 </root>

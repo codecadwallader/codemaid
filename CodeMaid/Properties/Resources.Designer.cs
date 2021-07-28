@@ -1513,6 +1513,15 @@ namespace SteveCadwallader.CodeMaid.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only for methods.
+        /// </summary>
+        public static string OnlyForMethods {
+            get {
+                return ResourceManager.GetString("OnlyForMethods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  to be reset to their defaults?.
         /// </summary>
         public static string OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults {

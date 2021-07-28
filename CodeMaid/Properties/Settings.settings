@@ -573,5 +573,8 @@
     <Setting Name="Cleaning_UpdateFileHeader_HeaderUpdateMode" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Reorganizing_RegionsIncludeAccessLevelForMethodsOnly" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -20,6 +20,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsIncludeAccessLevel, x => IncludeAccessLevel),
+                new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsIncludeAccessLevelForMethodsOnly, x => IncludeAccessLevelForMethodsOnly),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertKeepEvenIfEmpty, x => InsertKeepEvenIfEmpty),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsInsertNewRegions, x => InsertNewRegions),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Reorganizing_RegionsRemoveExistingRegions, x => RemoveExistingRegions)
@@ -43,6 +44,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing
         /// Gets or sets the flag indicating if the access level should be included in the regions.
         /// </summary>
         public bool IncludeAccessLevel
+        {
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
+        }
+
+        public bool IncludeAccessLevelForMethodsOnly
         {
             get { return GetPropertyValue<bool>(); }
             set { SetPropertyValue(value); }

@@ -2270,7 +2270,7 @@ namespace SteveCadwallader.CodeMaid.Properties {
                 this["Cleaning_InclusionExpression"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2292,6 +2292,18 @@ namespace SteveCadwallader.CodeMaid.Properties {
             }
             set {
                 this["Cleaning_UpdateFileHeader_HeaderUpdateMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Reorganizing_RegionsIncludeAccessLevelForMethodsOnly {
+            get {
+                return ((bool)(this["Reorganizing_RegionsIncludeAccessLevelForMethodsOnly"]));
+            }
+            set {
+                this["Reorganizing_RegionsIncludeAccessLevelForMethodsOnly"] = value;
             }
         }
     }
