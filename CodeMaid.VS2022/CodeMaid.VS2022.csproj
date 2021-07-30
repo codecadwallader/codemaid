@@ -12,7 +12,7 @@
     <ProjectGuid>{6D3EDF86-D2F8-4779-8A95-052227ED56A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SteveCadwallader.CodeMaid.VS2022</RootNamespace>
+    <RootNamespace>SteveCadwallader.CodeMaid</RootNamespace>
     <AssemblyName>SteveCadwallader.CodeMaid.VS2022</AssemblyName>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CodeMaid.snk</AssemblyOriginatorKeyFile>
