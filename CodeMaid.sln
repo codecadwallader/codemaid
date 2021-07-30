@@ -23,7 +23,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeMaidShared", "CodeMaidShared\CodeMaidShared.shproj", "{E94629D8-7803-4242-A0C6-3560005515E6}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeMaid.IntegrationTestsShared", "CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.shproj", "{D3F5D424-5D8F-4946-A2AB-7FDDAC74F228}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		CodeMaidShared\CodeMaidShared.projitems*{19b1ab9e-4603-4a9c-9284-32aae57fb7bc}*SharedItemsImports = 4
+		CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.projitems*{756ccda3-d5e9-44b8-8049-1317b1826776}*SharedItemsImports = 4
+		CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.projitems*{d3f5d424-5d8f-4946-a2ab-7fddac74f228}*SharedItemsImports = 13
+		CodeMaidShared\CodeMaidShared.projitems*{e94629d8-7803-4242-a0c6-3560005515e6}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -44,6 +54,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54B15E96-7E75-4C46-858D-E5DAC0343C58}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CodeMaid.vsmdi
