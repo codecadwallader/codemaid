@@ -81,19 +81,6 @@
       <DependentUpon>CodeMaid.vsct</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.cs">
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
@@ -324,27 +311,12 @@
     <Resource Include="Integration\Images\IDE\unlock.bmp" />
     <Resource Include="Integration\Images\IDE\commentformat.bmp" />
     <Resource Include="Integration\Images\IDE\removeRegion.bmp" />
-    <None Include="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="source.extension.vsixmanifest">
       <Generator>VsixManifestGenerator</Generator>
       <LastGenOutput>source.extension.resx</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.en-US.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="source.extension.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.en-US.resources</LogicalName>
