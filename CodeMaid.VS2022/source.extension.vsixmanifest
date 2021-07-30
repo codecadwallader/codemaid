@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="CodeMaid.VS2022.65bdd553-bb6f-4e41-87da-3c8bc0bdef6f" Version="1.0" Language="en-US" Publisher="Steve Cadwallader" />
-    <DisplayName>CodeMaid.VS2022</DisplayName>
-    <Description>Empty VSIX Project.</Description>
+    <Identity Publisher="Steve Cadwallader" Version="11.2" Id="4c82e17d-927e-42d2-8460-b473ac7df316" Language="en-US" />
+    <DisplayName>CodeMaid</DisplayName>
+    <Description xml:space="preserve">CodeMaid is an open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, R, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.</Description>
+    <MoreInfo>http://www.codemaid.net/</MoreInfo>
+    <License>LICENSE.txt</License>
+    <Icon>CodeMaid.png</Icon>
+    <PreviewImage>CodeMaid_Large.png</PreviewImage>
+    <Tags>build, code, c#, beautify, cleanup, cleaning, digging, reorganizing, formatting</Tags>
   </Metadata>
   <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)" />
   </Installation>
   <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
   </Dependencies>
   <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
   </Prerequisites>
 </PackageManifest>
