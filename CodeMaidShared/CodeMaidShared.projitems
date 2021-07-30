@@ -9,5 +9,350 @@
     <Import_RootNamespace>CodeMaidShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CodeMaidPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ActiveDocumentRestorer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CachedSetting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CachedSettingSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeCommentHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeElementHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeItemNameComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeItemParentExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeItemTypeComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeLanguage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeLanguageHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeMaidSettingsProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CommandHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CursorPositionRestorer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DocumentExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EditPointExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnumHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ExplicitInterfaceImplementationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FileHeaderHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MemberTypeSetting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MemberTypeSettingHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\OutputWindowHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectItemExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\PropertyInfoHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RegexNullSafe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RegionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SettingsContextHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SettingsMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SolutionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TextDocumentExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TextDocumentHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TypeFormatHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UIHierarchyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UndoTransactionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\AboutCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\BaseCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\BuildProgressToolWindowCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CleanupActiveCodeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CleanupAllCodeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CleanupOpenCodeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CleanupSelectedCodeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CloseAllReadOnlyCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\CommentFormatCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\FindInSolutionExplorerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\JoinLinesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\OptionsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\ReadOnlyToggleCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\RemoveRegionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\ReorganizeActiveCodeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SettingCleanupOnSaveCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SortLinesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeContextDeleteCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeContextFindReferencesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeContextInsertRegionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeOptionsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeRefreshCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeSearchCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeSortOrderAlphaCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeSortOrderFileCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeSortOrderTypeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SpadeToolWindowCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\SwitchFileCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\BaseEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\BuildProgressEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\DocumentEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\RunningDocumentTableEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\SolutionEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\TextEditorEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\WindowEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integration\ISwitchableFeature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\FileHeaderLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveRegionLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveWhitespaceLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UpdateLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UsingStatementCleanupLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Digging\OutliningSynchronizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Formatting\CommentFormatLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Reorganizing\CodeReorganizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Reorganizing\GenerateRegionLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Reorganizing\RegionComparerByName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\BaseCodeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\BaseCodeItemElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\BaseCodeItemElementParent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemField.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemMethod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemNamespace.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemRegion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemStruct.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\CodeItemUsingStatement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\FactoryCodeItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\ICodeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\ICodeItemComplexity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\ICodeItemParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\ICodeItemParent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\IInterfaceItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\KindCodeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\SetCodeItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeItems\SnapshotCodeItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeModelBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeModelCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeModelHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeModelManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeTree\CodeSortOrder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeTree\CodeTreeBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeTree\CodeTreeBuilderAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CodeTree\CodeTreeRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\CodeComment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\CommentFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\CommentLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\CommentLineXml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\CommentMatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\ICommentLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\CommentOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\FormatterOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\FormatterOptionsXml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\FormatterOptionsXmlTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\IXmlTagOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\XmlTagCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\XmlTagNewLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Comments\Options\XmlTagOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Bindable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanInverseConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemParentMemberCountConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemToImageConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemToMetadataStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\DocCommentToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\IntToThicknessConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\NameParametersToTextBlockConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\PropertyInfoDescriptionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\StringReplaceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\TypeStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\DelegateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\DependencyObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\About\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\CleanupProgress\CleanupProgressViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml.cs">
+      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningFileTypesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningGeneralViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningInsertViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningParentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Finding\FindingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\General\FeaturesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\General\GeneralViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\ISettingToOptionMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\OptionsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\OptionsPageViewModelEnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\OptionsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingGeneralViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingParentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingRegionsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingTypesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\SettingsToOptionsList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\SettingToOptionMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Prompts\YesNoPromptViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dialogs\Prompts\YesNoPromptWindow.xaml.cs">
+      <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\DragDropAttachedProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\EditableTextBlock.xaml.cs">
+      <DependentUpon>EditableTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\AskYesNo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\DropPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\HeaderPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\HeaderUpdateMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\IconSetMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\NoneEmptyAll.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Enumerations\ThemeMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ListBoxReorderBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\NotifiesOnAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ThemeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">
+      <DependentUpon>BuildProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\BuildProgress\BuildProgressViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CenterConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\MemberSearchTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\RadialProgressBar.xaml.cs">
+      <DependentUpon>RadialProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\SpadeToolWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\SpadeView.xaml.cs">
+      <DependentUpon>SpadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\SpadeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\TreeViewBindableSelectedItemBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\TreeViewMultipleSelectionBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\WindowAttachedProperties.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\About\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningGeneralDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningInsertDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningParentDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningRemoveDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningUpdateDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Digging\DiggingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Finding\FindingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Formatting\FormattingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\General\FeaturesDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\General\GeneralDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\OptionsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Progressing\ProgressingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingGeneralDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingParentDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingRegionsDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Reorganizing\ReorganizingTypesDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\Switching\SwitchingDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Options\ThirdParty\ThirdPartyDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Dialogs\Prompts\YesNoPromptWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\EditableTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\CodeMaidCoreTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\CodeMaidDarkTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\CodeMaidLightTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Themes\TreeViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\BuildProgress\BuildProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CodeItemBaseTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CodeItemTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\CodeItemToolTipTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\RadialProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\ToolWindows\Spade\SpadeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)app.config" />
   </ItemGroup>
 </Project>
