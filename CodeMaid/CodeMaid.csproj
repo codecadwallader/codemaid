@@ -772,9 +772,6 @@
     <PackageReference Include="Microsoft.VisualStudio.SDK">
       <Version>15.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
-      <Version>15.8.36</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools">
       <Version>15.9.3039</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
