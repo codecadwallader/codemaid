@@ -335,7 +335,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
             if (Settings.Default.Reorganizing_RegionsIncludeAccessLevel)
             {
                 var element = codeItem as BaseCodeItemElement;
-                if (element != null)
+                if (element != null && (!Settings.Default.Reorganizing_RegionsIncludeAccessLevelForMethodsOnly || element is CodeItemMethod))
                 {
                     var accessModifier = CodeElementHelper.GetAccessModifierKeyword(element.Access);
                     if (accessModifier != null)
