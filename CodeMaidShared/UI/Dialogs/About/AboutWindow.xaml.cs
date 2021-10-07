@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,6 +18,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.About
         /// </summary>
         public AboutWindow()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
 

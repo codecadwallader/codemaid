@@ -1,4 +1,6 @@
 using System.ComponentModel;
+using System.Reflection;
+using System.Windows;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
 {
@@ -14,6 +16,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress
         /// </summary>
         public CleanupProgressWindow()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
 

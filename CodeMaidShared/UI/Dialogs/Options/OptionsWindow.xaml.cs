@@ -1,3 +1,6 @@
+using System.Reflection;
+using System.Windows;
+
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 {
     /// <summary>
@@ -10,6 +13,8 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </summary>
         public OptionsWindow()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             HasMaximizeButton = true;
 
             InitializeComponent();

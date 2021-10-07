@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -6,6 +8,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
     {
         public RadialProgressBar()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
     }

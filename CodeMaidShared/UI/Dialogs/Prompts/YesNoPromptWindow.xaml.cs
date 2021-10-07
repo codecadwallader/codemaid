@@ -1,4 +1,7 @@
-﻿namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
+﻿using System.Reflection;
+using System.Windows;
+
+namespace SteveCadwallader.CodeMaid.UI.Dialogs.Prompts
 {
     /// <summary>
     /// Interaction logic for YesNoPromptWindow.xaml
@@ -10,6 +13,8 @@
         /// </summary>
         public YesNoPromptWindow()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
     }

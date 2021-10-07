@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -23,6 +24,8 @@ namespace SteveCadwallader.CodeMaid.UI
         /// </summary>
         public EditableTextBlock()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
 

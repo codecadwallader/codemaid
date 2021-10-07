@@ -1,3 +1,6 @@
+using System.Reflection;
+using System.Windows;
+
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 {
     /// <summary>
@@ -10,6 +13,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// </summary>
         public BuildProgressView()
         {
+            Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
             InitializeComponent();
         }
     }
