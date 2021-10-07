@@ -7,12 +7,12 @@
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         KeyDown="OnKeyDown" MouseLeftButtonDown="OnMouseLeftButtonDown">
     <platformUI:DialogWindow.Background>
-        <ImageBrush ImageSource="/SteveCadwallader.CodeMaid;component/Integration/Images/about.png" />
+        <ImageBrush ImageSource="/Integration/Images/about.png" />
     </platformUI:DialogWindow.Background>
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">

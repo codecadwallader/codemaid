@@ -8,7 +8,7 @@
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:CleanupProgressViewModel, IsDesignTimeCreatable=False}"
-        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="{x:Static p:Resources.CodeMaidCleanupProgress}"
+        Icon="/source.extension.ico" Title="{x:Static p:Resources.CodeMaidCleanupProgress}"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
         Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}" Closing="OnClosing"
@@ -16,7 +16,7 @@
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>

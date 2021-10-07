@@ -75,7 +75,7 @@ namespace SteveCadwallader.CodeMaid.UI
 
                     foreach (ThemeMode theme in Enum.GetValues(typeof(ThemeMode)))
                     {
-                        var uriString = $@"/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaid{theme}Theme.xaml";
+                        var uriString = $@"/UI/Themes/CodeMaid{theme}Theme.xaml";
                         var uri = new Uri(uriString, UriKind.Relative);
 
                         _themeUris.Add(theme, uri);

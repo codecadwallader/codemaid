@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Prompts"
         xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
         d:DataContext="{d:DesignInstance local:YesNoPromptViewModel, IsDesignTimeCreatable=False}"
-        Icon="/SteveCadwallader.CodeMaid;component/source.extension.ico" Title="{Binding Title}"
+        Icon="/source.extension.ico" Title="{Binding Title}"
         TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
         Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}"
@@ -17,7 +17,7 @@
     <platformUI:DialogWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SteveCadwallader.CodeMaid;component/UI/Themes/CodeMaidCoreTheme.xaml" />
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </platformUI:DialogWindow.Resources>

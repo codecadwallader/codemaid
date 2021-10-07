@@ -16,6 +16,6 @@
     <SolidColorBrush x:Key="FGItemHighlight" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="FGType" Color="#FF777777" />
 
-    <ImageSource x:Key="ImageCollapsed">/SteveCadwallader.CodeMaid;component/UI/Themes/Images/CollapsedDark.png</ImageSource>
-    <ImageSource x:Key="ImageExpanded">/SteveCadwallader.CodeMaid;component/UI/Themes/Images/ExpandedDark.png</ImageSource>
+    <ImageSource x:Key="ImageCollapsed">/UI/Themes/Images/CollapsedDark.png</ImageSource>
+    <ImageSource x:Key="ImageExpanded">/UI/Themes/Images/ExpandedDark.png</ImageSource>
 </ResourceDictionary>
