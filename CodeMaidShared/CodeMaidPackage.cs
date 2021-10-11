@@ -76,6 +76,9 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         private ThemeManager _themeManager;
 
+
+        internal static CodeMaidPackage Instance;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeMaidPackage"/> class.
         /// </summary>
@@ -200,6 +203,8 @@ namespace SteveCadwallader.CodeMaid
 
             await RegisterCommandsAsync();
             await RegisterEventListenersAsync();
+
+            Instance = this;
         }
 
         /// <summary>

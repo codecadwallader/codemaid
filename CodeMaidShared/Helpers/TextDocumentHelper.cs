@@ -1,4 +1,13 @@
 ﻿using EnvDTE;
+
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Operations;
+using Microsoft.VisualStudio.TextManager.Interop;
+
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Collections.Generic;
@@ -17,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
     {
         #region Internal Constants
 
+        // TODO: FindOptions.UseRegularExpressions
         /// <summary>
         /// The common set of options to be used for find and replace patterns.
         /// </summary>
@@ -35,18 +45,118 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The set of matches.</returns>
         internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
         {
-            var matches = new List<EditPoint>();
-            var cursor = textDocument.StartPoint.CreateEditPoint();
-            EditPoint end = null;
-            TextRanges dummy = null;
+            ThreadHelper.ThrowIfNotOnUIThread();
 
-            while (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            var matches = new List<EditPoint>();
+            var textBuffer = GettextBufferAt(textDocument.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, textBuffer);
+            var findMatches = finder.FindAll();
+            foreach (var match in findMatches)
             {
-                matches.Add(cursor.CreateEditPoint());
-                cursor = end;
+                matches.Add(GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start));
             }
 
             return matches;
+        }
+
+        private static IFinder GetFinder(string findWhat, ITextBuffer textBuffer)
+        {
+            var findService = CodeMaidPackage.Instance.ComponentModel.GetService<IFindService>();
+            var finderFactory = findService.CreateFinderFactory(findWhat, FindOptions.UseRegularExpressions);
+            return finderFactory.Create(textBuffer.CurrentSnapshot);
+        }
+
+        private static IFinder GetFinder(string findWhat, string replaceWith, ITextBuffer textBuffer)
+        {
+            var findService = CodeMaidPackage.Instance.ComponentModel.GetService<IFindService>();
+            var finderFactory = findService.CreateFinderFactory(findWhat, replaceWith, FindOptions.UseRegularExpressions);
+            return finderFactory.Create(textBuffer.CurrentSnapshot);
+        }
+
+        /// <summary>
+        /// Converts <see cref="ITextSnapshot"/> position to <see cref="EditPoint"/>.
+        /// </summary>
+        /// <param name="textDocument">DTE document.</param>
+        /// <param name="textSnapshot">Text snapshot.</param>
+        /// <param name="position">Position in the <paramref name="textSnapshot"/>, 0 based.</param>
+        /// <returns></returns>
+        internal static EditPoint GetEditPointForSnapshotPosition(TextDocument textDocument, ITextSnapshot textSnapshot, int position)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var editPoint = textDocument.CreateEditPoint();
+            var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
+            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, textSnapshotLine.Start.Position - position + 1);
+            return editPoint;
+        }
+
+        internal static Span GetSnapshotSpanForTextSelection(ITextSnapshot textSnapshot, TextSelection selection)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.AnchorPoint);
+            var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.ActivePoint);
+
+            if (startPosition <= endPosition)
+            {
+                return new Span(startPosition, endPosition - startPosition);
+            }
+            else
+            {
+                return new Span(endPosition, startPosition - endPosition);
+            }
+        }
+
+        internal static int GetSnapshotPositionForTextPoint(ITextSnapshot textSnapshot, TextPoint textPoint)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var textSnapshotLine = textSnapshot.GetLineFromPosition(textPoint.Line - 1);
+            return textSnapshotLine.Start.Position + textPoint.LineCharOffset;
+        }
+
+        private static Span GetSnapshotSpanForExtent(ITextSnapshot textSnapshot, EditPoint startPoint, EditPoint endPoint)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, startPoint);
+            var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, endPoint);
+
+            if (startPosition <= endPosition)
+            {
+                return new Span(startPosition, endPosition - startPosition);
+            }
+            else
+            {
+                return new Span(endPosition, startPosition - endPosition);
+            }
+        }
+
+        internal static ITextBuffer GettextBufferAt(string filePath, IComponentModel componentModel, IServiceProvider serviceProvider)
+        {
+            IVsWindowFrame windowFrame;
+            if (VsShellUtilities.IsDocumentOpen(
+              serviceProvider,
+              filePath,
+              Guid.Empty,
+              out var _,
+              out var _,
+              out windowFrame))
+            {
+                IVsTextView view = VsShellUtilities.GetTextView(windowFrame);
+                IVsTextLines lines;
+                if (view.GetBuffer(out lines) == 0)
+                {
+                    var buffer = lines as IVsTextBuffer;
+                    if (buffer != null)
+                    {
+                        var editorAdapterFactoryService = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+                        return editorAdapterFactoryService.GetDataBuffer(buffer);
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -57,20 +167,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The set of matches.</returns>
         internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var matches = new List<EditPoint>();
-            var cursor = textSelection.TopPoint.CreateEditPoint();
-            EditPoint end = null;
-            TextRanges dummy = null;
-
-            while (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            var textBuffer = GettextBufferAt(textSelection.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, textBuffer);
+            var findMatches = finder.FindAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection));
+            foreach (var match in findMatches)
             {
-                if (end.AbsoluteCharOffset > textSelection.BottomPoint.AbsoluteCharOffset)
-                {
-                    break;
-                }
-
-                matches.Add(cursor.CreateEditPoint());
-                cursor = end;
+                matches.Add(GetEditPointForSnapshotPosition(textSelection.Parent, textBuffer.CurrentSnapshot, match.Start));
             }
 
             return matches;
@@ -84,16 +189,30 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The first match, otherwise null.</returns>
         internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
         {
-            var cursor = textDocument.StartPoint.CreateEditPoint();
-            EditPoint end = null;
-            TextRanges dummy = null;
-
-            if (cursor != null && cursor.FindPattern(patternString, StandardFindOptions, ref end, ref dummy))
+            ThreadHelper.ThrowIfNotOnUIThread();
+            ITextBuffer textBuffer = GettextBufferAt(textDocument.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, textBuffer);
+            if (finder.TryFind(out Span match))
             {
-                return cursor.CreateEditPoint();
+                return GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start);
             }
 
             return null;
+        }
+
+        internal static bool TryFindNextMatch(EditPoint startPoint, ref EditPoint endPoint, string patternString)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var textBuffer = GettextBufferAt(startPoint.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, textBuffer);
+
+            if (finder.TryFind(GetSnapshotPositionForTextPoint(textBuffer.CurrentSnapshot, startPoint), out Span match))
+            {
+                endPoint = GetEditPointForSnapshotPosition(startPoint.Parent, textBuffer.CurrentSnapshot, match.End);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -104,13 +223,13 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The matching text, otherwise null.</returns>
         internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
         {
-            var startEditPoint = startPoint.CreateEditPoint();
-            var endEditPoint = startEditPoint.CreateEditPoint();
-            TextRanges subGroupMatches = null; // Not used - required for FindPattern.
+            ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (endEditPoint.FindPattern(matchString, StandardFindOptions, ref endEditPoint, ref subGroupMatches))
+            var textBuffer = GettextBufferAt(startPoint.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(matchString, textBuffer);
+            if (finder.TryFind(out Span match))
             {
-                return startEditPoint.GetText(endEditPoint);
+                return textBuffer.CurrentSnapshot.GetText(match);
             }
 
             return null;
@@ -244,20 +363,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
-            TextRanges dummy = null;
-            int lastCount = -1;
-            while (textDocument.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
-            {
-                // it is possible that the replacements aren't actually being done. In such a case,
-                // we can detect the situation by seeing if the count always remains the same, and
-                // if so exiting early.
-                if (lastCount == dummy.Count)
-                {
-                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a document.");
-                    break;
-                }
-                lastCount = dummy.Count;
-            }
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var textBuffer = GettextBufferAt(textDocument.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+            finder.FindForReplaceAll();
         }
 
         /// <summary>
@@ -269,20 +378,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
-            TextRanges dummy = null;
-            int lastCount = -1;
-            while (textSelection.ReplacePattern(patternString, replacementString, StandardFindOptions, ref dummy))
-            {
-                // it is possible that the replacements aren't actually being done. In such a case,
-                // we can detect the situation by seeing if the count always remains the same, and
-                // if so exiting early.
-                if (lastCount == dummy.Count)
-                {
-                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a selection.");
-                    break;
-                }
-                lastCount = dummy.Count;
-            }
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var textBuffer = GettextBufferAt(textSelection.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+            finder.FindForReplaceAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection));
         }
 
         /// <summary>
@@ -295,20 +394,10 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
-            TextRanges dummy = null;
-            int lastCount = -1;
-            while (startPoint.ReplacePattern(endPoint, patternString, replacementString, StandardFindOptions, ref dummy))
-            {
-                // it is possible that the replacements aren't actually being done. In such a case,
-                // we can detect the situation by seeing if the count always remains the same, and
-                // if so exiting early.
-                if (lastCount == dummy.Count)
-                {
-                    OutputWindowHelper.WarningWriteLine("Forced a break out of TextDocumentHelper's SubstituteAllStringMatches for a pair of points.");
-                    break;
-                }
-                lastCount = dummy.Count;
-            }
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var textBuffer = GettextBufferAt(startPoint.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
+            IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+            finder.FindForReplaceAll(GetSnapshotSpanForExtent(textBuffer.CurrentSnapshot, startPoint, endPoint));
         }
 
         #endregion Internal Methods
