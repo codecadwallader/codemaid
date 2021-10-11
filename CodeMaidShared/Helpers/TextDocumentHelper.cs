@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -111,7 +112,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var textSnapshotLine = textSnapshot.GetLineFromPosition(textPoint.Line - 1);
+            var textSnapshotLine = textSnapshot.GetLineFromLineNumber(textPoint.Line - 1);
             return textSnapshotLine.Start.Position + textPoint.LineCharOffset;
         }
 
@@ -366,7 +367,23 @@ namespace SteveCadwallader.CodeMaid.Helpers
             ThreadHelper.ThrowIfNotOnUIThread();
             var textBuffer = GettextBufferAt(textDocument.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
             IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-            finder.FindForReplaceAll();
+            ReplaceAll(textBuffer, finder.FindForReplaceAll());
+        }
+
+        private static void ReplaceAll(ITextBuffer textBuffer, IEnumerable<FinderReplacement> replacements)
+        {
+            if (replacements.Any())
+            {
+                using (var edit = textBuffer.CreateEdit())
+                {
+                    foreach (var match in replacements)
+                    {
+                        edit.Replace(match.Match, match.Replace);
+                    }
+
+                    edit.Apply();
+                }
+            }
         }
 
         /// <summary>
@@ -381,7 +398,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             ThreadHelper.ThrowIfNotOnUIThread();
             var textBuffer = GettextBufferAt(textSelection.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
             IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-            finder.FindForReplaceAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection));
+            ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection)));
         }
 
         /// <summary>
@@ -397,7 +414,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             ThreadHelper.ThrowIfNotOnUIThread();
             var textBuffer = GettextBufferAt(startPoint.Parent.Parent.FullName, CodeMaidPackage.Instance.ComponentModel, CodeMaidPackage.Instance);
             IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-            finder.FindForReplaceAll(GetSnapshotSpanForExtent(textBuffer.CurrentSnapshot, startPoint, endPoint));
+            ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForExtent(textBuffer.CurrentSnapshot, startPoint, endPoint)));
         }
 
         #endregion Internal Methods
