@@ -76,7 +76,9 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         private ThemeManager _themeManager;
 
-
+        /// <summary>
+        /// Fully initialized package instance.
+        /// </summary>
         internal static CodeMaidPackage Instance;
 
         /// <summary>
