@@ -66,12 +66,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             var regionStack = new Stack<string>();
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
-            TextRanges subGroupMatches = null; // Not used - required for FindPattern.
             const string pattern = @"^[ \t]*#";
 
             // Keep pushing cursor forwards (note ref cursor parameter) until finished.
             while (cursor != null &&
-                   cursor.FindPattern(pattern, TextDocumentHelper.StandardFindOptions, ref cursor, ref subGroupMatches))
+                   TextDocumentHelper.TryFindNextMatch(startPoint: cursor, endPoint: ref cursor, pattern))
             {
                 // Create a pointer to capture the text for this line.
                 EditPoint eolCursor = cursor.CreateEditPoint();
