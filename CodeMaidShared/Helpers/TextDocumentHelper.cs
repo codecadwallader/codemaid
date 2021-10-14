@@ -69,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             var editPoint = textDocument.CreateEditPoint();
             var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
-            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, textSnapshotLine.Start.Position - position + 1);
+            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, position - textSnapshotLine.Start.Position + 1);
             return editPoint;
         }
 
