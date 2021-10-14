@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using SteveCadwallader.CodeMaid.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Assert = NUnit.Framework.Assert;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
