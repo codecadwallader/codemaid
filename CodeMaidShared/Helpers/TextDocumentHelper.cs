@@ -1,13 +1,10 @@
 ﻿using EnvDTE;
-
-using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
-
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System;
 using System.Collections.Generic;
@@ -426,6 +423,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return false;
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }
