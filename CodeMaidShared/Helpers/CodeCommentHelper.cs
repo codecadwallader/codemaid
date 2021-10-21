@@ -1,7 +1,4 @@
 ﻿using EnvDTE;
-using SteveCadwallader.CodeMaid.Model.Comments;
-using SteveCadwallader.CodeMaid.Properties;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
