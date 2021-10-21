@@ -364,17 +364,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var editPoint = textDocument.CreateEditPoint();
             var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
-            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, textSnapshotLine.Start.Position - position + 1);
+            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, position - textSnapshotLine.Start.Position + 1);
             return editPoint;
-        }
-
-        private static void RunOnUIThread(Action action)
-        {
-            CodeMaidPackage.Instance.JoinableTaskFactory.Run(async () =>
-            {
-                await CodeMaidPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
-                action();
-            });
         }
 
         private static IFinder GetFinder(string findWhat, ITextBuffer textBuffer)
@@ -447,6 +438,15 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     edit.Apply();
                 }
             }
+        }
+
+        private static void RunOnUIThread(Action action)
+        {
+            CodeMaidPackage.Instance.JoinableTaskFactory.Run(async () =>
+            {
+                await CodeMaidPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+                action();
+            });
         }
 
         private static bool TryGetTextBufferAt(string filePath, out ITextBuffer textBuffer)
