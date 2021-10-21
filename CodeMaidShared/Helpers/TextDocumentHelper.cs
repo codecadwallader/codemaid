@@ -1,11 +1,14 @@
 ﻿using EnvDTE;
+
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
+
 using SteveCadwallader.CodeMaid.Model.CodeItems;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,32 +45,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
         {
             var matches = new List<EditPoint>();
-            if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, textBuffer);
-                var findMatches = finder.FindAll();
-                foreach (var match in findMatches)
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
                 {
-                    matches.Add(GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start));
+                    IFinder finder = GetFinder(patternString, textBuffer);
+                    var findMatches = finder.FindAll();
+                    foreach (var match in findMatches)
+                    {
+                        matches.Add(GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start));
+                    }
                 }
-            }
+            });
 
             return matches;
-        }
-
-        /// <summary>
-        /// Converts <see cref="ITextSnapshot"/> position to <see cref="EditPoint"/>.
-        /// </summary>
-        /// <param name="textDocument">DTE document.</param>
-        /// <param name="textSnapshot">Text snapshot.</param>
-        /// <param name="position">Position in the <paramref name="textSnapshot"/>, 0 based.</param>
-        /// <returns></returns>
-        internal static EditPoint GetEditPointForSnapshotPosition(TextDocument textDocument, ITextSnapshot textSnapshot, int position)
-        {
-            var editPoint = textDocument.CreateEditPoint();
-            var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
-            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, position - textSnapshotLine.Start.Position + 1);
-            return editPoint;
         }
 
         /// <summary>
@@ -79,15 +72,19 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
         {
             var matches = new List<EditPoint>();
-            if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, textBuffer);
-                var findMatches = finder.FindAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection));
-                foreach (var match in findMatches)
+                ThreadHelper.ThrowIfNotOnUIThread();
+                if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
-                    matches.Add(GetEditPointForSnapshotPosition(textSelection.Parent, textBuffer.CurrentSnapshot, match.Start));
+                    IFinder finder = GetFinder(patternString, textBuffer);
+                    var findMatches = finder.FindAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection));
+                    foreach (var match in findMatches)
+                    {
+                        matches.Add(GetEditPointForSnapshotPosition(textSelection.Parent, textBuffer.CurrentSnapshot, match.Start));
+                    }
                 }
-            }
+            });
 
             return matches;
         }
@@ -100,16 +97,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The first match, otherwise null.</returns>
         internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
         {
-            if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
+            EditPoint result = null;
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, textBuffer);
-                if (finder.TryFind(out Span match))
-                {
-                    return GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start);
-                }
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            return null;
+                if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
+                {
+                    IFinder finder = GetFinder(patternString, textBuffer);
+                    if (finder.TryFind(out Span match))
+                    {
+                        result = GetEditPointForSnapshotPosition(textDocument, textBuffer.CurrentSnapshot, match.Start);
+                    }
+                }
+            });
+
+            return result;
         }
 
         /// <summary>
@@ -122,18 +125,27 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if successful, false if no match found.</returns>
         internal static bool TryFindNextMatch(EditPoint startPoint, ref EditPoint endPoint, string patternString)
         {
-            if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
+            bool result = false;
+            EditPoint resultEndPoint = null;
+
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, textBuffer);
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-                if (finder.TryFind(GetSnapshotPositionForTextPoint(textBuffer.CurrentSnapshot, startPoint), out Span match))
+                if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
-                    endPoint = GetEditPointForSnapshotPosition(startPoint.Parent, textBuffer.CurrentSnapshot, match.End);
-                    return true;
-                }
-            }
+                    IFinder finder = GetFinder(patternString, textBuffer);
 
-            return false;
+                    if (finder.TryFind(GetSnapshotPositionForTextPoint(textBuffer.CurrentSnapshot, startPoint), out Span match))
+                    {
+                        resultEndPoint = GetEditPointForSnapshotPosition(startPoint.Parent, textBuffer.CurrentSnapshot, match.End);
+                        result = true;
+                    }
+                }
+            });
+
+            endPoint = resultEndPoint;
+            return result;
         }
 
         /// <summary>
@@ -144,16 +156,22 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The matching text, otherwise null.</returns>
         internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
         {
-            if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
+            string result = null;
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(matchString, textBuffer);
-                if (finder.TryFind(out Span match))
-                {
-                    return textBuffer.CurrentSnapshot.GetText(match);
-                }
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            return null;
+                if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
+                {
+                    IFinder finder = GetFinder(matchString, textBuffer);
+                    if (finder.TryFind(out Span match))
+                    {
+                        result = textBuffer.CurrentSnapshot.GetText(match);
+                    }
+                }
+            });
+
+            return result;
         }
 
         /// <summary>
@@ -284,11 +302,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
-            if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-                ReplaceAll(textBuffer, finder.FindForReplaceAll());
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
+                {
+                    IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+                    ReplaceAll(textBuffer, finder.FindForReplaceAll());
+                }
+            });
         }
 
         /// <summary>
@@ -300,11 +323,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
-            if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-                ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection)));
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
+                {
+                    IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+                    ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForTextSelection(textBuffer.CurrentSnapshot, textSelection)));
+                }
+            });
         }
 
         /// <summary>
@@ -317,16 +345,40 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
-            if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
+            RunOnUIThread(() =>
             {
-                IFinder finder = GetFinder(patternString, replacementString, textBuffer);
-                ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForExtent(textBuffer.CurrentSnapshot, startPoint, endPoint)));
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
+                {
+                    IFinder finder = GetFinder(patternString, replacementString, textBuffer);
+                    ReplaceAll(textBuffer, finder.FindForReplaceAll(GetSnapshotSpanForExtent(textBuffer.CurrentSnapshot, startPoint, endPoint)));
+                }
+            });
         }
 
         #endregion Internal Methods
 
         #region Private Methods
+
+        private static EditPoint GetEditPointForSnapshotPosition(TextDocument textDocument, ITextSnapshot textSnapshot, int position)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var editPoint = textDocument.CreateEditPoint();
+            var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
+            editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, textSnapshotLine.Start.Position - position + 1);
+            return editPoint;
+        }
+
+        private static void RunOnUIThread(Action action)
+        {
+            CodeMaidPackage.Instance.JoinableTaskFactory.Run(async () =>
+            {
+                await CodeMaidPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+                action();
+            });
+        }
 
         private static IFinder GetFinder(string findWhat, ITextBuffer textBuffer)
         {
@@ -344,6 +396,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static Span GetSnapshotSpanForTextSelection(ITextSnapshot textSnapshot, TextSelection selection)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.AnchorPoint);
             var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.ActivePoint);
 
@@ -359,12 +413,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static int GetSnapshotPositionForTextPoint(ITextSnapshot textSnapshot, TextPoint textPoint)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var textSnapshotLine = textSnapshot.GetLineFromLineNumber(textPoint.Line - 1);
             return textSnapshotLine.Start.Position + textPoint.LineCharOffset;
         }
 
         private static Span GetSnapshotSpanForExtent(ITextSnapshot textSnapshot, EditPoint startPoint, EditPoint endPoint)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, startPoint);
             var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, endPoint);
 
@@ -423,6 +481,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
             return false;
         }
 
-        #endregion Private Methods
+        #endregion
     }
 }
