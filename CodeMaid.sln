@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.25928.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69127706-88D9-4314-B801-4FB2E615B700}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,13 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid", "CodeMaid\CodeMaid.csproj", "{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.IntegrationTests", "CodeMaid.IntegrationTests\CodeMaid.IntegrationTests.csproj", "{756CCDA3-D5E9-44B8-8049-1317B1826776}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.UnitTests", "CodeMaid.UnitTests\CodeMaid.UnitTests.csproj", "{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeMaidShared", "CodeMaidShared\CodeMaidShared.shproj", "{E94629D8-7803-4242-A0C6-3560005515E6}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeMaid.IntegrationTestsShared", "CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.shproj", "{D3F5D424-5D8F-4946-A2AB-7FDDAC74F228}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.VS2022", "CodeMaid.VS2022\CodeMaid.VS2022.csproj", "{6D3EDF86-D2F8-4779-8A95-052227ED56A9}"
 EndProject
@@ -33,8 +29,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		CodeMaidShared\CodeMaidShared.projitems*{19b1ab9e-4603-4a9c-9284-32aae57fb7bc}*SharedItemsImports = 4
 		CodeMaidShared\CodeMaidShared.projitems*{6d3edf86-d2f8-4779-8a95-052227ed56a9}*SharedItemsImports = 4
-		CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.projitems*{756ccda3-d5e9-44b8-8049-1317b1826776}*SharedItemsImports = 4
-		CodeMaid.IntegrationTestsShared\CodeMaid.IntegrationTestsShared.projitems*{d3f5d424-5d8f-4946-a2ab-7fddac74f228}*SharedItemsImports = 13
 		CodeMaidShared\CodeMaidShared.projitems*{e94629d8-7803-4242-a0c6-3560005515e6}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +40,6 @@ Global
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19B1AB9E-4603-4A9C-9284-32AAE57FB7BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{756CCDA3-D5E9-44B8-8049-1317B1826776}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}.Release|Any CPU.ActiveCfg = Release|Any CPU

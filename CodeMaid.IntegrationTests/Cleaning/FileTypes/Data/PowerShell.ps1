@@ -1,3 +1,0 @@
-#
-# PowerShell.ps1
-#
