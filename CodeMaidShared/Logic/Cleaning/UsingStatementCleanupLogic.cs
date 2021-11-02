@@ -77,14 +77,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) != null)
                 .ToList();
 
-            if (_package.IDEVersion >= 15)
-            {
-                _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.CodeWindow.RemoveAndSort");
-            }
-            else
-            {
-                _commandHelper.ExecuteCommand(textDocument, "Edit.RemoveUnusedUsings");
-            }
+            _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.CodeWindow.RemoveAndSort");
 
             // Ignore any using statements that are still referenced
             usingStatementsToReinsert = usingStatementsToReinsert

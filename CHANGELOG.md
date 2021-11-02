@@ -1,6 +1,6 @@
 # Changelog
 
-## vNext (11.3)
+## vNext (12.0)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
@@ -8,6 +8,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#778](https://github.com/codecadwallader/codemaid/pull/778) - Cleaning: Option to specify file inclusions by RegEx - thanks [Timo-Weike](https://github.com/Timo-Weike)!
   - [x] [#797](https://github.com/codecadwallader/codemaid/pull/797) - Cleaning: Option to replace existing file headers (vs. default insert) - thanks [lflender](https://github.com/lflender)!
   - [x] [#815](https://github.com/codecadwallader/codemaid/pull/815) - Cleaning: Option to place file headers after C# using block - thanks [lflender](https://github.com/lflender)!
+  - [x] [#](https://github.com/codecadwallader/codemaid/pull/) - Visual Studio 2022 Support - thanks [olegtk](https://github.com/olegtk) and many others!
 
 - [ ] Fixes
   - [x] [#800](https://github.com/codecadwallader/codemaid/pull/800) - Reorganizing: Fix dialog showing literal newline characters

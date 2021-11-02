@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
-        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.16.0"
         xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
         xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
         xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Prompts"
