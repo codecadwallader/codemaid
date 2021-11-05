@@ -1,0 +1,206 @@
+<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.Options.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        d:DataContext="{d:DesignInstance local:OptionsViewModel, IsDesignTimeCreatable=True}"
+        Icon="/source.extension.ico" Title="{x:Static p:Resources.CodeMaidOptions}"
+        MinHeight="480" MinWidth="640" Height="768" Width="1024"
+        Background="#FFF0F0F0" TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}" TextElement.FontSize="14"
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}">
+    <platformUI:DialogWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/CodeMaidLightTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </platformUI:DialogWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.ColumnSpan="2" Content="{Binding}" Focusable="False">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <DockPanel x:Name="ActiveSettingsDockPanel">
+                        <Button DockPanel.Dock="Right"
+                                Command="{Binding SwitchSettingsCommand}"
+                                Content="{Binding InactiveSettingsName}"
+                                ContentStringFormat="Switch to {0}"
+                                Style="{StaticResource ButtonDialog}"
+                                Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+                        <TextBlock FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Margin="10"
+                                   Text="{Binding ActiveSettingsName}" />
+                    </DockPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="False">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF6595B3" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsActiveSolutionSpecificSettings}" Value="True">
+                            <Setter TargetName="ActiveSettingsDockPanel" Property="Background" Value="#FF84B0B6" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pages}" BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Margin="10">
+            <i:Interaction.Behaviors>
+                <ui:TreeViewBindableSelectedItemBehavior SelectedItem="{Binding SelectedPage}" />
+            </i:Interaction.Behaviors>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:OptionsPageViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Header}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <DockPanel Grid.Row="1" Grid.Column="1" Margin="0,10,10,10">
+            <Border DockPanel.Dock="Top" Background="{DynamicResource FItemHighlight}"
+                    BorderBrush="{StaticResource OCodeMaidGray}" BorderThickness="1" Padding="5">
+                <TextBlock Text="{Binding SelectedPage.Header}" />
+            </Border>
+
+            <ScrollViewer Margin="10,10,0,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                    Focusable="False">
+                <ContentPresenter Content="{Binding SelectedPage}">
+                    <ContentPresenter.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="Cleaning/CleaningFileTypesDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningGeneralDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningInsertDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningParentDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningRemoveDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningUpdateDataTemplate.xaml" />
+                                <ResourceDictionary Source="Cleaning/CleaningVisualStudioDataTemplate.xaml" />
+                                <ResourceDictionary Source="Collapsing/CollapsingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Digging/DiggingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Finding/FindingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Formatting/FormattingDataTemplate.xaml" />
+                                <ResourceDictionary Source="General/GeneralDataTemplate.xaml" />
+                                <ResourceDictionary Source="General/FeaturesDataTemplate.xaml" />
+                                <ResourceDictionary Source="Progressing/ProgressingDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingGeneralDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingParentDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingRegionsDataTemplate.xaml" />
+                                <ResourceDictionary Source="Reorganizing/ReorganizingTypesDataTemplate.xaml" />
+                                <ResourceDictionary Source="Switching/SwitchingDataTemplate.xaml" />
+                                <ResourceDictionary Source="ThirdParty/ThirdPartyDataTemplate.xaml" />
+                            </ResourceDictionary.MergedDictionaries>
+
+                            <Style TargetType="{x:Type CheckBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type GroupBox}">
+                                <Setter Property="Margin" Value="0,0,0,10" />
+                                <Setter Property="Padding" Value="10,5,10,0" />
+                            </Style>
+
+                            <Style TargetType="{x:Type ListBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type RadioButton}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="5,0" />
+                            </Style>
+
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Margin" Value="5" />
+                            </Style>
+
+                            <Style x:Key="TextBoxMultiLine" TargetType="{x:Type TextBox}">
+                                <Setter Property="AcceptsReturn" Value="True" />
+                                <Setter Property="Height" Value="160" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                            </Style>
+
+                            <Style TargetType="{x:Type ToggleButton}">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Margin" Value="5,5,5,0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}" TextDecorations="Underline" />
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Foreground" Value="Green" />
+                                                    <Setter Property="ToolTip" Value="Enabled, click to disable" />
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="False">
+                                                    <Setter Property="Foreground" Value="Red" />
+                                                    <Setter TargetName="textBlock" Property="TextDecorations" Value="Strikethrough" />
+                                                    <Setter Property="ToolTip" Value="Disabled, click to enable" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </ContentPresenter.Resources>
+                </ContentPresenter>
+            </ScrollViewer>
+        </DockPanel>
+
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource FCodeMaidGray}" />
+
+        <Button Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.ResetToDefaults}" Command="{Binding ResetToDefaultsCommand}" Style="{StaticResource ButtonDialog}" />
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="{x:Static p:Resources.Export}" Command="{Binding ExportCommand}" Style="{StaticResource ButtonDialog}" />
+            <Button Content="{x:Static p:Resources.Import}" Command="{Binding ImportCommand}" Style="{StaticResource ButtonDialog}" />
+        </StackPanel>
+
+        <ContentControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Content="{Binding}" Focusable="False">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="save" Content="{x:Static p:Resources.Save}" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource ButtonDialog}">
+                            <Button.ToolTip>
+                                <ToolTip Content="{Binding ActiveSettingsPath}" ContentStringFormat="Options will be saved to '{0}'." />
+                            </Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="cancel" Content="{x:Static p:Resources.Cancel}" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource ButtonDialog}" />
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="save" Property="IsEnabled" Value="False">
+                            <Setter TargetName="save" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="cancel" Property="Content" Value="{x:Static p:Resources.Close}" />
+                        </Trigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+    </Grid>
+</platformUI:DialogWindow>

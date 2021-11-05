@@ -1,0 +1,78 @@
+<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.About.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+        Width="878" Height="264"
+        HasDialogFrame="False" ResizeMode="NoResize" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        KeyDown="OnKeyDown" MouseLeftButtonDown="OnMouseLeftButtonDown">
+    <platformUI:DialogWindow.Background>
+        <ImageBrush ImageSource="/Integration/Images/about.png" />
+    </platformUI:DialogWindow.Background>
+    <platformUI:DialogWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="iconLinkButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="Transparent">
+                                <Path x:Name="Hexagon"
+                                      Data="M12,0 L24,7 24,21 12,28 0,21 0,7, 12,0z"
+                                      Height="28" Width="24"
+                                      Stroke="{StaticResource FCodeMaidGray}"
+                                      StrokeThickness="2"
+                                      Visibility="Collapsed" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter TargetName="Hexagon" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="underlineLinkButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="Transparent">
+                                <Rectangle x:Name="Rectangle" Height="2" Margin="0,0,0,-5"
+                                        Stroke="{StaticResource FCodeMaidGray}" StrokeThickness="2"
+                                        VerticalAlignment="Bottom" Visibility="Collapsed" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </platformUI:DialogWindow.Resources>
+
+    <Canvas>
+        <Button Canvas.Left="456" Canvas.Top="142" Height="16" Width="229" Style="{StaticResource underlineLinkButton}"
+                Click="OnWebsiteLinkClick" ToolTip="Launch CodeMaid's website" />
+
+        <Button Canvas.Left="704" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnVisualStudioMarketplaceLinkClick" ToolTip="Download, Reviews - Visual Studio Marketplace" />
+
+        <Button Canvas.Left="748" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnGitHubLinkClick" ToolTip="Code, Issues - GitHub" />
+
+        <Button Canvas.Left="792" Canvas.Top="226" Height="28" Width="24" Style="{StaticResource iconLinkButton}"
+                Click="OnTwitterLinkClick" ToolTip="Twitter" />
+    </Canvas>
+</platformUI:DialogWindow>

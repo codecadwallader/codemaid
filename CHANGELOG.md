@@ -1,6 +1,6 @@
 # Changelog
 
-## vNext (11.3)
+## vNext (12.0)
 
 These changes have not been released to the Visual Studio marketplace, but (if checked) are available in preview within the [CI build](http://vsixgallery.com/extension/4c82e17d-927e-42d2-8460-b473ac7df316/).
 
@@ -9,6 +9,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#797](https://github.com/codecadwallader/codemaid/pull/797) - Cleaning: Option to replace existing file headers (vs. default insert) - thanks [lflender](https://github.com/lflender)!
   - [x] [#815](https://github.com/codecadwallader/codemaid/pull/815) - Cleaning: Option to place file headers after C# using block - thanks [lflender](https://github.com/lflender)!
   - [x] [#828](https://github.com/codecadwallader/codemaid/pull/828) - Reorganizing: Option to include access levels in regions for methods only - thanks [lflender](https://github.com/lflender)!
+  - [x] [#853](https://github.com/codecadwallader/codemaid/pull/853) - Visual Studio 2022 Support - thanks [olegtk](https://github.com/olegtk) and many others!
 
 - [ ] Fixes
   - [x] [#800](https://github.com/codecadwallader/codemaid/pull/800) - Reorganizing: Fix dialog showing literal newline characters

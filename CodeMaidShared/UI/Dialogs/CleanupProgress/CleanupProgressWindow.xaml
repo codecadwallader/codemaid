@@ -1,0 +1,65 @@
+<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress.CleanupProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.CleanupProgress"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        d:DataContext="{d:DesignInstance local:CleanupProgressViewModel, IsDesignTimeCreatable=False}"
+        Icon="/source.extension.ico" Title="{x:Static p:Resources.CodeMaidCleanupProgress}"
+        TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
+        Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}" Closing="OnClosing"
+        FocusManager.FocusedElement="{Binding ElementName=cancelButton}">
+    <platformUI:DialogWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </platformUI:DialogWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="10">
+            <TextBlock FontSize="14" TextTrimming="CharacterEllipsis">
+                <InlineUIContainer>
+                    <Label Content="{x:Static p:Resources.Cleaning}" />
+                </InlineUIContainer>
+                <InlineUIContainer>
+                    <Label Content="{Binding CurrentFileName}" />
+                </InlineUIContainer>
+            </TextBlock>
+            <ProgressBar Height="30" Margin="0,5" Maximum="{Binding CountTotal}" Value="{Binding CountProgress}" />
+            <TextBlock HorizontalAlignment="Center" TextTrimming="CharacterEllipsis">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} of {1}">
+                        <Binding Path="CountProgress" />
+                        <Binding Path="CountTotal" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="{StaticResource FCodeMaidGray}">
+            <Button x:Name="cancelButton" Command="{Binding CancelCommand}" HorizontalAlignment="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDialog}">
+                        <Setter Property="Content" Value="{x:Static p:Resources.Cancel}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCanceling}" Value="True">
+                                <Setter Property="Content" Value="{x:Static p:Resources.Canceling}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
+    </Grid>
+</platformUI:DialogWindow>

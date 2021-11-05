@@ -1,0 +1,53 @@
+﻿<platformUI:DialogWindow x:Class="SteveCadwallader.CodeMaid.UI.Dialogs.Prompts.YesNoPromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Prompts"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        d:DataContext="{d:DesignInstance local:YesNoPromptViewModel, IsDesignTimeCreatable=False}"
+        Icon="/source.extension.ico" Title="{Binding Title}"
+        TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}"
+        Height="180" Width="400" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        ui:WindowAttachedProperties.DialogResult="{Binding DialogResult}"
+        FocusManager.FocusedElement="{Binding ElementName=noButton}">
+    <platformUI:DialogWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </platformUI:DialogWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Margin="10">
+            <Image Source="{Binding IconSource}" Height="32" Width="32" Margin="0,0,10,0" />
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" VerticalAlignment="Center" />
+        </DockPanel>
+
+        <Border Grid.Row="1" Background="{StaticResource FCodeMaidGray}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Content="_Remember this next time?" Foreground="White" Margin="10" VerticalAlignment="Center"
+                          IsChecked="{Binding Remember}" Visibility="{Binding CanRemember, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="_Yes" Command="{Binding SetDialogResultCommand}" CommandParameter="True" Style="{StaticResource ButtonDialog}" />
+                    <Button x:Name="noButton" Content="_No" Command="{Binding SetDialogResultCommand}" CommandParameter="False" Style="{StaticResource ButtonDialog}" IsCancel="True" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</platformUI:DialogWindow>

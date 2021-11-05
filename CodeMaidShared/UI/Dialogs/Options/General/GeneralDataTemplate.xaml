@@ -1,0 +1,150 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.General"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties">
+
+    <DataTemplate DataType="{x:Type local:GeneralViewModel}">
+        <StackPanel>
+            <GroupBox Header="{x:Static p:Resources.Display}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Height" Value="16" />
+                            <Setter Property="Width" Value="16" />
+                            <Setter Property="Margin" Value="4,0" />
+                            <Setter Property="UseLayoutRounding" Value="True" />
+                        </Style>
+
+                        <CollectionViewSource x:Key="fontFamilies" Source="{x:Static Fonts.SystemFontFamilies}">
+                            <CollectionViewSource.SortDescriptions>
+                                <scm:SortDescription PropertyName="Source" Direction="Ascending" />
+                            </CollectionViewSource.SortDescriptions>
+                        </CollectionViewSource>
+                    </Grid.Resources>
+
+                    <TextBlock Text="{x:Static p:Resources.Theme}" VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <RadioButton Content="{x:Static p:Resources.AutoDetect}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.AutoDetect}}" />
+                        <RadioButton Content="{x:Static p:Resources.Dark}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Dark}}" />
+                        <RadioButton Content="{x:Static p:Resources.Light}" IsChecked="{Binding ThemeMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:ThemeMode.Light}}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="1" Text="{x:Static p:Resources.Icons}" VerticalAlignment="Center" />
+
+                    <RadioButton Grid.Row="1" Grid.Column="1" Content="{x:Static p:Resources.AutoDetect}"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.AutoDetect}}" />
+                    <RadioButton Grid.Row="2" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2010}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2010" MinWidth="100" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Class.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Constant.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Delegate.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Enum.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/EnumItem.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Event.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Field.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Interface.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Method.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/MethodConstructor.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/MethodDestructor.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Property.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Region.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2010/Structure.png" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Grid.Row="3" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2012Light}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2012 Light" MinWidth="100" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Class.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Constant.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Delegate.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Enum.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/EnumItem.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Event.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Field.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Interface.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Method.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/MethodConstructor.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/MethodDestructor.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Property.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Region.png" />
+                            <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Light/Structure.png" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Grid.Row="4" Grid.Column="1" Padding="0,-2,0,0"
+                                 IsChecked="{Binding IconSetMode, Converter={x:Static cnv:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:IconSetMode.VS2012Dark}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="VS2012 Dark" MinWidth="100" />
+                            <StackPanel Orientation="Horizontal" Background="#FF252526">
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Class.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Constant.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Delegate.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Enum.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/EnumItem.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Event.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Field.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Interface.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Method.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodConstructor.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/MethodDestructor.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Property.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Region.png" />
+                                <Image Source="/UI/ToolWindows/Spade/Images/VS2012_Dark/Structure.png" />
+                            </StackPanel>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <TextBlock Grid.Row="5" Text="{x:Static p:Resources.Font}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource fontFamilies}}" SelectedValue="{Binding Font}" SelectedValuePath="Source"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="{Binding}" MinHeight="20" Text="{Binding Source}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Miscellaneous}">
+                <StackPanel>
+                    <CheckBox Content="{x:Static p:Resources.ShowStartPageWhenASolutionIsClosed}" IsChecked="{Binding ShowStartPageOnSolutionClose}" />
+                    <CheckBox Content="{x:Static p:Resources.UseUndoTransactions}" IsChecked="{Binding UseUndoTransactions}" />
+                    <CheckBox Content="{x:Static p:Resources.SkipDuringAutomaticCleanupOnSave}"
+                              IsChecked="{Binding SkipUndoTransactionsDuringAutoCleanupOnSave}"
+                              IsEnabled="{Binding UseUndoTransactions}"
+                              Margin="35,5,5,5" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Performance}">
+                <StackPanel>
+                    <CheckBox Content="{x:Static p:Resources.CacheFileCodeModels}" IsChecked="{Binding CacheFiles}" />
+                    <CheckBox Content="{x:Static p:Resources.LoadModelsAsynchronously}" IsChecked="{Binding LoadModelsAsynchronously}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Diagnostics}">
+                <CheckBox Content="{x:Static p:Resources.DiagnosticsMode}" IsChecked="{Binding DiagnosticsMode}" />
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,205 @@
+<UserControl x:Class="SteveCadwallader.CodeMaid.UI.ToolWindows.Spade.SpadeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.ToolWindows.Spade"
+        xmlns:cnv="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:ui="clr-namespace:SteveCadwallader.CodeMaid.UI"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        d:DataContext="{d:DesignInstance local:SpadeViewModel, IsDesignTimeCreatable=True}"
+        PreviewMouseDown="OnPreviewMouseDown" PreviewMouseWheel="OnPreviewMouseWheel"
+        Background="{DynamicResource FWindow}" Foreground="{DynamicResource FGWindow}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Themes/CodeMaidCoreTheme.xaml" />
+                <ResourceDictionary Source="CodeItemTemplates.xaml" />
+                <ResourceDictionary Source="CodeItemToolTipTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ToolTip x:Key="TreeViewItemToolTip" OverridesDefaultStyle="True" Placement="Left">
+                <ToolTip.Template>
+                    <ControlTemplate TargetType="{x:Type ToolTip}">
+                        <Border Background="White" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2" Padding="7,5" TextElement.Foreground="Black">
+                            <ContentPresenter Content="{Binding}">
+                                <ContentPresenter.ContentTemplateSelector>
+                                    <local:CodeItemToolTipTemplateSelector
+                                            ConstructorDataTemplate="{StaticResource ConstructorToolTipDataTemplate}"
+                                            DefaultDataTemplate="{StaticResource DefaultToolTipDataTemplate}"
+                                            DelegateDataTemplate="{StaticResource DelegateToolTipDataTemplate}"
+                                            DestructorDataTemplate="{StaticResource DestructorToolTipDataTemplate}"
+                                            FieldDataTemplate="{StaticResource FieldToolTipDataTemplate}"
+                                            MethodDataTemplate="{StaticResource MethodToolTipDataTemplate}"
+                                            ParentDataTemplate="{StaticResource ParentToolTipDataTemplate}"
+                                            PropertyDataTemplate="{StaticResource PropertyToolTipDataTemplate}"
+                                            RegionDataTemplate="{StaticResource RegionToolTipDataTemplate}" />
+                                </ContentPresenter.ContentTemplateSelector>
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </ToolTip.Template>
+            </ToolTip>
+
+            <Style x:Key="SpadeTreeViewItemContainerStyle" TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource TreeViewItemContainerStyle}">
+                <Setter Property="Foreground" Value="{DynamicResource FGWindow}" />
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, FallbackValue=True}" />
+                <Setter Property="ToolTip" Value="{StaticResource TreeViewItemToolTip}" />
+                <Setter Property="ToolTipService.ShowDuration" Value="600000" />
+                <EventSetter Event="KeyDown" Handler="OnTreeViewItemKeyDown" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <DockPanel>
+                                    <Border x:Name="PART_HeaderBorder" DockPanel.Dock="Top" AllowDrop="True"
+                                            Background="{TemplateBinding Background}" BorderBrush="{DynamicResource FWindow}"
+                                            BorderThickness="0,0,0,2" Cursor="Hand"
+                                            DragEnter="OnTreeViewItemHeaderDragEvent"
+                                            DragOver="OnTreeViewItemHeaderDragEvent"
+                                            DragLeave="OnTreeViewItemHeaderDragLeave" Drop="OnTreeViewItemHeaderDrop"
+                                            Mouse.MouseDown="OnTreeViewItemHeaderMouseDown"
+                                            Mouse.MouseMove="OnTreeViewItemHeaderMouseMove"
+                                            Mouse.MouseUp="OnTreeViewItemHeaderMouseUp">
+                                        <Grid>
+                                            <DockPanel Margin="{TemplateBinding Padding}">
+                                                <ToggleButton x:Name="expander" ClickMode="Press"
+                                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                              Style="{StaticResource TreeViewItemToggleButton}" />
+
+                                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" />
+                                            </DockPanel>
+
+                                            <Border x:Name="focusCue" SnapsToDevicePixels="True" Visibility="Collapsed">
+                                                <Rectangle Stroke="{StaticResource FCodeMaidGreen}" StrokeThickness="1" StrokeDashArray="4 4" />
+                                            </Border>
+
+                                            <Border x:Name="dropTargetCue" BorderBrush="{StaticResource FCodeMaidGreen}"
+                                                    SnapsToDevicePixels="True" Visibility="Collapsed" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ItemsPresenter x:Name="ItemsHost" Margin="{Binding Digging_IndentationMargin, Source={x:Static p:Settings.Default}, Converter={x:Static cnv:IntToThicknessConverter.LeftOnly}, ConverterParameter='0,2,0,0'}" />
+                                </DockPanel>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded" Value="False">
+                                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <Trigger Property="HasItems" Value="False">
+                                    <Setter TargetName="expander" Property="Visibility" Value="Collapsed" />
+                                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="focusCue" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger Property="ui:TreeViewMultipleSelectionBehavior.IsItemSelected" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />
+                                </Trigger>
+                                <Trigger SourceName="PART_HeaderBorder" Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource FItemHighlight}" />
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                                <Trigger Property="ui:DragDropAttachedProperties.IsBeingDragged" Value="True">
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </Trigger>
+                                <Trigger Property="ui:DragDropAttachedProperties.IsDropAboveTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Top" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="0,1,0,0" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-1,0,0" />
+                                </Trigger>
+                                <Trigger Property="ui:DragDropAttachedProperties.IsDropBelowTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="VerticalAlignment" Value="Bottom" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="0,0,0,1" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,0,0,-2" />
+                                </Trigger>
+                                <Trigger Property="ui:DragDropAttachedProperties.IsDropOnTarget" Value="True">
+                                    <Setter TargetName="dropTargetCue" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="dropTargetCue" Property="BorderThickness" Value="1" />
+                                    <Setter TargetName="dropTargetCue" Property="Margin" Value="0,-1,0,-2" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid TextElement.FontFamily="{Binding General_Font, Source={x:Static p:Settings.Default}}">
+        <TreeView x:Name="treeView" BorderThickness="0" ItemsSource="{Binding OrganizedCodeItems}"
+                  ItemContainerStyle="{StaticResource SpadeTreeViewItemContainerStyle}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.CanContentScroll="True"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.IsVirtualizingWhenGrouping="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  FocusManager.IsFocusScope="True">
+            <i:Interaction.Behaviors>
+                <ui:TreeViewMultipleSelectionBehavior SelectedItems="{Binding SelectedItems}" />
+            </i:Interaction.Behaviors>
+            <TreeView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsVirtualizing="True" IsVirtualizingWhenGrouping="True" VirtualizationMode="Recycling">
+                        <VirtualizingStackPanel.LayoutTransform>
+                            <ScaleTransform
+                                    ScaleX="{Binding ScaleFactor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SpadeView}}}"
+                                    ScaleY="{Binding ScaleFactor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SpadeView}}}" />
+                        </VirtualizingStackPanel.LayoutTransform>
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </TreeView.ItemsPanel>
+            <TreeView.ItemTemplateSelector>
+                <local:CodeItemTemplateSelector
+                        DelegateDataTemplate="{StaticResource DelegateDataTemplate}"
+                        MethodDataTemplate="{StaticResource MethodDataTemplate}"
+                        ParentDataTemplate="{StaticResource ParentDataTemplate}"
+                        PropertyDataTemplate="{StaticResource PropertyDataTemplate}"
+                        RegionDataTemplate="{StaticResource RegionDataTemplate}"
+                        StandardDataTemplate="{StaticResource StandardDataTemplate}" />
+            </TreeView.ItemTemplateSelector>
+        </TreeView>
+
+        <Border Background="{DynamicResource FOverlay}"
+                Visibility="{Binding IsRefreshing, Converter={x:Static cnv:BooleanToVisibilityConverter.Default}}" />
+
+        <ContentControl Content="{Binding}" Focusable="False" VerticalAlignment="Center">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <Border x:Name="outerBorder"
+                            Background="{DynamicResource FWindow}"
+                            BorderBrush="{StaticResource FCodeMaidGreen}"
+                            BorderThickness="0" Margin="1,0" Padding="0,5" Visibility="Collapsed">
+                        <StackPanel HorizontalAlignment="Center">
+                            <local:RadialProgressBar Width="80" Height="80" Margin="5" />
+                            <TextBlock x:Name="stateLabel" FontSize="14" FontStyle="Italic"
+                                    Foreground="{StaticResource FCodeMaidGray}" />
+                            <TextBlock FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource FCodeMaidGreen}"
+                                       Text="{Binding Document.Name}" />
+                        </StackPanel>
+                    </Border>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Loading}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsRefreshing}" Value="True">
+                            <Setter TargetName="outerBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="stateLabel" Property="Text" Value="{x:Static p:Resources.Refreshing}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+    </Grid>
+</UserControl>
