@@ -8,6 +8,7 @@
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.IncludeAccessLevelInRegions}" IsChecked="{Binding IncludeAccessLevel}" />
                     <TextBlock Text="{x:Static p:Resources.ExRegionPublicMethodsRegionPrivateMethods}" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static p:Resources.OnlyForMethods}" IsChecked="{Binding IncludeAccessLevelForMethodsOnly}" Margin="35,0,5,10" IsEnabled="{Binding IncludeAccessLevel}" />
 
                     <CheckBox Content="{x:Static p:Resources.InsertKeepRegionsEvenIfTheyAreEmpty}" IsChecked="{Binding InsertKeepEvenIfEmpty}" />
                 </StackPanel>
