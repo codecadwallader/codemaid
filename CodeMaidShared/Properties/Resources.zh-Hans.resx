@@ -925,6 +925,6 @@
     <value>您有挂起的更改。 是否要在继续之前保存它们？</value>
   </data>
   <data name="OnlyForMethods" xml:space="preserve">
-    <value>Only for methods (TBT)</value>
+    <value>仅应用于方法</value>
   </data>
 </root>
