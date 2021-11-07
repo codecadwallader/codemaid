@@ -1,6 +1,6 @@
 <link href="https://www.codemaid.net/wp-content/uploads/external/ProjectDescription.css" rel="stylesheet"></link>
  
-<div id="mainFeatures"><a title="codemaid.net" href="https://www.codemaid.net" target="_blank"><img src="https://www.codemaid.net/wp-content/uploads/2021/01/about.png" alt="codemaid.net" /></a></div>
+<div id="mainFeatures"><a title="codemaid.net" href="https://www.codemaid.net" target="_blank"><img src="https://www.codemaid.net/wp-content/uploads/2021/11/about.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="https://www.codemaid.net" target="_blank"> https://www.codemaid.net</a></div>
 <p>Currently supports VS2019 and VS2022.</p>
 <p>For Visual Studio 2017, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v11.2/CodeMaid.v11.2.231.vsix" target="_blank"> v11.2</a>.</p>
