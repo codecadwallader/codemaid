@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,139 +54,15 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="EnvDTE100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.ComponentModelHost, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.ComponentModelHost.15.8.525\lib\net46\Microsoft.VisualStudio.ComponentModelHost.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.CoreUtility.15.8.525\lib\net46\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Editor, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Editor.15.8.525\lib\net46\Microsoft.VisualStudio.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.ImageCatalog, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.ImageCatalog.15.9.28307\lib\net45\Microsoft.VisualStudio.ImageCatalog.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Imaging, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Imaging.15.9.28307\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.14.3.26930\lib\net20\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6071\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Package.LanguageService.15.0, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Package.LanguageService.15.0.15.9.28307\lib\net45\Microsoft.VisualStudio.Package.LanguageService.15.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.15.0, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.15.0.15.9.28307\lib\net45\Microsoft.VisualStudio.Shell.15.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Framework, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Framework.15.9.28307\lib\net45\Microsoft.VisualStudio.Shell.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6072\lib\net11\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0.10.0.30320\lib\net20\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0.11.0.61031\lib\net20\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0.12.0.30111\lib\net20\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime.14.3.26929\lib\net20\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime.15.0.26929\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime, Version=15.6.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime.15.6.27413\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50728\lib\net11\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30730\lib\net11\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Text.Data.15.8.525\lib\net46\Microsoft.VisualStudio.Text.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Text.Logic.15.8.525\lib\net46\Microsoft.VisualStudio.Text.Logic.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Text.UI.15.8.525\lib\net46\Microsoft.VisualStudio.Text.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Text.UI.Wpf.15.8.525\lib\net46\Microsoft.VisualStudio.Text.UI.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6071\lib\net11\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50728\lib\net11\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Threading, Version=15.8.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Threading.15.8.209\lib\net46\Microsoft.VisualStudio.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Utilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Utilities.15.9.28307\lib\net46\Microsoft.VisualStudio.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Validation, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Validation.15.3.58\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="StreamJsonRpc, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\StreamJsonRpc.1.3.23\lib\net45\StreamJsonRpc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -205,259 +80,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CodeMaid.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CodeLanguageHelper.cs" />
-    <Compile Include="Helpers\CodeLanguage.cs" />
-    <Compile Include="Helpers\CodeMaidSettingsProvider.cs" />
-    <Compile Include="Helpers\ActiveDocumentRestorer.cs" />
-    <Compile Include="Helpers\CachedSetting.cs" />
-    <Compile Include="Helpers\CachedSettingSet.cs" />
-    <Compile Include="Helpers\CommandHelper.cs" />
-    <Compile Include="Helpers\DocumentExtensions.cs" />
-    <Compile Include="Helpers\MemberTypeSetting.cs" />
-    <Compile Include="Helpers\MemberTypeSettingHelper.cs" />
-    <Compile Include="Helpers\ProjectItemExtensions.cs" />
-    <Compile Include="Helpers\RegexNullSafe.cs" />
-    <Compile Include="Helpers\SettingsMonitor.cs" />
-    <Compile Include="Helpers\SettingsContextHelper.cs" />
-    <Compile Include="Helpers\RegionHelper.cs" />
-    <Compile Include="Helpers\TextDocumentExtensions.cs" />
-    <Compile Include="Integration\Commands\RemoveRegionCommand.cs" />
-    <Compile Include="Integration\Commands\SettingCleanupOnSaveCommand.cs" />
-    <Compile Include="Integration\Commands\SortLinesCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeContextInsertRegionCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeSearchCommand.cs" />
-    <Compile Include="Integration\ISwitchableFeature.cs" />
-    <Compile Include="Logic\Cleaning\FileHeaderLogic.cs" />
-    <Compile Include="Logic\Cleaning\RemoveRegionLogic.cs" />
-    <Compile Include="Logic\Formatting\CommentFormatLogic.cs" />
-    <Compile Include="Logic\Reorganizing\CodeReorganizationAvailabilityLogic.cs" />
-    <Compile Include="Logic\Reorganizing\GenerateRegionLogic.cs" />
-    <Compile Include="Logic\Reorganizing\RegionComparerByName.cs" />
-    <Compile Include="Model\CodeItems\IInterfaceItem.cs" />
-    <Compile Include="Model\Comments\Options\CommentOptions.cs" />
-    <Compile Include="Model\Comments\Options\FormatterOptions.cs" />
-    <Compile Include="Model\Comments\CommentLine.cs" />
-    <Compile Include="Model\Comments\CommentLineXml.cs" />
-    <Compile Include="Model\Comments\Options\FormatterOptionsXml.cs" />
-    <Compile Include="Model\Comments\Options\FormatterOptionsXmlTag.cs" />
-    <Compile Include="Model\Comments\ICommentLine.cs" />
-    <Compile Include="Model\Comments\CodeComment.cs" />
-    <Compile Include="Helpers\CodeCommentHelper.cs" />
-    <Compile Include="Helpers\CodeElementHelper.cs" />
-    <Compile Include="Helpers\CodeItemNameComparer.cs" />
-    <Compile Include="Helpers\CodeItemParentExtensions.cs" />
-    <Compile Include="Helpers\CodeItemTypeComparer.cs" />
-    <Compile Include="Helpers\EditPointExtensions.cs" />
-    <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\ExplicitInterfaceImplementationHelper.cs" />
-    <Compile Include="Helpers\OutputWindowHelper.cs" />
-    <Compile Include="Helpers\PropertyInfoHelper.cs" />
-    <Compile Include="Helpers\SolutionHelper.cs" />
-    <Compile Include="Helpers\TextDocumentHelper.cs" />
-    <Compile Include="Helpers\CursorPositionRestorer.cs" />
-    <Compile Include="Helpers\TypeFormatHelper.cs" />
-    <Compile Include="Helpers\UIHierarchyHelper.cs" />
-    <Compile Include="Helpers\UndoTransactionHelper.cs" />
-    <Compile Include="Integration\Commands\AboutCommand.cs" />
-    <Compile Include="Integration\Commands\BaseCommand.cs" />
-    <Compile Include="Integration\Commands\BuildProgressToolWindowCommand.cs" />
-    <Compile Include="Integration\Commands\CleanupActiveCodeCommand.cs" />
-    <Compile Include="Integration\Commands\CleanupAllCodeCommand.cs" />
-    <Compile Include="Integration\Commands\CleanupOpenCodeCommand.cs" />
-    <Compile Include="Integration\Commands\CleanupSelectedCodeCommand.cs" />
-    <Compile Include="Integration\Commands\CloseAllReadOnlyCommand.cs" />
-    <Compile Include="Integration\Commands\CollapseAllSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\CollapseSelectedSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\OptionsCommand.cs" />
-    <Compile Include="Integration\Commands\CommentFormatCommand.cs" />
-    <Compile Include="Integration\Commands\FindInSolutionExplorerCommand.cs" />
-    <Compile Include="Integration\Commands\JoinLinesCommand.cs" />
-    <Compile Include="Integration\Commands\ReadOnlyToggleCommand.cs" />
-    <Compile Include="Integration\Commands\ReorganizeActiveCodeCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeOptionsCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeContextDeleteCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeContextFindReferencesCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeContextRemoveRegionCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeSortOrderAlphaCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeSortOrderFileCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeSortOrderTypeCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeRefreshCommand.cs" />
-    <Compile Include="Integration\Commands\SpadeToolWindowCommand.cs" />
-    <Compile Include="Integration\Commands\SwitchFileCommand.cs" />
-    <Compile Include="Integration\Events\BaseEventListener.cs" />
-    <Compile Include="Integration\Events\BuildProgressEventListener.cs" />
-    <Compile Include="Integration\Events\DocumentEventListener.cs" />
-    <Compile Include="Integration\Events\RunningDocumentTableEventListener.cs" />
-    <Compile Include="Integration\Events\SolutionEventListener.cs" />
-    <Compile Include="Integration\Events\TextEditorEventListener.cs" />
-    <Compile Include="Integration\Events\WindowEventListener.cs" />
-    <Compile Include="Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
-    <Compile Include="Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
-    <Compile Include="Logic\Cleaning\CodeCleanupManager.cs" />
-    <Compile Include="Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
-    <Compile Include="Logic\Cleaning\InsertWhitespaceLogic.cs" />
-    <Compile Include="Logic\Cleaning\RemoveWhitespaceLogic.cs" />
-    <Compile Include="Logic\Cleaning\UpdateLogic.cs" />
-    <Compile Include="Logic\Cleaning\UsingStatementCleanupLogic.cs" />
-    <Compile Include="Logic\Digging\OutliningSynchronizationManager.cs" />
-    <Compile Include="Logic\Reorganizing\CodeReorganizationManager.cs" />
-    <Compile Include="Model\CodeItems\BaseCodeItem.cs" />
-    <Compile Include="Model\CodeItems\BaseCodeItemElement.cs" />
-    <Compile Include="Model\CodeItems\BaseCodeItemElementParent.cs" />
-    <Compile Include="Model\CodeItems\CodeItemClass.cs" />
-    <Compile Include="Model\CodeItems\CodeItemDelegate.cs" />
-    <Compile Include="Model\CodeItems\CodeItemEnum.cs" />
-    <Compile Include="Model\CodeItems\CodeItemEvent.cs" />
-    <Compile Include="Model\CodeItems\CodeItemField.cs" />
-    <Compile Include="Model\CodeItems\CodeItemInterface.cs" />
-    <Compile Include="Model\CodeItems\CodeItemMethod.cs" />
-    <Compile Include="Model\CodeItems\CodeItemNamespace.cs" />
-    <Compile Include="Model\CodeItems\CodeItemProperty.cs" />
-    <Compile Include="Model\CodeItems\CodeItemRegion.cs" />
-    <Compile Include="Model\CodeItems\CodeItemStruct.cs" />
-    <Compile Include="Model\CodeItems\CodeItemUsingStatement.cs" />
-    <Compile Include="Model\CodeItems\ICodeItemComplexity.cs" />
-    <Compile Include="Model\CodeItems\ICodeItemParameters.cs" />
-    <Compile Include="Model\CodeItems\SnapshotCodeItems.cs" />
-    <Compile Include="Model\CodeItems\FactoryCodeItems.cs" />
-    <Compile Include="Model\CodeItems\ICodeItem.cs" />
-    <Compile Include="Model\CodeItems\ICodeItemParent.cs" />
-    <Compile Include="Model\CodeItems\KindCodeItem.cs" />
-    <Compile Include="Model\CodeItems\SetCodeItems.cs" />
-    <Compile Include="Model\CodeModel.cs" />
-    <Compile Include="Model\CodeModelBuilder.cs" />
-    <Compile Include="Model\CodeModelCache.cs" />
-    <Compile Include="Model\CodeModelHelper.cs" />
-    <Compile Include="Model\CodeModelManager.cs" />
-    <Compile Include="Model\CodeTree\CodeTreeBuilder.cs" />
-    <Compile Include="Model\CodeTree\CodeTreeBuilderAsync.cs" />
-    <Compile Include="Model\CodeTree\CodeTreeRequest.cs" />
-    <Compile Include="Model\CodeTree\CodeSortOrder.cs" />
-    <Compile Include="CodeMaidPackage.cs" />
-    <Compile Include="Model\Comments\CommentFormatter.cs" />
-    <Compile Include="Model\Comments\CommentMatch.cs" />
-    <Compile Include="Model\Comments\Options\IXmlTagOptions.cs" />
-    <Compile Include="Model\Comments\Options\XmlTagCase.cs" />
-    <Compile Include="Model\Comments\Options\XmlTagNewLine.cs" />
-    <Compile Include="Model\Comments\Options\XmlTagOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.cs">
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
-    <Compile Include="UI\Converters\BooleanInverseConverter.cs" />
-    <Compile Include="UI\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
-    <Compile Include="UI\Converters\CodeItemParentMemberCountConverter.cs" />
-    <Compile Include="UI\Converters\CodeItemToImageConverter.cs" />
-    <Compile Include="UI\Converters\CodeItemToMetadataStringConverter.cs" />
-    <Compile Include="UI\Converters\DocCommentToStringConverter.cs" />
-    <Compile Include="UI\Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="UI\Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="UI\Converters\IntToThicknessConverter.cs" />
-    <Compile Include="UI\Converters\NameParametersToTextBlockConverter.cs" />
-    <Compile Include="UI\Converters\NullToBooleanConverter.cs" />
-    <Compile Include="UI\Converters\IsGreaterThanOrEqualToConverter.cs" />
-    <Compile Include="UI\Converters\PropertyInfoDescriptionConverter.cs" />
-    <Compile Include="UI\Converters\StringReplaceConverter.cs" />
-    <Compile Include="UI\Converters\TypeStringConverter.cs" />
-    <Compile Include="UI\DelegateCommand.cs" />
-    <Compile Include="UI\DependencyObjectExtensions.cs" />
-    <Compile Include="UI\Dialogs\About\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\CleanupProgress\CleanupProgressViewModel.cs" />
-    <Compile Include="UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml.cs">
-      <DependentUpon>CleanupProgressWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningFileTypesViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningGeneralViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningInsertViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningParentViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningRemoveViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningUpdateViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Finding\FindingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Formatting\FormattingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Collapsing\CollapsingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\General\FeaturesViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\ISettingToOptionMapping.cs" />
-    <Compile Include="UI\Dialogs\Options\SettingToOptionMapping.cs" />
-    <Compile Include="UI\Dialogs\Options\SettingsToOptionsList.cs" />
-    <Compile Include="UI\Dialogs\Options\ThirdParty\ThirdPartyViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Digging\DiggingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\General\GeneralViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\OptionsPageViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\OptionsPageViewModelEnumerableExtensions.cs" />
-    <Compile Include="UI\Dialogs\Options\OptionsViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\OptionsWindow.xaml.cs">
-      <DependentUpon>OptionsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\Options\Progressing\ProgressingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingRegionsViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingTypesViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingParentViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Reorganizing\ReorganizingGeneralViewModel.cs" />
-    <Compile Include="UI\Dialogs\Options\Switching\SwitchingViewModel.cs" />
-    <Compile Include="UI\Dialogs\Prompts\YesNoPromptViewModel.cs" />
-    <Compile Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml.cs">
-      <DependentUpon>YesNoPromptWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DragDropAttachedProperties.cs" />
-    <Compile Include="UI\EditableTextBlock.xaml.cs">
-      <DependentUpon>EditableTextBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Enumerations\DropPosition.cs" />
-    <Compile Include="UI\Enumerations\NoneEmptyAll.cs" />
-    <Compile Include="UI\Enumerations\AskYesNo.cs" />
-    <Compile Include="UI\Enumerations\IconSetMode.cs" />
-    <Compile Include="UI\Enumerations\ThemeMode.cs" />
-    <Compile Include="UI\ListBoxReorderBehavior.cs" />
-    <Compile Include="UI\NotifiesOnAttribute.cs" />
-    <Compile Include="UI\ThemeManager.cs" />
-    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressToolWindow.cs" />
-    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml.cs">
-      <DependentUpon>BuildProgressView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ToolWindows\BuildProgress\BuildProgressViewModel.cs" />
-    <Compile Include="UI\ToolWindows\Spade\CodeItemTemplateSelector.cs" />
-    <Compile Include="UI\ToolWindows\Spade\CodeItemToolTipTemplateSelector.cs" />
-    <Compile Include="UI\ToolWindows\Spade\MemberSearchTask.cs" />
-    <Compile Include="UI\ToolWindows\Spade\RadialProgressBar.xaml.cs">
-      <DependentUpon>RadialProgressBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ToolWindows\Spade\SpadeToolWindow.cs" />
-    <Compile Include="UI\ToolWindows\Spade\SpadeView.xaml.cs">
-      <DependentUpon>SpadeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ToolWindows\Spade\SpadeViewModel.cs" />
-    <Compile Include="UI\ToolWindows\Spade\CenterConverter.cs" />
-    <Compile Include="UI\TreeViewBindableSelectedItemBehavior.cs" />
-    <Compile Include="UI\Bindable.cs" />
-    <Compile Include="UI\TreeViewMultipleSelectionBehavior.cs" />
-    <Compile Include="UI\WindowAttachedProperties.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.8.36\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Integration\Images\IDE\progressToolWindow.png" />
@@ -685,180 +311,12 @@
     <Resource Include="Integration\Images\IDE\unlock.bmp" />
     <Resource Include="Integration\Images\IDE\commentformat.bmp" />
     <Resource Include="Integration\Images\IDE\removeRegion.bmp" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="source.extension.vsixmanifest">
       <Generator>VsixManifestGenerator</Generator>
       <LastGenOutput>source.extension.resx</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\Dialogs\About\AboutWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\CleanupProgress\CleanupProgressWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningFileTypesDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningGeneralDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningInsertDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningParentDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningRemoveDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningUpdateDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Cleaning\CleaningVisualStudioDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Finding\FindingDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Formatting\FormattingDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Collapsing\CollapsingDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\General\FeaturesDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\ThirdParty\ThirdPartyDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Digging\DiggingDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\General\GeneralDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\Options\OptionsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Progressing\ProgressingDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingRegionsDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingGeneralDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingTypesDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Reorganizing\ReorganizingParentDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\Options\Switching\SwitchingDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Dialogs\Prompts\YesNoPromptWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\EditableTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Themes\Buttons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Themes\CodeMaidCoreTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Themes\CodeMaidDarkTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Themes\CodeMaidLightTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Themes\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Themes\TreeViews.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ToolWindows\BuildProgress\BuildProgressView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ToolWindows\Spade\CodeItemBaseTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ToolWindows\Spade\CodeItemTemplates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ToolWindows\Spade\CodeItemToolTipTemplates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ToolWindows\Spade\RadialProgressBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ToolWindows\Spade\SpadeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.en-US.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="source.extension.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.en-US.resources</LogicalName>
@@ -877,22 +335,31 @@
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Expression.Blend.Sdk">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>16.10.31321.278</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools">
+      <Version>16.11.35</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Collections.Immutable">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="..\CodeMaidShared\CodeMaidShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.8.36\build\Microsoft.VisualStudio.SDK.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.8.36\build\Microsoft.VisualStudio.SDK.Analyzers.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\build\Microsoft.VisualStudio.Threading.Analyzers.targets'))" />
-  </Target>
-  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.15.9.3039\build\Microsoft.VSSDK.BuildTools.targets')" />
-  <Import Project="..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />
-  <Import Project="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.8.36\build\Microsoft.VisualStudio.SDK.Analyzers.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.8.36\build\Microsoft.VisualStudio.SDK.Analyzers.targets')" />
-  <Import Project="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.209\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

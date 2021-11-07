@@ -1,0 +1,93 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Cleaning"
+        xmlns:converters="clr-namespace:SteveCadwallader.CodeMaid.UI.Converters"
+        xmlns:enums="clr-namespace:SteveCadwallader.CodeMaid.UI.Enumerations">
+    <DataTemplate DataType="{x:Type local:CleaningUpdateViewModel}">
+        <StackPanel>
+            <GroupBox Header="{x:Static p:Resources.General}">
+                <StackPanel>
+                    <CheckBox Content="{x:Static p:Resources.UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504}" IsChecked="{Binding UpdateAccessorsToBothBeSingleLineOrMultiLine}" />
+                    <CheckBox Content="{x:Static p:Resources.UpdateEndregionTagsWithRegionName}" IsChecked="{Binding UpdateEndRegionDirectives}" />
+                    <TextBlock Text="{x:Static p:Resources.ExEndregionMethods}" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static p:Resources.UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502}" IsChecked="{Binding UpdateSingleLineMethods}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static p:Resources.FileHeader}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <RadioButton Grid.Row="0" GroupName="HeaderMode" Content="Insert" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Insert}}" ToolTip="Inserts a new header if the one already present is different. If no header is present, the defined header is simply inserted." />
+                        <RadioButton Grid.Row="1" GroupName="HeaderMode" Content="Replace" IsChecked="{Binding HeaderUpdateMode, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderUpdateMode.Replace}}" ToolTip="Replaces the existing header. If no header is present, the defined header is simply inserted." />
+                    </Grid>
+                    <TabControl Margin="0 5">
+                        <TabItem Header="C#">
+                            <StackPanel Orientation="Vertical">
+                                <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSharp, UpdateSourceTrigger=PropertyChanged}" />
+                                <GroupBox Header="Position" Margin="5,0,5,5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <RadioButton Grid.Row="0" GroupName="HeaderInsertStyle" Content="Start of document" IsChecked="{Binding HeaderPosition, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderPosition.DocumentStart}}" />
+                                        <RadioButton Grid.Row="1" GroupName="HeaderInsertStyle" Content="After usings" IsChecked="{Binding HeaderPosition, Converter={x:Static converters:EnumToBooleanConverter.Default}, ConverterParameter={x:Static enums:HeaderPosition.AfterUsings}}" />
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="C++">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCPlusPlus, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="F#">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderFSharp, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="VB">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderVisualBasic, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PHP">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPHP, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="PowerShell">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderPowerShell, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="R">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderR, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JSON">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJSON, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XAML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXAML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="XML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderXML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="HTML">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderHTML, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="CSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="LESS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderLESS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="SCSS">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderSCSS, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="JavaScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderJavaScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                        <TabItem Header="TypeScript">
+                            <TextBox Style="{DynamicResource TextBoxMultiLine}" Text="{Binding UpdateFileHeaderTypeScript, UpdateSourceTrigger=PropertyChanged}" />
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

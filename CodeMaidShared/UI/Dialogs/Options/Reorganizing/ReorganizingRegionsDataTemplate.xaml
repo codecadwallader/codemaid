@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:SteveCadwallader.CodeMaid.Properties"
+        xmlns:local="clr-namespace:SteveCadwallader.CodeMaid.UI.Dialogs.Options.Reorganizing">
+    <DataTemplate DataType="{x:Type local:ReorganizingRegionsViewModel}">
+        <StackPanel>
+            <GroupBox Header="{x:Static p:Resources.General}">
+                <StackPanel>
+                    <CheckBox Content="{x:Static p:Resources.IncludeAccessLevelInRegions}" IsChecked="{Binding IncludeAccessLevel}" />
+                    <TextBlock Text="{x:Static p:Resources.ExRegionPublicMethodsRegionPrivateMethods}" Margin="35,0,5,10" />
+                    <CheckBox Content="{x:Static p:Resources.OnlyForMethods}" IsChecked="{Binding IncludeAccessLevelForMethodsOnly}" Margin="35,0,5,10" IsEnabled="{Binding IncludeAccessLevel}" />
+
+                    <CheckBox Content="{x:Static p:Resources.InsertKeepRegionsEvenIfTheyAreEmpty}" IsChecked="{Binding InsertKeepEvenIfEmpty}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Insert}">
+                <CheckBox Content="{x:Static p:Resources.InsertNewRegions}" IsChecked="{Binding InsertNewRegions}" />
+            </GroupBox>
+
+            <GroupBox Header="{x:Static p:Resources.Remove}">
+                <CheckBox Content="{x:Static p:Resources.RemoveExistingRegions}" IsChecked="{Binding RemoveExistingRegions}" />
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

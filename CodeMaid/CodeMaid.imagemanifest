@@ -5,7 +5,7 @@
 <ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
 
   <Symbols>
-    <String Name="ImagesIdePath" Value="/SteveCadwallader.CodeMaid;Component/Integration/Images/IDE" />
+    <String Name="ImagesIdePath" Value="/Integration/Images/IDE" />
     <Guid Name="GuidCodeMaidImageMoniker" Value="{e4c3c7f4-7250-4f02-b07b-575a320898ab}" />
     <ID Name="progressToolWindow" Value="1" />
     <ID Name="spadeToolWindow" Value="2" />

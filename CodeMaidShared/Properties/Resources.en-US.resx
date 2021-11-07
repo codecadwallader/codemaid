@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="_UnableToImport" xml:space="preserve">
+    <value>Unable to import </value>
+  </data>
+  <data name="AccessLevelsShouldBeOrderedBy" xml:space="preserve">
+    <value>Access levels should be ordered by</value>
+  </data>
+  <data name="AccessThenType" xml:space="preserve">
+    <value>access then type</value>
+  </data>
+  <data name="AddSpaceInsideSelfClosingTags" xml:space="preserve">
+    <value>Add space inside self closing tags</value>
+  </data>
+  <data name="AddSpacingAroundXMLTags" xml:space="preserve">
+    <value>Add spacing around XML tags</value>
+  </data>
+  <data name="AfterAttributes" xml:space="preserve">
+    <value>after attributes</value>
+  </data>
+  <data name="AfterOpeningBraces" xml:space="preserve">
+    <value>after opening braces</value>
+  </data>
+  <data name="AlertThreshold" xml:space="preserve">
+    <value>Alert threshold</value>
+  </data>
+  <data name="AlignXMLParamTags" xml:space="preserve">
+    <value>Align XML param tags</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>all</value>
+  </data>
+  <data name="Alphabetical" xml:space="preserve">
+    <value>alphabetical</value>
+  </data>
+  <data name="AlphabetizeMembersOfTheSameGroup" xml:space="preserve">
+    <value>Alphabetize members of the same group</value>
+  </data>
+  <data name="AlwaysSplitAllXMLTagsOntoMultipleLines" xml:space="preserve">
+    <value>Always split all XML tags onto multiple lines</value>
+  </data>
+  <data name="AlwaysSplitSummaryTagsOntoMultipleLines" xml:space="preserve">
+    <value>Always split summary tags onto multiple lines</value>
+  </data>
+  <data name="AreYouReadyForCodeMaidToCleanEverythingInTheSolution" xml:space="preserve">
+    <value>Are you ready for CodeMaid to clean everything in the solution?</value>
+  </data>
+  <data name="AreYouSureYouWantAll" xml:space="preserve">
+    <value>Are you sure you want all </value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>ask</value>
+  </data>
+  <data name="AtBottomOfFile" xml:space="preserve">
+    <value>at bottom of file</value>
+  </data>
+  <data name="AtTopOfFile" xml:space="preserve">
+    <value>at top of file</value>
+  </data>
+  <data name="AutoDetect" xml:space="preserve">
+    <value>auto-detect</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="AutomaticallyRunCleanupOnFileSave" xml:space="preserve">
+    <value>Automatically run cleanup on file save</value>
+  </data>
+  <data name="AutomaticallySaveAndCloseDocumentsOpenedByCleanup" xml:space="preserve">
+    <value>Automatically save and close documents opened by cleanup</value>
+  </data>
+  <data name="AutomaticCleanupOnSave" xml:space="preserve">
+    <value>Automatic Cleanup On Save - </value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>Batch </value>
+  </data>
+  <data name="BeforeClosingAngleBrackets" xml:space="preserve">
+    <value>before closing angle brackets</value>
+  </data>
+  <data name="BeforeClosingBraces" xml:space="preserve">
+    <value>before closing braces</value>
+  </data>
+  <data name="BeforeClosingTags" xml:space="preserve">
+    <value>before closing tags</value>
+  </data>
+  <data name="BetweenChainedStatements" xml:space="preserve">
+    <value>between chained statements</value>
+  </data>
+  <data name="Building" xml:space="preserve">
+    <value>Building</value>
+  </data>
+  <data name="BuildProgress" xml:space="preserve">
+    <value>Build Progress</value>
+  </data>
+  <data name="BuildProgressWindow" xml:space="preserve">
+    <value>Build progress window</value>
+  </data>
+  <data name="CacheFileCodeModels" xml:space="preserve">
+    <value>Cache file code models</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Canceling" xml:space="preserve">
+    <value>Canceling...</value>
+  </data>
+  <data name="Cleaning" xml:space="preserve">
+    <value>Cleaning</value>
+  </data>
+  <data name="Cleaning_n" xml:space="preserve">
+    <value>Cleaning</value>
+  </data>
+  <data name="CleaningFileTypesViewModel_FileTypes" xml:space="preserve">
+    <value>File Types</value>
+  </data>
+  <data name="CleaningUpdateViewModel_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>Cleanup</value>
+  </data>
+  <data name="CleanupActiveCode" xml:space="preserve">
+    <value>Cleanup Active Code</value>
+  </data>
+  <data name="CleanupActiveDocument" xml:space="preserve">
+    <value>Cleanup Active Document</value>
+  </data>
+  <data name="CleanupAllCode" xml:space="preserve">
+    <value>Cleanup All Code</value>
+  </data>
+  <data name="CleanupCannotRunWhileDebugging" xml:space="preserve">
+    <value>Cleanup cannot run while debugging.</value>
+  </data>
+  <data name="CleanupOpenCode" xml:space="preserve">
+    <value>Cleanup Open Code</value>
+  </data>
+  <data name="CleanupSelectedCode" xml:space="preserve">
+    <value>Cleanup Selected Code</value>
+  </data>
+  <data name="ClearSolutionExplorerSearchFilteringToFindFilteredItems" xml:space="preserve">
+    <value>Clear Solution Explorer search filtering to find filtered items</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAllReadOnly" xml:space="preserve">
+    <value>Close All Read-Only</value>
+  </data>
+  <data name="CodeMaidCleaned0" xml:space="preserve">
+    <value>CodeMaid cleaned '{0}'.</value>
+  </data>
+  <data name="CodeMaidCleanupAllCode" xml:space="preserve">
+    <value>CodeMaid: Cleanup All Code</value>
+  </data>
+  <data name="CodeMaidCleanupExternalFile" xml:space="preserve">
+    <value>CodeMaid: Cleanup External File</value>
+  </data>
+  <data name="CodeMaidCleanupFor0" xml:space="preserve">
+    <value>CodeMaid Cleanup for '{0}'</value>
+  </data>
+  <data name="CodeMaidCleanupProgress" xml:space="preserve">
+    <value>CodeMaid: Cleanup Progress</value>
+  </data>
+  <data name="CodeMaidConfirmationForCleanupAllCode" xml:space="preserve">
+    <value>CodeMaid: Confirmation for Cleanup All Code</value>
+  </data>
+  <data name="CodeMaidConfirmationForReset" xml:space="preserve">
+    <value>CodeMaid: Confirmation for Reset </value>
+  </data>
+  <data name="CodeMaidConfirmationToSavePendingChanges" xml:space="preserve">
+    <value>CodeMaid: Confirmation to Save Pending Changes</value>
+  </data>
+  <data name="CodeMaidDeleteItems" xml:space="preserve">
+    <value>CodeMaid Delete Items</value>
+  </data>
+  <data name="CodeMaidDidNotFindANonCodeComment0ToReformat" xml:space="preserve">
+    <value>CodeMaid did not find a non-code comment {0} to reformat.</value>
+  </data>
+  <data name="CodeMaidExport" xml:space="preserve">
+    <value>CodeMaid: Export </value>
+  </data>
+  <data name="CodeMaidFailedToLoadTheme0SeeOutputWindowForMoreDetails" xml:space="preserve">
+    <value>CodeMaid failed to load theme '{0}'.  See output window for more details.</value>
+  </data>
+  <data name="CodeMaidFinishedFormattingTheComment" xml:space="preserve">
+    <value>CodeMaid finished formatting the comment.</value>
+  </data>
+  <data name="CodeMaidFinishedFormattingTheComments0" xml:space="preserve">
+    <value>CodeMaid finished formatting the comments {0}.</value>
+  </data>
+  <data name="CodeMaidFormatComment" xml:space="preserve">
+    <value>CodeMaid Format Comment</value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyExported" xml:space="preserve">
+    <value>CodeMaid has successfully exported </value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyImported1From0" xml:space="preserve">
+    <value>CodeMaid has successfully imported {1} from '{0}'.</value>
+  </data>
+  <data name="CodeMaidHasSuccessfullyReset" xml:space="preserve">
+    <value>CodeMaid has successfully reset </value>
+  </data>
+  <data name="CodeMaidImport" xml:space="preserve">
+    <value>CodeMaid: Import </value>
+  </data>
+  <data name="CodeMaidInsertRegion" xml:space="preserve">
+    <value>CodeMaid Insert Region</value>
+  </data>
+  <data name="CodeMaidIsCleaning0" xml:space="preserve">
+    <value>CodeMaid is cleaning '{0}'...</value>
+  </data>
+  <data name="CodeMaidJoin" xml:space="preserve">
+    <value>CodeMaid Join</value>
+  </data>
+  <data name="CodeMaidMoveItemAbove" xml:space="preserve">
+    <value>CodeMaid Move Item Above</value>
+  </data>
+  <data name="CodeMaidMoveItemBelow" xml:space="preserve">
+    <value>CodeMaid Move Item Below</value>
+  </data>
+  <data name="CodeMaidMoveItemInto" xml:space="preserve">
+    <value>CodeMaid Move Item Into</value>
+  </data>
+  <data name="CodeMaidOptions" xml:space="preserve">
+    <value>CodeMaid Options</value>
+  </data>
+  <data name="CodeMaidRemoveAllRegions" xml:space="preserve">
+    <value>CodeMaid Remove All Regions</value>
+  </data>
+  <data name="CodeMaidRemoveRegion" xml:space="preserve">
+    <value>CodeMaid Remove Region </value>
+  </data>
+  <data name="CodeMaidRemoveRegions" xml:space="preserve">
+    <value>CodeMaid Remove Regions</value>
+  </data>
+  <data name="CodeMaidRemoveSelectedRegions" xml:space="preserve">
+    <value>CodeMaid Remove Selected Regions</value>
+  </data>
+  <data name="CodeMaidReorganized0" xml:space="preserve">
+    <value>CodeMaid reorganized '{0}'.</value>
+  </data>
+  <data name="CodeMaidReorganizeFor0" xml:space="preserve">
+    <value>CodeMaid Reorganize for '{0}'</value>
+  </data>
+  <data name="CodeMaidReorganizePreprocessorConditionals" xml:space="preserve">
+    <value>CodeMaid: Reorganize Preprocessor Conditionals</value>
+  </data>
+  <data name="CodeMaidReset" xml:space="preserve">
+    <value>CodeMaid: Reset </value>
+  </data>
+  <data name="CodeMaidSort" xml:space="preserve">
+    <value>CodeMaid Sort</value>
+  </data>
+  <data name="CodeMaidSpade" xml:space="preserve">
+    <value>CodeMaid Spade</value>
+  </data>
+  <data name="CodeMaidTurnedAutomaticCleanupOnSave" xml:space="preserve">
+    <value>CodeMaid turned automatic cleanup on save</value>
+  </data>
+  <data name="CodeMaidWasUnableToExport" xml:space="preserve">
+    <value>CodeMaid was unable to export </value>
+  </data>
+  <data name="CodeMaidWasUnableToImport" xml:space="preserve">
+    <value>CodeMaid was unable to import </value>
+  </data>
+  <data name="CodeMaidWasUnableToReset" xml:space="preserve">
+    <value>CodeMaid was unable to reset </value>
+  </data>
+  <data name="CollapseAllSolutionExplorer" xml:space="preserve">
+    <value>Collapse All Solution Explorer</value>
+  </data>
+  <data name="CollapseSelectedSolutionExplorer" xml:space="preserve">
+    <value>Collapse Selected Solution Explorer</value>
+  </data>
+  <data name="CollapseSolutionsWhenTheyAreOpened" xml:space="preserve">
+    <value>Collapse solutions when they are opened</value>
+  </data>
+  <data name="CollapsingViewModel_Collapsing" xml:space="preserve">
+    <value>Collapsing</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>Complexity</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="ConfigFilesConfigConfigAllFiles" xml:space="preserve">
+    <value>Config files (*.config)|*.config|All Files (*.*)|*.*</value>
+  </data>
+  <data name="ContainsPreprocessorConditionalsEGIfPragmaWhichReorganizationDoesNotCurrentlySupportDoYouWantToReorganizeAnywaysDANGEROUS" xml:space="preserve">
+    <value>{0} contains preprocessor conditionals (e.g. #if, #pragma) which reorganization does not currently support.
+
+Do you want to reorganize anyways (DANGEROUS)?</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>dark</value>
+  </data>
+  <data name="Deploying" xml:space="preserve">
+    <value>Deploying</value>
+  </data>
+  <data name="Diagnostic" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="DiagnosticsMode" xml:space="preserve">
+    <value>Diagnostics mode</value>
+  </data>
+  <data name="Digging" xml:space="preserve">
+    <value>Digging</value>
+  </data>
+  <data name="DiggingViewModel_DiggingSpade" xml:space="preserve">
+    <value>Digging (Spade)</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="DoYouWantToPerformAPartialCleanup" xml:space="preserve">
+    <value>Do you want to perform a partial cleanup?</value>
+  </data>
+  <data name="DragToReorderDragOverToGroupRightClickToSplitDoubleClickToRename" xml:space="preserve">
+    <value>Drag to reorder, drag over to group, right click to split, double-click to rename</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>empty</value>
+  </data>
+  <data name="EverythingElseExTxtREADME" xml:space="preserve">
+    <value>Everything else (ex: .txt, README)</value>
+  </data>
+  <data name="Exclude" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="ExEndregionMethods" xml:space="preserve">
+    <value>Ex: #endregion Methods</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExRegionPublicMethodsRegionPrivateMethods" xml:space="preserve">
+    <value>Ex: #region Public Methods, #region Private Methods</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>External</value>
+  </data>
+  <data name="ExtraIndentForValuesInsideXMLComments" xml:space="preserve">
+    <value>Extra indent for values inside XML comments</value>
+  </data>
+  <data name="FeaturesDataTemplate_AutomaticCleanupOnSave" xml:space="preserve">
+    <value>Automatic Cleanup On Save</value>
+  </data>
+  <data name="FeaturesSwitch" xml:space="preserve">
+    <value>Features Switch</value>
+  </data>
+  <data name="FeaturesViewModel_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="FileHeader" xml:space="preserve">
+    <value>File Header</value>
+  </data>
+  <data name="FileOrder" xml:space="preserve">
+    <value>file order</value>
+  </data>
+  <data name="FindingViewModel_Finding" xml:space="preserve">
+    <value>Finding</value>
+  </data>
+  <data name="FindInSolutionExplorer" xml:space="preserve">
+    <value>Find In Solution Explorer</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="FormatComment" xml:space="preserve">
+    <value>Format Comment</value>
+  </data>
+  <data name="FormattingViewModel_Formatting" xml:space="preserve">
+    <value>Formatting</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="HandledException" xml:space="preserve">
+    <value>Handled Exception</value>
+  </data>
+  <data name="HideBuildProgressWindowWhenABuildStops" xml:space="preserve">
+    <value>Hide build progress window when a build stops</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="IfThereIsOnlyOneProjectInASolutionKeepItExpandedButStillCollapseItsChildren" xml:space="preserve">
+    <value>If there is only one project in a solution, keep it expanded but still collapse its children</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="IncludeAccessLevelInRegions" xml:space="preserve">
+    <value>Include access level in regions</value>
+  </data>
+  <data name="IndentationMargin" xml:space="preserve">
+    <value>Indentation margin</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="InsertBlankLinePaddingAfter" xml:space="preserve">
+    <value>Insert blank line padding after</value>
+  </data>
+  <data name="InsertBlankLinePaddingBefore" xml:space="preserve">
+    <value>Insert blank line padding before</value>
+  </data>
+  <data name="InsertBlankLinePaddingBetween" xml:space="preserve">
+    <value>Insert blank line padding between</value>
+  </data>
+  <data name="InsertBlankSpaceBefore" xml:space="preserve">
+    <value>Insert blank space before</value>
+  </data>
+  <data name="InsertEndOfFileTrailingNewLine" xml:space="preserve">
+    <value>Insert end of file trailing new line</value>
+  </data>
+  <data name="InsertExplicitAccessModifiersOn" xml:space="preserve">
+    <value>Insert explicit access modifiers on</value>
+  </data>
+  <data name="InsertKeepRegionsEvenIfTheyAreEmpty" xml:space="preserve">
+    <value>Insert/keep regions even if they are empty</value>
+  </data>
+  <data name="InsertNewRegions" xml:space="preserve">
+    <value>Insert new regions</value>
+  </data>
+  <data name="InTheSelection" xml:space="preserve">
+    <value>in the selection</value>
+  </data>
+  <data name="IsNotInTheSolutionSoSomeCleanupActionsMayBeUnavailable" xml:space="preserve">
+    <value> is not in the solution so some cleanup actions may be unavailable.</value>
+  </data>
+  <data name="JoinLines" xml:space="preserve">
+    <value>Join Lines</value>
+  </data>
+  <data name="KeepMembersWithinRegions" xml:space="preserve">
+    <value>Keep members within regions</value>
+  </data>
+  <data name="KeepXMLTagsTogether" xml:space="preserve">
+    <value>Keep XML tags together</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>light</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>loading...</value>
+  </data>
+  <data name="LoadModelsAsynchronously" xml:space="preserve">
+    <value>Load models asynchronously</value>
+  </data>
+  <data name="MemberTypeOrderGroupingAndPreferredNames" xml:space="preserve">
+    <value>Member type order, grouping and preferred names</value>
+  </data>
+  <data name="Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>Miscellaneous</value>
+  </data>
+  <data name="MostComplex" xml:space="preserve">
+    <value>Most Complex</value>
+  </data>
+  <data name="NameOnly" xml:space="preserve">
+    <value>name only</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="NewRegion" xml:space="preserve">
+    <value>New Region</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="OptionsViewModel_OnResetToDefaultsCommandExecuted_ToBeResetToTheirDefaults" xml:space="preserve">
+    <value> to be reset to their defaults?</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OtherCleaningCommandsExReSharperReSharper_SilentCleanupCode" xml:space="preserve">
+    <value>Other cleaning commands (ex: ReSharper.ReSharper_SilentCleanupCode)</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="PerformPartialCleanupIfFileIsNotInTheSolution" xml:space="preserve">
+    <value>Perform partial cleanup if file is not in the solution</value>
+  </data>
+  <data name="PerformReorganizationWhenPreprocessorConditionalsArePresent" xml:space="preserve">
+    <value>Perform reorganization when preprocessor conditionals are present</value>
+  </data>
+  <data name="PlaceEachCommandOnASeparateLine" xml:space="preserve">
+    <value>Place each command on a separate line</value>
+  </data>
+  <data name="PlaceEachRegularExpressionOnASeparateLine" xml:space="preserve">
+    <value>Place each regular expression on a separate line</value>
+  </data>
+  <data name="PlaceEachSetOnASeparateLine" xml:space="preserve">
+    <value>Place each set on a separate line</value>
+  </data>
+  <data name="PlaceEachUsingStatementOnASeparateLine" xml:space="preserve">
+    <value>Place each using statement on a separate line</value>
+  </data>
+  <data name="PlaceExplicitInterfaceMembersAtTheEndOfTheirGroup" xml:space="preserve">
+    <value>Place explicit interface members at the end of their group</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="PrimaryOrderingShouldBeBy" xml:space="preserve">
+    <value>Primary ordering should be by</value>
+  </data>
+  <data name="PrimarySortShouldBeBy" xml:space="preserve">
+    <value>Primary sort should be by</value>
+  </data>
+  <data name="ProgressingViewModel_Progressing" xml:space="preserve">
+    <value>Progressing</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Read-Only</value>
+  </data>
+  <data name="ReadOnlyToggle" xml:space="preserve">
+    <value>Read-Only Toggle</value>
+  </data>
+  <data name="Rebuilding" xml:space="preserve">
+    <value>Rebuilding</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>refreshing...</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Regions</value>
+  </data>
+  <data name="RegularExpressionsThatMatchPathNamesToExcludeExResxOrLib" xml:space="preserve">
+    <value>Regular expressions that match path names to exclude  (ex: \.resx$ or \\lib\\ )</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RemoveAllRegions" xml:space="preserve">
+    <value>&amp;Remove All Regions</value>
+  </data>
+  <data name="RemoveBlankLines" xml:space="preserve">
+    <value>Remove blank lines</value>
+  </data>
+  <data name="RemoveBlankSpaces" xml:space="preserve">
+    <value>Remove blank spaces</value>
+  </data>
+  <data name="RemoveCurrentRegion" xml:space="preserve">
+    <value>&amp;Remove Current Region</value>
+  </data>
+  <data name="RemoveEndOfFileTrailingNewLine" xml:space="preserve">
+    <value>Remove end of file trailing new line</value>
+  </data>
+  <data name="RemoveEndOfLineWhitespace" xml:space="preserve">
+    <value>Remove end of line whitespace</value>
+  </data>
+  <data name="RemoveExistingRegions" xml:space="preserve">
+    <value>Remove existing regions</value>
+  </data>
+  <data name="RemoveMultipleConsecutiveBlankLines" xml:space="preserve">
+    <value>Remove multiple consecutive blank lines</value>
+  </data>
+  <data name="RemoveRegion" xml:space="preserve">
+    <value>Remove Region</value>
+  </data>
+  <data name="RemoveRegions" xml:space="preserve">
+    <value>Remove regions</value>
+  </data>
+  <data name="RemoveSelectedRegions" xml:space="preserve">
+    <value>&amp;Remove Selected Regions</value>
+  </data>
+  <data name="Reorganize_CodeMaidIsReorganizing0" xml:space="preserve">
+    <value>CodeMaid is reorganizing '{0}'...</value>
+  </data>
+  <data name="ReorganizeActiveCode" xml:space="preserve">
+    <value>Reorganize Active Code</value>
+  </data>
+  <data name="ReorganizeActiveDocument" xml:space="preserve">
+    <value>Reorganize Active Document</value>
+  </data>
+  <data name="Reorganizing" xml:space="preserve">
+    <value>Reorganizing</value>
+  </data>
+  <data name="ReorganizingTypesViewModel_Types" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Reset to Defaults</value>
+  </data>
+  <data name="RunFormatCommentsDuringCleanup" xml:space="preserve">
+    <value>Run format comments during cleanup</value>
+  </data>
+  <data name="RunFormatDocument" xml:space="preserve">
+    <value>Run format document</value>
+  </data>
+  <data name="RunJetBrainsReSharperCleanup" xml:space="preserve">
+    <value>Run JetBrains ReSharper cleanup</value>
+  </data>
+  <data name="RunRemoveAndSortUsingStatements" xml:space="preserve">
+    <value>Run remove and sort using statements</value>
+  </data>
+  <data name="RunReorganizeAtStartOfCleanup" xml:space="preserve">
+    <value>Run reorganize at start of cleanup</value>
+  </data>
+  <data name="RunTelerikJustCodeCleanup" xml:space="preserve">
+    <value>Run Telerik JustCode cleanup</value>
+  </data>
+  <data name="RunXAMLStylerCleanup" xml:space="preserve">
+    <value>Run XAML Styler cleanup</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SearchCodeMaidSpadeCtrlM" xml:space="preserve">
+    <value>Search CodeMaid Spade (Ctrl+M, ;)</value>
+  </data>
+  <data name="SeeOutputWindowForMoreDetails" xml:space="preserve">
+    <value>.  See output window for more details.</value>
+  </data>
+  <data name="SelectASubCategoryToSetOptions" xml:space="preserve">
+    <value>Select a sub-category to set options.</value>
+  </data>
+  <data name="SetsOfRelatedFileExtensionsExCppH" xml:space="preserve">
+    <value>Sets of related file extensions  (ex: .cpp .h )</value>
+  </data>
+  <data name="SettingCleanupOnSaveCommand_OFF" xml:space="preserve">
+    <value>OFF</value>
+  </data>
+  <data name="SettingCleanupOnSaveCommand_ON" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="ShowBuildProgressOnVisualStudioIconInWindowsTaskbar" xml:space="preserve">
+    <value>Show build progress on Visual Studio icon in Windows taskbar</value>
+  </data>
+  <data name="ShowBuildProgressWindowWhenABuildStarts" xml:space="preserve">
+    <value>Show build progress window when a build starts</value>
+  </data>
+  <data name="ShowItemComplexityMcCabe" xml:space="preserve">
+    <value>Show item complexity (McCabe)</value>
+  </data>
+  <data name="ShowItemMetadata" xml:space="preserve">
+    <value>Show item metadata</value>
+  </data>
+  <data name="ShowItemTypes" xml:space="preserve">
+    <value>Show item types</value>
+  </data>
+  <data name="ShowMethodParameters" xml:space="preserve">
+    <value>Show method parameters</value>
+  </data>
+  <data name="ShowStartPageWhenASolutionIsClosed" xml:space="preserve">
+    <value>Show start page when a solution is closed</value>
+  </data>
+  <data name="SkipDuringAutomaticCleanupOnSave" xml:space="preserve">
+    <value>Skip during automatic cleanup on save</value>
+  </data>
+  <data name="SkipWrappingOnTheLastWord" xml:space="preserve">
+    <value>Skip wrapping on the last word</value>
+  </data>
+  <data name="SolutionExplorer" xml:space="preserve">
+    <value>Solution Explorer</value>
+  </data>
+  <data name="SolutionSpecificSettings" xml:space="preserve">
+    <value>Solution-Specific Settings</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="SortLines" xml:space="preserve">
+    <value>Sort Lines</value>
+  </data>
+  <data name="Spade" xml:space="preserve">
+    <value>Spade</value>
+  </data>
+  <data name="SpadeToolWindow" xml:space="preserve">
+    <value>Spade Tool Window</value>
+  </data>
+  <data name="Split" xml:space="preserve">
+    <value>Split</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value> Successful</value>
+  </data>
+  <data name="SWitchFile" xml:space="preserve">
+    <value>S&amp;witch File</value>
+  </data>
+  <data name="SwitchFile_no_alt" xml:space="preserve">
+    <value>Switch File</value>
+  </data>
+  <data name="SwitchingViewModel_Switching" xml:space="preserve">
+    <value>Switching</value>
+  </data>
+  <data name="SWitchTo" xml:space="preserve">
+    <value>S&amp;witch to </value>
+  </data>
+  <data name="SynchronizeOutliningWithTheCodeFile" xml:space="preserve">
+    <value>Synchronize outlining with the code file</value>
+  </data>
+  <data name="T4GeneratedCode" xml:space="preserve">
+    <value>T4 generated code</value>
+  </data>
+  <data name="TemporarilyOpenSolutionFoldersToFindNestedItems" xml:space="preserve">
+    <value>Temporarily open solution folders to find nested items</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThirdPartyViewModel_ThirdParty" xml:space="preserve">
+    <value>Third Party</value>
+  </data>
+  <data name="ThisActionCannotBeUndone" xml:space="preserve">
+    <value>This action cannot be undone.</value>
+  </data>
+  <data name="To0" xml:space="preserve">
+    <value> to '{0}'.</value>
+  </data>
+  <data name="ToolWindows" xml:space="preserve">
+    <value>Tool Windows</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>type</value>
+  </data>
+  <data name="TypeThenAccess" xml:space="preserve">
+    <value>type then access</value>
+  </data>
+  <data name="UnableToExport" xml:space="preserve">
+    <value>Unable to export </value>
+  </data>
+  <data name="UnableToReset" xml:space="preserve">
+    <value>Unable to reset </value>
+  </data>
+  <data name="UnableToToggleReadOnlyStateOn" xml:space="preserve">
+    <value>Unable to toggle read only state on </value>
+  </data>
+  <data name="UnderTheCursor" xml:space="preserve">
+    <value>under the cursor</value>
+  </data>
+  <data name="Unsuccessful" xml:space="preserve">
+    <value> Unsuccessful</value>
+  </data>
+  <data name="UpdateAccessorsToBothBeSingleLineOrMultiLineSA1504" xml:space="preserve">
+    <value>Update accessors to both be single-line or multi-line (SA1504)</value>
+  </data>
+  <data name="UpdateEndregionTagsWithRegionName" xml:space="preserve">
+    <value>Update #endregion tags with region name</value>
+  </data>
+  <data name="UpdateSingleLineMethodsByPlacingBracesOnSeparateLinesSA1502" xml:space="preserve">
+    <value>Update single line methods by placing braces on separate lines (SA1502)</value>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>User Settings</value>
+  </data>
+  <data name="UseUndoTransactions" xml:space="preserve">
+    <value>Use undo transactions</value>
+  </data>
+  <data name="UsingStatementsToReInsertWhenRemovedExUsingSystem" xml:space="preserve">
+    <value>Using statements to re-insert when removed  (ex: using System; )</value>
+  </data>
+  <data name="Visuals" xml:space="preserve">
+    <value>Visuals</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="WarningThreshold" xml:space="preserve">
+    <value>Warning threshold</value>
+  </data>
+  <data name="WasStopped" xml:space="preserve">
+    <value> was stopped</value>
+  </data>
+  <data name="WhenNavigatingCenterOn" xml:space="preserve">
+    <value>When navigating center on</value>
+  </data>
+  <data name="WhenSortingByTypeSecondarySortShouldBeBy" xml:space="preserve">
+    <value>When sorting by type, secondary sort should be by</value>
+  </data>
+  <data name="WhileCleaning" xml:space="preserve">
+    <value>While Cleaning</value>
+  </data>
+  <data name="Whitespace" xml:space="preserve">
+    <value>Whitespace</value>
+  </data>
+  <data name="WholeItem" xml:space="preserve">
+    <value>whole item</value>
+  </data>
+  <data name="WindowsTaskbar" xml:space="preserve">
+    <value>Windows taskbar</value>
+  </data>
+  <data name="WrapCommentsAtColumn" xml:space="preserve">
+    <value>Wrap comments at column</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing" xml:space="preserve">
+    <value>You have pending changes.  Do you want to save them before continuing?</value>
+  </data>
+  <data name="RegularExpressionsThatMatchPathNamesToIncludeExResxOrLib" xml:space="preserve">
+    <value>Regular expressions that match path names to include or leave empty to include all files  (ex: \.resx$ or \\lib\\ )</value>
+  </data>
+  <data name="OnlyForMethods" xml:space="preserve">
+    <value>Only for methods</value>
+  </data>
+</root>

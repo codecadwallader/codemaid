@@ -1,3 +1,0 @@
-#
-# FileHeaderR.R
-#
