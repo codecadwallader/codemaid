@@ -7,6 +7,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 - [ ] Features
 
 - [ ] Fixes
+  - [x] [#854](https://github.com/codecadwallader/codemaid/pull/854) - Translate new resource to Chinese, simplify build outputs and fix for prompt to clean external files when another dialog is already open - thanks [heku](https://github.com/heku)!
 
 ## Previous Releases
 
