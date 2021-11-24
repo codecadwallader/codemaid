@@ -192,10 +192,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             switch (FileHeaderHelper.GetFileHeaderPositionFromSettings(textDocument))
             {
                 case HeaderPosition.DocumentStart:
+                    ReplaceFileHeaderAfterUsings(textDocument, string.Empty); // Removes header after usings if present
                     ReplaceFileHeaderDocumentStart(textDocument, settingsFileHeader);
                     return;
 
                 case HeaderPosition.AfterUsings:
+                    ReplaceFileHeaderDocumentStart(textDocument, string.Empty); // Removes header at document start if present
                     ReplaceFileHeaderAfterUsings(textDocument, settingsFileHeader);
                     return;
 
