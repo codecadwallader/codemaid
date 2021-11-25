@@ -325,17 +325,21 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var startIndex = 0;
             var lastUsingIndex = 0;
 
-            while (startIndex < namespaceIndex && startIndex++ != -1)
+            while (startIndex < namespaceIndex)
             {
                 lastUsingIndex = startIndex;
                 startIndex = document.IndexOf("using ", startIndex);
+
+                if (startIndex++ == -1)
+                {
+                    break;
+                }
             }
 
             var afterUsingIndex = 0;
 
-            if (lastUsingIndex != 1)
+            if (lastUsingIndex > 0)
             {
-                // if lastUsingIndex == 1 we did not find any using
                 afterUsingIndex = document.IndexOf($"{Environment.NewLine}", lastUsingIndex) + 1;
             }
 
