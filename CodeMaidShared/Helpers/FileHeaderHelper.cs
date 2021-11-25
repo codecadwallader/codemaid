@@ -1,4 +1,4 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
@@ -182,6 +182,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             header.AddRange(GetLinesStartingWith(commentSyntax, lines, header.Count));
 
             var nbChar = 0;
+
+            if (header.Count() == 0)
+            {
+                return 0;
+            }
+
             header.ToList().ForEach(x => nbChar += x.Length + 1);
 
             return nbChar;
@@ -218,6 +224,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
             }
 
             var nbChar = 0;
+
+            if (header.Count() == 0)
+            {
+                return 0;
+            }
+
             header.ToList().ForEach(x => nbChar += x.Length + 1);
 
             return nbChar;
@@ -234,7 +246,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             var nbChar = 0;
             header.ToList().ForEach(x => nbChar += x.Length + 1);
 
-            return nbChar + 1;
+            return nbChar == 0 ? 0 : nbChar + 1;
         }
 
         private static int GetHeaderLengthSkipUsings(string text, string commentSyntaxStart, string commentSyntaxEnd)
@@ -251,6 +263,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
             var header = text.Substring(startIndex, endIndex - startIndex);
             var nbNewLines = Regex.Matches(header, Environment.NewLine).Count;
+
+            if (header.Length == 0 && nbNewLines == 0)
+            {
+                return 0;
+            }
+
             return header.Length + commentSyntaxEnd.Length - nbNewLines + 1;
         }
 
@@ -313,7 +331,14 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 startIndex = document.IndexOf("using ", startIndex);
             }
 
-            var afterUsingIndex = document.IndexOf($"{Environment.NewLine}", lastUsingIndex) + 1;
+            var afterUsingIndex = 0;
+
+            if (lastUsingIndex != 1)
+            {
+                // if lastUsingIndex == 1 we did not find any using
+                afterUsingIndex = document.IndexOf($"{Environment.NewLine}", lastUsingIndex) + 1;
+            }
+
             return document.Substring(afterUsingIndex).TrimStart();
         }
 
