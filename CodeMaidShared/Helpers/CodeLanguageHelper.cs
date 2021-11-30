@@ -32,6 +32,7 @@
 
                 case "HTML":
                 case "HTMLX":
+                case "Razor":
                 case "WebForms":
                     return CodeLanguage.HTML;
 
