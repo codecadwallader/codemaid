@@ -9,6 +9,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 - [ ] Fixes
   - [x] [#854](https://github.com/codecadwallader/codemaid/pull/854) - Translate new resource to Chinese, simplify build outputs and fix for prompt to clean external files when another dialog is already open - thanks [heku](https://github.com/heku)!
   - [x] [#877](https://github.com/codecadwallader/codemaid/pull/877) - Recognize WebForms in VS2022 (API change)
+  - [x] [#880](https://github.com/codecadwallader/codemaid/pull/880) - Recognize Razor in VS2022 (API change)
 
 ## Previous Releases
 
