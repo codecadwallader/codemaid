@@ -404,7 +404,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var textSnapshotLine = textSnapshot.GetLineFromLineNumber(textPoint.Line - 1);
-            return textSnapshotLine.Start.Position + textPoint.LineCharOffset;
+            return textSnapshotLine.Start.Position + textPoint.LineCharOffset - 1;
         }
 
         private static Span GetSnapshotSpanForExtent(ITextSnapshot textSnapshot, EditPoint startPoint, EditPoint endPoint)
