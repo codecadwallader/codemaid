@@ -161,9 +161,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
                     IFinder finder = GetFinder(matchString, textBuffer);
-                    if (finder.TryFind(out Span match))
+                    if (finder.TryFind(GetSnapshotPositionForTextPoint(textBuffer.CurrentSnapshot, startPoint), out Span match))
                     {
-                        result = textBuffer.CurrentSnapshot.GetText(match);
+                        result = textBuffer.CurrentSnapshot.GetText(startPoint.AbsoluteCharOffset, match.Start - startPoint.AbsoluteCharOffset);
                     }
                 }
             });
