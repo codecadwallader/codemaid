@@ -11,6 +11,7 @@ These changes have not been released to the Visual Studio marketplace, but (if c
   - [x] [#877](https://github.com/codecadwallader/codemaid/pull/877) - Recognize WebForms in VS2022 (API change)
   - [x] [#882](https://github.com/codecadwallader/codemaid/pull/882) - Fixed multiple bugs on file headers update - thanks [lflender](https://github.com/lflender)!
   - [x] [#885](https://github.com/codecadwallader/codemaid/pull/885) - Recognize Razor in VS2022 (API change)
+  - [x] [#905](https://github.com/codecadwallader/codemaid/pull/905) - Fix issue causing keyword modifiers to be swapped - thanks [BlythMeister](https://github.com/BluthMeister)!
 
 ## Previous Releases
 
