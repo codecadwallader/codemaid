@@ -206,6 +206,10 @@ namespace SteveCadwallader.CodeMaid
             await RegisterCommandsAsync();
             await RegisterEventListenersAsync();
 
+            var componentModel = (IComponentModel)this.GetService((typeof(SComponentModel)));
+
+            //var workspace = componentModel.GetService<VisualStudioWork>
+
             Instance = this;
         }
 

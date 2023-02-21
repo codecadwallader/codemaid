@@ -324,7 +324,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
+            AddExplicitAccessModifierLogic.InsertExplicitMemberModifiers(_package);
+
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
             // Perform insertion of whitespace cleanup.
