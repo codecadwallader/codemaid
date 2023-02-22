@@ -3,52 +3,65 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Editing;
+using Microsoft.VisualStudio.LanguageServices;
+using Microsoft.CodeAnalysis.Text;
+using CodeMaidShared.Logic.Cleaning;
+using Microsoft.CodeAnalysis.Formatting;
 
 namespace SteveCadwallader.CodeMaid.UnitTests;
 
 [TestClass]
 public class RoslynTests
 {
-    public class EmtpyStatementRemoval : CSharpSyntaxRewriter
+    public class Rewriter : CSharpSyntaxRewriter
     {
-        public override SyntaxNode Visit(SyntaxNode node)
+        private readonly Func<PropertyDeclarationSyntax, SyntaxNode> _writer;
+
+        public Rewriter(Func<PropertyDeclarationSyntax, SyntaxNode> writer)
         {
-            return base.Visit(node);
+            _writer=writer;
         }
 
-        public override SyntaxNode VisitEmptyStatement(EmptyStatementSyntax node)
+        public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
         {
-            //Construct an EmptyStatementSyntax with a missing semicolon
-            return node.WithSemicolonToken(
-                SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken)
-                    .WithLeadingTrivia(node.SemicolonToken.LeadingTrivia)
-                    .WithTrailingTrivia(node.SemicolonToken.TrailingTrivia));
+            return _writer(node);
         }
     }
 
     [TestMethod]
-    public void RunRewriter()
+    public void ShouldAddPropertyAccessor()
     {
-        var tree = CSharpSyntaxTree.ParseText(@"
-        public class Sample
-        {
-           public void Foo()
-           {
-              Console.WriteLine();
+        var source =
+"""
+public class Sample
+{
+    int Prop { get; set; }
+}
+""";
+        var workspace = new AdhocWorkspace();
 
-              #region SomeRegion
+        var projName = "TestProject";
+        var projectId = ProjectId.CreateNewId();
+        var versionStamp = VersionStamp.Create();
+        var projectInfo = ProjectInfo.Create(projectId, versionStamp, projName, projName, LanguageNames.CSharp);
+        var newProject = workspace.AddProject(projectInfo);
+        var sourceText = SourceText.From(source);
+        var newDocument = workspace.AddDocument(newProject.Id, "NewFile.cs", sourceText);
 
-              //Some other code
+        var syntaxTree = newDocument.GetSyntaxRootAsync().Result;
+        var syntaxGenerator = SyntaxGenerator.GetGenerator(newDocument);
+        var semanticModel = newDocument.GetSemanticModelAsync().Result;
 
-              #endregion SomeRegion
+        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+        var result = new Rewriter(x => sut.Process(x)).Visit(syntaxTree);
 
-              ;
-            }
-        }");
+        newDocument = newDocument.WithSyntaxRoot(result);
+        newDocument = Formatter.FormatAsync(newDocument, SyntaxAnnotation.ElasticAnnotation).Result;
 
-        var rewriter = new EmtpyStatementRemoval();
-        var result = rewriter.Visit(tree.GetRoot());
+        result = newDocument.GetSyntaxRootAsync().Result;
         Console.WriteLine(result.ToFullString());
+        var c = result.ToFullString();
         Assert.AreEqual(1, 1);
     }
 }

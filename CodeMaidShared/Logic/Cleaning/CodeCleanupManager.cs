@@ -326,7 +326,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
-            AddExplicitAccessModifierLogic.InsertExplicitMemberModifiers(_package);
+            //AddExplicitAccessModifierLogic.InsertExplicitMemberModifiers(_package);
 
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 

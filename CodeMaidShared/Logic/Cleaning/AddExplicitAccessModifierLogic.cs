@@ -17,11 +17,40 @@ using System.Threading.Tasks;
 
 namespace CodeMaidShared.Logic.Cleaning
 {
+    internal static class Runner
+    {
+        //public static void InsertExplicitMemberModifiers(CodeMaidPackage package)
+        //{
+        //    Start(package);
+        //}
+
+        //private static void Start(CodeMaidPackage package)
+        //{
+        //    ThreadHelper.ThrowIfNotOnUIThread();
+
+        //    Global.Package = package;
+
+        //    var document = Global.GetActiveDocument();
+
+        //    if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
+        //    {
+        //        root = Process(root, document).Result;
+
+        //        document = document.WithSyntaxRoot(root);
+
+        //        Global.Workspace.TryApplyChanges(document.Project.Solution);
+        //    }
+        //}
+    }
+
     /// <summary>
     /// A class for encapsulating insertion of explicit access modifier logic.
     /// </summary>
-    internal static class AddExplicitAccessModifierLogic
+    internal class AddExplicitAccessModifierLogic
     {
+        private readonly SemanticModel _semanticModel;
+        private readonly SyntaxGenerator _syntaxGenerator;
+
         #region Constructors
 
         /// <summary>
@@ -38,92 +67,49 @@ namespace CodeMaidShared.Logic.Cleaning
         //    return _instance ?? (_instance = new AddExplicitAccessModifierLogic());
         //}
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
-        ///// </summary>
-        //private AddExplicitAccessModifierLogic()
-        //{
-        //}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
+        /// </summary>
+        public AddExplicitAccessModifierLogic(SemanticModel semanticModel, SyntaxGenerator syntaxGenerator)
+        {
+            _semanticModel = semanticModel;
+            _syntaxGenerator = syntaxGenerator;
+        }
 
         #endregion Constructors
 
-        public static void InsertExplicitMemberModifiers(CodeMaidPackage package)
+        public SyntaxNode Process(PropertyDeclarationSyntax node)
         {
-            Start(package);
-        }
-        //int MyProperty { get; set; }
-        //public int MyProperty2 { get; set; }
-        //public required int MyProperty3 { get; set; }
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
 
-        private static void Start(CodeMaidPackage package)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            var symbol = _semanticModel.GetDeclaredSymbol(node);
 
-            Global.Package = package;
-
-            var document = Global.GetActiveDocument();
-
-            if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
+            if (symbol is null)
             {
-                root = Process(root, document).Result;
-
-                document = document.WithSyntaxRoot(root);
-
-                Global.Workspace.TryApplyChanges(document.Project.Solution);
-            }
-        }
-
-        public static async Task<SyntaxNode> Process(SyntaxNode root, Microsoft.CodeAnalysis.Document document)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return root;
-
-            var propertyNodes = root.DescendantNodes().Where(node => node.IsKind(SyntaxKind.PropertyDeclaration));
-
-            var semanticModel = await document.GetRequiredSemanticModelAsync(default).ConfigureAwait(false);
-            var editor = new SyntaxEditor(root, Global.Workspace.Services);
-
-            if (propertyNodes.Any())
-            {
-                root = root.ReplaceNodes(propertyNodes,
-                                   (originalNode, newNode) =>
-                                   {
-                                       var symbol = semanticModel.GetDeclaredSymbol(originalNode);
-
-                                       if (symbol is null)
-                                       {
-                                           throw new ArgumentNullException(nameof(symbol));
-                                       }
-
-                                       if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(originalNode as MemberDeclarationSyntax, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
-                                       {
-                                           newNode = originalNode;
-                                           return newNode;
-                                       }
-
-                                       //return UpdateAccessibility(originalNode, accessibility);
-
-                                       //AddAccessibilityModifiersHelpers.UpdateDeclaration(editor, symbol, node);
-
-                                       var preferredAccessibility = AddAccessibilityModifiersHelpers.GetPreferredAccessibility(symbol);
-
-                                       return UpdateAccessibility(originalNode, preferredAccessibility);
-
-                                       SyntaxNode UpdateAccessibility(SyntaxNode declaration, Accessibility preferredAccessibility)
-                                       {
-                                           var generator = editor.Generator;
-
-                                           // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
-                                           // the preferred accessibility for this member.
-                                           var newNode = generator.GetAccessibility(declaration) == Accessibility.NotApplicable
-                                               ? generator.WithAccessibility(declaration, preferredAccessibility)
-                                               : generator.WithAccessibility(declaration, Accessibility.NotApplicable);
-
-                                           return newNode;
-                                       }
-                                   });
+                throw new ArgumentNullException(nameof(symbol));
             }
 
-            return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
+            if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(node, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
+            {
+                return node;
+            }
+
+            var preferredAccessibility = AddAccessibilityModifiersHelpers.GetPreferredAccessibility(symbol);
+
+            return UpdateAccessibility(node, preferredAccessibility);
+
+            SyntaxNode UpdateAccessibility(SyntaxNode declaration, Accessibility preferredAccessibility)
+            {
+                // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
+                // the preferred accessibility for this member.
+                var newNode = _syntaxGenerator.GetAccessibility(declaration) == Accessibility.NotApplicable
+                    ? _syntaxGenerator.WithAccessibility(declaration, preferredAccessibility)
+                    : _syntaxGenerator.WithAccessibility(declaration, Accessibility.NotApplicable);
+
+                return newNode;
+            }
+
+            //return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
         }
     }
 
