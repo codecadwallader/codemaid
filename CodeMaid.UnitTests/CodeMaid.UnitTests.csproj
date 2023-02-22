@@ -66,6 +66,7 @@
     <Compile Include="Helpers\SettingsMonitorTests.cs" />
     <Compile Include="MemberTypeSettingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoslynTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeMaid\CodeMaid.csproj">

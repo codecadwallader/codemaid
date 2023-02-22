@@ -1,3 +1,4 @@
+using CodeMaidShared.Logic.Cleaning;
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;

@@ -83,6 +83,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\WindowEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\ISwitchableFeature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CSharpAccessibilityFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupManager.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveWhitespaceLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\SyntaxNodeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Digging\OutliningSynchronizationManager.cs" />

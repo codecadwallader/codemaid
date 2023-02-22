@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows;
-using System.Windows.Media;
-using System.Xml.Linq;
-using Microsoft.CodeAnalysis;
-using Microsoft.VisualStudio;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
-using Task = System.Threading.Tasks.Task;
+using System.Linq;
 using Document = Microsoft.CodeAnalysis.Document;
-using Solution = Microsoft.CodeAnalysis.Solution;
 using DteDocument = EnvDTE.Document;
-using Microsoft.VisualStudio.LanguageServices;
+using Solution = Microsoft.CodeAnalysis.Solution;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -77,6 +66,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 }
                 return workspace;
             }
+        }
+    }
+
+    internal class Class1
+    {
+        private protected Class1()
+        {
         }
     }
 }
