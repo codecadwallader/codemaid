@@ -125,27 +125,11 @@ namespace CodeMaidShared.Logic.Cleaning
 
             return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
         }
-
-        //public void FixAllAsync(
-        //   Document document, ImmutableArray<Diagnostic> diagnostics,
-        //   SyntaxEditor editor)
-        //{
-        //    var semanticModel = await document.GetRequiredSemanticModelAsync(cancellationToken).ConfigureAwait(false);
-
-        //    foreach (var diagnostic in diagnostics)
-        //    {
-        //        var declaration = diagnostic.AdditionalLocations[0].FindNode(cancellationToken);
-        //        var declarator = MapToDeclarator(declaration);
-        //        var symbol = semanticModel.GetDeclaredSymbol(declarator, cancellationToken);
-        //        Contract.ThrowIfNull(symbol);
-        //        AddAccessibilityModifiersHelpers.UpdateDeclaration(editor, symbol, declaration);
-        //    }
-        //}
     }
 
     internal static class DocumentExtensions
     {
-        public static async ValueTask<SemanticModel> GetRequiredSemanticModelAsync(this Microsoft.CodeAnalysis.Document document, CancellationToken cancellationToken)
+        public static async ValueTask<SemanticModel> GetRequiredSemanticModelAsync(this Document document, CancellationToken cancellationToken)
         {
             if (document.TryGetSemanticModel(out var semanticModel))
                 return semanticModel;
@@ -192,8 +176,8 @@ namespace CodeMaidShared.Logic.Cleaning
             // If we have an overridden member, then if we're adding an accessibility modifier, use the
             // accessibility of the member we're overriding as both should be consistent here.
             // TODO Check override
-            //if (symbol.GetOverriddenMember() is { DeclaredAccessibility: var accessibility })
-            //    return accessibility;
+            if (symbol.GetOverriddenMember() is { DeclaredAccessibility: var accessibility })
+                return accessibility;
 
             // Default abstract members to be protected, and virtual members to be public.  They can't be private as
             // that's not legal.  And these are reasonable default values for them.
@@ -210,34 +194,14 @@ namespace CodeMaidShared.Logic.Cleaning
             return symbol.DeclaredAccessibility;
         }
 
-        //    internal static Symbol GetOverriddenMember(Symbol substitutedOverridingMember, Symbol overriddenByDefinitionMember)
-        //    {
-        //        Debug.Assert(!substitutedOverridingMember.IsDefinition);
-
-        //        if ((object)overriddenByDefinitionMember != null)
-        //        {
-        //            NamedTypeSymbol overriddenByDefinitionContaining = overriddenByDefinitionMember.ContainingType;
-        //            NamedTypeSymbol overriddenByDefinitionContainingTypeDefinition = overriddenByDefinitionContaining.OriginalDefinition;
-        //            for (NamedTypeSymbol baseType = substitutedOverridingMember.ContainingType.BaseTypeNoUseSiteDiagnostics;
-        //                (object)baseType != null;
-        //                baseType = baseType.BaseTypeNoUseSiteDiagnostics)
-        //            {
-        //                if (TypeSymbol.Equals(baseType.OriginalDefinition, overriddenByDefinitionContainingTypeDefinition, TypeCompareKind.ConsiderEverything2))
-        //                {
-        //                    if (TypeSymbol.Equals(baseType, overriddenByDefinitionContaining, TypeCompareKind.ConsiderEverything2))
-        //                    {
-        //                        return overriddenByDefinitionMember;
-        //                    }
-
-        //                    return overriddenByDefinitionMember.OriginalDefinition.SymbolAsMember(baseType);
-        //                }
-        //            }
-
-        //            throw ExceptionUtilities.Unreachable();
-        //        }
-
-        //        return null;
-        //    }
+        public static ISymbol? GetOverriddenMember(this ISymbol? symbol)
+            => symbol switch
+            {
+                IMethodSymbol method => method.OverriddenMethod,
+                IPropertySymbol property => property.OverriddenProperty,
+                IEventSymbol @event => @event.OverriddenEvent,
+                _ => null,
+            };
     }
 
     internal enum AccessibilityModifiersRequired
@@ -524,16 +488,5 @@ namespace CodeMaidShared.Logic.Cleaning
 
         public static MemberDeclarationSyntax WithBody(this MemberDeclarationSyntax memberDeclaration, BlockSyntax body)
             => (memberDeclaration as BaseMethodDeclarationSyntax)?.WithBody(body);
-    }
-
-    internal class Class1
-    {
-        private protected Class1()
-        {
-        }
-    }
-    partial class ExampleClass
-    {
-        partial void ExampleMethod();
     }
 }
