@@ -17,30 +17,34 @@ using System.Threading.Tasks;
 
 namespace CodeMaidShared.Logic.Cleaning
 {
-    internal static class Runner
+
+    internal class Rewriter : CSharpSyntaxRewriter
     {
-        //public static void InsertExplicitMemberModifiers(CodeMaidPackage package)
-        //{
-        //    Start(package);
-        //}
+        internal Func<PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
+        internal Func<MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
+        internal Func<ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
 
-        //private static void Start(CodeMaidPackage package)
-        //{
-        //    ThreadHelper.ThrowIfNotOnUIThread();
+        public Rewriter()
+        {
+            PropertyWriter = x => x;
+            MethodWriter = x => x;
+            ClassWriter = x => x;
+        }
 
-        //    Global.Package = package;
+        public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
+        {
+            return PropertyWriter(node);
+        }
 
-        //    var document = Global.GetActiveDocument();
+        public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
+        {
+            return MethodWriter(node);
+        }
 
-        //    if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
-        //    {
-        //        root = Process(root, document).Result;
-
-        //        document = document.WithSyntaxRoot(root);
-
-        //        Global.Workspace.TryApplyChanges(document.Project.Solution);
-        //    }
-        //}
+        public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
+        {
+            return ClassWriter(node);
+        }
     }
 
     /// <summary>
@@ -48,8 +52,11 @@ namespace CodeMaidShared.Logic.Cleaning
     /// </summary>
     internal class AddExplicitAccessModifierLogic
     {
+        #region Fields
         private readonly SemanticModel _semanticModel;
         private readonly SyntaxGenerator _syntaxGenerator;
+        #endregion Fields
+
 
         #region Constructors
 
@@ -62,10 +69,29 @@ namespace CodeMaidShared.Logic.Cleaning
         /// Gets an instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
         /// </summary>
         /// <returns>An instance of the <see cref="AddExplicitAccessModifierLogic" /> class.</returns>
-        //internal static AddExplicitAccessModifierLogic GetInstance()
-        //{
-        //    return _instance ?? (_instance = new AddExplicitAccessModifierLogic());
-        //}
+        internal static AddExplicitAccessModifierLogic GetInstance(AsyncPackage package)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            Global.Package = package;
+
+            var document = Global.GetActiveDocument();
+
+            if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
+            {
+                var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
+                var semanticModel = document.GetSemanticModelAsync().Result;
+
+                return new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+
+                root = Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
+                
+                document = document.WithSyntaxRoot(root);
+                Global.Workspace.TryApplyChanges(document.Project.Solution);
+            }
+
+            throw new InvalidOperationException();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
@@ -78,10 +104,54 @@ namespace CodeMaidShared.Logic.Cleaning
 
         #endregion Constructors
 
-        public SyntaxNode Process(PropertyDeclarationSyntax node)
+        public static void Process(AsyncPackage package)
+        {
+            var mod = GetInstance(package);
+
+            var document = Global.GetActiveDocument();
+
+            if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
+            {
+                var rewriter = new Rewriter() { PropertyWriter = mod.ProcessProperty, MethodWriter = mod.ProcessMethod, ClassWriter = mod.ProcessClass };
+                var result = rewriter.Visit(root);
+
+                root = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
+
+                document = document.WithSyntaxRoot(root);
+                Global.Workspace.TryApplyChanges(document.Project.Solution);
+            }
+            throw new InvalidOperationException();
+
+        }
+
+        public SyntaxNode ProcessProperty(PropertyDeclarationSyntax node)
         {
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
+            return GenericApplyAccessibility(node);
 
+            //return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
+        }
+
+        public SyntaxNode ProcessClass(ClassDeclarationSyntax node)
+        {
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return node;
+            return GenericApplyAccessibility(node);
+        }
+
+        public SyntaxNode ProcessMethod(MethodDeclarationSyntax node)
+        {
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
+            return GenericApplyAccessibility(node);
+        }
+
+        public SyntaxNode ProcessMethod(ClassDeclarationSyntax node)
+        {
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return node;
+            return GenericApplyAccessibility(node);
+        }
+
+        private SyntaxNode GenericApplyAccessibility(MemberDeclarationSyntax node)
+        {
             var symbol = _semanticModel.GetDeclaredSymbol(node);
 
             if (symbol is null)
@@ -108,8 +178,6 @@ namespace CodeMaidShared.Logic.Cleaning
 
                 return newNode;
             }
-
-            //return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
         }
     }
 

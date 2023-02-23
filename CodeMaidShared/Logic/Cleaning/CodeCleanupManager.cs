@@ -318,15 +318,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
 
             // Perform insertion of explicit access modifier cleanup.
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEnumerations(enumerations);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnEvents(events);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
-            //AddExplicitAccessModifierLogic.InsertExplicitMemberModifiers(_package);
+            //AddExplicitAccessModifierLogic.Process(_package);
 
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
 
