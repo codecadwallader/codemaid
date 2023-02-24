@@ -4,46 +4,38 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.VisualStudio.Shell;
-using SteveCadwallader.CodeMaid;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CodeMaidShared.Logic.Cleaning
 {
-
     internal class RoslynRewriter : CSharpSyntaxRewriter
     {
-        internal Func<PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
-        internal Func<MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
-        internal Func<ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
+        internal Func<SyntaxNode, SyntaxNode, SyntaxNode> MemberWriter { get; set; }
 
         public RoslynRewriter()
         {
-            PropertyWriter = x => x;
-            MethodWriter = x => x;
-            ClassWriter = x => x;
+            MemberWriter = (_, x) => x;
         }
 
-        public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
+        public override SyntaxNode Visit(SyntaxNode node)
         {
-            return PropertyWriter(node);
+            var newNode = base.Visit(node);
+            newNode = MemberWriter(node, newNode);
+
+            return newNode;
         }
 
-        public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
+        public SyntaxNode Process(SyntaxNode root, Workspace workspace)
         {
-            return MethodWriter(node);
-        }
-
-        public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
-        {
-            return ClassWriter(node);
+            var rewrite = Visit(root);
+            return Formatter.Format(rewrite, SyntaxAnnotation.ElasticAnnotation, workspace);
         }
     }
 
@@ -53,10 +45,11 @@ namespace CodeMaidShared.Logic.Cleaning
     internal class AddExplicitAccessModifierLogic
     {
         #region Fields
+
         private readonly SemanticModel _semanticModel;
         private readonly SyntaxGenerator _syntaxGenerator;
-        #endregion Fields
 
+        #endregion Fields
 
         #region Constructors
 
@@ -84,8 +77,6 @@ namespace CodeMaidShared.Logic.Cleaning
 
                 return new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
 
-                root = Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
-                
                 document = document.WithSyntaxRoot(root);
                 Global.Workspace.TryApplyChanges(document.Project.Solution);
             }
@@ -112,7 +103,7 @@ namespace CodeMaidShared.Logic.Cleaning
 
             if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
             {
-                var rewriter = new RoslynRewriter() {  };
+                var rewriter = new RoslynRewriter() { };
                 var result = rewriter.Visit(root);
 
                 root = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
@@ -121,7 +112,6 @@ namespace CodeMaidShared.Logic.Cleaning
                 Global.Workspace.TryApplyChanges(document.Project.Solution);
             }
             throw new InvalidOperationException();
-
         }
 
         public SyntaxNode ProcessMember(SyntaxNode original, SyntaxNode node)
@@ -129,29 +119,11 @@ namespace CodeMaidShared.Logic.Cleaning
             return node switch
             {
                 ClassDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses => GenericApplyAccessibility(original, node),
-                PropertyDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties=> GenericApplyAccessibility(original, node),
-                MethodDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods=> GenericApplyAccessibility(original, node),
-                StructDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs=> GenericApplyAccessibility(original, node),
+                PropertyDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties => GenericApplyAccessibility(original, node),
+                MethodDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods => GenericApplyAccessibility(original, node),
+                StructDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs => GenericApplyAccessibility(original, node),
                 _ => node,
             };
-        }
-
-        public SyntaxNode ProcessProperty(PropertyDeclarationSyntax original, PropertyDeclarationSyntax node)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return node;
-            return GenericApplyAccessibility(original, node);
-        }
-
-        public SyntaxNode ProcessClass(ClassDeclarationSyntax original, ClassDeclarationSyntax node)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return node;
-            return GenericApplyAccessibility(original, node);
-        }
-
-        public SyntaxNode ProcessMethod(MethodDeclarationSyntax original, MethodDeclarationSyntax node)
-        {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
-            return GenericApplyAccessibility(original, node);
         }
 
         private SyntaxNode GenericApplyAccessibility(SyntaxNode original, SyntaxNode newNode)
@@ -176,36 +148,7 @@ namespace CodeMaidShared.Logic.Cleaning
             {
                 // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
                 // the preferred accessibility for this member.
-                var newNode = _syntaxGenerator.GetAccessibility(declaration) == Accessibility.NotApplicable
-                    ? _syntaxGenerator.WithAccessibility(declaration, preferredAccessibility)
-                    : _syntaxGenerator.WithAccessibility(declaration, Accessibility.NotApplicable);
-
-                return newNode;
-            }
-        }
-
-        private SyntaxNode GenericApplyAccessibility(MemberDeclarationSyntax node)
-        {
-            var symbol = _semanticModel.GetDeclaredSymbol(node);
-
-            if (symbol is null)
-            {
-                throw new ArgumentNullException(nameof(symbol));
-            }
-
-            if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(node, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
-            {
-                return node;
-            }
-
-            var preferredAccessibility = AddAccessibilityModifiersHelpers.GetPreferredAccessibility(symbol);
-
-            return UpdateAccessibility(node, preferredAccessibility);
-
-            SyntaxNode UpdateAccessibility(SyntaxNode declaration, Accessibility preferredAccessibility)
-            {
-                // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
-                // the preferred accessibility for this member.
+                // TODO remove?
                 var newNode = _syntaxGenerator.GetAccessibility(declaration) == Accessibility.NotApplicable
                     ? _syntaxGenerator.WithAccessibility(declaration, preferredAccessibility)
                     : _syntaxGenerator.WithAccessibility(declaration, Accessibility.NotApplicable);
@@ -229,41 +172,10 @@ namespace CodeMaidShared.Logic.Cleaning
 
     internal static partial class AddAccessibilityModifiersHelpers
     {
-        public static void UpdateDeclaration(
-            SyntaxEditor editor, ISymbol symbol, SyntaxNode declaration)
-        {
-            if (symbol is null)
-            {
-                throw new ArgumentNullException(nameof(symbol));
-            }
-
-            var preferredAccessibility = GetPreferredAccessibility(symbol);
-
-            // Check to see if we need to add or remove
-            // If there's a modifier, then we need to remove it, otherwise no modifier, add it.
-            editor.ReplaceNode(
-                declaration,
-                (currentDeclaration, _) => UpdateAccessibility(currentDeclaration, preferredAccessibility));
-
-            return;
-
-            SyntaxNode UpdateAccessibility(SyntaxNode declaration, Accessibility preferredAccessibility)
-            {
-                var generator = editor.Generator;
-
-                // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
-                // the preferred accessibility for this member.
-                return generator.GetAccessibility(declaration) == Accessibility.NotApplicable
-                    ? generator.WithAccessibility(declaration, preferredAccessibility)
-                    : generator.WithAccessibility(declaration, Accessibility.NotApplicable);
-            }
-        }
-
         internal static Accessibility GetPreferredAccessibility(ISymbol symbol)
         {
             // If we have an overridden member, then if we're adding an accessibility modifier, use the
             // accessibility of the member we're overriding as both should be consistent here.
-            // TODO Check override
             if (symbol.GetOverriddenMember() is { DeclaredAccessibility: var accessibility })
                 return accessibility;
 
@@ -440,141 +352,5 @@ namespace CodeMaidShared.Logic.Cleaning
             // Conversion operators don't have names.
             return default;
         }
-
-        public static int GetArity(this MemberDeclarationSyntax member)
-        {
-            if (member != null)
-            {
-                switch (member.Kind())
-                {
-                    case SyntaxKind.ClassDeclaration:
-                    case SyntaxKind.RecordDeclaration:
-                    case SyntaxKind.InterfaceDeclaration:
-                    case SyntaxKind.StructDeclaration:
-                    case SyntaxKind.RecordStructDeclaration:
-                        return ((TypeDeclarationSyntax)member).Arity;
-
-                    case SyntaxKind.DelegateDeclaration:
-                        return ((DelegateDeclarationSyntax)member).Arity;
-
-                    case SyntaxKind.MethodDeclaration:
-                        return ((MethodDeclarationSyntax)member).Arity;
-                }
-            }
-
-            return 0;
-        }
-
-        public static TypeParameterListSyntax GetTypeParameterList(this MemberDeclarationSyntax member)
-        {
-            if (member != null)
-            {
-                switch (member.Kind())
-                {
-                    case SyntaxKind.ClassDeclaration:
-                    case SyntaxKind.RecordDeclaration:
-                    case SyntaxKind.InterfaceDeclaration:
-                    case SyntaxKind.StructDeclaration:
-                    case SyntaxKind.RecordStructDeclaration:
-                        return ((TypeDeclarationSyntax)member).TypeParameterList;
-
-                    case SyntaxKind.DelegateDeclaration:
-                        return ((DelegateDeclarationSyntax)member).TypeParameterList;
-
-                    case SyntaxKind.MethodDeclaration:
-                        return ((MethodDeclarationSyntax)member).TypeParameterList;
-                }
-            }
-
-            return null;
-        }
-
-        public static MemberDeclarationSyntax WithParameterList(
-            this MemberDeclarationSyntax member,
-            BaseParameterListSyntax parameterList)
-        {
-            if (member != null)
-            {
-                switch (member.Kind())
-                {
-                    case SyntaxKind.DelegateDeclaration:
-                        return ((DelegateDeclarationSyntax)member).WithParameterList((ParameterListSyntax)parameterList);
-
-                    case SyntaxKind.MethodDeclaration:
-                        return ((MethodDeclarationSyntax)member).WithParameterList((ParameterListSyntax)parameterList);
-
-                    case SyntaxKind.ConstructorDeclaration:
-                        return ((ConstructorDeclarationSyntax)member).WithParameterList((ParameterListSyntax)parameterList);
-
-                    case SyntaxKind.IndexerDeclaration:
-                        return ((IndexerDeclarationSyntax)member).WithParameterList((BracketedParameterListSyntax)parameterList);
-
-                    case SyntaxKind.OperatorDeclaration:
-                        return ((OperatorDeclarationSyntax)member).WithParameterList((ParameterListSyntax)parameterList);
-
-                    case SyntaxKind.ConversionOperatorDeclaration:
-                        return ((ConversionOperatorDeclarationSyntax)member).WithParameterList((ParameterListSyntax)parameterList);
-                }
-            }
-
-            return null;
-        }
-
-        public static TypeSyntax GetMemberType(this MemberDeclarationSyntax member)
-        {
-            if (member != null)
-            {
-                switch (member.Kind())
-                {
-                    case SyntaxKind.DelegateDeclaration:
-                        return ((DelegateDeclarationSyntax)member).ReturnType;
-
-                    case SyntaxKind.MethodDeclaration:
-                        return ((MethodDeclarationSyntax)member).ReturnType;
-
-                    case SyntaxKind.OperatorDeclaration:
-                        return ((OperatorDeclarationSyntax)member).ReturnType;
-
-                    case SyntaxKind.PropertyDeclaration:
-                        return ((PropertyDeclarationSyntax)member).Type;
-
-                    case SyntaxKind.IndexerDeclaration:
-                        return ((IndexerDeclarationSyntax)member).Type;
-
-                    case SyntaxKind.EventDeclaration:
-                        return ((EventDeclarationSyntax)member).Type;
-
-                    case SyntaxKind.EventFieldDeclaration:
-                        return ((EventFieldDeclarationSyntax)member).Declaration.Type;
-
-                    case SyntaxKind.FieldDeclaration:
-                        return ((FieldDeclarationSyntax)member).Declaration.Type;
-                }
-            }
-
-            return null;
-        }
-
-        public static bool HasMethodShape(this MemberDeclarationSyntax memberDeclaration)
-            => memberDeclaration is BaseMethodDeclarationSyntax;
-
-        public static BlockSyntax GetBody(this MemberDeclarationSyntax memberDeclaration)
-            => memberDeclaration switch
-            {
-                BaseMethodDeclarationSyntax method => method.Body,
-                _ => null,
-            };
-
-        public static ArrowExpressionClauseSyntax GetExpressionBody(this MemberDeclarationSyntax memberDeclaration)
-            => memberDeclaration switch
-            {
-                BaseMethodDeclarationSyntax method => method.ExpressionBody,
-                IndexerDeclarationSyntax indexer => indexer.ExpressionBody,
-                PropertyDeclarationSyntax property => property.ExpressionBody,
-                _ => null,
-            };
-
-        public static MemberDeclarationSyntax WithBody(this MemberDeclarationSyntax memberDeclaration, BlockSyntax body)
-            => (memberDeclaration as BaseMethodDeclarationSyntax)?.WithBody(body);
     }
 }
