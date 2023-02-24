@@ -83,18 +83,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\WindowEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\ISwitchableFeature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CSharpAccessibilityFacts.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Global.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\AccessibilityModifiersRequired.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\CSharpAccessibilityFacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\AddExplicitAccessModifierLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\AddExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveWhitespaceLogic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\SyntaxNodeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\RoslynExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Digging\OutliningSynchronizationManager.cs" />
@@ -387,5 +388,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.zh-Hans.resx">
       <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\" />
   </ItemGroup>
 </Project>

@@ -242,7 +242,6 @@ public partial class ExampleClass
         await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
-
     [TestMethod]
     public async Task ShouldAddDefaultAbstractVirtualAccessorsAsync()
     {
@@ -307,3 +306,12 @@ internal class Derive : MyAbstract
         await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 }
+
+//public interface MyInterface
+//{
+//    void Do();
+
+//    void Doer()
+//    {
+//    }
+//}

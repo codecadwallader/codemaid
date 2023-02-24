@@ -18,7 +18,7 @@ public class TestWorkspace
         var semanticModel = await Document.GetSemanticModelAsync();
 
         var modifierLogic = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new RoslynRewriter()
+        var rewriter = new RoslynCleanup()
         {
             MemberWriter = modifierLogic.ProcessMember
         };
