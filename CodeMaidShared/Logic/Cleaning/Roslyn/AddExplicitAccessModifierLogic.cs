@@ -2,8 +2,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
-using Microsoft.CodeAnalysis.Formatting;
-using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
@@ -29,31 +27,14 @@ internal class AddExplicitAccessModifierLogic
     /// </summary>
     //private static AddExplicitAccessModifierLogic _instance;
 
-    /// <summary>
-    /// Gets an instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
-    /// </summary>
-    /// <returns>An instance of the <see cref="AddExplicitAccessModifierLogic" /> class.</returns>
-    internal static AddExplicitAccessModifierLogic GetInstance(AsyncPackage package)
-    {
-        ThreadHelper.ThrowIfNotOnUIThread();
-
-        Global.Package = package;
-
-        var document = Global.GetActiveDocument();
-
-        if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
-        {
-            var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-            var semanticModel = document.GetSemanticModelAsync().Result;
-
-            return new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-
-            document = document.WithSyntaxRoot(root);
-            Global.Workspace.TryApplyChanges(document.Project.Solution);
-        }
-
-        throw new InvalidOperationException();
-    }
+    ///// <summary>
+    ///// Gets an instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
+    ///// </summary>
+    ///// <returns>An instance of the <see cref="AddExplicitAccessModifierLogic" /> class.</returns>
+    //internal static AddExplicitAccessModifierLogic GetInstance(AsyncPackage package)
+    //{
+    //    return new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+    //}
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AddExplicitAccessModifierLogic" /> class.
@@ -66,23 +47,11 @@ internal class AddExplicitAccessModifierLogic
 
     #endregion Constructors
 
-    public static void Process(AsyncPackage package)
+    public static RoslynCleanup Initialize(RoslynCleanup cleanup, SemanticModel model, SyntaxGenerator generator)
     {
-        var mod = GetInstance(package);
-
-        var document = Global.GetActiveDocument();
-
-        if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
-        {
-            var rewriter = new RoslynCleanup() { };
-            var result = rewriter.Visit(root);
-
-            root = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
-
-            document = document.WithSyntaxRoot(root);
-            Global.Workspace.TryApplyChanges(document.Project.Solution);
-        }
-        throw new InvalidOperationException();
+        var explicitLogic = new AddExplicitAccessModifierLogic(model, generator);
+        cleanup.MemberWriter = explicitLogic.ProcessMember;
+        return cleanup;
     }
 
     public SyntaxNode ProcessMember(SyntaxNode original, SyntaxNode node)

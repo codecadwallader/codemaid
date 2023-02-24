@@ -324,11 +324,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnFields(fields);
             _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnInterfaces(interfaces);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnClasses(classes);
+            //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
-            //AddExplicitAccessModifierLogic.Process(_package);
 
-            _insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnStructs(structs);
+            RoslynCleanup.RunExplicit(_package);
+
 
             // Perform insertion of whitespace cleanup.
             _insertWhitespaceLogic.InsertEOFTrailingNewLine(textDocument);

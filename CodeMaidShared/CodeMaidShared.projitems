@@ -95,6 +95,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveWhitespaceLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\RoslynCleanup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\RoslynExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UsingStatementCleanupLogic.cs" />
