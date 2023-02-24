@@ -18,13 +18,13 @@ using System.Threading.Tasks;
 namespace CodeMaidShared.Logic.Cleaning
 {
 
-    internal class Rewriter : CSharpSyntaxRewriter
+    internal class RoslynRewriter : CSharpSyntaxRewriter
     {
         internal Func<PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
         internal Func<MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
         internal Func<ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
 
-        public Rewriter()
+        public RoslynRewriter()
         {
             PropertyWriter = x => x;
             MethodWriter = x => x;
@@ -112,7 +112,7 @@ namespace CodeMaidShared.Logic.Cleaning
 
             if (document != null && document.TryGetSyntaxRoot(out SyntaxNode root))
             {
-                var rewriter = new Rewriter() { PropertyWriter = mod.ProcessProperty, MethodWriter = mod.ProcessMethod, ClassWriter = mod.ProcessClass };
+                var rewriter = new RoslynRewriter() {  };
                 var result = rewriter.Visit(root);
 
                 root = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
@@ -124,30 +124,52 @@ namespace CodeMaidShared.Logic.Cleaning
 
         }
 
-        public SyntaxNode ProcessProperty(PropertyDeclarationSyntax node)
+        public SyntaxNode ProcessProperty(PropertyDeclarationSyntax original, PropertyDeclarationSyntax node)
         {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
-            return GenericApplyAccessibility(node);
-
-            //return Formatter.Format(root, SyntaxAnnotation.ElasticAnnotation, Global.Workspace);
+            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return node;
+            return GenericApplyAccessibility(original, node);
         }
 
-        public SyntaxNode ProcessClass(ClassDeclarationSyntax node)
+        public SyntaxNode ProcessClass(ClassDeclarationSyntax original, ClassDeclarationSyntax node)
         {
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return node;
-            return GenericApplyAccessibility(node);
+            return GenericApplyAccessibility(original, node);
         }
 
-        public SyntaxNode ProcessMethod(MethodDeclarationSyntax node)
+        public SyntaxNode ProcessMethod(MethodDeclarationSyntax original, MethodDeclarationSyntax node)
         {
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return node;
-            return GenericApplyAccessibility(node);
+            return GenericApplyAccessibility(original, node);
         }
 
-        public SyntaxNode ProcessMethod(ClassDeclarationSyntax node)
+        private SyntaxNode GenericApplyAccessibility(MemberDeclarationSyntax original, MemberDeclarationSyntax newNode)
         {
-            if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return node;
-            return GenericApplyAccessibility(node);
+            var symbol = _semanticModel.GetDeclaredSymbol(original);
+
+            if (symbol is null)
+            {
+                throw new ArgumentNullException(nameof(symbol));
+            }
+
+            if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(original, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
+            {
+                return newNode;
+            }
+
+            var preferredAccessibility = AddAccessibilityModifiersHelpers.GetPreferredAccessibility(symbol);
+
+            return UpdateAccessibility(newNode, preferredAccessibility);
+
+            SyntaxNode UpdateAccessibility(SyntaxNode declaration, Accessibility preferredAccessibility)
+            {
+                // If there was accessibility on the member, then remove it.  If there was no accessibility, then add
+                // the preferred accessibility for this member.
+                var newNode = _syntaxGenerator.GetAccessibility(declaration) == Accessibility.NotApplicable
+                    ? _syntaxGenerator.WithAccessibility(declaration, preferredAccessibility)
+                    : _syntaxGenerator.WithAccessibility(declaration, Accessibility.NotApplicable);
+
+                return newNode;
+            }
         }
 
         private SyntaxNode GenericApplyAccessibility(MemberDeclarationSyntax node)

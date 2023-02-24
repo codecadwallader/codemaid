@@ -13,30 +13,33 @@ namespace SteveCadwallader.CodeMaid.UnitTests;
 
 internal class Rewriter : CSharpSyntaxRewriter
 {
-    internal Func<PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
-    internal Func<MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
-    internal Func<ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
+    internal Func<PropertyDeclarationSyntax, PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
+    internal Func<MethodDeclarationSyntax, MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
+    internal Func<ClassDeclarationSyntax, ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
 
     public Rewriter()
     {
-        PropertyWriter = x => x;
-        MethodWriter = x => x;
-        ClassWriter = x => x;
+        PropertyWriter = (_, x) => x;
+        MethodWriter = (_, x) => x;
+        ClassWriter = (_, x) => x;
     }
 
     public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
     {
-        return PropertyWriter(node);
+        var newNode = base.VisitPropertyDeclaration(node);
+        return PropertyWriter(node, newNode as PropertyDeclarationSyntax);
     }
 
     public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
     {
-        return MethodWriter(node);
+        var newNode = base.VisitMethodDeclaration(node);
+        return MethodWriter(node, newNode as MethodDeclarationSyntax);
     }
 
     public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
     {
-        return ClassWriter(node);
+        var newNode = base.VisitClassDeclaration(node);
+        return ClassWriter(node, newNode as ClassDeclarationSyntax);
     }
 }
 
@@ -194,7 +197,12 @@ public partial class Temp
         var semanticModel = await document.GetSemanticModelAsync();
 
         var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter() { PropertyWriter = sut.ProcessProperty, MethodWriter = sut.ProcessMethod, ClassWriter = sut.ProcessClass };
+        var rewriter = new Rewriter()
+        {
+            PropertyWriter = sut.ProcessProperty,
+            MethodWriter = sut.ProcessMethod,
+            ClassWriter = sut.ProcessClass
+        };
         var result = rewriter.Visit(syntaxTree);
 
         result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
@@ -204,6 +212,101 @@ public partial class Temp
         Assert.AreEqual(expected, actual);
     }
 
+    [TestMethod]
+    public async Task TestDepthAsync()
+    {
+        var source =
+"""
+class Temp
+{
+    int MyProperty { get; set; }
+}
+""";
+
+        var expected =
+"""
+internal class Temp
+{
+    private int MyProperty { get; set; }
+}
+""";
+        var document = testWorkspace.SetDocument(source);
+
+        var syntaxTree = await document.GetSyntaxRootAsync();
+        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
+        var semanticModel = await document.GetSemanticModelAsync();
+
+        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+        var rewriter = new Rewriter()
+        {
+            PropertyWriter = sut.ProcessProperty,
+            MethodWriter = sut.ProcessMethod,
+            ClassWriter = sut.ProcessClass
+        };
+        var result = rewriter.Visit(syntaxTree);
+
+        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
+
+        Console.WriteLine(result.ToFullString());
+        var actual = result.ToFullString();
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public async Task TestNestAsync()
+    {
+        var source =
+"""
+class Temp
+{
+    int MyProperty { get; set; }
+}
+
+public class Outer
+{
+    class Temp
+    {
+        int MyProperty { get; set; }
+    }
+}
+""";
+
+        var expected =
+"""
+internal class Temp
+{
+    private int MyProperty { get; set; }
+}
+
+public class Outer
+{
+    private class Temp
+    {
+        private int MyProperty { get; set; }
+    }
+}
+""";
+        var document = testWorkspace.SetDocument(source);
+
+        var syntaxTree = await document.GetSyntaxRootAsync();
+        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
+        var semanticModel = await document.GetSemanticModelAsync();
+
+        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+        var rewriter = new Rewriter()
+        {
+            PropertyWriter = sut.ProcessProperty,
+            MethodWriter = sut.ProcessMethod,
+            ClassWriter = sut.ProcessClass
+        };
+        var result = rewriter.Visit(syntaxTree);
+
+        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
+
+        Console.WriteLine(result.ToFullString());
+        var actual = result.ToFullString();
+        Assert.AreEqual(expected, actual);
+    }
 
     public class TestWorkspace
     {
@@ -238,13 +341,5 @@ public class Sample
             Workspace.TryApplyChanges(newDocument.Project.Solution);
             return newDocument;
         }
-    }
-
-    public partial class Temp
-    {
-    }
-
-    partial class Temp
-    {
     }
 }
