@@ -124,6 +124,18 @@ namespace CodeMaidShared.Logic.Cleaning
 
         }
 
+        public SyntaxNode ProcessMember(SyntaxNode original, SyntaxNode node)
+        {
+            return node switch
+            {
+                ClassDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses => GenericApplyAccessibility(original, node),
+                PropertyDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties=> GenericApplyAccessibility(original, node),
+                MethodDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods=> GenericApplyAccessibility(original, node),
+                StructDeclarationSyntax when Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs=> GenericApplyAccessibility(original, node),
+                _ => node,
+            };
+        }
+
         public SyntaxNode ProcessProperty(PropertyDeclarationSyntax original, PropertyDeclarationSyntax node)
         {
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return node;
@@ -142,7 +154,7 @@ namespace CodeMaidShared.Logic.Cleaning
             return GenericApplyAccessibility(original, node);
         }
 
-        private SyntaxNode GenericApplyAccessibility(MemberDeclarationSyntax original, MemberDeclarationSyntax newNode)
+        private SyntaxNode GenericApplyAccessibility(SyntaxNode original, SyntaxNode newNode)
         {
             var symbol = _semanticModel.GetDeclaredSymbol(original);
 
@@ -151,7 +163,7 @@ namespace CodeMaidShared.Logic.Cleaning
                 throw new ArgumentNullException(nameof(symbol));
             }
 
-            if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(original, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
+            if (!AccessibilityHelper.ShouldUpdateAccessibilityModifier(original as MemberDeclarationSyntax, AccessibilityModifiersRequired.Always, out var accessibility, out var canChange) || !canChange)
             {
                 return newNode;
             }

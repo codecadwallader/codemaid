@@ -1,7 +1,6 @@
 ﻿using CodeMaidShared.Logic.Cleaning;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Text;
@@ -13,33 +12,25 @@ namespace SteveCadwallader.CodeMaid.UnitTests;
 
 internal class Rewriter : CSharpSyntaxRewriter
 {
-    internal Func<PropertyDeclarationSyntax, PropertyDeclarationSyntax, SyntaxNode> PropertyWriter { get; set; }
-    internal Func<MethodDeclarationSyntax, MethodDeclarationSyntax, SyntaxNode> MethodWriter { get; set; }
-    internal Func<ClassDeclarationSyntax, ClassDeclarationSyntax, SyntaxNode> ClassWriter { get; set; }
+    internal Func<SyntaxNode, SyntaxNode, SyntaxNode> MemberWriter { get; set; }
 
     public Rewriter()
     {
-        PropertyWriter = (_, x) => x;
-        MethodWriter = (_, x) => x;
-        ClassWriter = (_, x) => x;
+        MemberWriter = (_, x) => x;
     }
 
-    public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
+    public override SyntaxNode Visit(SyntaxNode node)
     {
-        var newNode = base.VisitPropertyDeclaration(node);
-        return PropertyWriter(node, newNode as PropertyDeclarationSyntax);
+        var newNode = base.Visit(node);
+        newNode = MemberWriter(node, newNode);
+
+        return newNode;
     }
 
-    public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
+    public SyntaxNode Process(SyntaxNode root, Workspace workspace)
     {
-        var newNode = base.VisitMethodDeclaration(node);
-        return MethodWriter(node, newNode as MethodDeclarationSyntax);
-    }
-
-    public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
-    {
-        var newNode = base.VisitClassDeclaration(node);
-        return ClassWriter(node, newNode as ClassDeclarationSyntax);
+        var rewrite = Visit(root);
+        return Formatter.Format(rewrite, SyntaxAnnotation.ElasticAnnotation, workspace);
     }
 }
 
@@ -72,21 +63,7 @@ public class Sample
 }
 """;
 
-        var document = testWorkspace.SetDocument(source);
-
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter() { PropertyWriter = sut.ProcessProperty };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     [TestMethod]
@@ -108,21 +85,7 @@ public class Sample
 }
 """;
 
-        var document = testWorkspace.SetDocument(source);
-
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter() { PropertyWriter = sut.ProcessProperty };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     [TestMethod]
@@ -148,21 +111,7 @@ public partial class ExampleClass
 }
 """;
 
-        var document = testWorkspace.SetDocument(source);
-
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter() { PropertyWriter = sut.ProcessProperty, MethodWriter = sut.ProcessMethod };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     [TestMethod]
@@ -190,26 +139,7 @@ public partial class Temp
 }
 """;
 
-        var document = testWorkspace.SetDocument(source);
-
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter()
-        {
-            PropertyWriter = sut.ProcessProperty,
-            MethodWriter = sut.ProcessMethod,
-            ClassWriter = sut.ProcessClass
-        };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     [TestMethod]
@@ -230,26 +160,8 @@ internal class Temp
     private int MyProperty { get; set; }
 }
 """;
-        var document = testWorkspace.SetDocument(source);
 
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter()
-        {
-            PropertyWriter = sut.ProcessProperty,
-            MethodWriter = sut.ProcessMethod,
-            ClassWriter = sut.ProcessClass
-        };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     [TestMethod]
@@ -286,30 +198,29 @@ public class Outer
     }
 }
 """;
-        var document = testWorkspace.SetDocument(source);
-
-        var syntaxTree = await document.GetSyntaxRootAsync();
-        var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
-        var semanticModel = await document.GetSemanticModelAsync();
-
-        var sut = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-        var rewriter = new Rewriter()
-        {
-            PropertyWriter = sut.ProcessProperty,
-            MethodWriter = sut.ProcessMethod,
-            ClassWriter = sut.ProcessClass
-        };
-        var result = rewriter.Visit(syntaxTree);
-
-        result = Formatter.Format(result, SyntaxAnnotation.ElasticAnnotation, testWorkspace.Workspace);
-
-        Console.WriteLine(result.ToFullString());
-        var actual = result.ToFullString();
-        Assert.AreEqual(expected, actual);
+        await testWorkspace.VerifyCleanupAsync(source, expected);
     }
 
     public class TestWorkspace
     {
+        public async Task VerifyCleanupAsync(string input, string expected)
+        {
+            var document = SetDocument(input);
+
+            var syntaxTree = await Document.GetSyntaxRootAsync();
+            var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
+            var semanticModel = await Document.GetSemanticModelAsync();
+
+            var modifierLogic = new AddExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
+            var rewriter = new Rewriter()
+            {
+                MemberWriter = modifierLogic.ProcessMember
+            };
+            var result = rewriter.Process(syntaxTree, Workspace);
+
+            Assert.AreEqual(expected, result.ToFullString());
+        }
+
         public TestWorkspace()
         {
             var source =
@@ -337,9 +248,9 @@ public class Sample
 
         public Document SetDocument(string text)
         {
-            var newDocument = Document.WithText(SourceText.From(text));
-            Workspace.TryApplyChanges(newDocument.Project.Solution);
-            return newDocument;
+            Document = Document.WithText(SourceText.From(text));
+            Assert.IsTrue(Workspace.TryApplyChanges(Document.Project.Solution));
+            return Document;
         }
     }
 }
