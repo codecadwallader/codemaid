@@ -74,7 +74,7 @@ internal static class RoslynExtensions
     }
 }
 
-internal static partial class AddAccessibilityModifiersHelpers
+internal static class AddAccessibilityModifiersHelpers
 {
     internal static Accessibility GetPreferredAccessibility(ISymbol symbol)
     {

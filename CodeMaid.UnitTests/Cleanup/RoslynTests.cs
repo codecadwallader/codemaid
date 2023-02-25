@@ -305,13 +305,267 @@ internal class Derive : MyAbstract
 """;
         await testWorkspace.VerifyCleanupAsync(source, expected);
     }
+
+    [TestMethod]
+    public async Task TestShouldNotRemoveFileAsync()
+    {
+        var source =
+"""
+file class MyFile
+{
+    int Prop { get; set; }
 }
 
-//public interface MyInterface
-//{
-//    void Do();
+file struct MyFileStruct
+{
+    int Prop { get; set; }
+}
+""";
 
-//    void Doer()
-//    {
-//    }
-//}
+        var expected =
+"""
+file class MyFile
+{
+    private int Prop { get; set; }
+}
+
+file struct MyFileStruct
+{
+    private int Prop { get; set; }
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddDelegateAccessorAsync()
+    {
+        var source =
+"""
+class MyDelegate
+{
+    delegate int PerformCalculation(int x, int y);
+}
+""";
+
+        var expected =
+"""
+internal class MyDelegate
+{
+    private delegate int PerformCalculation(int x, int y);
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddEventAccessorAsync()
+    {
+        var source =
+"""
+class MyEvent
+{
+    event MyEventHandler MyEvent;
+}
+""";
+
+        var expected =
+"""
+internal class MyEvent
+{
+    private event MyEventHandler MyEvent;
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddEnumAccessorAsync()
+    {
+        var source =
+"""
+enum MyEnum
+{
+    Some = 0,
+    None = 1,
+}
+""";
+
+        var expected =
+"""
+internal enum MyEnum
+{
+    Some = 0,
+    None = 1,
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddNestedEnumAccessorAsync()
+    {
+        var source =
+"""
+class MyClass
+{
+    enum MyEnum
+    {
+        Some = 0,
+        None = 1,
+    }
+}
+""";
+
+        var expected =
+"""
+internal class MyClass
+{
+    private enum MyEnum
+    {
+        Some = 0,
+        None = 1,
+    }
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddInterfaceAccessorAsync()
+    {
+        var source =
+"""
+interface IMyInterface
+{
+    int MyProp { get; set; }
+
+    void Do();
+}
+""";
+
+        var expected =
+"""
+internal interface IMyInterface
+{
+    int MyProp { get; set; }
+
+    void Do();
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddNestedInterfaceAccessorAsync()
+    {
+        var source =
+"""
+class MyClass
+{
+    interface IMyInterface
+    {
+        int MyProp { get; set; }
+
+        void Do();
+    }
+}
+""";
+
+        var expected =
+"""
+internal class MyClass
+{
+    private interface IMyInterface
+    {
+        int MyProp { get; set; }
+
+        void Do();
+    }
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldAddFieldAccessorAsync()
+    {
+        var source =
+"""
+class MyClass
+{
+    int _number;
+}
+""";
+
+        var expected =
+"""
+internal class MyClass
+{
+    private int _number;
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldNotChangeInvalidSyntaxAsync()
+    {
+        var source =
+"""
+class ITemp
+{
+    void Do()
+    {
+        int MyProperty { get; set; }
+    }
+}
+""";
+
+        var expected =
+"""
+internal class ITemp
+{
+    private void Do()
+    {
+        int MyProperty { get; set; }
+    }
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+
+    [TestMethod]
+    public async Task ShouldNotChangeInterfaceDescendantsAsync()
+    {
+        var source =
+"""
+interface IInterface
+{
+    class C
+    {
+        class D
+        {
+
+        }
+    }
+}
+""";
+
+        var expected =
+"""
+internal interface IInterface
+{
+    class C
+    {
+        class D
+        {
+
+        }
+    }
+}
+""";
+        await testWorkspace.VerifyCleanupAsync(source, expected);
+    }
+}
+

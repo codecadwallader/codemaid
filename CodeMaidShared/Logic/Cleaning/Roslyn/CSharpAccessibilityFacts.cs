@@ -27,6 +27,9 @@ internal static class CSharpAccessibilityFacts
         if (!CanHaveAccessibility(member))
             return false;
 
+        //if (!IsParentValid(member))
+        //    return false;
+
         // This analyzer bases all of its decisions on the accessibility
         accessibility = GetAccessibility(member);
 
@@ -78,6 +81,24 @@ internal static class CSharpAccessibilityFacts
                 return false;
         }
 
+        return true;
+    }
+
+    // TODO Unneeded if descendants of an interface are not passed into ShouldUpdateAccessibilityModifier
+    // Cant check for grandparent interfaces
+    public static bool IsParentValid(SyntaxNode node)
+    {
+        if(node.Kind() is SyntaxKind.ClassDeclaration or SyntaxKind.StructDeclaration or SyntaxKind.InterfaceDeclaration or SyntaxKind.RecordDeclaration or SyntaxKind.RecordStructDeclaration or SyntaxKind.EnumDeclaration or SyntaxKind.DelegateDeclaration)
+        {
+            return node.Parent.Kind() is SyntaxKind.ClassDeclaration or SyntaxKind.StructDeclaration or SyntaxKind.RecordDeclaration or SyntaxKind.RecordStructDeclaration or SyntaxKind.NamespaceDeclaration or SyntaxKind.FileScopedNamespaceDeclaration;
+        }
+
+        // Non object declarations must be inside an object declaration.
+        // Can probably simplify to: Parent is not interface or Parent is class/struct/record/namespace
+        if (node.Kind() is  SyntaxKind.EventFieldDeclaration or SyntaxKind.FieldDeclaration or SyntaxKind.PropertyDeclaration or SyntaxKind.MethodDeclaration)
+        {
+            return node.Parent.Kind() is SyntaxKind.ClassDeclaration or SyntaxKind.StructDeclaration or SyntaxKind.RecordDeclaration or SyntaxKind.RecordStructDeclaration;
+        }
         return true;
     }
 

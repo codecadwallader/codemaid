@@ -12,15 +12,34 @@ internal class RoslynCleanup : CSharpSyntaxRewriter
 {
     public Func<SyntaxNode, SyntaxNode, SyntaxNode> MemberWriter { get; set; }
 
+    // Use this messy functions to ensure that the current node is not a descendant of an interface.
+    // This is to mimic the recursive CSharpAddAccessibilityModifiersDiagnosticAnalyzer.ProcessMemberDeclaration
+    // search where any non structs/classes are ignored.
+    // FindAncestorOrSelf might help but would be slower.
+    // Dont terminate on finding an interface in case I want to roslynize more cleanup functions.
+
+    private bool InsideInterface { get; set; }
+
     public RoslynCleanup()
     {
         MemberWriter = (_, x) => x;
+        InsideInterface = false;
     }
 
     public override SyntaxNode Visit(SyntaxNode node)
     {
+        var inInterface = InsideInterface;
+        if (node.IsKind(SyntaxKind.InterfaceDeclaration))
+            InsideInterface = true;
+
         var newNode = base.Visit(node);
-        newNode = MemberWriter(node, newNode);
+
+        if (inInterface == false)
+        {
+            newNode = MemberWriter(node, newNode);
+        }
+
+        InsideInterface = inInterface;
 
         return newNode;
     }
@@ -48,7 +67,7 @@ internal class RoslynCleanup : CSharpSyntaxRewriter
         var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
 
         var cleaner = new RoslynCleanup();
-        AddExplicitAccessModifierLogic.Initialize(cleaner, semanticModel, syntaxGenerator);
+        RoslynInsertExplicitAccessModifierLogic.Initialize(cleaner, semanticModel, syntaxGenerator);
         cleaner.Process(root, Global.Workspace);
 
         document = document.WithSyntaxRoot(root);
