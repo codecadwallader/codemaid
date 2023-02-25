@@ -90,6 +90,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\InternalGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\RoslynInsertExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />

@@ -47,7 +47,8 @@ internal class RoslynCleanup : CSharpSyntaxRewriter
     public SyntaxNode Process(SyntaxNode root, Workspace workspace)
     {
         var rewrite = Visit(root);
-        return Formatter.Format(rewrite, SyntaxAnnotation.ElasticAnnotation, workspace);
+        return rewrite;
+        //return Formatter.Format(rewrite, SyntaxAnnotation.ElasticAnnotation, workspace);
     }
 
     public static void BuildAndrun(AsyncPackage package)

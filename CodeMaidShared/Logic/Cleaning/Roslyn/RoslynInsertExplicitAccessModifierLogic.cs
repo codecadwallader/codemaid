@@ -94,8 +94,8 @@ internal class RoslynInsertExplicitAccessModifierLogic
         }
 
         var preferredAccessibility = AddAccessibilityModifiersHelpers.GetPreferredAccessibility(symbol);
-
-        return _syntaxGenerator.WithAccessibility(newNode, preferredAccessibility);
+        return InternalGenerator.WithAccessibility(newNode, preferredAccessibility);
+        //return _syntaxGenerator.WithAccessibility(newNode, preferredAccessibility);
     }
 
     private static SyntaxNode MapToDeclarator(SyntaxNode node)
