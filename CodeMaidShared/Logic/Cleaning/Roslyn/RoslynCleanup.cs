@@ -50,7 +50,7 @@ internal class RoslynCleanup : CSharpSyntaxRewriter
         return Formatter.Format(rewrite, SyntaxAnnotation.ElasticAnnotation, workspace);
     }
 
-    public static void RunExplicit(AsyncPackage package)
+    public static void BuildAndrun(AsyncPackage package)
     {
         ThreadHelper.ThrowIfNotOnUIThread();
 

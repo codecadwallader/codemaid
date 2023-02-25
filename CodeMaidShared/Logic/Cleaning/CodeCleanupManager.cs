@@ -328,7 +328,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
 
-            RoslynCleanup.RunExplicit(_package);
+            RoslynCleanup.BuildAndrun(_package);
 
 
             // Perform insertion of whitespace cleanup.
