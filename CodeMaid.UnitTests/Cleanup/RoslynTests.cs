@@ -1,43 +1,43 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
-namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup;
-
-[TestClass]
-public class RoslynTests
+namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup
 {
-    private readonly TestWorkspace testWorkspace;
-
-    public RoslynTests()
+    [TestClass]
+    public class RoslynTests
     {
-        testWorkspace = new TestWorkspace();
-    }
+        private readonly TestWorkspace testWorkspace;
 
-    [TestMethod]
-    public async Task ShouldAddClassAccessorAsync()
-    {
-        var source =
-"""
+        public RoslynTests()
+        {
+            testWorkspace = new TestWorkspace();
+        }
+
+        [TestMethod]
+        public async Task ShouldAddClassAccessorAsync()
+        {
+            var source =
+    """
 class MyClass
 {
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyClass
 {
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddSamePartialClassAccessorsAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddSamePartialClassAccessorsAsync()
+        {
+            var source =
+    """
 public partial class Temp
 {
 }
@@ -47,8 +47,8 @@ partial class Temp
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 public partial class Temp
 {
 }
@@ -58,14 +58,14 @@ public partial class Temp
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddNestedClassAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddNestedClassAccessorAsync()
+        {
+            var source =
+    """
 class Temp
 {
     int MyProperty { get; set; }
@@ -80,8 +80,8 @@ public class Outer
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class Temp
 {
     private int MyProperty { get; set; }
@@ -95,34 +95,34 @@ public class Outer
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddStructAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddStructAccessorAsync()
+        {
+            var source =
+    """
 struct MyStruct
 {
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal struct MyStruct
 {
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddRefStructAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddRefStructAccessorAsync()
+        {
+            var source =
+    """
 ref struct MyStruct
 {
 }
@@ -132,8 +132,8 @@ readonly ref struct MyReadonlyStruct
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal ref struct MyStruct
 {
 }
@@ -143,58 +143,58 @@ internal readonly ref struct MyReadonlyStruct
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddPropertyAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddPropertyAccessorAsync()
+        {
+            var source =
+    """
 class Sample
 {
     int Prop { get; set; }
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class Sample
 {
     private int Prop { get; set; }
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldNotRemoveRequiredPropertyAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldNotRemoveRequiredPropertyAsync()
+        {
+            var source =
+    """
 class Sample
 {
     required int Prop { get; set; }
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class Sample
 {
     private required int Prop { get; set; }
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddMethodsAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddMethodsAccessorAsync()
+        {
+            var source =
+    """
 class ExampleClass
 {
     void Do()
@@ -203,8 +203,8 @@ class ExampleClass
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class ExampleClass
 {
     private void Do()
@@ -213,14 +213,14 @@ internal class ExampleClass
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldNotAddPartialMethodAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldNotAddPartialMethodAccessorAsync()
+        {
+            var source =
+    """
 public partial class ExampleClass
 {
     partial void Do()
@@ -229,8 +229,8 @@ public partial class ExampleClass
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 public partial class ExampleClass
 {
     partial void Do()
@@ -239,14 +239,14 @@ public partial class ExampleClass
 }
 """;
 
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddDefaultAbstractVirtualAccessorsAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddDefaultAbstractVirtualAccessorsAsync()
+        {
+            var source =
+    """
 abstract class MyAbstract
 {
     virtual void VirtualMethod()
@@ -257,8 +257,8 @@ abstract class MyAbstract
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal abstract class MyAbstract
 {
     public virtual void VirtualMethod()
@@ -268,14 +268,14 @@ internal abstract class MyAbstract
     protected abstract void AbstractMethod();
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task TestInheritsAbstractAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task TestInheritsAbstractAsync()
+        {
+            var source =
+    """
 abstract class MyAbstract
 {
     private protected abstract void AbstractMethod();
@@ -289,8 +289,8 @@ class Derive : MyAbstract
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal abstract class MyAbstract
 {
     private protected abstract void AbstractMethod();
@@ -303,14 +303,14 @@ internal class Derive : MyAbstract
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task TestShouldNotRemoveFileAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task TestShouldNotRemoveFileAsync()
+        {
+            var source =
+    """
 file class MyFile
 {
     int Prop { get; set; }
@@ -322,8 +322,8 @@ file struct MyFileStruct
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 file class MyFile
 {
     private int Prop { get; set; }
@@ -334,56 +334,56 @@ file struct MyFileStruct
     private int Prop { get; set; }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddDelegateAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddDelegateAccessorAsync()
+        {
+            var source =
+    """
 class MyDelegate
 {
     delegate int PerformCalculation(int x, int y);
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyDelegate
 {
     private delegate int PerformCalculation(int x, int y);
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddEventAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddEventAccessorAsync()
+        {
+            var source =
+    """
 class MyEvent
 {
     event MyEventHandler MyEvent;
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyEvent
 {
     private event MyEventHandler MyEvent;
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddEnumAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddEnumAccessorAsync()
+        {
+            var source =
+    """
 enum MyEnum
 {
     Some = 0,
@@ -391,22 +391,22 @@ enum MyEnum
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal enum MyEnum
 {
     Some = 0,
     None = 1,
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddNestedEnumAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddNestedEnumAccessorAsync()
+        {
+            var source =
+    """
 class MyClass
 {
     enum MyEnum
@@ -417,8 +417,8 @@ class MyClass
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyClass
 {
     private enum MyEnum
@@ -428,14 +428,14 @@ internal class MyClass
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddInterfaceAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddInterfaceAccessorAsync()
+        {
+            var source =
+    """
 interface IMyInterface
 {
     int MyProp { get; set; }
@@ -444,8 +444,8 @@ interface IMyInterface
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal interface IMyInterface
 {
     int MyProp { get; set; }
@@ -453,14 +453,14 @@ internal interface IMyInterface
     void Do();
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddNestedInterfaceAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddNestedInterfaceAccessorAsync()
+        {
+            var source =
+    """
 class MyClass
 {
     interface IMyInterface
@@ -472,8 +472,8 @@ class MyClass
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyClass
 {
     private interface IMyInterface
@@ -484,35 +484,35 @@ internal class MyClass
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldAddFieldAccessorAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldAddFieldAccessorAsync()
+        {
+            var source =
+    """
 class MyClass
 {
     int _number;
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class MyClass
 {
     private int _number;
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldNotChangeInvalidSyntaxAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldNotChangeInvalidSyntaxAsync()
+        {
+            var source =
+    """
 class ITemp
 {
     void Do()
@@ -522,8 +522,8 @@ class ITemp
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal class ITemp
 {
     private void Do()
@@ -532,14 +532,14 @@ internal class ITemp
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
-    }
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
 
-    [TestMethod]
-    public async Task ShouldNotChangeInterfaceDescendantsAsync()
-    {
-        var source =
-"""
+        [TestMethod]
+        public async Task ShouldNotChangeInterfaceDescendantsAsync()
+        {
+            var source =
+    """
 interface IInterface
 {
     class C
@@ -552,8 +552,8 @@ interface IInterface
 }
 """;
 
-        var expected =
-"""
+            var expected =
+    """
 internal interface IInterface
 {
     class C
@@ -565,7 +565,7 @@ internal interface IInterface
     }
 }
 """;
-        await testWorkspace.VerifyCleanupAsync(source, expected);
+            await testWorkspace.VerifyCleanupAsync(source, expected);
+        }
     }
 }
-
