@@ -18,7 +18,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="CachedSettingSetTests.cs" />
     <Compile Include="CachedSettingTests.cs" />
+    <Compile Include="Cleanup\AddPaddingTests.cs" />
     <Compile Include="Formatting\CommentFormatHelper.cs" />
     <Compile Include="Formatting\HeaderFormattingTests.cs" />
     <Compile Include="Formatting\FormatWithPrefixTests.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="Helpers\SettingsMonitorTests.cs" />
     <Compile Include="MemberTypeSettingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Cleanup\RoslynTests.cs" />
+    <Compile Include="Cleanup\InsertModifiersTests.cs" />
     <Compile Include="Cleanup\TestWorkspace.cs" />
   </ItemGroup>
   <ItemGroup>

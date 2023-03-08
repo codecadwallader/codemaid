@@ -83,21 +83,27 @@
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\TextEditorEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Events\WindowEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\ISwitchableFeature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\AccessibilityModifiersRequired.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\AccessibilityModifiersRequired.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\InsertExplicitAccessorMiddleware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\CSharpAccessibilityFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupAvailabilityLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\CodeCleanupManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\FileHeaderLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertBlankLinePaddingLogic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\InternalGenerator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\RoslynInsertExplicitAccessModifierLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\InsertNodePaddingMiddleware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\InsertTokenPaddingMiddleware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\InternalGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\IRoslynTokenMiddleware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\IRoslynNodeMiddleware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\RoslynInsertPaddingLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\RoslynInsertExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertExplicitAccessModifierLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\InsertWhitespaceLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveRegionLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\RemoveWhitespaceLogic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\RoslynCleanup.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)logic\cleaning\roslyn\RoslynExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\RoslynCleaner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\RoslynExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UpdateLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Cleaning\UsingStatementCleanupLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Digging\OutliningSynchronizationManager.cs" />
@@ -392,6 +398,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Logic\Cleaning\Roslyn\Handlers\" />
   </ItemGroup>
 </Project>

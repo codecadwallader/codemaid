@@ -2,6 +2,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,6 +10,60 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
     internal static class RoslynExtensions
     {
+        // TODO Refactor
+        public static (List<(SyntaxKind, int)>, int) ReadTriviaLines(List<SyntaxTrivia> trivia)
+        {
+            var output = new List<(SyntaxKind, int)>();
+            var lineType = SyntaxKind.WhitespaceTrivia;
+            var position = 0;
+
+            for (int i = 0; i < trivia.Count; i++)
+            {
+                var value = trivia[i];
+                if (value.IsKind(SyntaxKind.EndOfLineTrivia))
+                {
+                    output.Add((lineType, position));
+                    position = i + 1;
+                    lineType = SyntaxKind.WhitespaceTrivia;
+                }
+                else if (value.IsKind(SyntaxKind.WhitespaceTrivia))
+                {
+                }
+                else if (value.Kind() is SyntaxKind.SingleLineCommentTrivia or SyntaxKind.SingleLineDocumentationCommentTrivia)
+                {
+                    if (lineType == SyntaxKind.WhitespaceTrivia)
+                    {
+                        lineType = value.Kind();
+                    }
+                }
+                else if (value.Kind() is SyntaxKind.RegionDirectiveTrivia or SyntaxKind.EndRegionDirectiveTrivia)
+                {
+                    if (lineType == SyntaxKind.WhitespaceTrivia)
+                    {
+                        lineType = value.Kind();
+                        output.Add((lineType, position));
+                        position = i + 1;
+                        lineType = SyntaxKind.WhitespaceTrivia;
+                    }
+                }
+                else
+                {
+                    lineType = SyntaxKind.BadDirectiveTrivia;
+                }
+            }
+
+            return (output, position);
+        }
+
+        public static bool SpansMultipleLines(this SyntaxNode node)
+        {
+            var startLine = node.SyntaxTree.GetLineSpan(node.Span).StartLinePosition.Line;
+            var endLine = node.SyntaxTree.GetLineSpan(node.Span).EndLinePosition.Line;
+
+            return startLine != endLine;
+        }
+
+        // TODO use GetRequiredSemanticModelAsync
         public static async ValueTask<SemanticModel> GetRequiredSemanticModelAsync(this Document document, CancellationToken cancellationToken)
         {
             if (document.TryGetSemanticModel(out var semanticModel))

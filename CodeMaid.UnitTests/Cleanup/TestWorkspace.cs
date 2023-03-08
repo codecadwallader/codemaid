@@ -1,6 +1,5 @@
 ﻿using CodeMaidShared.Logic.Cleaning;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
@@ -14,14 +13,14 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup
             var document = SetDocument(input);
 
             var syntaxTree = await Document.GetSyntaxRootAsync();
-            var syntaxGenerator = SyntaxGenerator.GetGenerator(document);
             var semanticModel = await Document.GetSemanticModelAsync();
 
-            var modifierLogic = new RoslynInsertExplicitAccessModifierLogic(semanticModel, syntaxGenerator);
-            var rewriter = new RoslynCleanup()
-            {
-                MemberWriter = modifierLogic.ProcessMember
-            };
+            var rewriter = new RoslynCleaner();
+            InsertExplicitAccessorMiddleware.Initialize(rewriter, semanticModel);
+            InsertNodePaddingMiddleware.Initialize(rewriter);
+
+            InsertTokenPaddingMiddleware.Initialize(rewriter);
+
             var result = rewriter.Process(syntaxTree, Workspace);
 
             Assert.AreEqual(expected, result.ToFullString());
@@ -30,11 +29,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup
         public TestWorkspace()
         {
             var source =
-    """
+@"
 public class ThisShouldAppear
 {
 }
-""";
+";
 
             Workspace = new AdhocWorkspace();
 

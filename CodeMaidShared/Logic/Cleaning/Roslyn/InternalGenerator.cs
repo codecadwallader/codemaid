@@ -11,12 +11,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
     internal static class InternalGenerator
     {
-        private static SyntaxTokenList GetModifierTokens(SyntaxNode declaration)
-               => CSharpAccessibilityFacts.GetModifierTokens(declaration);
-
-        private static void GetAccessibilityAndModifiers(SyntaxTokenList modifierList, out Accessibility accessibility, out DeclarationModifiers modifiers, out bool isDefault)
-             => CSharpAccessibilityFacts.GetAccessibilityAndModifiers(modifierList, out accessibility, out modifiers, out isDefault);
-
         public static SyntaxNode WithAccessibility(SyntaxNode declaration, Accessibility accessibility)
         {
             if (!CSharpAccessibilityFacts.CanHaveAccessibility(declaration) &&
@@ -27,8 +21,9 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             return Isolate(declaration, d =>
             {
-                var tokens = GetModifierTokens(d);
-                GetAccessibilityAndModifiers(tokens, out _, out var modifiers, out _);
+                var a = d as TypeDeclarationSyntax;
+                var tokens = CSharpAccessibilityFacts.GetModifierTokens(d);
+                CSharpAccessibilityFacts.GetAccessibilityAndModifiers(tokens, out _, out var modifiers, out _);
                 if (modifiers.IsFile && accessibility != Accessibility.NotApplicable)
                 {
                     // If user wants to set accessibility for a file-local declaration, we remove file.
@@ -46,6 +41,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 var newTokens = Merge(tokens, AsModifierList(accessibility, modifiers));
                 return SetModifierTokens(d, newTokens);
             });
+        }
+
+        public static SyntaxNode AddBlankLineToStart(SyntaxNode declaration)
+        {
+            var originalTrivia = declaration.GetLeadingTrivia();
+            var newTrivia = originalTrivia.Insert(0, SyntaxFactory.EndOfLine(Environment.NewLine));
+
+            var newNode = declaration.WithLeadingTrivia(newTrivia);
+
+            return newNode;
         }
 
         private static SyntaxNode SetModifierTokens(SyntaxNode declaration, SyntaxTokenList modifiers)
@@ -80,186 +85,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             }
 
             return false;
-        }
-
-        private static SyntaxTokenList AsModifierList(Accessibility accessibility, DeclarationModifiers modifiers, SyntaxKind kind)
-                => AsModifierList(accessibility, GetAllowedModifiers(kind) & modifiers);
-
-        private static readonly DeclarationModifiers s_fieldModifiers =
-        DeclarationModifiers.Const |
-        DeclarationModifiers.New |
-        DeclarationModifiers.ReadOnly |
-        DeclarationModifiers.Required |
-        DeclarationModifiers.Static |
-        DeclarationModifiers.Unsafe |
-        DeclarationModifiers.Volatile;
-
-        private static readonly DeclarationModifiers s_methodModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.Async |
-            DeclarationModifiers.Extern |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Override |
-            DeclarationModifiers.Partial |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Virtual |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_constructorModifiers =
-            DeclarationModifiers.Extern |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_destructorModifiers = DeclarationModifiers.Unsafe;
-        private static readonly DeclarationModifiers s_propertyModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.Extern |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Override |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Required |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Virtual |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_eventModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.Extern |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Override |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Virtual |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_eventFieldModifiers =
-            DeclarationModifiers.New |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_indexerModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.Extern |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Override |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Virtual |
-            DeclarationModifiers.Unsafe;
-
-        private static readonly DeclarationModifiers s_classModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Partial |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Unsafe |
-            DeclarationModifiers.File;
-
-        private static readonly DeclarationModifiers s_recordModifiers =
-            DeclarationModifiers.Abstract |
-            DeclarationModifiers.New |
-            DeclarationModifiers.Partial |
-            DeclarationModifiers.Sealed |
-            DeclarationModifiers.Unsafe |
-            DeclarationModifiers.File;
-
-        private static readonly DeclarationModifiers s_structModifiers =
-            DeclarationModifiers.New |
-            DeclarationModifiers.Partial |
-            DeclarationModifiers.ReadOnly |
-            DeclarationModifiers.Ref |
-            DeclarationModifiers.Unsafe |
-            DeclarationModifiers.File;
-
-        private static readonly DeclarationModifiers s_interfaceModifiers = DeclarationModifiers.New | DeclarationModifiers.Partial | DeclarationModifiers.Unsafe | DeclarationModifiers.File;
-        private static readonly DeclarationModifiers s_accessorModifiers = DeclarationModifiers.Abstract | DeclarationModifiers.New | DeclarationModifiers.Override | DeclarationModifiers.Virtual;
-
-        private static readonly DeclarationModifiers s_localFunctionModifiers =
-            DeclarationModifiers.Async |
-            DeclarationModifiers.Static |
-            DeclarationModifiers.Unsafe |
-            DeclarationModifiers.Extern;
-
-        private static readonly DeclarationModifiers s_lambdaModifiers =
-            DeclarationModifiers.Async |
-            DeclarationModifiers.Static;
-
-        private static DeclarationModifiers GetAllowedModifiers(SyntaxKind kind)
-        {
-            switch (kind)
-            {
-                case SyntaxKind.RecordDeclaration:
-                    return s_recordModifiers;
-
-                case SyntaxKind.ClassDeclaration:
-                    return s_classModifiers;
-
-                case SyntaxKind.EnumDeclaration:
-                    return DeclarationModifiers.New | DeclarationModifiers.File;
-
-                case SyntaxKind.DelegateDeclaration:
-                    return DeclarationModifiers.New | DeclarationModifiers.Unsafe | DeclarationModifiers.File;
-
-                case SyntaxKind.InterfaceDeclaration:
-                    return s_interfaceModifiers;
-
-                case SyntaxKind.StructDeclaration:
-                case SyntaxKind.RecordStructDeclaration:
-                    return s_structModifiers;
-
-                case SyntaxKind.MethodDeclaration:
-                case SyntaxKind.OperatorDeclaration:
-                case SyntaxKind.ConversionOperatorDeclaration:
-                    return s_methodModifiers;
-
-                case SyntaxKind.ConstructorDeclaration:
-                    return s_constructorModifiers;
-
-                case SyntaxKind.DestructorDeclaration:
-                    return s_destructorModifiers;
-
-                case SyntaxKind.FieldDeclaration:
-                    return s_fieldModifiers;
-
-                case SyntaxKind.PropertyDeclaration:
-                    return s_propertyModifiers;
-
-                case SyntaxKind.IndexerDeclaration:
-                    return s_indexerModifiers;
-
-                case SyntaxKind.EventFieldDeclaration:
-                    return s_eventFieldModifiers;
-
-                case SyntaxKind.EventDeclaration:
-                    return s_eventModifiers;
-
-                case SyntaxKind.GetAccessorDeclaration:
-                case SyntaxKind.SetAccessorDeclaration:
-                case SyntaxKind.AddAccessorDeclaration:
-                case SyntaxKind.RemoveAccessorDeclaration:
-                    return s_accessorModifiers;
-
-                case SyntaxKind.LocalFunctionStatement:
-                    return s_localFunctionModifiers;
-
-                case SyntaxKind.ParenthesizedLambdaExpression:
-                case SyntaxKind.SimpleLambdaExpression:
-                case SyntaxKind.AnonymousMethodExpression:
-                    return s_lambdaModifiers;
-
-                case SyntaxKind.EnumMemberDeclaration:
-                case SyntaxKind.Parameter:
-                case SyntaxKind.LocalDeclarationStatement:
-                default:
-                    return DeclarationModifiers.None;
-            }
         }
 
         private static SyntaxTokenList AsModifierList(Accessibility accessibility, DeclarationModifiers modifiers)
@@ -347,6 +172,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (modifiers.IsPartial)
                 list.Add(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
+            // Modified
             list = list.Select(x => x.WithTrailingTrivia(SyntaxFactory.Space)).ToList();
 
             return SyntaxFactory.TokenList(list);

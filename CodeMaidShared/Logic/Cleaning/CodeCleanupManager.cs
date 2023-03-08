@@ -1,5 +1,7 @@
 using CodeMaidShared.Logic.Cleaning;
 using EnvDTE;
+using Microsoft.CodeAnalysis;
+using Microsoft.VisualStudio.Shell;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
@@ -9,6 +11,9 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Document = EnvDTE.Document;
+using TextDocument = EnvDTE.TextDocument;
+
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -274,48 +279,48 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _removeWhitespaceLogic.RemoveMultipleConsecutiveBlankLines(textDocument);
 
             // Perform insertion of blank line padding cleanup.
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regions);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regions);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeRegionTags(regions);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterRegionTags(regions);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regions);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeEndRegionTags(regions);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterEndRegionTags(regions);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(usingStatementsThatStartBlocks);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(usingStatementsThatEndBlocks);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(namespaces);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(namespaces);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(namespaces);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(classes);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(classes);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(classes);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(classes);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(delegates);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(delegates);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(delegates);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(delegates);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(enumerations);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(enumerations);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(enumerations);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(enumerations);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(events);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(events);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fields);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fields);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(fields);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(fields);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(interfaces);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(interfaces);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(methods);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(methods);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(methods);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(methods);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(properties);
-            _insertBlankLinePaddingLogic.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(properties);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(properties);
+            //_insertBlankLinePaddingLogic.InsertPaddingBetweenMultiLinePropertyAccessors(properties);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(properties);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(structs);
-            _insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCodeElements(structs);
+            //_insertBlankLinePaddingLogic.InsertPaddingAfterCodeElements(structs);
 
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
-            _insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeCaseStatements(textDocument);
+            //_insertBlankLinePaddingLogic.InsertPaddingBeforeSingleLineComments(textDocument);
 
             // Perform insertion of explicit access modifier cleanup.
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnDelegates(delegates);
@@ -328,7 +333,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnMethods(methods);
             //_insertExplicitAccessModifierLogic.InsertExplicitAccessModifiersOnProperties(properties);
 
-            RoslynCleanup.BuildAndrun(_package);
+            RoslynBuildAndRun(_package);
 
 
             // Perform insertion of whitespace cleanup.
@@ -342,6 +347,38 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
             // Perform comment cleaning.
             _commentFormatLogic.FormatComments(textDocument);
+        }
+
+        public static void RoslynBuildAndRun(AsyncPackage package)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            Global.Package = package;
+
+            var document = Global.GetActiveDocument(package);
+
+            if (document == null || !document.TryGetSyntaxRoot(out SyntaxNode root))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var semanticModel = document.GetSemanticModelAsync().Result;
+
+            var cleaner = new RoslynCleaner();
+
+            InsertExplicitAccessorMiddleware.Initialize(cleaner, semanticModel);
+            InsertNodePaddingMiddleware.Initialize(cleaner);
+
+            InsertTokenPaddingMiddleware.Initialize(cleaner);
+
+            var newRoot = cleaner.Process(root, Global.GetWorkspace(package));
+
+            document = document.WithSyntaxRoot(newRoot);
+            var success = Global.GetWorkspace(package).TryApplyChanges(document.Project.Solution);
+            if (!success)
+            {
+                OutputWindowHelper.DiagnosticWriteLine("Error applying roslyn cleanup changes.");
+            }
         }
 
         /// <summary>
