@@ -2,7 +2,11 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using Shouldly;
+using System;
 using System.Threading.Tasks;
+using StringAssert = NUnit.Framework.StringAssert;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup
 {
@@ -22,8 +26,13 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Cleanup
             InsertTokenPaddingMiddleware.Initialize(rewriter);
 
             var result = rewriter.Process(syntaxTree, Workspace);
+            var resultString = result.ToFullString();
 
-            Assert.AreEqual(expected, result.ToFullString());
+            //To support cross platform line endings use shouldly's IgnoreLineEndings option.
+            // TODO: Add cross platform string compare and remove shoudly.
+            resultString.ShouldBe(expected, StringCompareShould.IgnoreLineEndings);
+            //NUnit.Framework.Assert.AreEqual(expected, resultString);
+            //StringAssert.AreEqualIgnoringCase(expected, result.ToFullString());
         }
 
         public TestWorkspace()
@@ -54,7 +63,7 @@ public class ThisShouldAppear
         public Document SetDocument(string text)
         {
             Document = Document.WithText(SourceText.From(text));
-            Assert.IsTrue(Workspace.TryApplyChanges(Document.Project.Solution));
+            NUnit.Framework.Assert.IsTrue(Workspace.TryApplyChanges(Document.Project.Solution));
             return Document;
         }
     }
