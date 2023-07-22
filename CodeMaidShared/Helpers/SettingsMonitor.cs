@@ -23,18 +23,18 @@ namespace SteveCadwallader.CodeMaid.Helpers
             _settings.SettingsSaving += OnSettingsSaving;
         }
 
-        public async Task WatchAsync<TValue>(Expression<Func<TSetting, TValue>> setting, Func<TValue, Task> changedCallback)
+        public Task WatchAsync<TValue>(Expression<Func<TSetting, TValue>> setting, Func<TValue, Task> changedCallback)
         {
             var settingName = (setting.Body as MemberExpression).Member.Name;
-            await WatchAsync<TValue>(new[] { settingName }, async values => await changedCallback(values[0]));
+            return WatchAsync<TValue>(new[] { settingName }, values => changedCallback(values[0]));
         }
 
-        public async Task WatchAsync<TValue>(string[] settings, Func<TValue[], Task> changedCallback)
+        public Task WatchAsync<TValue>(string[] settings, Func<TValue[], Task> changedCallback)
         {
-            await WatchAsync(settings, async (object[] values) =>
+            return WatchAsync(settings, (object[] values) =>
             {
                 var typedValues = Array.ConvertAll(values, v => (TValue)v);
-                await changedCallback(typedValues);
+                return changedCallback(typedValues);
             });
         }
 

@@ -210,8 +210,8 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
 
-                Package.JoinableTaskFactory.RunAsync(async () =>
-                    await Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
+                Package.JoinableTaskFactory.RunAsync(() =>
+                    Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
                     {
                         if (on)
                         {
