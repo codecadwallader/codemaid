@@ -42,7 +42,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
         {
             var matches = new List<EditPoint>();
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -69,7 +69,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
         {
             var matches = new List<EditPoint>();
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
                 if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
@@ -95,7 +95,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
         {
             EditPoint result = null;
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -125,7 +125,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             bool result = false;
             EditPoint resultEndPoint = null;
 
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -154,16 +154,16 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
         {
             string result = null;
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
                     IFinder finder = GetFinder(matchString, textBuffer);
-                    if (finder.TryFind(out Span match))
+                    if (finder.TryFind(GetSnapshotPositionForTextPoint(textBuffer.CurrentSnapshot, startPoint), out Span match))
                     {
-                        result = textBuffer.CurrentSnapshot.GetText(match);
+                        result = textBuffer.CurrentSnapshot.GetText(startPoint.AbsoluteCharOffset, match.Start - startPoint.AbsoluteCharOffset);
                     }
                 }
             });
@@ -299,7 +299,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -320,7 +320,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -342,7 +342,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
-            RunOnUIThread(() =>
+            UIThread.Run(() =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -404,7 +404,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var textSnapshotLine = textSnapshot.GetLineFromLineNumber(textPoint.Line - 1);
-            return textSnapshotLine.Start.Position + textPoint.LineCharOffset;
+            return textSnapshotLine.Start.Position + textPoint.LineCharOffset - 1;
         }
 
         private static Span GetSnapshotSpanForExtent(ITextSnapshot textSnapshot, EditPoint startPoint, EditPoint endPoint)
@@ -438,15 +438,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
                     edit.Apply();
                 }
             }
-        }
-
-        private static void RunOnUIThread(Action action)
-        {
-            CodeMaidPackage.Instance.JoinableTaskFactory.Run(async () =>
-            {
-                await CodeMaidPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
-                action();
-            });
         }
 
         private static bool TryGetTextBufferAt(string filePath, out ITextBuffer textBuffer)

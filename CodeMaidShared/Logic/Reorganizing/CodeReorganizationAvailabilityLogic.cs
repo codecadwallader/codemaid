@@ -173,8 +173,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
                     CanRemember = true
                 };
 
-                var window = new YesNoPromptWindow { DataContext = viewModel };
-                var response = window.ShowModal();
+                var response = UIThread.Run(() =>
+                {
+                    var window = new YesNoPromptWindow { DataContext = viewModel };
+                    return window.ShowDialog();
+                });
 
                 if (!response.HasValue)
                 {

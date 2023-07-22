@@ -42,6 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TextDocumentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TypeFormatHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UIHierarchyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UIThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UndoTransactionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\AboutCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integration\Commands\BaseCommand.cs" />
@@ -158,6 +159,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UI\Bindable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanAndConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemParentHighestComplexityConverter.cs" />

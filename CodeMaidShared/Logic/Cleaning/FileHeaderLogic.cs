@@ -144,9 +144,8 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
             var currentHeader = GetCurrentHeader(textDocument, true).Trim();
-            var newHeader = settingsFileHeader.Trim();
 
-            if (string.Equals(currentHeader, newHeader))
+            if (currentHeader.StartsWith(settingsFileHeader.Trim()))
             {
                 return;
             }
@@ -155,6 +154,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var nbLinesToSkip = GetNbLinesToSkip(textDocument);
 
             headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+
+            if (!settingsFileHeader.StartsWith(Environment.NewLine))
+            {
+                settingsFileHeader = Environment.NewLine + settingsFileHeader;
+            }
 
             headerBlockStart.Insert(settingsFileHeader);
         }
@@ -166,7 +170,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             var cursor = textDocument.StartPoint.CreateEditPoint();
             var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
 
-            if (!existingFileHeader.StartsWith(settingsFileHeader.TrimStart()))
+            if (!existingFileHeader.StartsWith(settingsFileHeader.Trim()))
             {
                 cursor.Insert(settingsFileHeader);
             }
@@ -192,10 +196,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             switch (FileHeaderHelper.GetFileHeaderPositionFromSettings(textDocument))
             {
                 case HeaderPosition.DocumentStart:
+                    ReplaceFileHeaderAfterUsings(textDocument, string.Empty); // Removes header after usings if present
                     ReplaceFileHeaderDocumentStart(textDocument, settingsFileHeader);
                     return;
 
                 case HeaderPosition.AfterUsings:
+                    ReplaceFileHeaderDocumentStart(textDocument, string.Empty); // Removes header at document start if present
                     ReplaceFileHeaderAfterUsings(textDocument, settingsFileHeader);
                     return;
 
@@ -228,6 +234,11 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
 
             var currentHeaderLength = GetHeaderLength(textDocument, true);
+
+            if (!settingsFileHeader.StartsWith(Environment.NewLine))
+            {
+                settingsFileHeader = Environment.NewLine + settingsFileHeader;
+            }
 
             headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
         }
