@@ -159,6 +159,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UI\Bindable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanAndConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanInverseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters\CodeItemParentHighestComplexityConverter.cs" />
