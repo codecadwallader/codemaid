@@ -13,7 +13,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         where TSetting : ApplicationSettingsBase
     {
         private readonly JoinableTaskFactory _joinableTaskFactory;
-        private readonly Dictionary<string[], Monitor> _monitors = new Dictionary<string[], Monitor>(new StringArrayComparer());
+        private readonly Dictionary<string[], Monitor> _monitors = new(new StringArrayComparer());
         private readonly TSetting _settings;
 
         public SettingsMonitor(TSetting settings, JoinableTaskFactory joinableTaskFactory)

@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="IsGreaterThanOrEqualToConverter" />.
         /// </summary>
-        public static IsGreaterThanOrEqualToConverter Default = new IsGreaterThanOrEqualToConverter();
+        public static IsGreaterThanOrEqualToConverter Default = new();
 
         #endregion Fields
 

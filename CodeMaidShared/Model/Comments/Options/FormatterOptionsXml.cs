@@ -7,7 +7,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments.Options
 {
     public class FormatterOptionsXml
     {
-        private readonly static FormatterOptionsXmlTag FormatterOptionsXmlTagOverrideSplitBeforeAfter = new FormatterOptionsXmlTag
+        private readonly static FormatterOptionsXmlTag FormatterOptionsXmlTagOverrideSplitBeforeAfter = new()
         {
             Split = XmlTagNewLine.BeforeAndAfter
         };

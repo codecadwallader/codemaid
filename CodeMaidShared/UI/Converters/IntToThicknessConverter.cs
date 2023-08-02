@@ -16,24 +16,24 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// An instance of <see cref="IntToThicknessConverter" /> that only sets the left side of
         /// the thickness.
         /// </summary>
-        public static IntToThicknessConverter LeftOnly = new IntToThicknessConverter { Left = true };
+        public static IntToThicknessConverter LeftOnly = new() { Left = true };
 
         /// <summary>
         /// An instance of <see cref="IntToThicknessConverter" /> that only sets the top side of the thickness.
         /// </summary>
-        public static IntToThicknessConverter TopOnly = new IntToThicknessConverter { Top = true };
+        public static IntToThicknessConverter TopOnly = new() { Top = true };
 
         /// <summary>
         /// An instance of <see cref="IntToThicknessConverter" /> that only sets the right side of
         /// the thickness.
         /// </summary>
-        public static IntToThicknessConverter RightOnly = new IntToThicknessConverter { Right = true };
+        public static IntToThicknessConverter RightOnly = new() { Right = true };
 
         /// <summary>
         /// An instance of <see cref="IntToThicknessConverter" /> that only sets the bottom side of
         /// the thickness.
         /// </summary>
-        public static IntToThicknessConverter BottomOnly = new IntToThicknessConverter { Bottom = true };
+        public static IntToThicknessConverter BottomOnly = new() { Bottom = true };
 
         #endregion Fields
 

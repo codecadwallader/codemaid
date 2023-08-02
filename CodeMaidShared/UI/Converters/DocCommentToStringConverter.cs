@@ -14,7 +14,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="DocCommentToStringConverter" />.
         /// </summary>
-        public static DocCommentToStringConverter Default = new DocCommentToStringConverter();
+        public static DocCommentToStringConverter Default = new();
 
         /// <summary>
         /// Converts a value.

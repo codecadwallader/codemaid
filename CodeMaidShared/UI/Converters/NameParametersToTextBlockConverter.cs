@@ -21,12 +21,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="NameParametersToTextBlockConverter" />.
         /// </summary>
-        public static NameParametersToTextBlockConverter Default = new NameParametersToTextBlockConverter();
+        public static NameParametersToTextBlockConverter Default = new();
 
         /// <summary>
         /// An instance of the <see cref="NameParametersToTextBlockConverter" /> for parent items.
         /// </summary>
-        public static NameParametersToTextBlockConverter Parent = new NameParametersToTextBlockConverter
+        public static NameParametersToTextBlockConverter Parent = new()
         {
             FontSize = 14,
             FontStyle = FontStyles.Normal,

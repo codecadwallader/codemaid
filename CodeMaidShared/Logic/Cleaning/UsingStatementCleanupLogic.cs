@@ -17,7 +17,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CommandHelper _commandHelper;
 
         private readonly CachedSettingSet<string> _usingStatementsToReinsertWhenRemoved =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
+            new(() => Settings.Default.Cleaning_UsingStatementsToReinsertWhenRemovedExpression,
                                          expression =>
                                          expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
                                                    .Select(x => x.Trim())

@@ -16,13 +16,13 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// The default <see cref="BooleanToVisibilityConverter" /> that returns Visible for true
         /// and Collapsed for false.
         /// </summary>
-        public static BooleanToVisibilityConverter Default = new BooleanToVisibilityConverter();
+        public static BooleanToVisibilityConverter Default = new();
 
         /// <summary>
         /// The inverse <see cref="BooleanToVisibilityConverter" /> that returns Collapsed for true
         /// and Visible for false.
         /// </summary>
-        public static BooleanToVisibilityConverter Inverse = new BooleanToVisibilityConverter
+        public static BooleanToVisibilityConverter Inverse = new()
         {
             TrueResult = Visibility.Collapsed,
             FalseResult = Visibility.Visible

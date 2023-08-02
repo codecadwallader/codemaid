@@ -15,17 +15,17 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A <see cref="CodeItemToImageConverter" /> that retrieves VS2010 based images.
         /// </summary>
-        public static CodeItemToImageConverter VS2010 = new CodeItemToImageConverter { ImagePath = "VS2010" };
+        public static CodeItemToImageConverter VS2010 = new() { ImagePath = "VS2010" };
 
         /// <summary>
         /// A <see cref="CodeItemToImageConverter" /> that retrieves VS2012 light based images.
         /// </summary>
-        public static CodeItemToImageConverter VS2012Light = new CodeItemToImageConverter { ImagePath = "VS2012_Light" };
+        public static CodeItemToImageConverter VS2012Light = new() { ImagePath = "VS2012_Light" };
 
         /// <summary>
         /// A <see cref="CodeItemToImageConverter" /> that retrieves VS2012 dark based images.
         /// </summary>
-        public static CodeItemToImageConverter VS2012Dark = new CodeItemToImageConverter { ImagePath = "VS2012_Dark" };
+        public static CodeItemToImageConverter VS2012Dark = new() { ImagePath = "VS2012_Dark" };
 
         /// <summary>
         /// Gets or sets the image path.

@@ -13,7 +13,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="TypeStringConverter" />.
         /// </summary>
-        public static TypeStringConverter Default = new TypeStringConverter();
+        public static TypeStringConverter Default = new();
 
         /// <summary>
         /// Converts a value.

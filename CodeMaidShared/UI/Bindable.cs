@@ -16,7 +16,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <summary>
         /// A dictionary holding a set of property/value pairs.
         /// </summary>
-        private readonly Dictionary<string, object> _propertyBackingDictionary = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _propertyBackingDictionary = new();
 
         /// <summary>
         /// Gets the property value for the specified property name.

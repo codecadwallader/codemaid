@@ -146,7 +146,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static IEnumerable<string> GetEmptyLines(IEnumerable<string> lines, int nbLinesToSkip)
         {
-            List<string> result = new List<string>();
+            List<string> result = new();
 
             foreach (var line in lines.Skip(nbLinesToSkip))
             {
@@ -274,7 +274,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static IEnumerable<string> GetLinesStartingWith(string pattern, IEnumerable<string> lines, int nbLinesToSkip = 0)
         {
-            List<string> result = new List<string>();
+            List<string> result = new();
 
             foreach (var line in lines.Skip(nbLinesToSkip))
             {
@@ -297,7 +297,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>Lowest index of all the limits found</returns>
         private static int GetLowestIndex(string text, IEnumerable<string> limits)
         {
-            List<int> indexes = new List<int>();
+            List<int> indexes = new();
 
             foreach (var limit in limits)
             {
