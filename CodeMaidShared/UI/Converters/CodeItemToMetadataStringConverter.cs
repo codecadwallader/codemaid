@@ -18,12 +18,12 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="CodeItemToMetadataStringConverter" />.
         /// </summary>
-        public static CodeItemToMetadataStringConverter Default = new CodeItemToMetadataStringConverter();
+        public static CodeItemToMetadataStringConverter Default = new();
 
         /// <summary>
         /// An instance of the <see cref="CodeItemToMetadataStringConverter" /> that uses extended strings.
         /// </summary>
-        public static CodeItemToMetadataStringConverter Extended = new CodeItemToMetadataStringConverter { UseExtendedStrings = true };
+        public static CodeItemToMetadataStringConverter Extended = new() { UseExtendedStrings = true };
 
         #endregion Fields
 

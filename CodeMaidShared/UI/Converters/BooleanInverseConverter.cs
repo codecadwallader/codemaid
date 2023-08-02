@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of <see cref="BooleanInverseConverter" />.
         /// </summary>
-        public static BooleanInverseConverter Default = new BooleanInverseConverter();
+        public static BooleanInverseConverter Default = new();
 
         /// <summary>
         /// Converts a value.

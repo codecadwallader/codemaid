@@ -18,7 +18,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// A cached setting set container for accessing sets of related file extensions.
         /// </summary>
         private readonly CachedSettingSet<IList<string>> _relatedFileExtensions =
-            new CachedSettingSet<IList<string>>(()
+            new(()
                 => Settings.Default.Switching_RelatedFileExtensionsExpression,
                    expression => expression
                        .Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)

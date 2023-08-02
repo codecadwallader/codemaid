@@ -189,7 +189,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
             private set { SetPropertyValue(value); }
         }
 
-        public FontFamily CommentPreviewTextFont => new FontFamily(_editorProperties.Item("FontFamily").Value.ToString());
+        public FontFamily CommentPreviewTextFont => new(_editorProperties.Item("FontFamily").Value.ToString());
 
         public Brush CommentPreviewTextForeground
         {

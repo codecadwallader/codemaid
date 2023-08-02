@@ -14,7 +14,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="PropertyInfoDescriptionConverter" />.
         /// </summary>
-        public static PropertyInfoDescriptionConverter Default = new PropertyInfoDescriptionConverter();
+        public static PropertyInfoDescriptionConverter Default = new();
 
         /// <summary>
         /// Converts a value.

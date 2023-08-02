@@ -12,7 +12,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// A default instance of the <see cref="EnumToBooleanConverter" />.
         /// </summary>
-        public static EnumToBooleanConverter Default = new EnumToBooleanConverter();
+        public static EnumToBooleanConverter Default = new();
 
         /// <summary>
         /// Converts a value.

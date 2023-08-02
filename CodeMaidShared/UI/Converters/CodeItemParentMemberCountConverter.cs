@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// The default <see cref="CodeItemParentMemberCountConverter" />.
         /// </summary>
-        public static CodeItemParentMemberCountConverter Default = new CodeItemParentMemberCountConverter();
+        public static CodeItemParentMemberCountConverter Default = new();
 
         /// <summary>
         /// Converts source values to a value for the binding target. The data binding engine calls

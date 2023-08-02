@@ -22,7 +22,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CodeMaidPackage _package;
 
         private readonly CachedSettingSet<string> _cleanupExclusions =
-            new CachedSettingSet<string>(() => Settings.Default.Cleaning_ExclusionExpression,
+            new(() => Settings.Default.Cleaning_ExclusionExpression,
                                          expression =>
                                          expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
                                                    .Select(x => x.Trim().ToLower())
@@ -30,7 +30,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                                                    .ToList());
 
         private readonly CachedSettingSet<string> _cleanupInclusions =
-                    new CachedSettingSet<string>(() => Settings.Default.Cleaning_InclusionExpression,
+                    new(() => Settings.Default.Cleaning_InclusionExpression,
                                          expression =>
                                          expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
                                                    .Select(x => x.Trim().ToLower())

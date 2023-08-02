@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <summary>
         /// The default <see cref="CodeItemParentHighestComplexityConverter" />.
         /// </summary>
-        public static CodeItemParentHighestComplexityConverter Default = new CodeItemParentHighestComplexityConverter();
+        public static CodeItemParentHighestComplexityConverter Default = new();
 
         /// <summary>
         /// Converts a value.

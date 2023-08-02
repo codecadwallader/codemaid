@@ -15,7 +15,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         private readonly StringBuilder _builder;
         private readonly CommentOptions _commentOptions;
         private readonly FormatterOptions _formatterOptions;
-        private int _commentPrefixLength;
+        private readonly int _commentPrefixLength;
         private int _currentPosition;
         private int _indentAmount;
         private bool _isFirstWord;

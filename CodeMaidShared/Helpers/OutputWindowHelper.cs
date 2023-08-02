@@ -74,7 +74,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return null;
             }
 
-            Guid outputPaneGuid = new Guid(PackageGuids.GuidCodeMaidOutputPane.ToByteArray());
+            Guid outputPaneGuid = new(PackageGuids.GuidCodeMaidOutputPane.ToByteArray());
 
             outputWindow.CreatePane(ref outputPaneGuid, "CodeMaid", 1, 1);
             outputWindow.GetPane(ref outputPaneGuid, out IVsOutputWindowPane windowPane);

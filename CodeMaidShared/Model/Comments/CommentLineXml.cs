@@ -10,7 +10,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
 {
     internal class CommentLineXml : CommentLine
     {
-        private static Regex InterpunctionRegex = new Regex(@"^[^\w]", RegexOptions.Compiled);
+        private static readonly Regex InterpunctionRegex = new(@"^[^\w]", RegexOptions.Compiled);
 
         private readonly FormatterOptions _formatterOptions;
         private readonly StringBuilder _innerText;

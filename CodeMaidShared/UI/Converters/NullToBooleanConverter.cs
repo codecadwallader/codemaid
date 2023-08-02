@@ -13,13 +13,13 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// An instance of <see cref="NullToBooleanConverter" /> that returns true if the specified
         /// value is null.
         /// </summary>
-        public static NullToBooleanConverter IsNull = new NullToBooleanConverter { ReturnTrueIfNull = true };
+        public static NullToBooleanConverter IsNull = new() { ReturnTrueIfNull = true };
 
         /// <summary>
         /// An instance of <see cref="NullToBooleanConverter" /> that returns true if the specified
         /// value is not null.
         /// </summary>
-        public static NullToBooleanConverter NotNull = new NullToBooleanConverter { ReturnTrueIfNull = false };
+        public static NullToBooleanConverter NotNull = new() { ReturnTrueIfNull = false };
 
         /// <summary>
         /// Gets or sets the flag indicating if true will be returned for null values.

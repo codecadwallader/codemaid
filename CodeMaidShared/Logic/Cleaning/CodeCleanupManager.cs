@@ -41,7 +41,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly UsingStatementCleanupLogic _usingStatementCleanupLogic;
 
         private readonly CachedSettingSet<string> _otherCleaningCommands =
-            new CachedSettingSet<string>(() => Settings.Default.ThirdParty_OtherCleaningCommandsExpression,
+            new(() => Settings.Default.ThirdParty_OtherCleaningCommandsExpression,
                                          expression =>
                                          expression.Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries)
                                                    .Select(x => x.Trim())
