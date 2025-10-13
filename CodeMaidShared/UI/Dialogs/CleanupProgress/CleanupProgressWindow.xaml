@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="10">
+        <StackPanel Margin="10,10,10,0">
             <TextBlock FontSize="14" TextTrimming="CharacterEllipsis">
                 <InlineUIContainer>
                     <Label Content="{x:Static p:Resources.Cleaning}" />
