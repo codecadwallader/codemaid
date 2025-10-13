@@ -93,20 +93,23 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 
         private string GetCurrentHeader(TextDocument textDocument, bool skipUsings)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-            var currentHeaderLength = GetHeaderLength(textDocument, skipUsings);
-
-            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
-
-            if (skipUsings)
+            UIThread.Run(() =>
             {
-                var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-                headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
-            }
+                var currentHeaderLength = GetHeaderLength(textDocument, skipUsings);
 
-            return headerBlockStart.GetText(currentHeaderLength + 1).Trim();
+                var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+
+                if (skipUsings)
+                {
+                    var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+
+                    headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+                }
+
+                return headerBlockStart.GetText(currentHeaderLength + 1).Trim();
+            });
         }
 
         private int GetNbLinesToSkip(TextDocument textDocument)
@@ -141,39 +144,45 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <remarks>Only valid for languages containing "using" directive</remarks>
         private void InsertFileHeaderAfterUsings(TextDocument textDocument, string settingsFileHeader)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-            var currentHeader = GetCurrentHeader(textDocument, true).Trim();
-
-            if (currentHeader.StartsWith(settingsFileHeader.Trim()))
+            UIThread.Run(() =>
             {
-                return;
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
-            var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+                var currentHeader = GetCurrentHeader(textDocument, true).Trim();
 
-            headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+                if (currentHeader.StartsWith(settingsFileHeader.Trim()))
+                {
+                    return;
+                }
 
-            if (!settingsFileHeader.StartsWith(Environment.NewLine))
-            {
-                settingsFileHeader = Environment.NewLine + settingsFileHeader;
-            }
+                var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+                var nbLinesToSkip = GetNbLinesToSkip(textDocument);
 
-            headerBlockStart.Insert(settingsFileHeader);
+                headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+
+                if (!settingsFileHeader.StartsWith(Environment.NewLine))
+                {
+                    settingsFileHeader = Environment.NewLine + settingsFileHeader;
+                }
+
+                headerBlockStart.Insert(settingsFileHeader);
+            });
         }
 
         private void InsertFileHeaderDocumentStart(TextDocument textDocument, string settingsFileHeader)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-            var cursor = textDocument.StartPoint.CreateEditPoint();
-            var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
-
-            if (!existingFileHeader.StartsWith(settingsFileHeader.Trim()))
+            UIThread.Run(() =>
             {
-                cursor.Insert(settingsFileHeader);
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                var cursor = textDocument.StartPoint.CreateEditPoint();
+                var existingFileHeader = cursor.GetText(settingsFileHeader.Length);
+
+                if (!existingFileHeader.StartsWith(settingsFileHeader.Trim()))
+                {
+                    cursor.Insert(settingsFileHeader);
+                }
+            });
         }
 
         /// <summary>
@@ -183,12 +192,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>A string representing the first <see cref="HeaderMaxNbLines"/> lines of the document</returns>
         private string ReadTextBlock(TextDocument textDocument)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            UIThread.Run(() =>
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            var maxNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
-            var blockStart = textDocument.StartPoint.CreateEditPoint();
+                var maxNbLines = Math.Min(HeaderMaxNbLines, textDocument.EndPoint.Line);
+                var blockStart = textDocument.StartPoint.CreateEditPoint();
 
-            return blockStart.GetLines(1, maxNbLines);
+                return blockStart.GetLines(1, maxNbLines);
+            });
         }
 
         private void ReplaceFileHeader(TextDocument textDocument, string settingsFileHeader)
@@ -218,47 +230,53 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <remarks>Only valid for languages containing "using" directive</remarks>
         private void ReplaceFileHeaderAfterUsings(TextDocument textDocument, string settingsFileHeader)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-            var currentHeader = GetCurrentHeader(textDocument, true).Trim();
-            var newHeader = settingsFileHeader.Trim();
-
-            if (string.Equals(currentHeader, newHeader))
+            UIThread.Run(() =>
             {
-                return;
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
-            var nbLinesToSkip = GetNbLinesToSkip(textDocument);
+                var currentHeader = GetCurrentHeader(textDocument, true).Trim();
+                var newHeader = settingsFileHeader.Trim();
 
-            headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
+                if (string.Equals(currentHeader, newHeader))
+                {
+                    return;
+                }
 
-            var currentHeaderLength = GetHeaderLength(textDocument, true);
+                var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+                var nbLinesToSkip = GetNbLinesToSkip(textDocument);
 
-            if (!settingsFileHeader.StartsWith(Environment.NewLine))
-            {
-                settingsFileHeader = Environment.NewLine + settingsFileHeader;
-            }
+                headerBlockStart.MoveToLineAndOffset(nbLinesToSkip + 1, 1);
 
-            headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+                var currentHeaderLength = GetHeaderLength(textDocument, true);
+
+                if (!settingsFileHeader.StartsWith(Environment.NewLine))
+                {
+                    settingsFileHeader = Environment.NewLine + settingsFileHeader;
+                }
+
+                headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+            });
         }
 
         private void ReplaceFileHeaderDocumentStart(TextDocument textDocument, string settingsFileHeader)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-            var currentHeader = GetCurrentHeader(textDocument, false).Trim();
-            var newHeader = settingsFileHeader.Trim();
-
-            if (string.Equals(currentHeader, newHeader))
+            UIThread.Run(() =>
             {
-                return;
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
-            var currentHeaderLength = GetHeaderLength(textDocument, false);
+                var currentHeader = GetCurrentHeader(textDocument, false).Trim();
+                var newHeader = settingsFileHeader.Trim();
 
-            headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+                if (string.Equals(currentHeader, newHeader))
+                {
+                    return;
+                }
+
+                var headerBlockStart = textDocument.StartPoint.CreateEditPoint();
+                var currentHeaderLength = GetHeaderLength(textDocument, false);
+
+                headerBlockStart.ReplaceText(currentHeaderLength, settingsFileHeader, (int)vsEPReplaceTextOptions.vsEPReplaceTextKeepMarkers);
+            });
         }
 
         #endregion Methods
