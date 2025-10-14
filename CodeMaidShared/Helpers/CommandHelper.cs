@@ -54,6 +54,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
         {
             if (commandNames == null || commandNames.Length == 0) return null;
 
+            var commands = _package.IDE.Commands.OfType<Command>().Select(x => x.Name).ToArray();
+
+            var strings = string.Join(",\n", commands);
+
+            var c = _package.IDE.Commands.OfType<Command>().Where(x => x.Name.Contains("Cleanup")).ToArray();
+
             return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => commandNames.Contains(x.Name));
         }
 
