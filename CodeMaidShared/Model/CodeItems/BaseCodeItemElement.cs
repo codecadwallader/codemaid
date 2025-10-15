@@ -1,6 +1,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
+using System.Threading;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -122,7 +123,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <returns>A lazy initializer for the specified function.</returns>
         protected static Lazy<T> LazyTryDefault<T>(Func<T> func)
         {
-            return new Lazy<T>(() => TryDefault(func));
+            return new Lazy<T>(() => TryDefault(func), LazyThreadSafetyMode.PublicationOnly);
         }
 
         /// <summary>

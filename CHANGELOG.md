@@ -7,6 +7,12 @@ These changes have not been released to the Visual Studio marketplace, but (if c
 - [ ] Features
 
 - [ ] Fixes
+  - [x] [#854](https://github.com/codecadwallader/codemaid/pull/854) - Translate new resource to Chinese, simplify build outputs and fix for prompt to clean external files when another dialog is already open - thanks [heku](https://github.com/heku)!
+  - [x] [#877](https://github.com/codecadwallader/codemaid/pull/877) - Recognize WebForms in VS2022 (API change)
+  - [x] [#882](https://github.com/codecadwallader/codemaid/pull/882) - Fixed multiple bugs on file headers update - thanks [lflender](https://github.com/lflender)!
+  - [x] [#885](https://github.com/codecadwallader/codemaid/pull/885) - Recognize Razor in VS2022 (API change)
+  - [x] [#905](https://github.com/codecadwallader/codemaid/pull/905) - Fix issue causing keyword modifiers to be swapped - thanks [BlythMeister](https://github.com/BlythMeister)!
+  - [x] [#929](https://github.com/codecadwallader/codemaid/pull/929) - Add some UI padding
 
 ## Previous Releases
 
@@ -25,7 +31,6 @@ These are the changes to each version that has been released to the Visual Studi
 
 - [x] Fixes
   - [x] [#800](https://github.com/codecadwallader/codemaid/pull/800) - Reorganizing: Fix dialog showing literal newline characters
-
 
 ## 11.2
 
@@ -80,7 +85,7 @@ These are the changes to each version that has been released to the Visual Studi
   - [x] [#519](https://github.com/codecadwallader/codemaid/pull/519) - Simplify the code by removing unnecessary guids - thanks [heku](https://github.com/heku)!
   - [x] [#525](https://github.com/codecadwallader/codemaid/pull/525) - Make all features switchable - thanks [heku](https://github.com/heku)!
   - [x] [#545](https://github.com/codecadwallader/codemaid/pull/545) - Ignore comment lines starting with certain prefixes - thanks [willemduncan](https://github.com/willemduncan)!
-  
+
 - [x] Fixes
   - [x] [#479](https://github.com/codecadwallader/codemaid/pull/479) - Update XAML Styler integration mappings - thanks [grochocki](https://github.com/grochocki)!
   - [x] [#496](https://github.com/codecadwallader/codemaid/pull/496) - Fix the .NET Framework minimum required version (which is v4.6)

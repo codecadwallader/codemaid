@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
@@ -152,8 +152,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Assert.IsTrue(headerLength == expectedLength, $"Expecting {expectedLength}, found {headerLength}");
         }
 
-        [TestCase("//", "using System;\r\n// header\r\n", 11)]
-        [TestCase("//", "using System;\r\n// header I\r\n// header II\r\n", 26)]
+        [TestCase("//", "using System;\r\n// header\r\nnamespace ", 11)]
+        [TestCase("//", "using System;\r\n// header I\r\n// header II\r\nnamespace ", 26)]
         public void GetHeaderLengthMultiSingleLineSkipUsings(string tag, string text, int expectedLength)
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(text, tag, true);
@@ -174,7 +174,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 
         [TestCase("//", "using System;\r\n\r\n//  header \r\nnamespace System.Windows;\r\npublic class Test\r\n", 13)]
         [TestCase("//", "using EnvDTE;\r\nusing System;\r\nusing SteveCadwallader.CodeMaid.Helpers;\r\n\r\n\r\n//  header \r\n// more header \r\nnamespace SteveCadwallader.CodeMaid;\r\n", 29)]
-        [TestCase("//", "using System;\r\n\r\n//  header \r\n[assembly: AssemblyTitle(\"SteveCadwallader.CodeMaid.UnitTests\")]\r\n", 13)]
+        [TestCase("//", "using System;\r\n\r\n//  header \r\n[assembly: AssemblyTitle(\"SteveCadwallader.CodeMaid.UnitTests\")]\r\nnamespace ", 13)]
         public void GetHeaderLengthMultiSingleLineWithCodeSkipUsings(string tag, string text, int expectedLength)
         {
             var headerLength = FileHeaderHelper.GetHeaderLength(text, tag, true);
@@ -193,7 +193,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Assert.IsTrue(headerLength == expectedLength, $"Expecting {expectedLength}, found {headerLength}");
         }
 
-        [TestCase("//", "using System;\r\n\r\n\r\n//  header \r\n// header\r\nnamespace\r\n//not header\r\n public class Test\r\n", 23)]
+        [TestCase("//", "using System;\r\n\r\n\r\n//  header \r\n// header\r\nnamespace \r\n//not header\r\n public class Test\r\n", 23)]
         [TestCase("//", "using EnvDTE;\r\nusing System;\r\nusing SteveCadwallader.CodeMaid.Helpers;\r\n//  header \r\n// more header \r\n namespace System.Text;\r\n{\r\n", 29)]
         public void GetHeaderLengthMultiSingleLineWithEmptyLinesSkipUsings(string tag, string text, int expectedLength)
         {

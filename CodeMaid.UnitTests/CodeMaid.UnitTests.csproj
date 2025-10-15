@@ -80,6 +80,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>16.10.31321.278</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk">
       <Version>17.0.0</Version>
     </PackageReference>
