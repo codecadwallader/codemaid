@@ -24,10 +24,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeMaidShared", "CodeMaidS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.VS2022", "CodeMaid.VS2022\CodeMaid.VS2022.csproj", "{6D3EDF86-D2F8-4779-8A95-052227ED56A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMaid.VS2026", "CodeMaid.VS2026\CodeMaid.VS2026.csproj", "{4A1F8E2D-B3C7-4592-A0D6-8F5E3C9B1047}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		CodeMaidShared\CodeMaidShared.projitems*{19b1ab9e-4603-4a9c-9284-32aae57fb7bc}*SharedItemsImports = 4
 		CodeMaidShared\CodeMaidShared.projitems*{6d3edf86-d2f8-4779-8a95-052227ed56a9}*SharedItemsImports = 4
+		CodeMaidShared\CodeMaidShared.projitems*{4a1f8e2d-b3c7-4592-a0d6-8f5e3c9b1047}*SharedItemsImports = 4
 		CodeMaidShared\CodeMaidShared.projitems*{e94629d8-7803-4242-a0c6-3560005515e6}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +50,10 @@ Global
 		{6D3EDF86-D2F8-4779-8A95-052227ED56A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3EDF86-D2F8-4779-8A95-052227ED56A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3EDF86-D2F8-4779-8A95-052227ED56A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A1F8E2D-B3C7-4592-A0D6-8F5E3C9B1047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A1F8E2D-B3C7-4592-A0D6-8F5E3C9B1047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A1F8E2D-B3C7-4592-A0D6-8F5E3C9B1047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A1F8E2D-B3C7-4592-A0D6-8F5E3C9B1047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
