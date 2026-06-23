@@ -1,5 +1,6 @@
 using SteveCadwallader.CodeMaid.UI.Dialogs.Options;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -38,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             new OptionsWindow { DataContext = new OptionsViewModel(Package) }.ShowModal();

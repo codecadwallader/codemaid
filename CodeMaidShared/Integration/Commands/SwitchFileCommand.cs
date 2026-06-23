@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -59,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             string alternatePath = GetAlternatePathIfExists(Package.ActiveDocument);
             bool canAlterate = !string.IsNullOrEmpty(alternatePath);
 
@@ -95,6 +97,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The path to an alternate document, otherwise null.</returns>
         private string GetAlternatePathIfExists(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var alternatePaths = GetAlternatePaths(document);
 
             return alternatePaths.FirstOrDefault(x => !string.IsNullOrEmpty(x) && Package.IDE.Solution.FindProjectItem(x) != null);
@@ -107,6 +110,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The alternate paths, otherwise null.</returns>
         private IEnumerable<string> GetAlternatePaths(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var results = new List<string>();
 
             if (document != null)

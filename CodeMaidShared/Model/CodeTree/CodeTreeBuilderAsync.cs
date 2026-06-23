@@ -40,7 +40,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         /// Builds a code tree asynchronously from the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
-        internal void RetrieveCodeTreeAsync(CodeTreeRequest request)
+        internal void BeginRetrieveCodeTree(CodeTreeRequest request)
         {
             if (_bw.IsBusy)
             {
@@ -92,7 +92,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeTree
         {
             if (_pendingRequest != null)
             {
-                RetrieveCodeTreeAsync(_pendingRequest);
+                BeginRetrieveCodeTree(_pendingRequest);
             }
             else if (e.Error == null)
             {

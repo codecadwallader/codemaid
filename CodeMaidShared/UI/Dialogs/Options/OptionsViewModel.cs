@@ -17,6 +17,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
 {
@@ -40,6 +41,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="initiallySelectedPageType">The type of the initially selected page.</param>
         public OptionsViewModel(CodeMaidPackage package, Type initiallySelectedPageType = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _settingsContextHelper = SettingsContextHelper.GetInstance(package);
 
             ActiveSettings = (Settings)SettingsBase.Synchronized(new Settings());
@@ -375,6 +377,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSaveCommandExecuted(object parameter)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Save();
             DialogResult = true;
         }
@@ -384,6 +387,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </summary>
         private void Save()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (var optionsPageViewModel in Pages.Flatten())
             {
                 optionsPageViewModel.SaveSettings();
@@ -443,6 +447,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="parameter">The command parameter.</param>
         private void OnSwitchSettingsCommandExecuted(object parameter)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (CheckToSavePendingChangesShouldCancelOperation())
             {
                 return;
@@ -473,6 +478,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <returns>True if the operation should be canceled, otherwise false.</returns>
         private bool CheckToSavePendingChangesShouldCancelOperation()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (HasChanges)
             {
                 var result = MessageBox.Show(Resources.YouHavePendingChangesDoYouWantToSaveThemBeforeContinuing,
@@ -524,6 +530,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// </remarks>
         private void RefreshPackageSettings()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Explicitly try to reload solution-specific settings in case they were newly created.
             if (!_settingsContextHelper.LoadSolutionSpecificSettings(Settings.Default))
             {

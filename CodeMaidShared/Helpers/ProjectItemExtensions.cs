@@ -1,6 +1,7 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -16,6 +17,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The filename of the project item if available, otherwise null.</returns>
         internal static string GetFileName(this ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 return projectItem.FileNames[1];
@@ -34,6 +36,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The parent project item, otherwise null.</returns>
         internal static ProjectItem GetParentProjectItem(this ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 var parentProjectItem = projectItem.Collection?.Parent as ProjectItem;
@@ -53,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the project item is external, otherwise false.</returns>
         internal static bool IsExternal(this ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 if (projectItem.Collection == null || !projectItem.IsPhysicalFile())
@@ -76,6 +80,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the project item is a physical file, otherwise false.</returns>
         internal static bool IsPhysicalFile(this ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 return string.Equals(projectItem.Kind, Constants.vsProjectItemKindPhysicalFile, StringComparison.OrdinalIgnoreCase);

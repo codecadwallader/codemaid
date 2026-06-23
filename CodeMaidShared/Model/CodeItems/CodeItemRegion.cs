@@ -1,6 +1,7 @@
 using EnvDTE;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -55,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 var startPoint = StartPoint;
                 if (startPoint != null)
                 {
@@ -96,6 +98,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (Children.Any())
                 {
                     return false;

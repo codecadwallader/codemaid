@@ -20,7 +20,7 @@ build_script:
   - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 test:
-  assemblies: SteveCadwallader.CodeMaid.UnitTests.dll
+  assemblies: SteveCadwallader.CodeMaid.UnitTests.exe
 
 after_test:
   - ps: if ($env:APPVEYOR_REPO_BRANCH -eq 'dev' -or $env:APPVEYOR_REPO_BRANCH -eq 'release') { Vsix-PushArtifacts | Vsix-PublishToGallery }

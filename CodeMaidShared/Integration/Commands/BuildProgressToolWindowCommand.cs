@@ -2,6 +2,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -31,6 +32,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 var buildProgress = Package.BuildProgressForceLoad;
                 if (buildProgress != null)
                 {
@@ -54,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
         public override async Task SwitchAsync(bool on)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             await base.SwitchAsync(on);
 
             if (!on)
@@ -69,6 +72,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildBegin(vsBuildScope scope, vsBuildAction action)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -88,6 +92,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="action">The action.</param>
         internal void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var buildProgress = Package.BuildProgressForceLoad;
             if (buildProgress != null)
             {
@@ -150,6 +155,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="frame">The frame.</param>
         private static void DockWindowIfFloating(IVsWindowFrame frame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Get the current tool window frame mode.
             frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out object currentFrameMode);
 
@@ -190,6 +196,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ShowBuildProgressToolWindowWithoutActivation()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var frame = BuildProgressWindowFrame;
             if (frame != null)
             {

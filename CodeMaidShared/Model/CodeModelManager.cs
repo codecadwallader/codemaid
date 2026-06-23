@@ -1,9 +1,10 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -69,6 +70,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentChanged(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (document != null)
             {
                 _codeModelCache.StaleCodeModel(document);
@@ -81,6 +83,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void OnDocumentClosing(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (document != null)
             {
                 _codeModelCache.RemoveCodeModel(document);
@@ -101,6 +104,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document, bool loadLazyInitializedValues = false)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (document == null)
             {
                 throw new ArgumentNullException(nameof(document));
@@ -144,7 +148,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>
         /// The set of code items within the document if already available, otherwise null.
         /// </returns>
-        internal SetCodeItems RetrieveAllCodeItemsAsync(Document document, bool loadLazyInitializedValues = false)
+        internal SetCodeItems BeginRetrieveAllCodeItems(Document document, bool loadLazyInitializedValues = false)
         {
             if (document == null)
             {
@@ -158,7 +162,7 @@ namespace SteveCadwallader.CodeMaid.Model
             }
 
             OutputWindowHelper.DiagnosticWriteLine(
-                $"CodeModelManager.RetrieveAllCodeItemsAsync for '{document.FullName}'");
+                $"CodeModelManager.BeginRetrieveAllCodeItems for '{document.FullName}'");
 
             var codeModel = _codeModelCache.GetCodeModel(document);
             if (codeModel.IsBuilding)
@@ -170,7 +174,7 @@ namespace SteveCadwallader.CodeMaid.Model
             if (codeModel.IsStale)
             {
                 // Asynchronously build the code items then raise an event.
-                Task.Run(() =>
+                _ = Task.Run(() =>
                 {
                     BuildCodeItems(codeModel);
 
@@ -200,6 +204,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void BuildCodeItems(CodeModel codeModel)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
@@ -238,6 +243,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void LoadLazyInitializedValues(CodeModel codeModel)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 OutputWindowHelper.DiagnosticWriteLine(
@@ -261,6 +267,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeModel">The code model.</param>
         private void RaiseCodeModelBuilt(CodeModel codeModel)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var codeModelBuilt = CodeModelBuilt;
             if (codeModelBuilt != null)
             {

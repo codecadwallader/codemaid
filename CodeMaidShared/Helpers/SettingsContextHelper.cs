@@ -1,7 +1,8 @@
-﻿using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Configuration;
 using System.IO;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -72,6 +73,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if solution-specific settings were loaded, otherwise false.</returns>
         internal bool LoadSolutionSpecificSettings(Settings settings, bool canCreate = false)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (_package.IDE.Solution.IsOpen && !string.IsNullOrWhiteSpace(_package.IDE.Solution.FullName))
             {
                 var solutionPath = Path.GetDirectoryName(_package.IDE.Solution.FullName);
@@ -115,6 +117,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal async void OnSolutionOpened()
 #pragma warning restore VSTHRD100 // Avoid async void methods
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             if (LoadSolutionSpecificSettings(Settings.Default))
             {
                 await _package.SettingsMonitor.NotifySettingsChangedAsync();

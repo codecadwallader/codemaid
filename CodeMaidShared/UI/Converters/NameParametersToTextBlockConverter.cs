@@ -1,4 +1,4 @@
-﻿using SteveCadwallader.CodeMaid.Helpers;
+using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.Converters
 {
@@ -80,6 +81,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!(values[0] is ICodeItem codeItem))
             {
                 return null;
@@ -175,6 +177,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The inlines representing the parameters.</returns>
         private IEnumerable<Inline> CreateInlinesForParameters(ICodeItemParameters codeItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var inlines = new List<Inline>();
 
             var opener = GetOpeningString(codeItem);

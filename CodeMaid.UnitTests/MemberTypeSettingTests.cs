@@ -1,32 +1,31 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
+﻿using SteveCadwallader.CodeMaid.Helpers;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests
 {
-    [TestClass]
     public class MemberTypeSettingTests
     {
-        [TestMethod]
+        [Fact]
         public void CanSerializeMemberTypeSetting()
         {
             var memberTypeSetting = new MemberTypeSetting("Fields", "Member Variables", 1);
-            Assert.IsNotNull(memberTypeSetting);
+            Assert.NotNull(memberTypeSetting);
 
             var serializedString = (string)memberTypeSetting;
-            Assert.IsFalse(string.IsNullOrWhiteSpace(serializedString));
+            Assert.False(string.IsNullOrWhiteSpace(serializedString));
         }
 
-        [TestMethod]
+        [Fact]
         public void CanDeserializeMemberTypeSetting()
         {
             const string serializedString = @"Fields||1||Member Variables";
 
             var memberTypeSetting = (MemberTypeSetting)serializedString;
 
-            Assert.IsNotNull(memberTypeSetting);
-            Assert.AreEqual(memberTypeSetting.DefaultName, "Fields");
-            Assert.AreEqual(memberTypeSetting.EffectiveName, "Member Variables");
-            Assert.AreEqual(memberTypeSetting.Order, 1);
+            Assert.NotNull(memberTypeSetting);
+            Assert.Equal("Fields", memberTypeSetting.DefaultName);
+            Assert.Equal("Member Variables", memberTypeSetting.EffectiveName);
+            Assert.Equal(1, memberTypeSetting.Order);
         }
     }
 }

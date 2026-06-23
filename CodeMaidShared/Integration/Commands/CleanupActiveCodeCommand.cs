@@ -3,6 +3,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -54,6 +55,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document about to be saved.</param>
         internal void OnBeforeDocumentSave(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_AutoCleanupOnFileSave) return;
             if (!CodeCleanupAvailabilityLogic.CanCleanupDocument(document)) return;
 
@@ -77,6 +79,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Enabled = Package.ActiveDocument != null;
         }
 
@@ -85,6 +88,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             CodeCleanupManager.Cleanup(Package.ActiveDocument);

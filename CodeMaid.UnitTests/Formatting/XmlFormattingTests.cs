@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Model.Comments.Options;
+﻿using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -9,17 +9,15 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     /// Class with simple unit tests for formatting XML based comments. This calls the formatter
     /// directly, rather than invoking it through the UI as with the integration tests.
     /// </summary>
-    [TestClass]
     public class XmlFormattingTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public XmlFormattingTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToInsideTags()
         {
             var input = "<xml><see/></xml>";
@@ -31,8 +29,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToTagContent()
         {
             var input = "<xml><c>test</c></xml>";
@@ -44,8 +42,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToTagContentWithSelfClosingTag()
         {
             var input = "<tag1><tag2/></tag1>";
@@ -58,8 +56,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToTagContentWithSelfClosingTagMultiline()
         {
             // Add space to content should not add a space when tag content is on it's own line.
@@ -77,8 +75,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace1()
         {
             var input = "<xml>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</xml>";
@@ -96,8 +94,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AddSpaceToTagContentShouldLeaveNoTrailingWhitespace2()
         {
             var input =
@@ -119,8 +117,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_AllRootLevelTagsOnNewLine()
         {
             var input = "<tag1>abc</tag1><tag2>abc</tag2>";
@@ -131,8 +129,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_BreakAllTags()
         {
             var input = "<tag1></tag1><tag2></tag2>";
@@ -149,8 +147,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_BreakLongParagraphs()
         {
             var input = "<example><para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</para></example>";
@@ -165,8 +163,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 60);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_BreakTagsWhenContainsParagraphs()
         {
             var input = "<example><para>test</para></example>";
@@ -182,8 +180,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// If XML tag indenting is set, this should not affect any literal content. However, content
         /// after the literal should be indented as normal.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_DoesIndentAfterLiteralContent()
         {
             var input =
@@ -215,8 +213,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(result, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_DoesNotIndentCloseTag()
         {
             var input = "<tag1></tag1><tag2></tag2>";
@@ -239,8 +237,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// If XML tag indenting is set, this should not affect any literal content. Since whitespace
         /// is preserved on literals, this would increase the indenting with every pass.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_DoesNotIndentLiteralContent()
         {
             var input =
@@ -274,38 +272,38 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(result, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_DoNotAutoCollapseTags()
         {
             CommentFormatHelper.AssertEqualAfterFormat("<xml></xml>");
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_DoNotAutoExpandTags()
         {
             CommentFormatHelper.AssertEqualAfterFormat("<xml/>", o => o.Xml.Default.SpaceSelfClosing = false);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_HyperlinkBetweenWords()
         {
             var input = "<summary>" + Environment.NewLine + "Look at this http://foo pretty link." + Environment.NewLine + "</summary>";
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_HyperlinkOnNewLine()
         {
             var input = "<summary>" + Environment.NewLine + "http://foo" + Environment.NewLine + "</summary>";
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_IndentsXml()
         {
             var input = "<summary>Lorem ipsum dolor sit amet.</summary>";
@@ -320,8 +318,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_IndentsXmlMultiLevel()
         {
             var input = "<summary>Lorem ipsum dolor <para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae.</para> sit amet.</summary>";
@@ -342,8 +340,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_IndentsXmlSingleLevel()
         {
             var input = "<summary>Lorem ipsum dolor <para>Lorem ipsum dolor sit amet.</para> sit amet.</summary>";
@@ -365,8 +363,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// Test to make sure there is no spacing is added between an inline XML tag directly
         /// followed by interpunction.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_InterpunctionNoSpacing()
         {
             var input = "<test>Line with <interpunction/>.</test>";
@@ -374,8 +372,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, o => o.Xml.Default.SpaceSelfClosing = false);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_KeepShortParagraphs()
         {
             var input =
@@ -393,8 +391,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_RemoveSpaceFromInsideTags()
         {
             var input = "<xml><see /></xml>";
@@ -403,8 +401,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.SpaceSelfClosing = false);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_RemoveSpaceFromTagContent()
         {
             var input = "<xml> <c> test </c> </xml>";
@@ -413,8 +411,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.SpaceContent = false);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_SplitAlwaysOnSingleTag()
         {
             var input = "<tag1></tag1><tag2></tag2>";
@@ -431,8 +429,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_SplitsTagsWhenLineDoesNotFit()
         {
             var input = "<test>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi neque, placerat sed neque vitae</test>";
@@ -448,8 +446,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_TagCase_Keep()
         {
             var input = "<Xml></Xml>";
@@ -457,8 +455,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, o => o.Xml.Default.Case = XmlTagCase.Keep);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_TagCase_Lower()
         {
             var input = "<Xml></Xml>";
@@ -466,8 +464,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.Case = XmlTagCase.LowerCase);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_TagCase_Upper()
         {
             var input = "<Xml></Xml>";
@@ -479,8 +477,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// If XML tag indenting is set, this should not affect any literal content. Since whitespace
         /// is preserved on literals, this would increase the indenting with every pass.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_Literal_DoesNotIndent()
         {
             var input =
@@ -516,8 +514,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// If XML tag indenting is set, this should not affect any literal content. however, content
         /// after the literal should be indented as normal.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_Literal_IndentsAfterContent()
         {
             var input =
@@ -555,8 +553,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             });
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void XmlFormattingTests_Literal_KeepFormatting()
         {
             var input =

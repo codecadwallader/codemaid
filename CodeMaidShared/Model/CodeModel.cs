@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Threading;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -53,6 +54,7 @@ namespace SteveCadwallader.CodeMaid.Model
             get { return _isBuilding; }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (_isBuilding != value)
                 {
                     OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsBuilding changing to '{value}' for '{Document.FullName}'");
@@ -83,6 +85,7 @@ namespace SteveCadwallader.CodeMaid.Model
             get { return _isStale; }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (_isStale != value)
                 {
                     OutputWindowHelper.DiagnosticWriteLine($"CodeModel.IsStale changing to '{value}' for '{Document.FullName}'");

@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -14,6 +15,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A <see cref="CodeLanguage"/>.</returns>
         internal static CodeLanguage GetCodeLanguage(this Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return CodeLanguageHelper.GetCodeLanguage(document.Language);
         }
 
@@ -24,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The associated text document, otherwise null.</returns>
         internal static TextDocument GetTextDocument(this Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return document.Object("TextDocument") as TextDocument;
         }
 
@@ -34,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the document is external, otherwise false.</returns>
         internal static bool IsExternal(this Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var projectItem = document.ProjectItem;
 
             return projectItem == null || projectItem.IsExternal();

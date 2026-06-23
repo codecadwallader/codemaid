@@ -3,6 +3,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -46,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Enabled = SelectedUIHierarchyItems.Any(x => x.UIHierarchyItems.Expanded);
         }
 
@@ -54,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             foreach (UIHierarchyItem item in SelectedUIHierarchyItems)

@@ -1,4 +1,12 @@
-﻿using EnvDTE;
+﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -11,14 +19,6 @@ using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
 using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
-using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
 using Task = System.Threading.Tasks.Task;
 using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
 
@@ -114,6 +114,7 @@ namespace SteveCadwallader.CodeMaid
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 try
                 {
                     return IDE.ActiveDocument;
@@ -218,6 +219,7 @@ namespace SteveCadwallader.CodeMaid
         /// </param>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.General_DiagnosticsMode) return;
 
             OutputWindowHelper.ExceptionWriteLine("Diagnostics mode caught and marked as handled the following DispatcherUnhandledException raised in Visual Studio", e.Exception);
@@ -229,6 +231,7 @@ namespace SteveCadwallader.CodeMaid
         /// </summary>
         private void OnSolutionClosedShowStartPage()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.General_ShowStartPageOnSolutionClose) return;
 
             IDE.ExecuteCommand("View.StartPage");
@@ -280,6 +283,7 @@ namespace SteveCadwallader.CodeMaid
         /// </remarks>
         private async Task RegisterEventListenersAsync()
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var codeModelManager = CodeModelManager.GetInstance(this);
             var settingsContextHelper = SettingsContextHelper.GetInstance(this);
 

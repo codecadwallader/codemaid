@@ -384,5 +384,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.zh-Hans.resx">
       <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.zh-Hant.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

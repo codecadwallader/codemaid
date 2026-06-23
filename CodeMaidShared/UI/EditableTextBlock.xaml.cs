@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
+using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -67,11 +69,12 @@ namespace SteveCadwallader.CodeMaid.UI
                 editableTextBlock._originalValue = editableTextBlock.Text;
 
                 // Focus and select all of the text.
-                editableTextBlock.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                ThreadHelper.JoinableTaskFactory.Run(async () =>
                 {
+                    await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                     editableTextBlock.TextBox.Focus();
                     editableTextBlock.TextBox.SelectAll();
-                }));
+                });
             }
         }
 

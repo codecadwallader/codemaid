@@ -1,5 +1,6 @@
-﻿using EnvDTE;
+using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -26,6 +27,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return true;
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetEventDeclaration(codeEvent);
             var matchString = @"\." + codeEvent.Name;
@@ -46,6 +49,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 return true;
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetMethodDeclaration(codeFunction);
             var matchString = @"\." + codeFunction.Name;
@@ -65,6 +70,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 return true;
             }
+
+            ThreadHelper.ThrowIfNotOnUIThread();
 
             // Otherwise, look for the element name with a preceding dot.
             var declaration = CodeElementHelper.GetPropertyDeclaration(codeProperty);

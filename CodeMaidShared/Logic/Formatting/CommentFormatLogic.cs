@@ -1,9 +1,10 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Formatting
 {
@@ -44,6 +45,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="textDocument">The text document.</param>
         public void FormatComments(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Formatting_CommentRunDuringCleanup) return;
 
             FormatComments(textDocument, textDocument.StartPoint.CreateEditPoint(), textDocument.EndPoint.CreateEditPoint());
@@ -58,12 +60,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Formatting
         /// <param name="end">The end point.</param>
         public bool FormatComments(TextDocument textDocument, EditPoint start, EditPoint end)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             bool foundComments = false;
 
             var options = FormatterOptions
                 .FromSettings(Settings.Default)
                 .Set(o =>
                 {
+                    ThreadHelper.ThrowIfNotOnUIThread();
                     o.TabSize = textDocument.TabSize;
                     o.IgnoreTokens = CodeCommentHelper
                         .GetTaskListTokens(_package)

@@ -1,21 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
+﻿using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
-    [TestClass]
     public class SettingsMonitorTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public SettingsMonitorTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CallbackShouldBeCalledAtOnce()
         {
             var monitor = new SettingsMonitor<Settings>(Settings.Default, null);
@@ -28,10 +26,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
                 return Task.CompletedTask;
             });
 
-            Assert.AreEqual(/*Initial Call Times*/1, callbackTimes);
+            Assert.Equal(/*Initial Call Times*/1, callbackTimes);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CallbackShouldNotBeCalledIfSettingNotChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
@@ -50,11 +48,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Feature_CleanupAllCode = false;
             Settings.Default.Save();
 
-            Assert.AreEqual(/*Initial Call Times*/1 + 0, callbackTimes);
-            Assert.AreEqual(Settings.Default.Feature_CleanupAllCode, value);
+            Assert.Equal(/*Initial Call Times*/1 + 0, callbackTimes);
+            Assert.Equal(value, Settings.Default.Feature_CleanupAllCode);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CallbackShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
@@ -73,11 +71,11 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Feature_CleanupAllCode = true;
             Settings.Default.Save();
 
-            Assert.AreEqual(/*Initial Call Times*/ 1 + 1, callbackTimes);
-            Assert.AreEqual(Settings.Default.Feature_CleanupAllCode, value);
+            Assert.Equal(/*Initial Call Times*/ 1 + 1, callbackTimes);
+            Assert.Equal(value, Settings.Default.Feature_CleanupAllCode);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task AllCallbacksShouldBeCalledOnceSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
@@ -103,13 +101,13 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Feature_CleanupAllCode = true;
             Settings.Default.Save();
 
-            Assert.AreEqual(/*Initial Call Times*/1 + 1, callbackTimes1);
-            Assert.AreEqual(/*Initial Call Times*/1 + 1, callbackTimes2);
-            Assert.AreEqual(Settings.Default.Feature_CleanupAllCode, value1);
-            Assert.AreEqual(Settings.Default.Feature_CleanupAllCode, value2);
+            Assert.Equal(/*Initial Call Times*/1 + 1, callbackTimes1);
+            Assert.Equal(/*Initial Call Times*/1 + 1, callbackTimes2);
+            Assert.Equal(value1, Settings.Default.Feature_CleanupAllCode);
+            Assert.Equal(value2, Settings.Default.Feature_CleanupAllCode);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CallbackShouldBeCalledOnceAnyWatchedSettingChanged()
         {
             Settings.Default.Feature_CleanupAllCode = false;
@@ -134,8 +132,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Feature_CleanupSelectedCode = false;
             Settings.Default.Save();
 
-            Assert.AreEqual(/*Initial Call Times*/1 + 1, callbackTimes);
-            Assert.IsTrue(values.All(v => v == false));
+            Assert.Equal(/*Initial Call Times*/1 + 1, callbackTimes);
+            Assert.True(values.All(v => v == false));
         }
     }
 }

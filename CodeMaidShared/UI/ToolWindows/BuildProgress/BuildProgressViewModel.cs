@@ -2,6 +2,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Windows;
 using System.Windows.Shell;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
 {
@@ -138,6 +139,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress
         /// <param name="parameter">The command parameter.</param>
         private void OnCancelBuildCommandExecuted(object parameter)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 if (Package != null)

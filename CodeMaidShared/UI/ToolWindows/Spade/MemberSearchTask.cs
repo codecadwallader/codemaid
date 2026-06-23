@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -26,6 +26,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         protected override void OnStartSearch()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             ErrorCode = VSConstants.S_OK;
 
             try

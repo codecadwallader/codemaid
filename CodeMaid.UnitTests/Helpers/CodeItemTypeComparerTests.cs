@@ -1,22 +1,20 @@
 ﻿using EnvDTE80;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 {
-    [TestClass]
     public class CodeItemTypeComparerTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public CodeItemTypeComparerTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSortItemsOfTheSameTypeByName()
         {
             BaseCodeItem itemB = Create<CodeItemField>("b", 1);
@@ -25,10 +23,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 
             int result = comparer.Compare(itemA, itemB);
 
-            Assert.IsTrue(result < 0);
+            Assert.True(result < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSortItemsOfTheSameTypeByOffset()
         {
             BaseCodeItem itemB = Create<CodeItemField>("b", 1);
@@ -37,10 +35,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 
             int result = comparer.Compare(itemA, itemB);
 
-            Assert.IsTrue(result > 0);
+            Assert.True(result > 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSortByGroupType()
         {
             BaseCodeItem method = Create<CodeItemMethod>("a", 1);
@@ -49,10 +47,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
 
             int result = comparer.Compare(field, method);
 
-            Assert.IsTrue(result < 0);
+            Assert.True(result < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSortByExplicitInterfaceMemberName()
         {
             CodeItemMethod methodZ = CreateExplicitMethod("Interface", "Z", 1);
@@ -62,10 +60,10 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Reorganizing_ExplicitMembersAtEnd = false;
             int result = comparer.Compare(methodX, methodZ);
 
-            Assert.IsTrue(result < 0);
+            Assert.True(result < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldPlaceExplicitInterfaceMembersAtTheEndOfTheGroup()
         {
             CodeItemMethod methodA = CreateExplicitMethod("Interface", "A", 1);
@@ -75,7 +73,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Helpers
             Settings.Default.Reorganizing_ExplicitMembersAtEnd = true;
             int result = comparer.Compare(methodB, methodA);
 
-            Assert.IsTrue(result < 0);
+            Assert.True(result < 0);
         }
 
         private static T Create<T>(string name, int offset) where T : BaseCodeItem, new()

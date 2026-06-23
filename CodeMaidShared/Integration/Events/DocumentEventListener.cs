@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private DocumentEventListener(CodeMaidPackage package)
             : base(package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Store access to the document events, otherwise events will not register properly via DTE.
             DocumentEvents = Package.IDE.Events.DocumentEvents;
         }
@@ -52,6 +54,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void RegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             DocumentEvents.DocumentClosing += DocumentEvents_DocumentClosing;
         }
 
@@ -60,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void UnRegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             DocumentEvents.DocumentClosing -= DocumentEvents_DocumentClosing;
         }
 
@@ -69,6 +73,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="document">The document that is closing.</param>
         private void DocumentEvents_DocumentClosing(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var onDocumentClosing = OnDocumentClosing;
             if (onDocumentClosing != null)
             {

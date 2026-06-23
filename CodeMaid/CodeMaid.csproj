@@ -53,6 +53,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>CodeMaid.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -86,8 +89,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="zh-Hant\extension.vsixlangpack" />
     <Resource Include="Integration\Images\IDE\progressToolWindow.png" />
     <Resource Include="Integration\Images\IDE\spadeToolWindow.png" />
+    <Resource Include="CodeMaid.ico" />
     <Content Include="zh-Hans\extension.vsixlangpack">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -340,12 +345,13 @@
       <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.10.31321.278</Version>
+      <Version>17.14.40265</Version>
       <ExcludeAssets>runtime</ExcludeAssets>
       <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools">
-      <Version>16.11.35</Version>
+      <Version>18.5.40034</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

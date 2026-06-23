@@ -1,4 +1,4 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextSelection = EnvDTE.TextSelection;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -52,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Enabled = ActiveTextDocument != null;
         }
 
@@ -60,6 +62,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             var activeTextDocument = ActiveTextDocument;
@@ -79,6 +82,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="textSelection">The text selection.</param>
         private void SortText(TextSelection textSelection)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // If the selection has no length, try to pick up the next line.
             if (textSelection.IsEmpty)
             {

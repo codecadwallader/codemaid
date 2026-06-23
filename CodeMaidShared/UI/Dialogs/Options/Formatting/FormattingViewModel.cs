@@ -2,6 +2,7 @@ using SteveCadwallader.CodeMaid.Model.Comments;
 using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Windows.Media;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
 {
@@ -34,6 +35,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         public FormattingViewModel(CodeMaidPackage package, Settings activeSettings)
             : base(package, activeSettings)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Mappings = new SettingsToOptionsList(ActiveSettings, this)
             {
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.Formatting_CommentRunDuringCleanup, x => CommentRunDuringCleanup),
@@ -205,6 +207,7 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.Formatting
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 var color = System.Drawing.ColorTranslator.FromOle((int)_commentColors.Background);
 
                 return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));

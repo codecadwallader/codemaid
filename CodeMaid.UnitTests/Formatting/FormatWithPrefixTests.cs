@@ -1,22 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Properties;
+﻿using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     /// <summary>
     /// </summary>
-    [TestClass]
     public class FormatWithPrefixTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public FormatWithPrefixTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_KeepsPrefix()
         {
             var input = "// Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
@@ -26,8 +24,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//", o => o.WrapColumn = 40);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_TrimsTrailingSpace()
         {
             var input = "// Trailing space  ";
@@ -35,8 +33,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_TrimsTrailingLines()
         {
             var input =
@@ -48,8 +46,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_TrimsLeadingLines()
         {
             var input =
@@ -62,16 +60,16 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "//");
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_KeepsLeadingSpace()
         {
             var input = "    // Lorem ipsum.";
             CommentFormatHelper.AssertEqualAfterFormat(input, input, "    //");
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_AlignsToFirstPrefix()
         {
             var input =
@@ -83,8 +81,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, "    //", o => o.WrapColumn = 40);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void SimpleFormatWithPrefixTests_NoTrailingWhitespaceOnEmptyLine()
         {
             var input =

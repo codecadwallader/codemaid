@@ -5,6 +5,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -52,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="classes">The classes.</param>
         public void InsertExplicitAccessModifiersOnClasses(IEnumerable<CodeItemClass> classes)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnClasses) return;
 
             foreach (var codeClass in classes.Select(x => x.CodeClass).Where(y => y != null))
@@ -67,7 +69,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(classDeclaration, codeClass.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeClass.Access = codeClass.Access;
+                    try
+                    {
+                        codeClass.Access = codeClass.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on class {codeClass.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -78,6 +87,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="delegates">The delegates.</param>
         public void InsertExplicitAccessModifiersOnDelegates(IEnumerable<CodeItemDelegate> delegates)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnDelegates) return;
 
             foreach (var codeDelegate in delegates.Select(x => x.CodeDelegate).Where(y => y != null))
@@ -87,7 +97,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(delegateDeclaration, codeDelegate.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeDelegate.Access = codeDelegate.Access;
+                    try
+                    {
+                        codeDelegate.Access = codeDelegate.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on delegate {codeDelegate.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -98,6 +115,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="enumerations">The enumerations.</param>
         public void InsertExplicitAccessModifiersOnEnumerations(IEnumerable<CodeItemEnum> enumerations)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEnumerations) return;
 
             foreach (var codeEnum in enumerations.Select(x => x.CodeEnum).Where(y => y != null))
@@ -107,7 +125,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(enumDeclaration, codeEnum.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeEnum.Access = codeEnum.Access;
+                    try
+                    {
+                        codeEnum.Access = codeEnum.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on enum {codeEnum.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -118,10 +143,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="events">The events.</param>
         public void InsertExplicitAccessModifiersOnEvents(IEnumerable<CodeItemEvent> events)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnEvents) return;
 
-            foreach (var codeEvent in events.Select(x => x.CodeEvent).Where(y => y != null))
+            foreach (var item in events)
             {
+                if (item?.CodeEvent == null) continue;
+                var codeEvent = item.CodeEvent;
+
                 try
                 {
                     // Skip events defined inside an interface.
@@ -147,7 +176,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(eventDeclaration, codeEvent.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeEvent.Access = codeEvent.Access;
+                    try
+                    {
+                        codeEvent.Access = codeEvent.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on event {codeEvent.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -158,10 +194,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="fields">The fields.</param>
         public void InsertExplicitAccessModifiersOnFields(IEnumerable<CodeItemField> fields)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnFields) return;
 
-            foreach (var codeField in fields.Select(x => x.CodeVariable).Where(y => y != null))
+            foreach (var item in fields)
             {
+                if (item?.CodeVariable == null) continue;
+                var codeField = item.CodeVariable;
+
                 try
                 {
                     // Skip "fields" defined inside an enumeration.
@@ -181,7 +221,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(fieldDeclaration, codeField.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeField.Access = codeField.Access;
+                    try
+                    {
+                        codeField.Access = codeField.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on field {codeField.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -192,16 +239,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="interfaces">The interfaces.</param>
         public void InsertExplicitAccessModifiersOnInterfaces(IEnumerable<CodeItemInterface> interfaces)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnInterfaces) return;
 
-            foreach (var codeInterface in interfaces.Select(x => x.CodeInterface).Where(y => y != null))
+            foreach (var item in interfaces)
             {
+                if (item?.CodeInterface == null) continue;
+                var codeInterface = item.CodeInterface;
+
                 var interfaceDeclaration = CodeElementHelper.GetInterfaceDeclaration(codeInterface);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(interfaceDeclaration, codeInterface.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeInterface.Access = codeInterface.Access;
+                    try
+                    {
+                        codeInterface.Access = codeInterface.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on interface {codeInterface.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -212,10 +270,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="methods">The methods.</param>
         public void InsertExplicitAccessModifiersOnMethods(IEnumerable<CodeItemMethod> methods)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnMethods) return;
 
-            foreach (var codeFunction in methods.Select(x => x.CodeFunction).Where(y => y != null))
+            foreach (var item in methods)
             {
+                if (item?.CodeFunction == null) continue;
+                var codeFunction = item.CodeFunction;
+
                 try
                 {
                     // Skip static constructors - they should not have an access modifier.
@@ -259,7 +321,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(methodDeclaration, codeFunction.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeFunction.Access = codeFunction.Access;
+                    try
+                    {
+                        codeFunction.Access = codeFunction.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on method {codeFunction.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -270,10 +339,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="properties">The properties.</param>
         public void InsertExplicitAccessModifiersOnProperties(IEnumerable<CodeItemProperty> properties)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnProperties) return;
 
-            foreach (var codeProperty in properties.Select(x => x.CodeProperty).Where(y => y != null))
+            foreach (var item in properties)
             {
+                if (item?.CodeProperty == null) continue;
+                var codeProperty = item.CodeProperty;
+
                 try
                 {
                     // Skip explicit interface implementations.
@@ -299,7 +372,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(propertyDeclaration, codeProperty.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeProperty.Access = codeProperty.Access;
+                    try
+                    {
+                        codeProperty.Access = codeProperty.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on property {codeProperty.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -310,16 +390,27 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="structs">The structs.</param>
         public void InsertExplicitAccessModifiersOnStructs(IEnumerable<CodeItemStruct> structs)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertExplicitAccessModifiersOnStructs) return;
 
-            foreach (var codeStruct in structs.Select(x => x.CodeStruct).Where(y => y != null))
+            foreach (var item in structs)
             {
+                if (item?.CodeStruct == null) continue;
+                var codeStruct = item.CodeStruct;
+
                 var structDeclaration = CodeElementHelper.GetStructDeclaration(codeStruct);
 
                 if (!IsAccessModifierExplicitlySpecifiedOnCodeElement(structDeclaration, codeStruct.Access))
                 {
                     // Set the access value to itself to cause the code to be added.
-                    codeStruct.Access = codeStruct.Access;
+                    try
+                    {
+                        codeStruct.Access = codeStruct.Access;
+                    }
+                    catch (Exception ex)
+                    {
+                        OutputWindowHelper.WarningWriteLine($"Unable to set explicit access modifier on struct {codeStruct.Name}: {ex.Message}");
+                    }
                 }
             }
         }
@@ -336,6 +427,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if access modifier is explicitly specified, otherwise false.</returns>
         private static bool IsAccessModifierExplicitlySpecifiedOnCodeElement(string codeElementDeclaration, vsCMAccess accessModifier)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             string keyword = CodeElementHelper.GetAccessModifierKeyword(accessModifier);
 
             return IsKeywordSpecified(codeElementDeclaration, keyword);
@@ -349,6 +441,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if the keyword is present, otherwise false.</returns>
         private static bool IsKeywordSpecified(string codeElementDeclaration, string keyword)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             string matchString = @"(^|\s)" + keyword + @"\s";
 
             return RegexNullSafe.IsMatch(codeElementDeclaration, matchString);

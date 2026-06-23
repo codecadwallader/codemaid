@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Model.Comments;
+﻿using SteveCadwallader.CodeMaid.Model.Comments;
+using Xunit;
 using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using System;
 
@@ -29,7 +29,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             Action<FormatterOptions> options = null)
         {
             var result = CodeComment.Format(text, prefix, options);
-            Assert.AreEqual(expected ?? text, result);
+            Assert.Equal(expected ?? text, result);
             return result;
         }
     }

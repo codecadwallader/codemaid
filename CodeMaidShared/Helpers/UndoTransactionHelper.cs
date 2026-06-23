@@ -1,5 +1,6 @@
-﻿using SteveCadwallader.CodeMaid.Properties;
+using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -40,6 +41,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="catchAction">The action to be performed wihin a catch block.</param>
         public void Run(Action tryAction, Action<Exception> catchAction = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             bool shouldCloseUndoContext = false;
 
             // Start an undo transaction (unless inside one already or within an auto save context).

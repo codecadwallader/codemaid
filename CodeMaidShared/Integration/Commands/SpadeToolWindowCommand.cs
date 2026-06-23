@@ -1,6 +1,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -36,6 +37,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
 
         public override async Task SwitchAsync(bool on)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             await base.SwitchAsync(on);
 
             if (!on)
@@ -50,6 +52,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document that was saved.</param>
         internal void OnAfterDocumentSave(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var spade = Package.Spade;
             if (spade != null)
             {
@@ -63,6 +66,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="document">The document that got focus, may be null.</param>
         internal void OnWindowChange(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var spade = Package.Spade;
             if (spade != null)
             {

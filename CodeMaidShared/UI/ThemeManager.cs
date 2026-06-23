@@ -1,4 +1,4 @@
-﻿using EnvDTE80;
+using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using SteveCadwallader.CodeMaid.UI.Enumerations;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI
 {
@@ -111,6 +112,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <returns>The resolved theme.</returns>
         private ThemeMode ResolveActiveTheme()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var theme = (ThemeMode)Settings.Default.General_Theme;
 
             return theme == ThemeMode.AutoDetect ? AutoDetectTheme() : theme;
@@ -121,6 +123,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// </summary>
         private ThemeMode AutoDetectTheme()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             const int medianColor = 128 * 3;
             var bgColor = GetColorFromUInt(_package.IDE.GetThemeColor(vsThemeColors.vsThemeColorToolWindowBackground));
 
@@ -146,6 +149,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <param name="theme">The theme to apply.</param>
         private void ApplyThemeToElement(FrameworkElement element, ThemeMode theme)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (element == null) return;
 
             if (element.Resources == null)
@@ -184,6 +188,7 @@ namespace SteveCadwallader.CodeMaid.UI
         /// <returns>The loaded resource dictionary, otherwise null.</returns>
         private ResourceDictionary LoadResourceDictionary(Uri themeUri)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 var dictionary = (ResourceDictionary)Application.LoadComponent(themeUri);

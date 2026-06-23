@@ -1,8 +1,9 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -92,6 +93,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns></returns>
         public static IEnumerable<string> GetTaskListTokens(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var settings = package.IDE.Properties["Environment", "TaskList"];
             var tokens = settings.Item("CommentTokens").Value as string[];
             if (tokens == null || tokens.Length < 1)
@@ -109,6 +111,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static Match LineMatchesRegex(EditPoint point, Regex regex)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var line = point.GetLine();
             var match = regex.Match(line);
             return match;

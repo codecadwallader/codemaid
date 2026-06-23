@@ -1,4 +1,4 @@
-﻿using SteveCadwallader.CodeMaid.UI;
+using SteveCadwallader.CodeMaid.UI;
 using System;
 using System.Text.RegularExpressions;
 

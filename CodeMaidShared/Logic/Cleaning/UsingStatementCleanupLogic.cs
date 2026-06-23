@@ -3,6 +3,7 @@ using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -67,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         public void RemoveAndSortUsingStatements(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RunVisualStudioRemoveAndSortUsingStatements) return;
             if (_package.IsAutoSaveContext && Settings.Default.Cleaning_SkipRemoveAndSortUsingStatementsDuringAutoCleanupOnSave) return;
 
@@ -74,14 +76,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             const string patternFormat = @"^[ \t]*{0}[ \t]*\r?\n";
 
             var usingStatementsToReinsert = _usingStatementsToReinsertWhenRemoved.Value
-                .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) != null)
+                .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, System.Text.RegularExpressions.Regex.Escape(usingStatement))) != null)
                 .ToList();
 
             _commandHelper.ExecuteCommand(textDocument, "EditorContextMenus.CodeWindow.RemoveAndSort");
 
             // Ignore any using statements that are still referenced
             usingStatementsToReinsert = usingStatementsToReinsert
-                 .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, usingStatement)) == null)
+                 .Where(usingStatement => TextDocumentHelper.FirstOrDefaultMatch(textDocument, string.Format(patternFormat, System.Text.RegularExpressions.Regex.Escape(usingStatement))) == null)
                  .ToList();
 
             if (usingStatementsToReinsert.Count > 0)

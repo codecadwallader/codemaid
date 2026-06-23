@@ -1,10 +1,11 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.Comments.Options;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model.Comments
 {
@@ -32,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public CodeComment(TextPoint point, FormatterOptions options)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (point == null)
             {
                 throw new ArgumentNullException(nameof(point));
@@ -90,6 +92,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </summary>
         public TextPoint Format()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!IsValid)
             {
                 throw new InvalidOperationException("Cannot format comment, the comment is not valid.");
@@ -149,6 +152,7 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// <param name="point">The original text point to expand from.</param>
         private void Expand(TextPoint point)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var i = point.CreateEditPoint();
 
             // Look up to find the start of the comment.
@@ -183,12 +187,14 @@ namespace SteveCadwallader.CodeMaid.Model.Comments
         /// </returns>
         private EditPoint Expand(TextPoint point, Action<EditPoint> foundAction)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             EditPoint current = point.CreateEditPoint();
             EditPoint result = null;
             string prefix = null;
 
             do
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 var line = current.Line;
                 var text = current.GetLine();
 

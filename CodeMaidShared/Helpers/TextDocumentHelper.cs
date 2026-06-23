@@ -42,9 +42,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextDocument textDocument, string patternString)
         {
             var matches = new List<EditPoint>();
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -69,9 +68,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<EditPoint> FindMatches(TextSelection textSelection, string patternString)
         {
             var matches = new List<EditPoint>();
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
                 if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
                     IFinder finder = GetFinder(patternString, textBuffer);
@@ -95,9 +93,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static EditPoint FirstOrDefaultMatch(TextDocument textDocument, string patternString)
         {
             EditPoint result = null;
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -125,9 +122,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
             bool result = false;
             EditPoint resultEndPoint = null;
 
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -154,9 +150,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static string GetTextToFirstMatch(TextPoint startPoint, string matchString)
         {
             string result = null;
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -177,6 +172,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineBeforePoint(EditPoint point)
         {
+            UIThread.RunOnUIThread(() =>
+            {
             if (point.Line <= 1) return;
 
             point.LineUp(1);
@@ -188,6 +185,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 point.EndOfLine();
                 point.Insert(Environment.NewLine);
             }
+            });
         }
 
         /// <summary>
@@ -196,6 +194,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="point">The point.</param>
         internal static void InsertBlankLineAfterPoint(EditPoint point)
         {
+            UIThread.RunOnUIThread(() =>
+            {
             if (point.AtEndOfDocument) return;
 
             point.LineDown(1);
@@ -206,6 +206,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             {
                 point.Insert(Environment.NewLine);
             }
+            });
         }
 
         /// <summary>
@@ -216,6 +217,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="centerOnWhole">True if the whole element should be used for centering.</param>
         internal static void MoveToCodeItem(Document document, BaseCodeItem codeItem, bool centerOnWhole)
         {
+            UIThread.RunOnUIThread(() =>
+            {
             var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
@@ -259,6 +262,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // Always set focus within the code editor window.
                 document.Activate();
             }
+            });
         }
 
         /// <summary>
@@ -268,6 +272,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="codeItem">The code item.</param>
         internal static void SelectCodeItem(Document document, BaseCodeItem codeItem)
         {
+            UIThread.RunOnUIThread(() =>
+            {
             var textDocument = document.GetTextDocument();
             if (textDocument == null) return;
 
@@ -288,6 +294,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
                 // Always set focus within the code editor window.
                 document.Activate();
             }
+            });
         }
 
         /// <summary>
@@ -299,9 +306,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextDocument textDocument, string patternString, string replacementString)
         {
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(textDocument.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -320,9 +326,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(TextSelection textSelection, string patternString, string replacementString)
         {
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(textSelection.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -342,9 +347,8 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="replacementString">The replacement string.</param>
         internal static void SubstituteAllStringMatches(EditPoint startPoint, EditPoint endPoint, string patternString, string replacementString)
         {
-            UIThread.Run(() =>
+            UIThread.RunOnUIThread(() =>
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
 
                 if (TryGetTextBufferAt(startPoint.Parent.Parent.FullName, out ITextBuffer textBuffer))
                 {
@@ -360,8 +364,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static EditPoint GetEditPointForSnapshotPosition(TextDocument textDocument, ITextSnapshot textSnapshot, int position)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var editPoint = textDocument.CreateEditPoint();
             var textSnapshotLine = textSnapshot.GetLineFromPosition(position);
             editPoint.MoveToLineAndOffset(textSnapshotLine.LineNumber + 1, position - textSnapshotLine.Start.Position + 1);
@@ -384,8 +386,6 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static Span GetSnapshotSpanForTextSelection(ITextSnapshot textSnapshot, TextSelection selection)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.AnchorPoint);
             var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, selection.ActivePoint);
 
@@ -401,16 +401,12 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private static int GetSnapshotPositionForTextPoint(ITextSnapshot textSnapshot, TextPoint textPoint)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var textSnapshotLine = textSnapshot.GetLineFromLineNumber(textPoint.Line - 1);
             return textSnapshotLine.Start.Position + textPoint.LineCharOffset - 1;
         }
 
         private static Span GetSnapshotSpanForExtent(ITextSnapshot textSnapshot, EditPoint startPoint, EditPoint endPoint)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, startPoint);
             var endPosition = GetSnapshotPositionForTextPoint(textSnapshot, endPoint);
 

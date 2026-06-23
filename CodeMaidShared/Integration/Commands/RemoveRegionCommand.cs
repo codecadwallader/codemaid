@@ -1,9 +1,10 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Cleaning;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Commands
 {
@@ -63,6 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var regionCommandScope = GetRegionCommandScope();
 
             Enabled = regionCommandScope != RegionCommandScope.None;
@@ -88,6 +90,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             var regionCommandScope = GetRegionCommandScope();
@@ -113,6 +116,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <returns>The scope that should be used for the region command.</returns>
         private RegionCommandScope GetRegionCommandScope()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (_removeRegionLogic.CanRemoveRegions(Package.ActiveDocument))
             {
                 var activeTextDocument = ActiveTextDocument;

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
@@ -32,14 +32,17 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="ex">An optional exception that was handled.</param>
         internal static void DiagnosticWriteLine(string message, Exception ex = null)
         {
-            if (!Settings.Default.General_DiagnosticsMode) return;
-
-            if (ex != null)
+            UIThread.RunOnUIThread(() =>
             {
-                message += $": {ex}";
-            }
+                if (!Settings.Default.General_DiagnosticsMode) return;
 
-            WriteLine(Resources.Diagnostic, message);
+                if (ex != null)
+                {
+                    message += $": {ex}";
+                }
+
+                WriteLine(Resources.Diagnostic, message);
+            });
         }
 
         /// <summary>
@@ -49,9 +52,11 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="ex">The exception that was handled.</param>
         internal static void ExceptionWriteLine(string message, Exception ex)
         {
-            var exceptionMessage = $"{message}: {ex}";
-
-            WriteLine(Resources.HandledException, exceptionMessage);
+            UIThread.RunOnUIThread(() =>
+            {
+                var exceptionMessage = $"{message}: {ex}";
+                WriteLine(Resources.HandledException, exceptionMessage);
+            });
         }
 
         /// <summary>
@@ -60,7 +65,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="message">The message.</param>
         internal static void WarningWriteLine(string message)
         {
-            WriteLine(Resources.Warning, message);
+            UIThread.RunOnUIThread(() => WriteLine(Resources.Warning, message));
         }
 
         /// <summary>

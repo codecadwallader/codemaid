@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>A file header from settings.</returns>
         internal static string GetFileHeaderFromSettings(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             switch (textDocument.GetCodeLanguage())
             {
                 case CodeLanguage.CPlusPlus: return Settings.Default.Cleaning_UpdateFileHeaderCPlusPlus;
@@ -41,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         internal static HeaderPosition GetFileHeaderPositionFromSettings(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             switch (textDocument.GetCodeLanguage())
             {
                 case CodeLanguage.CSharp:

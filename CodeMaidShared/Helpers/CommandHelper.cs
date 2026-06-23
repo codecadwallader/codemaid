@@ -1,6 +1,7 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -52,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The found command, otherwise null.</returns>
         public Command FindCommand(params string[] commandNames)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (commandNames == null || commandNames.Length == 0) return null;
 
             return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => commandNames.Contains(x.Name));
@@ -65,6 +67,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The found command, otherwise null.</returns>
         public Command FindCommand(string guid, int id)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return _package.IDE.Commands.OfType<Command>().FirstOrDefault(x => x.Guid == guid && x.ID == id);
         }
 
@@ -75,6 +78,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="commandNames">The cleanup command name(s).</param>
         public void ExecuteCommand(TextDocument textDocument, params string[] commandNames)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 var command = FindCommand(commandNames);

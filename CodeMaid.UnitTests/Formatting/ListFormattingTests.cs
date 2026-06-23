@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Properties;
+﻿using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -8,17 +8,15 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     /// Class with list oriented unit tests for formatting. This calls the formatter directly, rather
     /// than invoking it through the UI as with the integration tests.
     /// </summary>
-    [TestClass]
     public class ListFormattingTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public ListFormattingTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void ListFormattingTests_DashedList()
         {
             var input =
@@ -38,8 +36,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void ListFormattingTests_NumberedList()
         {
             var input =
@@ -59,8 +57,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void ListFormattingTests_WordList()
         {
             var input =
@@ -80,8 +78,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 35);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void ListFormattingTests_XmlListWithHeader()
         {
             var input =
@@ -115,8 +113,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void ListFormattingTests_XmlListWithHeaderAndIndent()
         {
             var input =

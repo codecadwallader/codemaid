@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -38,6 +39,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>A code model representing the document.</returns>
         internal CodeModel GetCodeModel(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             CodeModel codeModel;
 
             OutputWindowHelper.DiagnosticWriteLine($"CodeModelCache.GetCodeModel for '{document.FullName}'");
@@ -71,6 +73,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void RemoveCodeModel(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             lock (_cache)
             {
                 if (_cache.Remove(document.FullName))
@@ -86,6 +89,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="document">The document.</param>
         internal void StaleCodeModel(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (_cache.TryGetValue(document.FullName, out CodeModel codeModel))
             {
                 codeModel.IsStale = true;

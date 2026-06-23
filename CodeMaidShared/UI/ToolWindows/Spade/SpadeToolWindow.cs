@@ -4,6 +4,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -39,6 +40,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         public SpadeToolWindow()
             : base(null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Set the tool window caption.
             Caption = Resources.CodeMaidSpade;
 
@@ -138,6 +140,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         public void Close()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             (Frame as IVsWindowFrame).CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_NoSave);
         }
 
@@ -159,6 +162,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="document">The document.</param>
         public void NotifyDocumentSave(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (Document == document)
             {
                 // Refresh the document if active.
@@ -174,6 +178,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 
         public int OnShow(int fShow)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Track the visibility of this tool window.
             switch ((__FRAMESHOW)fShow)
             {
@@ -199,6 +204,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public override void OnToolWindowCreated()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnToolWindowCreated();
 
             // Register for events to this window.
@@ -210,7 +216,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 // Get an instance of the code model manager.
                 _codeModelManager = CodeModelManager.GetInstance(Package);
 
-                Package.JoinableTaskFactory.RunAsync(async () =>
+                _ = Package.JoinableTaskFactory.RunAsync(async () =>
                     await Package.SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
                     {
                         if (on)
@@ -245,13 +251,18 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                 {
                     _viewModel.Dispatcher = spadeContent.Dispatcher;
 
-                    spadeContent.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(Package.ThemeManager.ApplyTheme));
+                    _ = Package.JoinableTaskFactory.RunAsync(async () =>
+                    {
+                        await Package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                        Package.ThemeManager.ApplyTheme();
+                    });
                 }
             }
         }
 
         public override void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.ProvideSearchSettings(pSearchSettings);
 
             Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMinWidth, 200U);
@@ -264,6 +275,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         public void Refresh()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Package?.ThemeManager.ApplyTheme();
 
             ConditionallyUpdateCodeModel(true);
@@ -275,6 +287,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="isRefresh">True if refreshing a document, otherwise false.</param>
         private void ConditionallyUpdateCodeModel(bool isRefresh)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!IsVisible) return;
 
             _viewModel.Document = Document;
@@ -298,7 +311,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
                     _viewModel.IsLoading = true;
                 }
 
-                var codeItems = _codeModelManager.RetrieveAllCodeItemsAsync(Document, true);
+                var codeItems = _codeModelManager.BeginRetrieveAllCodeItems(Document, true);
                 if (codeItems != null)
                 {
                     UpdateViewModelRawCodeItems(codeItems);
@@ -314,6 +327,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="codeModel">The code model.</param>
         private void OnCodeModelBuilt(CodeModel codeModel)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (Document == codeModel.Document)
             {
                 UpdateViewModelRawCodeItems(codeModel.CodeItems);

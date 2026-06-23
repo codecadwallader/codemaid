@@ -1,8 +1,9 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -86,6 +87,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>True if there is a region under the cursor, otherwise false.</returns>
         internal bool IsCodeRegionUnderCursor(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (textDocument != null && textDocument.Selection != null)
             {
                 var cursor = textDocument.GetEditPointAtCursor();
@@ -104,6 +106,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var editPoints = TextDocumentHelper.FindMatches(textDocument, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
@@ -116,6 +119,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         internal IEnumerable<CodeItemRegion> RetrieveCodeRegions(TextSelection textSelection)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var editPoints = TextDocumentHelper.FindMatches(textSelection, RegionPattern);
 
             return RetrieveCodeRegions(editPoints);
@@ -128,6 +132,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The region under the cursor, otherwise null.</returns>
         internal CodeItemRegion RetrieveCodeRegionUnderCursor(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (IsCodeRegionUnderCursor(textDocument))
             {
                 var regions = RetrieveCodeRegions(textDocument);
@@ -159,6 +164,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>An enumerable collection of regions.</returns>
         private static IEnumerable<CodeItemRegion> RetrieveCodeRegions(IEnumerable<EditPoint> editPoints)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var regionStack = new Stack<CodeItemRegion>();
             var codeItems = new List<CodeItemRegion>();
 

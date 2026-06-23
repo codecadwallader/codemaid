@@ -1,5 +1,6 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="textDocument">The text document.</param>
         internal CursorPositionRestorer(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             TextDocument = textDocument;
 
             CaptureCursorPosition();
@@ -31,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void CaptureCursorPosition()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (TextDocument != null && TextDocument.Selection != null)
             {
                 TrackedCursorPosition = new CursorPosition(TextDocument.Selection);
@@ -66,6 +69,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the cursor position was reset, otherwise false.</returns>
         private bool IsCursorPositionReset()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return TextDocument.Selection.ActivePoint.AtStartOfDocument ||
                    TextDocument.Selection.ActivePoint.AtEndOfDocument;
         }
@@ -80,6 +84,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         public void Dispose()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             RestoreCursorPosition();
         }
 
@@ -114,6 +119,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
             /// <param name="textSelection">The text selection.</param>
             public CursorPosition(TextSelection textSelection)
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 Line = textSelection.CurrentLine;
                 Column = textSelection.CurrentColumn;
             }

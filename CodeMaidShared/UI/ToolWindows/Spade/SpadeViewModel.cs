@@ -1,4 +1,5 @@
 using EnvDTE;
+using Microsoft.VisualStudio.Threading;
 using SteveCadwallader.CodeMaid.Logic.Digging;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Model.CodeTree;
@@ -6,6 +7,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
 {
@@ -180,7 +182,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void RequestUpdatedOrganizedCodeItems()
         {
-            _codeTreeBuilderAsync.RetrieveCodeTreeAsync(new CodeTreeRequest(Document, RawCodeItems, SortOrder, NameFilter));
+            _codeTreeBuilderAsync.BeginRetrieveCodeTree(new CodeTreeRequest(Document, RawCodeItems, SortOrder, NameFilter));
         }
 
         /// <summary>
@@ -189,9 +191,13 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// <param name="snapshot">The code items snapshot.</param>
         private void UpdateOrganizedCodeItems(SnapshotCodeItems snapshot)
         {
-            if (Document == snapshot.Document)
+            if (Document == snapshot.Document && Package != null)
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => OrganizedCodeItems = snapshot.CodeItems));
+                _ = Package.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    await Package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    OrganizedCodeItems = snapshot.CodeItems;
+                });
             }
         }
 
@@ -200,6 +206,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </summary>
         private void UpdateOutliningSynchronization()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (Settings.Default.Digging_SynchronizeOutlining)
             {
                 if (_outliningSynchronizationManager == null)

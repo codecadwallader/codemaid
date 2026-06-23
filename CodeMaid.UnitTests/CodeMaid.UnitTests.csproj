@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -6,7 +6,7 @@
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <ProjectGuid>{27C78B2A-18BC-4CE0-BCB1-DB4C30D805BE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SteveCadwallader.CodeMaid.UnitTests</RootNamespace>
     <AssemblyName>SteveCadwallader.CodeMaid.UnitTests</AssemblyName>
@@ -21,6 +21,8 @@
     <LangVersion>latest</LangVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <RunSettingsFilePath>
+    </RunSettingsFilePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +64,7 @@
     <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\ListFormattingTests.cs" />
     <Compile Include="Helpers\CodeItemTypeComparerTests.cs" />
+    <Compile Include="Helpers\CodeReorganizationManagerTests.cs" />
     <Compile Include="Helpers\FileHeaderHelperTests.cs" />
     <Compile Include="Helpers\SettingsMonitorTests.cs" />
     <Compile Include="MemberTypeSettingTests.cs" />
@@ -81,25 +84,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.10.31321.278</Version>
+      <Version>17.14.40265</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk">
-      <Version>17.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="MSTest.TestAdapter">
-      <Version>2.2.7</Version>
-    </PackageReference>
-    <PackageReference Include="MSTest.TestFramework">
-      <Version>2.2.7</Version>
+      <Version>18.6.0</Version>
     </PackageReference>
     <PackageReference Include="NSubstitute">
-      <Version>4.2.2</Version>
+      <Version>5.3.0</Version>
     </PackageReference>
-    <PackageReference Include="NUnit">
-      <Version>3.13.2</Version>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <Version>3.0.2</Version>
     </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter">
-      <Version>4.0.0</Version>
+    <PackageReference Include="xunit.v3">
+      <Version>3.2.2</Version>
     </PackageReference>
   </ItemGroup>
   <Choose>

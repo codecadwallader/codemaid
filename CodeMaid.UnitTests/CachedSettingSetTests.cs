@@ -1,21 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Helpers;
+﻿using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests
 {
-    [TestClass]
     public class CachedSettingSetTests
     {
         private int _lookupCount;
         private int _parseCount;
         private CachedSettingSet<string> _cachedSettingSet;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public CachedSettingSetTests()
         {
             Settings.Default.Reset();
 
@@ -36,45 +34,45 @@ namespace SteveCadwallader.CodeMaid.UnitTests
                            .ToList();
                });
 
-            Assert.AreEqual(0, _lookupCount);
-            Assert.AreEqual(0, _parseCount);
-            Assert.IsNotNull(_cachedSettingSet);
+            Assert.Equal(0, _lookupCount);
+            Assert.Equal(0, _parseCount);
+            Assert.NotNull(_cachedSettingSet);
         }
 
-        [TestMethod]
+        [Fact]
         public void CachedSettingSetCanLookupAndParse()
         {
             var cleanupExclusions = _cachedSettingSet.Value;
 
-            Assert.IsNotNull(cleanupExclusions);
-            Assert.AreEqual(1, _lookupCount);
-            Assert.AreEqual(1, _parseCount);
+            Assert.NotNull(cleanupExclusions);
+            Assert.Equal(1, _lookupCount);
+            Assert.Equal(1, _parseCount);
         }
 
-        [TestMethod]
+        [Fact]
         public void CachedSettingSetUsesCacheOnSecondLookup()
         {
             var cleanupExclusions = _cachedSettingSet.Value;
 
-            Assert.IsNotNull(cleanupExclusions);
-            Assert.AreEqual(1, _lookupCount);
-            Assert.AreEqual(1, _parseCount);
+            Assert.NotNull(cleanupExclusions);
+            Assert.Equal(1, _lookupCount);
+            Assert.Equal(1, _parseCount);
 
             var cleanupExclusions2 = _cachedSettingSet.Value;
 
-            Assert.IsNotNull(cleanupExclusions2);
-            Assert.AreEqual(2, _lookupCount);
-            Assert.AreEqual(1, _parseCount);
+            Assert.NotNull(cleanupExclusions2);
+            Assert.Equal(2, _lookupCount);
+            Assert.Equal(1, _parseCount);
         }
 
-        [TestMethod]
+        [Fact]
         public void CachedSettingSetReParsesOnChange()
         {
             var cleanupExclusions = _cachedSettingSet.Value;
 
-            Assert.IsNotNull(cleanupExclusions);
-            Assert.AreEqual(1, _lookupCount);
-            Assert.AreEqual(1, _parseCount);
+            Assert.NotNull(cleanupExclusions);
+            Assert.Equal(1, _lookupCount);
+            Assert.Equal(1, _parseCount);
 
             var cleanupExclusion2 = new List<string>(cleanupExclusions) { ".*Test.*" };
             var serializedCleanupExclusions = string.Join("||", cleanupExclusion2);
@@ -83,9 +81,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests
 
             var memberTypeSetting2 = _cachedSettingSet.Value;
 
-            Assert.IsNotNull(memberTypeSetting2);
-            Assert.AreEqual(2, _lookupCount);
-            Assert.AreEqual(2, _parseCount);
+            Assert.NotNull(memberTypeSetting2);
+            Assert.Equal(2, _lookupCount);
+            Assert.Equal(2, _parseCount);
         }
     }
 }

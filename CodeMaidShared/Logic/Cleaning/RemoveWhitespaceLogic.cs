@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -52,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAtBottom(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesAtBottom) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
@@ -64,6 +66,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAtTop(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesAtTop) return;
 
             EditPoint cursor = textDocument.StartPoint.CreateEditPoint();
@@ -76,6 +79,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAfterAttributes(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesAfterAttributes) return;
 
             const string pattern = @"(^[ \t]*\[[^\]]+\][ \t]*(//[^\r\n]*)*)(\r?\n){2}(?![ \t]*//)";
@@ -90,6 +94,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesAfterOpeningBrace(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesAfterOpeningBrace) return;
 
             const string pattern = @"\{([ \t]*(//[^\r\n]*)*)(\r?\n){2,}";
@@ -104,6 +109,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesBeforeClosingBrace(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingBrace) return;
 
             const string pattern = @"(\r?\n){2,}([ \t]*)\}";
@@ -118,6 +124,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesBeforeClosingTag(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesBeforeClosingTags) return;
 
             const string pattern = @"(\r?\n){2,}([ \t]*)</";
@@ -132,6 +139,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankLinesBetweenChainedStatements(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankLinesBetweenChainedStatements) return;
 
             const string pattern = @"(\r?\n){2,}([ \t]*)(else|catch|finally)( |\t|\r?\n)";
@@ -146,6 +154,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveBlankSpacesBeforeClosingAngleBracket(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveBlankSpacesBeforeClosingAngleBrackets) return;
 
             // Remove blank spaces before regular closing angle brackets.
@@ -177,6 +186,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveEOFTrailingNewLine(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveEndOfFileTrailingNewLine) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();
@@ -185,6 +195,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 // Make an exception for C++ resource files to work-around known EOF issue: http://connect.microsoft.com/VisualStudio/feedback/details/173903/resource-compiler-returns-a-rc1004-unexpected-eof-found-error#details
                 if (textDocument.GetCodeLanguage() == CodeLanguage.CPlusPlus &&
+                    textDocument.Parent != null &&
                     (textDocument.Parent.FullName.EndsWith(".h") || textDocument.Parent.FullName.EndsWith(".rc2")))
                 {
                     return;
@@ -202,6 +213,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveEOLWhitespace(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveEndOfLineWhitespace) return;
 
             const string pattern = @"[ \t]+\r?\n";
@@ -216,6 +228,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void RemoveMultipleConsecutiveBlankLines(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RemoveMultipleConsecutiveBlankLines) return;
 
             const string pattern = @"(\r?\n){3,}";

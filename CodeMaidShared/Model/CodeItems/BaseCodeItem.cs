@@ -1,6 +1,7 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.UI;
 using System.Diagnostics;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -74,6 +75,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public virtual void RefreshCachedPositionAndName()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             StartLine = StartPoint.Line;
             StartOffset = StartPoint.AbsoluteCharOffset;
             EndLine = EndPoint.Line;

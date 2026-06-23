@@ -1,30 +1,28 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SteveCadwallader.CodeMaid.Properties;
+﻿using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
     /// <summary>
     /// Test for the ignoring of comments lines starting with certain prefixes.
     /// </summary>
-    [TestClass]
     public class IgnorePrefixesTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public IgnorePrefixesTests()
         {
             Settings.Default.Reset();
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void IgnorePrefixesTests_DoesNotWrapSingleLine()
         {
             CommentFormatHelper.AssertEqualAfterFormat(@"TODO: Lorem ipsum dolor sit amet, consectetur adipiscing elit.", o => o.WrapColumn = 30);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void IgnorePrefixesTests_DoesNotWrapLineInsideComment()
         {
             var input =
@@ -43,8 +41,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.WrapColumn = 30);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void IgnorePrefixesTests_DoesNotCombineSubsequentLines()
         {
             var input =

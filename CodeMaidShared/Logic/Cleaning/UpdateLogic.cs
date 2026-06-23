@@ -6,6 +6,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -62,6 +63,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void UpdateEndRegionDirectives(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_UpdateEndRegionDirectives) return;
 
             var regionStack = new Stack<string>();
@@ -108,16 +110,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                             cursor.Delete(eolCursor);
                             cursor.Insert(" " + matchingRegion);
                         }
+                        else
+                        {
+                            // This document is improperly formatted, but we continue processing instead of aborting.
+                            OutputWindowHelper.DiagnosticWriteLine("Improperly formatted endregion directive found; skipping this directive.");
+                        }
                     }
-                    else
-                    {
-                        // This document is improperly formatted, abort.
-                        return;
-                    }
-                }
 
-                // Note: eolCursor may be outdated now if changes have been made.
-                cursor.EndOfLine();
+                    // Note: eolCursor may be outdated now if changes have been made.
+                    cursor.EndOfLine();
+                }
             }
         }
 
@@ -127,13 +129,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="events">The events to update.</param>
         internal void UpdateEventAccessorsToBothBeSingleLineOrMultiLine(IEnumerable<CodeItemEvent> events)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine) return;
 
             foreach (var item in events)
             {
+                if (item?.CodeEvent == null) continue;
                 UpdateAccessorsToBothBeSingleLineOrMultiLine(item.CodeEvent.Adder, item.CodeEvent.Remover);
             }
         }
+
 
         /// <summary>
         /// Updates the property accessors to either both be single-line or multi-line.
@@ -141,10 +146,12 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="properties">The properties to update.</param>
         internal void UpdatePropertyAccessorsToBothBeSingleLineOrMultiLine(IEnumerable<CodeItemProperty> properties)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_UpdateAccessorsToBothBeSingleLineOrMultiLine) return;
 
             foreach (var item in properties)
             {
+                if (item?.CodeProperty == null) continue;
                 UpdateAccessorsToBothBeSingleLineOrMultiLine(item.CodeProperty.Getter, item.CodeProperty.Setter);
             }
         }
@@ -155,9 +162,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="methods">The methods to update.</param>
         internal void UpdateSingleLineMethods(IEnumerable<CodeItemMethod> methods)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_UpdateSingleLineMethods) return;
 
-            var singleLineMethods = methods.Where(x => x.StartPoint.Line == x.EndPoint.Line && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract && !(x.CodeFunction.Parent is CodeInterface));
+            var singleLineMethods = methods.Where(x => x != null && x.CodeFunction != null && x.StartPoint.Line == x.EndPoint.Line && x.OverrideKind != vsCMOverrideKind.vsCMOverrideKindAbstract && !(x.CodeFunction.Parent is CodeInterface));
             foreach (var singleLineMethod in singleLineMethods)
             {
                 SpreadSingleLineMethodOntoMultipleLines(singleLineMethod.CodeFunction);
@@ -170,6 +178,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="method">The method to update.</param>
         private void JoinMultiLineMethodOntoSingleLine(CodeFunction method)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var start = method.StartPoint.CreateEditPoint();
             var end = method.EndPoint.CreateEditPoint();
 
@@ -186,6 +195,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="method">The method to update.</param>
         private void SpreadSingleLineMethodOntoMultipleLines(CodeFunction method)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 var start = method.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
@@ -220,6 +230,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="second">The second accessor.</param>
         private void UpdateAccessorsToBothBeSingleLineOrMultiLine(CodeFunction first, CodeFunction second)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (first == null || second == null) return;
 
             bool isFirstSingleLine = first.StartPoint.Line == first.EndPoint.Line;

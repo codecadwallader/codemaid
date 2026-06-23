@@ -2,6 +2,7 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Threading;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {
@@ -67,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// </summary>
         public override void RefreshCachedPositionAndName()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var startPoint = CodeElement.GetStartPoint();
             var endPoint = CodeElement.GetEndPoint();
 
@@ -154,6 +156,7 @@ namespace SteveCadwallader.CodeMaid.Model.CodeItems
         /// <returns>The adjusted starting point.</returns>
         private static EditPoint GetStartPointAdjustedForComments(TextPoint originalPoint)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var commentPrefix = CodeCommentHelper.GetCommentPrefix(originalPoint.Parent);
             var point = originalPoint.CreateEditPoint();
 

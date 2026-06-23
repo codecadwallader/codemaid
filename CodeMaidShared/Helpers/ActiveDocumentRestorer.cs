@@ -1,5 +1,6 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="package">The hosting package.</param>
         internal ActiveDocumentRestorer(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Package = package;
 
             StartTracking();
@@ -31,6 +33,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void StartTracking()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Cache the active document.
             TrackedDocument = Package.ActiveDocument;
         }
@@ -40,6 +43,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         internal void RestoreTrackedDocument()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (TrackedDocument != null && Package.ActiveDocument != TrackedDocument)
             {
                 TrackedDocument.Activate();
@@ -56,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// </summary>
         public void Dispose()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             RestoreTrackedDocument();
         }
 

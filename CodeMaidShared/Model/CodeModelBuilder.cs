@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model
 {
@@ -57,6 +58,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The set of code items within the document, including regions.</returns>
         internal SetCodeItems RetrieveAllCodeItems(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var codeItems = new SetCodeItems();
 
             var fileCodeModel = RetrieveFileCodeModel(document.ProjectItem);
@@ -78,6 +80,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <returns>The associated FileCodeModel, otherwise null.</returns>
         private FileCodeModel RetrieveFileCodeModel(ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (projectItem == null)
             {
                 return null;
@@ -112,6 +115,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="fcm">The FileCodeModel to walk.</param>
         private static void RetrieveCodeItems(SetCodeItems codeItems, FileCodeModel fcm)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (fcm != null && fcm.CodeElements != null)
             {
                 RetrieveCodeItemsFromElements(codeItems, fcm.CodeElements);
@@ -125,6 +129,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeElements">The CodeElements to walk.</param>
         private static void RetrieveCodeItemsFromElements(SetCodeItems codeItems, CodeElements codeElements)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (CodeElement child in codeElements)
             {
                 RetrieveCodeItemsRecursively(codeItems, child);
@@ -139,6 +144,7 @@ namespace SteveCadwallader.CodeMaid.Model
         /// <param name="codeElement">The CodeElement to walk (add and recurse).</param>
         private static void RetrieveCodeItemsRecursively(SetCodeItems codeItems, CodeElement codeElement)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var parentCodeItem = FactoryCodeItems.CreateCodeItemElement(codeElement);
             if (parentCodeItem != null)
             {

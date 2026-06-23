@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private TextEditorEventListener(CodeMaidPackage package)
             : base(package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Store access to the text editor events, otherwise events will not register properly
             // via DTE.
             TextEditorEvents = Package.IDE.Events.TextEditorEvents;
@@ -53,6 +55,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void RegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             TextEditorEvents.LineChanged += TextEditorEvents_LineChanged;
         }
 
@@ -61,6 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void UnRegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             TextEditorEvents.LineChanged -= TextEditorEvents_LineChanged;
         }
 
@@ -72,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <param name="hint">A hint as to the type of change that has occurred.</param>
         private void TextEditorEvents_LineChanged(TextPoint startPoint, TextPoint endPoint, int hint)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = startPoint?.Parent;
             if (textDocument == null) return;
 

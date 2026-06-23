@@ -2,6 +2,7 @@ using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Model.CodeItems
 {

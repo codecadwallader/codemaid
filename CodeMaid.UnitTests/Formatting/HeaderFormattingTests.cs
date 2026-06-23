@@ -1,6 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Xunit;
 
 namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
 {
@@ -8,11 +8,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
     /// Class with simple unit tests for formatting header type comments. This calls the formatter
     /// directly, rather than invoking it through the UI as with the integration tests.
     /// </summary>
-    [TestClass]
     public class HeaderFormattingTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public HeaderFormattingTests()
         {
             Settings.Default.Reset();
         }
@@ -20,8 +18,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
         /// <summary>
         /// Tests the forced indenting of the XML copyright file header.
         /// </summary>
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void HeaderFormattingTests_Copyright_Indenting()
         {
             var input =
@@ -37,8 +35,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input, expected, o => o.Xml.Default.Indent = 0);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void HeaderFormattingTests_PreservesHyphenLinesWithoutXML()
         {
             var input =
@@ -51,8 +49,8 @@ namespace SteveCadwallader.CodeMaid.UnitTests.Formatting
             CommentFormatHelper.AssertEqualAfterFormat(input);
         }
 
-        [TestMethod]
-        [TestCategory("Formatting UnitTests")]
+        [Fact]
+        [Trait("Category", "Formatting UnitTests")]
         public void HeaderFormattingTests_Copyright_PreservesHyphenLinesWithXML()
         {
             var input =

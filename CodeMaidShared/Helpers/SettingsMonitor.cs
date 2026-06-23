@@ -72,7 +72,9 @@ namespace SteveCadwallader.CodeMaid.Helpers
 
         private object[] FindValues(string[] settings) => Array.ConvertAll(settings, key => _settings[key]);
 
-        private async void OnSettingsSaving(object sender, CancelEventArgs e)
+        private void OnSettingsSaving(object sender, CancelEventArgs e) => OnSettingsSavingAsync().Forget();
+
+        private async Task OnSettingsSavingAsync()
         {
             if (_joinableTaskFactory != null)
             {

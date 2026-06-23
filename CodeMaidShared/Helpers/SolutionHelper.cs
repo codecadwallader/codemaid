@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -41,6 +42,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         internal static IEnumerable<T> GetItemsRecursively<T>(object parentItem)
             where T : class
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (parentItem == null)
             {
                 throw new ArgumentNullException(nameof(parentItem));
@@ -74,6 +76,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The enumerable set of selected project items.</returns>
         internal static IEnumerable<ProjectItem> GetSelectedProjectItemsRecursively(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var selectedProjectItems = new List<ProjectItem>();
             var selectedUIHierarchyItems = UIHierarchyHelper.GetSelectedUIHierarchyItems(package);
 
@@ -93,6 +96,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The enumerable set of similar project items.</returns>
         internal static IEnumerable<ProjectItem> GetSimilarProjectItems(CodeMaidPackage package, ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var allItems = GetAllItemsInSolution<ProjectItem>(package.IDE.Solution);
 
             return allItems.Where(x => x.Name == projectItem.Name && x.Kind == projectItem.Kind && x.Document.FullName == projectItem.Document.FullName);
@@ -109,6 +113,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>An enumerable set of children, may be empty.</returns>
         private static IEnumerable<object> GetChildren(object parentItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // First check if the item is a solution.
             var solution = parentItem as Solution;
             if (solution?.Projects != null)

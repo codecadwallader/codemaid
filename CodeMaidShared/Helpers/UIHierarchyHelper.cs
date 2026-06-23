@@ -1,9 +1,10 @@
-﻿using EnvDTE;
+using EnvDTE;
 using EnvDTE80;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Helpers
 {
@@ -21,6 +22,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <param name="parentItem">The parent item to collapse from.</param>
         internal static void CollapseRecursively(UIHierarchyItem parentItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (parentItem == null)
             {
                 throw new ArgumentNullException(nameof(parentItem));
@@ -55,6 +57,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The enumerable set of selected UI hierarchy items.</returns>
         internal static IEnumerable<UIHierarchyItem> GetSelectedUIHierarchyItems(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var solutionExplorer = GetSolutionExplorer(package);
 
             return ((object[])solutionExplorer.SelectedItems).Cast<UIHierarchyItem>().ToList();
@@ -67,6 +70,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The solution explorer.</returns>
         internal static UIHierarchy GetSolutionExplorer(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return package.IDE.ToolWindows.SolutionExplorer;
         }
 
@@ -77,6 +81,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>The top level (solution) UI hierarchy item, otherwise null.</returns>
         internal static UIHierarchyItem GetTopUIHierarchyItem(CodeMaidPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var solutionExplorer = GetSolutionExplorer(package);
 
             return solutionExplorer.UIHierarchyItems.Count > 0
@@ -91,6 +96,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if there are expanded children, false otherwise.</returns>
         internal static bool HasExpandedChildren(UIHierarchyItem parentItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (parentItem == null)
             {
                 throw new ArgumentNullException(nameof(parentItem));
@@ -111,6 +117,7 @@ namespace SteveCadwallader.CodeMaid.Helpers
         /// <returns>True if the item should be collapsed, otherwise false.</returns>
         private static bool ShouldCollapseItem(UIHierarchyItem parentItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Make sure not to collapse the solution, causes odd behavior.
             if (parentItem.Object is Solution)
             {

@@ -8,6 +8,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
 {
@@ -73,6 +74,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemAbove).Run(
                 () => RepositionItemAboveBase(itemToMove, baseItem));
         }
@@ -84,6 +86,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemBelow).Run(
                 () => RepositionItemBelowBase(itemToMove, baseItem));
         }
@@ -95,6 +98,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         internal void MoveItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             new UndoTransactionHelper(_package, Resources.CodeMaidMoveItemInto).Run(
                 () => RepositionItemIntoBase(itemToMove, baseItem));
         }
@@ -105,6 +109,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="document">The document for reorganizing.</param>
         internal void Reorganize(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!_codeReorganizationAvailabilityLogic.CanReorganize(document, true)) return;
 
             new UndoTransactionHelper(_package, string.Format(Resources.CodeMaidReorganizeFor0, document.Name)).Run(
@@ -139,6 +144,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>The set of reorganizable code item elements.</returns>
         private static IList<BaseCodeItemElement> GetReorganizableCodeItemElements(IEnumerable<BaseCodeItem> codeItems)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Get all code item elements.
             var codeItemElements = codeItems.OfType<BaseCodeItemElement>().ToList();
 
@@ -160,6 +166,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// </param>
         private static string GetTextAndRemoveItem(BaseCodeItem itemToRemove, out int cursorOffset)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Refresh the code item and capture its end points.
             itemToRemove.RefreshCachedPositionAndName();
             var removeStartPoint = itemToRemove.StartPoint;
@@ -205,6 +212,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>True if the parent's children should be reorganized, otherwise false.</returns>
         private bool ShouldReorganizeChildren(BaseCodeItemElement parent)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Enumeration values should never be reordered.
             if (parent is CodeItemEnum)
             {
@@ -237,6 +245,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemAboveBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(itemToMove, baseItem);
@@ -272,6 +281,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemBelowBase(BaseCodeItem itemToMove, BaseCodeItem baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (itemToMove == baseItem) return;
 
             bool separateWithNewLine = ShouldBeSeparatedByNewLine(baseItem, itemToMove);
@@ -311,6 +321,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="baseItem">The base item.</param>
         private void RepositionItemIntoBase(BaseCodeItem itemToMove, ICodeItemParent baseItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (itemToMove == baseItem) return;
 
             bool padWithNewLine = _insertBlankLinePaddingLogic.ShouldBeFollowedByBlankLine(itemToMove);
@@ -346,6 +357,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="parent">The parent to the code items, otherwise null.</param>
         private void RecursivelyReorganize(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!codeItems.Any())
             {
                 // If there are no code items, the only action we may want to take is conditionally insert regions.
@@ -405,6 +417,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <returns>An updated code items collection.</returns>
         private IEnumerable<BaseCodeItem> RegionsRemoveExisting(IEnumerable<BaseCodeItem> codeItems)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Reorganizing_RegionsRemoveExistingRegions)
             {
                 return codeItems;
@@ -479,6 +492,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Reorganizing
         /// <param name="parent">The parent to the code items, otherwise null.</param>
         private void RegionsInsert(IEnumerable<BaseCodeItem> codeItems, ICodeItemParent parent)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (Settings.Default.Reorganizing_RegionsInsertNewRegions)
             {
                 // Only insert regions when directly inside the scope of a class, interface or struct.

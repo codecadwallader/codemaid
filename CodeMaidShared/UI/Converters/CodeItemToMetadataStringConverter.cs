@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.UI.Converters
 {
@@ -48,6 +49,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var codeItem = value as BaseCodeItemElement;
             if (codeItem == null) return string.Empty;
 
@@ -181,6 +183,7 @@ namespace SteveCadwallader.CodeMaid.UI.Converters
         /// <returns>The metadata strings.</returns>
         private IEnumerable<string> GenerateMetadataStrings(CodeItemProperty property)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var strings = new List<string>();
             var methodStrings = new List<string>();
 

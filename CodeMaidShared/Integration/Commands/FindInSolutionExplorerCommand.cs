@@ -47,6 +47,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnBeforeQueryStatus()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Enabled = Package.ActiveDocument != null;
         }
 
@@ -55,6 +56,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected override void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             base.OnExecute();
 
             Document document = Package.ActiveDocument;
@@ -96,6 +98,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         private void ClearSolutionExplorerSearchFilter()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var solutionExplorer = VsShellUtilities.GetUIHierarchyWindow(Package, VSConstants.StandardToolWindows.SolutionExplorer);
             var ws = solutionExplorer as IVsWindowSearch;
             ws?.ClearSearch();
@@ -108,6 +111,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="parentItem">The parent item to inspect.</param>
         private void ToggleSolutionFoldersOpenTemporarily(UIHierarchyItem parentItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (parentItem == null)
             {
                 throw new ArgumentNullException(nameof(parentItem));

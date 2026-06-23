@@ -90,6 +90,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>S_OK if successful, otherwise an error code.</returns>
         public int OnAfterSave(uint docCookie)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var afterSave = AfterSave;
             if (afterSave != null)
             {
@@ -152,6 +153,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// <returns>The document object, otherwise null.</returns>
         private Document GetDocumentFromCookie(uint docCookie)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Retrieve document information from the cookie to get the full document name.
             var documentName = RunningDocumentTable.GetDocumentInfo(docCookie).Moniker;
 

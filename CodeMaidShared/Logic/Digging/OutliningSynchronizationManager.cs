@@ -60,6 +60,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
             get { return _document; }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (_document != value)
                 {
                     if (_document != null && _outliningManager != null)
@@ -92,6 +93,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <param name="codeItems">The code items.</param>
         public void UpdateCodeItems(SetCodeItems codeItems)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             TearDownCodeItemParents();
 
             // Retrieve and cache an updated list of code item parents.
@@ -111,6 +113,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <param name="eventArgs">The event arguments.</param>
         private void OnCodeItemParentIsExpandedChanged(object sender, EventArgs eventArgs)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (sender is ICodeItemParent codeItemParent)
             {
                 var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
@@ -189,6 +192,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The <see cref="ICollapsible" /> on the same starting line, otherwise null.</returns>
         private ICollapsible FindCollapsibleFromCodeItemParent(ICodeItemParent parent)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (_outliningManager == null || _wpfTextView == null)
             {
                 return null;
@@ -234,6 +238,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated outlining manager, otherwise null.</returns>
         private IOutliningManager GetOutliningManager(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 _wpfTextView = GetWpfTextView(document);
@@ -257,6 +262,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated WPF text view, otherwise null.</returns>
         private IWpfTextView GetWpfTextView(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textView = GetTextView(document);
             if (textView != null && _editorAdaptersFactoryService != null)
             {
@@ -273,6 +279,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// <returns>The associated text view, otherwise null.</returns>
         private IVsTextView GetTextView(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (document == null)
             {
                 return null;
@@ -309,6 +316,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// </summary>
         private void InitializeCodeItemParents()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (var codeItemParent in _codeItemParents ?? Enumerable.Empty<ICodeItemParent>())
             {
                 var iCollapsible = FindCollapsibleFromCodeItemParent(codeItemParent);
@@ -345,6 +353,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Digging
         /// </summary>
         public void Dispose()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             TearDownCodeItemParents();
 
             Document = null;

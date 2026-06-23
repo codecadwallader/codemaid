@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -152,6 +153,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemKeyDown(object sender, KeyEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var treeViewItem = e.Source as TreeViewItem;
             if (treeViewItem == null || Keyboard.Modifiers != ModifierKeys.None) return;
 
@@ -252,6 +254,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderMouseUp(object sender, MouseButtonEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _dragCandidate = null;
             _dragStartPoint = null;
 
@@ -364,6 +367,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         /// </param>
         private void OnTreeViewItemHeaderDrop(object sender, DragEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!e.Data.GetDataPresent(typeof(IList<BaseCodeItem>))) return;
 
             var treeViewItem = FindParentTreeViewItem(sender);
@@ -528,8 +532,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var viewModel = ViewModel;
             if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
 
-            Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole)));
+            _ = viewModel.Package?.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await viewModel.Package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                TextDocumentHelper.MoveToCodeItem(viewModel.Document, codeItem, Settings.Default.Digging_CenterOnWhole);
+            });
         }
 
         /// <summary>
@@ -549,8 +556,11 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
             var viewModel = ViewModel;
             if (codeItem == null || viewModel == null || codeItem.StartOffset <= 0) return;
 
-            Dispatcher.BeginInvoke(
-                new Action(() => TextDocumentHelper.SelectCodeItem(viewModel.Document, codeItem)));
+            _ = viewModel.Package?.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await viewModel.Package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                TextDocumentHelper.SelectCodeItem(viewModel.Document, codeItem);
+            });
         }
 
         /// <summary>
@@ -561,7 +571,7 @@ namespace SteveCadwallader.CodeMaid.UI.ToolWindows.Spade
         {
             if (ViewModel?.Package is var package)
             {
-                package.JoinableTaskFactory.RunAsync(async () =>
+                _ = package.JoinableTaskFactory.RunAsync(async () =>
                 {
                     if (await package.GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
                     {

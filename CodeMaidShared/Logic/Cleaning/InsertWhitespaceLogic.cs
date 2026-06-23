@@ -1,7 +1,8 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Properties;
 using System;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -52,6 +53,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void InsertBlankSpaceBeforeSelfClosingAngleBracket(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankSpaceBeforeSelfClosingAngleBrackets) return;
 
             const string pattern = @"([^ \t])/>";
@@ -66,6 +68,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         internal void InsertEOFTrailingNewLine(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertEndOfFileTrailingNewLine) return;
 
             EditPoint cursor = textDocument.EndPoint.CreateEditPoint();

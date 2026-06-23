@@ -64,6 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         protected virtual void OnExecute()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             OutputWindowHelper.DiagnosticWriteLine($"{GetType().Name}.OnExecute invoked");
         }
 
@@ -85,6 +86,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private static void BaseCommand_Execute(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = sender as BaseCommand;
             command?.OnExecute();
         }

@@ -5,6 +5,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -185,6 +186,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingBeforeRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -201,6 +203,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingAfterRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -217,6 +220,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingBeforeEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeEndRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -233,6 +237,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to pad.</param>
         internal void InsertPaddingAfterEndRegionTags(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingAfterEndRegionTags) return;
 
             foreach (var region in regions.Where(x => !x.IsInvalidated))
@@ -251,6 +256,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingBeforeCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (T codeElement in codeElements.Where(ShouldBePrecededByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineBeforePoint(codeElement.StartPoint);
@@ -265,6 +271,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         internal void InsertPaddingAfterCodeElements<T>(IEnumerable<T> codeElements)
             where T : BaseCodeItemElement
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (T codeElement in codeElements.Where(ShouldBeFollowedByBlankLine))
             {
                 TextDocumentHelper.InsertBlankLineAfterPoint(codeElement.EndPoint);
@@ -277,6 +284,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingBeforeCaseStatements(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeCaseStatements) return;
 
             const string pattern = @"(^[ \t]*)(break;|return([ \t][^;]*)?;)\r?\n([ \t]*)(case|default)";
@@ -292,6 +300,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document.</param>
         internal void InsertPaddingBeforeSingleLineComments(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBeforeSingleLineComments) return;
 
             const string pattern = @"(^[ \t]*(?!//)[^ \t\r\n\{].*\r?\n)([ \t]*//)(?!//)";
@@ -306,10 +315,13 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="properties">The properties.</param>
         internal void InsertPaddingBetweenMultiLinePropertyAccessors(IEnumerable<CodeItemProperty> properties)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_InsertBlankLinePaddingBetweenPropertiesMultiLineAccessors) return;
 
             foreach (var property in properties)
             {
+                if (property?.CodeProperty == null) continue;
+
                 var getter = property.CodeProperty.Getter;
                 var setter = property.CodeProperty.Setter;
 

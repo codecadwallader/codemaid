@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageLanguagePackManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <DisplayName>CodeMaid</DisplayName>
+    <Description>CodeMaid 是一個開源的 Visual Studio 擴充套件，用於清理和簡化我們的 C#、C++、F#、VB、PHP、PowerShell、R、JSON、XAML、XML、ASP、HTML、CSS、LESS、SCSS、JavaScript 和 TypeScript 程式碼。</Description>
+  </Metadata>
+</PackageLanguagePackManifest>

@@ -1,4 +1,4 @@
-﻿using EnvDTE;
+using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
@@ -7,6 +7,7 @@ using SteveCadwallader.CodeMaid.UI.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -60,6 +61,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>True if document can remove regions, otherwise false.</returns>
         internal bool CanRemoveRegions(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return _package.IDE.Debugger.CurrentMode == dbgDebugMode.dbgDesignMode &&
                    document != null &&
                    (document.GetCodeLanguage() == CodeLanguage.CSharp ||
@@ -72,6 +74,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to update.</param>
         internal void RemoveRegions(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textDocument).OrderByDescending(x => x.StartLine);
 
@@ -79,7 +82,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 foreach (var region in regions)
                 {
-                    RemoveRegion(region);
+                    RemoveRegion(region, createTransaction: false);
                 }
             });
         }
@@ -90,6 +93,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textSelection">The text selection to update.</param>
         internal void RemoveRegions(TextSelection textSelection)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Retrieve the regions and put them in reverse order (reduces line number updates during removal).
             var regions = _codeModelHelper.RetrieveCodeRegions(textSelection).OrderByDescending(x => x.StartLine);
 
@@ -97,7 +101,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             {
                 foreach (var region in regions)
                 {
-                    RemoveRegion(region);
+                    RemoveRegion(region, createTransaction: false);
                 }
             });
         }
@@ -108,12 +112,14 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to update.</param>
         internal void RemoveRegions(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegions).Run(() =>
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 // Iterate through regions in reverse order (reduces line number updates during removal).
                 foreach (var region in regions.OrderByDescending(x => x.StartLine))
                 {
-                    RemoveRegion(region);
+                    RemoveRegion(region, createTransaction: false);
                 }
             });
         }
@@ -124,6 +130,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="regions">The regions to update.</param>
         internal void RemoveRegionsPerSettings(IEnumerable<CodeItemRegion> regions)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var setting = (NoneEmptyAll)Settings.Default.Cleaning_RemoveRegions;
             if (setting == NoneEmptyAll.None) return;
 
@@ -136,7 +143,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                     continue;
                 }
 
-                RemoveRegion(region);
+                RemoveRegion(region, createTransaction: false);
             }
         }
 
@@ -144,14 +151,15 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// Removes the region tags from the specified region.
         /// </summary>
         /// <param name="region">The region to update.</param>
-        internal void RemoveRegion(CodeItemRegion region)
+        internal void RemoveRegion(CodeItemRegion region, bool createTransaction = true)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (region == null || region.IsInvalidated || region.IsPseudoGroup || region.StartLine <= 0 || region.EndLine <= 0)
             {
                 return;
             }
 
-            new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegion + region.Name).Run(() =>
+            Action removeAction = () =>
             {
                 var end = region.EndPoint.CreateEditPoint();
                 end.StartOfLine();
@@ -166,7 +174,16 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
                 start.Insert(Environment.NewLine);
 
                 region.IsInvalidated = true;
-            });
+            };
+
+            if (createTransaction)
+            {
+                new UndoTransactionHelper(_package, Resources.CodeMaidRemoveRegion + region.Name).Run(removeAction);
+            }
+            else
+            {
+                removeAction();
+            }
         }
 
         #endregion Methods

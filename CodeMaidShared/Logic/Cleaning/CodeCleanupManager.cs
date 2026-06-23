@@ -8,6 +8,7 @@ using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Logic.Cleaning
 {
@@ -101,6 +102,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="projectItem">The project item for cleanup.</param>
         internal void Cleanup(ProjectItem projectItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!_codeCleanupAvailabilityLogic.CanCleanupProjectItem(projectItem)) return;
 
             // Attempt to open the document if not already opened.
@@ -135,6 +137,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         internal void Cleanup(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!_codeCleanupAvailabilityLogic.CanCleanupDocument(document, true)) return;
 
             // Make sure the document to be cleaned up is active, required for some commands like format document.
@@ -186,6 +189,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <returns>The code cleanup method, otherwise null.</returns>
         private Action<Document> FindCodeCleanupMethod(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             switch (document.GetCodeLanguage())
             {
                 case CodeLanguage.CSharp:
@@ -227,6 +231,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupCSharp(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = document.GetTextDocument();
 
             // Perform any actions that can modify the file code model first.
@@ -346,6 +351,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupVB(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = document.GetTextDocument();
 
             // Perform any actions that can modify the file code model first.
@@ -446,6 +452,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupC(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -475,6 +482,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupMarkup(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -506,6 +514,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="document">The document for cleanup.</param>
         private void RunCodeCleanupGeneric(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = document.GetTextDocument();
 
             RunExternalFormatting(textDocument);
@@ -534,6 +543,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunExternalFormatting(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             RunVisualStudioFormatDocument(textDocument);
             RunJetBrainsReSharperCleanup(textDocument);
             RunTelerikJustCodeCleanup(textDocument);
@@ -547,6 +557,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunVisualStudioFormatDocument(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.Cleaning_RunVisualStudioFormatDocumentCommand) return;
 
             _commandHelper.ExecuteCommand(textDocument, "Edit.FormatDocument");
@@ -571,6 +582,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         /// <param name="textDocument">The text document to cleanup.</param>
         private void RunTelerikJustCodeCleanup(TextDocument textDocument)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Settings.Default.ThirdParty_UseTelerikJustCodeCleanup) return;
 
             _commandHelper.ExecuteCommand(textDocument, "JustCode.JustCode_CleanCodeWithDefaultProfile");

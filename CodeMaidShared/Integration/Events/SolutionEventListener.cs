@@ -2,6 +2,7 @@ using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace SteveCadwallader.CodeMaid.Integration.Events
 {
@@ -17,6 +18,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         private SolutionEventListener(CodeMaidPackage package)
             : base(package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Store access to the solutions events, otherwise events will not register properly via DTE.
             SolutionEvents = Package.IDE.Events.SolutionEvents;
         }
@@ -63,6 +65,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void RegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             SolutionEvents.Opened += SolutionEvents_Opened;
             SolutionEvents.AfterClosing += SolutionEvents_AfterClosing;
         }
@@ -72,6 +75,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         protected override void UnRegisterListeners()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             SolutionEvents.Opened -= SolutionEvents_Opened;
             SolutionEvents.AfterClosing -= SolutionEvents_AfterClosing;
         }
@@ -81,6 +85,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         private void SolutionEvents_AfterClosing()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var onSolutionClosed = OnSolutionClosed;
             if (onSolutionClosed != null)
             {
@@ -95,6 +100,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         private void SolutionEvents_Opened()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var onSolutionOpened = OnSolutionOpened;
             if (onSolutionOpened != null)
             {
