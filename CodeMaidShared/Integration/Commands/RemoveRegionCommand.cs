@@ -52,10 +52,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <returns>A task.</returns>
-        public static async Task InitializeAsync(CodeMaidPackage package)
+        public static Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new RemoveRegionCommand(package);
-            await package.SettingsMonitor.WatchAsync(s => s.Feature_RemoveRegion, Instance.SwitchAsync);
+            return package.SettingsMonitor.WatchAsync(s => s.Feature_RemoveRegion, Instance.SwitchAsync);
         }
 
         /// <summary>

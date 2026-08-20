@@ -61,18 +61,15 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <returns>A task.</returns>
-        public static async Task InitializeAsync(CodeMaidPackage package)
+        public static Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new RunningDocumentTableEventListener(package);
 
             // This listener services multiple features, watching if any of them switched.
-            await package.SettingsMonitor.WatchAsync<bool>(new[] {
+            return package.SettingsMonitor.WatchAsync<bool>(new[] {
                 nameof(Settings.Default.Feature_SettingCleanupOnSave),
                 nameof(Settings.Default.Feature_SpadeToolWindow)
-            }, async values =>
-            {
-                await Instance.SwitchAsync(values.Any(v => v));
-            });
+            }, values => Instance.SwitchAsync(values.Any(v => v)));
         }
 
         public int OnAfterAttributeChange(uint docCookie, uint grfAttribs) => VSConstants.S_OK;
