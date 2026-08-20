@@ -290,6 +290,10 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private bool IsDocumentLanguageIncludedByOptions(Document document)
         {
             var projectItem = document.ProjectItem;
+            if (projectItem is null)
+            {
+                return false;
+            }
             var extension = GetProjectItemExtension(projectItem);
             if (extension.Equals(".php", StringComparison.CurrentCultureIgnoreCase))
             {
