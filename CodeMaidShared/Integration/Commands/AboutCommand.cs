@@ -27,10 +27,10 @@ namespace SteveCadwallader.CodeMaid.Integration.Commands
         /// </summary>
         /// <param name="package">The hosting package.</param>
         /// <returns>A task.</returns>
-        public static Task InitializeAsync(CodeMaidPackage package)
+        public static async Task InitializeAsync(CodeMaidPackage package)
         {
             Instance = new AboutCommand(package);
-            return Instance.SwitchAsync(on: true);
+            await Instance.SwitchAsync(on: true);
         }
 
         /// <summary>

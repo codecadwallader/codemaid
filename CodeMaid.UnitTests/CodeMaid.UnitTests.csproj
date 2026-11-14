@@ -61,15 +61,13 @@
     <Compile Include="Formatting\SimpleFormattingTests.cs" />
     <Compile Include="Formatting\XmlFormattingTests.cs" />
     <Compile Include="Formatting\ListFormattingTests.cs" />
-    <Compile Include="Helpers\CodeItemTypeComparerTests.cs" />
     <Compile Include="Helpers\FileHeaderHelperTests.cs" />
     <Compile Include="Helpers\SettingsMonitorTests.cs" />
-    <Compile Include="MemberTypeSettingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeMaid\CodeMaid.csproj">
-      <Project>{19b1ab9e-4603-4a9c-9284-32aae57fb7bc}</Project>
+      <Project>{6d3edf86-d2f8-4779-8a95-052227ed56a9}</Project>
       <Name>CodeMaid</Name>
     </ProjectReference>
   </ItemGroup>
@@ -81,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.10.31321.278</Version>
+      <Version>17.0.0-previews-2-31512-422</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk">
       <Version>17.0.0</Version>

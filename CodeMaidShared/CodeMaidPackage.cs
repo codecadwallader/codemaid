@@ -8,9 +8,6 @@ using SteveCadwallader.CodeMaid.Integration.Commands;
 using SteveCadwallader.CodeMaid.Integration.Events;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Properties;
-using SteveCadwallader.CodeMaid.UI;
-using SteveCadwallader.CodeMaid.UI.ToolWindows.BuildProgress;
-using SteveCadwallader.CodeMaid.UI.ToolWindows.Spade;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -20,7 +17,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using Task = System.Threading.Tasks.Task;
-using VSColorTheme = Microsoft.VisualStudio.PlatformUI.VSColorTheme;
 
 namespace SteveCadwallader.CodeMaid
 {
@@ -46,16 +42,9 @@ namespace SteveCadwallader.CodeMaid
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string, PackageAutoLoadFlags.BackgroundLoad)] // Trigger CodeMaid to load on solution open so menu items can determine their state.
     [ProvideBindingPath]
     [ProvideMenuResource("Menus.ctmenu", 1)] // This attribute is needed to let the shell know that this package exposes some menus.
-    [ProvideToolWindow(typeof(BuildProgressToolWindow), MultiInstances = false, Height = 40, Width = 500, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Bottom, Window = EnvDTE.Constants.vsWindowKindMainWindow)]
-    [ProvideToolWindow(typeof(SpadeToolWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Orientation = ToolWindowOrientation.Left, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
     [Guid(PackageGuids.GuidCodeMaidPackageString)] // Package unique GUID.
     public sealed class CodeMaidPackage : AsyncPackage
     {
-        /// <summary>
-        /// The build progress tool window.
-        /// </summary>
-        private BuildProgressToolWindow _buildProgress;
-
         /// <summary>
         /// The IComponentModel service.
         /// </summary>
@@ -65,16 +54,6 @@ namespace SteveCadwallader.CodeMaid
         /// The top level application instance of the VS IDE that is executing this package.
         /// </summary>
         private DTE2 _ide;
-
-        /// <summary>
-        /// The Spade tool window.
-        /// </summary>
-        private SpadeToolWindow _spade;
-
-        /// <summary>
-        /// The theme manager.
-        /// </summary>
-        private ThemeManager _themeManager;
 
         /// <summary>
         /// Fully initialized package instance.
@@ -127,18 +106,6 @@ namespace SteveCadwallader.CodeMaid
         }
 
         /// <summary>
-        /// Gets the build progress tool window, if it already exists.
-        /// </summary>
-        public BuildProgressToolWindow BuildProgress =>
-            _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, false) as BuildProgressToolWindow));
-
-        /// <summary>
-        /// Gets the build progress tool window, creating it if necessary.
-        /// </summary>
-        public BuildProgressToolWindow BuildProgressForceLoad =>
-            _buildProgress ?? (_buildProgress = (FindToolWindow(typeof(BuildProgressToolWindow), 0, true) as BuildProgressToolWindow));
-
-        /// <summary>
         /// Gets the IComponentModel service.
         /// </summary>
         public IComponentModel ComponentModel =>
@@ -163,23 +130,6 @@ namespace SteveCadwallader.CodeMaid
         /// Gets or sets the settings monitor.
         /// </summary>
         public SettingsMonitor<Settings> SettingsMonitor { get; private set; }
-
-        /// <summary>
-        /// Gets the Spade tool window, if it already exists.
-        /// </summary>
-        public SpadeToolWindow Spade =>
-            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, false) as SpadeToolWindow));
-
-        /// <summary>
-        /// Gets the Spade tool window, creating it if necessary.
-        /// </summary>
-        public SpadeToolWindow SpadeForceLoad =>
-            _spade ?? (_spade = (FindToolWindow(typeof(SpadeToolWindow), 0, true) as SpadeToolWindow));
-
-        /// <summary>
-        /// Gets the theme manager.
-        /// </summary>
-        public ThemeManager ThemeManager => _themeManager ?? (_themeManager = ThemeManager.GetInstance(this));
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so
@@ -241,35 +191,15 @@ namespace SteveCadwallader.CodeMaid
         {
             // Initialize the individual commands, which internally register for command events.
             await AboutCommand.InitializeAsync(this);
-            await BuildProgressToolWindowCommand.InitializeAsync(this);
             await CleanupActiveCodeCommand.InitializeAsync(this);
             await CleanupAllCodeCommand.InitializeAsync(this);
             await CleanupOpenCodeCommand.InitializeAsync(this);
             await CleanupSelectedCodeCommand.InitializeAsync(this);
-            await CloseAllReadOnlyCommand.InitializeAsync(this);
-            await CollapseAllSolutionExplorerCommand.InitializeAsync(this);
-            await CollapseSelectedSolutionExplorerCommand.InitializeAsync(this);
             await CommentFormatCommand.InitializeAsync(this);
-            await FindInSolutionExplorerCommand.InitializeAsync(this);
             await JoinLinesCommand.InitializeAsync(this);
             await OptionsCommand.InitializeAsync(this);
-            await ReadOnlyToggleCommand.InitializeAsync(this);
-            await RemoveRegionCommand.InitializeAsync(this);
-            await ReorganizeActiveCodeCommand.InitializeAsync(this);
             await SettingCleanupOnSaveCommand.InitializeAsync(this);
             await SortLinesCommand.InitializeAsync(this);
-            await SpadeContextDeleteCommand.InitializeAsync(this);
-            await SpadeContextFindReferencesCommand.InitializeAsync(this);
-            await SpadeContextInsertRegionCommand.InitializeAsync(this);
-            await SpadeContextRemoveRegionCommand.InitializeAsync(this);
-            await SpadeOptionsCommand.InitializeAsync(this);
-            await SpadeRefreshCommand.InitializeAsync(this);
-            await SpadeSearchCommand.InitializeAsync(this);
-            await SpadeSortOrderAlphaCommand.InitializeAsync(this);
-            await SpadeSortOrderFileCommand.InitializeAsync(this);
-            await SpadeSortOrderTypeCommand.InitializeAsync(this);
-            await SpadeToolWindowCommand.InitializeAsync(this);
-            await SwitchFileCommand.InitializeAsync(this);
         }
 
         /// <summary>
@@ -282,14 +212,6 @@ namespace SteveCadwallader.CodeMaid
         {
             var codeModelManager = CodeModelManager.GetInstance(this);
             var settingsContextHelper = SettingsContextHelper.GetInstance(this);
-
-            VSColorTheme.ThemeChanged += _ => ThemeManager.ApplyTheme();
-
-            await BuildProgressEventListener.InitializeAsync(this);
-            BuildProgressEventListener.Instance.BuildBegin += BuildProgressToolWindowCommand.Instance.OnBuildBegin;
-            BuildProgressEventListener.Instance.BuildProjConfigBegin += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigBegin;
-            BuildProgressEventListener.Instance.BuildProjConfigDone += BuildProgressToolWindowCommand.Instance.OnBuildProjConfigDone;
-            BuildProgressEventListener.Instance.BuildDone += BuildProgressToolWindowCommand.Instance.OnBuildDone;
 
             await DocumentEventListener.InitializeAsync(this);
             DocumentEventListener.Instance.OnDocumentClosing += codeModelManager.OnDocumentClosing;
@@ -308,43 +230,14 @@ namespace SteveCadwallader.CodeMaid
 
                 return Task.CompletedTask;
             });
-            await SettingsMonitor.WatchAsync(s => s.Feature_SpadeToolWindow, on =>
-            {
-                if (on)
-                {
-                    RunningDocumentTableEventListener.Instance.AfterSave += SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
-                }
-                else
-                {
-                    RunningDocumentTableEventListener.Instance.AfterSave -= SpadeToolWindowCommand.Instance.OnAfterDocumentSave;
-                }
-
-                return Task.CompletedTask;
-            });
 
             await SolutionEventListener.InitializeAsync(this);
-            await SettingsMonitor.WatchAsync(s => s.Feature_CollapseAllSolutionExplorer, on =>
-            {
-                if (on)
-                {
-                    SolutionEventListener.Instance.OnSolutionOpened += CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
-                }
-                else
-                {
-                    SolutionEventListener.Instance.OnSolutionOpened -= CollapseAllSolutionExplorerCommand.Instance.OnSolutionOpened;
-                }
-
-                return Task.CompletedTask;
-            });
             SolutionEventListener.Instance.OnSolutionOpened += settingsContextHelper.OnSolutionOpened;
             SolutionEventListener.Instance.OnSolutionClosed += settingsContextHelper.OnSolutionClosed;
             SolutionEventListener.Instance.OnSolutionClosed += OnSolutionClosedShowStartPage;
 
             await TextEditorEventListener.InitializeAsync(this);
             TextEditorEventListener.Instance.OnLineChanged += codeModelManager.OnDocumentChanged;
-
-            await WindowEventListener.InitializeAsync(this);
-            WindowEventListener.Instance.OnWindowChange += SpadeToolWindowCommand.Instance.OnWindowChange;
 
             // Check if a solution has already been opened before CodeMaid was initialized.
             if (IDE.Solution?.IsOpen == true)

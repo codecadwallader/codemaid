@@ -1,5 +1,4 @@
-﻿using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Properties;
+﻿using SteveCadwallader.CodeMaid.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -42,22 +41,10 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         public void CopySettingToOption(Settings settingsClass, object optionClass)
         {
             var settingValue = SettingProperty.GetValue(settingsClass);
+            var optionValue = (TO)settingValue;
 
-            // Special case handling for MemberTypeSetting as operator casts for generics don't work as expected.
-            if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
-            {
-                var optionValue = (MemberTypeSetting)(string)settingValue;
-
-                // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
-                OptionProperty.SetValue(optionClass, optionValue);
-            }
-            else
-            {
-                var optionValue = (TO)settingValue;
-
-                // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
-                OptionProperty.SetValue(optionClass, optionValue);
-            }
+            // Note: No need to do an equality comparison before assignment as all options already have that through the Bindable base class.
+            OptionProperty.SetValue(optionClass, optionValue);
         }
 
         /// <summary>
@@ -67,26 +54,12 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options
         /// <param name="optionClass">The class instance for the option property.</param>
         public void CopyOptionToSetting(Settings settingsClass, object optionClass)
         {
-            // Special case handling for MemberTypeSetting as operator casts for generics don't work as expected.
-            if (typeof(TS) == typeof(string) && typeof(TO) == typeof(MemberTypeSetting))
-            {
-                var optionValue = (string)(MemberTypeSetting)OptionProperty.GetValue(optionClass);
-                var settingValue = (string)SettingProperty.GetValue(settingsClass);
+            var optionValue = (TS)OptionProperty.GetValue(optionClass);
+            var settingValue = (TS)SettingProperty.GetValue(settingsClass);
 
-                if (!EqualityComparer<string>.Default.Equals(optionValue, settingValue))
-                {
-                    SettingProperty.SetValue(settingsClass, optionValue);
-                }
-            }
-            else
+            if (!EqualityComparer<TS>.Default.Equals(optionValue, settingValue))
             {
-                var optionValue = (TS)OptionProperty.GetValue(optionClass);
-                var settingValue = (TS)SettingProperty.GetValue(settingsClass);
-
-                if (!EqualityComparer<TS>.Default.Equals(optionValue, settingValue))
-                {
-                    SettingProperty.SetValue(settingsClass, optionValue);
-                }
+                SettingProperty.SetValue(settingsClass, optionValue);
             }
         }
 

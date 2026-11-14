@@ -9,7 +9,7 @@ namespace SteveCadwallader.CodeMaid.UnitTests
     {
         private int _lookupCount;
         private int _parseCount;
-        private CachedSetting<MemberTypeSetting> _cachedSetting;
+        private CachedSetting<string> _cachedSetting;
 
         [TestInitialize]
         public void TestInitialize()
@@ -18,16 +18,16 @@ namespace SteveCadwallader.CodeMaid.UnitTests
 
             _lookupCount = 0;
             _parseCount = 0;
-            _cachedSetting = new CachedSetting<MemberTypeSetting>(
+            _cachedSetting = new CachedSetting<string>(
                () =>
                {
                    _lookupCount++;
-                   return Settings.Default.Reorganizing_MemberTypeFields;
+                   return Settings.Default.Cleaning_ExclusionExpression;
                },
                x =>
                {
                    _parseCount++;
-                   return (MemberTypeSetting)x;
+                   return x;
                });
 
             Assert.AreEqual(0, _lookupCount);
@@ -38,9 +38,9 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         [TestMethod]
         public void CachedSettingCanLookupAndParse()
         {
-            var memberTypeSetting = _cachedSetting.Value;
+            var value = _cachedSetting.Value;
 
-            Assert.IsNotNull(memberTypeSetting);
+            Assert.IsNotNull(value);
             Assert.AreEqual(1, _lookupCount);
             Assert.AreEqual(1, _parseCount);
         }
@@ -48,15 +48,15 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         [TestMethod]
         public void CachedSettingUsesCacheOnSecondLookup()
         {
-            var memberTypeSetting = _cachedSetting.Value;
+            var value = _cachedSetting.Value;
 
-            Assert.IsNotNull(memberTypeSetting);
+            Assert.IsNotNull(value);
             Assert.AreEqual(1, _lookupCount);
             Assert.AreEqual(1, _parseCount);
 
-            var memberTypeSetting2 = _cachedSetting.Value;
+            var value2 = _cachedSetting.Value;
 
-            Assert.IsNotNull(memberTypeSetting2);
+            Assert.IsNotNull(value2);
             Assert.AreEqual(2, _lookupCount);
             Assert.AreEqual(1, _parseCount);
         }
@@ -64,18 +64,17 @@ namespace SteveCadwallader.CodeMaid.UnitTests
         [TestMethod]
         public void CachedSettingReParsesOnChange()
         {
-            var memberTypeSetting = _cachedSetting.Value;
+            var value = _cachedSetting.Value;
 
-            Assert.IsNotNull(memberTypeSetting);
+            Assert.IsNotNull(value);
             Assert.AreEqual(1, _lookupCount);
             Assert.AreEqual(1, _parseCount);
 
-            memberTypeSetting.EffectiveName = "Member Variables";
-            Settings.Default.Reorganizing_MemberTypeFields = (string)memberTypeSetting;
+            Settings.Default.Cleaning_ExclusionExpression = "changed";
 
-            var memberTypeSetting2 = _cachedSetting.Value;
+            var value2 = _cachedSetting.Value;
 
-            Assert.IsNotNull(memberTypeSetting2);
+            Assert.AreEqual("changed", value2);
             Assert.AreEqual(2, _lookupCount);
             Assert.AreEqual(2, _parseCount);
         }

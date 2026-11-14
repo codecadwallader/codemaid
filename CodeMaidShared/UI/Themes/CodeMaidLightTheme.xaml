@@ -15,7 +15,4 @@
     <SolidColorBrush x:Key="BGItemHighlight" Color="#FFD0F7FF" />
     <SolidColorBrush x:Key="FGItemHighlight" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="FGType" Color="#FF777777" />
-
-    <ImageSource x:Key="ImageCollapsed">/UI/Themes/Images/CollapsedLight.png</ImageSource>
-    <ImageSource x:Key="ImageExpanded">/UI/Themes/Images/ExpandedLight.png</ImageSource>
 </ResourceDictionary>

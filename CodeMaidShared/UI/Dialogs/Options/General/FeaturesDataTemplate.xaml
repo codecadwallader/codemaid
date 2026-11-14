@@ -13,33 +13,11 @@
                     <CheckBox Content="{x:Static p:Resources.CleanupSelectedCode}" IsChecked="{Binding CleanupSelectedCode}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="{x:Static p:Resources.SolutionExplorer}">
-                <StackPanel>
-                    <CheckBox Content="{x:Static p:Resources.CollapseAllSolutionExplorer}" IsChecked="{Binding CollapseAllSolutionExplorer}" />
-                    <CheckBox Content="{x:Static p:Resources.CollapseSelectedSolutionExplorer}" IsChecked="{Binding CollapseSelectedSolutionExplorer}" />
-                    <CheckBox Content="{x:Static p:Resources.FindInSolutionExplorer}" IsChecked="{Binding FindInSolutionExplorer}" />
-                </StackPanel>
-            </GroupBox>
             <GroupBox Header="{x:Static p:Resources.Other}">
                 <StackPanel>
                     <CheckBox Content="{x:Static p:Resources.FormatComment}" IsChecked="{Binding CommentFormat}" />
                     <CheckBox Content="{x:Static p:Resources.JoinLines}" IsChecked="{Binding JoinLines}" />
-                    <CheckBox Content="{x:Static p:Resources.RemoveRegion}" IsChecked="{Binding RemoveRegion}" />
-                    <CheckBox Content="{x:Static p:Resources.ReorganizeActiveDocument}" IsChecked="{Binding ReorganizeActiveCode}" />
                     <CheckBox Content="{x:Static p:Resources.SortLines}" IsChecked="{Binding SortLines}" />
-                    <CheckBox Content="{x:Static p:Resources.SwitchFile_no_alt}" IsChecked="{Binding SwitchFile}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{x:Static p:Resources.ReadOnly}">
-                <StackPanel>
-                    <CheckBox Content="{x:Static p:Resources.CloseAllReadOnly}" IsChecked="{Binding CloseAllReadOnly}" />
-                    <CheckBox Content="{x:Static p:Resources.ReadOnlyToggle}" IsChecked="{Binding ReadOnlyToggle}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{x:Static p:Resources.ToolWindows}">
-                <StackPanel>
-                    <CheckBox Content="{x:Static p:Resources.BuildProgress}" IsChecked="{Binding BuildProgressToolWindow}" />
-                    <CheckBox Content="{x:Static p:Resources.Spade}" IsChecked="{Binding SpadeToolWindow}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

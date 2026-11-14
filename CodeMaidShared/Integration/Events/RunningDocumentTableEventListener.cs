@@ -3,7 +3,6 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SteveCadwallader.CodeMaid.Helpers;
-using SteveCadwallader.CodeMaid.Properties;
 using System.Linq;
 using Task = System.Threading.Tasks.Task;
 
@@ -65,11 +64,7 @@ namespace SteveCadwallader.CodeMaid.Integration.Events
         {
             Instance = new RunningDocumentTableEventListener(package);
 
-            // This listener services multiple features, watching if any of them switched.
-            return package.SettingsMonitor.WatchAsync<bool>(new[] {
-                nameof(Settings.Default.Feature_SettingCleanupOnSave),
-                nameof(Settings.Default.Feature_SpadeToolWindow)
-            }, values => Instance.SwitchAsync(values.Any(v => v)));
+            return package.SettingsMonitor.WatchAsync(s => s.Feature_SettingCleanupOnSave, Instance.SwitchAsync);
         }
 
         public int OnAfterAttributeChange(uint docCookie, uint grfAttribs) => VSConstants.S_OK;

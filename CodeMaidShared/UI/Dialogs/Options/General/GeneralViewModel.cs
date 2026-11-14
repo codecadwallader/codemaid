@@ -1,5 +1,4 @@
 ﻿using SteveCadwallader.CodeMaid.Properties;
-using SteveCadwallader.CodeMaid.UI.Enumerations;
 
 namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
 {
@@ -23,11 +22,9 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_CacheFiles, x => CacheFiles),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_DiagnosticsMode, x => DiagnosticsMode),
                 new SettingToOptionMapping<string, string>(x => ActiveSettings.General_Font, x => Font),
-                new SettingToOptionMapping<int, IconSetMode>(x => ActiveSettings.General_IconSet, x => IconSetMode),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_LoadModelsAsynchronously, x => LoadModelsAsynchronously),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_ShowStartPageOnSolutionClose, x => ShowStartPageOnSolutionClose),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_SkipUndoTransactionsDuringAutoCleanupOnSave, x => SkipUndoTransactionsDuringAutoCleanupOnSave),
-                new SettingToOptionMapping<int, ThemeMode>(x => ActiveSettings.General_Theme, x => ThemeMode),
                 new SettingToOptionMapping<bool, bool>(x => ActiveSettings.General_UseUndoTransactions, x => UseUndoTransactions)
             };
         }
@@ -73,15 +70,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         }
 
         /// <summary>
-        /// Gets or sets which icon set should be utilized.
-        /// </summary>
-        public IconSetMode IconSetMode
-        {
-            get { return GetPropertyValue<IconSetMode>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
         /// Gets or sets the flag indicating if models can be loaded asynchronously.
         /// </summary>
         public bool LoadModelsAsynchronously
@@ -106,15 +94,6 @@ namespace SteveCadwallader.CodeMaid.UI.Dialogs.Options.General
         public bool SkipUndoTransactionsDuringAutoCleanupOnSave
         {
             get { return GetPropertyValue<bool>(); }
-            set { SetPropertyValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the current theme.
-        /// </summary>
-        public ThemeMode ThemeMode
-        {
-            get { return GetPropertyValue<ThemeMode>(); }
             set { SetPropertyValue(value); }
         }
 

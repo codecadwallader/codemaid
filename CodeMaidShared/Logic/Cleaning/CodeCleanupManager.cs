@@ -1,7 +1,6 @@
 using EnvDTE;
 using SteveCadwallader.CodeMaid.Helpers;
 using SteveCadwallader.CodeMaid.Logic.Formatting;
-using SteveCadwallader.CodeMaid.Logic.Reorganizing;
 using SteveCadwallader.CodeMaid.Model;
 using SteveCadwallader.CodeMaid.Model.CodeItems;
 using SteveCadwallader.CodeMaid.Properties;
@@ -26,7 +25,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
         private readonly CodeMaidPackage _package;
 
         private readonly CodeModelManager _codeModelManager;
-        private readonly CodeReorganizationManager _codeReorganizationManager;
         private readonly CommandHelper _commandHelper;
 
         private readonly CodeCleanupAvailabilityLogic _codeCleanupAvailabilityLogic;
@@ -76,9 +74,7 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             _package = package;
 
             _codeModelManager = CodeModelManager.GetInstance(_package);
-            _codeReorganizationManager = CodeReorganizationManager.GetInstance(_package);
             _commandHelper = CommandHelper.GetInstance(_package);
-
             _codeCleanupAvailabilityLogic = CodeCleanupAvailabilityLogic.GetInstance(_package);
             _commentFormatLogic = CommentFormatLogic.GetInstance(_package);
             _insertBlankLinePaddingLogic = InsertBlankLinePaddingLogic.GetInstance(_package);
@@ -149,12 +145,6 @@ namespace SteveCadwallader.CodeMaid.Logic.Cleaning
             if (_package.ActiveDocument != document)
             {
                 OutputWindowHelper.WarningWriteLine($"Activation was not completed before cleaning began for '{document.Name}'");
-            }
-
-            // Conditionally start cleanup with reorganization.
-            if (Settings.Default.Reorganizing_RunAtStartOfCleanup)
-            {
-                _codeReorganizationManager.Reorganize(document);
             }
 
             new UndoTransactionHelper(_package, string.Format(Resources.CodeMaidCleanupFor0, document.Name)).Run(

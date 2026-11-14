@@ -4,6 +4,5 @@
         <ResourceDictionary Source="Colors.xaml" />
 
         <ResourceDictionary Source="Buttons.xaml" />
-        <ResourceDictionary Source="TreeViews.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

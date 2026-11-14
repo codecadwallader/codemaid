@@ -1,8 +1,14 @@
+## Note
+The upstream project has been discontinued. This repository is only for maintaining a personal fork, with many my unused features removed.
+
+Huge thanks to **SteveCadwallader** for creating this amazing plugin — it has been my daily driver for years.
+
+## CodeMaid
 <link href="https://www.codemaid.net/wp-content/uploads/external/ProjectDescription.css" rel="stylesheet"></link>
  
 <div id="mainFeatures"><a title="codemaid.net" href="https://www.codemaid.net" target="_blank"><img src="https://www.codemaid.net/wp-content/uploads/2021/11/about.png" alt="codemaid.net" /></a></div>
 <div>For more details, please visit: <a title="codemaid.net" href="https://www.codemaid.net" target="_blank"> https://www.codemaid.net</a></div>
-<p>Currently supports VS2019 and VS2022.</p>
+<p>Currently supports VS2022 and later.</p>
 <p>For Visual Studio 2017, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v11.2/CodeMaid.v11.2.231.vsix" target="_blank"> v11.2</a>.</p>
 <p>For Visual Studio 2012/2013/2015, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v10.6/CodeMaid.v10.6.144.vsix" target="_blank"> v10.6</a>.</p>
 <p>For Visual Studio 2010, the last supported version is <a href="https://github.com/codecadwallader/codemaid/releases/download/v0.8.1/CodeMaid_v0.8.1.vsix" target="_blank"> v0.8.1</a>.</p>
